@@ -171,7 +171,7 @@ section {
 
 /* Subtitle */
 .page-header-sub {
-  font-family: var(--serif); font-size: clamp(17px, 2vw, 26px);
+  font-family: var(--serif); font-size: clamp(19px, 2.2vw, 28px);
   font-style: italic; font-weight: 300; color: var(--cream-45);
   letter-spacing: 0.06em; margin-top: 14px;
   opacity: 0; animation: riseIn 0.7s 1.05s ease forwards;
@@ -376,7 +376,7 @@ footer {
 
 .footer-brand-desc {
   font-family: var(--serif);
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 400;
   color: var(--cream-45);
   line-height: 1.7;
@@ -403,7 +403,7 @@ footer {
 .footer-links a {
   color: var(--cream-45);
   font-family: var(--serif);
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 400;
   text-decoration: none;
   transition: color 0.25s;

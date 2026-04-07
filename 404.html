@@ -1,28 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-CA">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Page Not Found — The Meridian Society</title>
-  <meta name="description" content="The page you're looking for doesn't exist. Return to The Meridian Society's main site." />
+  <meta name="description" content="The page you're looking for doesn't exist. Return to The Meridian Society." />
   <meta name="robots" content="noindex, follow" />
-
   <link rel="canonical" href="https://meridiansociety.ca/" />
 
   <!-- Open Graph -->
   <meta property="og:type"        content="website" />
   <meta property="og:url"         content="https://meridiansociety.ca/" />
-  <meta property="og:title"       content="The Meridian Society | Ottawa Student Speaker Forum" />
+  <meta property="og:title"       content="Page Not Found — The Meridian Society" />
   <meta property="og:description" content="A student-run speaker forum in Ottawa. Free events, open conversations, and a community of curious minds." />
   <meta property="og:image"       content="https://meridiansociety.ca/assets/og-image.png" />
   <meta property="og:site_name"   content="The Meridian Society" />
 
   <!-- Favicons -->
-  <link rel="icon" type="image/svg+xml" href="/assets/favicons/favicon.svg" />
+  <link rel="icon" type="image/svg+xml"     href="/assets/favicons/favicon.svg" />
   <link rel="icon" type="image/png" sizes="48x48" href="/assets/favicons/favicon-48x48.png" />
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicons/favicon-32x32.png" />
   <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicons/favicon-16x16.png" />
-  <link rel="shortcut icon" href="/assets/favicons/favicon.ico" />
+  <link rel="shortcut icon"                 href="/assets/favicons/favicon.ico" />
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicons/apple-touch-icon.png" />
   <link rel="manifest" href="/site.webmanifest" />
   <meta name="theme-color" content="#080808" />
@@ -30,120 +29,198 @@
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Barlow+Condensed:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Barlow+Condensed:wght@400;500;600&display=swap" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Barlow+Condensed:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" media="print" onload="this.media='all'" />
+  <noscript>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Barlow+Condensed:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet" />
+  </noscript>
+
+  <!-- Shared styles -->
+  <link rel="stylesheet" href="/css/base.css" />
+  <link rel="stylesheet" href="/css/nav.css" />
 
   <style>
-    :root {
-      --black:        #080808;
-      --gold:         #c9a84c;
-      --gold-light:   #e2c47a;
-      --cream:        #f5f0e8;
-      --cream-45:     rgba(245,240,232,0.72);
-      --serif:        'Cormorant Garamond', Georgia, serif;
-      --sans:         'Barlow Condensed', 'Arial Narrow', Arial, sans-serif;
-    }
+    /*
+     * The Meridian Society — 404 Page Styles
+     * Shared tokens/nav loaded from /css/base.css and /css/nav.css.
+     */
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    html, body {
-      width: 100%;
-      height: 100%;
-      background-color: var(--black);
-      color: var(--cream);
-      font-family: var(--serif);
+    .e404-main {
+      min-height: 100svh;
       display: flex;
       align-items: center;
       justify-content: center;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
+      padding: 120px 52px 80px;
+      background: var(--black);
     }
 
-    .container-404 {
+    .e404-wrap {
       text-align: center;
-      padding: 2rem;
-      max-width: 600px;
+      max-width: 640px;
     }
 
-    .error-code {
-      font-size: 8rem;
-      font-weight: 700;
-      color: var(--gold);
-      margin-bottom: 1rem;
-      line-height: 1;
-      letter-spacing: -0.02em;
-    }
-
-    .error-title {
-      font-size: 2.5rem;
-      font-weight: 400;
-      margin-bottom: 1.5rem;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
+    .e404-eyebrow {
       font-family: var(--sans);
-    }
-
-    .error-description {
-      font-size: 1.2rem;
-      color: var(--cream-45);
-      margin-bottom: 2.5rem;
-      line-height: 1.6;
-      font-family: var(--serif);
-      font-style: italic;
-    }
-
-    .btn {
-      display: inline-block;
-      padding: 12px 32px;
-      font-size: 13px;
+      font-size: 10px;
       font-weight: 600;
+      letter-spacing: 0.32em;
       text-transform: uppercase;
-      letter-spacing: 0.2em;
-      text-decoration: none;
-      font-family: var(--sans);
-      background: var(--gold);
-      color: var(--black);
-      transition: all 0.3s ease;
-      border: 1px solid var(--gold);
-    }
-
-    .btn:hover {
-      background: transparent;
       color: var(--gold);
+      margin-bottom: 28px;
     }
 
-    .error-footer {
-      margin-top: 4rem;
-      padding-top: 2rem;
-      border-top: 1px solid rgba(201, 168, 76, 0.15);
-      font-size: 11px;
-      font-family: var(--sans);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: rgba(245, 240, 232, 0.4);
+    .e404-code {
+      font-family: var(--serif);
+      font-size: clamp(96px, 18vw, 180px);
+      font-weight: 700;
+      line-height: 0.9;
+      letter-spacing: -0.02em;
+      color: var(--gold);
+      margin-bottom: 36px;
     }
 
-    @media (max-width: 768px) {
-      .error-code { font-size: 6rem; }
-      .error-title { font-size: 1.8rem; }
-      .error-description { font-size: 1.1rem; }
+    .e404-rule {
+      width: 48px;
+      height: 1px;
+      background: var(--gold-border2);
+      margin: 0 auto 32px;
+    }
+
+    .e404-title {
+      font-family: var(--serif);
+      font-size: clamp(26px, 3.5vw, 44px);
+      font-weight: 400;
+      color: var(--cream);
+      letter-spacing: 0.03em;
+      margin-bottom: 20px;
+    }
+
+    .e404-desc {
+      font-family: var(--serif);
+      font-size: clamp(17px, 1.8vw, 21px);
+      font-style: italic;
+      font-weight: 300;
+      color: var(--cream-45);
+      line-height: 1.7;
+      margin-bottom: 44px;
+    }
+
+    .e404-ctas {
+      display: flex;
+      gap: 28px;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .e404-cta-primary {
+      display: inline-flex; align-items: center;
+      padding: 14px 36px;
+      background: var(--gold); color: var(--black);
+      text-decoration: none; font-family: var(--sans);
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 0.24em; text-transform: uppercase;
+      transition: background 0.2s;
+    }
+    .e404-cta-primary:hover { background: var(--gold-light); }
+
+    .e404-cta-ghost {
+      display: inline-flex; align-items: center; gap: 8px;
+      text-decoration: none; font-family: var(--sans);
+      font-size: 11px; font-weight: 600;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--cream-20); transition: color 0.25s;
+      padding: 14px 0;
+    }
+    .e404-cta-ghost:hover { color: var(--cream-70); }
+
+    @media (max-width: 700px) {
+      .e404-main { padding: 100px 20px 60px; }
+      .e404-ctas { flex-direction: column; gap: 16px; }
     }
   </style>
 </head>
 <body>
-  <div class="container-404">
-    <div class="error-code">404</div>
-    <h1 class="error-title">Page Not Found</h1>
-    <p class="error-description">
-      The page you're looking for has drifted beyond our meridian.
-    </p>
-    <a href="/" class="btn">Return Home</a>
-    <div class="error-footer">
-      <p>The Meridian Society — Ottawa Student Speaker Forum</p>
+
+<a href="#main-content" class="skip-link">Skip to content</a>
+<div class="progress" id="progressBar" aria-hidden="true"></div>
+
+<!-- ═══════════ ARC BUTTON ═══════════ -->
+<button type="button" class="arc-btn" id="arcBtn" aria-label="Back to top">
+  <svg viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle class="arc-track" cx="26" cy="26" r="22"/>
+    <circle class="arc-fill"  cx="26" cy="26" r="22" id="arcFill"/>
+  </svg>
+  <div class="arc-inner">
+    <span class="arc-icon">↑</span>
+  </div>
+</button>
+
+<!-- ═══════════ NAV ═══════════ -->
+<nav id="mainNav" aria-label="Main navigation">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo" aria-label="The Meridian Society — home">
+      <span class="nav-wordmark">The Meridian Society</span>
+    </a>
+    <ul class="nav-links" role="list">
+      <li><a href="/#about">About the Society</a></li>
+      <li><a href="/events.html">Events</a></li>
+      <li><a href="/#speaking">Speaking Opportunities</a></li>
+      <li><a href="/#register">Membership Registration</a></li>
+      <li><a href="/#join">Get Involved</a></li>
+    </ul>
+    <a href="https://docs.google.com/forms/d/1qThcXHxzfuW4uNVkZbHGhHwlDsy8x-YGtpHpOLnqTl4/viewform"
+       target="_blank" rel="noopener noreferrer" class="nav-cta" data-register>
+      <span>Register</span>
+    </a>
+    <button type="button" class="hamburger" id="burgerBtn" aria-label="Open navigation" aria-expanded="false" aria-controls="mobileMenu">
+      <span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ═══════════ MOBILE MENU ═══════════ -->
+<div class="mob-backdrop" id="menuBackdrop"></div>
+<div class="mob-drawer" id="mobileMenu" role="dialog" aria-label="Navigation" aria-modal="true">
+  <div class="mob-wordmark">The Meridian Society</div>
+  <nav class="mob-links" aria-label="Mobile navigation">
+    <a href="/#about"      onclick="closeMenu()">About       <span class="mob-arrow">→</span></a>
+    <a href="/events.html" onclick="closeMenu()">Events      <span class="mob-arrow">→</span></a>
+    <a href="/#speaking"   onclick="closeMenu()">Speaking    <span class="mob-arrow">→</span></a>
+    <a href="/#register"   onclick="closeMenu()">Membership  <span class="mob-arrow">→</span></a>
+    <a href="/#join"       onclick="closeMenu()">Get Involved <span class="mob-arrow">→</span></a>
+  </nav>
+  <div class="mob-bottom">
+    <span class="mob-meta">Ottawa · Est. 2025</span>
+    <a href="https://docs.google.com/forms/d/1qThcXHxzfuW4uNVkZbHGhHwlDsy8x-YGtpHpOLnqTl4/viewform"
+       target="_blank" rel="noopener noreferrer" class="mob-cta" data-register onclick="closeMenu()">
+      Register as a Member
+    </a>
+  </div>
+</div>
+
+<!-- ═══════════ CONTENT ═══════════ -->
+<main id="main-content">
+  <div class="e404-main">
+    <div class="e404-wrap">
+      <p class="e404-eyebrow">Error 404</p>
+      <div class="e404-code" aria-hidden="true">404</div>
+      <div class="e404-rule" aria-hidden="true"></div>
+      <h1 class="e404-title">Beyond Our Meridian</h1>
+      <p class="e404-desc">
+        The page you're looking for has drifted out of reach.<br />
+        Let us orient you.
+      </p>
+      <div class="e404-ctas">
+        <a href="/" class="e404-cta-primary">Return Home</a>
+        <a href="/events.html" class="e404-cta-ghost">View Events →</a>
+      </div>
     </div>
   </div>
+</main>
+
+<script src="/js/site.js"></script>
 </body>
 </html>

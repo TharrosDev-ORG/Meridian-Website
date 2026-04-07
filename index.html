@@ -1480,7 +1480,7 @@
 <!-- ═══════════ NAV ═══════════ -->
 <nav id="mainNav" aria-label="Main navigation">
   <div class="nav-inner">
-    <a href="#" class="nav-logo" aria-label="The Meridian Society — home">
+    <a href="/" class="nav-logo" aria-label="The Meridian Society — home">
       <span class="nav-wordmark">The Meridian Society</span>
     </a>
     <ul class="nav-links" role="list">
@@ -2220,7 +2220,7 @@ function initGlobe() {
 
         group._ready = true;
       })
-      .catch(function(err) { console.warn('Globe border fetch failed:', err); group._ready = true; });
+      .catch(function() { group._ready = true; });
 
     return group;
   }

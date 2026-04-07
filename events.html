@@ -478,7 +478,7 @@
 <button class="arc-btn" id="arcBtn" aria-label="Back to top">
   <svg viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
     <circle class="arc-track" cx="26" cy="26" r="22"/>
-    <circle class="arc-fill"  id="arcFill" cx="26" cy="26" r="22"/>
+    <circle class="arc-fill"  cx="26" cy="26" r="22" id="arcFill"/>
   </svg>
   <div class="arc-inner">
     <span class="arc-icon">↑</span>
@@ -503,7 +503,7 @@
        target="_blank" rel="noopener noreferrer" class="nav-cta" data-register>
       <span>Register</span>
     </a>
-    <button class="hamburger" id="burgerBtn" aria-label="Menu" aria-expanded="false">
+    <button class="hamburger" id="burgerBtn" aria-label="Open navigation" aria-expanded="false" aria-controls="mobileMenu">
       <span></span><span></span>
     </button>
   </div>
@@ -648,7 +648,7 @@
       <div class="footer-col-head">Connect</div>
       <ul class="footer-links">
         <li><a href="https://www.instagram.com/Meridian.Society" target="_blank" rel="noopener noreferrer">Instagram</a></li>
-        <li><a href="/cdn-cgi/l/email-protection#432e26312a272a222d302c202a26373a20222d22272203242e222a2f6d202c2e">Email Us</a></li>
+        <li><a href="mailto:meridiansocietycanada@gmail.com">Email Us</a></li>
       </ul>
     </div>
     <div>
@@ -664,8 +664,6 @@
     <span class="footer-meta">Student Run · Est. 2025</span>
   </div>
 </footer>
-
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
 <!-- events-data.js moved here from <head> to avoid render-blocking -->
 <script src="/js/events-data.js"></script>
 <script src="/js/site.js"></script>

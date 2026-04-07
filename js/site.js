@@ -46,7 +46,7 @@ if (marqueeTrack) {
   var heroEl     = document.querySelector('.hero');
   var registerEl = document.getElementById('register');
 
-  var CIRC = 2 * Math.PI * 22;
+  var CIRC = 2 * Math.PI * 22; // 22 = SVG circle radius (matches r="22" on #arcFill)
   arcFill.style.strokeDasharray  = String(CIRC);
   arcFill.style.strokeDashoffset = String(CIRC);
 
@@ -57,10 +57,10 @@ if (marqueeTrack) {
         var h   = document.documentElement.scrollHeight - window.innerHeight;
         var pct = h > 0 ? window.scrollY / h : 0;
 
-        nav.classList.toggle('scrolled', window.scrollY > 40);
+        nav.classList.toggle('scrolled', window.scrollY > 40);   // 40 = just past nav height (68px) — adds border + shadow
         bar.style.width = (pct * 100) + '%';
         arcFill.style.strokeDashoffset = String(CIRC * (1 - pct));
-        arcBtn.classList.toggle('visible', window.scrollY > 200);
+        arcBtn.classList.toggle('visible', window.scrollY > 200); // 200 = ~1 full viewport scroll before showing back-to-top
 
         if (stickyJoin && heroEl && registerEl) {
           stickyJoin.classList.toggle('visible',
@@ -97,6 +97,8 @@ if (marqueeTrack) {
       }
     });
   }, { threshold: 0.01, rootMargin: '0px 0px -40px 0px' });
+  // threshold 0.01 = fire as soon as 1% of element enters viewport
+  // rootMargin -40px bottom = element must be 40px inside viewport before triggering
 
   document.querySelectorAll('.rv').forEach(function(el) { obs.observe(el); });
 })();
@@ -181,7 +183,7 @@ if (marqueeTrack) {
     var dx = e.changedTouches[0].clientX - startX;
     dragging = false;
     drawer.style.transition = '';
-    if (dx > 72) { drawer.style.transform = ''; window.closeMenu(); }
+    if (dx > 72) { drawer.style.transform = ''; window.closeMenu(); } // 72px = ~1/4 of drawer width (280px) feels intentional
     else drawer.style.transform = '';
   }, { passive: true });
 

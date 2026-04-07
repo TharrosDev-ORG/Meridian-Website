@@ -21,6 +21,17 @@ document.querySelectorAll('a[data-register]').forEach(function(el) {
 });
 
 // ─────────────────────────────────────────────────────────────────
+// MARQUEE TEXT
+// Edit here to update the ticker on every page at once
+// ─────────────────────────────────────────────────────────────────
+var MARQUEE_TEXT = 'First Event <span class="mgem">◈</span> Fall 2026 <span class="mgem">◈</span> Ottawa <span class="mgem">◈</span> Member Registration Open <span class="mgem">◈</span> Student Run Speaker Forum <span class="mgem">◈</span> Law &amp; Policy <span class="mgem">◈</span> Business &amp; Media <span class="mgem">◈</span> For Students, By Students <span class="mgem">◈</span>';
+
+var marqueeTrack = document.querySelector('.marquee-track');
+if (marqueeTrack) {
+  marqueeTrack.innerHTML = '<div class="marquee-item">' + MARQUEE_TEXT + '</div><div class="marquee-item">' + MARQUEE_TEXT + '</div>';
+}
+
+// ─────────────────────────────────────────────────────────────────
 // 2. SCROLL HANDLER
 // All scroll side-effects batched into a single rAF callback.
 // stickyJoin / heroEl / registerEl are optional — only active on index.html.

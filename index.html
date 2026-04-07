@@ -618,26 +618,7 @@
     /* ─────────────────────────────────
        MARQUEE
     ───────────────────────────────── */
-    .marquee {
-      overflow: hidden; background: var(--surface);
-      border-top: var(--gold-bw) solid var(--gold-border);
-      border-bottom: var(--gold-bw) solid var(--gold-border);
-      height: 38px; display: flex; align-items: center;
-      --cream: #f5f0e8; --cream-45: rgba(245,240,232,0.72); --black: #080808;
-    }
-    .marquee-track {
-      display: flex; white-space: nowrap;
-      animation: mscroll 38s linear infinite;
-      /* transform-only animation — compositor thread, no main thread cost */
-    }
-    .marquee-track:hover { animation-play-state: paused; }
-    .marquee-item {
-      padding: 0 40px; display: flex; align-items: center; gap: 24px;
-      font-family: var(--sans); font-size: 10px; font-weight: 600; /* was 500 */
-      letter-spacing: 0.26em; text-transform: uppercase; color: #777777; /* dark bg — lightened */
-    }
-    .mgem { color: var(--gold); opacity: 0.75; font-size: 8px; } /* was 0.6 */
-    @keyframes mscroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    /* marquee — base styles in base.css */
 
     /* ─────────────────────────────────
        SHARED UTILS
@@ -1580,10 +1561,7 @@
 
 <!-- MARQUEE -->
 <div class="marquee" aria-hidden="true">
-  <div class="marquee-track">
-    <div class="marquee-item">First Event <span class="mgem">◈</span> Fall 2026 <span class="mgem">◈</span> Ottawa <span class="mgem">◈</span> Member Registration Open <span class="mgem">◈</span> Student Run Speaker Forum <span class="mgem">◈</span> Law &amp; Policy <span class="mgem">◈</span> Business &amp; Media <span class="mgem">◈</span> For Students, By Students <span class="mgem">◈</span></div>
-    <div class="marquee-item">First Event <span class="mgem">◈</span> Fall 2026 <span class="mgem">◈</span> Ottawa <span class="mgem">◈</span> Member Registration Open <span class="mgem">◈</span> Student Run Speaker Forum <span class="mgem">◈</span> Law &amp; Policy <span class="mgem">◈</span> Business &amp; Media <span class="mgem">◈</span> For Students, By Students <span class="mgem">◈</span></div>
-  </div>
+  <div class="marquee-track"></div>
 </div>
 
 <!-- ═══════════ §01 ABOUT ═══════════ -->

@@ -128,7 +128,7 @@ Each HTML file embeds a `<style>` block for its own components only:
 **index.html** (does NOT use page.css):
 - `.sticky-join` — sticky register CTA bar that appears between hero and #register section
 - Hero section: `.hero`, `.hero-eyebrow`, `.hero-pre` (italic serif "The" above title), `.hero-title`, `.hero-sub`, `.hero-ctas`, `.hero-scroll`
-- `.marquee`, `.marquee-track`, `.marquee-item`, `.mgem` — horizontal ticker scroll (shared pattern; also present in events.html + team.html)
+- `.marquee`, `.marquee-track`, `.marquee-item`, `.mgem` — horizontal ticker scroll. **CSS lives in `base.css`. Content (`MARQUEE_TEXT`) is set by `site.js` — edit there to update the ticker on all pages at once.**
 - `.wrap` — `padding: 48px 52px` *(differs from page.css's `0 52px`)*
 - `.rv` — `translateY(10px)` 0.3s *(differs from page.css's `translateY(20px)` 0.6s)*
 - `.sec-head` — `margin-bottom: 36px` *(differs from page.css's `60px`)*
@@ -136,14 +136,14 @@ Each HTML file embeds a `<style>` block for its own components only:
 - Index footer (big wordmark design): `.footer-hero`, `.footer-wordmark-wrap`, `.footer-big-name`, `.footer-eyebrow` — entirely different from page.css footer
 
 **events.html** (uses base + nav + page.css):
-- `.marquee`, `.marquee-track`, `.marquee-item`, `.mgem` — ticker bar below page header (same pattern as index + team)
+- `.marquee`, `.marquee-track`, `.marquee-item`, `.mgem` — ticker bar below page header. CSS in `base.css`; content populated by `site.js` (`MARQUEE_TEXT`)
 - Event card: `.event-card`, `.event-card-main`, `.event-card-top`, `.event-status`, `.event-status-dot`, `.event-status-text`, `.event-card-title`, `.event-card-desc`, `.event-card-bottom`, `.event-card-tags`, `.event-tag`, `.event-card-cta`
 - Event panel: `.event-card-panel`, `.event-panel-row`, `.event-panel-label`, `.event-panel-value`, `.event-panel-divider`, `.event-panel-entry`, `.event-panel-value--gold`
 - Empty state: `.event-empty-state`, `.event-empty-icon`, `.event-empty-title`, `.event-empty-body`, `.event-empty-cta`
 - Responsive (event card only): card stacks vertically at 1100px; adjustments at 700px
 
 **team.html** (uses base + nav + page.css):
-- `.marquee`, `.marquee-track`, `.marquee-item`, `.mgem` — ticker bar below page header (same pattern as index + events)
+- `.marquee`, `.marquee-track`, `.marquee-item`, `.mgem` — ticker bar below page header. CSS in `base.css`; content populated by `site.js` (`MARQUEE_TEXT`)
 - Member grid: `.member-grid` (3-col → 2-col at 1100px → 1-col at 700px)
 - Member card: `.member-card`, `.member-card::before` (gold top accent), `.member-photo-wrap`, `.member-photo`, `.member-photo-placeholder`
 - Card body: `.member-body`, `.member-header`, `.member-name`, `.member-role`, `.member-studies`, `.member-bio`, `.member-social`
@@ -154,9 +154,11 @@ Each HTML file embeds a `<style>` block for its own components only:
 ## JS Architecture
 
 ### `js/site.js` — loaded by ALL pages
-Five modules in one file, all using `var` (not `const/let`) for broadest compatibility:
+All using `var` (not `const/let`) for broadest compatibility:
 
 1. **Register URL** — `var REGISTER_URL = 'https://docs.google.com/forms/...'`; sets `href` on all `a[data-register]` elements. To change the registration link, update this one constant.
+
+1b. **Marquee text** — `var MARQUEE_TEXT`; populates all `.marquee-track` elements on every page. Edit here to update the ticker sitewide.
 
 2. **Scroll handler** — RAF-batched single scroll listener. Drives:
    - `nav.scrolled` class at `scrollY > 40`

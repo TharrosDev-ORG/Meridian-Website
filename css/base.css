@@ -113,6 +113,28 @@ body {
   to   { transform: rotateX(70deg) rotateZ(360deg); }
 }
 
+/* ── MARQUEE ── */
+.marquee {
+  overflow: hidden; background: var(--surface);
+  border-top: var(--gold-bw) solid var(--gold-border);
+  border-bottom: var(--gold-bw) solid var(--gold-border);
+  height: 38px; display: flex; align-items: center;
+  --cream: #f5f0e8; --cream-45: rgba(245,240,232,0.72); --black: #080808;
+}
+.marquee-track {
+  display: flex; white-space: nowrap;
+  animation: mscroll 38s linear infinite;
+  /* transform-only animation — compositor thread, no main thread cost */
+}
+.marquee-track:hover { animation-play-state: paused; }
+.marquee-item {
+  padding: 0 40px; display: flex; align-items: center; gap: 24px;
+  font-family: var(--sans); font-size: 10px; font-weight: 600;
+  letter-spacing: 0.26em; text-transform: uppercase; color: #777777;
+}
+.mgem { color: var(--gold); opacity: 0.75; font-size: 8px; }
+@keyframes mscroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
 /* ── REDUCED MOTION ── */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {

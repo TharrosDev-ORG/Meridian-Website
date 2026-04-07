@@ -204,7 +204,7 @@ section {
   text-decoration: none; font-family: var(--sans);
   font-size: 11px; font-weight: 700;
   letter-spacing: 0.24em; text-transform: uppercase;
-  transition: all 0.3s ease; position: relative; overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease; position: relative; overflow: hidden;
   transform-style: preserve-3d;
 }
 .ph-cta-primary::after {
@@ -338,7 +338,7 @@ footer {
   letter-spacing: 0.18em;
   text-transform: uppercase;
   text-decoration: none;
-  transition: all 0.25s;
+  transition: background 0.25s, transform 0.25s;
 }
 .footer-cta-main:hover {
   background: var(--gold-light);

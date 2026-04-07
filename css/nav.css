@@ -171,7 +171,7 @@ nav.scrolled {
   color: rgba(245,240,232,0.45); text-align: center;
 }
 .mob-cta {
-  display: block; text-align: center; padding: 14px 20px;
+  display: block; text-align: center; padding: 20px;
   border: 1px solid rgba(201,168,76,0.4); color: var(--gold);
   font-family: var(--sans); font-size: 11px; font-weight: 600;
   letter-spacing: 0.2em; text-transform: uppercase;
@@ -185,4 +185,7 @@ nav.scrolled {
   .hamburger { display: flex; }
   .nav-inner { padding: 0 20px; }
   .nav-wordmark { font-size: 11px; }
+  /* Reduce blur cost on mobile */
+  nav { -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); }
+  .mob-drawer { -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
 }

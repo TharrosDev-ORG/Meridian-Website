@@ -137,6 +137,19 @@ if (marqueeTrack) {
   document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') closeMenu();
   });
+
+  // Focus trap — keep Tab cycling inside the open drawer
+  mobileMenu.addEventListener('keydown', function(e) {
+    if (e.key !== 'Tab' || !mobileMenu.classList.contains('open')) return;
+    var focusable = mobileMenu.querySelectorAll('a, button, [tabindex]');
+    var first = focusable[0];
+    var last  = focusable[focusable.length - 1];
+    if (e.shiftKey && document.activeElement === first) {
+      last.focus(); e.preventDefault();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      first.focus(); e.preventDefault();
+    }
+  });
 })();
 
 // ─────────────────────────────────────────────────────────────────

@@ -126,7 +126,7 @@ The legacy tokens (`--black: #F0EBE3`, `--cream: #111111`, `--surface`, `--gold-
 - `.nav-inner` â€” max-width 1440px, padding `0 52px`
 - `.nav-logo` / `.nav-wordmark` â€” 3D tilt on hover (`perspective rotateX/Y`)
 - `.nav-links a` â€” gold underline extends on hover/active; `.nav-active` = gold text
-- `.nav-cta` â€” gold border button with slide-fill hover; `[data-register]` href set by site.js
+- `.nav-cta` â€” gold border button with slide-fill hover; `[data-register]` href set by site.js; `will-change: transform` set for compositor promotion (prevents 3D hover from shifting adjacent nav elements)
 - `.hamburger` â€” 2-bar, hidden on desktop; open state rotates to X
 - `.mob-backdrop` â€” full-screen blur overlay, z-index 190
 - `.mob-drawer` â€” 280px right drawer, z-index 191, translateX(100%) â†’ 0
@@ -204,6 +204,7 @@ All using `var` (not `const/let`) for broadest compatibility. Execution order:
    - `#arcFill` stroke-dashoffset (scroll progress ring)
    - `.arc-btn.visible` at `scrollY > SCROLL_ARC_THRESHOLD`
    - `#stickyJoin.visible` (null-checked â€” only activates on index.html where element exists)
+   - `.footer-ghost` scroll parallax â€” `translateX(-50%) translateY(scrollY * 0.03)` (null-checked; gated on `reducedMotion` sampled once at IIFE init; runs on all pages)
 
 4. **Scroll reveal** â€” `IntersectionObserver` on all `.rv` elements; adds `.on` class once, then unobserves. Threshold: 0.01, rootMargin: `REVEAL_ROOT_MARGIN`.
 
@@ -237,9 +238,11 @@ The events.html render script uses `EVENTS.find(e => e.isCurrent)`. If none foun
 
 **index.html** inline script contains:
 1. Active nav link detection (compares `location.pathname`)
-2. "Who" section accordion (expand/collapse blocks) â€” `.who-row` elements have `role="button"`, `tabindex="0"`, `aria-expanded`, and `aria-label` describing the category
+2. “Who” section accordion (expand/collapse blocks) â€” `.who-row` elements have `role=”button”`, `tabindex=”0”`, `aria-expanded`, and `aria-label` describing the category
 3. Member count fetch from Google Apps Script endpoint â€” on error, shows `â€”` (em dash) and logs a warning
 4. Three.js globe initialization (`#globeCanvas`) â€” loaded **conditionally** via an inline script: only on viewports â‰¥ 1024px with `deviceMemory â‰¥ 2` (or undefined). `initGlobe()` is called via `s.onload` after dynamic injection.
+5. Hero ghost M parallax IIFE â€” passive scroll listener, `scrollY * 0.22`
+6. Register ghost parallax IIFE â€” passive scroll listener, `translateX(-50%) translateY(scrollY * 0.08)`; guards `prefers-reduced-motion`; `mouseleave` tilt exit is `0.8s cubic-bezier(0.16,1,0.3,1)`
 
 **events.html** inline script contains:
 - Event card DOM builder (creates card or empty-state from `EVENTS` data; runs after `events-data.js`). Uses `var` throughout. Builds the same card structure as index.html: `.event-card` > `.event-main` (`.event-status`/`.event-dot`, `.event-title`, `.event-desc`, `.event-tags`) + `.event-meta` (`.event-meta-row` > `.meta-lbl` + `.meta-val`).
@@ -312,6 +315,21 @@ Every page uses the same nav and arc button in HTML. The mobile drawer is **not*
   </div>
 </div>
 ```
+
+### Footer pattern (all 3 pages)
+
+The MERIDIAN watermark in the footer is a **real DOM element** (not a CSS pseudo-element) so `site.js` can apply scroll parallax:
+
+```html
+<footer>
+  <span class="footer-ghost" aria-hidden="true">MERIDIAN</span>
+  <div class="wrap">
+    ...
+  </div>
+</footer>
+```
+
+The `.footer-ghost` class is defined in each page's inline `<style>` (not `footer::before`). Do not revert to `footer::before` â€" the JS parallax in `site.js` targets `.footer-ghost` directly.
 
 ### Section wrapper pattern (events-sec, team-sec)
 
@@ -388,3 +406,7 @@ Current CSP `connect-src` allows: `self`, `script.google.com`, `script.googleuse
 - **Do not edit the index.html design** â€” it is the source of truth. When overhauling subpages, copy patterns from index.html.
 - **Event card structure must match** between index.html and events.html â€” same class names (`.event-card`, `.event-main`, `.event-status`, `.event-dot`, `.event-title`, `.event-desc`, `.event-tags`, `.event-tag`, `.event-meta`, `.event-meta-row`, `.meta-lbl`, `.meta-val`).
 - **Always run `npm run build`** after editing any source CSS or JS file so the `.min` files stay in sync.
+- **Do not animate `border-left-width`** â€" it is non-interpolatable; CSS cannot smoothly transition it (it jumps instantly). Use a `::before` pseudo-element with `scaleY` + `transform-origin` instead (see `.pull-quote::before`).
+- **Do not use `padding-left` or `padding` on hover for slide effects** â€" it triggers layout reflow every frame. Use `transform: translateX()` instead (compositor-only). See `.formats-item`.
+- **Do not add `footer::before` back** â€" the footer watermark was deliberately converted to `.footer-ghost` DOM element so `site.js` can drive parallax. `footer::before` is gone from all 3 pages.
+- **JS scroll transforms need manual `prefers-reduced-motion` guard** â€" `base.css` zeroes CSS transition durations globally, but JS `element.style.transform` assignments are not covered. Always check `window.matchMedia('(prefers-reduced-motion: reduce)').matches` and skip the listener if true.

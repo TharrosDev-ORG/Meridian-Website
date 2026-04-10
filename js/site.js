@@ -24,10 +24,10 @@ document.querySelectorAll('a[data-register]').forEach(function(el) {
 // MARQUEE TEXT
 // Edit here to update the ticker on every page at once
 // ─────────────────────────────────────────────────────────────────
-var MARQUEE_TEXT = 'First Event <span class="mgem">◈</span> Fall 2026 <span class="mgem">◈</span> Ottawa <span class="mgem">◈</span> Member Registration Open <span class="mgem">◈</span> Student Run Speaker Forum <span class="mgem">◈</span> Law &amp; Policy <span class="mgem">◈</span> Business &amp; Media <span class="mgem">◈</span> For Students, By Students <span class="mgem">◈</span>';
+var MARQUEE_TEXT = 'The Meridian Society <span class="mgem">◈</span> Ottawa <span class="mgem">◈</span> Est. 2025 <span class="mgem">◈</span> Student-Run <span class="mgem">◈</span> Inaugural Event — Fall 2026 <span class="mgem">◈</span> Carleton University <span class="mgem">◈</span> uOttawa <span class="mgem">◈</span> Algonquin College <span class="mgem">◈</span>';
 
 var marqueeTrack = document.querySelector('.marquee-track');
-if (marqueeTrack) {
+if (marqueeTrack && !marqueeTrack.dataset.static) {
   marqueeTrack.innerHTML = '<div class="marquee-item">' + MARQUEE_TEXT + '</div><div class="marquee-item">' + MARQUEE_TEXT + '</div>';
 }
 

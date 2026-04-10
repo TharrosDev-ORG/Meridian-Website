@@ -52,12 +52,15 @@
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Barlow+Condensed:wght@400;500;600&display=swap" />
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Barlow+Condensed:wght@300;400&display=swap" />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Barlow+Condensed:wght@300;400;500;600;700&display=swap"
         rel="stylesheet" media="print" onload="this.media='all'" />
   <noscript>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Barlow+Condensed:wght@300;400;500;600;700&display=swap"
           rel="stylesheet" />
+  </noscript>
+  <noscript>
+    <style>.noscript-register-note { display: block !important; }</style>
   </noscript>
 
   <!-- Structured data -->
@@ -371,9 +374,9 @@
   }
   </script>
 
-  <script src="/js/events-data.js"></script>
-  <link rel="stylesheet" href="/css/base.css" />
-  <link rel="stylesheet" href="/css/nav.css" />
+  <script src="/js/events-data.min.js"></script>
+  <link rel="stylesheet" href="/css/base.min.css" />
+  <link rel="stylesheet" href="/css/nav.min.css" />
   <style>
     /*
      * The Meridian Society — Homepage Styles
@@ -482,10 +485,6 @@
       background: linear-gradient(110deg, transparent 30%, rgba(201,168,76,0.12) 50%, transparent 70%);
       background-size: 250% 100%;
       animation: shimmer 1.6s 2s ease forwards; pointer-events: none;
-    }
-    @keyframes shimmer {
-      from { background-position: 200% 0; opacity: 1; }
-      to   { background-position: -200% 0; opacity: 0; }
     }
     .hero-sub {
       font-family: var(--serif); font-size: clamp(19px, 2.2vw, 30px);
@@ -1246,11 +1245,11 @@
     }
     .footer-copy {
       font-family: var(--sans); font-size: 10px; font-weight: 400;
-      color: #666666; letter-spacing: 0.1em;
+      color: #888888; letter-spacing: 0.1em;
     }
     .footer-meta {
       font-family: var(--sans); font-size: 9px; font-weight: 500;
-      letter-spacing: 0.2em; text-transform: uppercase; color: #666666;
+      letter-spacing: 0.2em; text-transform: uppercase; color: #888888;
     }
 
     /* ─────────────────────────────────
@@ -1454,9 +1453,14 @@
   </div>
 </button>
 
-<a href="https://docs.google.com/forms/d/1qThcXHxzfuW4uNVkZbHGhHwlDsy8x-YGtpHpOLnqTl4/viewform"
+<a href="#"
    target="_blank" rel="noopener noreferrer" class="sticky-join" id="stickyJoin"
    data-register aria-label="Register as a member">Register</a>
+<p class="noscript-register-note" style="display:none; font-size: 0.85em; margin-top: 0.5rem;">
+  <a href="https://docs.google.com/forms/d/1qThcXHxzfuW4uNVkZbHGhHwlDsy8x-YGtpHpOLnqTl4/viewform" target="_blank" rel="noopener noreferrer">
+    Register directly (JavaScript required for registration button to work)
+  </a>
+</p>
 
 <!-- ═══════════ NAV ═══════════ -->
 <nav id="mainNav" aria-label="Main navigation">
@@ -1471,7 +1475,7 @@
       <li><a href="#register">Membership Registration</a></li>
       <li><a href="#join">Get Involved</a></li>
     </ul>
-    <a href="https://docs.google.com/forms/d/1qThcXHxzfuW4uNVkZbHGhHwlDsy8x-YGtpHpOLnqTl4/viewform"
+    <a href="#"
        target="_blank" rel="noopener noreferrer" class="nav-cta" data-register>
       <span>Register</span>
     </a>
@@ -1480,26 +1484,6 @@
     </button>
   </div>
 </nav>
-
-<!-- ═══════════ MOBILE MENU ═══════════ -->
-<div class="mob-backdrop" id="menuBackdrop"></div>
-<div class="mob-drawer" id="mobileMenu" role="dialog" aria-label="Navigation" aria-modal="true">
-  <div class="mob-wordmark">The Meridian Society</div>
-  <nav class="mob-links" aria-label="Mobile navigation">
-    <a href="#about"    onclick="closeMenu()">About <span class="mob-arrow">→</span></a>
-    <a href="/events.html" onclick="closeMenu()">Events <span class="mob-arrow">→</span></a>
-    <a href="#speaking" onclick="closeMenu()">Speaking <span class="mob-arrow">→</span></a>
-    <a href="#register" onclick="closeMenu()">Membership <span class="mob-arrow">→</span></a>
-    <a href="#join"     onclick="closeMenu()">Get Involved <span class="mob-arrow">→</span></a>
-  </nav>
-  <div class="mob-bottom">
-    <span class="mob-meta">Ottawa · Est. 2025</span>
-    <a href="https://docs.google.com/forms/d/1qThcXHxzfuW4uNVkZbHGhHwlDsy8x-YGtpHpOLnqTl4/viewform"
-       target="_blank" rel="noopener noreferrer" class="mob-cta" data-register onclick="closeMenu()">
-      Register as a Member
-    </a>
-  </div>
-</div>
 
 <!-- ═══════════ HERO ═══════════ -->
 <section class="hero" aria-label="Hero">
@@ -1536,7 +1520,7 @@
     </p>
 
     <div class="hero-ctas">
-  <a href="https://docs.google.com/forms/d/1qThcXHxzfuW4uNVkZbHGhHwlDsy8x-YGtpHpOLnqTl4/viewform"
+  <a href="#"
      target="_blank" rel="noopener noreferrer" class="cta-primary" data-register>
     <span>Become a Member</span>
   </a>
@@ -1667,7 +1651,7 @@
       <p class="who-intro-body rv" data-d="2">The Meridian Society brings together thoughtful speakers and curious young adults, creating space for engaging presentations, meaningful questions, and conversations that expand academic and professional horizons.</p>
     </div>
     <div class="who-list rv">
-      <div class="who-row" tabindex="0" role="button" aria-expanded="false">
+      <div class="who-row" tabindex="0" role="button" aria-expanded="false" aria-label="Toggle details: Students">
         <span class="who-row-num">01</span>
         <h3 class="who-row-title">Students</h3>
         <p class="who-row-body">Curious, ambitious, and open to where ideas might lead. The core of what we build.</p>
@@ -1675,7 +1659,7 @@
         <span class="who-row-chevron" aria-hidden="true">▾</span>
         <p class="who-row-drop">Whether you are in first year or finishing a graduate degree, the Society is built around you. You do not need a specific major or a defined career path — just the willingness to sit in a room with people who have been somewhere you have not yet, and the curiosity to ask them about it.</p>
       </div>
-      <div class="who-row" tabindex="0" role="button" aria-expanded="false">
+      <div class="who-row" tabindex="0" role="button" aria-expanded="false" aria-label="Toggle details: Alumni">
         <span class="who-row-num">02</span>
         <h3 class="who-row-title">Alumni</h3>
         <p class="who-row-body">Graduates who come back to turn what they’ve learned into guidance for others.</p>
@@ -1683,7 +1667,7 @@
         <span class="who-row-chevron" aria-hidden="true">▾</span>
         <p class="who-row-drop">There is something clarifying about articulating your own path to a room full of people who are just beginning theirs. Alumni return not to lecture, but to reflect — and often find the conversation as valuable as the students do.</p>
       </div>
-      <div class="who-row" tabindex="0" role="button" aria-expanded="false">
+      <div class="who-row" tabindex="0" role="button" aria-expanded="false" aria-label="Toggle details: Professionals">
         <span class="who-row-num">03</span>
         <h3 class="who-row-title">Professionals</h3>
         <p class="who-row-body">Those with lived experience across law, business, policy, media, and international work.</p>
@@ -1691,7 +1675,7 @@
         <span class="who-row-chevron" aria-hidden="true">▾</span>
         <p class="who-row-drop">The professionals we invite are not here to recruit or to pitch. They are here because they remember what it felt like to not yet know which direction to face — and they have something honest to say about how they found their footing.</p>
       </div>
-      <div class="who-row" tabindex="0" role="button" aria-expanded="false">
+      <div class="who-row" tabindex="0" role="button" aria-expanded="false" aria-label="Toggle details: Scholars">
         <span class="who-row-num">04</span>
         <h3 class="who-row-title">Scholars</h3>
         <p class="who-row-body">Scholars whose work shapes perspective and sharpens understanding.</p>
@@ -1699,7 +1683,7 @@
         <span class="who-row-chevron" aria-hidden="true">▾</span>
         <p class="who-row-drop">Academics and researchers who bring rigour and depth to questions that practitioners sometimes move past too quickly. Their presence shifts the tone of a room — from what works to why it works, and what it means.</p>
       </div>
-      <div class="who-row" tabindex="0" role="button" aria-expanded="false">
+      <div class="who-row" tabindex="0" role="button" aria-expanded="false" aria-label="Toggle details: Across Fields">
         <span class="who-row-num">05</span>
         <h3 class="who-row-title">Across Fields</h3>
         <p class="who-row-body">Law, business, policy, media, international work, and everything in between.</p>
@@ -1818,7 +1802,7 @@
           <li>Connection to a community of motivated, curious peers</li>
           <li>Exposure to diverse professional pathways and fields</li>
         </ul>
-        <a href="https://docs.google.com/forms/d/1qThcXHxzfuW4uNVkZbHGhHwlDsy8x-YGtpHpOLnqTl4/viewform"
+        <a href="#"
            target="_blank" rel="noopener noreferrer" class="btn-register" data-register>
           <span>Register as a Member</span>
         </a>
@@ -1886,7 +1870,7 @@
         <span>Est. 2025</span>
       </div>
       <div class="footer-cta-row">
-        <a href="https://docs.google.com/forms/d/1qThcXHxzfuW4uNVkZbHGhHwlDsy8x-YGtpHpOLnqTl4/viewform"
+        <a href="#"
            target="_blank" rel="noopener noreferrer" class="footer-cta-main" data-register>
           Register as a Member
         </a>
@@ -1923,7 +1907,7 @@
     <div>
       <div class="footer-col-head">Join</div>
       <ul class="footer-links">
-        <li><a href="https://docs.google.com/forms/d/1qThcXHxzfuW4uNVkZbHGhHwlDsy8x-YGtpHpOLnqTl4/viewform" target="_blank" rel="noopener noreferrer" data-register>Register as a Member</a></li>
+        <li><a href="#" target="_blank" rel="noopener noreferrer" data-register>Register as a Member</a></li>
         <li><a href="#speaking">Speaking</a></li>
       </ul>
     </div>
@@ -1935,14 +1919,22 @@
 </footer>
 
 <!-- Shared site script: REGISTER_URL, scroll handler, scroll reveal, mobile menu -->
-<script src="/js/site.js"></script>
+<script src="/js/site.min.js"></script>
 
-<!-- Three.js loaded async — globe renders after page content is visible -->
-<!-- SRI hash verified against cdnjs three.js r128 build -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"
-        defer crossorigin="anonymous"
-        integrity="sha384-CI3ELBVUz9XQO+97x6nwMDPosPR5XvsxW2ua7N1Xeygeh1IxtgqtCkGfQY9WWdHu"
-        onload="initGlobe()"></script>
+<!-- Three.js — load only on desktop/capable devices; globe is decorative -->
+<script>
+(function() {
+  var isCapable = window.matchMedia('(min-width: 1024px)').matches &&
+                  (navigator.deviceMemory === undefined || navigator.deviceMemory >= 2);
+  if (!isCapable) return;
+  var s = document.createElement('script');
+  s.src = 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js';
+  s.crossOrigin = 'anonymous';
+  s.integrity = 'sha384-CI3ELBVUz9XQO+97x6nwMDPosPR5XvsxW2ua7N1Xeygeh1IxtgqtCkGfQY9WWdHu';
+  s.onload = function() { if (typeof initGlobe === 'function') initGlobe(); };
+  document.head.appendChild(s);
+}());
+</script>
 <script>
 /**
  * The Meridian Society — Homepage Script
@@ -2056,7 +2048,14 @@
           }
         }
       })
-      .catch(function() { /* loader stays visible on error */ });
+      .catch(function(err) {
+        console.warn('[Meridian] Member count fetch failed:', err);
+        hideLoader();
+        var el = document.getElementById('memberCount');
+        var heroEl = document.getElementById('heroMemberCount');
+        if (el) el.textContent = '\u2014';
+        if (heroEl) heroEl.textContent = '\u2014';
+      });
   }
 
   fetchCount();

@@ -1,0 +1,12 @@
+{
+  "name": "meridian-website",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "npx csso-cli css/base.css -o css/base.min.css && npx csso-cli css/nav.css -o css/nav.min.css && npx csso-cli css/page.css -o css/page.min.css && npx terser js/site.js -o js/site.min.js --compress --mangle && npx terser js/events-data.js -o js/events-data.min.js --compress --mangle"
+  },
+  "devDependencies": {
+    "csso-cli": "^4.0.2",
+    "terser": "^5.31.0"
+  }
+}

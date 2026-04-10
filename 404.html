@@ -29,17 +29,20 @@
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Barlow+Condensed:wght@400;500;600&display=swap" />
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Barlow+Condensed:wght@300;400&display=swap" />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Barlow+Condensed:wght@300;400;500;600;700&display=swap"
         rel="stylesheet" media="print" onload="this.media='all'" />
   <noscript>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Barlow+Condensed:wght@300;400;500;600;700&display=swap"
           rel="stylesheet" />
   </noscript>
+  <noscript>
+    <style>.noscript-register-note { display: block !important; }</style>
+  </noscript>
 
   <!-- Shared styles -->
-  <link rel="stylesheet" href="/css/base.css" />
-  <link rel="stylesheet" href="/css/nav.css" />
+  <link rel="stylesheet" href="/css/base.min.css" />
+  <link rel="stylesheet" href="/css/nav.min.css" />
 
   <style>
     /*
@@ -171,35 +174,20 @@
       <li><a href="/#register">Membership Registration</a></li>
       <li><a href="/#join">Get Involved</a></li>
     </ul>
-    <a href="https://docs.google.com/forms/d/1qThcXHxzfuW4uNVkZbHGhHwlDsy8x-YGtpHpOLnqTl4/viewform"
+    <a href="#"
        target="_blank" rel="noopener noreferrer" class="nav-cta" data-register>
       <span>Register</span>
     </a>
+    <p class="noscript-register-note" style="display:none; font-size: 0.85em; margin-top: 0.5rem;">
+      <a href="https://docs.google.com/forms/d/1qThcXHxzfuW4uNVkZbHGhHwlDsy8x-YGtpHpOLnqTl4/viewform" target="_blank" rel="noopener noreferrer">
+        Register directly (JavaScript required for registration button to work)
+      </a>
+    </p>
     <button type="button" class="hamburger" id="burgerBtn" aria-label="Open navigation" aria-expanded="false" aria-controls="mobileMenu">
       <span></span><span></span>
     </button>
   </div>
 </nav>
-
-<!-- ═══════════ MOBILE MENU ═══════════ -->
-<div class="mob-backdrop" id="menuBackdrop"></div>
-<div class="mob-drawer" id="mobileMenu" role="dialog" aria-label="Navigation" aria-modal="true">
-  <div class="mob-wordmark">The Meridian Society</div>
-  <nav class="mob-links" aria-label="Mobile navigation">
-    <a href="/#about"      onclick="closeMenu()">About       <span class="mob-arrow">→</span></a>
-    <a href="/events.html" onclick="closeMenu()">Events      <span class="mob-arrow">→</span></a>
-    <a href="/#speaking"   onclick="closeMenu()">Speaking    <span class="mob-arrow">→</span></a>
-    <a href="/#register"   onclick="closeMenu()">Membership  <span class="mob-arrow">→</span></a>
-    <a href="/#join"       onclick="closeMenu()">Get Involved <span class="mob-arrow">→</span></a>
-  </nav>
-  <div class="mob-bottom">
-    <span class="mob-meta">Ottawa · Est. 2025</span>
-    <a href="https://docs.google.com/forms/d/1qThcXHxzfuW4uNVkZbHGhHwlDsy8x-YGtpHpOLnqTl4/viewform"
-       target="_blank" rel="noopener noreferrer" class="mob-cta" data-register onclick="closeMenu()">
-      Register as a Member
-    </a>
-  </div>
-</div>
 
 <!-- ═══════════ CONTENT ═══════════ -->
 <main id="main-content">
@@ -221,6 +209,6 @@
   </div>
 </main>
 
-<script src="/js/site.js"></script>
+<script src="/js/site.min.js"></script>
 </body>
 </html>

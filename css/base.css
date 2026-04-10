@@ -130,7 +130,7 @@ body {
 .marquee-item {
   padding: 0 40px; display: flex; align-items: center; gap: 24px;
   font-family: var(--sans); font-size: 10px; font-weight: 600;
-  letter-spacing: 0.26em; text-transform: uppercase; color: #777777;
+  letter-spacing: 0.26em; text-transform: uppercase; color: #888888;
 }
 .mgem { color: var(--gold); opacity: 0.75; font-size: 8px; }
 @keyframes mscroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }

@@ -31,6 +31,64 @@ if (marqueeTrack) {
   marqueeTrack.innerHTML = '<div class="marquee-item">' + MARQUEE_TEXT + '</div><div class="marquee-item">' + MARQUEE_TEXT + '</div>';
 }
 
+/* ── Mobile menu injection ──────────────────────
+ * Generates the drawer HTML once per page-load based on current pathname.
+ * Must run before getElementById calls for mobileMenu / menuBackdrop.
+ * ─────────────────────────────────────────────── */
+(function buildMobileMenu() {
+  var path    = window.location.pathname;
+  var isHome  = path === '/' || path === '/index.html' || path === '';
+  var isTeam  = path === '/team.html';
+
+  var aboutHref   = isHome ? '#about'    : '/#about';
+  var speakHref   = isHome ? '#speaking' : '/#speaking';
+  var regHref     = isHome ? '#register' : '/#register';
+  var joinHref    = isHome ? '#join'     : '/#join';
+
+  var fifthLink = isTeam
+    ? '<a href="/team.html">Our Team <span class="mob-arrow">\u2192</span></a>'
+    : '<a href="' + joinHref + '">Get Involved <span class="mob-arrow">\u2192</span></a>';
+
+  var html = '<div class="mob-backdrop" id="menuBackdrop"></div>' +
+    '<div class="mob-drawer" id="mobileMenu" role="dialog" aria-label="Navigation" aria-modal="true">' +
+    '  <div class="mob-wordmark">The Meridian Society</div>' +
+    '  <nav class="mob-links" aria-label="Mobile navigation">' +
+    '    <a href="' + aboutHref + '">About <span class="mob-arrow">\u2192</span></a>' +
+    '    <a href="/events.html">Events <span class="mob-arrow">\u2192</span></a>' +
+    '    <a href="' + speakHref + '">Speaking <span class="mob-arrow">\u2192</span></a>' +
+    '    <a href="' + regHref + '">Membership <span class="mob-arrow">\u2192</span></a>' +
+    '    ' + fifthLink +
+    '  </nav>' +
+    '  <div class="mob-bottom">' +
+    '    <span class="mob-meta">Ottawa \u00b7 Est. 2025</span>' +
+    '    <a href="#" target="_blank" rel="noopener noreferrer" class="mob-cta" data-register>' +
+    '      Register as a Member' +
+    '    </a>' +
+    '  </div>' +
+    '</div>';
+
+  document.body.insertAdjacentHTML('beforeend', html);
+
+  /* Re-run data-register population for the injected element */
+  document.querySelectorAll('a[data-register]').forEach(function(el) {
+    el.href = REGISTER_URL;
+  });
+
+  /* Bind click-to-close for injected links */
+  document.querySelectorAll('.mob-links a, .mob-cta').forEach(function(el) {
+    el.addEventListener('click', function() {
+      if (typeof closeMenu === 'function') closeMenu();
+    });
+  });
+}());
+
+/* ── Scroll thresholds ────────────────────────── */
+var SCROLL_NAV_THRESHOLD   = 40;   /* px — nav adds .scrolled class */
+var SCROLL_ARC_THRESHOLD   = 200;  /* px — arc back-to-top btn appears */
+var ARC_RADIUS             = 22;   /* px — circle radius in arc SVG */
+var SWIPE_CLOSE_THRESHOLD  = 72;   /* px — swipe distance to close drawer */
+var REVEAL_ROOT_MARGIN     = '0px 0px -40px 0px'; /* IO margin for .rv reveal */
+
 // ─────────────────────────────────────────────────────────────────
 // 2. SCROLL HANDLER
 // All scroll side-effects batched into a single rAF callback.
@@ -46,7 +104,7 @@ if (marqueeTrack) {
   var heroEl     = document.querySelector('.hero');
   var registerEl = document.getElementById('register');
 
-  var CIRC = 2 * Math.PI * 22; // 22 = SVG circle radius (matches r="22" on #arcFill)
+  var CIRC = 2 * Math.PI * ARC_RADIUS; // ARC_RADIUS = SVG circle radius (matches r="22" on #arcFill)
   arcFill.style.strokeDasharray  = String(CIRC);
   arcFill.style.strokeDashoffset = String(CIRC);
 
@@ -57,10 +115,10 @@ if (marqueeTrack) {
         var h   = document.documentElement.scrollHeight - window.innerHeight;
         var pct = h > 0 ? window.scrollY / h : 0;
 
-        nav.classList.toggle('scrolled', window.scrollY > 40);   // 40 = just past nav height (68px) — adds border + shadow
+        nav.classList.toggle('scrolled', window.scrollY > SCROLL_NAV_THRESHOLD);   // just past nav height (68px) — adds border + shadow
         bar.style.width = (pct * 100) + '%';
         arcFill.style.strokeDashoffset = String(CIRC * (1 - pct));
-        arcBtn.classList.toggle('visible', window.scrollY > 200); // 200 = ~1 full viewport scroll before showing back-to-top
+        arcBtn.classList.toggle('visible', window.scrollY > SCROLL_ARC_THRESHOLD); // ~1 full viewport scroll before showing back-to-top
 
         if (stickyJoin && heroEl && registerEl) {
           stickyJoin.classList.toggle('visible',
@@ -96,7 +154,7 @@ if (marqueeTrack) {
         obs.unobserve(e.target);
       }
     });
-  }, { threshold: 0.01, rootMargin: '0px 0px -40px 0px' });
+  }, { threshold: 0.01, rootMargin: REVEAL_ROOT_MARGIN });
   // threshold 0.01 = fire as soon as 1% of element enters viewport
   // rootMargin -40px bottom = element must be 40px inside viewport before triggering
 
@@ -130,6 +188,7 @@ if (marqueeTrack) {
     burger.focus();
   }
 
+  /* Cross-IIFE bridge for pull-to-dismiss (section 5) — NOT for inline HTML handlers */
   window.closeMenu = closeMenu;
 
   burger.addEventListener('click', function() {
@@ -183,7 +242,7 @@ if (marqueeTrack) {
     var dx = e.changedTouches[0].clientX - startX;
     dragging = false;
     drawer.style.transition = '';
-    if (dx > 72) { drawer.style.transform = ''; window.closeMenu(); } // 72px = ~1/4 of drawer width (280px) feels intentional
+    if (dx > SWIPE_CLOSE_THRESHOLD) { drawer.style.transform = ''; window.closeMenu(); } // ~1/4 of drawer width (280px) feels intentional
     else drawer.style.transform = '';
   }, { passive: true });
 

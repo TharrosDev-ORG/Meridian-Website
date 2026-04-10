@@ -56,12 +56,15 @@
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Barlow+Condensed:wght@400;500;600&display=swap" />
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Barlow+Condensed:wght@300;400&display=swap" />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Barlow+Condensed:wght@300;400;500;600;700&display=swap"
         rel="stylesheet" media="print" onload="this.media='all'" />
   <noscript>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Barlow+Condensed:wght@300;400;500;600;700&display=swap"
           rel="stylesheet" />
+  </noscript>
+  <noscript>
+    <style>.noscript-register-note { display: block !important; }</style>
   </noscript>
 
 
@@ -277,9 +280,9 @@
   }
   </script>
 
-  <link rel="stylesheet" href="/css/base.css" />
-  <link rel="stylesheet" href="/css/nav.css" />
-  <link rel="stylesheet" href="/css/page.css" />
+  <link rel="stylesheet" href="/css/base.min.css" />
+  <link rel="stylesheet" href="/css/nav.min.css" />
+  <link rel="stylesheet" href="/css/page.min.css" />
   <style>
     /*
      * The Meridian Society — Events Page Styles
@@ -401,11 +404,6 @@
     .event-panel-entry { margin-top: 12px; }
     .event-panel-value--gold { color: var(--gold); }
 
-    @keyframes livePulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.3; transform: scale(0.55); }
-    }
-
     /* EMPTY STATE */
     .event-empty-state {
       grid-column: 1 / -1;
@@ -467,6 +465,16 @@
       .event-empty-state { padding: 48px 24px; }
     }
     /* marquee — base styles in base.css */
+    @media (prefers-reduced-motion: reduce) {
+      .rv,
+      .page-header-eyebrow, .page-header-pre, .page-header-title,
+      .page-header-desc {
+        opacity: 1 !important;
+        transform: none !important;
+        animation: none !important;
+        transition: none !important;
+      }
+    }
   </style>
 </head>
 <body>
@@ -499,35 +507,20 @@
       <li><a href="/#register">Membership Registration</a></li>
       <li><a href="/#join">Get Involved</a></li>
     </ul>
-    <a href="https://docs.google.com/forms/d/1qThcXHxzfuW4uNVkZbHGhHwlDsy8x-YGtpHpOLnqTl4/viewform"
+    <a href="#"
        target="_blank" rel="noopener noreferrer" class="nav-cta" data-register>
       <span>Register</span>
     </a>
+    <p class="noscript-register-note" style="display:none; font-size: 0.85em; margin-top: 0.5rem;">
+      <a href="https://docs.google.com/forms/d/1qThcXHxzfuW4uNVkZbHGhHwlDsy8x-YGtpHpOLnqTl4/viewform" target="_blank" rel="noopener noreferrer">
+        Register directly (JavaScript required for registration button to work)
+      </a>
+    </p>
     <button class="hamburger" id="burgerBtn" aria-label="Open navigation" aria-expanded="false" aria-controls="mobileMenu">
       <span></span><span></span>
     </button>
   </div>
 </nav>
-
-<!-- ═══════════ MOBILE MENU ═══════════ -->
-<div class="mob-backdrop" id="menuBackdrop"></div>
-<div class="mob-drawer" id="mobileMenu" role="dialog" aria-label="Navigation" aria-modal="true">
-  <div class="mob-wordmark">The Meridian Society</div>
-  <nav class="mob-links" aria-label="Mobile navigation">
-    <a href="/#about"    onclick="closeMenu()">About <span class="mob-arrow">→</span></a>
-    <a href="/events.html" onclick="closeMenu()">Events <span class="mob-arrow">→</span></a>
-    <a href="/#speaking" onclick="closeMenu()">Speaking <span class="mob-arrow">→</span></a>
-    <a href="/#register" onclick="closeMenu()">Membership <span class="mob-arrow">→</span></a>
-    <a href="/#join"     onclick="closeMenu()">Get Involved <span class="mob-arrow">→</span></a>
-  </nav>
-  <div class="mob-bottom">
-    <span class="mob-meta">Ottawa · Est. 2025</span>
-    <a href="https://docs.google.com/forms/d/1qThcXHxzfuW4uNVkZbHGhHwlDsy8x-YGtpHpOLnqTl4/viewform"
-       target="_blank" rel="noopener noreferrer" class="mob-cta" data-register onclick="closeMenu()">
-      Register as a Member
-    </a>
-  </div>
-</div>
 
 <main id="main-content">
 
@@ -561,7 +554,7 @@
       </div>
 
       <div class="page-header-ctas">
-        <a href="https://docs.google.com/forms/d/1qThcXHxzfuW4uNVkZbHGhHwlDsy8x-YGtpHpOLnqTl4/viewform"
+        <a href="#"
            target="_blank" rel="noopener noreferrer" class="ph-cta-primary" data-register>
           <span>Register as a Member</span>
         </a>
@@ -618,7 +611,7 @@
       <span>Est. 2025</span>
     </div>
     <div class="footer-cta-row">
-      <a href="https://docs.google.com/forms/d/1qThcXHxzfuW4uNVkZbHGhHwlDsy8x-YGtpHpOLnqTl4/viewform"
+      <a href="#"
          target="_blank" rel="noopener noreferrer" class="footer-cta-main" data-register>
         Register as a Member
       </a>
@@ -654,7 +647,7 @@
     <div>
       <div class="footer-col-head">Join</div>
       <ul class="footer-links">
-        <li><a href="https://docs.google.com/forms/d/1qThcXHxzfuW4uNVkZbHGhHwlDsy8x-YGtpHpOLnqTl4/viewform" target="_blank" rel="noopener noreferrer" data-register>Register as a Member</a></li>
+        <li><a href="#" target="_blank" rel="noopener noreferrer" data-register>Register as a Member</a></li>
         <li><a href="/#speaking">Speaking</a></li>
       </ul>
     </div>
@@ -665,8 +658,8 @@
   </div>
 </footer>
 <!-- events-data.js moved here from <head> to avoid render-blocking -->
-<script src="/js/events-data.js"></script>
-<script src="/js/site.js"></script>
+<script src="/js/events-data.min.js"></script>
+<script src="/js/site.min.js"></script>
 <script>
 'use strict';
 
@@ -677,14 +670,14 @@
 // if data ever contains special characters.
 // ─────────────────────────────────────────────────────────────────
 (function() {
-  const card = document.getElementById('currentEventCard');
+  var card = document.getElementById('currentEventCard');
   if (!card) return;
 
-  const ev = typeof EVENTS !== 'undefined' && EVENTS.find(function(e) { return e.isCurrent; });
+  var ev = typeof EVENTS !== 'undefined' && EVENTS.find(function(e) { return e.isCurrent; });
 
   // Helper: create an element, set its className, and optionally set textContent
   function el(tag, cls, text) {
-    const node = document.createElement(tag);
+    var node = document.createElement(tag);
     if (cls) node.className = cls;
     if (text !== undefined) node.textContent = text;
     return node;
@@ -692,31 +685,31 @@
 
   if (ev) {
     // ── Main column ──────────────────────────────
-    const main = el('div', 'event-card-main');
+    var main = el('div', 'event-card-main');
 
-    const top = el('div', 'event-card-top');
-    const status = el('div', 'event-status');
+    var top = el('div', 'event-card-top');
+    var status = el('div', 'event-status');
     status.appendChild(el('div', 'event-status-dot'));
-    const statusText = el('span', 'event-status-text', ev.status);
+    var statusText = el('span', 'event-status-text', ev.status);
     status.appendChild(statusText);
     top.appendChild(status);
 
-    const title = el('h2', 'event-card-title');
+    var title = el('h2', 'event-card-title');
     title.id = 'events-h';
     title.innerHTML = ev.title;
     top.appendChild(title);
 
-    const desc = el('p', 'event-card-desc');
+    var desc = el('p', 'event-card-desc');
     desc.innerHTML = ev.desc;
     top.appendChild(desc);
     main.appendChild(top);
 
-    const bottom = el('div', 'event-card-bottom');
-    const tags = el('div', 'event-card-tags');
+    var bottom = el('div', 'event-card-bottom');
+    var tags = el('div', 'event-card-tags');
     ev.tags.forEach(function(t) { tags.appendChild(el('span', 'event-tag', t)); });
     bottom.appendChild(tags);
 
-    const cta = el('a', 'event-card-cta', ev.ctaText);
+    var cta = el('a', 'event-card-cta', ev.ctaText);
     cta.href = ev.ctaHref;
     cta.target = '_blank';
     cta.rel = 'noopener noreferrer';
@@ -725,14 +718,14 @@
     main.appendChild(bottom);
 
     // ── Panel column ─────────────────────────────
-    const panel = el('div', 'event-card-panel');
-    const details = el('div');
+    var panel = el('div', 'event-card-panel');
+    var details = el('div');
 
     [['When', ev.when], ['Where', ev.where], ['Format', ev.format], ['Speaker', ev.speaker]]
       .forEach(function(pair, i) {
-        const row = el('div', 'event-panel-row');
+        var row = el('div', 'event-panel-row');
         row.appendChild(el('div', 'event-panel-label', pair[0]));
-        const val = el('div', 'event-panel-value tba');
+        var val = el('div', 'event-panel-value tba');
         val.innerHTML = pair[1];
         row.appendChild(val);
         details.appendChild(row);
@@ -741,9 +734,9 @@
 
     panel.appendChild(details);
 
-    const entry = el('div', 'event-panel-entry');
+    var entry = el('div', 'event-panel-entry');
     entry.appendChild(el('div', 'event-panel-label', 'Entry'));
-    const entryVal = el('div', 'event-panel-value event-panel-value--gold');
+    var entryVal = el('div', 'event-panel-value event-panel-value--gold');
     entryVal.innerHTML = ev.entry;
     panel.appendChild(entry);
     entry.appendChild(entryVal);
@@ -756,15 +749,15 @@
 
   } else {
     // ── Empty state ───────────────────────────────
-    const empty = el('div', 'event-empty-state');
-    const icon = el('div', 'event-empty-icon', '◇');
+    var empty = el('div', 'event-empty-state');
+    var icon = el('div', 'event-empty-icon', '◇');
     icon.setAttribute('aria-hidden', 'true');
     empty.appendChild(icon);
     empty.appendChild(el('p', 'event-empty-title', 'Our first event is coming.'));
     empty.appendChild(el('p', 'event-empty-body', 'Details will be announced on Instagram first. Follow us to be the first to know.'));
 
     // Uses REGISTER_URL constant — single source of truth
-    const igCta = el('a', 'event-empty-cta', 'Follow @Meridian.Society →');
+    var igCta = el('a', 'event-empty-cta', 'Follow @Meridian.Society →');
     igCta.href = 'https://www.instagram.com/Meridian.Society';
     igCta.target = '_blank';
     igCta.rel = 'noopener noreferrer';

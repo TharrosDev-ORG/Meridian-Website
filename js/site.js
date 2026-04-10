@@ -102,6 +102,8 @@ var REVEAL_ROOT_MARGIN     = '0px 0px -40px 0px'; /* IO margin for .rv reveal */
   var stickyJoin = document.getElementById('stickyJoin');
   var heroEl     = document.querySelector('.hero');
   var registerEl = document.getElementById('register');
+  var footerGhost    = document.querySelector('.footer-ghost');
+  var reducedMotion  = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   var CIRC = 2 * Math.PI * ARC_RADIUS; // ARC_RADIUS = SVG circle radius (matches r="22" on #arcFill)
   arcFill.style.strokeDasharray  = String(CIRC);
@@ -124,6 +126,10 @@ var REVEAL_ROOT_MARGIN     = '0px 0px -40px 0px'; /* IO margin for .rv reveal */
             heroEl.getBoundingClientRect().bottom < 0 &&
             registerEl.getBoundingClientRect().bottom > 0
           );
+        }
+
+        if (footerGhost && !reducedMotion) {
+          footerGhost.style.transform = 'translateX(-50%) translateY(' + (window.scrollY * 0.03) + 'px)';
         }
 
         ticking = false;

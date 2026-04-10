@@ -290,6 +290,18 @@
      * This block contains only events-specific styles.
      */
 
+    /* ── Ink palette for marquee + footer (matches index.html) ── */
+    :root {
+      --cream-deep:  #DDD0BC;
+      --ink:         #18150F;
+      --ink-90:      rgba(24,21,15,0.90);
+      --ink-75:      rgba(24,21,15,0.75);
+      --ink-55:      rgba(24,21,15,0.55);
+      --ink-30:      rgba(24,21,15,0.30);
+      --ink-15:      rgba(24,21,15,0.15);
+      --ink-08:      rgba(24,21,15,0.08);
+    }
+
     /* EVENT CARD */
     .event-card {
       position: relative; overflow: hidden;
@@ -462,7 +474,69 @@
       .event-panel-divider { margin: 14px 0; }
       .event-empty-state { padding: 48px 24px; }
     }
-    /* marquee — base styles in base.css */
+    /* ── Marquee (matches index.html) ── */
+    @keyframes marqueeScroll {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .marquee-wrap {
+      overflow: hidden; background: var(--ink);
+      padding: 13px 0; position: relative; z-index: 2;
+      display: flex; align-items: center;
+    }
+    .marquee-wrap::before,
+    .marquee-wrap::after {
+      content: ''; position: absolute; top: 0; bottom: 0;
+      width: 80px; z-index: 1; pointer-events: none;
+    }
+    .marquee-wrap::before { left: 0; background: linear-gradient(to right, var(--ink), transparent); }
+    .marquee-wrap::after  { right: 0; background: linear-gradient(to left, var(--ink), transparent); }
+    .marquee-wrap .marquee-track {
+      display: flex; flex-wrap: nowrap; align-items: center;
+      white-space: nowrap; width: max-content;
+      animation: marqueeScroll 32s linear infinite;
+    }
+    .marquee-wrap:hover .marquee-track { animation-play-state: paused; }
+    .m-item {
+      font-family: var(--sans); font-size: 9px; font-weight: 600;
+      letter-spacing: 0.34em; text-transform: uppercase;
+      color: rgba(244,237,227,0.38); padding: 0 24px;
+      flex-shrink: 0; white-space: nowrap; line-height: 1;
+    }
+    .m-gem { color: rgba(212,175,80,0.45); padding: 0 4px; flex-shrink: 0; line-height: 1; }
+
+    /* ── Footer (matches index.html — overrides page.css footer) ── */
+    footer {
+      padding: 60px 0 36px; background: var(--cream-deep);
+      border-top: 1px solid var(--ink-15); position: relative; overflow: hidden;
+    }
+    footer::before {
+      content: 'MERIDIAN'; position: absolute; bottom: -24px; left: 50%; transform: translateX(-50%);
+      font-family: var(--sans); font-size: 160px; font-weight: 700;
+      letter-spacing: 0.3em; white-space: nowrap;
+      color: transparent; -webkit-text-stroke: 1px rgba(24,21,15,0.04);
+      user-select: none; pointer-events: none;
+    }
+    .footer-inner { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 48px; position: relative; z-index: 1; }
+    .footer-wordmark { font-family: var(--sans); font-size: 11px; font-weight: 700; letter-spacing: 0.26em; text-transform: uppercase; color: var(--ink); margin-bottom: 6px; }
+    .footer-tagline { font-family: var(--serif); font-size: 14px; font-style: italic; color: var(--ink-55); }
+    .footer-note { font-family: var(--sans); font-size: 8px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-30); margin-top: 10px; }
+    .footer-links { display: flex; flex-direction: row; gap: 64px; }
+    .footer-col-title { font-family: var(--sans); font-size: 8.5px; font-weight: 700; letter-spacing: 0.28em; text-transform: uppercase; color: var(--ink-30); margin-bottom: 16px; }
+    .footer-col a { display: block; font-family: var(--serif); font-size: 15px; color: var(--ink-75); text-decoration: none; margin-bottom: 8px; transition: color 0.2s, padding-left 0.2s; }
+    .footer-col a:hover { color: var(--ink); padding-left: 4px; }
+    .footer-bottom { max-width: none; margin: 0; padding: 0; padding-top: 24px; display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--ink-08); position: relative; z-index: 1; }
+    .footer-copy { font-family: var(--sans); font-size: 8.5px; font-weight: 400; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-30); }
+
+    @media (max-width: 1100px) {
+      .footer-links { gap: 36px; }
+    }
+    @media (max-width: 700px) {
+      .footer-inner { flex-direction: column; gap: 36px; }
+      .footer-links { gap: 24px; }
+      .footer-bottom { flex-direction: column; align-items: flex-start; gap: 8px; }
+    }
+
     @media (prefers-reduced-motion: reduce) {
       .rv,
       .page-header-eyebrow, .page-header-pre, .page-header-title,
@@ -492,33 +566,31 @@
 </button>
 
 
-<!-- ═══════════ NAV ═══════════ -->
-<nav id="mainNav" aria-label="Main navigation">
+<!-- NAV -->
+<nav id="mainNav" role="navigation" aria-label="Main navigation">
   <div class="nav-inner">
     <a href="/" class="nav-logo" aria-label="The Meridian Society — home">
       <span class="nav-wordmark">The Meridian Society</span>
     </a>
     <ul class="nav-links" role="list">
-      <li><a href="/#about">About the Society</a></li>
+      <li><a href="/#about">About</a></li>
       <li><a href="/events.html" class="nav-active">Events</a></li>
-      <li><a href="/#speaking">Speaking Opportunities</a></li>
-      <li><a href="/#register">Membership Registration</a></li>
-      <li><a href="/#join">Get Involved</a></li>
+      <li><a href="/#speaking">Get Involved</a></li>
+      <li><a href="/#register">Membership</a></li>
     </ul>
-    <a href="#"
-       target="_blank" rel="noopener noreferrer" class="nav-cta" data-register>
+    <a href="#" target="_blank" rel="noopener noreferrer" class="nav-cta" data-register>
       <span>Register</span>
     </a>
-    <p class="noscript-register-note" style="display:none; font-size: 0.85em; margin-top: 0.5rem;">
-      <a href="https://docs.google.com/forms/d/1qThcXHxzfuW4uNVkZbHGhHwlDsy8x-YGtpHpOLnqTl4/viewform" target="_blank" rel="noopener noreferrer">
-        Register directly (JavaScript required for registration button to work)
-      </a>
-    </p>
-    <button class="hamburger" id="burgerBtn" aria-label="Open navigation" aria-expanded="false" aria-controls="mobileMenu">
+    <button class="hamburger" id="burgerBtn"
+            aria-label="Open navigation" aria-expanded="false" aria-controls="mobileMenu">
       <span></span><span></span>
     </button>
   </div>
 </nav>
+<p class="noscript-register-note" style="display:none; font-size:0.85em; margin-top:0.5rem;">
+  <a href="https://docs.google.com/forms/d/1qThcXHxzfuW4uNVkZbHGhHwlDsy8x-YGtpHpOLnqTl4/viewform"
+     target="_blank" rel="noopener noreferrer">Register directly</a>
+</p>
 
 <main id="main-content">
 
@@ -564,8 +636,10 @@
     </div>
   </div>
 
-  <div class="marquee" aria-hidden="true">
-    <div class="marquee-track"></div>
+  <div class="marquee-wrap" aria-hidden="true">
+    <div class="marquee-track" data-static="true">
+      <span class="m-item">The Meridian Society</span><span class="m-gem">◆</span><span class="m-item">Ottawa</span><span class="m-gem">◆</span><span class="m-item">Est. 2025</span><span class="m-gem">◆</span><span class="m-item">Student-Run</span><span class="m-gem">◆</span><span class="m-item">Carleton University</span><span class="m-gem">◆</span><span class="m-item">uOttawa</span><span class="m-gem">◆</span><span class="m-item">Algonquin College</span><span class="m-gem">◆</span><span class="m-item">The Meridian Society</span><span class="m-gem">◆</span><span class="m-item">Ottawa</span><span class="m-gem">◆</span><span class="m-item">Est. 2025</span><span class="m-gem">◆</span><span class="m-item">Student-Run</span><span class="m-gem">◆</span><span class="m-item">Carleton University</span><span class="m-gem">◆</span><span class="m-item">uOttawa</span><span class="m-gem">◆</span><span class="m-item">Algonquin College</span><span class="m-gem">◆</span>
+    </div>
   </div>
 
   <!-- ═══════════ EVENTS SECTION ═══════════ -->
@@ -596,63 +670,34 @@
   </div>
 </aside>
 
-<!-- ═══════════ FOOTER ═══════════ -->
-<footer aria-label="Footer">
-  <div class="footer-top">
-    <div class="footer-coords">
-      <span>45°25'N</span>
-      <div class="footer-coords-dot"></div>
-      <span>75°41'W</span>
-      <div class="footer-coords-dot"></div>
-      <span>Ottawa</span>
-      <div class="footer-coords-dot"></div>
-      <span>Est. 2025</span>
-    </div>
-    <div class="footer-cta-row">
-      <a href="#"
-         target="_blank" rel="noopener noreferrer" class="footer-cta-main" data-register>
-        Register as a Member
-      </a>
-      <a href="https://www.instagram.com/Meridian.Society" target="_blank" rel="noopener noreferrer" class="footer-cta-ig"
-         aria-label="Follow @Meridian.Society on Instagram">
-        @Meridian.Society →
-      </a>
-    </div>
-  </div>
-  <div class="footer-grid">
-    <div>
-      <div class="footer-brand-name">
-        The Meridian Society
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="footer-inner">
+      <div>
+        <div class="footer-wordmark">The Meridian Society</div>
+        <div class="footer-tagline">Ottawa &middot; Est. 2025</div>
+        <div class="footer-note">Operating out of Carleton University</div>
       </div>
-      <p class="footer-brand-desc">A student-run speaker forum dedicated to orienting the curious - bringing together scholars, professionals, and the next generation of leaders.</p>
+      <div class="footer-links">
+        <div class="footer-col">
+          <div class="footer-col-title">Pages</div>
+          <a href="/">Home</a>
+          <a href="/events.html">Events</a>
+          <a href="/team.html">Team</a>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Connect</div>
+          <a href="https://www.instagram.com/Meridian.Society" target="_blank" rel="noopener noreferrer">Instagram</a>
+          <a href="https://linktr.ee/meridiansociety" target="_blank" rel="noopener noreferrer">Linktree</a>
+          <a href="mailto:meridiansocietycanada@gmail.com">Email</a>
+        </div>
+      </div>
     </div>
-    <div>
-      <div class="footer-col-head">Navigate</div>
-      <ul class="footer-links">
-        <li><a href="/#about">About</a></li>
-        <li><a href="/#who">Who We Gather</a></li>
-        <li><a href="/#speaking">Speaking</a></li>
-        <li><a href="/#register">Membership</a></li>
-      </ul>
+    <div class="footer-bottom">
+      <span class="footer-copy">&copy; 2025 The Meridian Society &nbsp;·&nbsp; Independent Student Organization</span>
+      <span class="footer-copy">Carleton &nbsp;·&nbsp; uOttawa &nbsp;·&nbsp; Algonquin College</span>
     </div>
-    <div>
-      <div class="footer-col-head">Connect</div>
-      <ul class="footer-links">
-        <li><a href="https://www.instagram.com/Meridian.Society" target="_blank" rel="noopener noreferrer">Instagram</a></li>
-        <li><a href="mailto:meridiansocietycanada@gmail.com">Email Us</a></li>
-      </ul>
-    </div>
-    <div>
-      <div class="footer-col-head">Join</div>
-      <ul class="footer-links">
-        <li><a href="#" target="_blank" rel="noopener noreferrer" data-register>Register as a Member</a></li>
-        <li><a href="/#speaking">Speaking</a></li>
-      </ul>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <span class="footer-copy">© 2026 The Meridian Society · Ottawa, Canada</span>
-    <span class="footer-meta">Student Run · Est. 2025</span>
   </div>
 </footer>
 <!-- events-data.js moved here from <head> to avoid render-blocking -->

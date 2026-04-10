@@ -610,7 +610,7 @@
     .stat::after {
       content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
       background: var(--gold); transform: scaleX(0); transform-origin: left;
-      transition: transform 0.35s ease;
+      transition: transform 0.4s cubic-bezier(0.16,1,0.3,1);
     }
     .stat:hover { background: rgba(184,147,42,0.04); }
     .stat:hover::after { transform: scaleX(1); }
@@ -871,7 +871,7 @@
       display: flex; align-items: center; gap: 20px;
       padding: 16px 0; border-bottom: 1px solid var(--ink-08);
       cursor: default; position: relative; overflow: hidden;
-      transition: padding-left 0.3s cubic-bezier(0.16,1,0.3,1), border-bottom-color 0.2s;
+      transition: transform 0.3s cubic-bezier(0.16,1,0.3,1), border-bottom-color 0.2s;
     }
     .formats-item:first-child { border-top: 1px solid var(--ink-15); }
     .formats-item::before {
@@ -879,7 +879,7 @@
       background: linear-gradient(to right, rgba(184,147,42,0.05) 0%, transparent 100%);
       transform: translateX(-100%); transition: transform 0.35s cubic-bezier(0.16,1,0.3,1);
     }
-    .formats-item:hover { padding-left: 12px; border-bottom-color: var(--ink-15); }
+    .formats-item:hover { transform: translateX(12px); border-bottom-color: var(--ink-15); }
     .formats-item:hover::before { transform: translateX(0); }
     .formats-num { font-family: var(--sans); font-size: 7.5px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); flex-shrink: 0; position: relative; z-index: 1; transition: letter-spacing 0.3s; }
     .formats-item:hover .formats-num { letter-spacing: 0.28em; }

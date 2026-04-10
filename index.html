@@ -707,8 +707,8 @@
       pointer-events: none;
     }
     .about .wrap { position: relative; z-index: 2; }
-    .about-layout { display: grid; grid-template-columns: 340px 1fr; gap: 0; align-items: center; }
-    .about-left { padding-right: 72px; border-right: 1px solid var(--ink-15); position: sticky; top: 96px; }
+    .about-layout { display: grid; grid-template-columns: 340px 1fr; gap: 0; align-items: stretch; }
+    .about-left { padding-right: 72px; border-right: 1px solid var(--ink-15); position: sticky; top: 96px; display: flex; flex-direction: column; justify-content: center; }
     .about-num {
       font-family: var(--serif); font-size: 96px; font-weight: 300; line-height: 1;
       letter-spacing: -0.04em; color: transparent; -webkit-text-stroke: 1px var(--ink-15);

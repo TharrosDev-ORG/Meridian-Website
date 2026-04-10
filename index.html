@@ -712,9 +712,9 @@
     .about-num {
       font-family: var(--serif); font-size: 96px; font-weight: 300; line-height: 1;
       letter-spacing: -0.04em; color: transparent; -webkit-text-stroke: 1px var(--ink-15);
-      display: block; margin-bottom: 8px; transition: -webkit-text-stroke-color 0.4s;
+      display: block; margin-bottom: 8px; transition: -webkit-text-stroke-color 0.4s, letter-spacing 0.4s cubic-bezier(0.16,1,0.3,1);
     }
-    .about-left:hover .about-num { -webkit-text-stroke-color: rgba(184,147,42,0.25); }
+    .about-left:hover .about-num { -webkit-text-stroke-color: rgba(184,147,42,0.45); letter-spacing: -0.06em; }
     .about-section-label { font-family: var(--sans); font-size: 9px; font-weight: 700; letter-spacing: 0.32em; text-transform: uppercase; color: var(--ink-55); margin-bottom: 20px; }
     .about-title { font-family: var(--serif); font-size: clamp(30px, 3.5vw, 50px); font-weight: 300; line-height: 1.05; color: var(--ink); }
     .about-title em { font-style: italic; color: var(--gold); }
@@ -757,7 +757,7 @@
     .who-item {
       background: var(--cream-mid); padding: 40px 36px;
       position: relative; overflow: hidden; cursor: default;
-      transition: background 0.35s, transform 0.35s cubic-bezier(0.16,1,0.3,1);
+      transition: background 0.35s, transform 0.35s cubic-bezier(0.16,1,0.3,1), box-shadow 0.35s 0.06s;
     }
     .who-item::before {
       content: attr(data-num); position: absolute; bottom: -16px; right: -8px;
@@ -770,7 +770,7 @@
       background: var(--gold); transform: scaleX(0); transform-origin: left;
       transition: transform 0.4s cubic-bezier(0.16,1,0.3,1);
     }
-    .who-item:hover { background: var(--cream); transform: translateY(-3px); box-shadow: 0 8px 40px rgba(24,21,15,0.08); }
+    .who-item:hover { background: var(--cream); transform: translateY(-3px); box-shadow: 0 12px 48px rgba(24,21,15,0.11); transition: background 0.35s, transform 0.35s cubic-bezier(0.16,1,0.3,1), box-shadow 0.25s 0s; }
     .who-item:hover::after { transform: scaleX(1); }
     .who-item:hover::before { -webkit-text-stroke-color: rgba(184,147,42,0.1); }
     .who-num { font-family: var(--sans); font-size: 8px; font-weight: 700; letter-spacing: 0.28em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; transition: letter-spacing 0.3s; }

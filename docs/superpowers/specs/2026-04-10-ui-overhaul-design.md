@@ -158,14 +158,50 @@ Each section uses CSS pseudo-elements for layered depth (no image files):
 
 - Vanilla HTML5 / CSS / JS — no frameworks
 - Fonts: Google Fonts (Cormorant Garamond + Barlow Condensed)
-- Three.js globe (current hero) removed in favour of pure CSS hero
+- Three.js globe (current hero) removed in favour of pure CSS hero with ghost letterform + parallax
 - Build: `npm` with `csso-cli` (CSS min) and `terser` (JS min)
 - Hosting: Vercel, auto-deploy on git push
 - No new pages — homepage, events, team pages only (events and team redesigns TBD)
 
 ---
 
-## 9. Out of Scope
+## 9. Functionality to Preserve (from current site)
+
+All items below must be carried into the new build. Visual styling updated to match the new cream/ink/gold theme.
+
+### Interactive
+- **Arc back-to-top button** — fixed bottom-right, circular SVG progress ring showing scroll depth, appears after 200px scroll. Restyled: cream-mid background, ink border, gold progress arc, ink arrow. On hover: ink fill, cream arrow.
+- **Instagram CTA in hero** — square icon button in the hero actions row. Restyled: ink border, ink SVG, gold fill-from-left on hover.
+- **Sticky register CTA** — floating pill button that appears on mobile as user scrolls past the hero. Restyled to ink background, gold text, gold fill on hover.
+- **"Who We Gather" accordion** — expandable rows per member type with `aria-expanded` / `role="button"` / keyboard support.
+- **Live member count** — fetched from Google Apps Script endpoint; displayed in stats bar. Falls back to `—` on error.
+
+### SEO / Head
+All of the following must be carried verbatim (updating content where relevant) into the new `index.html`:
+- `<title>`, `<meta name="description">`, `<meta name="keywords">`
+- Geo meta tags (`geo.region`, `geo.placename`, `geo.position`, `ICBM`)
+- `<link rel="canonical">` + `hreflang` (`en-CA` + `x-default`)
+- Open Graph tags (type, url, title, description, image, image dimensions, site_name, locale)
+- Twitter Card tags
+- Favicon set (SVG, 48/32/16px PNG, ICO, Apple touch icon)
+- JSON-LD structured data blocks (all 7 from current site):
+  - WebPage with `speakable` selectors
+  - EducationalOrganization
+  - Event (inaugural Fall 2026)
+  - WebSite with SearchAction
+  - BreadcrumbList
+  - FAQPage (7 Q&A entries)
+  - EventSeries
+- Update `speakable` CSS selectors to match new section IDs
+
+### Accessibility
+- `prefers-reduced-motion` media query — disables all `.rv` transitions and hero animations globally
+- All interactive elements retain `aria-label`, `role`, `tabindex` as appropriate
+- Skip link preserved
+
+---
+
+## 10. Out of Scope
 
 - Events page redesign (separate spec)
 - Team page redesign (separate spec)

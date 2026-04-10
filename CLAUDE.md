@@ -1,6 +1,6 @@
 # Meridian Website
 
-Static website for The Meridian Society — a student-run speaker forum serving Carleton University, uOttawa, and Algonquin College students in Ottawa, Canada.
+Static website for The Meridian Society â€” a student-run speaker forum serving Carleton University, uOttawa, and Algonquin College students in Ottawa, Canada.
 
 Live site: `meridiansociety.ca`
 GitHub remote: `https://github.com/meridiansociety/Meridian-Website.git`
@@ -9,8 +9,8 @@ GitHub remote: `https://github.com/meridiansociety/Meridian-Website.git`
 
 ## Stack
 
-- HTML5, embedded CSS, vanilla JavaScript — no frameworks
-- **Build step**: `npm run build` minifies CSS (csso) and JS (terser) → `.min.css` / `.min.js` files. HTML pages reference the minified versions.
+- HTML5, embedded CSS, vanilla JavaScript â€” no frameworks
+- **Build step**: `npm run build` minifies CSS (csso) and JS (terser) â†’ `.min.css` / `.min.js` files. HTML pages reference the minified versions.
 - Deployed on Vercel; `vercel.json` runs `npm install && npm run build` before serving
 - Google Fonts: **Cormorant Garamond** (serif), **Barlow Condensed** (sans-serif)
 - Font loading: preload critical weights (`wght@300;400`) + deferred `media="print" onload="this.media='all'"` + `<noscript>` fallback
@@ -20,9 +20,9 @@ GitHub remote: `https://github.com/meridiansociety/Meridian-Website.git`
 ## File Structure
 
 ```
-index.html            # Homepage — hero, globe, about, events teaser, membership, join strip
-events.html           # Events listing — driven by js/events-data.js
-team.html             # Team member profiles — Magnus Abdelnour, Colin Sherwood
+index.html            # Homepage â€” hero, globe, about, events teaser, membership, join strip
+events.html           # Events listing â€” driven by js/events-data.js
+team.html             # Team member profiles â€” Magnus Abdelnour, Colin Sherwood
 404.html              # Custom error page
 _headers              # Vercel HTTP headers (caching + security policy)
 vercel.json           # Vercel build command config
@@ -32,31 +32,31 @@ robots.txt            # SEO + AI crawler directives (do not modify AI blocks)
 sitemap.xml           # XML sitemap
 site.webmanifest      # PWA manifest
 css/
-  base.css            # Reset, :root tokens (legacy dark theme), body, arc-btn, keyframes — source
-  nav.css             # Nav bar, hamburger, mobile drawer — source
-  page.css            # LEGACY — page header, explore-strip, dark footer (no longer loaded by events/team)
-  base.min.css        # Minified — served by all pages
-  nav.min.css         # Minified — served by all pages
-  page.min.css        # Minified — LEGACY, only served by 404.html if applicable
+  base.css            # Reset, :root tokens (legacy dark theme), body, arc-btn, keyframes â€” source
+  nav.css             # Nav bar, hamburger, mobile drawer â€” source
+  page.css            # LEGACY â€” page header, explore-strip, dark footer (no longer loaded by events/team)
+  base.min.css        # Minified â€” served by all pages
+  nav.min.css         # Minified â€” served by all pages
+  page.min.css        # Minified â€” LEGACY, only served by 404.html if applicable
 js/
-  site.js             # Shared JS — source (see JS Architecture below)
-  events-data.js      # EVENTS array — source; edit here to add/change events
-  site.min.js         # Minified — served by all pages
-  events-data.min.js  # Minified — served by events.html
+  site.js             # Shared JS â€” source (see JS Architecture below)
+  events-data.js      # EVENTS array â€” source; edit here to add/change events
+  site.min.js         # Minified â€” served by all pages
+  events-data.min.js  # Minified â€” served by events.html
 assets/
   images/
-    og-image.png      # Open Graph image (1200×630)
+    og-image.png      # Open Graph image (1200Ã—630)
     team/
-      magnus.webp     # Magnus Abdelnour photo (96×120px display, ~3 KB)
-      colin.webp      # Colin Sherwood photo (96×120px display, ~2.6 KB)
+      magnus.webp     # Magnus Abdelnour photo (96Ã—120px display, ~3 KB)
+      colin.webp      # Colin Sherwood photo (96Ã—120px display, ~2.6 KB)
   favicons/           # Full favicon set (SVG, PNG 48/32/16, ICO, Apple touch)
 ```
 
 > **Always edit source files** (`base.css`, `site.js`, etc.), then run `npm run build` to regenerate the `.min` files. Never edit `.min` files directly.
 >
-> **Caching**: `/assets/*` → `Cache-Control: public, max-age=31536000, immutable` (1 year).
+> **Caching**: `/assets/*` â†’ `Cache-Control: public, max-age=31536000, immutable` (1 year).
 > `/css/` and `/js/` are NOT under `/assets/`, so edits are immediately visible after deploy.
-> Never move CSS/JS files into `/assets/` — they would be uncacheable without filename hashing.
+> Never move CSS/JS files into `/assets/` â€” they would be uncacheable without filename hashing.
 
 ---
 
@@ -105,51 +105,51 @@ The legacy tokens (`--black: #F0EBE3`, `--cream: #111111`, `--surface`, `--gold-
 
 ## CSS Architecture
 
-### `css/base.css` — loaded by ALL pages
+### `css/base.css` â€” loaded by ALL pages
 - `*, *::before, *::after` reset
 - `:root` design tokens (listed above)
 - `html` + `body` base styles
 - `:focus-visible` gold outline
-- `.skip-link` (accessibility, top:-100px → top:8px on focus)
-- `.progress` — fixed 1px top scroll bar, gold gradient
-- `.arc-btn`, `.arc-track`, `.arc-fill`, `.arc-inner`, `.arc-icon` — circular back-to-top button, bottom-right, hidden until `scrollY > 200`
-- `@keyframes riseIn` — `translateY(16px) → 0`, used by page-header entrances
-- `@keyframes shimmer` — gold sweep on page-header title (**do not re-declare in page `<style>` blocks**)
-- `@keyframes livePulse` — event status dot pulse (**do not re-declare in page `<style>` blocks**)
-- `@keyframes orbitRing` — globe orbit ring on index.html
-- `prefers-reduced-motion` — disables all animation/transition globally
+- `.skip-link` (accessibility, top:-100px â†’ top:8px on focus)
+- `.progress` â€” fixed 1px top scroll bar, gold gradient
+- `.arc-btn`, `.arc-track`, `.arc-fill`, `.arc-inner`, `.arc-icon` â€” circular back-to-top button, bottom-right, hidden until `scrollY > 200`
+- `@keyframes riseIn` â€” `translateY(16px) â†’ 0`, used by page-header entrances
+- `@keyframes shimmer` â€” gold sweep on page-header title (**do not re-declare in page `<style>` blocks**)
+- `@keyframes livePulse` â€” event status dot pulse (**do not re-declare in page `<style>` blocks**)
+- `@keyframes orbitRing` â€” globe orbit ring on index.html
+- `prefers-reduced-motion` â€” disables all animation/transition globally
 - Mobile base: tap highlight + touch-action
 
-### `css/nav.css` — loaded by ALL pages
-- `nav` — fixed, z-index 200, height 68px, dark glassmorphism background always active (`rgba(10,10,10,0.95)` + `blur(24px)`). Scopes `--cream`, `--cream-70`, `--cream-45`, `--cream-20`, `--black` back to dark-theme values so nav text is always legible against the dark bar regardless of page theme.
-- `nav.scrolled` — darkens to `rgba(8,8,8,0.98)` + gold border + shadow; triggers at `scrollY > 40`
-- `.nav-inner` — max-width 1440px, padding `0 52px`
-- `.nav-logo` / `.nav-wordmark` — 3D tilt on hover (`perspective rotateX/Y`)
-- `.nav-links a` — gold underline extends on hover/active; `.nav-active` = gold text
-- `.nav-cta` — gold border button with slide-fill hover; `[data-register]` href set by site.js
-- `.hamburger` — 2-bar, hidden on desktop; open state rotates to X
-- `.mob-backdrop` — full-screen blur overlay, z-index 190
-- `.mob-drawer` — 280px right drawer, z-index 191, translateX(100%) → 0
+### `css/nav.css` â€” loaded by ALL pages
+- `nav` â€” fixed, z-index 200, height 68px, dark glassmorphism background always active (`rgba(10,10,10,0.95)` + `blur(24px)`). Scopes `--cream`, `--cream-70`, `--cream-45`, `--cream-20`, `--black` back to dark-theme values so nav text is always legible against the dark bar regardless of page theme.
+- `nav.scrolled` â€” darkens to `rgba(8,8,8,0.98)` + gold border + shadow; triggers at `scrollY > 40`
+- `.nav-inner` â€” max-width 1440px, padding `0 52px`
+- `.nav-logo` / `.nav-wordmark` â€” 3D tilt on hover (`perspective rotateX/Y`)
+- `.nav-links a` â€” gold underline extends on hover/active; `.nav-active` = gold text
+- `.nav-cta` â€” gold border button with slide-fill hover; `[data-register]` href set by site.js
+- `.hamburger` â€” 2-bar, hidden on desktop; open state rotates to X
+- `.mob-backdrop` â€” full-screen blur overlay, z-index 190
+- `.mob-drawer` â€” 280px right drawer, z-index 191, translateX(100%) â†’ 0
 - `.mob-wordmark`, `.mob-links`, `.mob-arrow`, `.mob-bottom`, `.mob-meta`, `.mob-cta`
-- Mobile breakpoint (≤700px): hide `.nav-links`/`.nav-cta`, show `.hamburger`
+- Mobile breakpoint (â‰¤700px): hide `.nav-links`/`.nav-cta`, show `.hamburger`
 
-### `css/page.css` — LEGACY, no longer loaded by events.html or team.html
+### `css/page.css` â€” LEGACY, no longer loaded by events.html or team.html
 Contains the old dark-theme page header (`.page-header`), explore strip, and footer. Kept for reference only. All active subpages now use inline `<style>` blocks with the cream/ink palette.
 
 ### Page-specific `<style>` blocks
-Each HTML file embeds a `<style>` block containing the full cream/ink `:root` palette, body override, nav cream override, page-specific components, shared utils (`.wrap`, `.sec-label`, `.text-link`, `.rv`), marquee, footer, responsive breakpoints, reduced-motion, and print media queries. Each page is self-contained — no dependency on `page.css`.
+Each HTML file embeds a `<style>` block containing the full cream/ink `:root` palette, body override, nav cream override, page-specific components, shared utils (`.wrap`, `.sec-label`, `.text-link`, `.rv`), marquee, footer, responsive breakpoints, reduced-motion, and print media queries. Each page is self-contained â€” no dependency on `page.css`.
 
 **index.html** (base + nav only):
 - Full cream/ink `:root` palette (source of truth for all pages)
-- `.sticky-join` — sticky register CTA bar
+- `.sticky-join` â€” sticky register CTA bar
 - Hero section: `.hero` (94vh), `.hero-eyebrow`, `.hero-pre`, `.hero-title`, `.hero-sub`, `.hero-hr`, `.hero-actions`, `.hero-stats`, `.hero-ig-btn`, ghost M letter
-- `.btn-primary` — ink bg button with gold slide-reveal on hover
-- `.btn-ghost-link` — italic serif link with arrow
-- `.marquee-wrap`, `.m-item`, `.m-gem` — dark ticker bar below hero. Content from `site.js` (`MARQUEE_TEXT`)
-- `.wrap` — `max-width: 1280px; padding: 0 64px`
-- `.rv` — scroll reveal with `data-d` delay attributes
-- `.sec-label` — section label with trailing rule
-- `.text-link` — uppercase link with underline
+- `.btn-primary` â€” ink bg button with gold slide-reveal on hover
+- `.btn-ghost-link` â€” italic serif link with arrow
+- `.marquee-wrap`, `.m-item`, `.m-gem` â€” dark ticker bar below hero. Content from `site.js` (`MARQUEE_TEXT`)
+- `.wrap` â€” `max-width: 1280px; padding: 0 64px`
+- `.rv` â€” scroll reveal with `data-d` delay attributes
+- `.sec-label` â€” section label with trailing rule
+- `.text-link` â€” uppercase link with underline
 - About, who, event teaser, "not", speaking, membership, join-strip sections
 - **Event card** (shared with events.html): `.event-card`, `.event-main`, `.event-status`, `.event-dot`, `.event-title`, `.event-desc`, `.event-tags`/`.event-tag`, `.event-meta`, `.event-meta-row`, `.meta-lbl`, `.meta-val`
 - Events section: `.events` (cream-deep bg, corner ornaments), `.events-header`, `.events-title`
@@ -158,10 +158,10 @@ Each HTML file embeds a `<style>` block containing the full cream/ink `:root` pa
 **events.html** (base + nav only):
 - Full cream/ink `:root` palette (matches index.html)
 - Nav cream override, body override, arc button cream override
-- `.page-hero` — subpage hero (60vh, cream bg, radial gradients, grain overlay). Contains `.hero-eyebrow`, `.hero-pre`, `.hero-title`, `.hero-hr`, `.hero-sub`, `.hero-actions`
-- `.btn-primary`, `.btn-ghost-link` — same as index.html
-- `.marquee-wrap`, `.m-item`, `.m-gem` — dark ticker bar (static `data-static="true"`)
-- `.events-sec` — events section (cream-deep bg, corner ornaments via ::before/::after), `.events-header`, `.events-title`
+- `.page-hero` â€” subpage hero (60vh, cream bg, radial gradients, grain overlay). Contains `.hero-eyebrow`, `.hero-pre`, `.hero-title`, `.hero-hr`, `.hero-sub`, `.hero-actions`
+- `.btn-primary`, `.btn-ghost-link` â€” same as index.html
+- `.marquee-wrap`, `.m-item`, `.m-gem` â€” dark ticker bar (static `data-static="true"`)
+- `.events-sec` â€” events section (cream-deep bg, corner ornaments via ::before/::after), `.events-header`, `.events-title`
 - **Event card** (identical to index.html): `.event-card`, `.event-main`, `.event-status`, `.event-dot`, `.event-title`, `.event-desc`, `.event-tags`/`.event-tag`, `.event-meta`, `.event-meta-row`, `.meta-lbl`, `.meta-val`
 - Empty state: `.event-empty-state`, `.event-empty-icon`, `.event-empty-title`, `.event-empty-body`, `.event-empty-cta`
 - Shared utils, footer, responsive (1100px/700px), reduced-motion, print
@@ -169,11 +169,11 @@ Each HTML file embeds a `<style>` block containing the full cream/ink `:root` pa
 **team.html** (base + nav only):
 - Full cream/ink `:root` palette (matches index.html)
 - Nav cream override, body override, arc button cream override
-- `.page-hero` — same subpage hero as events.html
-- `.btn-ghost-link` — same as index.html
-- `.marquee-wrap`, `.m-item`, `.m-gem` — dark ticker bar (static)
-- `.team-sec` — team section (cream-deep bg, corner ornaments), `.team-header`, `.team-title`
-- Member grid: `.member-grid` (3-col → 2-col → 1-col)
+- `.page-hero` â€” same subpage hero as events.html
+- `.btn-ghost-link` â€” same as index.html
+- `.marquee-wrap`, `.m-item`, `.m-gem` â€” dark ticker bar (static)
+- `.team-sec` â€” team section (cream-deep bg, corner ornaments), `.team-header`, `.team-title`
+- Member grid: `.member-grid` (3-col â†’ 2-col â†’ 1-col)
 - Member card (cream theme): `.member-card` (cream bg, ink-15 border, box-shadow, hover lift), `.member-photo-wrap`, `.member-photo`, `.member-body`, `.member-header`, `.member-name` (ink color), `.member-role` (gold), `.member-studies` (ink-55, ink-15 left border), `.member-bio` (ink-75), `.member-social` (ink-15 borders, ink hover)
 - Placeholder: `.member-card--placeholder` (dashed ink-15 border), `.placeholder-icon`, `.placeholder-text`, `.placeholder-sub`
 - Shared utils, footer, responsive (1100px/700px), reduced-motion, print
@@ -182,36 +182,36 @@ Each HTML file embeds a `<style>` block containing the full cream/ink `:root` pa
 
 ## JS Architecture
 
-### `js/site.js` — loaded by ALL pages
+### `js/site.js` â€” loaded by ALL pages
 All using `var` (not `const/let`) for broadest compatibility. Execution order:
 
-0. **`buildMobileMenu()` IIFE** — runs immediately on script load, before any `getElementById` calls. Injects the mobile drawer HTML (`#menuBackdrop` + `#mobileMenu`) into `document.body` based on `window.location.pathname`. Per-page differences: index uses `#about`/`#speaking` etc. (no slash); team uses `/team.html` as the 5th link; others use `/#about` etc. Also re-populates `data-register` hrefs and binds click-to-close listeners on the injected links. **Do not add mobile drawer HTML to the HTML files** — it is always injected here.
+0. **`buildMobileMenu()` IIFE** â€” runs immediately on script load, before any `getElementById` calls. Injects the mobile drawer HTML (`#menuBackdrop` + `#mobileMenu`) into `document.body` based on `window.location.pathname`. Per-page differences: index uses `#about`/`#speaking` etc. (no slash); team uses `/team.html` as the 5th link; others use `/#about` etc. Also re-populates `data-register` hrefs and binds click-to-close listeners on the injected links. **Do not add mobile drawer HTML to the HTML files** â€” it is always injected here.
 
-1. **Register URL** — `var REGISTER_URL = 'https://docs.google.com/forms/...'`; sets `href` on all `a[data-register]` elements. To change the registration link, update this one constant.
+1. **Register URL** â€” `var REGISTER_URL = 'https://docs.google.com/forms/...'`; sets `href` on all `a[data-register]` elements. To change the registration link, update this one constant.
 
-1b. **Marquee text** — `var MARQUEE_TEXT`; populates all `.marquee-track` elements on every page. Edit here to update the ticker sitewide.
+1b. **Marquee text** â€” `var MARQUEE_TEXT`; populates all `.marquee-track` elements on every page. Edit here to update the ticker sitewide.
 
-2. **Named constants** — scroll/swipe/reveal thresholds:
-   - `SCROLL_NAV_THRESHOLD = 40` — nav gets `.scrolled` class
-   - `SCROLL_ARC_THRESHOLD = 200` — arc back-to-top button appears
-   - `ARC_RADIUS = 22` — SVG circle radius
-   - `SWIPE_CLOSE_THRESHOLD = 72` — swipe distance to close mobile drawer
-   - `REVEAL_ROOT_MARGIN = '0px 0px -40px 0px'` — IntersectionObserver margin
+2. **Named constants** â€” scroll/swipe/reveal thresholds:
+   - `SCROLL_NAV_THRESHOLD = 40` â€” nav gets `.scrolled` class
+   - `SCROLL_ARC_THRESHOLD = 200` â€” arc back-to-top button appears
+   - `ARC_RADIUS = 22` â€” SVG circle radius
+   - `SWIPE_CLOSE_THRESHOLD = 72` â€” swipe distance to close mobile drawer
+   - `REVEAL_ROOT_MARGIN = '0px 0px -40px 0px'` â€” IntersectionObserver margin
 
-3. **Scroll handler** — RAF-batched single scroll listener. Drives:
+3. **Scroll handler** â€” RAF-batched single scroll listener. Drives:
    - `nav.scrolled` class at `scrollY > SCROLL_NAV_THRESHOLD`
    - `.progress` bar width
    - `#arcFill` stroke-dashoffset (scroll progress ring)
    - `.arc-btn.visible` at `scrollY > SCROLL_ARC_THRESHOLD`
-   - `#stickyJoin.visible` (null-checked — only activates on index.html where element exists)
+   - `#stickyJoin.visible` (null-checked â€” only activates on index.html where element exists)
 
-4. **Scroll reveal** — `IntersectionObserver` on all `.rv` elements; adds `.on` class once, then unobserves. Threshold: 0.01, rootMargin: `REVEAL_ROOT_MARGIN`.
+4. **Scroll reveal** â€” `IntersectionObserver` on all `.rv` elements; adds `.on` class once, then unobserves. Threshold: 0.01, rootMargin: `REVEAL_ROOT_MARGIN`.
 
-5. **Mobile menu** — `openMenu()` / `closeMenu()`. Manages `.open` classes on `#mobileMenu`, `#menuBackdrop`, `#burgerBtn`. No inline `onclick` handlers — click-to-close is bound by `buildMobileMenu()`.
+5. **Mobile menu** â€” `openMenu()` / `closeMenu()`. Manages `.open` classes on `#mobileMenu`, `#menuBackdrop`, `#burgerBtn`. No inline `onclick` handlers â€” click-to-close is bound by `buildMobileMenu()`.
 
-6. **Pull-to-dismiss** — touchstart/touchmove/touchend/touchcancel on `#mobileMenu`. Visual drag feedback during swipe; swipe > `SWIPE_CLOSE_THRESHOLD` triggers `closeMenu()`.
+6. **Pull-to-dismiss** â€” touchstart/touchmove/touchend/touchcancel on `#mobileMenu`. Visual drag feedback during swipe; swipe > `SWIPE_CLOSE_THRESHOLD` triggers `closeMenu()`.
 
-### `js/events-data.js` — loaded by events.html + index.html
+### `js/events-data.js` â€” loaded by events.html + index.html
 ```js
 const EVENTS = [
   {
@@ -237,20 +237,20 @@ The events.html render script uses `EVENTS.find(e => e.isCurrent)`. If none foun
 
 **index.html** inline script contains:
 1. Active nav link detection (compares `location.pathname`)
-2. "Who" section accordion (expand/collapse blocks) — `.who-row` elements have `role="button"`, `tabindex="0"`, `aria-expanded`, and `aria-label` describing the category
-3. Member count fetch from Google Apps Script endpoint — on error, shows `—` (em dash) and logs a warning
-4. Three.js globe initialization (`#globeCanvas`) — loaded **conditionally** via an inline script: only on viewports ≥ 1024px with `deviceMemory ≥ 2` (or undefined). `initGlobe()` is called via `s.onload` after dynamic injection.
+2. "Who" section accordion (expand/collapse blocks) â€” `.who-row` elements have `role="button"`, `tabindex="0"`, `aria-expanded`, and `aria-label` describing the category
+3. Member count fetch from Google Apps Script endpoint â€” on error, shows `â€”` (em dash) and logs a warning
+4. Three.js globe initialization (`#globeCanvas`) â€” loaded **conditionally** via an inline script: only on viewports â‰¥ 1024px with `deviceMemory â‰¥ 2` (or undefined). `initGlobe()` is called via `s.onload` after dynamic injection.
 
 **events.html** inline script contains:
 - Event card DOM builder (creates card or empty-state from `EVENTS` data; runs after `events-data.js`). Uses `var` throughout. Builds the same card structure as index.html: `.event-card` > `.event-main` (`.event-status`/`.event-dot`, `.event-title`, `.event-desc`, `.event-tags`) + `.event-meta` (`.event-meta-row` > `.meta-lbl` + `.meta-val`).
 
-**team.html**: No inline script — entirely handled by `site.js`.
+**team.html**: No inline script â€” entirely handled by `site.js`.
 
 ---
 
 ## HTML Shared Patterns
 
-Every page uses the same nav and arc button in HTML. The mobile drawer is **not** in the HTML — it is injected at runtime by `buildMobileMenu()` in `site.js`.
+Every page uses the same nav and arc button in HTML. The mobile drawer is **not** in the HTML â€” it is injected at runtime by `buildMobileMenu()` in `site.js`.
 
 ```html
 <!-- Nav -->
@@ -272,10 +272,10 @@ Every page uses the same nav and arc button in HTML. The mobile drawer is **not*
     <circle class="arc-track" cx="26" cy="26" r="22"/>
     <circle class="arc-fill" id="arcFill" cx="26" cy="26" r="22"/>
   </svg>
-  <div class="arc-inner"><span class="arc-icon">↑</span></div>
+  <div class="arc-inner"><span class="arc-icon">â†‘</span></div>
 </button>
 
-<!-- Mobile drawer is injected by buildMobileMenu() in site.js — do NOT add it here -->
+<!-- Mobile drawer is injected by buildMobileMenu() in site.js â€” do NOT add it here -->
 ```
 
 ### Subpage hero (events.html + team.html)
@@ -317,7 +317,7 @@ Every page uses the same nav and arc button in HTML. The mobile drawer is **not*
 
 Sections with `.events-sec` or `.team-sec` use `cream-deep` background with corner ornaments (::before top-right, ::after bottom-left). Content wrapped in `.wrap`. Header is `.events-header`/`.team-header` with title + `.text-link`.
 
-Registration links use `data-register` attribute — `site.js` sets `href` from `REGISTER_URL` on load. Use `href="#"` as placeholder. A `<noscript>` fallback `<p class="noscript-register-note">` with the direct Google Form link is placed after the first `data-register` link on each page.
+Registration links use `data-register` attribute â€” `site.js` sets `href` from `REGISTER_URL` on load. Use `href="#"` as placeholder. A `<noscript>` fallback `<p class="noscript-register-note">` with the direct Google Form link is placed after the first `data-register` link on each page.
 
 ```html
 <a href="#" data-register class="nav-cta"><span>Register</span></a>
@@ -340,13 +340,13 @@ Update `<meta name="keywords">`, JSON-LD `dateModified`, and all title/descripti
 
 ---
 
-## Events — How to Edit
+## Events â€” How to Edit
 
 Edit `js/events-data.js`. The render script in events.html reads this file automatically.
 
 - Only one event object should have `isCurrent: true` at a time
 - `title`, `desc`, `where`, `format`, `entry` fields support inline HTML
-- The `ctaHref` on the event object is set as the `href`, but `site.js` also overrides it via `[data-register]` — so the CTA will always point to `REGISTER_URL`
+- The `ctaHref` on the event object is set as the `href`, but `site.js` also overrides it via `[data-register]` â€” so the CTA will always point to `REGISTER_URL`
 - To show an upcoming event as "coming soon", add it with `isCurrent: false` (it won't render yet)
 
 After editing, run `npm run build` to regenerate `js/events-data.min.js`.
@@ -355,7 +355,7 @@ After editing, run `npm run build` to regenerate `js/events-data.min.js`.
 
 ## Team Photos
 
-- Format: WebP, ID-card proportions (96×120px display, can be larger source)
+- Format: WebP, ID-card proportions (96Ã—120px display, can be larger source)
 - Target size: < 10 KB per image (current: magnus.webp ~3 KB, colin.webp ~2.6 KB)
 - Location: `assets/images/team/<name>.webp`
 - Referenced in `team.html` `<img src="/assets/images/team/...">` and JSON-LD
@@ -364,13 +364,13 @@ After editing, run `npm run build` to regenerate `js/events-data.min.js`.
 
 ## Deployment
 
-Push to `main` → Vercel auto-deploys. `vercel.json` runs `npm install && npm run build` first, generating the `.min` files that the HTML pages reference.
+Push to `main` â†’ Vercel auto-deploys. `vercel.json` runs `npm install && npm run build` first, generating the `.min` files that the HTML pages reference.
 
 The `_headers` file sets:
-- `/assets/*` → 1-year immutable cache
-- `/css/*.min.css` and `/js/*.min.js` → 24-hour browser cache, 1-year CDN cache
-- Security headers (CSP, X-Frame-Options, etc.) — **do not modify without explicit instruction**
-- CSP `script-src` does **not** include `'unsafe-inline'` — no inline event handlers allowed
+- `/assets/*` â†’ 1-year immutable cache
+- `/css/*.min.css` and `/js/*.min.js` â†’ 24-hour browser cache, 1-year CDN cache
+- Security headers (CSP, X-Frame-Options, etc.) â€” **do not modify without explicit instruction**
+- CSP `script-src` does **not** include `'unsafe-inline'` â€” no inline event handlers allowed
 
 Current CSP `connect-src` allows: `self`, `script.google.com`, `script.googleusercontent.com` (member count API), `cdn.jsdelivr.net` (globe TopoJSON), `vitals.vercel-insights.com` (Vercel Analytics).
 
@@ -378,13 +378,13 @@ Current CSP `connect-src` allows: `self`, `script.google.com`, `script.googleuse
 
 ## What to Avoid
 
-- **No new CSS files.** Page-specific styles go in each HTML file's `<style>` block. `page.css` is legacy — do not add it back to events.html or team.html.
-- **Do not move CSS/JS into `/assets/`** — they will be cached immutably and edits will be invisible.
+- **No new CSS files.** Page-specific styles go in each HTML file's `<style>` block. `page.css` is legacy â€” do not add it back to events.html or team.html.
+- **Do not move CSS/JS into `/assets/`** â€” they will be cached immutably and edits will be invisible.
 - **Do not modify `robots.txt` AI-crawler blocks** or `_headers` security policy without explicit instruction.
-- **Do not add `const`/`let` to `site.js`** — it uses `var` intentionally for compatibility. `events-data.js` may use `const` since it is not inline.
-- **Do not hardcode the registration URL** in HTML — use `href="#" data-register` on links; `site.js` fills the href from `REGISTER_URL`. Exception: the `<noscript>` fallback `<a>` inside `.noscript-register-note` paragraphs.
-- **Do not add mobile drawer HTML to the HTML files** — it is injected by `buildMobileMenu()` in `site.js`.
-- **Do not add inline `onclick` handlers** — CSP blocks them. Use event listeners in `site.js`.
-- **Do not edit the index.html design** — it is the source of truth. When overhauling subpages, copy patterns from index.html.
-- **Event card structure must match** between index.html and events.html — same class names (`.event-card`, `.event-main`, `.event-status`, `.event-dot`, `.event-title`, `.event-desc`, `.event-tags`, `.event-tag`, `.event-meta`, `.event-meta-row`, `.meta-lbl`, `.meta-val`).
+- **Do not add `const`/`let` to `site.js`** â€” it uses `var` intentionally for compatibility. `events-data.js` may use `const` since it is not inline.
+- **Do not hardcode the registration URL** in HTML â€” use `href="#" data-register` on links; `site.js` fills the href from `REGISTER_URL`. Exception: the `<noscript>` fallback `<a>` inside `.noscript-register-note` paragraphs.
+- **Do not add mobile drawer HTML to the HTML files** â€” it is injected by `buildMobileMenu()` in `site.js`.
+- **Do not add inline `onclick` handlers** â€” CSP blocks them. Use event listeners in `site.js`.
+- **Do not edit the index.html design** â€” it is the source of truth. When overhauling subpages, copy patterns from index.html.
+- **Event card structure must match** between index.html and events.html â€” same class names (`.event-card`, `.event-main`, `.event-status`, `.event-dot`, `.event-title`, `.event-desc`, `.event-tags`, `.event-tag`, `.event-meta`, `.event-meta-row`, `.meta-lbl`, `.meta-val`).
 - **Always run `npm run build`** after editing any source CSS or JS file so the `.min` files stay in sync.

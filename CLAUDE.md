@@ -32,12 +32,12 @@ robots.txt            # SEO + AI crawler directives (do not modify AI blocks)
 sitemap.xml           # XML sitemap
 site.webmanifest      # PWA manifest
 css/
-  base.css            # Reset, :root tokens, body, arc-btn, keyframes — source
+  base.css            # Reset, :root tokens (legacy dark theme), body, arc-btn, keyframes — source
   nav.css             # Nav bar, hamburger, mobile drawer — source
-  page.css            # Page header, layout utilities, footer — source
+  page.css            # LEGACY — page header, explore-strip, dark footer (no longer loaded by events/team)
   base.min.css        # Minified — served by all pages
   nav.min.css         # Minified — served by all pages
-  page.min.css        # Minified — served by events + team
+  page.min.css        # Minified — LEGACY, only served by 404.html if applicable
 js/
   site.js             # Shared JS — source (see JS Architecture below)
   events-data.js      # EVENTS array — source; edit here to add/change events
@@ -60,31 +60,46 @@ assets/
 
 ---
 
-## Design Tokens (`:root` in `css/base.css`)
+## Design Tokens
+
+The site uses **two token systems**: a legacy set in `css/base.css` (with confusing inverted names) and a **new cream/ink palette** used by `index.html`, `events.html`, and `team.html` in their inline `<style>` blocks. The new palette is the source of truth for all active pages.
+
+### New cream/ink palette (inline `:root` in index.html, events.html, team.html)
 
 ```css
---black:        #F0EBE3      /* page background — warm cream (variable name is legacy) */
---dark:         #0d0d0d
---surface:      #111111      /* card / footer / explore-strip background */
---surface2:     #161616
---gold:         #d4af50      /* primary accent */
---gold-light:   #e8cc7a
---gold-pale:    #f0dfa0
---gold-dim:     rgba(212,175,80,0.15)
---gold-border:  rgba(212,175,80,0.38)   /* standard border */
---gold-border2: rgba(212,175,80,0.60)   /* stronger border */
---gold-bw:      1.5px                   /* gold border width token */
---cream:        #111111      /* primary text — dark (variable name is legacy) */
---cream-70:     rgba(17,17,17,0.90)
---cream-45:     rgba(17,17,17,0.82)     /* secondary text */
---cream-20:     rgba(17,17,17,0.70)     /* muted text */
---grey:         #2a2a2a
---grey2:        #1a1a1a
---serif:        'Cormorant Garamond', Georgia, serif
---sans:         'Barlow Condensed', 'Arial Narrow', Arial, sans-serif
+--cream:       #F4EDE3        /* page background */
+--cream-mid:   #EBE2D4        /* secondary surface (e.g. arc button bg) */
+--cream-deep:  #DDD0BC        /* section backgrounds (events-sec, team-sec, footer) */
+--ink:         #18150F        /* primary text */
+--ink-90:      rgba(24,21,15,0.90)   /* near-primary text */
+--ink-75:      rgba(24,21,15,0.75)   /* secondary text */
+--ink-55:      rgba(24,21,15,0.55)   /* muted text, labels */
+--ink-30:      rgba(24,21,15,0.30)   /* subtle borders, footer copy */
+--ink-15:      rgba(24,21,15,0.15)   /* card borders, dividers */
+--ink-08:      rgba(24,21,15,0.08)   /* meta row borders, faint separators */
+--gold:        #B8932A        /* primary accent */
+--gold-lt:     #D4AF50        /* lighter gold accent */
+--serif:       'Cormorant Garamond', Georgia, serif
+--sans:        'Barlow Condensed', 'Arial Narrow', Arial, sans-serif
+--grain:       url("data:...")  /* SVG noise texture for hero overlays */
 ```
 
-> **Token naming note**: `--black` and `--cream` have inverted semantics from their names — `--black` is the light page background and `--cream` is the dark text colour. The nav re-scopes both back to dark-theme values (`--black: #080808`, `--cream: #f5f0e8`) so the nav bar always reads correctly against its dark background.
+### Nav cream theme override (inline in events.html + team.html)
+
+Since `nav.css` defaults to a dark bar, subpages re-scope nav variables to cream:
+```css
+#mainNav {
+  --cream: #18150F; --cream-70: rgba(24,21,15,0.90);
+  --cream-45: rgba(24,21,15,0.75); --cream-20: rgba(24,21,15,0.55);
+  --black: #F4EDE3; --gold: #B8932A;
+  background: rgba(244,237,227,0.92) !important;
+  backdrop-filter: blur(16px) !important;
+}
+```
+
+### Legacy tokens in `css/base.css` (still loaded but overridden)
+
+The legacy tokens (`--black: #F0EBE3`, `--cream: #111111`, `--surface`, `--gold-border`, etc.) remain in `base.css` for any shared component that references them (arc button base styles, progress bar). They are overridden by the inline `:root` in each page's `<style>` block.
 
 ---
 
@@ -118,47 +133,50 @@ assets/
 - `.mob-wordmark`, `.mob-links`, `.mob-arrow`, `.mob-bottom`, `.mob-meta`, `.mob-cta`
 - Mobile breakpoint (≤700px): hide `.nav-links`/`.nav-cta`, show `.hamburger`
 
-### `css/page.css` — loaded by events.html + team.html ONLY
-- `.wrap` — `max-width: 1440px; padding: 0 52px`
-- `section` — `padding: 80px 0`
-- `.sec-head` / `.sec-tag` / `.sec-rule` / `.sec-num` — section header row (tag + gold rule + number)
-- `.rv` / `.rv.on` — scroll reveal: `translateY(20px) opacity:0` → `0 opacity:1`, 0.6s ease
-- **Page header**: `.page-header`, `.page-header-vignette`, `.page-header-rail`, `.page-header-content`, `.page-header-eyebrow`, `.page-header-eyebrow-line`, `.page-header-eyebrow-text`, `.page-header-pre`, `.page-header-title`, `.page-header-sub`, `.page-header-div`, `.page-header-ctas`
-- `.page-header-corners` — four gold corner ornaments (absolute-positioned `<span>` elements, L-shaped gold borders at each corner of the page header)
-- `.ph-cta-primary` — gold filled button (slide-reveal `gold-pale` on hover + 3D lift)
-- `.ph-cta-ghost` — transparent text link with animated arrow
-- `.page-header-ig-link` — gold inline link for Instagram references
-- **Explore strip**: `.explore-strip`, `.explore-strip-inner`, `.explore-strip-left`, `.explore-strip-diamond`, `.explore-strip-label`, `.explore-strip-rule`, `.explore-strip-link`
-- **Footer**: `footer`, `.footer-top`, `.footer-coords`, `.footer-coords-dot`, `.footer-cta-row`, `.footer-cta-main`, `.footer-cta-ig`, `.footer-grid` (2fr 1fr 1fr 1fr), `.footer-brand-name`, `.footer-brand-desc`, `.footer-col-head`, `.footer-links`, `.footer-bottom`, `.footer-copy`, `.footer-meta`
-- Responsive 1100px: padding drops to 32px, footer grid collapses to 1 col, rail hides
-- Responsive 700px: padding drops to 20px, full mobile adjustments for header + footer + arc-btn
+### `css/page.css` — LEGACY, no longer loaded by events.html or team.html
+Contains the old dark-theme page header (`.page-header`), explore strip, and footer. Kept for reference only. All active subpages now use inline `<style>` blocks with the cream/ink palette.
 
 ### Page-specific `<style>` blocks
-Each HTML file embeds a `<style>` block for its own components only. Each of `events.html` and `team.html` also includes a `@media (prefers-reduced-motion: reduce)` block targeting `.rv` and `.page-header-*` elements.
+Each HTML file embeds a `<style>` block containing the full cream/ink `:root` palette, body override, nav cream override, page-specific components, shared utils (`.wrap`, `.sec-label`, `.text-link`, `.rv`), marquee, footer, responsive breakpoints, reduced-motion, and print media queries. Each page is self-contained — no dependency on `page.css`.
 
-**index.html** (does NOT use page.css):
-- `.sticky-join` — sticky register CTA bar that appears between hero and #register section
-- Hero section: `.hero`, `.hero-eyebrow`, `.hero-pre` (italic serif "The" above title), `.hero-title`, `.hero-sub`, `.hero-ctas`, `.hero-scroll`
-- `.marquee`, `.marquee-track`, `.marquee-item`, `.mgem` — horizontal ticker scroll. **CSS lives in `base.css`. Content (`MARQUEE_TEXT`) is set by `site.js` — edit there to update the ticker on all pages at once.**
-- `.wrap` — `padding: 48px 52px` *(differs from page.css's `0 52px`)*
-- `.rv` — `translateY(10px)` 0.3s *(differs from page.css's `translateY(20px)` 0.6s)*
-- `.sec-head` — `margin-bottom: 36px` *(differs from page.css's `60px`)*
+**index.html** (base + nav only):
+- Full cream/ink `:root` palette (source of truth for all pages)
+- `.sticky-join` — sticky register CTA bar
+- Hero section: `.hero` (94vh), `.hero-eyebrow`, `.hero-pre`, `.hero-title`, `.hero-sub`, `.hero-hr`, `.hero-actions`, `.hero-stats`, `.hero-ig-btn`, ghost M letter
+- `.btn-primary` — ink bg button with gold slide-reveal on hover
+- `.btn-ghost-link` — italic serif link with arrow
+- `.marquee-wrap`, `.m-item`, `.m-gem` — dark ticker bar below hero. Content from `site.js` (`MARQUEE_TEXT`)
+- `.wrap` — `max-width: 1280px; padding: 0 64px`
+- `.rv` — scroll reveal with `data-d` delay attributes
+- `.sec-label` — section label with trailing rule
+- `.text-link` — uppercase link with underline
 - About, who, event teaser, "not", speaking, membership, join-strip sections
-- Index footer (big wordmark design): `.footer-hero`, `.footer-wordmark-wrap`, `.footer-big-name`, `.footer-eyebrow` — entirely different from page.css footer
+- **Event card** (shared with events.html): `.event-card`, `.event-main`, `.event-status`, `.event-dot`, `.event-title`, `.event-desc`, `.event-tags`/`.event-tag`, `.event-meta`, `.event-meta-row`, `.meta-lbl`, `.meta-val`
+- Events section: `.events` (cream-deep bg, corner ornaments), `.events-header`, `.events-title`
+- Index footer (big MERIDIAN watermark): `.footer-inner`, `.footer-wordmark`, `.footer-tagline`, `.footer-note`, `.footer-links`, `.footer-col`, `.footer-col-title`, `.footer-bottom`, `.footer-copy`
 
-**events.html** (uses base + nav + page.css):
-- `.marquee`, `.marquee-track`, `.marquee-item`, `.mgem` — ticker bar below page header. CSS in `base.css`; content populated by `site.js` (`MARQUEE_TEXT`)
-- Event card: `.event-card`, `.event-card-main`, `.event-card-top`, `.event-status`, `.event-status-dot`, `.event-status-text`, `.event-card-title`, `.event-card-desc`, `.event-card-bottom`, `.event-card-tags`, `.event-tag`, `.event-card-cta`
-- Event panel: `.event-card-panel`, `.event-panel-row`, `.event-panel-label`, `.event-panel-value`, `.event-panel-divider`, `.event-panel-entry`, `.event-panel-value--gold`
+**events.html** (base + nav only):
+- Full cream/ink `:root` palette (matches index.html)
+- Nav cream override, body override, arc button cream override
+- `.page-hero` — subpage hero (60vh, cream bg, radial gradients, grain overlay). Contains `.hero-eyebrow`, `.hero-pre`, `.hero-title`, `.hero-hr`, `.hero-sub`, `.hero-actions`
+- `.btn-primary`, `.btn-ghost-link` — same as index.html
+- `.marquee-wrap`, `.m-item`, `.m-gem` — dark ticker bar (static `data-static="true"`)
+- `.events-sec` — events section (cream-deep bg, corner ornaments via ::before/::after), `.events-header`, `.events-title`
+- **Event card** (identical to index.html): `.event-card`, `.event-main`, `.event-status`, `.event-dot`, `.event-title`, `.event-desc`, `.event-tags`/`.event-tag`, `.event-meta`, `.event-meta-row`, `.meta-lbl`, `.meta-val`
 - Empty state: `.event-empty-state`, `.event-empty-icon`, `.event-empty-title`, `.event-empty-body`, `.event-empty-cta`
-- Responsive (event card only): card stacks vertically at 1100px; adjustments at 700px
+- Shared utils, footer, responsive (1100px/700px), reduced-motion, print
 
-**team.html** (uses base + nav + page.css):
-- `.marquee`, `.marquee-track`, `.marquee-item`, `.mgem` — ticker bar below page header. CSS in `base.css`; content populated by `site.js` (`MARQUEE_TEXT`)
-- Member grid: `.member-grid` (3-col → 2-col at 1100px → 1-col at 700px)
-- Member card: `.member-card`, `.member-card::before` (gold top accent), `.member-photo-wrap`, `.member-photo`, `.member-photo-placeholder`
-- Card body: `.member-body`, `.member-header`, `.member-name`, `.member-role`, `.member-studies`, `.member-bio`, `.member-social`
-- Placeholder: `.member-card--placeholder`, `.placeholder-icon`, `.placeholder-text`, `.placeholder-sub`
+**team.html** (base + nav only):
+- Full cream/ink `:root` palette (matches index.html)
+- Nav cream override, body override, arc button cream override
+- `.page-hero` — same subpage hero as events.html
+- `.btn-ghost-link` — same as index.html
+- `.marquee-wrap`, `.m-item`, `.m-gem` — dark ticker bar (static)
+- `.team-sec` — team section (cream-deep bg, corner ornaments), `.team-header`, `.team-title`
+- Member grid: `.member-grid` (3-col → 2-col → 1-col)
+- Member card (cream theme): `.member-card` (cream bg, ink-15 border, box-shadow, hover lift), `.member-photo-wrap`, `.member-photo`, `.member-body`, `.member-header`, `.member-name` (ink color), `.member-role` (gold), `.member-studies` (ink-55, ink-15 left border), `.member-bio` (ink-75), `.member-social` (ink-15 borders, ink hover)
+- Placeholder: `.member-card--placeholder` (dashed ink-15 border), `.placeholder-icon`, `.placeholder-text`, `.placeholder-sub`
+- Shared utils, footer, responsive (1100px/700px), reduced-motion, print
 
 ---
 
@@ -224,7 +242,7 @@ The events.html render script uses `EVENTS.find(e => e.isCurrent)`. If none foun
 4. Three.js globe initialization (`#globeCanvas`) — loaded **conditionally** via an inline script: only on viewports ≥ 1024px with `deviceMemory ≥ 2` (or undefined). `initGlobe()` is called via `s.onload` after dynamic injection.
 
 **events.html** inline script contains:
-- Event card DOM builder (creates card or empty-state from `EVENTS` data; runs after `events-data.js`). Uses `var` throughout.
+- Event card DOM builder (creates card or empty-state from `EVENTS` data; runs after `events-data.js`). Uses `var` throughout. Builds the same card structure as index.html: `.event-card` > `.event-main` (`.event-status`/`.event-dot`, `.event-title`, `.event-desc`, `.event-tags`) + `.event-meta` (`.event-meta-row` > `.meta-lbl` + `.meta-val`).
 
 **team.html**: No inline script — entirely handled by `site.js`.
 
@@ -259,6 +277,45 @@ Every page uses the same nav and arc button in HTML. The mobile drawer is **not*
 
 <!-- Mobile drawer is injected by buildMobileMenu() in site.js — do NOT add it here -->
 ```
+
+### Subpage hero (events.html + team.html)
+
+```html
+<section class="page-hero" aria-label="...">
+  <div class="page-hero-content">
+    <div class="hero-eyebrow">
+      <span class="hero-eyebrow-rule"></span>
+      <span class="hero-eyebrow-text">The Meridian Society</span>
+      <span class="hero-eyebrow-rule"></span>
+    </div>
+    <p class="hero-pre">Student Speaker Forum</p>
+    <h1 class="hero-title">Page Title.</h1>
+    <div class="hero-hr" aria-hidden="true"></div>
+    <p class="hero-sub">Subtitle text.</p>
+    <div class="hero-actions"><!-- btn-primary / btn-ghost-link --></div>
+  </div>
+</section>
+```
+
+### Shared event card (index.html hardcoded, events.html JS-rendered)
+
+```html
+<div class="event-card rv" data-d="1">
+  <div class="event-main">
+    <div class="event-status"><span class="event-dot" aria-hidden="true"></span> Status Text</div>
+    <h3 class="event-title">Title with <em>italic</em></h3>
+    <p class="event-desc">Description text.</p>
+    <div class="event-tags"><span class="event-tag">Tag</span></div>
+  </div>
+  <div class="event-meta" aria-label="Event details">
+    <div class="event-meta-row"><div class="meta-lbl">Label</div><div class="meta-val">Value</div></div>
+  </div>
+</div>
+```
+
+### Section wrapper pattern (events-sec, team-sec)
+
+Sections with `.events-sec` or `.team-sec` use `cream-deep` background with corner ornaments (::before top-right, ::after bottom-left). Content wrapped in `.wrap`. Header is `.events-header`/`.team-header` with title + `.text-link`.
 
 Registration links use `data-register` attribute — `site.js` sets `href` from `REGISTER_URL` on load. Use `href="#"` as placeholder. A `<noscript>` fallback `<p class="noscript-register-note">` with the direct Google Form link is placed after the first `data-register` link on each page.
 
@@ -321,13 +378,13 @@ Current CSP `connect-src` allows: `self`, `script.google.com`, `script.googleuse
 
 ## What to Avoid
 
-- **No new CSS files** beyond the existing three. Page-specific styles go in each HTML file's `<style>` block.
+- **No new CSS files.** Page-specific styles go in each HTML file's `<style>` block. `page.css` is legacy — do not add it back to events.html or team.html.
 - **Do not move CSS/JS into `/assets/`** — they will be cached immutably and edits will be invisible.
 - **Do not modify `robots.txt` AI-crawler blocks** or `_headers` security policy without explicit instruction.
 - **Do not add `const`/`let` to `site.js`** — it uses `var` intentionally for compatibility. `events-data.js` may use `const` since it is not inline.
 - **Do not hardcode the registration URL** in HTML — use `href="#" data-register` on links; `site.js` fills the href from `REGISTER_URL`. Exception: the `<noscript>` fallback `<a>` inside `.noscript-register-note` paragraphs.
 - **Do not add mobile drawer HTML to the HTML files** — it is injected by `buildMobileMenu()` in `site.js`.
 - **Do not add inline `onclick` handlers** — CSP blocks them. Use event listeners in `site.js`.
-- **Do not re-declare `@keyframes shimmer` or `@keyframes livePulse`** in page `<style>` blocks — they are defined in `base.css`.
-- **Do not duplicate CSS** across pages — if a style is needed on all pages, it goes in `base.css` or `nav.css`; if needed on events + team only, it goes in `page.css`; otherwise it's page-specific.
+- **Do not edit the index.html design** — it is the source of truth. When overhauling subpages, copy patterns from index.html.
+- **Event card structure must match** between index.html and events.html — same class names (`.event-card`, `.event-main`, `.event-status`, `.event-dot`, `.event-title`, `.event-desc`, `.event-tags`, `.event-tag`, `.event-meta`, `.event-meta-row`, `.meta-lbl`, `.meta-val`).
 - **Always run `npm run build`** after editing any source CSS or JS file so the `.min` files stay in sync.

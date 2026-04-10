@@ -282,16 +282,16 @@
 
   <link rel="stylesheet" href="/css/base.min.css" />
   <link rel="stylesheet" href="/css/nav.min.css" />
-  <link rel="stylesheet" href="/css/page.min.css" />
   <style>
     /*
      * The Meridian Society — Events Page Styles
-     * Shared tokens/nav/layout loaded from /css/base.css, /css/nav.css, /css/page.css.
-     * This block contains only events-specific styles.
+     * Design system matches index.html overhaul.
+     * Loads base.css + nav.css only. All page styles inline.
      */
 
-    /* ── Ink palette for marquee + footer (matches index.html) ── */
     :root {
+      --cream:       #F4EDE3;
+      --cream-mid:   #EBE2D4;
       --cream-deep:  #DDD0BC;
       --ink:         #18150F;
       --ink-90:      rgba(24,21,15,0.90);
@@ -300,134 +300,143 @@
       --ink-30:      rgba(24,21,15,0.30);
       --ink-15:      rgba(24,21,15,0.15);
       --ink-08:      rgba(24,21,15,0.08);
+      --gold:        #B8932A;
+      --gold-lt:     #D4AF50;
+      --serif:       'Cormorant Garamond', Georgia, serif;
+      --sans:        'Barlow Condensed', 'Arial Narrow', Arial, sans-serif;
+      --grain: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
     }
 
-    /* EVENT CARD */
+    body {
+      background: var(--cream); color: var(--ink);
+      font-family: var(--serif); font-weight: 400; line-height: 1.7;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+    }
+
+    /* ── Nav override — cream theme (matches index.html) ── */
+    #mainNav {
+      --cream: #18150F; --cream-70: rgba(24,21,15,0.90);
+      --cream-45: rgba(24,21,15,0.75); --cream-20: rgba(24,21,15,0.55);
+      --black: #F4EDE3; --gold: #B8932A;
+      --gold-border: rgba(184,147,42,0.38); --gold-border2: rgba(184,147,42,0.60);
+      background: rgba(244,237,227,0.92) !important;
+      backdrop-filter: blur(16px) !important; -webkit-backdrop-filter: blur(16px) !important;
+      border-bottom: 1px solid rgba(24,21,15,0.10) !important; box-shadow: none !important;
+    }
+    #mainNav.scrolled {
+      background: rgba(244,237,227,0.98) !important;
+      box-shadow: 0 2px 28px rgba(24,21,15,0.06) !important;
+      border-bottom-color: rgba(24,21,15,0.16) !important;
+    }
+
+    /* ── Keyframes ── */
+    @keyframes riseIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+    @keyframes goldPulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(184,147,42,0.5); } 50% { box-shadow: 0 0 0 4px rgba(184,147,42,0); } }
+    @keyframes marqueeScroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+    /* ── Page hero (subpage version of index hero) ── */
+    .page-hero {
+      position: relative; min-height: 60vh;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center; padding: 120px 64px 80px; overflow: hidden;
+      background: var(--cream);
+    }
+    .page-hero::before {
+      content: ''; position: absolute; inset: 0; z-index: 0;
+      background:
+        radial-gradient(ellipse 70% 55% at 50% 35%, transparent 45%, rgba(166,138,88,0.08) 100%),
+        radial-gradient(ellipse 100% 60% at 50% 90%, rgba(150,120,70,0.07) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .page-hero::after {
+      content: ''; position: absolute; inset: 0; z-index: 1;
+      opacity: 0.03; background-image: var(--grain); background-size: 220px 220px; pointer-events: none;
+    }
+    .page-hero-content { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; }
+    .hero-eyebrow { display: flex; align-items: center; gap: 16px; margin-bottom: 52px; opacity: 0; animation: riseIn 0.7s 0.3s cubic-bezier(0.16,1,0.3,1) forwards; }
+    .hero-eyebrow-rule { width: 36px; height: 1px; background: var(--gold); opacity: 0.5; }
+    .hero-eyebrow-text { font-family: var(--sans); font-size: 11px; font-weight: 700; letter-spacing: 0.32em; text-transform: uppercase; color: var(--gold); }
+    .hero-pre { font-family: var(--serif); font-size: clamp(18px, 2.5vw, 30px); font-style: italic; font-weight: 300; color: var(--ink-55); letter-spacing: 0.06em; margin-bottom: 10px; opacity: 0; animation: riseIn 0.7s 0.55s cubic-bezier(0.16,1,0.3,1) forwards; }
+    .hero-title { font-family: var(--serif); font-size: clamp(64px, 12vw, 160px); font-weight: 300; line-height: 0.86; color: var(--ink); letter-spacing: 0.06em; opacity: 0; animation: riseIn 0.9s 0.7s cubic-bezier(0.16,1,0.3,1) forwards; text-shadow: 0 2px 40px rgba(24,21,15,0.04); }
+    .hero-hr { width: 44px; height: 1px; background: var(--ink-15); margin: 36px auto; opacity: 0; animation: riseIn 0.6s 0.95s ease forwards; }
+    .hero-sub { font-family: var(--serif); font-size: clamp(17px, 2vw, 24px); font-style: italic; font-weight: 300; color: var(--ink-75); max-width: 520px; line-height: 1.85; margin-bottom: 44px; opacity: 0; animation: riseIn 0.7s 1.05s ease forwards; }
+    .hero-sub a { color: var(--gold); text-decoration: none; transition: color 0.2s; }
+    .hero-sub a:hover { color: var(--ink); }
+    .hero-actions { display: flex; align-items: center; gap: 36px; opacity: 0; animation: riseIn 0.7s 1.2s ease forwards; }
+    .btn-primary { font-family: var(--sans); font-size: 10px; font-weight: 700; letter-spacing: 0.24em; text-transform: uppercase; color: var(--cream); background: var(--ink); text-decoration: none; padding: 13px 32px 12px; position: relative; overflow: hidden; transition: transform 0.25s, box-shadow 0.25s; }
+    .btn-primary::before { content: ''; position: absolute; inset: 0; background: var(--gold); transform: translateX(-100%); transition: transform 0.35s cubic-bezier(0.16,1,0.3,1); }
+    .btn-primary span { position: relative; z-index: 1; }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(24,21,15,0.14); }
+    .btn-primary:hover::before { transform: translateX(0); }
+    .btn-ghost-link { font-family: var(--serif); font-size: 16px; font-style: italic; font-weight: 300; color: var(--ink-55); text-decoration: none; display: flex; align-items: center; gap: 8px; transition: color 0.2s, gap 0.25s; }
+    .btn-ghost-link:hover { color: var(--ink); gap: 14px; }
+
+    /* ── Shared utils ── */
+    .wrap { max-width: 1280px; margin: 0 auto; padding: 0 64px; }
+    .sec-label { font-family: var(--sans); font-size: 9px; font-weight: 700; letter-spacing: 0.34em; text-transform: uppercase; color: var(--ink-55); display: flex; align-items: center; gap: 14px; margin-bottom: 28px; }
+    .sec-label::after { content: ''; flex: 1; height: 1px; background: var(--ink-15); }
+    .text-link { display: inline-flex; align-items: center; gap: 10px; font-family: var(--sans); font-size: 9.5px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink-55); text-decoration: none; position: relative; }
+    .text-link::after { content: ''; position: absolute; bottom: -3px; left: 0; width: 100%; height: 1px; background: var(--ink-30); transition: background 0.2s; }
+    .text-link:hover { color: var(--ink); }
+    .text-link:hover::after { background: var(--gold); }
+    .rv { opacity: 0; transform: translateY(20px); transition: opacity 0.65s cubic-bezier(0.16,1,0.3,1), transform 0.65s cubic-bezier(0.16,1,0.3,1); }
+    .rv.on { opacity: 1; transform: none; }
+    .rv[data-d="1"] { transition-delay: 0.08s; }
+    .rv[data-d="2"] { transition-delay: 0.16s; }
+
+    /* ── Arc button — cream theme override ── */
+    .arc-btn { background: var(--cream-mid) !important; border: 1px solid var(--ink-15) !important; box-shadow: 0 4px 24px rgba(24,21,15,0.08) !important; }
+    .arc-btn:hover { background: var(--ink) !important; border-color: var(--ink) !important; }
+    .arc-track { stroke: var(--ink-08) !important; }
+    .arc-fill  { stroke: var(--gold) !important; }
+    .arc-icon  { color: var(--ink-75) !important; font-family: var(--serif) !important; font-size: 14px !important; }
+    .arc-btn:hover .arc-icon { color: var(--cream) !important; }
+    .arc-inner { background: transparent !important; border: none !important; inset: 0 !important; border-radius: 0 !important; }
+
+    /* ── Events section ── */
+    .events-sec { padding: 110px 0; background: var(--cream-deep); position: relative; overflow: hidden; }
+    .events-sec::before { content: ''; position: absolute; top: 40px; right: 40px; width: 80px; height: 80px; border-top: 1px solid var(--ink-15); border-right: 1px solid var(--ink-15); pointer-events: none; }
+    .events-sec::after  { content: ''; position: absolute; bottom: 40px; left: 40px; width: 80px; height: 80px; border-bottom: 1px solid var(--ink-15); border-left: 1px solid var(--ink-15); pointer-events: none; }
+    .events-sec .wrap { position: relative; z-index: 1; }
+    .events-header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 52px; }
+    .events-title { font-family: var(--serif); font-size: clamp(30px, 3.5vw, 50px); font-weight: 300; line-height: 1.05; color: var(--ink); }
+    .events-title em { font-style: italic; }
+
+    /* ── EVENT CARD (matches index.html exactly) ── */
     .event-card {
+      background: var(--cream); border: 1px solid var(--ink-15);
+      display: grid; grid-template-columns: 1fr 280px; gap: 0;
+      box-shadow: 0 2px 12px rgba(24,21,15,0.04), 0 8px 40px rgba(24,21,15,0.06);
+      transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), box-shadow 0.4s;
       position: relative; overflow: hidden;
-      border: var(--gold-bw) solid var(--gold-border);
-      background: var(--surface);
-      display: grid;
-      grid-template-columns: 1fr 200px;
-      min-height: 240px;
-      --cream: #f5f0e8; --cream-45: rgba(245,240,232,0.72); --black: #080808;
     }
-    .event-card::before {
-      content: '';
-      position: absolute; top: 0; left: 0; right: 0; height: 2px;
-      background: linear-gradient(90deg, var(--gold), var(--gold-light) 40%, transparent);
-      z-index: 2;
-    }
-    .event-card::after {
-      content: '01';
-      position: absolute; right: 300px; bottom: -20px;
-      font-family: var(--sans); font-size: 220px; font-weight: 700;
-      color: rgba(201,168,76,0.05);
-      line-height: 1;
-      letter-spacing: -0.04em;
-      pointer-events: none; user-select: none;
-      z-index: 0;
-    }
-
-    .event-card-main {
-      padding: 24px 32px;
-      display: flex; flex-direction: column; justify-content: space-between;
-      position: relative; z-index: 1;
-      border-right: var(--gold-bw) solid var(--gold-border);
-    }
-
-    .event-card-top { display: flex; flex-direction: column; gap: 12px; }
-
-    .event-status {
-      display: inline-flex; align-items: center; gap: 8px;
-      width: fit-content;
-    }
-    .event-status-dot {
-      width: 6px; height: 6px; border-radius: 50%; background: var(--gold);
-      animation: livePulse 2s ease-in-out infinite; flex-shrink: 0;
-    }
-    .event-status-text {
-      font-family: var(--sans); font-size: 9px; font-weight: 700;
-      letter-spacing: 0.32em; text-transform: uppercase; color: var(--gold);
-    }
-
-    .event-card-title {
-      font-family: var(--serif);
-      font-size: clamp(24px, 2.8vw, 36px);
-      font-weight: 300; line-height: 1.1; color: var(--cream);
-    }
-    .event-card-title em { color: var(--gold); font-style: italic; }
-
-    .event-card-desc {
-      font-family: var(--serif); font-size: 17px; font-weight: 400;
-      color: var(--cream-45); line-height: 1.6; max-width: 520px;
-    }
-
-    .event-card-bottom {
-      display: flex; align-items: center; justify-content: space-between;
-      flex-wrap: wrap; gap: 12px; padding-top: 16px;
-      border-top: 1px solid rgba(201,168,76,0.10);
-      margin-top: 16px;
-    }
-    .event-card-tags { display: flex; gap: 8px; flex-wrap: wrap; }
-    .event-tag {
-      font-family: var(--sans); font-size: 9px; font-weight: 600;
-      letter-spacing: 0.22em; text-transform: uppercase;
-      padding: 5px 12px; border: var(--gold-bw) solid var(--gold-border);
-      color: var(--cream-45);
-    }
-    .event-card-cta {
-      display: inline-flex; align-items: center; gap: 10px;
-      padding: 12px 28px;
-      background: var(--gold); color: var(--black);
-      font-family: var(--sans); font-size: 10px; font-weight: 700;
-      letter-spacing: 0.18em; text-transform: uppercase;
-      text-decoration: none;
-      transition: background 0.25s, transform 0.2s;
-      flex-shrink: 0;
-    }
-    .event-card-cta:hover { background: var(--gold-light); transform: translateY(-1px); }
-
-    .event-card-panel {
-      padding: 20px 20px;
-      display: flex; flex-direction: column; justify-content: space-between;
-      position: relative; z-index: 1;
-      background: rgba(201,168,76,0.04);
-    }
-    .event-panel-label {
-      font-family: var(--sans); font-size: 7px; font-weight: 700;
-      letter-spacing: 0.32em; text-transform: uppercase;
-      color: var(--gold); opacity: 0.80; margin-bottom: 4px;
-    }
-    .event-panel-value {
-      font-family: var(--serif); font-size: clamp(15px, 1.6vw, 18px);
-      font-weight: 300; color: var(--cream); line-height: 1.2;
-    }
-    .event-panel-value.tba {
-      font-style: italic; color: var(--cream-45);
-      font-size: clamp(17px, 1.7vw, 22px);
-    }
-    .event-panel-row { display: flex; flex-direction: column; gap: 6px; }
-    .event-panel-divider {
-      height: 1px; background: var(--gold-border); margin: 8px 0;
-    }
-    .event-panel-entry { margin-top: 12px; }
-    .event-panel-value--gold { color: var(--gold); }
+    .event-card:hover { transform: translateY(-4px); box-shadow: 0 4px 24px rgba(24,21,15,0.06), 0 16px 60px rgba(24,21,15,0.10); }
+    .event-main { padding: 48px 52px; border-right: 1px solid var(--ink-15); position: relative; z-index: 1; }
+    .event-status { display: inline-flex; align-items: center; gap: 8px; font-family: var(--sans); font-size: 8px; font-weight: 700; letter-spacing: 0.28em; text-transform: uppercase; color: var(--ink-55); margin-bottom: 24px; }
+    .event-dot { width: 6px; height: 6px; background: var(--gold); border-radius: 50%; animation: goldPulse 2.2s ease-in-out infinite; }
+    .event-title { font-family: var(--serif); font-size: clamp(26px, 3vw, 42px); font-weight: 300; line-height: 1.1; color: var(--ink); margin-bottom: 20px; }
+    .event-title em { font-style: italic; }
+    .event-desc { font-family: var(--serif); font-size: 17px; line-height: 1.85; color: var(--ink-90); max-width: 520px; margin-bottom: 32px; }
+    .event-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+    .event-tag { font-family: var(--sans); font-size: 8px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-55); border: 1px solid var(--ink-15); padding: 5px 12px; transition: border-color 0.2s, color 0.2s; }
+    .event-tag:hover { border-color: var(--gold); color: var(--ink); }
+    .event-meta { position: relative; z-index: 1; }
+    .event-meta-row { padding: 22px 28px; border-bottom: 1px solid var(--ink-08); transition: background 0.2s; }
+    .event-meta-row:last-child { border-bottom: none; }
+    .event-meta-row:hover { background: rgba(24,21,15,0.02); }
+    .meta-lbl { font-family: var(--sans); font-size: 7.5px; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: var(--ink-55); margin-bottom: 5px; }
+    .meta-val { font-family: var(--serif); font-size: 15px; font-style: italic; color: var(--ink); line-height: 1.3; }
 
     /* EMPTY STATE */
     .event-empty-state {
-      grid-column: 1 / -1;
       display: flex; flex-direction: column; align-items: center;
       justify-content: center; text-align: center;
       padding: 72px 48px;
-      border: var(--gold-bw) solid var(--gold-border);
-      background: var(--surface);
-      position: relative; overflow: hidden;
-      --cream: #f5f0e8; --cream-45: rgba(245,240,232,0.72); --black: #080808;
-    }
-    .event-empty-state::before {
-      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
-      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      border: 1px solid var(--ink-15);
+      background: var(--cream);
+      box-shadow: 0 2px 12px rgba(24,21,15,0.04), 0 8px 40px rgba(24,21,15,0.06);
     }
     .event-empty-icon {
       font-size: 28px; color: var(--gold); opacity: 0.35;
@@ -435,44 +444,45 @@
     }
     .event-empty-title {
       font-family: var(--serif); font-size: clamp(22px, 2.5vw, 32px);
-      font-weight: 300; font-style: italic; color: var(--cream);
+      font-weight: 300; font-style: italic; color: var(--ink);
       margin-bottom: 14px; line-height: 1.2;
     }
     .event-empty-body {
       font-family: var(--serif); font-size: 19px; font-weight: 400;
-      color: var(--cream-45); line-height: 1.8;
+      color: var(--ink-75); line-height: 1.8;
       max-width: 400px; margin-bottom: 36px;
     }
     .event-empty-cta {
       display: inline-flex; align-items: center;
       padding: 12px 32px;
-      border: var(--gold-bw) solid var(--gold-border2); color: var(--gold);
+      border: 1px solid var(--ink-30); color: var(--ink-55);
       font-family: var(--sans); font-size: 10px; font-weight: 700;
       letter-spacing: 0.22em; text-transform: uppercase;
       text-decoration: none;
-      transition: background 0.2s, color 0.2s;
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
     }
-    .event-empty-cta:hover { background: var(--gold); color: var(--black); }
+    .event-empty-cta:hover { background: var(--ink); color: var(--cream); border-color: var(--ink); }
 
-    /* Event card responsive — page.css handles nav/footer/wrap breakpoints */
+    /* ── Responsive — event card ── */
     @media (max-width: 1100px) {
-      .event-card { grid-template-columns: 1fr; min-height: auto; }
-      .event-card::after { display: none; }
-      .event-card-main { border-right: none; border-bottom: var(--gold-bw) solid var(--gold-border); padding: 36px 36px; }
-      .event-card-panel { padding: 32px 36px; }
+      .event-card { grid-template-columns: 1fr; }
+      .event-main { border-right: none; border-bottom: 1px solid var(--ink-15); }
+      .wrap { padding: 0 40px; }
+      .events-sec { padding: 80px 0; }
+      .page-hero { padding: 100px 40px 60px; }
     }
     @media (max-width: 700px) {
-      .event-card { grid-template-columns: 1fr; min-height: auto; }
-      .event-card::after { display: none; }
-      .event-card-main { border-right: none; border-bottom: var(--gold-bw) solid var(--gold-border); padding: 28px 24px; }
-      .event-card-panel { padding: 24px 24px; }
-      .event-card-bottom { flex-direction: column; align-items: flex-start; gap: 14px; margin-top: 24px; padding-top: 24px; }
-      .event-card-tags { gap: 6px; }
-      .event-card-cta { width: 100%; justify-content: center; }
-      .event-panel-value { font-size: 20px; }
-      .event-panel-value.tba { font-size: 18px; }
-      .event-panel-divider { margin: 14px 0; }
+      .wrap { padding: 0 20px; }
+      .events-sec { padding: 60px 0; }
+      .page-hero { padding: 80px 20px 48px; min-height: 50vh; }
+      .event-main { padding: 32px 24px; }
+      .event-meta-row { padding: 18px 20px; }
+      .hero-actions { flex-wrap: wrap; gap: 16px; }
+      .btn-primary { width: 100%; display: block; text-align: center; }
+      .btn-ghost-link { display: none; }
       .event-empty-state { padding: 48px 24px; }
+      .rv { transform: none; transition: opacity 0.4s ease; }
+      .rv[data-d="1"], .rv[data-d="2"] { transition-delay: 0s; }
     }
     /* ── Marquee (matches index.html) ── */
     @keyframes marqueeScroll {
@@ -538,14 +548,15 @@
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .rv,
-      .page-header-eyebrow, .page-header-pre, .page-header-title,
-      .page-header-sub {
-        opacity: 1 !important;
-        transform: none !important;
-        animation: none !important;
-        transition: none !important;
+      .rv, .hero-eyebrow, .hero-pre, .hero-title, .hero-sub, .hero-hr, .hero-actions {
+        opacity: 1 !important; transform: none !important; animation: none !important;
       }
+    }
+
+    @media print {
+      .progress, .arc-btn, .hamburger, .mob-backdrop, .mob-drawer { display: none !important; }
+      nav { position: static; }
+      body { background: #fff; color: #000; }
     }
   </style>
 </head>
@@ -594,47 +605,24 @@
 
 <main id="main-content">
 
-  <!-- PAGE HEADER / HERO -->
-  <div class="page-header" aria-label="Events hero">
-    <div class="page-header-vignette" aria-hidden="true"></div>
-    <div class="page-header-rail"     aria-hidden="true"></div>
-    <div class="page-header-corners"  aria-hidden="true"><span></span><span></span><span></span><span></span></div>
-    <div class="page-header-content">
-
-      <div class="page-header-eyebrow">
-        <div class="page-header-eyebrow-line"></div>
-        <span class="page-header-eyebrow-text">The Meridian Society · Ottawa</span>
-        <div class="page-header-eyebrow-line"></div>
+  <!-- PAGE HERO -->
+  <section class="page-hero" aria-label="Events hero">
+    <div class="page-hero-content">
+      <div class="hero-eyebrow">
+        <span class="hero-eyebrow-rule"></span>
+        <span class="hero-eyebrow-text">The Meridian Society</span>
+        <span class="hero-eyebrow-rule"></span>
       </div>
-
-      <p class="page-header-pre">Student Speaker Forum</p>
-
-      <h1 class="page-header-title">
-        <em>EVENTS</em>
-      </h1>
-
-      <p class="page-header-sub">Follow <a href="https://www.instagram.com/Meridian.Society" target="_blank" rel="noopener noreferrer" class="page-header-ig-link">@Meridian.Society</a> for announcements and event details.</p>
-
-      <div class="page-header-div" aria-hidden="true">
-        <div class="page-header-div-line"></div>
-        <div class="page-header-div-mark">
-          <span></span><span></span><span></span>
-        </div>
-        <div class="page-header-div-line"></div>
+      <p class="hero-pre">Student Speaker Forum</p>
+      <h1 class="hero-title">Events.</h1>
+      <div class="hero-hr" aria-hidden="true"></div>
+      <p class="hero-sub">Follow <a href="https://www.instagram.com/Meridian.Society" target="_blank" rel="noopener noreferrer">@Meridian.Society</a> for announcements and event details.</p>
+      <div class="hero-actions">
+        <a href="#" target="_blank" rel="noopener noreferrer" class="btn-primary" data-register><span>Register as a Member</span></a>
+        <a href="#events" class="btn-ghost-link">View Events <span>&#8594;</span></a>
       </div>
-
-      <div class="page-header-ctas">
-        <a href="#"
-           target="_blank" rel="noopener noreferrer" class="ph-cta-primary" data-register>
-          <span>Register as a Member</span>
-        </a>
-        <a href="#events" class="ph-cta-ghost">
-          View Events <span class="arr">→</span>
-        </a>
-      </div>
-
     </div>
-  </div>
+  </section>
 
   <div class="marquee-wrap" aria-hidden="true">
     <div class="marquee-track" data-static="true">
@@ -643,32 +631,17 @@
   </div>
 
   <!-- ═══════════ EVENTS SECTION ═══════════ -->
-  <section id="events" aria-labelledby="events-h">
+  <section class="events-sec" id="events" aria-labelledby="events-heading">
     <div class="wrap">
-      <div class="sec-head rv">
-        <span class="sec-tag">Upcoming</span>
-        <div class="sec-rule"></div>
-        <span class="sec-num">—</span>
+      <div class="events-header">
+        <h2 class="events-title rv" id="events-heading">Upcoming<br><em>Events.</em></h2>
+        <a href="/" class="text-link rv" data-d="1">Back to Home &nbsp;&#8594;</a>
       </div>
-      <div class="event-card rv" id="currentEventCard"></div>
+      <div id="currentEventCard"></div>
     </div>
   </section>
 
 </main>
-
-<!-- ═══════════ EXPLORE STRIP ═══════════ -->
-<aside class="explore-strip rv" aria-label="Explore the Society">
-  <div class="explore-strip-inner">
-    <div class="explore-strip-left">
-      <div class="explore-strip-diamond" aria-hidden="true"></div>
-      <span class="explore-strip-label">The Meridian Society</span>
-    </div>
-    <div class="explore-strip-rule" aria-hidden="true"></div>
-    <a href="/" class="explore-strip-link">
-      Learn about the Society <span class="arr">→</span>
-    </a>
-  </div>
-</aside>
 
 <!-- FOOTER -->
 <footer>
@@ -707,18 +680,14 @@
 'use strict';
 
 // ─────────────────────────────────────────────────────────────────
-// 0. EVENT CARD RENDER
-// Runs here (bottom of body) so events-data.js is guaranteed loaded.
-// Uses textContent for all user-supplied text fields to prevent XSS
-// if data ever contains special characters.
+// EVENT CARD RENDER — builds index.html-matching card structure
 // ─────────────────────────────────────────────────────────────────
 (function() {
-  var card = document.getElementById('currentEventCard');
-  if (!card) return;
+  var wrap = document.getElementById('currentEventCard');
+  if (!wrap) return;
 
   var ev = typeof EVENTS !== 'undefined' && EVENTS.find(function(e) { return e.isCurrent; });
 
-  // Helper: create an element, set its className, and optionally set textContent
   function el(tag, cls, text) {
     var node = document.createElement(tag);
     if (cls) node.className = cls;
@@ -727,71 +696,56 @@
   }
 
   if (ev) {
-    // ── Main column ──────────────────────────────
-    var main = el('div', 'event-card-main');
+    var card = el('div', 'event-card rv');
+    card.setAttribute('data-d', '1');
 
-    var top = el('div', 'event-card-top');
+    // ── Main column ──
+    var main = el('div', 'event-main');
+
     var status = el('div', 'event-status');
-    status.appendChild(el('div', 'event-status-dot'));
-    var statusText = el('span', 'event-status-text', ev.status);
-    status.appendChild(statusText);
-    top.appendChild(status);
+    var dot = el('span', 'event-dot');
+    dot.setAttribute('aria-hidden', 'true');
+    status.appendChild(dot);
+    status.appendChild(document.createTextNode(' ' + ev.status));
+    main.appendChild(status);
 
-    var title = el('h2', 'event-card-title');
-    title.id = 'events-h';
+    var title = el('h3', 'event-title');
     title.innerHTML = ev.title;
-    top.appendChild(title);
+    main.appendChild(title);
 
-    var desc = el('p', 'event-card-desc');
+    var desc = el('p', 'event-desc');
     desc.innerHTML = ev.desc;
-    top.appendChild(desc);
-    main.appendChild(top);
+    main.appendChild(desc);
 
-    var bottom = el('div', 'event-card-bottom');
-    var tags = el('div', 'event-card-tags');
+    var tags = el('div', 'event-tags');
+    tags.setAttribute('aria-label', 'Event tags');
     ev.tags.forEach(function(t) { tags.appendChild(el('span', 'event-tag', t)); });
-    bottom.appendChild(tags);
-
-    var cta = el('a', 'event-card-cta', ev.ctaText);
-    cta.href = ev.ctaHref;
-    cta.target = '_blank';
-    cta.rel = 'noopener noreferrer';
-    cta.setAttribute('data-register', '');
-    bottom.appendChild(cta);
-    main.appendChild(bottom);
-
-    // ── Panel column ─────────────────────────────
-    var panel = el('div', 'event-card-panel');
-    var details = el('div');
-
-    [['When', ev.when], ['Where', ev.where], ['Format', ev.format], ['Speaker', ev.speaker]]
-      .forEach(function(pair, i) {
-        var row = el('div', 'event-panel-row');
-        row.appendChild(el('div', 'event-panel-label', pair[0]));
-        var val = el('div', 'event-panel-value tba');
-        val.innerHTML = pair[1];
-        row.appendChild(val);
-        details.appendChild(row);
-        if (i < 3) details.appendChild(el('div', 'event-panel-divider'));
-      });
-
-    panel.appendChild(details);
-
-    var entry = el('div', 'event-panel-entry');
-    entry.appendChild(el('div', 'event-panel-label', 'Entry'));
-    var entryVal = el('div', 'event-panel-value event-panel-value--gold');
-    entryVal.innerHTML = ev.entry;
-    panel.appendChild(entry);
-    entry.appendChild(entryVal);
+    main.appendChild(tags);
 
     card.appendChild(main);
-    card.appendChild(panel);
 
-    // Re-run register URL replacement so the new CTA gets the correct href
+    // ── Meta column ──
+    var meta = el('div', 'event-meta');
+    meta.setAttribute('aria-label', 'Event details');
+
+    [['When', ev.when], ['Where', ev.where], ['Format', ev.format], ['Entry', ev.entry]]
+      .forEach(function(pair) {
+        var row = el('div', 'event-meta-row');
+        row.appendChild(el('div', 'meta-lbl', pair[0]));
+        var val = el('div', 'meta-val');
+        val.innerHTML = pair[1];
+        row.appendChild(val);
+        meta.appendChild(row);
+      });
+
+    card.appendChild(meta);
+    wrap.appendChild(card);
+
+    // Re-run register URL replacement
     document.querySelectorAll('a[data-register]').forEach(function(a) { a.href = REGISTER_URL; });
 
   } else {
-    // ── Empty state ───────────────────────────────
+    // ── Empty state ──
     var empty = el('div', 'event-empty-state');
     var icon = el('div', 'event-empty-icon', '◇');
     icon.setAttribute('aria-hidden', 'true');
@@ -799,18 +753,15 @@
     empty.appendChild(el('p', 'event-empty-title', 'Our first event is coming.'));
     empty.appendChild(el('p', 'event-empty-body', 'Details will be announced on Instagram first. Follow us to be the first to know.'));
 
-    // Uses REGISTER_URL constant — single source of truth
     var igCta = el('a', 'event-empty-cta', 'Follow @Meridian.Society →');
     igCta.href = 'https://www.instagram.com/Meridian.Society';
     igCta.target = '_blank';
     igCta.rel = 'noopener noreferrer';
     empty.appendChild(igCta);
 
-    card.appendChild(empty);
+    wrap.appendChild(empty);
   }
 })();
-
-
 </script>
 </body>
 </html>

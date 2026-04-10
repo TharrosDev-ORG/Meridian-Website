@@ -520,12 +520,12 @@
       padding: 60px 0 36px; background: var(--cream-deep);
       border-top: 1px solid var(--ink-15); position: relative; overflow: hidden;
     }
-    footer::before {
-      content: 'MERIDIAN'; position: absolute; bottom: -24px; left: 50%; transform: translateX(-50%);
+    .footer-ghost {
+      position: absolute; bottom: -24px; left: 50%; transform: translateX(-50%);
       font-family: var(--sans); font-size: 160px; font-weight: 700;
       letter-spacing: 0.3em; white-space: nowrap;
       color: transparent; -webkit-text-stroke: 1px rgba(24,21,15,0.04);
-      user-select: none; pointer-events: none;
+      user-select: none; pointer-events: none; z-index: 0; display: block;
     }
     .footer-inner { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 48px; position: relative; z-index: 1; }
     .footer-wordmark { font-family: var(--sans); font-size: 11px; font-weight: 700; letter-spacing: 0.26em; text-transform: uppercase; color: var(--ink); margin-bottom: 6px; }
@@ -725,6 +725,7 @@
 
 <!-- FOOTER -->
 <footer>
+  <span class="footer-ghost" aria-hidden="true">MERIDIAN</span>
   <div class="wrap">
     <div class="footer-inner">
       <div>

@@ -9,10 +9,11 @@ GitHub remote: `https://github.com/meridiansociety/Meridian-Website.git`
 
 ## Stack
 
-- Pure HTML5, embedded CSS, vanilla JavaScript — no frameworks, no build step
-- Deployed as static files on Vercel; push to `main` → auto-deploy
+- HTML5, embedded CSS, vanilla JavaScript — no frameworks
+- **Build step**: `npm run build` minifies CSS (csso) and JS (terser) → `.min.css` / `.min.js` files. HTML pages reference the minified versions.
+- Deployed on Vercel; `vercel.json` runs `npm install && npm run build` before serving
 - Google Fonts: **Cormorant Garamond** (serif), **Barlow Condensed** (sans-serif)
-- Font loading pattern: deferred `media="print" onload="this.media='all'"` + `<noscript>` fallback
+- Font loading: preload critical weights (`wght@300;400`) + deferred `media="print" onload="this.media='all'"` + `<noscript>` fallback
 
 ---
 
@@ -24,25 +25,35 @@ events.html           # Events listing — driven by js/events-data.js
 team.html             # Team member profiles — Magnus Abdelnour, Colin Sherwood
 404.html              # Custom error page
 _headers              # Vercel HTTP headers (caching + security policy)
+vercel.json           # Vercel build command config
+package.json          # npm build scripts (csso-cli + terser)
+.gitignore            # Excludes node_modules/ and .claude/
 robots.txt            # SEO + AI crawler directives (do not modify AI blocks)
 sitemap.xml           # XML sitemap
 site.webmanifest      # PWA manifest
 css/
-  base.css            # Reset, :root tokens, body, arc-btn, keyframes — loaded by ALL pages
-  nav.css             # Nav bar, hamburger, mobile drawer — loaded by ALL pages
-  page.css            # Page header, layout utilities, footer — loaded by events + team ONLY
+  base.css            # Reset, :root tokens, body, arc-btn, keyframes — source
+  nav.css             # Nav bar, hamburger, mobile drawer — source
+  page.css            # Page header, layout utilities, footer — source
+  base.min.css        # Minified — served by all pages
+  nav.min.css         # Minified — served by all pages
+  page.min.css        # Minified — served by events + team
 js/
-  site.js             # Shared JS — loaded by ALL pages (see JS Architecture below)
-  events-data.js      # EVENTS array — edit here to add/change events
+  site.js             # Shared JS — source (see JS Architecture below)
+  events-data.js      # EVENTS array — source; edit here to add/change events
+  site.min.js         # Minified — served by all pages
+  events-data.min.js  # Minified — served by events.html
 assets/
   images/
     og-image.png      # Open Graph image (1200×630)
     team/
-      magnus.webp     # Magnus Abdelnour photo (96×120px ID-card format)
-      colin.webp      # Colin Sherwood photo (96×120px ID-card format)
+      magnus.webp     # Magnus Abdelnour photo (96×120px display, ~3 KB)
+      colin.webp      # Colin Sherwood photo (96×120px display, ~2.6 KB)
   favicons/           # Full favicon set (SVG, PNG 48/32/16, ICO, Apple touch)
 ```
 
+> **Always edit source files** (`base.css`, `site.js`, etc.), then run `npm run build` to regenerate the `.min` files. Never edit `.min` files directly.
+>
 > **Caching**: `/assets/*` → `Cache-Control: public, max-age=31536000, immutable` (1 year).
 > `/css/` and `/js/` are NOT under `/assets/`, so edits are immediately visible after deploy.
 > Never move CSS/JS files into `/assets/` — they would be uncacheable without filename hashing.
@@ -88,10 +99,10 @@ assets/
 - `.progress` — fixed 1px top scroll bar, gold gradient
 - `.arc-btn`, `.arc-track`, `.arc-fill`, `.arc-inner`, `.arc-icon` — circular back-to-top button, bottom-right, hidden until `scrollY > 200`
 - `@keyframes riseIn` — `translateY(16px) → 0`, used by page-header entrances
-- `@keyframes shimmer` — gold sweep on page-header title
-- `@keyframes livePulse` — event status dot pulse
+- `@keyframes shimmer` — gold sweep on page-header title (**do not re-declare in page `<style>` blocks**)
+- `@keyframes livePulse` — event status dot pulse (**do not re-declare in page `<style>` blocks**)
 - `@keyframes orbitRing` — globe orbit ring on index.html
-- `prefers-reduced-motion` — disables all animation/transition
+- `prefers-reduced-motion` — disables all animation/transition globally
 - Mobile base: tap highlight + touch-action
 
 ### `css/nav.css` — loaded by ALL pages
@@ -123,7 +134,7 @@ assets/
 - Responsive 700px: padding drops to 20px, full mobile adjustments for header + footer + arc-btn
 
 ### Page-specific `<style>` blocks
-Each HTML file embeds a `<style>` block for its own components only:
+Each HTML file embeds a `<style>` block for its own components only. Each of `events.html` and `team.html` also includes a `@media (prefers-reduced-motion: reduce)` block targeting `.rv` and `.page-header-*` elements.
 
 **index.html** (does NOT use page.css):
 - `.sticky-join` — sticky register CTA bar that appears between hero and #register section
@@ -154,24 +165,33 @@ Each HTML file embeds a `<style>` block for its own components only:
 ## JS Architecture
 
 ### `js/site.js` — loaded by ALL pages
-All using `var` (not `const/let`) for broadest compatibility:
+All using `var` (not `const/let`) for broadest compatibility. Execution order:
+
+0. **`buildMobileMenu()` IIFE** — runs immediately on script load, before any `getElementById` calls. Injects the mobile drawer HTML (`#menuBackdrop` + `#mobileMenu`) into `document.body` based on `window.location.pathname`. Per-page differences: index uses `#about`/`#speaking` etc. (no slash); team uses `/team.html` as the 5th link; others use `/#about` etc. Also re-populates `data-register` hrefs and binds click-to-close listeners on the injected links. **Do not add mobile drawer HTML to the HTML files** — it is always injected here.
 
 1. **Register URL** — `var REGISTER_URL = 'https://docs.google.com/forms/...'`; sets `href` on all `a[data-register]` elements. To change the registration link, update this one constant.
 
 1b. **Marquee text** — `var MARQUEE_TEXT`; populates all `.marquee-track` elements on every page. Edit here to update the ticker sitewide.
 
-2. **Scroll handler** — RAF-batched single scroll listener. Drives:
-   - `nav.scrolled` class at `scrollY > 40`
+2. **Named constants** — scroll/swipe/reveal thresholds:
+   - `SCROLL_NAV_THRESHOLD = 40` — nav gets `.scrolled` class
+   - `SCROLL_ARC_THRESHOLD = 200` — arc back-to-top button appears
+   - `ARC_RADIUS = 22` — SVG circle radius
+   - `SWIPE_CLOSE_THRESHOLD = 72` — swipe distance to close mobile drawer
+   - `REVEAL_ROOT_MARGIN = '0px 0px -40px 0px'` — IntersectionObserver margin
+
+3. **Scroll handler** — RAF-batched single scroll listener. Drives:
+   - `nav.scrolled` class at `scrollY > SCROLL_NAV_THRESHOLD`
    - `.progress` bar width
    - `#arcFill` stroke-dashoffset (scroll progress ring)
-   - `.arc-btn.visible` at `scrollY > 200`
+   - `.arc-btn.visible` at `scrollY > SCROLL_ARC_THRESHOLD`
    - `#stickyJoin.visible` (null-checked — only activates on index.html where element exists)
 
-3. **Scroll reveal** — `IntersectionObserver` on all `.rv` elements; adds `.on` class once, then unobserves. Threshold: 0.01, rootMargin: `0px 0px -40px 0px`.
+4. **Scroll reveal** — `IntersectionObserver` on all `.rv` elements; adds `.on` class once, then unobserves. Threshold: 0.01, rootMargin: `REVEAL_ROOT_MARGIN`.
 
-4. **Mobile menu** — `openMenu()` / `closeMenu()`, exposed as `window.closeMenu` for inline `onclick` handlers in mobile drawer links. Manages `.open` classes on `#mobileMenu`, `#menuBackdrop`, `#burgerBtn`.
+5. **Mobile menu** — `openMenu()` / `closeMenu()`. Manages `.open` classes on `#mobileMenu`, `#menuBackdrop`, `#burgerBtn`. No inline `onclick` handlers — click-to-close is bound by `buildMobileMenu()`.
 
-5. **Pull-to-dismiss** — touchstart/touchmove/touchend/touchcancel on `#mobileMenu`. Visual drag feedback during swipe; swipe >72px triggers `closeMenu()`.
+6. **Pull-to-dismiss** — touchstart/touchmove/touchend/touchcancel on `#mobileMenu`. Visual drag feedback during swipe; swipe > `SWIPE_CLOSE_THRESHOLD` triggers `closeMenu()`.
 
 ### `js/events-data.js` — loaded by events.html + index.html
 ```js
@@ -199,12 +219,12 @@ The events.html render script uses `EVENTS.find(e => e.isCurrent)`. If none foun
 
 **index.html** inline script contains:
 1. Active nav link detection (compares `location.pathname`)
-2. "Who" section accordion (expand/collapse blocks)
-3. Member count fetch from Google Apps Script endpoint
-4. Three.js globe initialization (`#globeCanvas`) — `initGlobe()` is called via `onload` on the Three.js `<script>` tag (fires after Three.js executes)
+2. "Who" section accordion (expand/collapse blocks) — `.who-row` elements have `role="button"`, `tabindex="0"`, `aria-expanded`, and `aria-label` describing the category
+3. Member count fetch from Google Apps Script endpoint — on error, shows `—` (em dash) and logs a warning
+4. Three.js globe initialization (`#globeCanvas`) — loaded **conditionally** via an inline script: only on viewports ≥ 1024px with `deviceMemory ≥ 2` (or undefined). `initGlobe()` is called via `s.onload` after dynamic injection.
 
 **events.html** inline script contains:
-- Event card DOM builder (creates card or empty-state from `EVENTS` data; runs after `events-data.js`)
+- Event card DOM builder (creates card or empty-state from `EVENTS` data; runs after `events-data.js`). Uses `var` throughout.
 
 **team.html**: No inline script — entirely handled by `site.js`.
 
@@ -212,7 +232,7 @@ The events.html render script uses `EVENTS.find(e => e.isCurrent)`. If none foun
 
 ## HTML Shared Patterns
 
-Every page uses the same nav, arc button, and mobile drawer HTML structure:
+Every page uses the same nav and arc button in HTML. The mobile drawer is **not** in the HTML — it is injected at runtime by `buildMobileMenu()` in `site.js`.
 
 ```html
 <!-- Nav -->
@@ -221,7 +241,8 @@ Every page uses the same nav, arc button, and mobile drawer HTML structure:
     <a href="/" class="nav-logo"><span class="nav-wordmark">The Meridian Society</span></a>
     <ul class="nav-links">...</ul>
     <a href="#" class="nav-cta" data-register><span>Register</span></a>
-    <button class="hamburger" id="burgerBtn" aria-label="..." aria-expanded="false">
+    <button class="hamburger" id="burgerBtn" aria-label="..." aria-expanded="false"
+            aria-controls="mobileMenu">
       <span></span><span></span>
     </button>
   </div>
@@ -236,12 +257,11 @@ Every page uses the same nav, arc button, and mobile drawer HTML structure:
   <div class="arc-inner"><span class="arc-icon">↑</span></div>
 </button>
 
-<!-- Mobile drawer -->
-<div class="mob-backdrop" id="menuBackdrop"></div>
-<div class="mob-drawer" id="mobileMenu" role="dialog" aria-modal="true">...</div>
+<!-- Mobile drawer is injected by buildMobileMenu() in site.js — do NOT add it here -->
 ```
 
-Registration links use `data-register` attribute (no hardcoded href needed — `site.js` fills it):
+Registration links use `data-register` attribute — `site.js` sets `href` from `REGISTER_URL` on load. Use `href="#"` as placeholder. A `<noscript>` fallback `<p class="noscript-register-note">` with the direct Google Form link is placed after the first `data-register` link on each page.
+
 ```html
 <a href="#" data-register class="nav-cta"><span>Register</span></a>
 ```
@@ -272,11 +292,14 @@ Edit `js/events-data.js`. The render script in events.html reads this file autom
 - The `ctaHref` on the event object is set as the `href`, but `site.js` also overrides it via `[data-register]` — so the CTA will always point to `REGISTER_URL`
 - To show an upcoming event as "coming soon", add it with `isCurrent: false` (it won't render yet)
 
+After editing, run `npm run build` to regenerate `js/events-data.min.js`.
+
 ---
 
 ## Team Photos
 
 - Format: WebP, ID-card proportions (96×120px display, can be larger source)
+- Target size: < 10 KB per image (current: magnus.webp ~3 KB, colin.webp ~2.6 KB)
 - Location: `assets/images/team/<name>.webp`
 - Referenced in `team.html` `<img src="/assets/images/team/...">` and JSON-LD
 
@@ -284,11 +307,13 @@ Edit `js/events-data.js`. The render script in events.html reads this file autom
 
 ## Deployment
 
-No build step. Push to `main` → Vercel auto-deploys.
+Push to `main` → Vercel auto-deploys. `vercel.json` runs `npm install && npm run build` first, generating the `.min` files that the HTML pages reference.
 
 The `_headers` file sets:
 - `/assets/*` → 1-year immutable cache
+- `/css/*.min.css` and `/js/*.min.js` → 24-hour browser cache, 1-year CDN cache
 - Security headers (CSP, X-Frame-Options, etc.) — **do not modify without explicit instruction**
+- CSP `script-src` does **not** include `'unsafe-inline'` — no inline event handlers allowed
 
 Current CSP `connect-src` allows: `self`, `script.google.com`, `script.googleusercontent.com` (member count API), `cdn.jsdelivr.net` (globe TopoJSON), `vitals.vercel-insights.com` (Vercel Analytics).
 
@@ -296,10 +321,13 @@ Current CSP `connect-src` allows: `self`, `script.google.com`, `script.googleuse
 
 ## What to Avoid
 
-- **No npm, no build step, no frameworks** (React, Vue, etc.)
 - **No new CSS files** beyond the existing three. Page-specific styles go in each HTML file's `<style>` block.
 - **Do not move CSS/JS into `/assets/`** — they will be cached immutably and edits will be invisible.
 - **Do not modify `robots.txt` AI-crawler blocks** or `_headers` security policy without explicit instruction.
-- **Do not add `const`/`let` to `site.js`** — it uses `var` intentionally for compatibility.
-- **Do not hardcode the registration URL** in HTML — use `data-register` on links; `site.js` fills the href from `REGISTER_URL`.
-- **Do not duplicate CSS** across pages — if a style is needed on all 3 pages, it goes in `base.css` or `nav.css`; if needed on events + team only, it goes in `page.css`; otherwise it's page-specific.
+- **Do not add `const`/`let` to `site.js`** — it uses `var` intentionally for compatibility. `events-data.js` may use `const` since it is not inline.
+- **Do not hardcode the registration URL** in HTML — use `href="#" data-register` on links; `site.js` fills the href from `REGISTER_URL`. Exception: the `<noscript>` fallback `<a>` inside `.noscript-register-note` paragraphs.
+- **Do not add mobile drawer HTML to the HTML files** — it is injected by `buildMobileMenu()` in `site.js`.
+- **Do not add inline `onclick` handlers** — CSP blocks them. Use event listeners in `site.js`.
+- **Do not re-declare `@keyframes shimmer` or `@keyframes livePulse`** in page `<style>` blocks — they are defined in `base.css`.
+- **Do not duplicate CSS** across pages — if a style is needed on all pages, it goes in `base.css` or `nav.css`; if needed on events + team only, it goes in `page.css`; otherwise it's page-specific.
+- **Always run `npm run build`** after editing any source CSS or JS file so the `.min` files stay in sync.

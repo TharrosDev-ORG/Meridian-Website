@@ -88,7 +88,7 @@
     },
     "keywords": "Ottawa student forum, speaker series Ottawa, student networking Ottawa, professional networking students, Ottawa student club, free student events Ottawa, alumni speaker series, career talks Ottawa",
     "datePublished": "2025-01-01",
-    "dateModified": "2026-04-07",
+    "dateModified": "2026-04-10",
     "inLanguage": "en-CA"
   }
   </script>
@@ -355,7 +355,7 @@
     "url": "https://meridiansociety.ca/",
     "name": "The Meridian Society — Ottawa Student Speaker Forum",
     "dateCreated": "2025-01-01",
-    "dateModified": "2026-04-07",
+    "dateModified": "2026-04-10",
     "mainEntity": {
       "@type": "EducationalOrganization",
       "@id": "https://meridiansociety.ca/#organization",
@@ -374,7 +374,6 @@
   }
   </script>
 
-  <script src="/js/events-data.min.js"></script>
   <link rel="stylesheet" href="/css/base.min.css" />
   <link rel="stylesheet" href="/css/nav.min.css" />
   <style>
@@ -383,6 +382,37 @@
      * Shared tokens/nav/base loaded from /css/base.css and /css/nav.css.
      * This block contains only index-specific styles.
      */
+
+    :root {
+      /* ── New cream/ink palette ── */
+      --cream:       #F4EDE3;
+      --cream-mid:   #EBE2D4;
+      --cream-deep:  #DDD0BC;
+      --ink:         #18150F;
+      --ink-90:      rgba(24,21,15,0.90);
+      --ink-75:      rgba(24,21,15,0.75);
+      --ink-55:      rgba(24,21,15,0.55);
+      --ink-30:      rgba(24,21,15,0.30);
+      --ink-15:      rgba(24,21,15,0.15);
+      --ink-08:      rgba(24,21,15,0.08);
+      --gold:        #B8932A;
+      --gold-lt:     #D4AF50;
+      --serif:       'Cormorant Garamond', Georgia, serif;
+      --sans:        'Barlow Condensed', 'Arial Narrow', Arial, sans-serif;
+      --grain: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    body {
+      background: var(--cream);
+      color: var(--ink);
+      font-family: var(--serif);
+      font-weight: 400;
+      line-height: 1.7;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+    }
 
     /* ── STICKY JOIN ── */
     /* Hidden by default; shown via JS .visible class on mobile */

@@ -43,11 +43,10 @@ if (marqueeTrack && !marqueeTrack.dataset.static) {
   var aboutHref   = isHome ? '#about'    : '/#about';
   var speakHref   = isHome ? '#speaking' : '/#speaking';
   var regHref     = isHome ? '#register' : '/#register';
-  var joinHref    = isHome ? '#join'     : '/#join';
 
   var fifthLink = isTeam
-    ? '<a href="/team.html">Our Team <span class="mob-arrow">\u2192</span></a>'
-    : '<a href="' + joinHref + '">Get Involved <span class="mob-arrow">\u2192</span></a>';
+    ? '<a href="/#speaking">Get Involved <span class="mob-arrow">\u2192</span></a>'
+    : '<a href="/team.html">Our Team <span class="mob-arrow">\u2192</span></a>';
 
   var html = '<div class="mob-backdrop" id="menuBackdrop"></div>' +
     '<div class="mob-drawer" id="mobileMenu" role="dialog" aria-label="Navigation" aria-modal="true">' +

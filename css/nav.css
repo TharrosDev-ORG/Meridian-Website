@@ -138,6 +138,13 @@ nav.scrolled {
 .mob-links {
   position: absolute; top: 116px; left: 0; right: 0;
   padding: 0 28px; display: flex; flex-direction: column;
+  /* Reset nav{} type-selector overrides (height, background, etc.) */
+  background: transparent;
+  height: auto;
+  border-bottom: none;
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
 }
 .mob-links a {
   display: flex; align-items: center; justify-content: space-between;

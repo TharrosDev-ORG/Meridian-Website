@@ -1009,878 +1009,344 @@
 <a href="#main-content" class="skip-link">Skip to content</a>
 <div class="progress" id="progressBar" aria-hidden="true"></div>
 
-<!-- Back to top arc -->
+<!-- Arc back-to-top -->
 <button class="arc-btn" id="arcBtn" aria-label="Back to top">
-  <svg viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <svg viewBox="0 0 52 52" fill="none">
     <circle class="arc-track" cx="26" cy="26" r="22"/>
-    <circle class="arc-fill"  cx="26" cy="26" r="22" id="arcFill"/>
+    <circle class="arc-fill" cx="26" cy="26" r="22" id="arcFill"/>
   </svg>
-  <div class="arc-inner">
-    <span class="arc-icon">↑</span>
-  </div>
+  <div class="arc-inner"><span class="arc-icon">↑</span></div>
 </button>
 
-<a href="#"
-   target="_blank" rel="noopener noreferrer" class="sticky-join" id="stickyJoin"
-   data-register aria-label="Register as a member">Register</a>
-<p class="noscript-register-note" style="display:none; font-size: 0.85em; margin-top: 0.5rem;">
-  <a href="https://docs.google.com/forms/d/1qThcXHxzfuW4uNVkZbHGhHwlDsy8x-YGtpHpOLnqTl4/viewform" target="_blank" rel="noopener noreferrer">
-    Register directly (JavaScript required for registration button to work)
-  </a>
+<!-- Mobile sticky register CTA -->
+<a href="#" target="_blank" rel="noopener noreferrer"
+   class="sticky-join" id="stickyJoin" data-register aria-label="Register as a member">Register</a>
+<p class="noscript-register-note" style="display:none; font-size:0.85em; margin-top:0.5rem;">
+  <a href="https://docs.google.com/forms/d/1qThcXHxzfuW4uNVkZbHGhHwlDsy8x-YGtpHpOLnqTl4/viewform"
+     target="_blank" rel="noopener noreferrer">Register directly</a>
 </p>
 
-<!-- ═══════════ NAV ═══════════ -->
-<nav id="mainNav" aria-label="Main navigation">
+<!-- NAV -->
+<nav id="mainNav" role="navigation" aria-label="Main navigation">
   <div class="nav-inner">
     <a href="/" class="nav-logo" aria-label="The Meridian Society — home">
       <span class="nav-wordmark">The Meridian Society</span>
     </a>
     <ul class="nav-links" role="list">
-      <li><a href="#about">About the Society</a></li>
+      <li><a href="#about">About</a></li>
       <li><a href="/events.html">Events</a></li>
-      <li><a href="#speaking">Speaking Opportunities</a></li>
-      <li><a href="#register">Membership Registration</a></li>
-      <li><a href="#join">Get Involved</a></li>
+      <li><a href="#speaking">Get Involved</a></li>
+      <li><a href="#register">Membership</a></li>
     </ul>
-    <a href="#"
-       target="_blank" rel="noopener noreferrer" class="nav-cta" data-register>
+    <a href="#" target="_blank" rel="noopener noreferrer" class="nav-cta" data-register>
       <span>Register</span>
     </a>
-    <button class="hamburger" id="burgerBtn" aria-label="Open navigation" aria-expanded="false" aria-controls="mobileMenu">
+    <button class="hamburger" id="burgerBtn"
+            aria-label="Open navigation" aria-expanded="false" aria-controls="mobileMenu">
       <span></span><span></span>
     </button>
   </div>
 </nav>
 
-<!-- ═══════════ HERO ═══════════ -->
-<section class="hero" aria-label="Hero">
-  <div class="hero-canvas-wrap" aria-hidden="true">
-    <canvas id="globeCanvas"></canvas>
-  </div>
-  <div class="hero-vignette" aria-hidden="true"></div>
-  <div class="hero-rail"     aria-hidden="true"></div>
+<!-- HERO -->
+<section class="hero" id="hero" aria-label="Hero" id="main-content">
+  <!-- Ghost "M" letterform — parallax via JS -->
+  <div class="hero-ghost" id="heroGhost" aria-hidden="true">M</div>
 
-  <main class="hero-content" id="main-content">
+  <div class="hero-content">
     <div class="hero-eyebrow" aria-hidden="true">
-      <div class="hero-eyebrow-line"></div>
-      <span class="hero-eyebrow-text">Ottawa, Canada &nbsp;·&nbsp; Est. 2025 &nbsp;·&nbsp; Open Membership</span>
-      <div class="hero-eyebrow-line"></div>
+      <span class="hero-eyebrow-rule"></span>
+      <span class="hero-eyebrow-text" id="hero-speakable">An Independent Student Organization &nbsp;·&nbsp; Ottawa &nbsp;·&nbsp; Est. 2025</span>
+      <span class="hero-eyebrow-rule"></span>
     </div>
-
-    <p class="hero-pre" aria-hidden="true">The</p>
-    <h1 class="hero-title" aria-label="The Meridian Society - Ottawa Student Speaker Forum">
-      MERIDIAN
-      <span class="hero-title-gold">SOCIETY</span>
-    </h1>
-    <p class="hero-sub">For Students &nbsp;·&nbsp; By Students</p>
-
-    <div class="hero-div" aria-hidden="true">
-      <div class="hero-div-line"></div>
-      <div class="hero-div-mark">
-        <span></span><span></span><span></span>
-      </div>
-      <div class="hero-div-line"></div>
+    <p class="hero-pre">A Place For</p>
+    <h1 class="hero-title" id="heroTitle">DISCOURSE</h1>
+    <div class="hero-hr" aria-hidden="true"></div>
+    <p class="hero-sub">Bringing curious students together with the professionals, alumni, and scholars who can expand their world.</p>
+    <div class="hero-actions">
+      <a href="#" target="_blank" rel="noopener noreferrer" class="btn-primary" data-register>
+        <span>Register for Updates</span>
+      </a>
+      <span aria-hidden="true" style="width:1px;height:18px;background:var(--ink-15)"></span>
+      <a href="/events.html" class="btn-ghost-link">Explore Events &nbsp;&#8594;</a>
+      <span aria-hidden="true" style="width:1px;height:18px;background:var(--ink-15)"></span>
+      <a href="https://www.instagram.com/Meridian.Society" class="hero-ig-btn"
+         aria-label="The Meridian Society on Instagram" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+        </svg>
+      </a>
     </div>
+  </div>
 
-    <p class="hero-desc" id="hero-speakable">
-      A student-run speaker forum in Ottawa dedicated to bringing motivated students face to face with professionals, alumni, and scholars who can expand their mindset. Free and open to all curious students.
-    </p>
-
-    <div class="hero-ctas">
-  <a href="#"
-     target="_blank" rel="noopener noreferrer" class="cta-primary" data-register>
-    <span>Become a Member</span>
-  </a>
-  <a href="https://www.instagram.com/Meridian.Society"
-     target="_blank" rel="noopener noreferrer"
-     class="hero-ig-btn" aria-label="Follow @Meridian.Society on Instagram">
-    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-    </svg>
-  </a>
-  <a href="#about" class="cta-ghost">Explore <span class="arr">→</span></a>
-</div>
-  </main>
-
-  <div class="hero-stats" role="list">
-    <div class="hero-stat" role="listitem"><div class="stat-val">Ottawa</div><div class="stat-lbl">Founded &amp; Based</div></div>
-    <div class="hero-stat" role="listitem"><div class="stat-val">Est. 2025</div><div class="stat-lbl">Year of Founding</div></div>
-    <div class="hero-stat" role="listitem"><div class="stat-val" id="heroMemberCount">—</div><div class="stat-lbl">Members &amp; Growing</div></div>
-    <div class="hero-stat" role="listitem"><div class="stat-val">Free</div><div class="stat-lbl">To Join</div></div>
+  <!-- Stats bar — pinned to hero bottom by flex margin-top: auto -->
+  <div class="hero-stats" role="list" aria-label="Key facts">
+    <div class="stat" role="listitem">
+      <div class="stat-val">3</div>
+      <div class="stat-lbl">Universities &amp; Colleges</div>
+    </div>
+    <div class="stat" role="listitem">
+      <div class="stat-val">Ottawa</div>
+      <div class="stat-lbl">Based At Carleton</div>
+    </div>
+    <div class="stat" role="listitem">
+      <div class="stat-val">Fall '26</div>
+      <div class="stat-lbl">Inaugural Event</div>
+    </div>
+    <div class="stat" role="listitem">
+      <div class="stat-val">Est. 2025</div>
+      <div class="stat-lbl">Independent Organization</div>
+    </div>
   </div>
 </section>
 
 <!-- MARQUEE -->
-<div class="marquee" aria-hidden="true">
-  <div class="marquee-track"></div>
+<div class="marquee-wrap" aria-hidden="true">
+  <div class="marquee-track" data-static="true">
+    <span class="m-item">The Meridian Society</span><span class="m-gem">◆</span><span class="m-item">Ottawa</span><span class="m-gem">◆</span><span class="m-item">Est. 2025</span><span class="m-gem">◆</span><span class="m-item">Student-Run</span><span class="m-gem">◆</span><span class="m-item">Carleton University</span><span class="m-gem">◆</span><span class="m-item">uOttawa</span><span class="m-gem">◆</span><span class="m-item">Algonquin College</span><span class="m-gem">◆</span><span class="m-item">The Meridian Society</span><span class="m-gem">◆</span><span class="m-item">Ottawa</span><span class="m-gem">◆</span><span class="m-item">Est. 2025</span><span class="m-gem">◆</span><span class="m-item">Student-Run</span><span class="m-gem">◆</span><span class="m-item">Carleton University</span><span class="m-gem">◆</span><span class="m-item">uOttawa</span><span class="m-gem">◆</span><span class="m-item">Algonquin College</span><span class="m-gem">◆</span>
+  </div>
 </div>
 
-<!-- ═══════════ §01 ABOUT ═══════════ -->
-<section id="about" aria-labelledby="about-h">
-  <div class="wrap">
-    <div class="sec-head rv">
-      <span class="sec-tag">About the Society</span>
-      <div class="sec-rule"></div>
-      <span class="sec-num">01</span>
+<!-- ABOUT -->
+<section class="about" id="about" aria-labelledby="about-heading">
+  <div class="wrap about-layout">
+    <div class="about-left rv">
+      <span class="about-num" aria-hidden="true">01</span>
+      <div class="about-section-label">About</div>
+      <h2 class="about-title" id="about-heading">A Room<br>With the<br><em>Right People.</em></h2>
     </div>
-    <div class="about-layout">
-      <div class="about-left rv" data-d="1">
-        <h2 class="about-headline" id="about-h">
-          A social and intellectual space for the
-          <em>motivated and open-minded.</em>
-        </h2>
-        <p class="about-body">The Meridian Society is a student-run, Ottawa-based speaker forum that brings together curious students, alumni, and professionals to share experiences, perspectives, and their career pathways.</p>
-        <p class="about-body">Through presentations, open conversations, and informal gatherings, the Society helps its members orient themselves in an increasingly complex world, by gaining exposure to people and ideas they would not otherwise encounter.</p>
-        <p class="about-body" id="about-speakable">Based in Ottawa, Canada, the Society hosts free speaker events, career pathway talks, and open conversations for students across law, business, policy, and media — a place to encounter people and ideas you would not otherwise find.</p>
+    <div class="about-right">
+      <p class="about-body rv" id="about-speakable">The Meridian Society is an independent, student-run organization based at Carleton University. We exist to connect motivated students with the professionals, alumni, and scholars who can expand their world, and to build a community of genuinely curious people.</p>
+      <p class="about-body rv" data-d="1">Through events, open conversations, and gatherings of all kinds, we help our members orient themselves in an increasingly complex world. Not an extension of any institution. Something built, owned, and run entirely by students.</p>
+      <div class="pull-quote rv" data-d="2">
+        <p>"We cannot promise outcomes, but we can provide access, exposure, and orientation to people and their ideas."</p>
       </div>
-      <div class="about-right rv" data-d="2">
-        <div class="def-block">
-          <div class="def-tag">mer · i · di · an &nbsp;/məˈridēən/</div>
-          <p class="def-quote">A meridian is a fixed point in a shifting world - an axis for orientation, judgment, and action.</p>
-          <p class="def-body">We liked the idea of creating a place that helps people orient themselves. Not by telling them where to go, but by exposing them to different paths. The Meridian Society exists to do something simple and intentional: bring the right people into the same room, to listen, to learn, and to ask better questions.</p>
+      <a href="/team.html" class="text-link rv" data-d="3">Meet the Team &nbsp;&#8594;</a>
+    </div>
+  </div>
+</section>
+
+<!-- WHO WE GATHER -->
+<section class="who" id="who" aria-labelledby="who-heading">
+  <div class="wrap">
+    <div class="who-top">
+      <h2 class="who-title rv" id="who-heading">Who We<br><em>Gather.</em></h2>
+      <p class="who-intro-body rv" data-d="1">The Society brings together thoughtful people at all stages: from students still finding their footing to professionals and scholars with something worth sharing.</p>
+    </div>
+    <div class="who-grid">
+      <div class="who-item rv" data-num="01">
+        <div class="who-num">01</div>
+        <div class="who-item-title">Students &amp; Alumni</div>
+        <p class="who-item-desc">Motivated, curious individuals from Carleton University, uOttawa, and Algonquin College, and anyone drawn to the work we do.</p>
+      </div>
+      <div class="who-item rv" data-d="1" data-num="02">
+        <div class="who-num">02</div>
+        <div class="who-item-title">Speakers &amp; Professionals</div>
+        <p class="who-item-desc">People across law, business, policy, media, and beyond, with lived experience and a story worth telling.</p>
+      </div>
+      <div class="who-item rv" data-d="2" data-num="03">
+        <div class="who-num">03</div>
+        <div class="who-item-title">Scholars &amp; Thinkers</div>
+        <p class="who-item-desc">Academics and researchers whose work challenges assumptions, opens new territory, and gives students something to think about.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT WE ARE NOT -->
+<section class=”not-sec” id=”not” aria-labelledby=”not-heading”>
+  <div class=”wrap not-layout”>
+    <div class=”not-left”>
+      <div class=”sec-label rv”>What We Are Not</div>
+      <h2 class=”not-title rv” data-d=”1” id=”not-heading”>Intentionally<br>Not for Everyone.</h2>
+      <p class=”not-body rv” data-d=”2”>We are not a resume workshop, a pitch competition, or a networking event. We have no political agenda and no exclusive membership criteria. We are student-run and independent. What we offer is simple: a room with the right people, and the willingness to listen.</p>
+    </div>
+    <div class=”not-right”>
+      <div class=”not-list-header rv”>Not</div>
+      <ul class=”not-list” aria-label=”What the Society is not”>
+        <li class=”rv”>A resume workshop or career placement office</li>
+        <li class=”rv” data-d=”1”>A political advocacy or activism group</li>
+        <li class=”rv” data-d=”2”>A startup incubator or pitch competition</li>
+        <li class=”rv” data-d=”3”>A closed, elite, invitation-only circle</li>
+        <li class=”rv” data-d=”4”>A networking event with business cards</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- EVENTS TEASER -->
+<section class=”events” id=”events” aria-labelledby=”events-heading”>
+  <div class=”wrap”>
+    <div class=”events-header”>
+      <h2 class=”events-title rv” id=”events-heading”>Upcoming<br><em>Events.</em></h2>
+      <a href=”/events.html” class=”text-link rv” data-d=”1”>All Events &nbsp;&#8594;</a>
+    </div>
+    <div class=”event-card rv” data-d=”1”>
+      <div class=”event-main”>
+        <div class=”event-status”>
+          <span class=”event-dot” aria-hidden=”true”></span>
+          Registration Open
+        </div>
+        <h3 class=”event-title”>Our <em>First Event</em><br>is Coming.</h3>
+        <p class=”event-desc”>The Meridian Society’s inaugural event brings together Ottawa’s student community with professionals and scholars for an evening of open conversation.</p>
+        <div class=”event-tags” aria-label=”Event tags”>
+          <span class=”event-tag”>Speaker Event</span>
+          <span class=”event-tag”>Open Conversation</span>
+          <span class=”event-tag”>Ottawa</span>
+        </div>
+      </div>
+      <div class=”event-meta” aria-label=”Event details”>
+        <div class=”event-meta-row”>
+          <div class=”meta-lbl”>When</div>
+          <div class=”meta-val”>Fall 2026</div>
+        </div>
+        <div class=”event-meta-row”>
+          <div class=”meta-lbl”>Where</div>
+          <div class=”meta-val”>Ottawa, Canada</div>
+        </div>
+        <div class=”event-meta-row”>
+          <div class=”meta-lbl”>Format</div>
+          <div class=”meta-val”>Speaker &amp; Open Conversation</div>
+        </div>
+        <div class=”event-meta-row”>
+          <div class=”meta-lbl”>Entry</div>
+          <div class=”meta-val”>Registered Members</div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<div class="sec-divider" aria-hidden="true">
-  <div class="sec-divider-inner">
-    <div class="sec-divider-diamond"></div>
-    <span class="sec-divider-text">45°23'N · 75°41'W · Ottawa</span>
-    <div class="sec-divider-diamond fill"></div>
-    <div class="sec-divider-diamond"></div>
+<!-- GET INVOLVED -->
+<section class=”speaking” id=”speaking” aria-labelledby=”speaking-heading”>
+  <div class=”wrap speaking-layout”>
+    <div class=”speaking-left”>
+      <div class=”sec-label rv”>Get Involved</div>
+      <h2 class=”speaking-title rv” data-d=”1” id=”speaking-heading”>Have a Story<br>Worth <em>Sharing?</em></h2>
+      <p class=”speaking-sub rv” data-d=”2”>We’d love to hear from you.</p>
+      <p class=”speaking-body rv” data-d=”2”>Whether you want to speak, collaborate, or simply get involved, The Meridian Society is always looking to grow its circle of people worth knowing.</p>
+      <a href=”mailto:meridiansocietycanada@gmail.com” class=”text-link rv” data-d=”3”>Get in Touch &nbsp;&#8594;</a>
+    </div>
+    <div class=”speaking-right”>
+      <div class=”sec-label rv” style=”margin-bottom:20px;”>What We Host</div>
+      <ul class=”formats-list” aria-label=”Event formats we host”>
+        <li class=”formats-item rv”><span class=”formats-num”>01</span><span class=”formats-text”>Formal presentations &amp; keynotes</span></li>
+        <li class=”formats-item rv” data-d=”1”><span class=”formats-num”>02</span><span class=”formats-text”>Open conversations &amp; Q&amp;A</span></li>
+        <li class=”formats-item rv” data-d=”2”><span class=”formats-num”>03</span><span class=”formats-text”>Career pathway talks</span></li>
+        <li class=”formats-item rv” data-d=”3”><span class=”formats-num”>04</span><span class=”formats-text”>Panel discussions</span></li>
+        <li class=”formats-item rv” data-d=”4”><span class=”formats-num”>05</span><span class=”formats-text”>Social gatherings &amp; community events</span></li>
+      </ul>
+    </div>
   </div>
-</div>
+</section>
 
-<!-- ═══════════ FIRST EVENT TEASER ═══════════ -->
-<section id="first-event" aria-labelledby="event-h">
+<!-- REGISTER -->
+<section class="register" id="register" aria-labelledby="register-heading">
+  <div class="register-ghost" aria-hidden="true">MERIDIAN</div>
   <div class="wrap">
-    <div class="sec-head rv">
-      <span class="sec-tag">Upcoming</span>
-      <div class="sec-rule"></div>
-      <span class="sec-num">—</span>
+    <div class="register-rule-top" aria-hidden="true"></div>
+    <p class="register-eyebrow rv">Independent &nbsp;·&nbsp; Student-Run &nbsp;·&nbsp; Ottawa &nbsp;·&nbsp; Est. 2025</p>
+    <h2 class="register-title rv" data-d="1" id="register-heading">Become a<br><em>Member.</em></h2>
+    <!-- Live member count — populated by inline script -->
+    <div class="member-count-box rv" data-d="1" id="memberCountBox" aria-live="polite">
+      <span class="member-count-num" id="memberCountNum">—</span>
+      <span class="member-count-lbl">Members Registered</span>
     </div>
-    <div class="event-card rv" id="currentEventCard"></div>
-    <script>
-    (function() {
-      var ev = typeof EVENTS !== 'undefined' && EVENTS.find(function(e) { return e.isCurrent; });
-      if (!ev) return;
-      document.getElementById('currentEventCard').innerHTML =
-        '<div class="event-card-main">' +
-          '<div class="event-card-top">' +
-            '<div class="event-status">' +
-              '<div class="event-status-dot"></div>' +
-              '<span class="event-status-text">' + ev.status + '</span>' +
-            '</div>' +
-            '<h2 class="event-card-title" id="event-h">' + ev.title + '</h2>' +
-            '<p class="event-card-desc">' + ev.desc + '</p>' +
-          '</div>' +
-          '<div class="event-card-bottom">' +
-            '<div class="event-card-tags">' +
-              ev.tags.map(function(t) { return '<span class="event-tag">' + t + '</span>'; }).join('') +
-            '</div>' +
-            '<a href="' + ev.ctaHref + '" target="_blank" rel="noopener noreferrer" class="event-card-cta" data-register>' +
-              ev.ctaText +
-            '</a>' +
-          '</div>' +
-        '</div>' +
-        '<div class="event-card-panel">' +
-          '<div>' +
-            '<div class="event-panel-row"><div class="event-panel-label">When</div><div class="event-panel-value tba">' + ev.when + '</div></div>' +
-            '<div class="event-panel-divider"></div>' +
-            '<div class="event-panel-row"><div class="event-panel-label">Where</div><div class="event-panel-value tba">' + ev.where + '</div></div>' +
-            '<div class="event-panel-divider"></div>' +
-            '<div class="event-panel-row"><div class="event-panel-label">Format</div><div class="event-panel-value tba">' + ev.format + '</div></div>' +
-            '<div class="event-panel-divider"></div>' +
-            '<div class="event-panel-row"><div class="event-panel-label">Speaker</div><div class="event-panel-value tba">' + ev.speaker + '</div></div>' +
-          '</div>' +
-          '<div class="event-panel-entry">' +
-            '<div class="event-panel-label">Entry</div>' +
-            '<div class="event-panel-value event-panel-value--gold">' + ev.entry + '</div>' +
-          '</div>' +
-        '</div>';
-    })();
-    </script>
+    <p class="register-body rv" data-d="2" id="register-speakable">Membership puts you in the room. Register to stay informed, attend events, and become part of a community built around curiosity and conversation.</p>
+    <div class="register-actions rv" data-d="3">
+      <a href="#" target="_blank" rel="noopener noreferrer" class="register-btn" data-register>
+        <span>Register for Updates</span>
+      </a>
+    </div>
+    <div class="register-rule-btm" aria-hidden="true"></div>
   </div>
 </section>
 
-<!-- ═══════════ §02 WHO ═══════════ -->
-<section id="who" aria-labelledby="who-h">
-  <div class="wrap">
-    <div class="sec-head rv">
-      <span class="sec-tag">Who We Gather</span>
-      <div class="sec-rule"></div>
-      <span class="sec-num">02</span>
-    </div>
-    <div class="who-intro">
-      <h2 class="who-headline rv" data-d="1" id="who-h">People worth being<br />in a <em>room with.</em></h2>
-      <p class="who-intro-body rv" data-d="2">The Meridian Society brings together thoughtful speakers and curious young adults, creating space for engaging presentations, meaningful questions, and conversations that expand academic and professional horizons.</p>
-    </div>
-    <div class="who-list rv">
-      <div class="who-row" tabindex="0" role="button" aria-expanded="false" aria-label="Toggle details: Students">
-        <span class="who-row-num">01</span>
-        <h3 class="who-row-title">Students</h3>
-        <p class="who-row-body">Curious, ambitious, and open to where ideas might lead. The core of what we build.</p>
-        <span class="who-row-tag">Core</span>
-        <span class="who-row-chevron" aria-hidden="true">▾</span>
-        <p class="who-row-drop">Whether you are in first year or finishing a graduate degree, the Society is built around you. You do not need a specific major or a defined career path — just the willingness to sit in a room with people who have been somewhere you have not yet, and the curiosity to ask them about it.</p>
-      </div>
-      <div class="who-row" tabindex="0" role="button" aria-expanded="false" aria-label="Toggle details: Alumni">
-        <span class="who-row-num">02</span>
-        <h3 class="who-row-title">Alumni</h3>
-        <p class="who-row-body">Graduates who come back to turn what they’ve learned into guidance for others.</p>
-        <span class="who-row-tag">Speakers</span>
-        <span class="who-row-chevron" aria-hidden="true">▾</span>
-        <p class="who-row-drop">There is something clarifying about articulating your own path to a room full of people who are just beginning theirs. Alumni return not to lecture, but to reflect — and often find the conversation as valuable as the students do.</p>
-      </div>
-      <div class="who-row" tabindex="0" role="button" aria-expanded="false" aria-label="Toggle details: Professionals">
-        <span class="who-row-num">03</span>
-        <h3 class="who-row-title">Professionals</h3>
-        <p class="who-row-body">Those with lived experience across law, business, policy, media, and international work.</p>
-        <span class="who-row-tag">Speakers</span>
-        <span class="who-row-chevron" aria-hidden="true">▾</span>
-        <p class="who-row-drop">The professionals we invite are not here to recruit or to pitch. They are here because they remember what it felt like to not yet know which direction to face — and they have something honest to say about how they found their footing.</p>
-      </div>
-      <div class="who-row" tabindex="0" role="button" aria-expanded="false" aria-label="Toggle details: Scholars">
-        <span class="who-row-num">04</span>
-        <h3 class="who-row-title">Scholars</h3>
-        <p class="who-row-body">Scholars whose work shapes perspective and sharpens understanding.</p>
-        <span class="who-row-tag">Guests</span>
-        <span class="who-row-chevron" aria-hidden="true">▾</span>
-        <p class="who-row-drop">Academics and researchers who bring rigour and depth to questions that practitioners sometimes move past too quickly. Their presence shifts the tone of a room — from what works to why it works, and what it means.</p>
-      </div>
-      <div class="who-row" tabindex="0" role="button" aria-expanded="false" aria-label="Toggle details: Across Fields">
-        <span class="who-row-num">05</span>
-        <h3 class="who-row-title">Across Fields</h3>
-        <p class="who-row-body">Law, business, policy, media, international work, and everything in between.</p>
-        <span class="who-row-tag">All Welcome</span>
-        <span class="who-row-chevron" aria-hidden="true">▾</span>
-        <p class="who-row-drop">The most interesting conversations happen at the edges of disciplines — where a law student asks a journalist a question neither expected, or where a policy researcher and a business founder discover they are solving the same problem from opposite ends. That is the room we are trying to build.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="sec-divider" aria-hidden="true">
-  <div class="sec-divider-inner">
-    <div class="sec-divider-diamond fill"></div>
-    <span class="sec-divider-text">Est. 2025 · Ottawa, Canada</span>
-    <div class="sec-divider-diamond"></div>
-    <div class="sec-divider-diamond fill"></div>
-  </div>
-</div>
-
-<!-- ═══════════ §03 WHAT WE ARE NOT ═══════════ -->
-<section id="not" aria-labelledby="not-h">
-  <div class="wrap">
-    <div class="sec-head rv">
-      <span class="sec-tag">What We Are Not</span>
-      <div class="sec-rule"></div>
-      <span class="sec-num">03</span>
-    </div>
-    <div class="not-intro">
-      <h2 class="not-headline rv" data-d="1" id="not-h">Honest about what<br />we <em>don't</em> offer.</h2>
-      <p class="not-intro-body rv" data-d="2">The Meridian Society is not for everyone, and that's intentional. We won't pretend to be something we're not.</p>
-    </div>
-    <div class="not-coda rv" data-d="1">
-      <blockquote class="not-quote">“We cannot promise outcomes. We can only provide access, exposure, and orientation to people and their ideas.”</blockquote>
-      <p class="not-coda-body">What we offer is rare and simple: a room with the right people, and the willingness to listen. That’s the whole of it.</p>
-    </div>
-    <div class="not-list rv">
-      <div class="not-item"><span class="not-x" aria-hidden="true">×</span><span class="not-text">Not a resume workshop</span></div>
-      <div class="not-item"><span class="not-x" aria-hidden="true">×</span><span class="not-text">Not a career placement office</span></div>
-      <div class="not-item"><span class="not-x" aria-hidden="true">×</span><span class="not-text">Not a political advocacy group</span></div>
-      <div class="not-item"><span class="not-x" aria-hidden="true">×</span><span class="not-text">Not a startup incubator</span></div>
-      <div class="not-item"><span class="not-x" aria-hidden="true">×</span><span class="not-text">Not a closed elite circle</span></div>
-    </div>
-  </div>
-</section>
-
-<div class="sec-divider" aria-hidden="true">
-  <div class="sec-divider-inner">
-    <div class="sec-divider-diamond"></div>
-    <span class="sec-divider-text">Meridian Society · For Students, By Students</span>
-    <div class="sec-divider-diamond fill"></div>
-    <div class="sec-divider-diamond"></div>
-  </div>
-</div>
-
-<!-- ═══════════ §04 SPEAKING ═══════════ -->
-<section id="speaking" aria-labelledby="speaking-h">
-  <div class="wrap">
-    <div class="sec-head rv">
-      <span class="sec-tag">Speaking at The Meridian Society</span>
-      <div class="sec-rule"></div>
-      <span class="sec-num">04</span>
-    </div>
-    <div class="speaking-layout">
-      <div class="rv" data-d="1">
-        <h2 class="speaking-headline" id="speaking-h">Interested in <em>sharing your experience?</em></h2>
-        <p class="speaking-body">The Meridian Society is building a program of presentations, open conversations, and informal gatherings where professionals, alumni, and scholars share their experiences and perspectives.</p>
-        <p class="speaking-body">If you have a story, insight, or career worth sharing, we want to hear about it.</p>
-        <div class="speaking-cta-wrap">
-          <a href="mailto:meridiansocietycanada@gmail.com" class="event-card-cta">
-            <span>Get in Touch</span>
-          </a>
-          <span class="speaking-email-label">
-            meridiansocietycanada@gmail.com
-          </span>
-        </div>
-      </div>
-      <div class="formats-panel rv" data-d="2">
-        <div class="formats-label">Event Formats We Host</div>
-        <ul class="formats-list">
-          <li>Formal Presentations</li>
-          <li>Open Conversations</li>
-          <li>Social Gatherings</li>
-          <li>Career Pathway Talks</li>
-          <li>Panel Discussions</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="sec-divider" aria-hidden="true">
-  <div class="sec-divider-inner">
-    <div class="sec-divider-diamond fill"></div>
-    <span class="sec-divider-text">Open Membership · Speaker Forum</span>
-    <div class="sec-divider-diamond"></div>
-    <div class="sec-divider-diamond fill"></div>
-  </div>
-</div>
-
-<!-- ═══════════ §05 MEMBERSHIP ═══════════ -->
-<section id="register" aria-labelledby="register-h">
-  <div class="wrap">
-    <div class="sec-head rv">
-      <span class="sec-tag">Membership</span>
-      <div class="sec-rule"></div>
-      <span class="sec-num">05</span>
-    </div>
-    <div class="register-layout">
-      <div class="rv" data-d="1">
-        <h2 class="register-headline" id="register-h">Become a <em>Member.</em></h2>
-        <p class="register-body" id="register-speakable">If you're a curious student, alumni, or professional who believes in the value of the right conversation with the right people, we'd love to have you. Membership is free and open to all.</p>
-        <ul class="register-perks">
-          <li>Access to speaker announcements &amp; event schedules</li>
-          <li>Invitations to Society social events and gatherings</li>
-          <li>Connection to a community of motivated, curious peers</li>
-          <li>Exposure to diverse professional pathways and fields</li>
-        </ul>
-        <a href="#"
-           target="_blank" rel="noopener noreferrer" class="btn-register" data-register>
-          <span>Register as a Member</span>
-        </a>
-      </div>
-      <div class="member-panel rv" data-d="2">
-        <div class="member-panel-bg" aria-hidden="true">
-          <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" fill="none" width="400" height="400" aria-hidden="true">
-            <circle cx="200" cy="200" r="180" stroke="#c9a84c" stroke-width="0.8"/>
-            <ellipse cx="200" cy="200" rx="100" ry="180" stroke="#c9a84c" stroke-width="0.6"/>
-            <ellipse cx="200" cy="200" rx="38" ry="180" stroke="#c9a84c" stroke-width="0.4"/>
-            <ellipse cx="200" cy="117" rx="148" ry="24" stroke="#c9a84c" stroke-width="0.5"/>
-            <ellipse cx="200" cy="200" rx="180" ry="22" stroke="#c9a84c" stroke-width="0.7"/>
-            <ellipse cx="200" cy="283" rx="140" ry="22" stroke="#c9a84c" stroke-width="0.5"/>
-            <line x1="200" y1="20" x2="200" y2="380" stroke="#c9a84c" stroke-width="0.5"/>
-            <line x1="20" y1="200" x2="380" y2="200" stroke="#c9a84c" stroke-width="0.5"/>
-          </svg>
-        </div>
-        <div class="member-acct"></div>
-        <div class="member-name">The Meridian Society</div>
-        <div class="member-sub">Active Member Registry</div>
-        <div class="member-count-box">
-          <div class="member-count-num" id="memberCount" aria-live="polite">
-            <span id="countLoader" class="count-loader">
-              <span class="count-loader__core"></span>
-              <span class="count-loader__orbit"></span>
-            </span>
-          </div>
-          <div class="member-count-lbl"><span class="live-dot" aria-hidden="true"></span> Members</div>
-        </div>
-        <p class="member-detail">Ottawa, Canada &nbsp;·&nbsp; Student Run &nbsp;·&nbsp; Est. 2025</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══════════ GET INVOLVED ═══════════ -->
-<section id="join" aria-labelledby="join-h" aria-label="Get involved">
-  <div class="join-inner">
-    <div class="rv">
-      <h2 class="join-headline" id="join-h">Ambition needs <em>company.</em></h2>
-      <!-- Tagline: follow on Instagram to stay connected -->
-      <p class="join-body">Follow us on Instagram to stay up to date on upcoming gatherings, conversations, and how to get involved with the Society.</p>
-    </div>
-    <a href="https://www.instagram.com/Meridian.Society" target="_blank" rel="noopener noreferrer"
-       class="join-handle rv" data-d="2" aria-label="Follow @Meridian.Society on Instagram">
-      <span>@Meridian.Society</span>
-      <span class="join-arr">→</span>
-    </a>
-  </div>
-</section>
-
-<!-- ═══════════ FOOTER ═══════════ -->
+<!-- FOOTER -->
 <footer>
-  <div class="footer-hero">
-    <div class="footer-wordmark-wrap rv">
-      <span class="footer-eyebrow">The Meridian Society &nbsp;·&nbsp; Ottawa, Canada</span>
-      <div class="footer-big-name" aria-hidden="true">The Meridian Society</div>
-      <div class="footer-coords">
-        <span>45°25'N</span>
-        <div class="footer-coords-dot"></div>
-        <span>75°41'W</span>
-        <div class="footer-coords-dot"></div>
-        <span>Ottawa</span>
-        <div class="footer-coords-dot"></div>
-        <span>Est. 2025</span>
+  <div class="wrap">
+    <div class="footer-inner">
+      <div>
+        <div class="footer-wordmark">The Meridian Society</div>
+        <div class="footer-tagline">Ottawa &middot; Est. 2025</div>
+        <div class="footer-note">Operating out of Carleton University</div>
       </div>
-      <div class="footer-cta-row">
-        <a href="#"
-           target="_blank" rel="noopener noreferrer" class="footer-cta-main" data-register>
-          Register as a Member
-        </a>
-        <a href="https://www.instagram.com/Meridian.Society" target="_blank" rel="noopener noreferrer" class="footer-cta-ig"
-           aria-label="Follow @Meridian.Society on Instagram">
-          @Meridian.Society →
-        </a>
+      <div class="footer-links">
+        <div class="footer-col">
+          <div class="footer-col-title">Pages</div>
+          <a href="/">Home</a>
+          <a href="/events.html">Events</a>
+          <a href="/team.html">Team</a>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Connect</div>
+          <a href="https://www.instagram.com/Meridian.Society" target="_blank" rel="noopener noreferrer">Instagram</a>
+          <a href="https://linktr.ee/meridiansociety" target="_blank" rel="noopener noreferrer">Linktree</a>
+          <a href="mailto:meridiansocietycanada@gmail.com">Email</a>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="footer-grid">
-    <div>
-      <div class="footer-brand-name">
-        The Meridian Society
-      </div>
-      <p class="footer-brand-desc">A student-run speaker forum dedicated to orienting the curious - bringing together scholars, professionals, and the next generation of leaders.</p>
+    <div class="footer-bottom">
+      <span class="footer-copy">&copy; 2025 The Meridian Society &nbsp;·&nbsp; Independent Student Organization</span>
+      <span class="footer-copy">Carleton &nbsp;·&nbsp; uOttawa &nbsp;·&nbsp; Algonquin College</span>
     </div>
-    <div class="footer-nav-col">
-      <div class="footer-col-head">Navigate</div>
-      <ul class="footer-links">
-        <li><a href="#about">About</a></li>
-        <li><a href="#who">Who We Gather</a></li>
-        <li><a href="#speaking">Speaking</a></li>
-        <li><a href="#register">Membership</a></li>
-      </ul>
-    </div>
-    <div>
-      <div class="footer-col-head">Connect</div>
-      <ul class="footer-links">
-        <li><a href="https://www.instagram.com/Meridian.Society" target="_blank" rel="noopener noreferrer">Instagram</a></li>
-        <li><a href="mailto:meridiansocietycanada@gmail.com">Email Us</a></li>
-      </ul>
-    </div>
-    <div>
-      <div class="footer-col-head">Join</div>
-      <ul class="footer-links">
-        <li><a href="#" target="_blank" rel="noopener noreferrer" data-register>Register as a Member</a></li>
-        <li><a href="#speaking">Speaking</a></li>
-      </ul>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <span class="footer-copy">© 2026 The Meridian Society · Ottawa, Canada</span>
-    <span class="footer-meta">Student Run · Est. 2025</span>
   </div>
 </footer>
 
 <!-- Shared site script: REGISTER_URL, scroll handler, scroll reveal, mobile menu -->
 <script src="/js/site.min.js"></script>
+<script src="/js/events-data.min.js"></script>
 
-<!-- Three.js — load only on desktop/capable devices; globe is decorative -->
 <script>
-(function() {
-  var isCapable = window.matchMedia('(min-width: 1024px)').matches &&
-                  (navigator.deviceMemory === undefined || navigator.deviceMemory >= 2);
-  if (!isCapable) return;
-  var s = document.createElement('script');
-  s.src = 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js';
-  s.crossOrigin = 'anonymous';
-  s.integrity = 'sha384-CI3ELBVUz9XQO+97x6nwMDPosPR5XvsxW2ua7N1Xeygeh1IxtgqtCkGfQY9WWdHu';
-  s.onload = function() { if (typeof initGlobe === 'function') initGlobe(); };
-  document.head.appendChild(s);
-}());
-</script>
-<script>
-/**
- * The Meridian Society — Homepage Script
- * Shared functionality (scroll, reveal, nav, register URL) is in /js/site.js.
- * This block handles index-specific features only.
- *
- * Modules:
- *   1. Active nav link  — IntersectionObserver for section highlighting
- *   2. Who accordion    — expand/collapse rows on mobile
- *   3. Member count     — fetches live count from Google Apps Script
- *   4. Globe            — Three.js interactive 3D globe (global fn, deferred)
- */
-'use strict';
-
-// ─────────────────────────────────────────────────────────────────
-// 1. ACTIVE NAV LINK
-// ─────────────────────────────────────────────────────────────────
-(function() {
-  const navLinkMap = {
-    about:    document.querySelector('.nav-links a[href="#about"]'),
-    speaking: document.querySelector('.nav-links a[href="#speaking"]'),
-    register: document.querySelector('.nav-links a[href="#register"]'),
-    join:     document.querySelector('.nav-links a[href="#join"]'),
-  };
-  const secObs = new IntersectionObserver(function(entries) {
-    entries.forEach(function(entry) {
-      const link = navLinkMap[entry.target.id];
-      if (link && entry.isIntersecting) {
-        Object.values(navLinkMap).forEach(function(l) { if (l) l.classList.remove('nav-active'); });
-        link.classList.add('nav-active');
-      }
+  // ── Active nav link ──
+  (function() {
+    var path = window.location.pathname;
+    document.querySelectorAll('.nav-links a').forEach(function(a) {
+      if (a.getAttribute('href') === path) a.classList.add('nav-active');
     });
-  }, { threshold: 0.1, rootMargin: '0px 0px -10% 0px' });
-  ['about','speaking','register','join'].forEach(function(id) {
-    const el = document.getElementById(id);
-    if (el) secObs.observe(el);
-  });
-})();
+  }());
 
-// ─────────────────────────────────────────────────────────────────
-// 2. WHO ROW ACCORDION (mobile)
-// ─────────────────────────────────────────────────────────────────
-(function() {
-  const isMobile = () => window.innerWidth <= 700;
-
-  function toggleRow(row) {
-    if (!isMobile()) return;
-    const isOpen = row.classList.contains('open');
-    document.querySelectorAll('.who-row.open').forEach(function(r) {
-      r.classList.remove('open');
-      r.setAttribute('aria-expanded', 'false');
+  // ── Hero mouse-tilt (3D rotation on mousemove) ──
+  (function() {
+    var hero  = document.querySelector('.hero');
+    var title = document.getElementById('heroTitle');
+    if (!hero || !title) return;
+    hero.addEventListener('mousemove', function(e) {
+      var r  = hero.getBoundingClientRect();
+      var dx = (e.clientX - r.left - r.width  / 2) / r.width;
+      var dy = (e.clientY - r.top  - r.height / 2) / r.height;
+      title.style.transform  = 'perspective(1200px) rotateY(' + (dx * 3) + 'deg) rotateX(' + (-dy * 2) + 'deg)';
+      title.style.transition = 'transform 0.1s linear';
     });
-    if (!isOpen) {
-      row.classList.add('open');
-      row.setAttribute('aria-expanded', 'true');
-    }
-  }
-
-  document.querySelectorAll('.who-row').forEach(function(row) {
-    row.addEventListener('click', function() { toggleRow(row); });
-    // Keyboard support: Enter or Space activates the accordion on mobile
-    row.addEventListener('keydown', function(e) {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        toggleRow(row);
-      }
+    hero.addEventListener('mouseleave', function() {
+      title.style.transform  = 'none';
+      title.style.transition = 'transform 0.6s cubic-bezier(0.16,1,0.3,1)';
     });
-  });
-})();
+  }());
 
-// ─────────────────────────────────────────────────────────────────
-// 3. MEMBER COUNT
-// ─────────────────────────────────────────────────────────────────
-(function() {
-  const APPS_URL = 'https://script.google.com/macros/s/AKfycbx12Z8U8xQUYUHYLZkgVBlzGvhvx2uqSd1WBJNBBQcP0vlbrGzxJFfqi8QWnQVHyiKS/exec';
-  let currentCount = 0;
+  // ── Hero ghost parallax (scroll-driven translateY) ──
+  (function() {
+    var ghost = document.getElementById('heroGhost');
+    if (!ghost) return;
+    window.addEventListener('scroll', function() {
+      ghost.style.transform = 'translateX(-50%) translateY(' + (window.scrollY * 0.22) + 'px)';
+    }, { passive: true });
+  }());
 
-  function animateCount(el, from, to, duration) {
-    const start = performance.now();
-    function step(now) {
-      const p    = Math.min((now - start) / duration, 1);
-      const ease = 1 - Math.pow(1 - p, 3);
-      el.textContent = Math.round(from + ease * (to - from));
-      if (p < 1) requestAnimationFrame(step);
-      else el.textContent = to;
-    }
-    requestAnimationFrame(step);
-  }
-
-  function hideLoader() {
-    const loader = document.getElementById('countLoader');
-    if (loader) loader.remove();
-  }
-
-  function fetchCount() {
-    fetch(APPS_URL, { method: 'GET', mode: 'cors', redirect: 'follow' })
-      .then(function(r) { if (!r.ok) throw new Error('Network response not ok'); return r.json(); })
-      .then(function(data) {
-        const el     = document.getElementById('memberCount');
-        const heroEl = document.getElementById('heroMemberCount');
-        hideLoader();
-        if (data.count > 0) {
-          if (currentCount === 0) {
-            el.textContent = data.count;
-            if (heroEl) heroEl.textContent = data.count;
-            currentCount = data.count;
-          } else if (data.count > currentCount) {
-            animateCount(el, currentCount, data.count, 1200);
-            if (heroEl) heroEl.textContent = data.count;
-            currentCount = data.count;
-          }
-        }
-      })
-      .catch(function(err) {
-        console.warn('[Meridian] Member count fetch failed:', err);
-        hideLoader();
-        var el = document.getElementById('memberCount');
-        var heroEl = document.getElementById('heroMemberCount');
-        if (el) el.textContent = '\u2014';
-        if (heroEl) heroEl.textContent = '\u2014';
-      });
-  }
-
-  fetchCount();
-  setInterval(function() { if (!document.hidden) fetchCount(); }, 30000);
-
-  // Fallback: if count hasn't loaded after 8s, hide spinner and show dash
-  setTimeout(function() {
-    const loader = document.getElementById('countLoader');
-    if (loader) {
-      hideLoader();
-      const el = document.getElementById('memberCount');
-      if (el && !el.textContent.trim()) el.textContent = '—';
-    }
-  }, 8000);
-})();
-
-// ─────────────────────────────────────────────────────────────────
-// 4. INTERACTIVE 3D GLOBE
-// Deferred init — waits for Three.js to load, then starts
-// Lower pixel ratio cap on mobile (1.5 vs 2) = ~44% fewer pixels
-// IntersectionObserver pauses RAF when globe is off-screen
-// ─────────────────────────────────────────────────────────────────
-function initGlobe() {
-  const GOLD    = 0xc9a84c;
-  const canvas  = document.getElementById('globeCanvas');
-  const heroEl  = document.querySelector('.hero');
-  const W = () => heroEl.offsetWidth;
-  const H = () => heroEl.offsetHeight;
-
-  // Pixel ratio: cap at 1.5 on mobile (was 2), 2 on desktop
-  const isMobile = window.innerWidth <= 700;
-  const maxDPR   = isMobile ? 1.5 : 2;
-
-  const renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: !isMobile, alpha: true });
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, maxDPR));
-  renderer.setSize(W(), H());
-  renderer.setClearColor(0x000000, 0);
-
-  const scene  = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(45, W() / H(), 0.1, 100);
-  camera.position.set(0, -0.15, 4.2);
-
-  const RADIUS = 1;
-
-  function geoToVec3(lon, lat) {
-    const phi   = lat * (Math.PI / 180);
-    const theta = lon * (Math.PI / 180);
-    return new THREE.Vector3(
-      RADIUS * Math.cos(phi) * Math.sin(theta),
-      RADIUS * Math.sin(phi),
-      RADIUS * Math.cos(phi) * Math.cos(theta)
-    );
-  }
-
-  function makeGlobeLines() {
-    const group    = new THREE.Group();
-    const SEG      = isMobile ? 120 : 180; // fewer segments on mobile
-    const LAT_STEP = 15;
-    const LON_STEP = 20;
-
-    for (let lat = -75; lat <= 75; lat += LAT_STEP) {
-      const pts = [];
-      for (let j = 0; j <= SEG; j++) {
-        pts.push(geoToVec3(-180 + (j / SEG) * 360, lat));
-      }
-      const mat  = new THREE.LineBasicMaterial({ color: GOLD, transparent: true, opacity: 0 });
-      const line = new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts), mat);
-      line._isEquator = (lat === 0);
-      group.add(line);
-    }
-
-    for (let lon = -180; lon < 180; lon += LON_STEP) {
-      const pts2 = [];
-      for (let j2 = 0; j2 <= SEG; j2++) {
-        pts2.push(geoToVec3(lon, -90 + (j2 / SEG) * 180));
-      }
-      const mat2 = new THREE.LineBasicMaterial({ color: GOLD, transparent: true, opacity: 0 });
-      group.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts2), mat2));
-    }
-
-    return group;
-  }
-
-  function makeCountryBorders() {
-    const group = new THREE.Group();
-    group._ready = false;
-
-    // On low-end mobile (pixelRatio <= 1 && small screen), skip borders entirely
-    if (isMobile && window.devicePixelRatio <= 1) {
-      group._ready = true; // skip fetch, grid lines only
-      return group;
-    }
-
-    fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json')
+  // ── Live member count ──
+  (function() {
+    var el = document.getElementById('memberCountNum');
+    if (!el) return;
+    fetch('https://script.google.com/macros/s/AKfycbx12Z8U8xQUYUHYLZkgVBlzGvhvx2uqSd1WBJNBBQcP0vlbrGzxJFfqi8QWnQVHyiKS/exec')
       .then(function(r) { return r.json(); })
-      .then(function(topo) {
-        const rawArcs = topo.arcs;
-        const sc = topo.transform.scale;
-        const tr = topo.transform.translate;
-
-        function decodeArc(idx) {
-          const reversed = idx < 0;
-          const src = rawArcs[reversed ? ~idx : idx];
-          let ax = 0, ay = 0;
-          const pts = src.map(function(d) {
-            ax += d[0]; ay += d[1];
-            return [ax * sc[0] + tr[0], ay * sc[1] + tr[1]];
-          });
-          return reversed ? pts.reverse() : pts;
-        }
-
-        const mat = new THREE.LineBasicMaterial({ color: GOLD, transparent: true, opacity: 0 });
-
-        topo.objects.countries.geometries.forEach(function(geom) {
-          const polys = geom.type === 'Polygon'
-            ? [geom.arcs]
-            : geom.type === 'MultiPolygon' ? geom.arcs : [];
-
-          polys.forEach(function(poly) {
-            poly.forEach(function(ring) {
-              const pts = [];
-              ring.forEach(function(arcIdx) {
-                decodeArc(arcIdx).forEach(function(coord) {
-                  const lon2 = coord[0], lat2 = coord[1];
-                  if (lon2 >= -180 && lon2 <= 180 && lat2 >= -90 && lat2 <= 90) {
-                    pts.push(geoToVec3(lon2, lat2));
-                  }
-                });
-              });
-              if (pts.length < 2) return;
-              pts.push(pts[0].clone());
-              group.add(new THREE.Line(
-                new THREE.BufferGeometry().setFromPoints(pts),
-                mat
-              ));
-            });
-          });
-        });
-
-        group._ready = true;
+      .then(function(d) {
+        if (d && typeof d.count === 'number') el.textContent = d.count;
       })
-      .catch(function() { group._ready = true; });
-
-    return group;
-  }
-
-  function makeOttawaDot() {
-    const pos = geoToVec3(-75.69, 45.42);
-    const { x, y, z } = pos;
-    const group = new THREE.Group();
-    const core = new THREE.Mesh(
-      new THREE.SphereGeometry(0.018, 12, 12),
-      new THREE.MeshBasicMaterial({ color: 0xf0dfa0, transparent: true, opacity: 0 })
-    );
-    core.position.set(x, y, z);
-    const ring = new THREE.Mesh(
-      new THREE.RingGeometry(0.022, 0.030, 24),
-      new THREE.MeshBasicMaterial({ color: GOLD, transparent: true, opacity: 0, side: THREE.DoubleSide })
-    );
-    ring.position.set(x, y, z);
-    ring.lookAt(0, 0, 0);
-    group.add(core, ring);
-    group._core = core;
-    group._ring = ring;
-    return group;
-  }
-
-  const globeLines     = makeGlobeLines();
-  const countryBorders = makeCountryBorders();
-  const ottawaDot      = makeOttawaDot();
-  const globeGroup     = new THREE.Group();
-  globeGroup.add(globeLines, countryBorders, ottawaDot);
-  scene.add(globeGroup);
-
-  scene.add(new THREE.AmbientLight(0xffffff, 0.3));
-  const dLight = new THREE.DirectionalLight(0xc9a84c, 0.6);
-  dLight.position.set(5, 3, 5);
-  scene.add(dLight);
-
-  function setOpacity(v) {
-    globeLines.children.forEach(function(l) {
-      l.material.opacity = v * (l._isEquator ? 0.95 : 0.58);
-    });
-    if (countryBorders._ready) {
-      countryBorders.children.forEach(function(l) { l.material.opacity = v * 0.75; });
-    }
-    ottawaDot._core.material.opacity = v;
-    ottawaDot._ring.material.opacity = v * 0.7;
-  }
-
-  // Constant slow rotation speed — no interaction, no velocity system
-  // Reduced to 1/8 speed if user prefers reduced motion (battery saver, accessibility)
-  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const SPIN_SPEED = prefersReducedMotion ? 0.000035 : 0.00028; // radians per frame at 60fps
-
-  let startTime = null;
-  let raf = null;
-  let globeVisible = true;
-
-  // Pause RAF when hero scrolls off-screen
-  const heroObs = new IntersectionObserver(function(entries) {
-    globeVisible = entries[0].isIntersecting;
-    if (globeVisible && !raf) {
-      startTime = null;
-      raf = requestAnimationFrame(animate);
-    }
-  }, { threshold: 0 });
-  heroObs.observe(heroEl);
-
-  function animate(ts) {
-    if (!globeVisible) { raf = null; return; }
-    raf = requestAnimationFrame(animate);
-    if (!startTime) startTime = ts;
-    const elapsed = (ts - startTime) / 1000;
-    const fadeIn  = Math.min(elapsed / 2.5, 1);
-
-    setOpacity(fadeIn);
-
-    // Constant westward rotation, no tilt
-    globeGroup.rotation.y += SPIN_SPEED;
-
-    // Ottawa pulse
-    const pulse = 0.5 + 0.5 * Math.sin(elapsed * 2.5);
-    ottawaDot._ring.scale.setScalar(1 + pulse * 0.5);
-    ottawaDot._ring.material.opacity = fadeIn * pulse * 0.5;
-
-    renderer.render(scene, camera);
-  }
-
-  // Debounced resize
-  let resizeTimeout;
-  const ro = new ResizeObserver(function() {
-    clearTimeout(resizeTimeout);
-    resizeTimeout = setTimeout(function() {
-      camera.aspect = W() / H();
-      camera.updateProjectionMatrix();
-      renderer.setSize(W(), H());
-    }, 100);
-  });
-  ro.observe(heroEl);
-
-  if (prefersReducedMotion) {
-    // Low-power mode: static render with minimal animation
-    setOpacity(1); renderer.render(scene, camera);
-    // Still allow very slow rotation for visual interest without motion sickness
-    raf = requestAnimationFrame(animate);
-  } else {
-    raf = requestAnimationFrame(animate);
-    document.addEventListener('visibilitychange', function() {
-      if (document.hidden) {
-        cancelAnimationFrame(raf); raf = null;
-      } else if (globeVisible) {
-        startTime = null; raf = requestAnimationFrame(animate);
-      }
-    });
-  }
-}
-
+      .catch(function() {
+        console.warn('Member count unavailable');
+        el.textContent = '\u2014'; // em dash fallback
+      });
+  }());
 </script>
 
 </body>

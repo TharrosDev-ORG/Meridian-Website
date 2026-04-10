@@ -968,6 +968,7 @@
 
     @media (max-width: 700px) {
       .hero { padding: 80px 20px 0; }
+      .hero-pre { font-size: clamp(17px, 3vw, 30px); }
       .wrap { padding: 0 20px; }
       .about { padding: 80px 0; }
       .who { padding: 80px 0; }
@@ -986,6 +987,9 @@
       .hero-stats { grid-template-columns: 1fr 1fr; }
       .stat { padding: 18px 20px; }
       .stat-val { font-size: 20px; }
+      .stat:nth-child(3),
+      .stat:nth-child(4) { border-top: 1px solid var(--ink-08); }
+      .stat-lbl { font-size: 9px; letter-spacing: 0.18em; }
       .btn-primary { width: 100%; justify-content: center; text-align: center; display: block; padding: 13px 24px; }
       .btn-ghost-link { display: none; }
       .hero-ig-btn { width: 44px; }

@@ -1,7 +1,7 @@
 # ═══════════════════════════════════════════════════════════════
 # The Meridian Society — robots.txt
 # https://meridiansociety.ca/robots.txt
-# Updated : 2026-03-26
+# Updated : 2026-04-10
 # ═══════════════════════════════════════════════════════════════
 
 # Allow all well-behaved crawlers
@@ -25,6 +25,22 @@ Allow: /assets/og-image.png
 
 # Bing / DuckDuckGo / Cortana
 User-agent: Bingbot
+Allow: /
+
+# Yahoo / Slurp
+User-agent: Slurp
+Allow: /
+
+# Yandex
+User-agent: YandexBot
+Allow: /
+
+# Apple / Applebot
+User-agent: Applebot
+Allow: /
+
+# LinkedIn
+User-agent: LinkedInBot
 Allow: /
 
 # Block AI training crawlers

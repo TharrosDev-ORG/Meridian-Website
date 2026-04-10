@@ -1,6 +1,9 @@
 {
   "name": "The Meridian Society",
   "short_name": "Meridian",
+  "description": "A student-run speaker forum in Ottawa. Free events connecting curious students with professionals, alumni, and scholars. For Students · By Students.",
+  "lang": "en-CA",
+  "categories": ["education", "social", "lifestyle"],
   "icons": [
     {
       "src": "/assets/favicons/android-chrome-192x192.png",
@@ -13,8 +16,25 @@
       "type": "image/png"
     }
   ],
-  "theme_color": "#FFFFFF",
-  "background_color": "#FFFFFF",
+  "theme_color": "#F4EDE3",
+  "background_color": "#F4EDE3",
   "display": "standalone",
-  "start_url": "/"
+  "start_url": "/",
+  "scope": "/",
+  "shortcuts": [
+    {
+      "name": "Upcoming Events",
+      "short_name": "Events",
+      "description": "View upcoming Meridian Society speaker events in Ottawa",
+      "url": "/events.html",
+      "icons": [{ "src": "/assets/favicons/favicon-32x32.png", "sizes": "32x32" }]
+    },
+    {
+      "name": "Our Team",
+      "short_name": "Team",
+      "description": "Meet the student team behind The Meridian Society",
+      "url": "/team.html",
+      "icons": [{ "src": "/assets/favicons/favicon-32x32.png", "sizes": "32x32" }]
+    }
+  ]
 }

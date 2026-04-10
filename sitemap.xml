@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+        xmlns:xhtml="http://www.w3.org/1999/xhtml"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 
 <!--
   The Meridian Society — Sitemap
@@ -16,22 +17,51 @@
   <priority>1.0</priority>
   <xhtml:link rel="alternate" hreflang="en-CA" href="https://meridiansociety.ca/" />
   <xhtml:link rel="alternate" hreflang="x-default" href="https://meridiansociety.ca/" />
+  <image:image>
+    <image:loc>https://meridiansociety.ca/assets/og-image.png</image:loc>
+    <image:title>The Meridian Society — Ottawa Student Speaker Forum</image:title>
+    <image:caption>A student-run speaker forum in Ottawa connecting students with professionals, alumni, and scholars. Free events. For Students · By Students.</image:caption>
+  </image:image>
 </url>
 
-<!-- Events page — priority 0.8 -->
+<!-- Events page — priority 0.9 -->
 <url>
   <loc>https://meridiansociety.ca/events.html</loc>
-  <lastmod>2026-04-07</lastmod>
+  <lastmod>2026-04-10</lastmod>
   <changefreq>weekly</changefreq>
-  <priority>0.8</priority>
+  <priority>0.9</priority>
+  <xhtml:link rel="alternate" hreflang="en-CA" href="https://meridiansociety.ca/events.html" />
+  <xhtml:link rel="alternate" hreflang="x-default" href="https://meridiansociety.ca/events.html" />
+  <image:image>
+    <image:loc>https://meridiansociety.ca/assets/og-image.png</image:loc>
+    <image:title>Upcoming Events — The Meridian Society Ottawa Student Speaker Series</image:title>
+    <image:caption>Free student speaker events in Ottawa. Register for The Meridian Society's inaugural event — Fall 2026.</image:caption>
+  </image:image>
 </url>
 
 <!-- Team page — priority 0.7 -->
 <url>
   <loc>https://meridiansociety.ca/team.html</loc>
-  <lastmod>2026-04-07</lastmod>
+  <lastmod>2026-04-10</lastmod>
   <changefreq>monthly</changefreq>
   <priority>0.7</priority>
+  <xhtml:link rel="alternate" hreflang="en-CA" href="https://meridiansociety.ca/team.html" />
+  <xhtml:link rel="alternate" hreflang="x-default" href="https://meridiansociety.ca/team.html" />
+  <image:image>
+    <image:loc>https://meridiansociety.ca/assets/og-image.png</image:loc>
+    <image:title>Our Team — The Meridian Society Student Leadership Ottawa</image:title>
+    <image:caption>Magnus Abdelnour and Colin Sherwood — the student team behind The Meridian Society speaker forum at Carleton University, Ottawa.</image:caption>
+  </image:image>
+  <image:image>
+    <image:loc>https://meridiansociety.ca/assets/images/team/magnus.webp</image:loc>
+    <image:title>Magnus Abdelnour — Founder &amp; President, The Meridian Society</image:title>
+    <image:caption>Magnus Abdelnour, Founder and President of The Meridian Society, studying Global and International Studies at Carleton University, Ottawa.</image:caption>
+  </image:image>
+  <image:image>
+    <image:loc>https://meridiansociety.ca/assets/images/team/colin.webp</image:loc>
+    <image:title>Colin Sherwood — Event Coordinator, The Meridian Society</image:title>
+    <image:caption>Colin Sherwood, Event Coordinator at The Meridian Society, studying Criminology and Criminal Justice at Carleton University, Ottawa.</image:caption>
+  </image:image>
 </url>
 
 </urlset>

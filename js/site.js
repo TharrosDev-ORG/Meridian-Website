@@ -21,6 +21,16 @@ document.querySelectorAll('a[data-register]').forEach(function(el) {
 });
 
 // ─────────────────────────────────────────────────────────────────
+// SPEAKER APPLICATION URL
+// Update here to change every speaker application link across the site
+// ─────────────────────────────────────────────────────────────────
+var SPEAK_URL = 'https://docs.google.com/forms/PLACEHOLDER';
+
+document.querySelectorAll('a[data-speak]').forEach(function(el) {
+  el.href = SPEAK_URL;
+});
+
+// ─────────────────────────────────────────────────────────────────
 // MARQUEE TEXT
 // Edit here to update the ticker on every page at once
 // ─────────────────────────────────────────────────────────────────
@@ -39,14 +49,16 @@ if (marqueeTrack && !marqueeTrack.dataset.static) {
   var path    = window.location.pathname;
   var isHome  = path === '/' || path === '/index.html' || path === '';
   var isTeam  = path === '/team.html';
+  var isSpeak = path === '/speak.html';
 
   var aboutHref   = isHome ? '#about'    : '/#about';
-  var speakHref   = isHome ? '#speaking' : '/#speaking';
   var regHref     = isHome ? '#register' : '/#register';
 
   var fifthLink = isTeam
-    ? '<a href="/#speaking">Get Involved <span class="mob-arrow">\u2192</span></a>'
-    : '<a href="/team.html">Our Team <span class="mob-arrow">\u2192</span></a>';
+    ? '<a href="/speak.html">Speak <span class="mob-arrow">\u2192</span></a>'
+    : isSpeak
+      ? '<a href="/team.html">Our Team <span class="mob-arrow">\u2192</span></a>'
+      : '<a href="/speak.html">Speak <span class="mob-arrow">\u2192</span></a>';
 
   var html = '<div class="mob-backdrop" id="menuBackdrop"></div>' +
     '<div class="mob-drawer" id="mobileMenu" role="dialog" aria-label="Navigation" aria-modal="true">' +
@@ -54,7 +66,7 @@ if (marqueeTrack && !marqueeTrack.dataset.static) {
     '  <nav class="mob-links" aria-label="Mobile navigation">' +
     '    <a href="' + aboutHref + '">About <span class="mob-arrow">\u2192</span></a>' +
     '    <a href="/events.html">Events <span class="mob-arrow">\u2192</span></a>' +
-    '    <a href="' + speakHref + '">Speaking <span class="mob-arrow">\u2192</span></a>' +
+    '    <a href="/speak.html">Speak <span class="mob-arrow">\u2192</span></a>' +
     '    <a href="' + regHref + '">Membership <span class="mob-arrow">\u2192</span></a>' +
     '    ' + fifthLink +
     '  </nav>' +

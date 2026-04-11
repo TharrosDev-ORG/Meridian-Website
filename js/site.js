@@ -24,7 +24,7 @@ document.querySelectorAll('a[data-register]').forEach(function(el) {
 // SPEAKER APPLICATION URL
 // Update here to change every speaker application link across the site
 // ─────────────────────────────────────────────────────────────────
-var SPEAK_URL = 'https://docs.google.com/forms/PLACEHOLDER';
+var SPEAK_URL = 'https://docs.google.com/forms/d/e/1FAIpQLScP7jkZ_M1EXIYnxu7ERnCBRpDDmBNPpT3BWruAoyGnPtN6IA/viewform?usp=dialog';
 
 document.querySelectorAll('a[data-speak]').forEach(function(el) {
   el.href = SPEAK_URL;

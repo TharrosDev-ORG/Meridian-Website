@@ -23,6 +23,7 @@ GitHub remote: `https://github.com/meridiansociety/Meridian-Website.git`
 index.html            # Homepage â€” hero, globe, about, events teaser, membership, join strip
 events.html           # Events listing â€” driven by js/events-data.js
 team.html             # Team member profiles â€” Magnus Abdelnour, Colin Sherwood
+speak.html            # Speaker application page â€” hero, value props, format table, apply CTA
 404.html              # Custom error page
 _headers              # Vercel HTTP headers (caching + security policy)
 vercel.json           # Vercel build command config
@@ -40,6 +41,8 @@ css/
   page.min.css        # Minified â€” LEGACY, only served by 404.html if applicable
 js/
   site.js             # Shared JS â€” source (see JS Architecture below)
+                      # URL constants: REGISTER_URL ([data-register]) + SPEAK_URL ([data-speak])
+                      # SPEAK_URL is a placeholder â€” update when speaker Google Form is created
   events-data.js      # EVENTS array â€” source; edit here to add/change events
   site.min.js         # Minified â€” served by all pages
   events-data.min.js  # Minified â€” served by events.html
@@ -400,7 +403,8 @@ Current CSP `connect-src` allows: `self`, `script.google.com`, `script.googleuse
 - **Do not move CSS/JS into `/assets/`** â€” they will be cached immutably and edits will be invisible.
 - **Do not modify `robots.txt` AI-crawler blocks** or `_headers` security policy without explicit instruction.
 - **Do not add `const`/`let` to `site.js`** â€” it uses `var` intentionally for compatibility. `events-data.js` may use `const` since it is not inline.
-- **Do not hardcode the registration URL** in HTML â€” use `href="#" data-register` on links; `site.js` fills the href from `REGISTER_URL`. Exception: the `<noscript>` fallback `<a>` inside `.noscript-register-note` paragraphs.
+- **Do not hardcode the registration URL** in HTML â€” use `href=”#” data-register` on links; `site.js` fills the href from `REGISTER_URL`. Exception: the `<noscript>` fallback `<a>` inside `.noscript-register-note` paragraphs.
+- **Do not hardcode the speaker form URL** in HTML â€” use `href=”#” data-speak` on links; `site.js` fills the href from `SPEAK_URL`. Exception: the `<noscript>` fallback inside `.noscript-speak-note`.
 - **Do not add mobile drawer HTML to the HTML files** â€” it is injected by `buildMobileMenu()` in `site.js`.
 - **Do not add inline `onclick` handlers** â€” CSP blocks them. Use event listeners in `site.js`.
 - **Do not edit the index.html design** â€” it is the source of truth. When overhauling subpages, copy patterns from index.html.
@@ -410,3 +414,20 @@ Current CSP `connect-src` allows: `self`, `script.google.com`, `script.googleuse
 - **Do not use `padding-left` or `padding` on hover for slide effects** â€" it triggers layout reflow every frame. Use `transform: translateX()` instead (compositor-only). See `.formats-item`.
 - **Do not add `footer::before` back** â€" the footer watermark was deliberately converted to `.footer-ghost` DOM element so `site.js` can drive parallax. `footer::before` is gone from all 3 pages.
 - **JS scroll transforms need manual `prefers-reduced-motion` guard** â€" `base.css` zeroes CSS transition durations globally, but JS `element.style.transform` assignments are not covered. Always check `window.matchMedia('(prefers-reduced-motion: reduce)').matches` and skip the listener if true.
+
+---
+
+## Nav Structure
+
+Desktop nav order (all pages): About · Events · Speak · Membership · Register CTA
+
+- "Speak" replaced "Get Involved" (2026-04-10) â€" points to `/speak.html`
+- Mobile drawer is JS-injected by `buildMobileMenu()` in `site.js` â€" has `isHome` / `isTeam` / `isSpeak` path detection for per-page link variants
+- Never add drawer HTML to HTML files â€" always update `buildMobileMenu()` in `site.js`
+
+---
+
+## Copy Style Rules
+
+- **No em-dashes in visible body text** â€" use periods to break clauses instead
+- **Do not name specific universities in audience-facing descriptions** â€" use "Registered Meridian members" or "Ottawa students", not "Carleton, uOttawa & Algonquin"

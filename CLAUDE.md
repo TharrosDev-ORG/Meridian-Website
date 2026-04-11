@@ -63,6 +63,37 @@ assets/
 
 ---
 
+## Typography Scale
+
+Established after April 2026 legibility pass. **Do not introduce new elements below these minimums.**
+
+### Font families
+- `--serif` (Cormorant Garamond) — body text, headings, pull quotes, meta values
+- `--sans` (Barlow Condensed) — labels, badges, buttons, uppercase utility text
+
+### Minimum sizes
+
+| Role | Family | Size |
+|------|--------|------|
+| Primary body paragraphs | --serif | 19–20px |
+| Hero subtitle (`.hero-sub`) subpages | --serif | clamp(19px, 2vw, 26px) |
+| Section titles (about/who/events/speaking) | --serif | clamp(36px, 3.5vw, 56px) |
+| Event title | --serif | clamp(26px, 3vw, 42px) |
+| Event description, meta values, list items | --serif | 19px |
+| Stat values | --serif | 28px (mobile 22px) |
+| Buttons (`.btn-primary`, `.register-btn`) | --sans | 11.5px |
+| Event status, tags, meta labels | --sans | 11.5px |
+| Section labels, eyebrows | --sans | 10.5px |
+| Footer column titles | --sans | 11px |
+| Footer copy, stat labels | --sans | 10px |
+
+### Rules
+- Never add new `--sans` label text below **10px**
+- Never add new `--serif` body text below **17px** (prefer 19px)
+- When unsure, go larger — the original design erred too small and required two rounds of increases
+
+---
+
 ## Design Tokens
 
 The site uses **two token systems**: a legacy set in `css/base.css` (with confusing inverted names) and a **new cream/ink palette** used by `index.html`, `events.html`, and `team.html` in their inline `<style>` blocks. The new palette is the source of truth for all active pages.

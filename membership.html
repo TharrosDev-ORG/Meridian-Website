@@ -380,9 +380,16 @@
     }
     .faq-item[open] > summary .faq-icon { transform: rotate(45deg); color: var(--gold); }
     .faq-item[open] > summary { color: var(--ink); }
+    .faq-body {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 0.45s cubic-bezier(0.16,1,0.3,1);
+    }
+    .faq-item[open]:not([data-closing]) > .faq-body { grid-template-rows: 1fr; }
     .faq-answer {
       font-family: var(--serif); font-size: 19px; font-weight: 300; line-height: 1.85;
       color: var(--ink-75); padding: 0 0 32px; max-width: 640px;
+      overflow: hidden; min-height: 0;
     }
     .faq-answer a {
       color: var(--gold); text-decoration: none;
@@ -636,22 +643,22 @@
 
         <details class="faq-item">
           <summary>Is membership free? <span class="faq-icon">+</span></summary>
-          <p class="faq-answer">Yes. Membership is completely free. There is no cost to join The Meridian Society.</p>
+          <div class="faq-body"><p class="faq-answer">Yes. Membership is completely free. There is no cost to join The Meridian Society.</p></div>
         </details>
 
         <details class="faq-item">
           <summary>Who can join? <span class="faq-icon">+</span></summary>
-          <p class="faq-answer">Any motivated, curious student in the Ottawa area is welcome to register. You don't need to be from a specific school or program.</p>
+          <div class="faq-body"><p class="faq-answer">Any motivated, curious student in the Ottawa area is welcome to register. You don't need to be from a specific school or program.</p></div>
         </details>
 
         <details class="faq-item">
           <summary>What happens after I register? <span class="faq-icon">+</span></summary>
-          <p class="faq-answer">You'll receive event announcements and invitations as they go out. No spam, no commitments. You can also follow us on <a href="https://www.instagram.com/Meridian.Society" target="_blank" rel="noopener noreferrer" ">Instagram</a> for updates.</p>
+          <div class="faq-body"><p class="faq-answer">You'll receive event announcements and invitations as they go out. No spam, no commitments. You can also follow us on <a href="https://www.instagram.com/Meridian.Society" target="_blank" rel="noopener noreferrer">Instagram</a> for updates.</p></div>
         </details>
 
         <details class="faq-item">
           <summary>Do I have to attend every event? <span class="faq-icon">+</span></summary>
-          <p class="faq-answer">No. Register once, come to what interests you. There is no attendance requirement. Membership is yours to use how it suits you.</p>
+          <div class="faq-body"><p class="faq-answer">No. Register once, come to what interests you. There is no attendance requirement. Membership is yours to use how it suits you.</p></div>
         </details>
 
       </div>
@@ -712,12 +719,34 @@
     });
   }());
 
-  // ── FAQ hover-to-open (desktop only) ──
-  // Opens on hover; closes on mouseleave only if hover opened it (not a click).
+  // ── FAQ accordion ──
+  // Opens with CSS grid-row transition. Close is intercepted to animate before removing [open].
+  // Hover opens on desktop; mouseleave closes only if hover initiated the open.
   (function() {
+    function animateClose(item) {
+      item.setAttribute('data-closing', '');
+      var body = item.querySelector('.faq-body');
+      function onEnd() {
+        body.removeEventListener('transitionend', onEnd);
+        item.removeAttribute('open');
+        item.removeAttribute('data-closing');
+      }
+      body.addEventListener('transitionend', onEnd);
+    }
+
     document.querySelectorAll('.faq-item').forEach(function(item) {
       item.open = false;
       var hoverOpened = false;
+
+      item.querySelector('summary').addEventListener('click', function(e) {
+        hoverOpened = false;
+        if (item.open) {
+          e.preventDefault();
+          animateClose(item);
+        }
+        // if closed, let default open it — CSS transition handles the reveal
+      });
+
       item.addEventListener('mouseenter', function() {
         if (window.innerWidth > 700 && !item.open) {
           item.open = true;
@@ -729,9 +758,6 @@
           item.open = false;
           hoverOpened = false;
         }
-      });
-      item.querySelector('summary').addEventListener('click', function() {
-        hoverOpened = false;
       });
     });
   }());

@@ -289,6 +289,18 @@
     .register-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(24,21,15,0.12); }
     .register-btn:hover::before { transform: translateX(0); }
 
+    /* ── Benefits register CTA ── */
+    .benefits-register-link {
+      font-family: var(--sans); font-size: 11.5px; font-weight: 700;
+      letter-spacing: 0.28em; text-transform: uppercase;
+      color: var(--gold); text-decoration: none;
+      border-bottom: 1px solid rgba(184,147,42,0.35);
+      padding-bottom: 4px;
+      transition: color 0.2s, border-color 0.2s;
+      white-space: nowrap;
+    }
+    .benefits-register-link:hover { color: var(--gold-lt); border-color: var(--gold-lt); }
+
     /* ── Shared utils ── */
     .wrap { max-width: 1280px; margin: 0 auto; padding: 0 64px; }
     .sec-label { font-family: var(--sans); font-size: 10.5px; font-weight: 700; letter-spacing: 0.34em; text-transform: uppercase; color: var(--ink-55); display: flex; align-items: center; gap: 14px; margin-bottom: 28px; }
@@ -575,7 +587,7 @@
     <div class="wrap">
       <div class="benefits-header">
         <h2 class="benefits-title rv" id="benefits-heading">What You<br><em>Get.</em></h2>
-        <a href="#register" class="sec-label rv" data-d="1" style="margin-bottom:0;">Register &nbsp;&#8594;</a>
+        <a href="#memberCountBox" class="benefits-register-link rv" data-d="1" id="benefitsRegisterCta">Register &nbsp;&#8594;</a>
       </div>
       <div class="benefits-grid">
 
@@ -687,6 +699,17 @@
         reg.getBoundingClientRect().bottom > 0
       );
     }, { passive: true });
+  }());
+
+  // ── Benefits "Register" CTA — scroll member count to viewport center ──
+  (function() {
+    var cta = document.getElementById('benefitsRegisterCta');
+    var box = document.getElementById('memberCountBox');
+    if (!cta || !box) return;
+    cta.addEventListener('click', function(e) {
+      e.preventDefault();
+      box.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
   }());
 
   // ── FAQ hover-to-open (desktop only) ──

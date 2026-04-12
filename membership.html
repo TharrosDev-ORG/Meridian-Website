@@ -274,8 +274,7 @@
     .hero-eyebrow-text { font-family: var(--sans); font-size: 11px; font-weight: 700; letter-spacing: 0.32em; text-transform: uppercase; color: var(--gold); }
     .hero-pre { font-family: var(--serif); font-size: clamp(18px, 2.5vw, 30px); font-style: italic; font-weight: 300; color: var(--ink-55); letter-spacing: 0.06em; margin-bottom: 10px; opacity: 0; animation: riseIn 0.7s 0.55s cubic-bezier(0.16,1,0.3,1) forwards; }
     .hero-title { font-family: var(--serif); font-size: clamp(64px, 12vw, 160px); font-weight: 300; line-height: 0.86; color: var(--ink); letter-spacing: 0.06em; opacity: 0; animation: riseIn 0.9s 0.7s cubic-bezier(0.16,1,0.3,1) forwards; text-shadow: 0 2px 40px rgba(24,21,15,0.04); }
-    .hero-hr { width: 44px; height: 1px; background: var(--ink-15); margin: 36px auto; opacity: 0; animation: riseIn 0.6s 0.95s ease forwards; }
-    .hero-sub { font-family: var(--serif); font-size: clamp(19px, 2vw, 26px); font-style: italic; font-weight: 300; color: var(--ink-75); max-width: 520px; line-height: 1.85; margin-bottom: 0; opacity: 0; animation: riseIn 0.7s 1.05s ease forwards; }
+    .hero-sub { font-family: var(--serif); font-size: clamp(17px, 1.6vw, 22px); font-style: italic; font-weight: 300; color: var(--ink-55); max-width: 480px; line-height: 1.8; margin: 24px auto 0; opacity: 0; animation: riseIn 0.7s 0.95s ease forwards; }
 
     /* ── First CTA block ── */
     .member-cta-early {
@@ -283,7 +282,6 @@
       border-bottom: 1px solid var(--ink-08);
     }
     .cta-early-inner { text-align: center; }
-    .cta-early-sub { font-family: var(--sans); font-size: 10.5px; font-weight: 600; letter-spacing: 0.24em; text-transform: uppercase; color: var(--ink-30); margin-top: 20px; }
 
     /* ── Register button ── */
     .register-btn {
@@ -350,8 +348,6 @@
     .faq-item {
       border-bottom: 1px solid var(--ink-15);
       overflow: hidden;
-      padding-left: 0;
-      transition: padding-left 0s; /* instant — no layout thrash */
       position: relative;
     }
     .faq-item::before {
@@ -361,7 +357,6 @@
       transition: transform 0.3s cubic-bezier(0.16,1,0.3,1);
     }
     .faq-item[open]::before { transform: scaleY(1); }
-    .faq-item[open] { padding-left: 20px; }
     .faq-item summary {
       list-style: none; display: flex; align-items: center; justify-content: space-between;
       padding: 32px 0; cursor: pointer;
@@ -502,7 +497,6 @@
       .hero-eyebrow { margin-bottom: 24px; gap: 8px; flex-wrap: wrap; justify-content: center; }
       .hero-eyebrow-rule { display: none; }
       .hero-eyebrow-text { font-size: 9px; letter-spacing: 0.12em; }
-      .hero-hr { margin: 24px auto; }
       .benefits-header { flex-direction: column; align-items: flex-start; gap: 16px; }
       .sticky-join { display: block; bottom: calc(1.4rem + env(safe-area-inset-bottom, 0px)); }
       .rv { transform: none; transition: opacity 0.4s ease; }
@@ -510,7 +504,7 @@
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .rv, .hero-eyebrow, .hero-pre, .hero-title, .hero-sub, .hero-hr {
+      .rv, .hero-eyebrow, .hero-pre, .hero-title, .hero-sub {
         opacity: 1 !important; transform: none !important; animation: none !important;
       }
     }
@@ -560,6 +554,7 @@
       </div>
       <p class="hero-pre">Student Speaker Forum</p>
       <h1 class="hero-title">Membership.</h1>
+      <p class="hero-sub">What you get, what it costs, and how to join.</p>
     </div>
   </section>
 
@@ -700,13 +695,12 @@
   }());
 
   // ── FAQ hover-to-open (desktop only) ──
+  // Opens on hover; user closes by clicking the summary. No auto-close on
+  // mouseleave — avoids collapsing items the user clicked open while reading.
   (function() {
     document.querySelectorAll('.faq-item').forEach(function(item) {
       item.addEventListener('mouseenter', function() {
         if (window.innerWidth > 700) item.open = true;
-      });
-      item.addEventListener('mouseleave', function() {
-        if (window.innerWidth > 700) item.open = false;
       });
     });
   }());

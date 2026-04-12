@@ -365,7 +365,6 @@
     }
     .faq-item[open]::before { transform: scaleY(1); }
     .faq-item[data-closing]::before { transform: scaleY(0); }
-    .faq-item[data-closing] > summary .faq-icon { transform: rotate(0deg); color: var(--ink-30); }
     .faq-item summary {
       list-style: none; display: flex; align-items: center; justify-content: space-between;
       padding: 32px 0; cursor: pointer;
@@ -381,6 +380,7 @@
       line-height: 1;
     }
     .faq-item[open] > summary .faq-icon { transform: rotate(45deg); color: var(--gold); }
+    .faq-item[data-closing] > summary .faq-icon { transform: rotate(0deg); color: var(--ink-30); }
     .faq-item[open] > summary { color: var(--ink); }
     .faq-body {
       display: grid;

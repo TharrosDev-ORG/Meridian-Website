@@ -142,28 +142,24 @@ if (marqueeTrack && !marqueeTrack.dataset.static) {
   var html = '<footer>' +
     '<span class="footer-ghost" aria-hidden="true">MERIDIAN</span>' +
     '<div class="wrap">' +
-    '<div class="footer-inner">' +
+    '<div class="footer-top">' +
     '<div>' +
     '<div class="footer-wordmark">The Meridian Society</div>' +
     '<div class="footer-tagline">Ottawa \u00b7 Est. 2025</div>' +
     '</div>' +
-    '<div class="footer-links">' +
-    '<div class="footer-col">' +
-    '<div class="footer-col-title">Pages</div>' +
+    '<div class="footer-connect">' +
+    '<a href="https://www.instagram.com/Meridian.Society" target="_blank" rel="noopener noreferrer">Instagram</a>' +
+    '<a href="mailto:meridiansocietycanada@gmail.com">Email</a>' +
+    '</div>' +
+    '</div>' +
+    '<nav class="footer-nav" aria-label="Site pages">' +
     '<a href="/">Home</a>' +
     '<a href="/events.html">Events</a>' +
     '<a href="/social.html">Social</a>' +
     '<a href="/team.html">Team</a>' +
     '<a href="/speak.html">Speak</a>' +
     '<a href="/membership.html">Membership</a>' +
-    '</div>' +
-    '<div class="footer-col">' +
-    '<div class="footer-col-title">Connect</div>' +
-    '<a href="https://www.instagram.com/Meridian.Society" target="_blank" rel="noopener noreferrer">Instagram</a>' +
-    '<a href="mailto:meridiansocietycanada@gmail.com">Email</a>' +
-    '</div>' +
-    '</div>' +
-    '</div>' +
+    '</nav>' +
     '<div class="footer-bottom">' +
     '<span class="footer-copy">\u00a9 2025 The Meridian Society \u00a0\u00b7\u00a0 Independent Student Organization</span>' +
     '</div>' +

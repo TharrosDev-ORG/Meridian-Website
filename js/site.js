@@ -41,6 +41,49 @@ if (marqueeTrack && !marqueeTrack.dataset.static) {
   marqueeTrack.innerHTML = '<div class="marquee-item">' + MARQUEE_TEXT + '</div><div class="marquee-item">' + MARQUEE_TEXT + '</div>';
 }
 
+/* ── Nav injection ──────────────────────────────
+ * Generates desktop nav HTML once per page-load. Handles per-page About href
+ * and active link detection from pathname. Must run before the scroll handler
+ * IIFE so that getElementById('mainNav') finds the element.
+ * ─────────────────────────────────────────────── */
+(function buildNav() {
+  var path   = window.location.pathname;
+  var isHome = path === '/' || path === '/index.html' || path === '';
+
+  var navLinks = [
+    ['About',      isHome ? '#about' : '/#about'],
+    ['Events',     '/events.html'],
+    ['Social',     '/social.html'],
+    ['Speak',      '/speak.html'],
+    ['Membership', '/membership.html'],
+  ];
+
+  var liHtml = navLinks.map(function(link) {
+    var isActive = !isHome && link[1] === path;
+    return '<li><a href="' + link[1] + '"' + (isActive ? ' class="nav-active"' : '') + '>' + link[0] + '</a></li>';
+  }).join('');
+
+  var html = '<nav id="mainNav" role="navigation" aria-label="Main navigation">' +
+    '<div class="nav-inner">' +
+    '<a href="/" class="nav-logo" aria-label="The Meridian Society \u2014 home">' +
+    '<span class="nav-wordmark">The Meridian Society</span></a>' +
+    '<ul class="nav-links" role="list">' + liHtml + '</ul>' +
+    '<a href="#" target="_blank" rel="noopener noreferrer" class="nav-cta" data-register>' +
+    '<span>Register</span></a>' +
+    '<button type="button" class="hamburger" id="burgerBtn"' +
+    ' aria-label="Open navigation" aria-expanded="false" aria-controls="mobileMenu">' +
+    '<span></span><span></span></button>' +
+    '</div></nav>';
+
+  var mount = document.getElementById('navMount');
+  if (mount) mount.outerHTML = html;
+
+  /* Re-run data-register population for the injected nav element */
+  document.querySelectorAll('a[data-register]').forEach(function(el) {
+    el.href = REGISTER_URL;
+  });
+}());
+
 /* ── Mobile menu injection ──────────────────────
  * Generates the drawer HTML once per page-load based on current pathname.
  * Must run before getElementById calls for mobileMenu / menuBackdrop.
@@ -89,6 +132,46 @@ if (marqueeTrack && !marqueeTrack.dataset.static) {
       if (typeof closeMenu === 'function') closeMenu();
     });
   });
+}());
+
+/* ── Footer injection ───────────────────────────
+ * Generates shared footer HTML. Must run before the scroll handler IIFE
+ * so that querySelector('.footer-ghost') finds the element when it caches it.
+ * ─────────────────────────────────────────────── */
+(function buildFooter() {
+  var html = '<footer>' +
+    '<span class="footer-ghost" aria-hidden="true">MERIDIAN</span>' +
+    '<div class="wrap">' +
+    '<div class="footer-inner">' +
+    '<div>' +
+    '<div class="footer-wordmark">The Meridian Society</div>' +
+    '<div class="footer-tagline">Ottawa \u00b7 Est. 2025</div>' +
+    '</div>' +
+    '<div class="footer-links">' +
+    '<div class="footer-col">' +
+    '<div class="footer-col-title">Pages</div>' +
+    '<a href="/">Home</a>' +
+    '<a href="/events.html">Events</a>' +
+    '<a href="/social.html">Social</a>' +
+    '<a href="/team.html">Team</a>' +
+    '<a href="/speak.html">Speak</a>' +
+    '<a href="/membership.html">Membership</a>' +
+    '</div>' +
+    '<div class="footer-col">' +
+    '<div class="footer-col-title">Connect</div>' +
+    '<a href="https://www.instagram.com/Meridian.Society" target="_blank" rel="noopener noreferrer">Instagram</a>' +
+    '<a href="mailto:meridiansocietycanada@gmail.com">Email</a>' +
+    '</div>' +
+    '</div>' +
+    '</div>' +
+    '<div class="footer-bottom">' +
+    '<span class="footer-copy">\u00a9 2025 The Meridian Society \u00a0\u00b7\u00a0 Independent Student Organization</span>' +
+    '</div>' +
+    '</div>' +
+    '</footer>';
+
+  var mount = document.getElementById('footerMount');
+  if (mount) mount.outerHTML = html;
 }());
 
 /* ── Scroll thresholds ────────────────────────── */

@@ -7,7 +7,7 @@
   The Meridian Society — Sitemap
   Canonical domain : https://meridiansociety.ca/
   Last updated     : 2026-04-11
-  Pages            : /, /events.html, /social.html, /team.html, /speak.html
+  Pages            : /, /events.html, /social.html, /team.html, /speak.html, /membership.html
 -->
 
 <!-- Homepage — priority 1.0 -->
@@ -93,6 +93,16 @@
     <image:title>Speak at Meridian — The Meridian Society Ottawa Student Speaker Forum</image:title>
     <image:caption>Apply to speak at a Meridian Society event in Ottawa. Share your expertise with motivated university students from Carleton, uOttawa, and Algonquin College.</image:caption>
   </image:image>
+</url>
+
+<!-- Membership page — priority 0.8 -->
+<url>
+  <loc>https://meridiansociety.ca/membership.html</loc>
+  <lastmod>2026-04-11</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>0.8</priority>
+  <xhtml:link rel="alternate" hreflang="en-CA" href="https://meridiansociety.ca/membership.html" />
+  <xhtml:link rel="alternate" hreflang="x-default" href="https://meridiansociety.ca/membership.html" />
 </url>
 
 </urlset>

@@ -51,8 +51,7 @@ if (marqueeTrack && !marqueeTrack.dataset.static) {
   var isTeam  = path === '/team.html';
   var isSpeak = path === '/speak.html';
 
-  var aboutHref   = isHome ? '#about'    : '/#about';
-  var regHref     = isHome ? '#register' : '/#register';
+  var aboutHref = isHome ? '#about' : '/#about';
 
   var fifthLink = isTeam
     ? '<a href="/speak.html">Speak <span class="mob-arrow">\u2192</span></a>'
@@ -66,7 +65,7 @@ if (marqueeTrack && !marqueeTrack.dataset.static) {
     '    <a href="/events.html">Events <span class="mob-arrow">\u2192</span></a>' +
     '    <a href="/social.html">Social <span class="mob-arrow">\u2192</span></a>' +
     '    <a href="/speak.html">Speak <span class="mob-arrow">\u2192</span></a>' +
-    '    <a href="' + regHref + '">Membership <span class="mob-arrow">\u2192</span></a>' +
+    '    <a href="/membership.html">Membership <span class="mob-arrow">\u2192</span></a>' +
     '    ' + fifthLink +
     '  </nav>' +
     '  <div class="mob-bottom">' +

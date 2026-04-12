@@ -1,6 +1,6 @@
 # Meridian Website
 
-Static website for The Meridian Society â€” a student-run speaker forum serving Carleton University, uOttawa, and Algonquin College students in Ottawa, Canada.
+Static website for The Meridian Society — a student-run speaker forum for Ottawa students.
 
 Live site: `meridiansociety.ca`
 GitHub remote: `https://github.com/meridiansociety/Meridian-Website.git`
@@ -20,10 +20,12 @@ GitHub remote: `https://github.com/meridiansociety/Meridian-Website.git`
 ## File Structure
 
 ```
-index.html            # Homepage â€” hero, globe, about, events teaser, membership, join strip
-events.html           # Events listing â€” driven by js/events-data.js
-team.html             # Team member profiles â€” Magnus Abdelnour, Colin Sherwood
-speak.html            # Speaker application page â€” hero, value props, format table, apply CTA
+index.html            # Homepage — hero, globe, about, events teaser, membership, join strip
+events.html           # Events listing — driven by js/events-data.js
+team.html             # Team member profiles — Magnus Abdelnour, Colin Sherwood
+speak.html            # Speaker application page — hero, value props, format table, apply CTA
+social.html           # Social events page
+membership.html       # Membership page — benefits, FAQ, register CTA
 404.html              # Custom error page
 _headers              # Vercel HTTP headers (caching + security policy)
 vercel.json           # Vercel build command config
@@ -84,7 +86,7 @@ Established after April 2026 legibility pass. **Do not introduce new elements be
 | Buttons (`.btn-primary`, `.register-btn`) | --sans | 11.5px |
 | Event status, tags, meta labels | --sans | 11.5px |
 | Section labels, eyebrows | --sans | 10.5px |
-| Footer column titles | --sans | 11px |
+| Footer nav/connect links | --serif | 17px |
 | Footer copy, stat labels | --sans | 10px |
 
 ### Rules
@@ -187,7 +189,7 @@ Each HTML file embeds a `<style>` block containing the full cream/ink `:root` pa
 - About, who, event teaser, "not", speaking, membership, join-strip sections
 - **Event card** (shared with events.html): `.event-card`, `.event-main`, `.event-status`, `.event-dot`, `.event-title`, `.event-desc`, `.event-tags`/`.event-tag`, `.event-meta`, `.event-meta-row`, `.meta-lbl`, `.meta-val`
 - Events section: `.events` (cream-deep bg, corner ornaments), `.events-header`, `.events-title`
-- Index footer (big MERIDIAN watermark): `.footer-inner`, `.footer-wordmark`, `.footer-tagline`, `.footer-note`, `.footer-links`, `.footer-col`, `.footer-col-title`, `.footer-bottom`, `.footer-copy`
+- Footer: `.footer-top` (wordmark + connect row), `.footer-wordmark`, `.footer-tagline`, `.footer-connect` (Instagram/Email), `.footer-nav` (horizontal page links, `<div role="navigation">` — NOT `<nav>`), `.footer-bottom`, `.footer-copy`
 
 **events.html** (base + nav only):
 - Full cream/ink `:root` palette (matches index.html)
@@ -347,20 +349,21 @@ The nav, mobile drawer, and footer are **all injected at runtime** by `site.js` 
 </div>
 ```
 
-### Footer pattern (all 3 pages)
+### Footer pattern (all pages)
 
-The MERIDIAN watermark in the footer is a **real DOM element** (not a CSS pseudo-element) so `site.js` can apply scroll parallax:
+The MERIDIAN watermark in the footer is a **real DOM element** (not a CSS pseudo-element) so `site.js` can apply scroll parallax. Footer is fully injected by `buildFooter()` — never hardcode it in HTML files.
 
-```html
-<footer>
-  <span class="footer-ghost" aria-hidden="true">MERIDIAN</span>
-  <div class="wrap">
-    ...
-  </div>
-</footer>
+Footer layout (injected HTML structure):
+```
+[.footer-top]
+  [wordmark + tagline]        [.footer-connect: Instagram · Email]
+[.footer-nav: Home · Events · Social · Team · Speak · Membership]
+[.footer-bottom: © copy]
 ```
 
-The `.footer-ghost` class is defined in each page's inline `<style>` (not `footer::before`). Do not revert to `footer::before` â€" the JS parallax in `site.js` targets `.footer-ghost` directly.
+**Critical**: `.footer-nav` is a `<div role="navigation">`, NOT a `<nav>` element. Using `<nav>` would cause `nav.css`'s `nav { }` type selector to apply the sticky dark navbar styles (fixed position, dark background) to the footer links.
+
+The `.footer-ghost` class is defined in each page's inline `<style>` (not `footer::before`). Do not revert to `footer::before` — the JS parallax in `site.js` targets `.footer-ghost` directly.
 
 ### Section wrapper pattern (events-sec, team-sec)
 
@@ -440,7 +443,8 @@ Current CSP `connect-src` allows: `self`, `script.google.com`, `script.googleuse
 - **Always run `npm run build`** after editing any source CSS or JS file so the `.min` files stay in sync.
 - **Do not animate `border-left-width`** â€" it is non-interpolatable; CSS cannot smoothly transition it (it jumps instantly). Use a `::before` pseudo-element with `scaleY` + `transform-origin` instead (see `.pull-quote::before`).
 - **Do not use `padding-left` or `padding` on hover for slide effects** â€" it triggers layout reflow every frame. Use `transform: translateX()` instead (compositor-only). See `.formats-item`.
-- **Do not add `footer::before` back** â€" the footer watermark was deliberately converted to `.footer-ghost` DOM element so `site.js` can drive parallax. `footer::before` is gone from all 3 pages.
+- **Do not add `footer::before` back** — the footer watermark was deliberately converted to `.footer-ghost` DOM element so `site.js` can drive parallax. `footer::before` is gone from all pages.
+- **Do not use `<nav>` for `.footer-nav`** — `nav.css` has a `nav { }` type selector that applies the fixed dark navbar styles sitewide. Footer page links must use `<div role="navigation" class="footer-nav">` instead.
 - **JS scroll transforms need manual `prefers-reduced-motion` guard** â€" `base.css` zeroes CSS transition durations globally, but JS `element.style.transform` assignments are not covered. Always check `window.matchMedia('(prefers-reduced-motion: reduce)').matches` and skip the listener if true.
 
 ---
@@ -453,8 +457,9 @@ Desktop nav order (all pages): About · Events · Social · Speak · Membership 
 - To change a nav link or footer content, edit `buildNav()` or `buildFooter()` in `js/site.js` — one change propagates to all pages automatically
 - `buildNav()` auto-detects the active link from `window.location.pathname`; no per-page active scripts needed
 - Mobile drawer: `buildMobileMenu()` has `isHome` / `isTeam` path detection for per-page link variants
-- "Speak" replaced "Get Involved" (2026-04-10) â€" points to `/speak.html`
-- "Social" added (2026-04-11) â€" points to `/social.html`
+- "Speak" replaced "Get Involved" (2026-04-10) — points to `/speak.html`
+- "Social" added (2026-04-11) — points to `/social.html`
+- "Membership" added (2026-04-11) — points to `/membership.html`
 
 ---
 

@@ -450,9 +450,10 @@ Current CSP `connect-src` allows: `self`, `script.google.com`, `script.googleuse
 
 ## Nav Structure
 
-Desktop nav order (all pages): About · Events · Speak · Membership · Register CTA
+Desktop nav order (all pages): About · Events · Social · Speak · Membership · Register CTA
 
 - "Speak" replaced "Get Involved" (2026-04-10) â€" points to `/speak.html`
+- "Social" added (2026-04-11) â€" points to `/social.html` (bar nights, fundraisers, community events)
 - Mobile drawer is JS-injected by `buildMobileMenu()` in `site.js` â€" has `isHome` / `isTeam` / `isSpeak` path detection for per-page link variants
 - Never add drawer HTML to HTML files â€" always update `buildMobileMenu()` in `site.js`
 

@@ -66,6 +66,7 @@ if (marqueeTrack && !marqueeTrack.dataset.static) {
     '  <nav class="mob-links" aria-label="Mobile navigation">' +
     '    <a href="' + aboutHref + '">About <span class="mob-arrow">\u2192</span></a>' +
     '    <a href="/events.html">Events <span class="mob-arrow">\u2192</span></a>' +
+    '    <a href="/social.html">Social <span class="mob-arrow">\u2192</span></a>' +
     '    <a href="/speak.html">Speak <span class="mob-arrow">\u2192</span></a>' +
     '    <a href="' + regHref + '">Membership <span class="mob-arrow">\u2192</span></a>' +
     '    ' + fifthLink +

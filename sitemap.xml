@@ -6,8 +6,8 @@
 <!--
   The Meridian Society — Sitemap
   Canonical domain : https://meridiansociety.ca/
-  Last updated     : 2026-04-10
-  Pages            : /, /events.html, /team.html, /speak.html
+  Last updated     : 2026-04-11
+  Pages            : /, /events.html, /social.html, /team.html, /speak.html
 -->
 
 <!-- Homepage — priority 1.0 -->
@@ -37,6 +37,21 @@
     <image:loc>https://meridiansociety.ca/assets/og-image.png</image:loc>
     <image:title>Upcoming Events — The Meridian Society Ottawa Student Speaker Series</image:title>
     <image:caption>Free student speaker events in Ottawa. Register for The Meridian Society's inaugural event — Fall 2026.</image:caption>
+  </image:image>
+</url>
+
+<!-- Social events page — priority 0.8 -->
+<url>
+  <loc>https://meridiansociety.ca/social.html</loc>
+  <lastmod>2026-04-11</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.8</priority>
+  <xhtml:link rel="alternate" hreflang="en-CA" href="https://meridiansociety.ca/social.html" />
+  <xhtml:link rel="alternate" hreflang="x-default" href="https://meridiansociety.ca/social.html" />
+  <image:image>
+    <image:loc>https://meridiansociety.ca/assets/og-image.png</image:loc>
+    <image:title>Social Events — The Meridian Society Ottawa Student Community</image:title>
+    <image:caption>Bar nights, fundraisers, and community events from The Meridian Society in Ottawa.</image:caption>
   </image:image>
 </url>
 

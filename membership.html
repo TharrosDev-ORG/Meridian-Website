@@ -364,6 +364,8 @@
       transition: transform 0.3s cubic-bezier(0.16,1,0.3,1);
     }
     .faq-item[open]::before { transform: scaleY(1); }
+    .faq-item[data-closing]::before { transform: scaleY(0); }
+    .faq-item[data-closing] > summary .faq-icon { transform: rotate(0deg); color: var(--ink-30); }
     .faq-item summary {
       list-style: none; display: flex; align-items: center; justify-content: space-between;
       padding: 32px 0; cursor: pointer;
@@ -726,20 +728,35 @@
   }());
 
   // ── FAQ accordion ──
-  // Opens with CSS grid-row transition. Close is intercepted to animate before removing [open].
-  // Hover opens on desktop; mouseleave closes only if hover initiated the open.
+  // Body reveal uses CSS grid-row 0fr→1fr transition.
+  // Close is intercepted so the body can animate 1fr→0fr before [open] is removed.
+  // [data-closing] CSS rules ensure the icon and gold sidebar animate back immediately,
+  // not just after the body finishes — they all close together.
+  // Hover on real pointer devices opens items; leaving closes them animated.
+  // Cancel support: re-hovering or clicking during a close aborts it cleanly.
   (function() {
+    var canHover = window.matchMedia('(hover: hover)').matches;
+
     function animateClose(item) {
-      if (item.getAttribute('data-closing')) return; // already mid-close, don't double-fire
+      if (item.getAttribute('data-closing')) return;
       item.setAttribute('data-closing', '');
       var body = item.querySelector('.faq-body');
+
       function onEnd(e) {
-        if (e.propertyName !== 'grid-template-rows') return; // ignore other property transitions
+        if (e.propertyName !== 'grid-template-rows') return;
         body.removeEventListener('transitionend', onEnd);
+        delete item._faqCancelClose;
         item.removeAttribute('open');
         item.removeAttribute('data-closing');
       }
       body.addEventListener('transitionend', onEnd);
+
+      // Expose a cancel so re-enter / re-click can abort without leaving a stale listener
+      item._faqCancelClose = function() {
+        body.removeEventListener('transitionend', onEnd);
+        item.removeAttribute('data-closing');
+        delete item._faqCancelClose;
+      };
     }
 
     document.querySelectorAll('.faq-item').forEach(function(item) {
@@ -747,24 +764,40 @@
       var hoverOpened = false;
 
       item.querySelector('summary').addEventListener('click', function(e) {
+        // If a close is in progress, cancel it and keep the item open
+        if (item._faqCancelClose) {
+          e.preventDefault();
+          item._faqCancelClose();
+          hoverOpened = false;
+          return;
+        }
         hoverOpened = false;
         if (item.open) {
           e.preventDefault();
           animateClose(item);
         }
-        // if closed, let default open it — CSS transition handles the reveal
+        // if closed, let default [open] it — CSS handles 0fr→1fr reveal
       });
 
       item.addEventListener('mouseenter', function() {
-        if (window.innerWidth > 700 && !item.open) {
+        if (!canHover || window.innerWidth <= 700) return;
+        // Re-entering mid-close: abort the close, restore open
+        if (item._faqCancelClose) {
+          item._faqCancelClose();
+          hoverOpened = true;
+          return;
+        }
+        if (!item.open) {
           item.open = true;
           hoverOpened = true;
         }
       });
+
       item.addEventListener('mouseleave', function() {
-        if (window.innerWidth > 700 && hoverOpened) {
+        if (!canHover || window.innerWidth <= 700) return;
+        if (hoverOpened) {
           hoverOpened = false;
-          animateClose(item); // animate out — don't set item.open = false directly (skips animation)
+          animateClose(item);
         }
       });
     });

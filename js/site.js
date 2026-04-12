@@ -56,9 +56,7 @@ if (marqueeTrack && !marqueeTrack.dataset.static) {
 
   var fifthLink = isTeam
     ? '<a href="/speak.html">Speak <span class="mob-arrow">\u2192</span></a>'
-    : isSpeak
-      ? '<a href="/team.html">Our Team <span class="mob-arrow">\u2192</span></a>'
-      : '<a href="/speak.html">Speak <span class="mob-arrow">\u2192</span></a>';
+    : '<a href="/team.html">Our Team <span class="mob-arrow">\u2192</span></a>';
 
   var html = '<div class="mob-backdrop" id="menuBackdrop"></div>' +
     '<div class="mob-drawer" id="mobileMenu" role="dialog" aria-label="Navigation" aria-modal="true">' +

@@ -1,39 +1,24 @@
-/**
- * SOCIAL EVENTS — source of truth for all social/community event data.
- * Consumed by: social.html
+﻿/**
+ * The Meridian Society — Social Events Data
  *
- * Field reference:
- *   id        {string}  Unique slug. Lowercase, hyphens, no spaces.
- *   title     {string}  Card headline. Plain text only.
- *   desc      {string}  Short description shown on the card. HTML allowed.
- *   date      {string}  ISO date (YYYY-MM-DD). Drives upcoming vs. past split — no manual toggle needed.
- *   time      {string}  Time range shown on the card. e.g. "7:00 PM – 10:00 PM". Optional — omit or null to hide.
- *   where     {string}  Location. HTML allowed (<br />).
- *   type      {string}  "public" | "members" — shown as a badge on the card.
- *   cost      {string}  Admission cost. e.g. "Free", "$10", "Members Free / $15 Public". null to hide.
- *   capacity  {string}  Capacity info. e.g. "Limited — 30 spots", "Open". null to hide.
- *   tags      {Array}   Label pills shown at the bottom of the card. Plain strings only.
- *   ctaText   {string}  Button label. e.g. "RSVP", "Get Tickets". null to hide button.
- *   ctaHref   {string}  Button link. null to hide button.
+ * Each object:
+ * {
+ *   id:       string   — unique slug
+ *   title:    string   — event name
+ *   desc:     string   — short description (HTML allowed)
+ *   date:     string   — "YYYY-MM-DD" (determines upcoming vs. past)
+ *   time:     string   — optional display time, e.g. "9:00 PM"
+ *   where:    string   — venue / location (HTML allowed)
+ *   type:     string   — "public" | "members"
+ *   tags:     string[] — e.g. ["Bar Night", "Ottawa"]
+ *   cost:     string   — optional, e.g. "Free" or "$5 cover"
+ *   capacity: string   — optional, e.g. "Limited"
+ *   ctaText:  string   — optional CTA label (upcoming cards only)
+ *   ctaHref:  string   — optional CTA link (upcoming cards only)
+ * }
  *
- * Upcoming vs. past is determined automatically by comparing `date` to today.
- * Upcoming events are sorted soonest-first; past events are sorted most-recent-first.
+ * Upcoming = date >= today. Past = date < today.
+ * Past section auto-hides if no past events exist.
+ * After editing, run: npm run build
  */
-const SOCIAL_EVENTS = [
-  // Add events here when ready. See field reference above.
-  // Example:
-  // {
-  //   id: "barnight-sept-2026",
-  //   title: "Fall Bar Night",
-  //   desc: "Join us for drinks and good conversation.",
-  //   date: "2026-09-20",
-  //   time: "7:00 PM – 10:00 PM",
-  //   where: "Ottawa,<br />Canada",
-  //   type: "public",       // "public" | "members"
-  //   cost: "Free",         // or null to hide
-  //   capacity: null,       // or "Limited — 30 spots" etc.
-  //   tags: ["Social", "Bar Night", "Ottawa"],
-  //   ctaText: "RSVP",
-  //   ctaHref: "https://..."
-  // }
-];
+var SOCIAL_EVENTS = [];

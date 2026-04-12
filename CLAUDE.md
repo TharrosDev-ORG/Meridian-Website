@@ -219,7 +219,11 @@ Each HTML file embeds a `<style>` block containing the full cream/ink `:root` pa
 ### `js/site.js` â€” loaded by ALL pages
 All using `var` (not `const/let`) for broadest compatibility. Execution order:
 
-0. **`buildMobileMenu()` IIFE** â€” runs immediately on script load, before any `getElementById` calls. Injects the mobile drawer HTML (`#menuBackdrop` + `#mobileMenu`) into `document.body` based on `window.location.pathname`. Per-page differences: index uses `#about`/`#speaking` etc. (no slash); team uses `/team.html` as the 5th link; others use `/#about` etc. Also re-populates `data-register` hrefs and binds click-to-close listeners on the injected links. **Do not add mobile drawer HTML to the HTML files** â€” it is always injected here.
+0a. **`buildNav()` IIFE** â€” runs immediately, replaces `#navMount` with the full desktop nav HTML. Detects active link from `window.location.pathname`; handles home vs subpage About href (`#about` vs `/#about`). Re-populates `data-register` after injection. **Never add nav HTML to HTML files** â€” always update `buildNav()` in `site.js`.
+
+0b. **`buildMobileMenu()` IIFE** â€” injects mobile drawer HTML (`#menuBackdrop` + `#mobileMenu`) into `document.body`. Per-page differences: team uses `/team.html` as the 5th link. Re-populates `data-register` and binds click-to-close. **Never add drawer HTML to HTML files.**
+
+0c. **`buildFooter()` IIFE** â€” replaces `#footerMount` with the shared footer HTML. Must run before the scroll handler IIFE so `.footer-ghost` is in the DOM when the parallax handler caches it. **Never add footer HTML to HTML files** â€” always update `buildFooter()` in `site.js`.
 
 1. **Register URL** â€” `var REGISTER_URL = 'https://docs.google.com/forms/...'`; sets `href` on all `a[data-register]` elements. To change the registration link, update this one constant.
 
@@ -287,32 +291,25 @@ The events.html render script uses `EVENTS.find(e => e.isCurrent)`. If none foun
 
 ## HTML Shared Patterns
 
-Every page uses the same nav and arc button in HTML. The mobile drawer is **not** in the HTML â€” it is injected at runtime by `buildMobileMenu()` in `site.js`.
+The nav, mobile drawer, and footer are **all injected at runtime** by `site.js` — do NOT hardcode them in HTML files. Each page only needs mount points and the arc button in HTML.
 
 ```html
-<!-- Nav -->
-<nav id="mainNav" role="navigation" aria-label="Main navigation">
-  <div class="nav-inner">
-    <a href="/" class="nav-logo"><span class="nav-wordmark">The Meridian Society</span></a>
-    <ul class="nav-links">...</ul>
-    <a href="#" class="nav-cta" data-register><span>Register</span></a>
-    <button class="hamburger" id="burgerBtn" aria-label="..." aria-expanded="false"
-            aria-controls="mobileMenu">
-      <span></span><span></span>
-    </button>
-  </div>
-</nav>
+<!-- Nav mount point — buildNav() in site.js replaces this at runtime -->
+<div id=”navMount”></div>
 
-<!-- Arc button -->
-<button class="arc-btn" id="arcBtn" aria-label="Back to top">
-  <svg viewBox="0 0 52 52">
-    <circle class="arc-track" cx="26" cy="26" r="22"/>
-    <circle class="arc-fill" id="arcFill" cx="26" cy="26" r="22"/>
+<!-- Arc button — stays in HTML, not injected -->
+<button class=”arc-btn” id=”arcBtn” aria-label=”Back to top”>
+  <svg viewBox=”0 0 52 52”>
+    <circle class=”arc-track” cx=”26” cy=”26” r=”22”/>
+    <circle class=”arc-fill” id=”arcFill” cx=”26” cy=”26” r=”22”/>
   </svg>
-  <div class="arc-inner"><span class="arc-icon">â†‘</span></div>
+  <div class=”arc-inner”><span class=”arc-icon”>â†’</span></div>
 </button>
 
-<!-- Mobile drawer is injected by buildMobileMenu() in site.js â€” do NOT add it here -->
+<!-- Footer mount point — buildFooter() in site.js replaces this at runtime -->
+<div id=”footerMount”></div>
+
+<!-- Nav, mobile drawer, and footer are injected by site.js — do NOT add them to HTML -->
 ```
 
 ### Subpage hero (events.html + team.html)
@@ -436,7 +433,7 @@ Current CSP `connect-src` allows: `self`, `script.google.com`, `script.googleuse
 - **Do not add `const`/`let` to `site.js`** â€” it uses `var` intentionally for compatibility. `events-data.js` may use `const` since it is not inline.
 - **Do not hardcode the registration URL** in HTML â€” use `href=”#” data-register` on links; `site.js` fills the href from `REGISTER_URL`. Exception: the `<noscript>` fallback `<a>` inside `.noscript-register-note` paragraphs.
 - **Do not hardcode the speaker form URL** in HTML â€” use `href=”#” data-speak` on links; `site.js` fills the href from `SPEAK_URL`. Exception: the `<noscript>` fallback inside `.noscript-speak-note`.
-- **Do not add mobile drawer HTML to the HTML files** â€” it is injected by `buildMobileMenu()` in `site.js`.
+- **Do not add nav, mobile drawer, or footer HTML to HTML files** â€” all three are injected by `buildNav()`, `buildMobileMenu()`, and `buildFooter()` in `site.js`. HTML files only have `<div id=”navMount”></div>` and `<div id=”footerMount”></div>` mount points. To add a nav link or change footer content, edit `site.js` only.
 - **Do not add inline `onclick` handlers** â€” CSP blocks them. Use event listeners in `site.js`.
 - **Do not edit the index.html design** â€” it is the source of truth. When overhauling subpages, copy patterns from index.html.
 - **Event card structure must match** between index.html and events.html â€” same class names (`.event-card`, `.event-main`, `.event-status`, `.event-dot`, `.event-title`, `.event-desc`, `.event-tags`, `.event-tag`, `.event-meta`, `.event-meta-row`, `.meta-lbl`, `.meta-val`).
@@ -452,10 +449,12 @@ Current CSP `connect-src` allows: `self`, `script.google.com`, `script.googleuse
 
 Desktop nav order (all pages): About · Events · Social · Speak · Membership · Register CTA
 
+- All three (desktop nav, mobile drawer, footer) are JS-injected by `site.js` — HTML files only have `<div id="navMount"></div>` and `<div id="footerMount"></div>` mount points
+- To change a nav link or footer content, edit `buildNav()` or `buildFooter()` in `js/site.js` — one change propagates to all pages automatically
+- `buildNav()` auto-detects the active link from `window.location.pathname`; no per-page active scripts needed
+- Mobile drawer: `buildMobileMenu()` has `isHome` / `isTeam` path detection for per-page link variants
 - "Speak" replaced "Get Involved" (2026-04-10) â€" points to `/speak.html`
-- "Social" added (2026-04-11) â€" points to `/social.html` (bar nights, fundraisers, community events)
-- Mobile drawer is JS-injected by `buildMobileMenu()` in `site.js` â€" has `isHome` / `isTeam` / `isSpeak` path detection for per-page link variants
-- Never add drawer HTML to HTML files â€" always update `buildMobileMenu()` in `site.js`
+- "Social" added (2026-04-11) â€" points to `/social.html`
 
 ---
 

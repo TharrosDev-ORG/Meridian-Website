@@ -289,7 +289,7 @@
     .register-btn {
       display: inline-block; font-family: var(--sans); font-size: 11.5px; font-weight: 700;
       letter-spacing: 0.26em; text-transform: uppercase; color: var(--cream);
-      background: var(--ink); text-decoration: none; padding: 16px 40px 15px;
+      background: var(--ink); text-decoration: none; padding: 16px 48px 15px;
       position: relative; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s;
     }
     .register-btn::before { content: ''; position: absolute; inset: 0; background: var(--gold); transform: translateX(-100%); transition: transform 0.35s cubic-bezier(0.16,1,0.3,1); }
@@ -350,10 +350,21 @@
     .faq-item {
       border-bottom: 1px solid var(--ink-15);
       overflow: hidden;
+      padding-left: 0;
+      transition: padding-left 0s; /* instant — no layout thrash */
+      position: relative;
     }
+    .faq-item::before {
+      content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+      width: 2px; background: var(--gold);
+      transform: scaleY(0); transform-origin: top center;
+      transition: transform 0.3s cubic-bezier(0.16,1,0.3,1);
+    }
+    .faq-item[open]::before { transform: scaleY(1); }
+    .faq-item[open] { padding-left: 20px; }
     .faq-item summary {
       list-style: none; display: flex; align-items: center; justify-content: space-between;
-      padding: 28px 0; cursor: pointer;
+      padding: 32px 0; cursor: pointer;
       font-family: var(--serif); font-size: clamp(19px, 2vw, 26px); font-weight: 300; color: var(--ink);
       transition: color 0.2s;
       gap: 24px;
@@ -361,7 +372,7 @@
     .faq-item summary::-webkit-details-marker { display: none; }
     .faq-item summary:hover { color: var(--gold); }
     .faq-icon {
-      font-family: var(--sans); font-size: 18px; font-weight: 300; color: var(--ink-30);
+      font-family: var(--sans); font-size: 20px; font-weight: 300; color: var(--ink-30);
       flex-shrink: 0; transition: transform 0.3s cubic-bezier(0.16,1,0.3,1), color 0.2s;
       line-height: 1;
     }
@@ -369,7 +380,7 @@
     .faq-item[open] > summary { color: var(--ink); }
     .faq-answer {
       font-family: var(--serif); font-size: 19px; font-weight: 300; line-height: 1.85;
-      color: var(--ink-75); padding: 0 0 28px; max-width: 640px;
+      color: var(--ink-75); padding: 0 0 32px; max-width: 640px;
     }
 
     /* ── Register section ── */
@@ -377,7 +388,7 @@
     .register::before {
       content: ''; position: absolute; inset: 0; z-index: 0;
       background: radial-gradient(ellipse 65% 60% at 50% 50%, rgba(184,147,42,0.06) 0%, transparent 70%),
-                  radial-gradient(ellipse 100% 80% at 50% 100%, rgba(150,120,70,0.05) 0%, transparent 50%);
+                  radial-gradient(ellipse 100% 100% at 50% 50%, transparent 50%, rgba(24,21,15,0.04) 100%);
       pointer-events: none;
     }
     .register::after { content: ''; position: absolute; inset: 0; z-index: 0; opacity: 0.03; background-image: var(--grain); background-size: 200px 200px; pointer-events: none; }
@@ -385,7 +396,7 @@
       position: absolute; bottom: -32px; left: 50%; transform: translateX(-50%);
       font-family: var(--sans); font-size: clamp(60px, 30vw, 180px); font-weight: 700;
       letter-spacing: 0.3em; white-space: nowrap;
-      color: transparent; -webkit-text-stroke: 1px rgba(24,21,15,0.04);
+      color: transparent; -webkit-text-stroke: 1.5px rgba(24,21,15,0.13);
       user-select: none; pointer-events: none; z-index: 0;
     }
     .register .wrap { position: relative; z-index: 1; text-align: center; }
@@ -570,8 +581,6 @@
       </div>
       <p class="hero-pre">Student Speaker Forum</p>
       <h1 class="hero-title">Membership.</h1>
-      <div class="hero-hr" aria-hidden="true"></div>
-      <p class="hero-sub">Free to join. Built for the curious.</p>
     </div>
   </section>
 
@@ -582,7 +591,6 @@
         <a href="#" target="_blank" rel="noopener noreferrer" class="register-btn" data-register>
           <span>Register Now</span>
         </a>
-        <p class="cta-early-sub">Takes 30 seconds. No cost.</p>
       </div>
     </div>
   </section>
@@ -611,7 +619,7 @@
         <article class="benefit-card rv" data-d="2">
           <div class="benefit-num">02</div>
           <h3 class="benefit-heading">Social Gatherings</h3>
-          <p class="benefit-body">Beyond the stage. Members are invited to Meridian social events — bar nights, casual meetups, and community gatherings that happen between the formal programming.</p>
+          <p class="benefit-body">Beyond the stage. Members are invited to Meridian social events: bar nights, casual meetups, and community gatherings that happen between the formal programming.</p>
         </article>
 
         <article class="benefit-card rv" data-d="3">
@@ -623,13 +631,13 @@
         <article class="benefit-card rv" data-d="4">
           <div class="benefit-num">04</div>
           <h3 class="benefit-heading">A Real Community</h3>
-          <p class="benefit-body">Meridian builds a circle over time. Members connect with people who share a genuine curiosity — not a major, not a club, but a sensibility. The kind of community that forms naturally when the right people are in the same room.</p>
+          <p class="benefit-body">Meridian builds a circle over time. Members connect with people who share a genuine curiosity. Not a major, not a club, but a sensibility.</p>
         </article>
 
         <article class="benefit-card rv" data-d="5">
           <div class="benefit-num">05</div>
           <h3 class="benefit-heading">Your Peers</h3>
-          <p class="benefit-body">The people in the room are half the reason to show up. Meridian members are Ottawa students who take ideas seriously. You'll recognize them. They're the ones who actually read, actually think, and actually want to talk about it.</p>
+          <p class="benefit-body">The people in the room are half the reason to show up. Meridian members are Ottawa students who take ideas seriously.</p>
         </article>
 
       </div>
@@ -647,7 +655,7 @@
 
         <details class="faq-item">
           <summary>Is membership free? <span class="faq-icon">+</span></summary>
-          <p class="faq-answer">Yes. Membership is completely free. There is no cost to join The Meridian Society — now or in the future.</p>
+          <p class="faq-answer">Yes. Membership is completely free. There is no cost to join The Meridian Society.</p>
         </details>
 
         <details class="faq-item">
@@ -657,12 +665,12 @@
 
         <details class="faq-item">
           <summary>What happens after I register? <span class="faq-icon">+</span></summary>
-          <p class="faq-answer">You'll receive event announcements and invitations as they go out. No spam, no commitments. Just what's happening at Meridian.</p>
+          <p class="faq-answer">You'll receive event announcements and invitations as they go out. No spam, no commitments. You can also follow us on <a href="https://www.instagram.com/Meridian.Society" target="_blank" rel="noopener noreferrer" class="text-link">Instagram</a> for updates.</p>
         </details>
 
         <details class="faq-item">
           <summary>Do I have to attend every event? <span class="faq-icon">+</span></summary>
-          <p class="faq-answer">No. Register once, come to what interests you. There is no attendance requirement — membership is yours to use how it suits you.</p>
+          <p class="faq-answer">No. Register once, come to what interests you. There is no attendance requirement. Membership is yours to use how it suits you.</p>
         </details>
 
       </div>
@@ -748,6 +756,18 @@
         reg.getBoundingClientRect().bottom > 0
       );
     }, { passive: true });
+  }());
+
+  // ── FAQ hover-to-open (desktop only) ──
+  (function() {
+    document.querySelectorAll('.faq-item').forEach(function(item) {
+      item.addEventListener('mouseenter', function() {
+        if (window.innerWidth > 700) item.open = true;
+      });
+      item.addEventListener('mouseleave', function() {
+        if (window.innerWidth > 700) item.open = false;
+      });
+    });
   }());
 
   // ── Live member count ──

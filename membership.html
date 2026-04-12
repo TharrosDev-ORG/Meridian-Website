@@ -343,6 +343,7 @@
       border-bottom: 1px solid var(--ink-15);
       overflow: hidden;
       position: relative;
+      padding-left: 14px;
     }
     .faq-item::before {
       content: ''; position: absolute; left: 0; top: 0; bottom: 0;
@@ -683,12 +684,25 @@
   }());
 
   // ── FAQ hover-to-open (desktop only) ──
-  // Opens on hover; user closes by clicking the summary. No auto-close on
-  // mouseleave — avoids collapsing items the user clicked open while reading.
+  // Opens on hover; closes on mouseleave only if hover opened it (not a click).
   (function() {
     document.querySelectorAll('.faq-item').forEach(function(item) {
+      item.open = false;
+      var hoverOpened = false;
       item.addEventListener('mouseenter', function() {
-        if (window.innerWidth > 700) item.open = true;
+        if (window.innerWidth > 700 && !item.open) {
+          item.open = true;
+          hoverOpened = true;
+        }
+      });
+      item.addEventListener('mouseleave', function() {
+        if (window.innerWidth > 700 && hoverOpened) {
+          item.open = false;
+          hoverOpened = false;
+        }
+      });
+      item.querySelector('summary').addEventListener('click', function() {
+        hoverOpened = false;
       });
     });
   }());

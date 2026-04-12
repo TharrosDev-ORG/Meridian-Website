@@ -152,14 +152,14 @@ if (marqueeTrack && !marqueeTrack.dataset.static) {
     '<a href="mailto:meridiansocietycanada@gmail.com">Email</a>' +
     '</div>' +
     '</div>' +
-    '<nav class="footer-nav" aria-label="Site pages">' +
+    '<div class="footer-nav" role="navigation" aria-label="Site pages">' +
     '<a href="/">Home</a>' +
     '<a href="/events.html">Events</a>' +
     '<a href="/social.html">Social</a>' +
     '<a href="/team.html">Team</a>' +
     '<a href="/speak.html">Speak</a>' +
     '<a href="/membership.html">Membership</a>' +
-    '</nav>' +
+    '</div>' +
     '<div class="footer-bottom">' +
     '<span class="footer-copy">\u00a9 2025 The Meridian Society \u00a0\u00b7\u00a0 Independent Student Organization</span>' +
     '</div>' +

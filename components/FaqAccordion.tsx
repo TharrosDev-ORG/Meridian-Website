@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useCallback } from "react";
+import { useRef, useCallback, useEffect } from "react";
 
 interface FaqItem {
   question: string;
@@ -30,10 +30,31 @@ const FAQ_DATA: FaqItem[] = [
   },
 ];
 
+function openItem(item: HTMLDetailsElement) {
+  const body = item.querySelector<HTMLElement>(".faq-body");
+  const answer = item.querySelector<HTMLElement>(".faq-answer");
+  if (!body || !answer) return;
+  item.open = true;
+  body.style.maxHeight = answer.offsetHeight + 32 + "px";
+}
+
+function closeItem(item: HTMLDetailsElement) {
+  const body = item.querySelector<HTMLElement>(".faq-body");
+  if (!body) return;
+  body.style.maxHeight = "0";
+  // Delay removing open attribute until CSS transition finishes
+  setTimeout(() => {
+    // Only close if maxHeight is still 0 (user didn't re-open)
+    if (body.style.maxHeight === "0" || body.style.maxHeight === "0px") {
+      item.open = false;
+    }
+  }, 400);
+}
+
 export default function FaqAccordion() {
   const listRef = useRef<HTMLDivElement>(null);
 
-  const initAccordion = useCallback(() => {
+  const init = useCallback(() => {
     if (!listRef.current) return;
     const canHover = window.matchMedia("(hover: hover)").matches;
     const items = listRef.current.querySelectorAll<HTMLDetailsElement>(".faq-item");
@@ -41,67 +62,49 @@ export default function FaqAccordion() {
     items.forEach((item) => {
       const summary = item.querySelector("summary");
       const body = item.querySelector<HTMLElement>(".faq-body");
-      const answer = item.querySelector<HTMLElement>(".faq-answer");
-      if (!summary || !body || !answer) return;
+      if (!summary || !body) return;
 
-      let isAnimating = false;
+      // Track if this item was opened via hover (so we only auto-close hover-opened ones)
       let hoverOpened = false;
 
-      // Initialize closed state
+      // Ensure closed initially
       item.open = false;
       body.style.maxHeight = "0";
 
-      function setOpen(shouldOpen: boolean) {
-        if (shouldOpen === item.open) return;
-        item.open = shouldOpen;
-        if (shouldOpen) {
-          body!.style.maxHeight = answer!.offsetHeight + 32 + "px";
-        } else {
-          body!.style.maxHeight = "0";
-        }
-      }
-
       summary.addEventListener("click", (e) => {
-        if (isAnimating) {
-          e.preventDefault();
-          return;
-        }
         e.preventDefault();
         hoverOpened = false;
-        isAnimating = true;
-        setOpen(!item.open);
-        setTimeout(() => {
-          isAnimating = false;
-        }, 650);
-      });
-
-      item.addEventListener("mouseenter", () => {
-        if (!canHover || window.innerWidth <= 700 || isAnimating) return;
-        if (!item.open) {
-          setOpen(true);
-          hoverOpened = true;
+        if (item.open) {
+          closeItem(item);
+        } else {
+          openItem(item);
         }
       });
 
-      item.addEventListener("mouseleave", () => {
-        if (!canHover || window.innerWidth <= 700 || isAnimating) return;
-        if (hoverOpened && item.open) {
-          isAnimating = true;
-          setOpen(false);
-          setTimeout(() => {
-            isAnimating = false;
-          }, 650);
-          hoverOpened = false;
-        }
-      });
+      if (canHover) {
+        item.addEventListener("mouseenter", () => {
+          if (window.innerWidth <= 700) return;
+          if (!item.open) {
+            openItem(item);
+            hoverOpened = true;
+          }
+        });
+
+        item.addEventListener("mouseleave", () => {
+          if (window.innerWidth <= 700) return;
+          if (hoverOpened && item.open) {
+            closeItem(item);
+            hoverOpened = false;
+          }
+        });
+      }
     });
   }, []);
 
   useEffect(() => {
-    // Small delay to ensure the DOM and styles are ready
-    const timer = setTimeout(initAccordion, 100);
+    const timer = setTimeout(init, 80);
     return () => clearTimeout(timer);
-  }, [initAccordion]);
+  }, [init]);
 
   return (
     <div className="faq-list rv" data-d="2" ref={listRef}>

@@ -700,7 +700,7 @@
     .stat:hover::after { transform: scaleX(1); }
     .stat:hover .stat-val { color: var(--gold); }
     .stat-val { font-family: var(--serif); font-size: 28px; font-weight: 300; color: var(--ink); line-height: 1; margin-bottom: 5px; transition: color 0.3s; }
-    .stat-lbl { font-family: var(--sans); font-size: 10px; font-weight: 600; letter-spacing: 0.24em; text-transform: uppercase; color: var(--ink-55); }
+    .stat-lbl { font-family: var(--sans); font-size: 11px; font-weight: 600; letter-spacing: 0.24em; text-transform: uppercase; color: var(--ink-75); }
 
     /* Arc button — cream theme override (base.css defaults are dark-theme) */
     .arc-btn {
@@ -738,7 +738,7 @@
     .m-item {
       font-family: var(--sans); font-size: 9px; font-weight: 600;
       letter-spacing: 0.34em; text-transform: uppercase;
-      color: rgba(244,237,227,0.38); padding: 0 24px;
+      color: rgba(244,237,227,0.55); padding: 0 24px;
       flex-shrink: 0; white-space: nowrap; line-height: 1;
     }
     .m-gem { color: rgba(212,175,80,0.45); padding: 0 4px; flex-shrink: 0; line-height: 1; }
@@ -889,7 +889,7 @@
       transition: color 0.25s, transform 0.3s, border-bottom-color 0.25s; cursor: default;
     }
     .not-list li:first-child { border-top: none; }
-    .not-list li::before { content: '\00d7'; font-style: normal; font-family: var(--sans); font-size: 11px; font-weight: 300; color: var(--ink-15); flex-shrink: 0; transition: color 0.25s; }
+    .not-list li::before { content: '\00d7'; font-style: normal; font-family: var(--sans); font-size: 11px; font-weight: 300; color: var(--ink-30); flex-shrink: 0; transition: color 0.25s; }
     .not-list li:hover { color: var(--ink); transform: translateX(8px); }
     .not-list li:hover::before { color: var(--gold); }
 
@@ -990,7 +990,7 @@
     }
     .register .wrap { position: relative; z-index: 1; text-align: center; }
     .register-rule-top { width: 1px; height: 60px; background: var(--ink-15); margin: 0 auto 40px; }
-    .register-eyebrow { font-family: var(--sans); font-size: 10.5px; font-weight: 700; letter-spacing: 0.38em; text-transform: uppercase; color: var(--ink-30); margin-bottom: 36px; }
+    .register-eyebrow { font-family: var(--sans); font-size: 10.5px; font-weight: 700; letter-spacing: 0.38em; text-transform: uppercase; color: var(--ink-55); margin-bottom: 36px; }
     .register-title { font-family: var(--serif); font-size: clamp(46px, 7.5vw, 108px); font-weight: 300; line-height: 0.88; color: var(--ink); margin-bottom: 36px; }
     .register-title em { font-style: italic; font-weight: 300; color: var(--gold); }
     .register-body { font-family: var(--serif); font-size: 19px; font-style: italic; font-weight: 300; color: var(--ink-75); max-width: 440px; margin: 0 auto 52px; line-height: 1.85; }
@@ -1010,7 +1010,7 @@
     /* Member count box (lives inside register section) */
     .member-count-box { display: inline-flex; flex-direction: column; align-items: center; gap: 8px; margin-bottom: 40px; }
     .member-count-num { font-family: var(--serif); font-size: 52px; font-weight: 300; color: var(--gold); line-height: 1; }
-    .member-count-lbl { font-family: var(--sans); font-size: 10px; font-weight: 600; letter-spacing: 0.24em; text-transform: uppercase; color: var(--ink-30); }
+    .member-count-lbl { font-family: var(--sans); font-size: 10px; font-weight: 600; letter-spacing: 0.24em; text-transform: uppercase; color: var(--ink-55); }
 
     /* ══════════════════════════════
        FOOTER
@@ -1037,7 +1037,7 @@
     .footer-nav a:last-child { border-right: none; padding-right: 0; margin-right: 0; }
     .footer-nav a:hover { color: var(--ink); }
     .footer-bottom { padding-top: 24px; border-top: 1px solid var(--ink-08); position: relative; z-index: 1; }
-    .footer-copy { font-family: var(--sans); font-size: 10px; font-weight: 400; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-30); }
+    .footer-copy { font-family: var(--sans); font-size: 11px; font-weight: 400; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-55); }
 
     /* ══════════════════════════════
        RESPONSIVE
@@ -1077,7 +1077,7 @@
       .hero-content { width: 100%; }
       .hero-eyebrow { margin-bottom: 24px; gap: 8px; flex-wrap: wrap; justify-content: center; }
       .hero-eyebrow-rule { display: none; }
-      .hero-eyebrow-text { font-size: 9px; letter-spacing: 0.12em; }
+      .hero-eyebrow-text { font-size: 11px; letter-spacing: 0.12em; }
       .hero-sub { width: 100%; max-width: 100%; }
       .hero-actions { flex-wrap: wrap; gap: 16px; }
       .hero-actions > span[aria-hidden="true"] { display: none; }
@@ -1086,7 +1086,7 @@
       .stat-val { font-size: 22px; }
       .stat:nth-child(3),
       .stat:nth-child(4) { border-top: 1px solid var(--ink-08); }
-      .stat-lbl { font-size: 10px; letter-spacing: 0.18em; }
+      .stat-lbl { font-size: 11px; letter-spacing: 0.18em; }
       .btn-primary { width: 100%; justify-content: center; text-align: center; display: block; padding: 13px 24px; }
       .btn-ghost-link { display: none; }
       .hero-ig-btn { width: 100%; height: auto; padding: 13px 24px; gap: 10px; justify-content: center; }

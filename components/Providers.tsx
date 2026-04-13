@@ -14,6 +14,8 @@ const SiteContext = createContext<SiteContextType>({
 
 export const useSiteContext = () => useContext(SiteContext);
 
+const CIRC = 2 * Math.PI * 22;
+
 export default function Providers({ children }: { children: React.ReactNode }) {
   const [showArc, setShowArc] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
@@ -22,7 +24,6 @@ export default function Providers({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     let ticking = false;
     const SCROLL_ARC_THRESHOLD = 200;
-    const CIRC = 2 * Math.PI * 22; // 138.23
 
     const onScroll = () => {
       if (!ticking) {

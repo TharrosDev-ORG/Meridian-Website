@@ -82,6 +82,16 @@ export const metadata: Metadata = {
     images: ["https://meridiansociety.ca/assets/og-image.png"],
   },
   manifest: "/site.webmanifest",
+  icons: {
+    icon: [
+      { url: '/assets/favicons/favicon.svg', type: 'image/svg+xml' },
+      { url: '/assets/favicons/favicon-16x16.png', type: 'image/png', sizes: '16x16' },
+      { url: '/assets/favicons/favicon-32x32.png', type: 'image/png', sizes: '32x32' },
+      { url: '/assets/favicons/favicon-48x48.png', type: 'image/png', sizes: '48x48' }
+    ],
+    shortcut: '/assets/favicons/favicon.ico',
+    apple: '/assets/favicons/apple-touch-icon.png'
+  },
 };
 
 export default function RootLayout({

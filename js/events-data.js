@@ -22,7 +22,7 @@
 const EVENTS = [
   {
     id: "fall-2026-inaugural",
-    status: "Registration Open",
+    status: "Registration Closed",
     title: "Our <em>First Event</em><br />is Coming.",
     desc: "The Meridian Society's inaugural event — Connecting students, alumni, and professionals in Ottawa.",
     tags: ["Speaker Event", "Open Conversation", "Ottawa"],

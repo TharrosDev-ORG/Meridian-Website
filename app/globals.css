@@ -384,6 +384,13 @@ nav.scrolled {
   margin-bottom: -0.2em;
 }
 
+/* Prevent container 'double visual' pop when combined with .rv */
+.rv.rv-stagger {
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
+}
+
 .rv-stagger-item {
   display: block;
   transform: translateY(100%);

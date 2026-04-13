@@ -78,6 +78,7 @@ export default function Providers({ children }: { children: React.ReactNode }) {
       window.removeEventListener("scroll", onScroll);
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       delete (window as any).__observeReveal;
+      obs.disconnect();
     };
   }, []);
 

@@ -35,7 +35,16 @@ export default function NavBar() {
   return (
     <nav id="mainNav" className={scrolled ? "scrolled" : ""} role="navigation" aria-label="Main navigation">
       <div className="nav-inner">
-        <Link href="/" className="nav-logo" aria-label="The Meridian Society — home">
+        <Link 
+          href="/" 
+          className="nav-logo" 
+          aria-label="The Meridian Society — home"
+          onClick={() => {
+            if (pathname === '/') {
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+          }}
+        >
           <span className="nav-wordmark">The Meridian Society</span>
         </Link>
         

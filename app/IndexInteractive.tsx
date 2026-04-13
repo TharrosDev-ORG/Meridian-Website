@@ -58,18 +58,11 @@ export default function IndexInteractive() {
   }, []);
 
   useEffect(() => {
-    // Live member count
-    const el = document.getElementById('memberCountNum');
-    if (!el) return;
-    
-    fetch('https://script.google.com/macros/s/AKfycbx12Z8U8xQUYUHYLZkgVBlzGvhvx2uqSd1WBJNBBQcP0vlbrGzxJFfqi8QWnQVHyiKS/exec')
-      .then(r => r.json())
-      .then(d => {
-        if (d && typeof d.count === 'number') el.textContent = d.count.toString();
-      })
-      .catch(() => {
-        el.textContent = '—';
-      });
+    // Reveal homepage elements on load
+    const win = window as unknown as { __observeReveal?: () => void };
+    if (win.__observeReveal) {
+      setTimeout(() => win.__observeReveal!(), 50);
+    }
   }, []);
 
   return null;

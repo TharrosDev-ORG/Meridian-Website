@@ -67,8 +67,10 @@ export default function Providers({ children }: { children: React.ReactNode }) {
     document.querySelectorAll(".rv").forEach((el) => obs.observe(el));
 
     // Expose a global hook for dynamically added elements (like pages)
+    // We use a small timeout to ensure the DOM has actually updated
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (window as any).__observeReveal = () => {
+      // Re-query all .rv elements that aren't yet visible
       document.querySelectorAll(".rv:not(.on)").forEach((el) => obs.observe(el));
     };
 

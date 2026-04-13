@@ -22,7 +22,7 @@ export default function Page() {
       <h1 className="hero-title">Membership.</h1>
       <p className="hero-sub">Built for students. Free to join, no commitment required.</p>
       <div className="hero-actions">
-        <a href="#" target="_blank" rel="noopener noreferrer" className="register-btn" >
+        <a href={REGISTER_URL} target="_blank" rel="noopener noreferrer" className="register-btn" >
           <span>Register Now</span>
         </a>
       </div>
@@ -124,7 +124,7 @@ export default function Page() {
       </div>
       <p className="register-body rv" data-d="2">Membership puts you in the room. Register to stay informed, attend events, and become part of a community built around curiosity and conversation.</p>
       <div className="register-actions rv" data-d="3">
-        <a href="#" target="_blank" rel="noopener noreferrer" className="register-btn" >
+        <a href={REGISTER_URL} target="_blank" rel="noopener noreferrer" className="register-btn" >
           <span>Register for Updates</span>
         </a>
       </div>

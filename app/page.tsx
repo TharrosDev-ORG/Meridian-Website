@@ -26,7 +26,7 @@ export default function Home() {
     <div className="hero-hr" aria-hidden="true"></div>
     <p className="hero-sub">Bringing curious students together with the professionals, alumni, and scholars who can expand their world.</p>
     <div className="hero-actions">
-      <a href="#" target="_blank" rel="noopener noreferrer" className="btn-primary" data-register>
+      <a href={REGISTER_URL} target="_blank" rel="noopener noreferrer" className="btn-primary" data-register>
         <span>Register for Updates</span>
       </a>
       <span aria-hidden="true" style={{"width":"1px","height":"18px","background":"var(--ink-15)"}}></span>
@@ -217,7 +217,7 @@ export default function Home() {
     </div>
     <p className="register-body rv" data-d="2" id="register-speakable">Membership puts you in the room. Register to stay informed, attend events, and become part of a community built around curiosity and conversation.</p>
     <div className="register-actions rv" data-d="3">
-      <a href="#" target="_blank" rel="noopener noreferrer" className="register-btn" data-register>
+      <a href={REGISTER_URL} target="_blank" rel="noopener noreferrer" className="register-btn" data-register>
         <span>Register for Updates</span>
       </a>
     </div>

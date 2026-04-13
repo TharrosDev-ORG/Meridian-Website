@@ -113,7 +113,7 @@ export default function Page() {
         <h2 className="speak-apply-title rv" id="apply-heading">Ready to Speak?</h2>
         <p className="speak-apply-body rv" data-d="1">Tell us about yourself and what you&apos;d like to discuss. We&apos;ll be in touch.</p>
         <div className="speak-apply-ctas rv" data-d="2">
-          <a href="#" className="btn-primary" data-speak target="_blank" rel="noopener noreferrer"><span>Apply to Speak</span></a>
+          <a href="https://docs.google.com/forms/PLACEHOLDER" className="btn-primary" data-speak target="_blank" rel="noopener noreferrer"><span>Apply to Speak</span></a>
           <a href="mailto:meridiansocietycanada@gmail.com" className="btn-ghost-link">or email us <span>&#8594;</span></a>
         </div>
         <p className="speak-apply-trust rv" data-d="3">We take every application seriously.</p>

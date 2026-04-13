@@ -1,0 +1,232 @@
+
+import Link from 'next/link';
+import PageStyles from '@/components/PageStyles';
+import { indexCss } from './pageCss';
+import { REGISTER_URL } from '@/components/NavBar';
+import IndexInteractive from './IndexInteractive';
+
+export default function Home() { 
+  return (
+    <main>
+      <PageStyles css={indexCss} />
+      <a href="#main-content" className="skip-link">Skip to content</a>
+      <a href={REGISTER_URL} target="_blank" rel="noopener noreferrer" className="sticky-join" id="stickyJoin">Register</a>
+      <section className="hero" id="main-content" aria-label="Hero">
+  {/* Ghost "M" letterform — parallax via JS */}
+  <div className="hero-ghost" id="heroGhost" aria-hidden="true">M</div>
+
+  <div className="hero-content">
+    <div className="hero-eyebrow" aria-hidden="true">
+      <span className="hero-eyebrow-rule"></span>
+      <span className="hero-eyebrow-text" id="hero-speakable">An Independent Student Organization  ·  Ottawa  ·  Est. 2025</span>
+      <span className="hero-eyebrow-rule"></span>
+    </div>
+    <p className="hero-pre">A Place For</p>
+    <h1 className="hero-title" id="heroTitle">DISCOURSE</h1>
+    <div className="hero-hr" aria-hidden="true"></div>
+    <p className="hero-sub">Bringing curious students together with the professionals, alumni, and scholars who can expand their world.</p>
+    <div className="hero-actions">
+      <a href="#" target="_blank" rel="noopener noreferrer" className="btn-primary" data-register>
+        <span>Register for Updates</span>
+      </a>
+      <span aria-hidden="true" style={{"width":"1px","height":"18px","background":"var(--ink-15)"}}></span>
+      <a href="/events.html" className="btn-ghost-link">Explore Events  &#8594;</a>
+      <span aria-hidden="true" style={{"width":"1px","height":"18px","background":"var(--ink-15)"}}></span>
+      <a href="https://www.instagram.com/Meridian.Society" className="hero-ig-btn"
+         aria-label="The Meridian Society on Instagram" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24"  aria-hidden="true">
+          <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+        </svg>
+        <span className="hero-ig-label">Follow on Instagram</span>
+      </a>
+    </div>
+  </div>
+
+  {/* Stats bar — pinned to hero bottom by flex margin-top: auto */}
+  <div className="hero-stats" role="list" aria-label="Key facts">
+    <div className="stat" role="listitem">
+      <div className="stat-val">3</div>
+      <div className="stat-lbl">Universities &amp; Colleges</div>
+    </div>
+    <div className="stat" role="listitem">
+      <div className="stat-val">Ottawa</div>
+      <div className="stat-lbl">Based At Carleton</div>
+    </div>
+    <div className="stat" role="listitem">
+      <div className="stat-val">Fall '26</div>
+      <div className="stat-lbl">Inaugural Event</div>
+    </div>
+    <div className="stat" role="listitem">
+      <div className="stat-val">Est. 2025</div>
+      <div className="stat-lbl">Independent Organization</div>
+    </div>
+  </div>
+</section>
+
+{/* MARQUEE */}
+<div className="marquee-wrap" aria-hidden="true">
+  <div className="marquee-track" data-static="true">
+    <span className="m-item">The Meridian Society</span><span className="m-gem">◆</span><span className="m-item">Ottawa</span><span className="m-gem">◆</span><span className="m-item">Est. 2025</span><span className="m-gem">◆</span><span className="m-item">Student-Run</span><span className="m-gem">◆</span><span className="m-item">Carleton University</span><span className="m-gem">◆</span><span className="m-item">uOttawa</span><span className="m-gem">◆</span><span className="m-item">Algonquin College</span><span className="m-gem">◆</span><span className="m-item">The Meridian Society</span><span className="m-gem">◆</span><span className="m-item">Ottawa</span><span className="m-gem">◆</span><span className="m-item">Est. 2025</span><span className="m-gem">◆</span><span className="m-item">Student-Run</span><span className="m-gem">◆</span><span className="m-item">Carleton University</span><span className="m-gem">◆</span><span className="m-item">uOttawa</span><span className="m-gem">◆</span><span className="m-item">Algonquin College</span><span className="m-gem">◆</span>
+  </div>
+</div>
+
+{/* ABOUT */}
+<section className="about" id="about" aria-labelledby="about-heading">
+  <div className="wrap about-layout">
+    <div className="about-left rv">
+      <span className="about-num" aria-hidden="true">01</span>
+      <div className="about-section-label">About</div>
+      <h2 className="about-title" id="about-heading">A Room<br/>With the<br/><em>Right People.</em></h2>
+    </div>
+    <div className="about-right">
+      <p className="about-body rv" id="about-speakable">The Meridian Society is an independent, student-run organization based at Carleton University. We exist to connect motivated students with the professionals, alumni, and scholars who can expand their world, and to build a community of genuinely curious people.</p>
+      <p className="about-body rv" data-d="1">Through events, open conversations, and gatherings of all kinds, we help our members orient themselves in an increasingly complex world. Not an extension of any institution. Something built, owned, and run entirely by students.</p>
+      <div className="pull-quote rv" data-d="2">
+        <p>"We cannot promise outcomes, but we can provide access, exposure, and orientation to people and their ideas."</p>
+      </div>
+      <a href="/team.html" className="text-link rv" data-d="3">Meet the Team  &#8594;</a>
+    </div>
+  </div>
+</section>
+
+{/* WHO WE GATHER */}
+<section className="who" id="who" aria-labelledby="who-heading">
+  <div className="wrap">
+    <div className="who-top">
+      <h2 className="who-title rv" id="who-heading">Who We<br/><em>Gather.</em></h2>
+      <p className="who-intro-body rv" data-d="1">The Society brings together thoughtful people at all stages: from students still finding their footing to professionals and scholars with something worth sharing.</p>
+    </div>
+    <div className="who-grid">
+      <div className="who-item rv" data-num="01">
+        <div className="who-num">01</div>
+        <div className="who-item-title">Students &amp; Alumni</div>
+        <p className="who-item-desc">Motivated, curious individuals from Carleton University, uOttawa, and Algonquin College, and anyone drawn to the work we do.</p>
+      </div>
+      <div className="who-item rv" data-d="1" data-num="02">
+        <div className="who-num">02</div>
+        <div className="who-item-title">Speakers &amp; Professionals</div>
+        <p className="who-item-desc">People across law, business, policy, media, and beyond, with lived experience and a story worth telling.</p>
+      </div>
+      <div className="who-item rv" data-d="2" data-num="03">
+        <div className="who-num">03</div>
+        <div className="who-item-title">Scholars &amp; Thinkers</div>
+        <p className="who-item-desc">Academics and researchers whose work challenges assumptions, opens new territory, and gives students something to think about.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+{/* WHAT WE ARE NOT */}
+<section className="not-sec" id="not" aria-labelledby="not-heading">
+  <div className="wrap not-layout">
+    <div className="not-left">
+      <div className="sec-label rv">What We Are Not</div>
+      <h2 className="not-title rv" data-d="1" id="not-heading">Intentionally<br/>Not for Everyone.</h2>
+      <p className="not-body rv" data-d="2">We are not a resume workshop, a pitch competition, or a networking event. We have no political agenda and no exclusive membership criteria. We are student-run and independent. What we offer is simple: a room with the right people, and the willingness to listen.</p>
+    </div>
+    <div className="not-right">
+      <div className="not-list-header rv">Not</div>
+      <ul className="not-list" aria-label="What the Society is not">
+        <li className="rv">A resume workshop or career placement office</li>
+        <li className="rv" data-d="1">A political advocacy or activism group</li>
+        <li className="rv" data-d="2">A startup incubator or pitch competition</li>
+        <li className="rv" data-d="3">A closed, elite, invitation-only circle</li>
+        <li className="rv" data-d="4">A networking event with business cards</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+{/* EVENTS TEASER */}
+<section className="events" id="events" aria-labelledby="events-heading">
+  <div className="wrap">
+    <div className="events-header">
+      <h2 className="events-title rv" id="events-heading">Upcoming<br/><em>Events.</em></h2>
+      <a href="/events.html" className="text-link rv" data-d="1">All Events  &#8594;</a>
+    </div>
+    <div className="event-card rv" data-d="1">
+      <div className="event-main">
+        <div className="event-status">
+          <span className="event-dot" aria-hidden="true"></span>
+          Registration Open
+        </div>
+        <h3 className="event-title">Our <em>First Event</em><br/>is Coming.</h3>
+        <p className="event-desc">The Meridian Society’s inaugural event brings together Ottawa’s student community with professionals and scholars for an evening of open conversation.</p>
+        <div className="event-tags" aria-label="Event tags">
+          <span className="event-tag">Speaker Event</span>
+          <span className="event-tag">Open Conversation</span>
+          <span className="event-tag">Ottawa</span>
+        </div>
+      </div>
+      <div className="event-meta" aria-label="Event details">
+        <div className="event-meta-row">
+          <div className="meta-lbl">When</div>
+          <div className="meta-val">Fall 2026</div>
+        </div>
+        <div className="event-meta-row">
+          <div className="meta-lbl">Where</div>
+          <div className="meta-val">Ottawa, Canada</div>
+        </div>
+        <div className="event-meta-row">
+          <div className="meta-lbl">Format</div>
+          <div className="meta-val">Speaker &amp; Open Conversation</div>
+        </div>
+        <div className="event-meta-row">
+          <div className="meta-lbl">Entry</div>
+          <div className="meta-val">Registered Members</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{/* GET INVOLVED */}
+<section className="speaking" id="speaking" aria-labelledby="speaking-heading">
+  <div className="wrap speaking-layout">
+    <div className="speaking-left">
+      <div className="sec-label rv">Get Involved</div>
+      <h2 className="speaking-title rv" data-d="1" id="speaking-heading">Have a Story<br/>Worth <em>Sharing?</em></h2>
+      <p className="speaking-sub rv" data-d="2">We’d love to hear from you.</p>
+      <p className="speaking-body rv" data-d="2">Whether you want to speak, collaborate, or simply get involved, The Meridian Society is always looking to grow its circle of people worth knowing.</p>
+      <a href="/speak.html" className="text-link rv" data-d="3">Speak at the Meridian  &#8594;</a>
+    </div>
+    <div className="speaking-right">
+      <div className="sec-label rv" style={{"marginBottom":"20px"}}>What We Host</div>
+      <ul className="formats-list" aria-label="Event formats we host">
+        <li className="formats-item rv"><span className="formats-num">01</span><span className="formats-text">Formal presentations &amp; keynotes</span></li>
+        <li className="formats-item rv" data-d="1"><span className="formats-num">02</span><span className="formats-text">Open conversations &amp; Q&amp;A</span></li>
+        <li className="formats-item rv" data-d="2"><span className="formats-num">03</span><span className="formats-text">Career pathway talks</span></li>
+        <li className="formats-item rv" data-d="3"><span className="formats-num">04</span><span className="formats-text">Panel discussions</span></li>
+        <li className="formats-item rv" data-d="4"><span className="formats-num">05</span><span className="formats-text">Social gatherings &amp; community events</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+{/* REGISTER */}
+<section className="register" id="register" aria-labelledby="register-heading">
+  <div className="register-ghost" aria-hidden="true">MERIDIAN</div>
+  <div className="wrap">
+    <div className="register-rule-top" aria-hidden="true"></div>
+    <p className="register-eyebrow rv">Independent  ·  Student-Run  ·  Ottawa  ·  Est. 2025</p>
+    <h2 className="register-title rv" data-d="1" id="register-heading">Become a<br/><em>Member.</em></h2>
+    {/* Live member count — populated by inline script */}
+    <div className="member-count-box rv" data-d="1" id="memberCountBox" aria-live="polite">
+      <span className="member-count-num" id="memberCountNum">—</span>
+      <span className="member-count-lbl">Members Registered</span>
+    </div>
+    <p className="register-body rv" data-d="2" id="register-speakable">Membership puts you in the room. Register to stay informed, attend events, and become part of a community built around curiosity and conversation.</p>
+    <div className="register-actions rv" data-d="3">
+      <a href="#" target="_blank" rel="noopener noreferrer" className="register-btn" data-register>
+        <span>Register for Updates</span>
+      </a>
+    </div>
+    <div className="register-rule-btm" aria-hidden="true"></div>
+  </div>
+</section>
+
+
+      <IndexInteractive />
+    </main>
+  ); 
+}

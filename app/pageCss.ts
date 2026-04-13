@@ -419,7 +419,7 @@ export const indexCss = `
       border-bottom: 1px solid var(--ink-15); margin-bottom: 0;
       display: flex; align-items: center; gap: 10px;
     }
-    .not-list-header::before { content: '\\u00D7'; font-family: var(--sans); font-size: 12px; font-weight: 300; color: var(--gold); opacity: 0.7; }
+    .not-list-header::before { content: '×'; font-family: var(--sans); font-size: 12px; font-weight: 300; color: var(--gold); opacity: 0.7; }
     .not-list li {
       display: flex; align-items: baseline; gap: 20px;
       padding: 18px 0; border-bottom: 1px solid var(--ink-08);
@@ -428,7 +428,7 @@ export const indexCss = `
       transition: color 0.25s, transform 0.3s, border-bottom-color 0.25s; cursor: default;
     }
     .not-list li:first-child { border-top: none; }
-    .not-list li::before { content: '\\u00D7'; font-style: normal; font-family: var(--sans); font-size: 11px; font-weight: 300; color: var(--ink-30); flex-shrink: 0; transition: color 0.25s; }
+    .not-list li::before { content: '×'; font-style: normal; font-family: var(--sans); font-size: 11px; font-weight: 300; color: var(--ink-30); flex-shrink: 0; transition: color 0.25s; }
     .not-list li:hover { color: var(--ink); transform: translateX(8px); }
     .not-list li:hover::before { color: var(--gold); }
 

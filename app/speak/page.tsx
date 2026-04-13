@@ -1,8 +1,8 @@
 
-import Link from 'next/link';
+
 import PageStyles from '@/components/PageStyles';
 import { speakCss } from './pageCss';
-import { REGISTER_URL } from '@/components/NavBar';
+
 
 export default function Page() { 
   return (

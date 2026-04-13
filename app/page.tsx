@@ -1,5 +1,5 @@
 
-import Link from 'next/link';
+
 import PageStyles from '@/components/PageStyles';
 import { indexCss } from './pageCss';
 import { REGISTER_URL } from '@/components/NavBar';
@@ -54,7 +54,7 @@ export default function Home() {
       <div className="stat-lbl">Based At Carleton</div>
     </div>
     <div className="stat" role="listitem">
-      <div className="stat-val">Fall '26</div>
+      <div className="stat-val">Fall &apos;26</div>
       <div className="stat-lbl">Inaugural Event</div>
     </div>
     <div className="stat" role="listitem">
@@ -83,7 +83,7 @@ export default function Home() {
       <p className="about-body rv" id="about-speakable">The Meridian Society is an independent, student-run organization based at Carleton University. We exist to connect motivated students with the professionals, alumni, and scholars who can expand their world, and to build a community of genuinely curious people.</p>
       <p className="about-body rv" data-d="1">Through events, open conversations, and gatherings of all kinds, we help our members orient themselves in an increasingly complex world. Not an extension of any institution. Something built, owned, and run entirely by students.</p>
       <div className="pull-quote rv" data-d="2">
-        <p>"We cannot promise outcomes, but we can provide access, exposure, and orientation to people and their ideas."</p>
+        <p>&quot;We cannot promise outcomes, but we can provide access, exposure, and orientation to people and their ideas.&quot;</p>
       </div>
       <a href="/team" className="text-link rv" data-d="3">Meet the Team  &#8594;</a>
     </div>

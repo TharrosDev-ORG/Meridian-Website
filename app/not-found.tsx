@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import PageStyles from '@/components/PageStyles';
 import { notFoundCss } from './not-foundCss';
-import { REGISTER_URL } from '@/components/NavBar';
+
 
 export default function NotFound() { 
   return (
@@ -15,7 +15,7 @@ export default function NotFound() {
             <div className="e404-rule" aria-hidden="true"></div>
             <h1 className="e404-title">Beyond Our Meridian</h1>
             <p className="e404-desc">
-              The page you're looking for has drifted out of reach.<br />
+              The page you&apos;re looking for has drifted out of reach.<br />
               Let us orient you.
             </p>
             <div className="e404-ctas">

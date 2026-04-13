@@ -1,5 +1,5 @@
 
-import Link from 'next/link';
+
 import PageStyles from '@/components/PageStyles';
 import { membershipCss } from './pageCss';
 import { REGISTER_URL } from '@/components/NavBar';
@@ -49,7 +49,7 @@ export default function Page() {
         <article className="benefit-card rv" data-d="1">
           <div className="benefit-num">01</div>
           <h3 className="benefit-heading">Speaker Events</h3>
-          <p className="benefit-body">Be the first to know. Members receive all announcements, event schedules, and invitations to Meridian speaker events. Priority access means you're in the room when it matters.</p>
+          <p className="benefit-body">Be the first to know. Members receive all announcements, event schedules, and invitations to Meridian speaker events. Priority access means you&apos;re in the room when it matters.</p>
         </article>
 
         <article className="benefit-card rv" data-d="2">

@@ -387,8 +387,10 @@
       grid-template-rows: 0fr;
       overflow: hidden;
       transition: grid-template-rows 0.45s cubic-bezier(0.16,1,0.3,1);
+      min-height: 0;
     }
-    .faq-item[open]:not([data-closing]) > .faq-body { grid-template-rows: 1fr; }
+    .faq-item[open] > .faq-body { grid-template-rows: 1fr; }
+    .faq-item[data-closing] > .faq-body { grid-template-rows: 0fr; }
     .faq-answer {
       font-family: var(--serif); font-size: 19px; font-weight: 300; line-height: 1.85;
       color: var(--ink-75); padding: 0 0 32px; max-width: 640px;
@@ -731,8 +733,7 @@
   // ── FAQ accordion ──
   // Body reveal uses CSS grid-row 0fr→1fr transition.
   // Close is intercepted so the body can animate 1fr→0fr before [open] is removed.
-  // [data-closing] CSS rules ensure the icon and gold sidebar animate back immediately,
-  // not just after the body finishes — they all close together.
+  // [data-closing] CSS rules ensure the icon and gold sidebar animate back immediately.
   // Hover on real pointer devices opens items; leaving closes them animated.
   // Cancel support: re-hovering or clicking during a close aborts it cleanly.
   (function() {
@@ -772,12 +773,15 @@
           hoverOpened = false;
           return;
         }
-        hoverOpened = false;
+        // Only prevent default if item is currently open (to trigger close animation)
         if (item.open) {
           e.preventDefault();
+          hoverOpened = false;
           animateClose(item);
+        } else {
+          // If closed, let default open it and mark as user-opened (not hover-opened)
+          hoverOpened = false;
         }
-        // if closed, let default [open] it — CSS handles 0fr→1fr reveal
       });
 
       item.addEventListener('mouseenter', function() {

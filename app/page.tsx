@@ -84,7 +84,7 @@ export default function Home() {
     <div className="about-left rv">
       <span className="about-num" aria-hidden="true">01</span>
       <div className="about-section-label">About</div>
-      <h2 className="about-title rv rv-stagger" id="about-heading" style={{overflow: 'visible'}}>
+      <h2 className="about-title rv rv-stagger" id="about-heading">
         <span className="rv-stagger-item">A Room</span>
         <span className="rv-stagger-item">With the</span>
         <span className="rv-stagger-item"><em>Right People.</em></span>
@@ -105,7 +105,7 @@ export default function Home() {
 <section className="who" id="who" aria-labelledby="who-heading">
   <div className="wrap">
     <div className="who-top">
-      <h2 className="who-title rv rv-stagger" id="who-heading" style={{overflow: 'visible'}}>
+      <h2 className="who-title rv rv-stagger" id="who-heading">
         <span className="rv-stagger-item">Who We</span>
         <span className="rv-stagger-item"><em>Gather.</em></span>
       </h2>

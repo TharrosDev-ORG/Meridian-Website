@@ -61,7 +61,7 @@ export default function Providers({ children }: { children: React.ReactNode }) {
           obs.unobserve(e.target);
         }
       });
-    }, { threshold: 0.01, rootMargin: "0px 0px -40px 0px" });
+    }, { threshold: 0.01, rootMargin: "0px 0px 100px 0px" });
 
     // Initial query
     document.querySelectorAll(".rv").forEach((el) => obs.observe(el));

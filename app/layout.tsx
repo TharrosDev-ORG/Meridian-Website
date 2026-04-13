@@ -4,6 +4,8 @@ import NavBar from "@/components/NavBar";
 import Footer from "@/components/Footer";
 import MobileMenu from "@/components/MobileMenu";
 import Providers from "@/components/Providers";
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 
 const cormorant = Cormorant_Garamond({
@@ -108,6 +110,8 @@ export default function RootLayout({
           <Footer />
           <MobileMenu />
           <div className="progress" id="progressBar"></div>
+          <Analytics />
+          <SpeedInsights />
         </Providers>
       </body>
     </html>

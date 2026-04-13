@@ -14,8 +14,44 @@ export default function EventsPage() {
   const currentEvent = EVENTS.find(e => e.isCurrent);
 
   return (
-    <main id="main-content">
+    <>
       <PageStyles css={eventsCss} />
+      {/* JSON-LD Event Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            EVENTS.map((event) => ({
+              "@context": "https://schema.org",
+              "@type": "Event",
+              "name": event.title.replace(/<\/?[^>]+(>|$)/g, ""), // strip HTML
+              "description": event.desc,
+              "startDate": event.when.includes("Fall 2026") ? "2026-09-01T18:00:00-04:00" : undefined,
+              "eventStatus": "https://schema.org/EventScheduled",
+              "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+              "location": {
+                "@type": "Place",
+                "name": "Ottawa, Canada",
+                "address": {
+                  "@type": "PostalAddress",
+                  "addressLocality": "Ottawa",
+                  "addressRegion": "ON",
+                  "addressCountry": "CA"
+                }
+              },
+              "image": [
+                "https://meridiansociety.ca/assets/og-image.png"
+              ],
+              "organizer": {
+                "@type": "Organization",
+                "name": "The Meridian Society",
+                "url": "https://meridiansociety.ca"
+              }
+            }))
+          ),
+        }}
+      />
+      <main id="main-content">
 
       <section className="page-hero" aria-label="Events hero">
         <div className="page-hero-content">
@@ -89,5 +125,6 @@ export default function EventsPage() {
         </div>
       </section>
     </main>
+    </>
   );
 }

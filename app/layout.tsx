@@ -112,6 +112,32 @@ export default function RootLayout({
           <div className="progress" id="progressBar"></div>
           <Analytics />
           <SpeedInsights />
+          {/* JSON-LD Organization Schema */}
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "Organization",
+                "name": "The Meridian Society",
+                "url": "https://meridiansociety.ca",
+                "logo": "https://meridiansociety.ca/assets/favicons/favicon-48x48.png",
+                "description": "An independent student speaker forum in Ottawa connecting curious students with professionals, alumni, and scholars.",
+                "sameAs": [
+                  "https://www.instagram.com/Meridian.Society"
+                ],
+                "location": {
+                  "@type": "Place",
+                  "address": {
+                    "@type": "PostalAddress",
+                    "addressLocality": "Ottawa",
+                    "addressRegion": "ON",
+                    "addressCountry": "CA"
+                  }
+                }
+              }),
+            }}
+          />
         </Providers>
       </body>
     </html>

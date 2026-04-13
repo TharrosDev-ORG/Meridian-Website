@@ -14,6 +14,50 @@ export default function Page() {
   return (
     <>
       <PageStyles css={membershipCss} />
+      {/* JSON-LD FAQ Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "Is membership free?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Yes. Membership is completely free. There is no cost to join The Meridian Society."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Who can join?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Any motivated, curious student in the Ottawa area is welcome to register. You don't need to be from a specific school or program."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "What happens after I register?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "You'll receive event announcements and invitations as they go out. No spam, no commitments. You can also follow us on Instagram for updates."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Do I have to attend every event?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "No. Register once, come to what interests you. There is no attendance requirement. Membership is yours to use how it suits you."
+                }
+              }
+            ]
+          }),
+        }}
+      />
       <main id="main-content">
   {/* ═══════════ HERO ═══════════ */}
   <section className="page-hero" aria-label="Membership hero">

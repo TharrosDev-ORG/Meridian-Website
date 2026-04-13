@@ -63,7 +63,7 @@ export default function Page() {
   {/* ═══════════ HERO ═══════════ */}
   <section className="page-hero" aria-label="Membership hero">
     <div className="page-hero-content">
-      <div className="hero-eyebrow">
+      <div className="hero-eyebrow rv">
         <span className="hero-eyebrow-rule"></span>
         <span className="hero-eyebrow-text">The Meridian Society</span>
         <span className="hero-eyebrow-rule"></span>
@@ -72,8 +72,8 @@ export default function Page() {
       <h1 className="hero-title rv rv-stagger">
         <span className="rv-stagger-item">Membership.</span>
       </h1>
-      <p className="hero-sub">Built for students. Free to join, no commitment required.</p>
-      <div className="hero-actions">
+      <p className="hero-sub rv" data-d="2">Built for students. Free to join, no commitment required.</p>
+      <div className="hero-actions rv" data-d="3">
         <a href={REGISTER_URL} target="_blank" rel="noopener noreferrer" className="register-btn" >
           <span>Register Now</span>
         </a>

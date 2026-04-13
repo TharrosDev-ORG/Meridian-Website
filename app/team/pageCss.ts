@@ -71,14 +71,14 @@ export const teamCss = `
       opacity: 0.03; background-image: var(--grain); background-size: 220px 220px; pointer-events: none;
     }
     .page-hero-content { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; }
-    .hero-eyebrow { display: flex; align-items: center; gap: 16px; margin-bottom: 52px; opacity: 0; animation: riseIn 0.7s 0.3s cubic-bezier(0.16,1,0.3,1) forwards; }
+    .hero-eyebrow { display: flex; align-items: center; gap: 16px; margin-bottom: 52px; }
     .hero-eyebrow-rule { width: 36px; height: 1px; background: var(--gold); opacity: 0.5; }
     .hero-eyebrow-text { font-family: var(--sans); font-size: 11px; font-weight: 700; letter-spacing: 0.32em; text-transform: uppercase; color: var(--gold); }
-    .hero-pre { font-family: var(--serif); font-size: clamp(18px, 2.5vw, 30px); font-style: italic; font-weight: 300; color: var(--ink-55); letter-spacing: 0.06em; margin-bottom: 10px; opacity: 0; animation: riseIn 0.7s 0.55s cubic-bezier(0.16,1,0.3,1) forwards; }
-    .hero-title { font-family: var(--serif); font-size: clamp(64px, 12vw, 160px); font-weight: 300; line-height: 0.86; color: var(--ink); letter-spacing: 0.06em; opacity: 0; animation: riseIn 0.9s 0.7s cubic-bezier(0.16,1,0.3,1) forwards; text-shadow: 0 2px 40px rgba(24,21,15,0.04); }
-    .hero-hr { width: 44px; height: 1px; background: var(--ink-15); margin: 36px auto; opacity: 0; animation: riseIn 0.6s 0.95s ease forwards; }
-    .hero-sub { font-family: var(--serif); font-size: clamp(19px, 2vw, 26px); font-style: italic; font-weight: 300; color: var(--ink-75); max-width: 520px; line-height: 1.85; margin-bottom: 44px; opacity: 0; animation: riseIn 0.7s 1.05s ease forwards; }
-    .hero-actions { display: flex; align-items: center; gap: 36px; opacity: 0; animation: riseIn 0.7s 1.2s ease forwards; }
+    .hero-pre { font-family: var(--serif); font-size: clamp(18px, 2.5vw, 30px); font-style: italic; font-weight: 300; color: var(--ink-55); letter-spacing: 0.06em; margin-bottom: 10px; }
+    .hero-title { font-family: var(--serif); font-size: clamp(64px, 12vw, 160px); font-weight: 300; line-height: 0.86; color: var(--ink); letter-spacing: 0.06em; text-shadow: 0 2px 40px rgba(24,21,15,0.04); }
+    .hero-hr { width: 44px; height: 1px; background: var(--ink-15); margin: 36px auto; }
+    .hero-sub { font-family: var(--serif); font-size: clamp(19px, 2vw, 26px); font-style: italic; font-weight: 300; color: var(--ink-75); max-width: 520px; line-height: 1.85; margin-bottom: 44px; }
+    .hero-actions { display: flex; align-items: center; gap: 36px; }
     .btn-ghost-link { font-family: var(--serif); font-size: 16px; font-style: italic; font-weight: 300; color: var(--ink-55); text-decoration: none; display: flex; align-items: center; gap: 8px; transition: color 0.2s, gap 0.25s; }
     .btn-ghost-link:hover { color: var(--ink); gap: 14px; }
 

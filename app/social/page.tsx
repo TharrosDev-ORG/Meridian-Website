@@ -42,7 +42,7 @@ export default function SocialPage() {
       {/* PAGE HERO */}
       <section className="page-hero" aria-label="Social events hero">
         <div className="page-hero-content">
-          <div className="hero-eyebrow">
+          <div className="hero-eyebrow rv">
             <span className="hero-eyebrow-rule"></span>
             <span className="hero-eyebrow-text">The Meridian Society</span>
             <span className="hero-eyebrow-rule"></span>
@@ -52,9 +52,9 @@ export default function SocialPage() {
             <span className="rv-stagger-item">Social</span>
           </h1>
           <p className="hero-post rv" data-d="1">Events</p>
-          <div className="hero-hr" aria-hidden="true"></div>
-          <p className="hero-sub">Bar nights, fundraisers, and community gatherings. Follow <a href="https://www.instagram.com/Meridian.Society" target="_blank" rel="noopener noreferrer">@Meridian.Society</a> for announcements.</p>
-          <div className="hero-actions">
+          <div className="hero-hr rv" aria-hidden="true" data-d="1"></div>
+          <p className="hero-sub rv" data-d="2">Bar nights, fundraisers, and community gatherings. Follow <a href="https://www.instagram.com/Meridian.Society" target="_blank" rel="noopener noreferrer">@Meridian.Society</a> for announcements.</p>
+          <div className="hero-actions rv" data-d="3">
             <Magnetic strength={0.25}>
               <a href="#events" className="btn-primary"><span>View Events</span></a>
             </Magnetic>

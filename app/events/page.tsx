@@ -57,7 +57,7 @@ export default function EventsPage() {
 
       <section className="page-hero" aria-label="Events hero">
         <div className="page-hero-content">
-          <div className="hero-eyebrow">
+          <div className="hero-eyebrow rv">
             <span className="hero-eyebrow-rule"></span>
             <span className="hero-eyebrow-text">The Meridian Society</span>
             <span className="hero-eyebrow-rule"></span>
@@ -66,9 +66,9 @@ export default function EventsPage() {
           <h1 className="hero-title rv rv-stagger">
             <span className="rv-stagger-item">Events.</span>
           </h1>
-          <div className="hero-hr" aria-hidden="true"></div>
-          <p className="hero-sub">Follow <a href="https://www.instagram.com/Meridian.Society" target="_blank" rel="noopener noreferrer">@Meridian.Society</a> for announcements and event details.</p>
-          <div className="hero-actions">
+          <div className="hero-hr rv" aria-hidden="true" data-d="1"></div>
+          <p className="hero-sub rv" data-d="2">Follow <a href="https://www.instagram.com/Meridian.Society" target="_blank" rel="noopener noreferrer">@Meridian.Society</a> for announcements and event details.</p>
+          <div className="hero-actions rv" data-d="3">
             <Magnetic strength={0.25}>
               <a href={REGISTER_URL} target="_blank" rel="noopener noreferrer" className="btn-primary"><span>Register as a Member</span></a>
             </Magnetic>

@@ -18,16 +18,16 @@ export default function Page() {
   {/* ═══════════ HERO ═══════════ */}
   <section className="page-hero" aria-label="Speak hero">
     <div className="page-hero-content">
-      <div className="hero-eyebrow">
+      <div className="hero-eyebrow rv">
         <span className="hero-eyebrow-rule"></span>
         <span className="hero-eyebrow-text">The Meridian Society</span>
         <span className="hero-eyebrow-rule"></span>
       </div>
       <p className="hero-pre">Speaker Applications</p>
       <h1 className="hero-title">Make an Impact.</h1>
-      <div className="hero-hr" aria-hidden="true"></div>
-      <p className="hero-sub">Motivated students. Genuine curiosity. A room built for real conversation.</p>
-      <div className="hero-actions">
+      <div className="hero-hr rv" aria-hidden="true" data-d="1"></div>
+      <p className="hero-sub rv" data-d="2">Motivated students. Genuine curiosity. A room built for real conversation.</p>
+      <div className="hero-actions rv" data-d="3">
         <a href={SPEAK_URL} className="btn-primary" target="_blank" rel="noopener noreferrer"><span>Apply to Speak</span></a>
         <a href="#why" className="btn-ghost-link">Learn More <span>&#8594;</span></a>
       </div>

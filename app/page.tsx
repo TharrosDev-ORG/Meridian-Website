@@ -26,7 +26,7 @@ export default function Home() {
       <span className="hero-eyebrow-rule"></span>
     </div>
     <p className="hero-pre rv">A Place For</p>
-    <h1 className="hero-title rv" id="heroTitle">
+    <h1 className="hero-title rv rv-stagger" id="heroTitle">
       <span className="rv-stagger-item">DISCOURSE</span>
     </h1>
     <div className="hero-hr" aria-hidden="true"></div>

@@ -380,6 +380,8 @@ nav.scrolled {
 .rv-stagger {
   display: block;
   overflow: hidden;
+  padding-bottom: 0.2em; /* prevent descender clipping */
+  margin-bottom: -0.2em;
 }
 
 .rv-stagger-item {
@@ -389,14 +391,17 @@ nav.scrolled {
   transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.8s ease;
 }
 
-.reveal .rv-stagger-item {
+/* Allow .on (observer) or .reveal to trigger staggered items */
+.reveal .rv-stagger-item,
+.on .rv-stagger-item,
+.rv-stagger.on .rv-stagger-item {
   transform: translateY(0);
   opacity: 1;
 }
 
 /* Stagger delays across many items */
-.reveal .rv-stagger-item:nth-child(1) { transition-delay: 0.05s; }
-.reveal .rv-stagger-item:nth-child(2) { transition-delay: 0.12s; }
-.reveal .rv-stagger-item:nth-child(3) { transition-delay: 0.19s; }
-.reveal .rv-stagger-item:nth-child(4) { transition-delay: 0.26s; }
-.reveal .rv-stagger-item:nth-child(5) { transition-delay: 0.33s; }
+.on .rv-stagger-item:nth-child(1), .reveal .rv-stagger-item:nth-child(1) { transition-delay: 0.05s; }
+.on .rv-stagger-item:nth-child(2), .reveal .rv-stagger-item:nth-child(2) { transition-delay: 0.12s; }
+.on .rv-stagger-item:nth-child(3), .reveal .rv-stagger-item:nth-child(3) { transition-delay: 0.19s; }
+.on .rv-stagger-item:nth-child(4), .reveal .rv-stagger-item:nth-child(4) { transition-delay: 0.26s; }
+.on .rv-stagger-item:nth-child(5), .reveal .rv-stagger-item:nth-child(5) { transition-delay: 0.33s; }

@@ -123,9 +123,9 @@ export const indexCss = `
     /* Ghost "M" letterform — parallax target via JS */
     .hero-ghost {
       position: absolute; z-index: 1;
-      bottom: -80px; left: 50%;
+      bottom: -120px; left: 50%;
       transform: translateX(-50%);
-      font-family: var(--serif); font-size: 560px; font-weight: 300; line-height: 1;
+      font-family: var(--serif); font-size: clamp(280px, 35vw, 420px); font-weight: 300; line-height: 1;
       color: transparent; -webkit-text-stroke: 1.5px rgba(24,21,15,0.09);
       user-select: none; pointer-events: none; letter-spacing: -0.05em;
     }

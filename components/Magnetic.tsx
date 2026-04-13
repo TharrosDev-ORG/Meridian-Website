@@ -12,7 +12,7 @@ interface Props {
  * It calculates the distance between the mouse and the center of the element.
  */
 export default function Magnetic({ children, strength = 0.3 }: Props) {
-  const ref = useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLElement>(null);
   const [position, setPosition] = useState({ x: 0, y: 0 });
 
   const handleMouseMove = (e: MouseEvent) => {
@@ -32,18 +32,16 @@ export default function Magnetic({ children, strength = 0.3 }: Props) {
     setPosition({ x: 0, y: 0 });
   };
 
-  return (
-    <div
-      ref={ref}
-      style={{
-        display: 'inline-block',
-        transition: 'transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)',
-        transform: `translate3d(${position.x}px, ${position.y}px, 0)`
-      }}
-      onMouseMove={(e) => handleMouseMove(e.nativeEvent)}
-      onMouseLeave={handleMouseLeave}
-    >
-      {children}
-    </div>
-  );
+  // We clone the child to avoid adding an extra div which can break flexbox layouts
+  return React.cloneElement(children, {
+    ref,
+    onMouseMove: handleMouseMove,
+    onMouseLeave: handleMouseLeave,
+    style: {
+      ...(children.props.style || {}),
+      display: 'inline-block', // ensure it responds to transforms correctly if it's an inline element like <a>
+      transition: position.x === 0 && position.y === 0 ? 'transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s' : 'none',
+      transform: position.x !== 0 || position.y !== 0 ? `translate3d(${position.x}px, ${position.y}px, 0)` : undefined
+    }
+  });
 }

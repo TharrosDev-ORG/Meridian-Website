@@ -3,7 +3,7 @@
 import React, { useRef, useState, useEffect, ReactElement } from 'react';
 
 interface Props {
-  children: ReactElement;
+  children: ReactElement<any>;
   strength?: number;
 }
 
@@ -33,7 +33,7 @@ export default function Magnetic({ children, strength = 0.3 }: Props) {
   };
 
   // We clone the child to avoid adding an extra div which can break flexbox layouts
-  return React.cloneElement(children, {
+  return React.cloneElement(children as any, {
     ref,
     onMouseMove: handleMouseMove,
     onMouseLeave: handleMouseLeave,

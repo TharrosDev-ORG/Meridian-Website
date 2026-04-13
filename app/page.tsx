@@ -7,6 +7,8 @@ import IndexInteractive from './IndexInteractive';
 import MemberCount from '@/components/MemberCount';
 import { EVENTS } from '@/data/events';
 
+import Magnetic from '@/components/Magnetic';
+
 export default function Home() { 
   return (
     <main>
@@ -23,14 +25,18 @@ export default function Home() {
       <span className="hero-eyebrow-text" id="hero-speakable">An Independent Student Organization  ·  Ottawa  ·  Est. 2025</span>
       <span className="hero-eyebrow-rule"></span>
     </div>
-    <p className="hero-pre">A Place For</p>
-    <h1 className="hero-title" id="heroTitle">DISCOURSE</h1>
+    <p className="hero-pre rv">A Place For</p>
+    <h1 className="hero-title rv" id="heroTitle">
+      <span className="rv-stagger-item">DISCOURSE</span>
+    </h1>
     <div className="hero-hr" aria-hidden="true"></div>
-    <p className="hero-sub">Bringing curious students together with the professionals, alumni, and scholars who can expand their world.</p>
+    <p className="hero-sub rv" data-d="1">Bringing curious students together with the professionals, alumni, and scholars who can expand their world.</p>
     <div className="hero-actions">
-      <a href={REGISTER_URL} target="_blank" rel="noopener noreferrer" className="btn-primary" data-register>
-        <span>Register for Updates</span>
-      </a>
+      <Magnetic strength={0.2}>
+        <a href={REGISTER_URL} target="_blank" rel="noopener noreferrer" className="btn-primary" data-register>
+          <span>Register for Updates</span>
+        </a>
+      </Magnetic>
       <span aria-hidden="true" style={{"width":"1px","height":"18px","background":"var(--ink-15)"}}></span>
       <a href="/events" className="btn-ghost-link">Explore Events  &#8594;</a>
       <span aria-hidden="true" style={{"width":"1px","height":"18px","background":"var(--ink-15)"}}></span>
@@ -78,7 +84,11 @@ export default function Home() {
     <div className="about-left rv">
       <span className="about-num" aria-hidden="true">01</span>
       <div className="about-section-label">About</div>
-      <h2 className="about-title" id="about-heading">A Room<br/>With the<br/><em>Right People.</em></h2>
+      <h2 className="about-title rv rv-stagger" id="about-heading" style={{overflow: 'visible'}}>
+        <span className="rv-stagger-item">A Room</span>
+        <span className="rv-stagger-item">With the</span>
+        <span className="rv-stagger-item"><em>Right People.</em></span>
+      </h2>
     </div>
     <div className="about-right">
       <p className="about-body rv" id="about-speakable">The Meridian Society is an independent, student-run organization based at Carleton University. We exist to connect motivated students with the professionals, alumni, and scholars who can expand their world, and to build a community of genuinely curious people.</p>
@@ -95,21 +105,24 @@ export default function Home() {
 <section className="who" id="who" aria-labelledby="who-heading">
   <div className="wrap">
     <div className="who-top">
-      <h2 className="who-title rv" id="who-heading">Who We<br/><em>Gather.</em></h2>
+      <h2 className="who-title rv rv-stagger" id="who-heading" style={{overflow: 'visible'}}>
+        <span className="rv-stagger-item">Who We</span>
+        <span className="rv-stagger-item"><em>Gather.</em></span>
+      </h2>
       <p className="who-intro-body rv" data-d="1">The Society brings together thoughtful people at all stages: from students still finding their footing to professionals and scholars with something worth sharing.</p>
     </div>
     <div className="who-grid">
-      <div className="who-item rv" data-num="01">
+      <div className="who-item rv" data-num="01" data-tilt>
         <div className="who-num">01</div>
         <div className="who-item-title">Students &amp; Alumni</div>
         <p className="who-item-desc">Motivated, curious individuals from Carleton University, uOttawa, and Algonquin College, and anyone drawn to the work we do.</p>
       </div>
-      <div className="who-item rv" data-d="1" data-num="02">
+      <div className="who-item rv" data-d="1" data-num="02" data-tilt>
         <div className="who-num">02</div>
         <div className="who-item-title">Speakers &amp; Professionals</div>
         <p className="who-item-desc">People across law, business, policy, media, and beyond, with lived experience and a story worth telling.</p>
       </div>
-      <div className="who-item rv" data-d="2" data-num="03">
+      <div className="who-item rv" data-d="2" data-num="03" data-tilt>
         <div className="who-num">03</div>
         <div className="who-item-title">Scholars &amp; Thinkers</div>
         <p className="who-item-desc">Academics and researchers whose work challenges assumptions, opens new territory, and gives students something to think about.</p>

@@ -10,6 +10,8 @@ export const metadata: Metadata = {
   description: "Join The Meridian Society as a registered member. Gain priority access to speaker events, networking opportunities, and our student community.",
 };
 
+import Magnetic from '@/components/Magnetic';
+
 export default function Page() { 
   return (
     <>
@@ -68,7 +70,9 @@ export default function Page() {
         <span className="hero-eyebrow-rule"></span>
       </div>
       <p className="hero-pre">Student Speaker Forum</p>
-      <h1 className="hero-title">Membership.</h1>
+      <h1 className="hero-title rv rv-stagger" style={{overflow: 'visible'}}>
+        <span className="rv-stagger-item">Membership.</span>
+      </h1>
       <p className="hero-sub">Built for students. Free to join, no commitment required.</p>
       <div className="hero-actions">
         <a href={REGISTER_URL} target="_blank" rel="noopener noreferrer" className="register-btn" >
@@ -88,36 +92,39 @@ export default function Page() {
   <section className="benefits-sec" id="benefits" aria-labelledby="benefits-heading">
     <div className="wrap">
       <div className="benefits-header">
-        <h2 className="benefits-title rv" id="benefits-heading">What You <em>Get.</em></h2>
+        <h2 className="benefits-title rv rv-stagger" id="benefits-heading" style={{overflow: 'visible'}}>
+          <span className="rv-stagger-item">What You</span>
+          <span className="rv-stagger-item"><em>Get.</em></span>
+        </h2>
         <a href="#memberCountBox" className="benefits-register-link rv" data-d="1" id="benefitsRegisterCta">Register  &#8594;</a>
       </div>
       <div className="benefits-grid">
 
-        <article className="benefit-card rv" data-d="1">
+        <article className="benefit-card rv" data-d="1" data-tilt>
           <div className="benefit-num">01</div>
           <h3 className="benefit-heading">Speaker Events</h3>
           <p className="benefit-body">Be the first to know. Members receive all announcements, event schedules, and invitations to Meridian speaker events. Priority access means you&apos;re in the room when it matters.</p>
         </article>
 
-        <article className="benefit-card rv" data-d="2">
+        <article className="benefit-card rv" data-d="2" data-tilt>
           <div className="benefit-num">02</div>
           <h3 className="benefit-heading">Social Gatherings</h3>
           <p className="benefit-body">Beyond the stage. Members are invited to Meridian social events: bar nights, casual meetups, and community gatherings that happen between the formal programming.</p>
         </article>
 
-        <article className="benefit-card rv" data-d="3">
+        <article className="benefit-card rv" data-d="3" data-tilt>
           <div className="benefit-num">03</div>
           <h3 className="benefit-heading">Professional Exposure</h3>
           <p className="benefit-body">The people speaking at Meridian are professionals, alumni, and scholars from fields you may never have crossed otherwise. Membership puts their stories and perspectives directly in front of you.</p>
         </article>
 
-        <article className="benefit-card rv" data-d="4">
+        <article className="benefit-card rv" data-d="4" data-tilt>
           <div className="benefit-num">04</div>
           <h3 className="benefit-heading">A Real Community</h3>
           <p className="benefit-body">Meridian builds a circle over time. Members connect with people who share a genuine curiosity. Not a major, not a club, but a sensibility.</p>
         </article>
 
-        <article className="benefit-card rv" data-d="5">
+        <article className="benefit-card rv" data-d="5" data-tilt>
           <div className="benefit-num">05</div>
           <h3 className="benefit-heading">Your Peers</h3>
           <p className="benefit-body">The people in the room are half the reason to show up. Meridian members are Ottawa students who take ideas seriously.</p>

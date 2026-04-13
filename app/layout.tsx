@@ -96,6 +96,8 @@ export const metadata: Metadata = {
   },
 };
 
+import TransitionWrapper from "@/components/TransitionWrapper";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -106,7 +108,9 @@ export default function RootLayout({
       <body>
         <Providers>
           <NavBar />
-          {children}
+          <TransitionWrapper>
+            {children}
+          </TransitionWrapper>
           <Footer />
           <MobileMenu />
           <div className="progress" id="progressBar"></div>

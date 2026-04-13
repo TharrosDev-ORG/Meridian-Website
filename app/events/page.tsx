@@ -10,6 +10,8 @@ export const metadata: Metadata = {
   description: "View upcoming speaker events and student forums in Ottawa. Connect with professionals, alumni, and scholars.",
 };
 
+import Magnetic from '@/components/Magnetic';
+
 export default function EventsPage() {
   const currentEvent = EVENTS.find(e => e.isCurrent);
 
@@ -60,12 +62,16 @@ export default function EventsPage() {
             <span className="hero-eyebrow-text">The Meridian Society</span>
             <span className="hero-eyebrow-rule"></span>
           </div>
-          <p className="hero-pre">Student Speaker Forum</p>
-          <h1 className="hero-title">Events.</h1>
+          <p className="hero-pre rv">Student Speaker Forum</p>
+          <h1 className="hero-title rv rv-stagger" style={{overflow: 'visible'}}>
+            <span className="rv-stagger-item">Events.</span>
+          </h1>
           <div className="hero-hr" aria-hidden="true"></div>
           <p className="hero-sub">Follow <a href="https://www.instagram.com/Meridian.Society" target="_blank" rel="noopener noreferrer">@Meridian.Society</a> for announcements and event details.</p>
           <div className="hero-actions">
-            <a href={REGISTER_URL} target="_blank" rel="noopener noreferrer" className="btn-primary"><span>Register as a Member</span></a>
+            <Magnetic strength={0.25}>
+              <a href={REGISTER_URL} target="_blank" rel="noopener noreferrer" className="btn-primary"><span>Register as a Member</span></a>
+            </Magnetic>
             <a href="#events" className="btn-ghost-link">View Events <span>&#8594;</span></a>
           </div>
         </div>
@@ -80,7 +86,10 @@ export default function EventsPage() {
       <section className="events-sec" id="events" aria-labelledby="events-heading">
         <div className="wrap">
           <div className="events-header">
-            <h2 className="events-title rv" id="events-heading">Upcoming<br/><em>Events.</em></h2>
+            <h2 className="events-title rv rv-stagger" id="events-heading" style={{overflow: 'visible'}}>
+              <span className="rv-stagger-item">Upcoming</span>
+              <span className="rv-stagger-item"><em>Events.</em></span>
+            </h2>
             <Link href="/" className="text-link rv" data-d="1">Back to Home &#8594;</Link>
           </div>
           

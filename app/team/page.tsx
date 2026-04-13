@@ -23,8 +23,10 @@ export default function Page() {
         <span className="hero-eyebrow-text">The Meridian Society</span>
         <span className="hero-eyebrow-rule"></span>
       </div>
-      <p className="hero-pre">Student Speaker Forum</p>
-      <h1 className="hero-title">The Team.</h1>
+      <p className="hero-pre rv">Student Speaker Forum</p>
+      <h1 className="hero-title rv rv-stagger" style={{overflow: 'visible'}}>
+        <span className="rv-stagger-item">The Team.</span>
+      </h1>
       <div className="hero-hr" aria-hidden="true"></div>
       <p className="hero-sub">The student team behind the Meridian Society.</p>
       <div className="hero-actions">
@@ -43,14 +45,17 @@ export default function Page() {
   <section className="team-sec" id="team" aria-labelledby="team-heading">
     <div className="wrap">
       <div className="team-header">
-        <h2 className="team-title rv" id="team-heading">Leadership &amp; Operations.</h2>
+        <h2 className="team-title rv rv-stagger" id="team-heading" style={{overflow: 'visible'}}>
+          <span className="rv-stagger-item">Leadership &amp;</span>
+          <span className="rv-stagger-item">Operations.</span>
+        </h2>
         <a href="/events" className="text-link rv" data-d="1">View Events  &#8594;</a>
       </div>
 
       <div className="member-grid">
 
         {/* Magnus */}
-        <article className="member-card rv" id="magnus" aria-labelledby="name-magnus">
+        <article className="member-card rv" id="magnus" aria-labelledby="name-magnus" data-tilt>
           <div className="member-body">
             <div className="member-header">
               <div className="member-photo-wrap">
@@ -80,7 +85,7 @@ export default function Page() {
         </article>
 
         {/* Colin */}
-        <article className="member-card rv" id="colin" aria-labelledby="name-colin">
+        <article className="member-card rv" id="colin" aria-labelledby="name-colin" data-tilt>
           <div className="member-body">
             <div className="member-header">
               <div className="member-photo-wrap">
@@ -109,7 +114,7 @@ export default function Page() {
         </article>
 
         {/* Placeholder — third slot */}
-        <div className="member-card member-card--placeholder rv" aria-label="Future team member">
+        <div className="member-card member-card--placeholder rv" aria-label="Future team member" data-tilt>
           <div className="placeholder-icon" aria-hidden="true">◇</div>
           <p className="placeholder-text">The team is growing.</p>
           <p className="placeholder-sub">More to come</p>

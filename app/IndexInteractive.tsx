@@ -65,5 +65,36 @@ export default function IndexInteractive() {
     }
   }, []);
 
+  useEffect(() => {
+    // Global 3D Tilt for cards
+    const cards = document.querySelectorAll('[data-tilt]');
+    const handleMove = (e: MouseEvent) => {
+      const card = e.currentTarget as HTMLElement;
+      const r = card.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width;
+      const y = (e.clientY - r.top) / r.height;
+      const rotX = (y - 0.5) * 10;
+      const rotY = (x - 0.5) * -10;
+      card.style.transform = `perspective(1000px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale3d(1.02, 1.02, 1.02)`;
+    };
+    const handleLeave = (e: MouseEvent) => {
+      const card = e.currentTarget as HTMLElement;
+      card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+    };
+
+    cards.forEach(card => {
+      card.addEventListener('mousemove', handleMove as any);
+      card.addEventListener('mouseleave', handleLeave as any);
+      (card as HTMLElement).style.transition = 'transform 0.1s ease-out';
+    });
+
+    return () => {
+      cards.forEach(card => {
+        card.removeEventListener('mousemove', handleMove as any);
+        card.removeEventListener('mouseleave', handleLeave as any);
+      });
+    };
+  }, []);
+
   return null;
 }

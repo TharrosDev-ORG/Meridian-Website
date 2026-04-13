@@ -47,13 +47,17 @@ export default function SocialPage() {
             <span className="hero-eyebrow-text">The Meridian Society</span>
             <span className="hero-eyebrow-rule"></span>
           </div>
-          <p className="hero-pre">Community</p>
-          <h1 className="hero-title">Social</h1>
-          <p className="hero-post">Events</p>
+          <p className="hero-pre rv">Community</p>
+          <h1 className="hero-title rv rv-stagger" style={{overflow: 'visible'}}>
+            <span className="rv-stagger-item">Social</span>
+          </h1>
+          <p className="hero-post rv" data-d="1">Events</p>
           <div className="hero-hr" aria-hidden="true"></div>
           <p className="hero-sub">Bar nights, fundraisers, and community gatherings. Follow <a href="https://www.instagram.com/Meridian.Society" target="_blank" rel="noopener noreferrer">@Meridian.Society</a> for announcements.</p>
           <div className="hero-actions">
-            <a href="#events" className="btn-primary"><span>View Events</span></a>
+            <Magnetic strength={0.25}>
+              <a href="#events" className="btn-primary"><span>View Events</span></a>
+            </Magnetic>
             <a href="https://www.instagram.com/Meridian.Society" target="_blank" rel="noopener noreferrer" className="btn-ghost-link">Follow for Updates <span>&#8594;</span></a>
           </div>
         </div>
@@ -69,7 +73,10 @@ export default function SocialPage() {
       <section className="events-sec" id="events" aria-labelledby="social-heading">
         <div className="wrap">
           <div className="events-header">
-            <h2 className="events-title rv" id="social-heading">Upcoming<br/><em>Social Events.</em></h2>
+            <h2 className="events-title rv rv-stagger" id="social-heading" style={{overflow: 'visible'}}>
+              <span className="rv-stagger-item">Upcoming</span>
+              <span className="rv-stagger-item"><em>Social Events.</em></span>
+            </h2>
             <Link href="/" className="text-link rv" data-d="1">Back to Home &#8594;</Link>
           </div>
           
@@ -97,7 +104,10 @@ export default function SocialPage() {
         <section className="events-sec social-past-sec" id="pastSection" aria-labelledby="past-heading">
           <div className="wrap">
             <div className="events-header">
-              <h2 className="events-title rv" id="past-heading">Past<br/><em>Events.</em></h2>
+              <h2 className="events-title rv rv-stagger" id="past-heading" style={{overflow: 'visible'}}>
+                <span className="rv-stagger-item">Past</span>
+                <span className="rv-stagger-item"><em>Events.</em></span>
+              </h2>
             </div>
             <div className="social-grid">
               {past.map(ev => (
@@ -112,9 +122,11 @@ export default function SocialPage() {
   );
 }
 
+import Magnetic from '@/components/Magnetic';
+
 function SocialCard({ ev, isPast }: { ev: SocialEvent, isPast: boolean }) {
   return (
-    <div className={`event-card ${isPast ? 'event-card--past' : ''}`}>
+    <div className={`event-card ${isPast ? 'event-card--past' : ''}`} data-tilt>
       <div className="event-main">
         <div className="event-status">
           <span className="event-dot" aria-hidden="true"></span>

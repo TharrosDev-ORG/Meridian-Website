@@ -8,6 +8,8 @@ import { useSiteContext } from "./Providers";
 export const REGISTER_URL = "https://docs.google.com/forms/d/1qThcXHxzfuW4uNVkZbHGhHwlDsy8x-YGtpHpOLnqTl4/viewform";
 export const SPEAK_URL = "https://docs.google.com/forms/d/e/1FAIpQLScP7jkZ_M1EXIYnxu7ERnCBRpDDmBNPpT3BWruAoyGnPtN6IA/viewform?usp=dialog";
 
+import Magnetic from "./Magnetic";
+
 export default function NavBar() {
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
@@ -61,9 +63,12 @@ export default function NavBar() {
           })}
         </ul>
 
-        <a href={REGISTER_URL} target="_blank" rel="noopener noreferrer" className="nav-cta">
-          <span>Register</span>
-        </a>
+
+        <Magnetic strength={0.25}>
+          <a href={REGISTER_URL} target="_blank" rel="noopener noreferrer" className="nav-cta">
+            <span>Register</span>
+          </a>
+        </Magnetic>
 
         <button 
           type="button" 

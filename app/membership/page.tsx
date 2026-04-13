@@ -3,6 +3,8 @@ import Link from 'next/link';
 import PageStyles from '@/components/PageStyles';
 import { membershipCss } from './pageCss';
 import { REGISTER_URL } from '@/components/NavBar';
+import MemberCount from '@/components/MemberCount';
+import FaqAccordion from '@/components/FaqAccordion';
 
 export default function Page() { 
   return (
@@ -85,29 +87,7 @@ export default function Page() {
         <div className="sec-label rv">Common Questions</div>
         <h2 className="faq-title rv" data-d="1" id="faq-heading">Good to <em>Know.</em></h2>
       </div>
-      <div className="faq-list rv" data-d="2">
-
-        <details className="faq-item">
-          <summary>Is membership free? <span className="faq-icon">+</span></summary>
-          <div className="faq-body"><p className="faq-answer">Yes. Membership is completely free. There is no cost to join The Meridian Society.</p></div>
-        </details>
-
-        <details className="faq-item">
-          <summary>Who can join? <span className="faq-icon">+</span></summary>
-          <div className="faq-body"><p className="faq-answer">Any motivated, curious student in the Ottawa area is welcome to register. You don't need to be from a specific school or program.</p></div>
-        </details>
-
-        <details className="faq-item">
-          <summary>What happens after I register? <span className="faq-icon">+</span></summary>
-          <div className="faq-body"><p className="faq-answer">You'll receive event announcements and invitations as they go out. No spam, no commitments. You can also follow us on <a href="https://www.instagram.com/Meridian.Society" target="_blank" rel="noopener noreferrer">Instagram</a> for updates.</p></div>
-        </details>
-
-        <details className="faq-item">
-          <summary>Do I have to attend every event? <span className="faq-icon">+</span></summary>
-          <div className="faq-body"><p className="faq-answer">No. Register once, come to what interests you. There is no attendance requirement. Membership is yours to use how it suits you.</p></div>
-        </details>
-
-      </div>
+      <FaqAccordion />
     </div>
   </section>
 
@@ -118,10 +98,7 @@ export default function Page() {
       <div className="register-rule-top" aria-hidden="true"></div>
       <p className="register-eyebrow rv">Independent  ·  Student-Run  ·  Ottawa  ·  Est. 2025</p>
       <h2 className="register-title rv" data-d="1" id="register-heading">Become a<br/><em>Member.</em></h2>
-      <div className="member-count-box rv" data-d="1" id="memberCountBox" aria-live="polite">
-        <span className="member-count-num" id="memberCountNum">&mdash;</span>
-        <span className="member-count-lbl">Members Registered</span>
-      </div>
+      <MemberCount />
       <p className="register-body rv" data-d="2">Membership puts you in the room. Register to stay informed, attend events, and become part of a community built around curiosity and conversation.</p>
       <div className="register-actions rv" data-d="3">
         <a href={REGISTER_URL} target="_blank" rel="noopener noreferrer" className="register-btn" >

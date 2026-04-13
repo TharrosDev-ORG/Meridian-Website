@@ -4,6 +4,7 @@ import PageStyles from '@/components/PageStyles';
 import { indexCss } from './pageCss';
 import { REGISTER_URL } from '@/components/NavBar';
 import IndexInteractive from './IndexInteractive';
+import MemberCount from '@/components/MemberCount';
 
 export default function Home() { 
   return (
@@ -210,11 +211,8 @@ export default function Home() {
     <div className="register-rule-top" aria-hidden="true"></div>
     <p className="register-eyebrow rv">Independent  ·  Student-Run  ·  Ottawa  ·  Est. 2025</p>
     <h2 className="register-title rv" data-d="1" id="register-heading">Become a<br/><em>Member.</em></h2>
-    {/* Live member count — populated by inline script */}
-    <div className="member-count-box rv" data-d="1" id="memberCountBox" aria-live="polite">
-      <span className="member-count-num" id="memberCountNum">—</span>
-      <span className="member-count-lbl">Members Registered</span>
-    </div>
+    {/* Live member count — populated by client component */}
+    <MemberCount />
     <p className="register-body rv" data-d="2" id="register-speakable">Membership puts you in the room. Register to stay informed, attend events, and become part of a community built around curiosity and conversation.</p>
     <div className="register-actions rv" data-d="3">
       <a href={REGISTER_URL} target="_blank" rel="noopener noreferrer" className="register-btn" data-register>

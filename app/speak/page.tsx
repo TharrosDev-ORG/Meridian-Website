@@ -23,7 +23,7 @@ export default function Page() {
       <div className="hero-hr" aria-hidden="true"></div>
       <p className="hero-sub">Motivated students. Genuine curiosity. A room built for real conversation.</p>
       <div className="hero-actions">
-        <a href="#apply" className="btn-primary"><span>Apply to Speak</span></a>
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLScP7jkZ_M1EXIYnxu7ERnCBRpDDmBNPpT3BWruAoyGnPtN6IA/viewform?usp=dialog" className="btn-primary" target="_blank" rel="noopener noreferrer"><span>Apply to Speak</span></a>
         <a href="#why" className="btn-ghost-link">Learn More <span>&#8594;</span></a>
       </div>
     </div>
@@ -113,12 +113,12 @@ export default function Page() {
         <h2 className="speak-apply-title rv" id="apply-heading">Ready to Speak?</h2>
         <p className="speak-apply-body rv" data-d="1">Tell us about yourself and what you&apos;d like to discuss. We&apos;ll be in touch.</p>
         <div className="speak-apply-ctas rv" data-d="2">
-          <a href="https://docs.google.com/forms/PLACEHOLDER" className="btn-primary" data-speak target="_blank" rel="noopener noreferrer"><span>Apply to Speak</span></a>
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLScP7jkZ_M1EXIYnxu7ERnCBRpDDmBNPpT3BWruAoyGnPtN6IA/viewform?usp=dialog" className="btn-primary" data-speak target="_blank" rel="noopener noreferrer"><span>Apply to Speak</span></a>
           <a href="mailto:meridiansocietycanada@gmail.com" className="btn-ghost-link">or email us <span>&#8594;</span></a>
         </div>
         <p className="speak-apply-trust rv" data-d="3">We take every application seriously.</p>
         <p className="noscript-speak-note" style={{"display":"none","fontSize":"0.85em","marginTop":"1rem"}}>
-          <a href="https://docs.google.com/forms/PLACEHOLDER" target="_blank" rel="noopener noreferrer">Apply directly</a>
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLScP7jkZ_M1EXIYnxu7ERnCBRpDDmBNPpT3BWruAoyGnPtN6IA/viewform?usp=dialog" target="_blank" rel="noopener noreferrer">Apply directly</a>
         </p>
       </div>
     </div>

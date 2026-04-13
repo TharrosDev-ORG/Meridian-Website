@@ -5,6 +5,7 @@ import { indexCss } from './pageCss';
 import { REGISTER_URL } from '@/components/NavBar';
 import IndexInteractive from './IndexInteractive';
 import MemberCount from '@/components/MemberCount';
+import { EVENTS } from '@/data/events';
 
 export default function Home() { 
   return (
@@ -145,39 +146,51 @@ export default function Home() {
       <h2 className="events-title rv" id="events-heading">Upcoming<br/><em>Events.</em></h2>
       <a href="/events" className="text-link rv" data-d="1">All Events  &#8594;</a>
     </div>
-    <div className="event-card rv" data-d="1">
-      <div className="event-main">
-        <div className="event-status">
-          <span className="event-dot" aria-hidden="true"></span>
-          Registration Open
+    {(() => {
+      const currentEvent = EVENTS.find(e => e.isCurrent);
+      if (!currentEvent) {
+        return (
+          <div className="event-empty-state rv">
+            <div className="event-empty-icon" aria-hidden="true">◇</div>
+            <p className="event-empty-title">Our first event is coming.</p>
+            <p className="event-empty-body" style={{ color: 'var(--ink-75)' }}>Details will be announced on Instagram first. Follow us to be the first to know.</p>
+            <a href="https://www.instagram.com/Meridian.Society" target="_blank" rel="noopener noreferrer" className="event-empty-cta" style={{ marginTop: '20px' }}>
+              Follow @Meridian.Society →
+            </a>
+          </div>
+        );
+      }
+      return (
+        <div className="event-card rv" data-d="1">
+          <div className="event-main">
+            <div className="event-status">
+              <span className="event-dot" aria-hidden="true"></span>
+              {currentEvent.status}
+            </div>
+            <h3 className="event-title" dangerouslySetInnerHTML={{ __html: currentEvent.title }} />
+            <p className="event-desc" dangerouslySetInnerHTML={{ __html: currentEvent.desc }} />
+            <div className="event-tags" aria-label="Event tags">
+              {currentEvent.tags.map(tag => (
+                <span key={tag} className="event-tag">{tag}</span>
+              ))}
+            </div>
+          </div>
+          <div className="event-meta" aria-label="Event details">
+            {[
+              ['When', currentEvent.when],
+              ['Where', currentEvent.where],
+              ['Format', currentEvent.format],
+              ['Entry', currentEvent.entry]
+            ].map(([label, val]) => (
+              <div key={label} className="event-meta-row">
+                <div className="meta-lbl">{label}</div>
+                <div className="meta-val" dangerouslySetInnerHTML={{ __html: val }} />
+              </div>
+            ))}
+          </div>
         </div>
-        <h3 className="event-title">Our <em>First Event</em><br/>is Coming.</h3>
-        <p className="event-desc">The Meridian Society’s inaugural event brings together Ottawa’s student community with professionals and scholars for an evening of open conversation.</p>
-        <div className="event-tags" aria-label="Event tags">
-          <span className="event-tag">Speaker Event</span>
-          <span className="event-tag">Open Conversation</span>
-          <span className="event-tag">Ottawa</span>
-        </div>
-      </div>
-      <div className="event-meta" aria-label="Event details">
-        <div className="event-meta-row">
-          <div className="meta-lbl">When</div>
-          <div className="meta-val">Fall 2026</div>
-        </div>
-        <div className="event-meta-row">
-          <div className="meta-lbl">Where</div>
-          <div className="meta-val">Ottawa, Canada</div>
-        </div>
-        <div className="event-meta-row">
-          <div className="meta-lbl">Format</div>
-          <div className="meta-val">Speaker &amp; Open Conversation</div>
-        </div>
-        <div className="event-meta-row">
-          <div className="meta-lbl">Entry</div>
-          <div className="meta-val">Registered Members</div>
-        </div>
-      </div>
-    </div>
+      );
+    })()}
   </div>
 </section>
 

@@ -32,7 +32,7 @@ const EVENTS = [
     where: "Ottawa,<br />Canada",
     format: "Speaker &amp;<br />Open Conversation",
     speaker: "To Be Announced",
-    entry: "Must Be A<br /> Member",
+    entry: "Must Be A<br />Registered Member",
     isCurrent: true
   }
 ];

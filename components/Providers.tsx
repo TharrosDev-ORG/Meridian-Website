@@ -66,12 +66,14 @@ export default function Providers({ children }: { children: React.ReactNode }) {
     document.querySelectorAll(".rv").forEach((el) => obs.observe(el));
 
     // Expose a global hook for dynamically added elements (like pages)
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (window as any).__observeReveal = () => {
       document.querySelectorAll(".rv:not(.on)").forEach((el) => obs.observe(el));
     };
 
     return () => {
       window.removeEventListener("scroll", onScroll);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       delete (window as any).__observeReveal;
     };
   }, []);
@@ -89,7 +91,7 @@ export default function Providers({ children }: { children: React.ReactNode }) {
           <circle 
             className="arc-fill" 
             cx="26" cy="26" r="22" 
-            style={{ strokeDashoffset: String(138.23 * (1 - scrollProgress)) }} 
+            style={{ strokeDashoffset: String(CIRC * (1 - scrollProgress)) }} 
           />
         </svg>
         <div className="arc-inner">

@@ -53,7 +53,7 @@ export default function Page() {
         <article className="speak-why-card rv" data-d="2">
           <div className="speak-why-num">02</div>
           <h3 className="speak-why-heading">Give Back, Tangibly</h3>
-          <p className="speak-why-body">Your experience becomes someone's turning point. The students in that room are early in their careers. Your insight lands differently here.</p>
+          <p className="speak-why-body">Your experience becomes someone&apos;s turning point. The students in that room are early in their careers. Your insight lands differently here.</p>
         </article>
 
         <article className="speak-why-card rv" data-d="3">
@@ -111,7 +111,7 @@ export default function Page() {
     <div className="wrap">
       <div className="speak-apply-inner">
         <h2 className="speak-apply-title rv" id="apply-heading">Ready to Speak?</h2>
-        <p className="speak-apply-body rv" data-d="1">Tell us about yourself and what you'd like to discuss. We'll be in touch.</p>
+        <p className="speak-apply-body rv" data-d="1">Tell us about yourself and what you&apos;d like to discuss. We&apos;ll be in touch.</p>
         <div className="speak-apply-ctas rv" data-d="2">
           <a href="#" className="btn-primary" data-speak target="_blank" rel="noopener noreferrer"><span>Apply to Speak</span></a>
           <a href="mailto:meridiansocietycanada@gmail.com" className="btn-ghost-link">or email us <span>&#8594;</span></a>

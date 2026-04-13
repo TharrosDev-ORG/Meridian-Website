@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import PageStyles from '@/components/PageStyles';
 import { socialCss } from './pageCss';
-import { SOCIAL_EVENTS } from '@/data/social';
+import { SOCIAL_EVENTS, SocialEvent } from '@/data/social';
 
 const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
 
@@ -19,8 +19,8 @@ export default function SocialPage() {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
-  const upcoming: any[] = [];
-  const past: any[] = [];
+  const upcoming: SocialEvent[] = [];
+  const past: SocialEvent[] = [];
 
   SOCIAL_EVENTS.forEach((ev) => {
     (parseDate(ev.date) >= today ? upcoming : past).push(ev);
@@ -106,7 +106,7 @@ export default function SocialPage() {
   );
 }
 
-function SocialCard({ ev, isPast }: { ev: any, isPast: boolean }) {
+function SocialCard({ ev, isPast }: { ev: SocialEvent, isPast: boolean }) {
   return (
     <div className={`event-card ${isPast ? 'event-card--past' : ''}`}>
       <div className="event-main">

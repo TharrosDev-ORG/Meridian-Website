@@ -1,4 +1,5 @@
 
+/* eslint-disable @next/next/no-img-element */
 import Link from 'next/link';
 import PageStyles from '@/components/PageStyles';
 import { teamCss } from './pageCss';
@@ -63,7 +64,7 @@ export default function Page() {
                 <div className="member-role">Founder &amp; President</div>
               </div>
             </div>
-            <p className="member-studies">Bachelor's of Global and International Studies — European and Russian Studies, Carleton University</p>
+            <p className="member-studies">Bachelor&apos;s of Global and International Studies — European and Russian Studies, Carleton University</p>
             <p className="member-bio">Started The Meridian Society because the journalists, founders, scholars, and accomplished professionals worth learning from rarely just show up — someone has to bring them to the room.</p>
             <div className="member-social">
               <a href="https://www.linkedin.com/in/magnus-a-9b5b50378" target="_blank" rel="noopener noreferrer" aria-label="Magnus Abdelnour on LinkedIn">
@@ -93,7 +94,7 @@ export default function Page() {
                 <div className="member-role">Event Coordinator</div>
               </div>
             </div>
-            <p className="member-studies">Bachelor's of Criminology and Criminal Justice — Concentration in Law, Minor in French, Carleton University</p>
+            <p className="member-studies">Bachelor&apos;s of Criminology and Criminal Justice — Concentration in Law, Minor in French, Carleton University</p>
             <p className="member-bio">Behind every event is someone who made it possible. Colin does that work quietly, carefully, and well.</p>
             <div className="member-social">
               <a href="https://www.instagram.com/colinsherwood34" target="_blank" rel="noopener noreferrer" aria-label="Colin Sherwood on Instagram">

@@ -380,7 +380,7 @@ export const indexCss = `
     .who-item {
       background: var(--cream-mid); padding: 40px 36px;
       position: relative; overflow: hidden; cursor: default;
-      transition: background 0.35s, transform 0.35s cubic-bezier(0.16,1,0.3,1), box-shadow 0.35s 0.06s;
+      transition: background 0.25s, transform 0.25s cubic-bezier(0.16,1,0.3,1), box-shadow 0.25s;
     }
     .who-item::before {
       content: attr(data-num); position: absolute; bottom: -16px; right: -8px;
@@ -393,7 +393,7 @@ export const indexCss = `
       background: var(--gold); transform: scaleX(0); transform-origin: left;
       transition: transform 0.4s cubic-bezier(0.16,1,0.3,1);
     }
-    .who-item:hover { background: var(--cream); transform: translateY(-3px); box-shadow: 0 12px 48px rgba(24,21,15,0.11); transition: background 0.35s, transform 0.35s cubic-bezier(0.16,1,0.3,1), box-shadow 0.25s 0s; }
+    .who-item:hover { background: var(--cream); transform: translateY(-3px); box-shadow: 0 12px 48px rgba(24,21,15,0.11); transition: background 0.25s, transform 0.25s cubic-bezier(0.16,1,0.3,1), box-shadow 0.2s 0s; }
     .who-item:hover::after { transform: scaleX(1); }
     .who-item:hover::before { -webkit-text-stroke-color: rgba(184,147,42,0.1); }
     .who-num { font-family: var(--sans); font-size: 10px; font-weight: 700; letter-spacing: 0.28em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; transition: letter-spacing 0.3s; }
@@ -425,7 +425,7 @@ export const indexCss = `
       padding: 18px 0; border-bottom: 1px solid var(--ink-08);
       font-family: var(--serif); font-size: 19px; font-style: italic;
       color: var(--ink-90); line-height: 1.4;
-      transition: color 0.25s, transform 0.3s, border-bottom-color 0.25s; cursor: default;
+      transition: color 0.15s, transform 0.2s, border-bottom-color 0.15s; cursor: default;
     }
     .not-list li:first-child { border-top: none; }
     .not-list li::before { content: '×'; font-style: normal; font-family: var(--sans); font-size: 11px; font-weight: 300; color: var(--ink-30); flex-shrink: 0; transition: color 0.25s; }
@@ -446,7 +446,7 @@ export const indexCss = `
       background: var(--cream); border: 1px solid var(--ink-15);
       display: grid; grid-template-columns: 1fr 280px; gap: 0;
       box-shadow: 0 2px 12px rgba(24,21,15,0.04), 0 8px 40px rgba(24,21,15,0.06);
-      transition: transform 0.45s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.4s ease;
+      transition: transform 0.25s cubic-bezier(0.16,1,0.3,1), box-shadow 0.25s ease;
       position: relative; overflow: hidden;
     }
     .event-card:hover { transform: translateY(-4px); box-shadow: 0 4px 24px rgba(24,21,15,0.06), 0 16px 60px rgba(24,21,15,0.10); }

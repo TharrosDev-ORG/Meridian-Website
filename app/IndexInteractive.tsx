@@ -17,8 +17,8 @@ export default function IndexInteractive() {
       };
       
       const handleMouseLeave = () => {
-        title.style.transform = 'none';
-        title.style.transition = 'transform 0.8s cubic-bezier(0.16,1,0.3,1)';
+        title.style.transform = 'perspective(1200px) rotateY(0deg) rotateX(0deg)';
+        title.style.transition = 'transform 0.4s cubic-bezier(0.16,1,0.3,1)';
       };
 
       hero.addEventListener('mousemove', handleMouseMove);

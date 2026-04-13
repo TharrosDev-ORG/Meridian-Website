@@ -66,6 +66,7 @@ export default function FaqAccordion() {
 
       // Track if this item was opened via hover (so we only auto-close hover-opened ones)
       let hoverOpened = false;
+      let closeTimeout: NodeJS.Timeout | null = null;
 
       // Ensure closed initially
       item.open = false;
@@ -74,6 +75,8 @@ export default function FaqAccordion() {
       summary.addEventListener("click", (e) => {
         e.preventDefault();
         hoverOpened = false;
+        if (closeTimeout) clearTimeout(closeTimeout);
+        
         if (item.open) {
           closeItem(item);
         } else {
@@ -84,6 +87,10 @@ export default function FaqAccordion() {
       if (canHover) {
         item.addEventListener("mouseenter", () => {
           if (window.innerWidth <= 700) return;
+          if (closeTimeout) {
+            clearTimeout(closeTimeout);
+            closeTimeout = null;
+          }
           if (!item.open) {
             openItem(item);
             hoverOpened = true;
@@ -93,7 +100,14 @@ export default function FaqAccordion() {
         item.addEventListener("mouseleave", () => {
           if (window.innerWidth <= 700) return;
           if (hoverOpened && item.open) {
-            closeItem(item);
+            // Standard closeItem logic but with a manual timeout we can track
+            body.style.maxHeight = "0";
+            closeTimeout = setTimeout(() => {
+              if (body.style.maxHeight === "0" || body.style.maxHeight === "0px") {
+                item.open = false;
+              }
+              closeTimeout = null;
+            }, 400);
             hoverOpened = false;
           }
         });

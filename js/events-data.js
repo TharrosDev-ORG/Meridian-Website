@@ -22,7 +22,7 @@
 const EVENTS = [
   {
     id: "fall-2026-inaugural",
-    status: "Registration Closed",
+    status: "Registration Open",
     title: "Our <em>First Event</em><br />is Coming.",
     desc: "The Meridian Society's inaugural event — Connecting students, alumni, and professionals in Ottawa.",
     tags: ["Speaker Event", "Open Conversation", "Ottawa"],
@@ -32,7 +32,7 @@ const EVENTS = [
     where: "Ottawa,<br />Canada",
     format: "Speaker &amp;<br />Open Conversation",
     speaker: "To Be Announced",
-    entry: "Must Be A<br />Registered Member",
+    entry: "Must Be A<br /> Member",
     isCurrent: true
   }
 ];

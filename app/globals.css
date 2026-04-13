@@ -100,6 +100,26 @@ body {
   to   { opacity: 1; transform: translateY(0); }
 }
 
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.member-count-shimmer {
+  display: inline-block;
+  width: 60px;
+  height: 1.2em;
+  vertical-align: middle;
+  background: linear-gradient(90deg, 
+    rgba(184, 147, 42, 0.05) 25%, 
+    rgba(184, 147, 42, 0.15) 50%, 
+    rgba(184, 147, 42, 0.05) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite linear;
+  border-radius: 4px;
+}
+
 /* ── MARQUEE ── */
 .marquee {
   overflow: hidden; background: var(--surface);

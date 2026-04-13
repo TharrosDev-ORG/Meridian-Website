@@ -1,7 +1,13 @@
+import { Metadata } from 'next';
 import Link from 'next/link';
 import PageStyles from '@/components/PageStyles';
 import { socialCss } from './pageCss';
 import { SOCIAL_EVENTS, SocialEvent } from '@/data/social';
+
+export const metadata: Metadata = {
+  title: "Socials | The Meridian Society",
+  description: "Join us for coffee, gatherings, and community events in Ottawa. Explore the social side of The Meridian Society.",
+};
 
 const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
 

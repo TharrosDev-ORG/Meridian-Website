@@ -1,8 +1,12 @@
-
-/* eslint-disable @next/next/no-img-element */
-
+import { Metadata } from 'next';
+import Image from 'next/image';
 import PageStyles from '@/components/PageStyles';
 import { teamCss } from './pageCss';
+
+export const metadata: Metadata = {
+  title: "Team | The Meridian Society",
+  description: "Meet the student team behind The Meridian Society. Leadership and operations and the vision for an Ottawa campus institution.",
+};
 
 
 export default function Page() { 
@@ -50,13 +54,13 @@ export default function Page() {
           <div className="member-body">
             <div className="member-header">
               <div className="member-photo-wrap">
-                <img
+                <Image
                   src="/assets/images/team/magnus.webp"
                   className="member-photo"
                   alt="Magnus Abdelnour, Founder and President of The Meridian Society"
-                  loading="eager"
-                  width="96"
-                  height="120"
+                  priority
+                  width={96}
+                  height={120}
                 />
               </div>
               <div>
@@ -80,13 +84,12 @@ export default function Page() {
           <div className="member-body">
             <div className="member-header">
               <div className="member-photo-wrap">
-                <img
+                <Image
                   src="/assets/images/team/colin.webp"
                   className="member-photo"
                   alt="Colin Sherwood, Event Coordinator of The Meridian Society"
-                  loading="lazy"
-                  width="96"
-                  height="120"
+                  width={96}
+                  height={120}
                 />
               </div>
               <div>

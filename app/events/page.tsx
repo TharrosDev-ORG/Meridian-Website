@@ -1,8 +1,14 @@
+import { Metadata } from 'next';
 import Link from 'next/link';
 import PageStyles from '@/components/PageStyles';
 import { eventsCss } from './pageCss';
 import { REGISTER_URL } from '@/components/NavBar';
 import { EVENTS } from '@/data/events';
+
+export const metadata: Metadata = {
+  title: "Events | The Meridian Society",
+  description: "View upcoming speaker events and student forums in Ottawa. Connect with professionals, alumni, and scholars.",
+};
 
 export default function EventsPage() {
   const currentEvent = EVENTS.find(e => e.isCurrent);

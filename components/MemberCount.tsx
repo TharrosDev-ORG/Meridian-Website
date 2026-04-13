@@ -6,7 +6,8 @@ const MEMBER_COUNT_URL =
   "https://script.google.com/macros/s/AKfycbx12Z8U8xQUYUHYLZkgVBlzGvhvx2uqSd1WBJNBBQcP0vlbrGzxJFfqi8QWnQVHyiKS/exec";
 
 export default function MemberCount() {
-  const [count, setCount] = useState<string>("\u2014"); // em dash fallback
+  const [count, setCount] = useState<string>("");
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     fetch(MEMBER_COUNT_URL)
@@ -19,6 +20,9 @@ export default function MemberCount() {
       .catch(() => {
         console.warn("Member count unavailable");
         setCount("\u2014");
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   }, []);
 
@@ -30,7 +34,7 @@ export default function MemberCount() {
       aria-live="polite"
     >
       <span className="member-count-num" id="memberCountNum">
-        {count}
+        {isLoading ? <span className="member-count-shimmer" aria-hidden="true" /> : count}
       </span>
       <span className="member-count-lbl">Members Registered</span>
     </div>

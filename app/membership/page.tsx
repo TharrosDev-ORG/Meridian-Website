@@ -1,17 +1,20 @@
-
-
+import { Metadata } from 'next';
 import PageStyles from '@/components/PageStyles';
 import { membershipCss } from './pageCss';
 import { REGISTER_URL } from '@/components/NavBar';
 import MemberCount from '@/components/MemberCount';
 import FaqAccordion from '@/components/FaqAccordion';
 
+export const metadata: Metadata = {
+  title: "Membership | The Meridian Society",
+  description: "Join The Meridian Society as a registered member. Gain priority access to speaker events, networking opportunities, and our student community.",
+};
+
 export default function Page() { 
   return (
     <>
       <PageStyles css={membershipCss} />
       <main id="main-content">
-
   {/* ═══════════ HERO ═══════════ */}
   <section className="page-hero" aria-label="Membership hero">
     <div className="page-hero-content">

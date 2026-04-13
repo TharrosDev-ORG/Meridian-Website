@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { useSiteContext } from "./Providers";
 
 export const REGISTER_URL = "https://docs.google.com/forms/d/1qThcXHxzfuW4uNVkZbHGhHwlDsy8x-YGtpHpOLnqTl4/viewform";
+export const SPEAK_URL = "https://docs.google.com/forms/d/e/1FAIpQLScP7jkZ_M1EXIYnxu7ERnCBRpDDmBNPpT3BWruAoyGnPtN6IA/viewform?usp=dialog";
 
 export default function NavBar() {
   const [scrolled, setScrolled] = useState(false);

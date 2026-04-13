@@ -383,18 +383,14 @@
     .faq-item[data-closing] > summary .faq-icon { transform: rotate(0deg); color: var(--ink-30); }
     .faq-item[open] > summary { color: var(--ink); }
     .faq-body {
-      display: grid;
-      grid-template-rows: 0fr;
+      max-height: 0;
       overflow: hidden;
-      transition: grid-template-rows 0.45s cubic-bezier(0.16,1,0.3,1);
-      min-height: 0;
+      transition: max-height 0.45s cubic-bezier(0.16,1,0.3,1);
     }
-    .faq-item[open] > .faq-body { grid-template-rows: 1fr; }
-    .faq-item[data-closing] > .faq-body { grid-template-rows: 0fr; }
+    .faq-item[open] > .faq-body { max-height: 1000px; }
     .faq-answer {
       font-family: var(--serif); font-size: 19px; font-weight: 300; line-height: 1.85;
       color: var(--ink-75); padding: 0 0 32px; max-width: 640px;
-      overflow: hidden; min-height: 0;
     }
     .faq-answer a {
       color: var(--gold); text-decoration: none;
@@ -731,78 +727,64 @@
   }());
 
   // ── FAQ accordion ──
-  // Body reveal uses CSS grid-row 0fr→1fr transition.
-  // Close is intercepted so the body can animate 1fr→0fr before [open] is removed.
-  // [data-closing] CSS rules ensure the icon and gold sidebar animate back immediately.
-  // Hover on real pointer devices opens items; leaving closes them animated.
-  // Cancel support: re-hovering or clicking during a close aborts it cleanly.
+  // Simplified max-height based accordion with reliable animations.
   (function() {
     var canHover = window.matchMedia('(hover: hover)').matches;
+    var items = document.querySelectorAll('.faq-item');
 
-    function animateClose(item) {
-      if (item.getAttribute('data-closing')) return;
-      item.setAttribute('data-closing', '');
+    items.forEach(function(item) {
+      var summary = item.querySelector('summary');
       var body = item.querySelector('.faq-body');
-
-      function onEnd(e) {
-        if (e.propertyName !== 'grid-template-rows') return;
-        body.removeEventListener('transitionend', onEnd);
-        delete item._faqCancelClose;
-        item.removeAttribute('open');
-        item.removeAttribute('data-closing');
-      }
-      body.addEventListener('transitionend', onEnd);
-
-      // Expose a cancel so re-enter / re-click can abort without leaving a stale listener
-      item._faqCancelClose = function() {
-        body.removeEventListener('transitionend', onEnd);
-        item.removeAttribute('data-closing');
-        delete item._faqCancelClose;
-      };
-    }
-
-    document.querySelectorAll('.faq-item').forEach(function(item) {
-      item.open = false;
+      var answer = item.querySelector('.faq-answer');
+      var isAnimating = false;
       var hoverOpened = false;
 
-      item.querySelector('summary').addEventListener('click', function(e) {
-        // If a close is in progress, cancel it and keep the item open
-        if (item._faqCancelClose) {
+      // Initialize closed state
+      item.open = false;
+      body.style.maxHeight = '0';
+
+      function setOpen(shouldOpen) {
+        if (shouldOpen === item.open) return;
+        
+        item.open = shouldOpen;
+        if (shouldOpen) {
+          body.style.maxHeight = (answer.offsetHeight + 32) + 'px';
+        } else {
+          body.style.maxHeight = '0';
+        }
+      }
+
+      summary.addEventListener('click', function(e) {
+        if (isAnimating) {
           e.preventDefault();
-          item._faqCancelClose();
-          hoverOpened = false;
           return;
         }
-        // Only prevent default if item is currently open (to trigger close animation)
-        if (item.open) {
-          e.preventDefault();
-          hoverOpened = false;
-          animateClose(item);
-        } else {
-          // If closed, let default open it and mark as user-opened (not hover-opened)
-          hoverOpened = false;
-        }
+        e.preventDefault();
+        hoverOpened = false;
+        isAnimating = true;
+        setOpen(!item.open);
+        setTimeout(function() {
+          isAnimating = false;
+        }, 450);
       });
 
       item.addEventListener('mouseenter', function() {
-        if (!canHover || window.innerWidth <= 700) return;
-        // Re-entering mid-close: abort the close, restore open
-        if (item._faqCancelClose) {
-          item._faqCancelClose();
-          hoverOpened = true;
-          return;
-        }
+        if (!canHover || window.innerWidth <= 700 || isAnimating) return;
         if (!item.open) {
-          item.open = true;
+          setOpen(true);
           hoverOpened = true;
         }
       });
 
       item.addEventListener('mouseleave', function() {
-        if (!canHover || window.innerWidth <= 700) return;
-        if (hoverOpened) {
+        if (!canHover || window.innerWidth <= 700 || isAnimating) return;
+        if (hoverOpened && item.open) {
+          isAnimating = true;
+          setOpen(false);
+          setTimeout(function() {
+            isAnimating = false;
+          }, 450);
           hoverOpened = false;
-          animateClose(item);
         }
       });
     });

@@ -51,7 +51,7 @@
   <link rel="shortcut icon" href="/assets/favicons/favicon.ico" />
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicons/apple-touch-icon.png" />
   <link rel="manifest" href="/site.webmanifest" />
-  <meta name="theme-color" content="#FFFFFF" />
+  <meta name="theme-color" content="#F4EDE3" />
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -565,8 +565,8 @@
     if (!upcoming.length) {
       var empty = node('div','event-empty-state');
       var icon  = node('div','event-empty-icon'); icon.textContent = '\u25c7'; icon.setAttribute('aria-hidden','true'); empty.appendChild(icon);
-      var et = node('p','event-empty-title'); et.textContent = 'Future events to be announced.'; empty.appendChild(et);
-      var eb = node('p','event-empty-body');  eb.textContent = 'Follow us on Instagram to be the first to know when new events are posted.'; empty.appendChild(eb);
+      var et = node('p','event-empty-title'); et.textContent = 'Our first social events are being planned.'; empty.appendChild(et);
+      var eb = node('p','event-empty-body');  eb.innerHTML = 'We\u2019re building something worth showing up for. Follow us on Instagram and you\u2019ll be the first to know when tickets drop.'; empty.appendChild(eb);
       var ig = node('a','event-empty-cta');
       ig.textContent = 'Follow @Meridian.Society \u2192';
       ig.href = 'https://www.instagram.com/Meridian.Society'; ig.target = '_blank'; ig.rel = 'noopener noreferrer';

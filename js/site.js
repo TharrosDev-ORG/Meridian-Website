@@ -91,14 +91,7 @@ if (marqueeTrack && !marqueeTrack.dataset.static) {
 (function buildMobileMenu() {
   var path    = window.location.pathname;
   var isHome  = path === '/' || path === '/index.html' || path === '';
-  var isTeam  = path === '/team.html';
-  var isSpeak = path === '/speak.html';
-
   var aboutHref = isHome ? '#about' : '/#about';
-
-  var fifthLink = isTeam
-    ? '<a href="/speak.html">Speak <span class="mob-arrow">\u2192</span></a>'
-    : '<a href="/team.html">Our Team <span class="mob-arrow">\u2192</span></a>';
 
   var html = '<div class="mob-backdrop" id="menuBackdrop"></div>' +
     '<div class="mob-drawer" id="mobileMenu" role="dialog" aria-label="Navigation" aria-modal="true">' +
@@ -109,7 +102,7 @@ if (marqueeTrack && !marqueeTrack.dataset.static) {
     '    <a href="/social.html">Social <span class="mob-arrow">\u2192</span></a>' +
     '    <a href="/speak.html">Speak <span class="mob-arrow">\u2192</span></a>' +
     '    <a href="/membership.html">Membership <span class="mob-arrow">\u2192</span></a>' +
-    '    ' + fifthLink +
+    '    <a href="/team.html">Our Team <span class="mob-arrow">\u2192</span></a>' +
     '  </nav>' +
     '  <div class="mob-bottom">' +
     '    <span class="mob-meta">Ottawa \u00b7 Est. 2025</span>' +
@@ -161,7 +154,7 @@ if (marqueeTrack && !marqueeTrack.dataset.static) {
     '<a href="/membership.html">Membership</a>' +
     '</div>' +
     '<div class="footer-bottom">' +
-    '<span class="footer-copy">\u00a9 2025 The Meridian Society \u00a0\u00b7\u00a0 Independent Student Organization</span>' +
+    '<span class="footer-copy">\u00a9 ' + new Date().getFullYear() + ' The Meridian Society \u00a0\u00b7\u00a0 Independent Student Organization</span>' +
     '</div>' +
     '</div>' +
     '</footer>';

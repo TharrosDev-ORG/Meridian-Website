@@ -35,6 +35,13 @@
       "description": "Meet the student team behind The Meridian Society",
       "url": "/team.html",
       "icons": [{ "src": "/assets/favicons/favicon-32x32.png", "sizes": "32x32" }]
+    },
+    {
+      "name": "Register as a Member",
+      "short_name": "Register",
+      "description": "Register as a Meridian Society member — free and open to all Ottawa students",
+      "url": "https://docs.google.com/forms/d/1qThcXHxzfuW4uNVkZbHGhHwlDsy8x-YGtpHpOLnqTl4/viewform",
+      "icons": [{ "src": "/assets/favicons/favicon-32x32.png", "sizes": "32x32" }]
     }
   ]
 }

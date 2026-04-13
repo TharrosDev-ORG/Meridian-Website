@@ -48,7 +48,7 @@ export default function SocialPage() {
             <span className="hero-eyebrow-rule"></span>
           </div>
           <p className="hero-pre rv">Community</p>
-          <h1 className="hero-title rv rv-stagger" style={{overflow: 'visible'}}>
+          <h1 className="hero-title rv rv-stagger">
             <span className="rv-stagger-item">Social</span>
           </h1>
           <p className="hero-post rv" data-d="1">Events</p>
@@ -73,7 +73,7 @@ export default function SocialPage() {
       <section className="events-sec" id="events" aria-labelledby="social-heading">
         <div className="wrap">
           <div className="events-header">
-            <h2 className="events-title rv rv-stagger" id="social-heading" style={{overflow: 'visible'}}>
+            <h2 className="events-title rv rv-stagger" id="social-heading">
               <span className="rv-stagger-item">Upcoming</span>
               <span className="rv-stagger-item"><em>Social Events.</em></span>
             </h2>
@@ -104,7 +104,7 @@ export default function SocialPage() {
         <section className="events-sec social-past-sec" id="pastSection" aria-labelledby="past-heading">
           <div className="wrap">
             <div className="events-header">
-              <h2 className="events-title rv rv-stagger" id="past-heading" style={{overflow: 'visible'}}>
+              <h2 className="events-title rv rv-stagger" id="past-heading">
                 <span className="rv-stagger-item">Past</span>
                 <span className="rv-stagger-item"><em>Events.</em></span>
               </h2>

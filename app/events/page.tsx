@@ -63,7 +63,7 @@ export default function EventsPage() {
             <span className="hero-eyebrow-rule"></span>
           </div>
           <p className="hero-pre rv">Student Speaker Forum</p>
-          <h1 className="hero-title rv rv-stagger" style={{overflow: 'visible'}}>
+          <h1 className="hero-title rv rv-stagger">
             <span className="rv-stagger-item">Events.</span>
           </h1>
           <div className="hero-hr" aria-hidden="true"></div>
@@ -86,7 +86,7 @@ export default function EventsPage() {
       <section className="events-sec" id="events" aria-labelledby="events-heading">
         <div className="wrap">
           <div className="events-header">
-            <h2 className="events-title rv rv-stagger" id="events-heading" style={{overflow: 'visible'}}>
+            <h2 className="events-title rv rv-stagger" id="events-heading">
               <span className="rv-stagger-item">Upcoming</span>
               <span className="rv-stagger-item"><em>Events.</em></span>
             </h2>

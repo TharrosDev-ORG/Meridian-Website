@@ -24,7 +24,7 @@ export default function Page() {
         <span className="hero-eyebrow-rule"></span>
       </div>
       <p className="hero-pre rv">Student Speaker Forum</p>
-      <h1 className="hero-title rv rv-stagger" style={{overflow: 'visible'}}>
+      <h1 className="hero-title rv rv-stagger">
         <span className="rv-stagger-item">The Team.</span>
       </h1>
       <div className="hero-hr" aria-hidden="true"></div>
@@ -45,7 +45,7 @@ export default function Page() {
   <section className="team-sec" id="team" aria-labelledby="team-heading">
     <div className="wrap">
       <div className="team-header">
-        <h2 className="team-title rv rv-stagger" id="team-heading" style={{overflow: 'visible'}}>
+        <h2 className="team-title rv rv-stagger" id="team-heading">
           <span className="rv-stagger-item">Leadership &amp;</span>
           <span className="rv-stagger-item">Operations.</span>
         </h2>

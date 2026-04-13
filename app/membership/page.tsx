@@ -10,7 +10,6 @@ export const metadata: Metadata = {
   description: "Join The Meridian Society as a registered member. Gain priority access to speaker events, networking opportunities, and our student community.",
 };
 
-import Magnetic from '@/components/Magnetic';
 
 export default function Page() { 
   return (
@@ -70,7 +69,7 @@ export default function Page() {
         <span className="hero-eyebrow-rule"></span>
       </div>
       <p className="hero-pre">Student Speaker Forum</p>
-      <h1 className="hero-title rv rv-stagger" style={{overflow: 'visible'}}>
+      <h1 className="hero-title rv rv-stagger">
         <span className="rv-stagger-item">Membership.</span>
       </h1>
       <p className="hero-sub">Built for students. Free to join, no commitment required.</p>
@@ -92,7 +91,7 @@ export default function Page() {
   <section className="benefits-sec" id="benefits" aria-labelledby="benefits-heading">
     <div className="wrap">
       <div className="benefits-header">
-        <h2 className="benefits-title rv rv-stagger" id="benefits-heading" style={{overflow: 'visible'}}>
+        <h2 className="benefits-title rv rv-stagger" id="benefits-heading">
           <span className="rv-stagger-item">What You</span>
           <span className="rv-stagger-item"><em>Get.</em></span>
         </h2>

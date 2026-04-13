@@ -31,18 +31,7 @@ export default function IndexInteractive() {
     }
   }, []);
 
-  useEffect(() => {
-    // Hero ghost parallax
-    const ghost = document.getElementById('heroGhost') as HTMLElement;
-    if (!ghost || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    
-    const onScroll = () => {
-      ghost.style.transform = `translateX(-50%) translateY(${window.scrollY * 0.22}px)`;
-    };
-    
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
+
 
   useEffect(() => {
     // Register ghost parallax
@@ -85,14 +74,14 @@ export default function IndexInteractive() {
     };
 
     cards.forEach(card => {
-      card.addEventListener('mousemove', handleMove as any);
-      card.addEventListener('mouseleave', handleLeave as any);
+      card.addEventListener('mousemove', handleMove as EventListener);
+      card.addEventListener('mouseleave', handleLeave as EventListener);
     });
 
     return () => {
       cards.forEach(card => {
-        card.removeEventListener('mousemove', handleMove as any);
-        card.removeEventListener('mouseleave', handleLeave as any);
+        card.removeEventListener('mousemove', handleMove as EventListener);
+        card.removeEventListener('mouseleave', handleLeave as EventListener);
       });
     };
   }, []);

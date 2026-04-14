@@ -8,6 +8,7 @@ import MemberCount from '@/components/MemberCount';
 import { EVENTS } from '@/data/events';
 
 import Magnetic from '@/components/Magnetic';
+import Link from 'next/link';
 
 export default function Home() { 
   return (
@@ -38,7 +39,7 @@ export default function Home() {
         </a>
       </Magnetic>
       <span aria-hidden="true" style={{"width":"1px","height":"18px","background":"var(--ink-15)"}}></span>
-      <a href="/events" className="btn-ghost-link">Explore Events  &#8594;</a>
+      <Link href="/events" className="btn-ghost-link">Explore Events  &#8594;</Link>
       <span aria-hidden="true" style={{"width":"1px","height":"18px","background":"var(--ink-15)"}}></span>
       <a href="https://www.instagram.com/Meridian.Society" className="hero-ig-btn"
          aria-label="The Meridian Society on Instagram" target="_blank" rel="noopener noreferrer">
@@ -96,7 +97,7 @@ export default function Home() {
       <div className="pull-quote rv" data-d="2">
         <p>&quot;We cannot promise outcomes, but we can provide access, exposure, and orientation to people and their ideas.&quot;</p>
       </div>
-      <a href="/team" className="text-link rv" data-d="3">Meet the Team  &#8594;</a>
+      <Link href="/team" className="text-link rv" data-d="3">Meet the Team  &#8594;</Link>
     </div>
   </div>
 </section>
@@ -157,7 +158,7 @@ export default function Home() {
   <div className="wrap">
     <div className="events-header">
       <h2 className="events-title rv" id="events-heading">Upcoming<br/><em>Events.</em></h2>
-      <a href="/events" className="text-link rv" data-d="1">All Events  &#8594;</a>
+      <Link href="/events" className="text-link rv" data-d="1">All Events  &#8594;</Link>
     </div>
     {(() => {
       const currentEvent = EVENTS.find(e => e.isCurrent);
@@ -215,7 +216,7 @@ export default function Home() {
       <h2 className="speaking-title rv" data-d="1" id="speaking-heading">Have a Story<br/>Worth <em>Sharing?</em></h2>
       <p className="speaking-sub rv" data-d="2">We’d love to hear from you.</p>
       <p className="speaking-body rv" data-d="2">Whether you want to speak, collaborate, or simply get involved, The Meridian Society is always looking to grow its circle of people worth knowing.</p>
-      <a href="/speak" className="text-link rv" data-d="3">Speak at the Meridian  &#8594;</a>
+      <Link href="/speak" className="text-link rv" data-d="3">Speak at the Meridian  &#8594;</Link>
     </div>
     <div className="speaking-right">
       <div className="sec-label rv" style={{"marginBottom":"20px"}}>What We Host</div>

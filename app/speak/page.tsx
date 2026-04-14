@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import PageStyles from '@/components/PageStyles';
 import { speakCss } from './pageCss';
+import Link from 'next/link';
 import { SPEAK_URL } from '@/components/NavBar';
 
 export const metadata: Metadata = {
@@ -76,7 +77,7 @@ export default function Page() {
     <div className="wrap">
       <div className="speak-format-header">
         <h2 className="speak-format-title rv" id="format-heading">What to<br/><em>Expect.</em></h2>
-        <a href="/events" className="text-link rv" data-d="1">View Events  &#8594;</a>
+        <Link href="/events" className="text-link rv" data-d="1">View Events  &#8594;</Link>
       </div>
       <div className="speak-meta rv" data-d="2" role="table" aria-label="Speaker format details">
         <div className="speak-meta-row" role="row">

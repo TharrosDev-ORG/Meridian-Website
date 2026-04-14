@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import Image from 'next/image';
 import PageStyles from '@/components/PageStyles';
 import { teamCss } from './pageCss';
+import Link from 'next/link';
 
 export const metadata: Metadata = {
   title: "Team | The Meridian Society",
@@ -49,7 +50,7 @@ export default function Page() {
           <span className="rv-stagger-item">Leadership &amp;</span>
           <span className="rv-stagger-item">Operations.</span>
         </h2>
-        <a href="/events" className="text-link rv" data-d="1">View Events  &#8594;</a>
+        <Link href="/events" className="text-link rv" data-d="1">View Events  &#8594;</Link>
       </div>
 
       <div className="member-grid">

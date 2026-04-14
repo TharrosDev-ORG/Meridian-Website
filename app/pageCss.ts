@@ -1,64 +1,8 @@
 export const indexCss = `
     /*
      * The Meridian Society — Homepage Styles
-     * Shared tokens/nav/base loaded from /css/base.css and /css/nav.css.
-     * This block contains only index-specific styles.
+     * Page-specific overrides only. Tokens and nav live in globals.css.
      */
-
-    :root {
-      /* ── New cream/ink palette ── */
-      --cream:       #F4EDE3;
-      --cream-mid:   #EBE2D4;
-      --cream-deep:  #DDD0BC;
-      --ink:         #18150F;
-      --ink-90:      rgba(24,21,15,0.90);
-      --ink-75:      rgba(24,21,15,0.75);
-      --ink-55:      rgba(24,21,15,0.55);
-      --ink-30:      rgba(24,21,15,0.30);
-      --ink-15:      rgba(24,21,15,0.15);
-      --ink-08:      rgba(24,21,15,0.08);
-      --gold:        #B8932A;
-      --gold-lt:     #D4AF50;
-      --serif:       'Cormorant Garamond', Georgia, serif;
-      --sans:        'Barlow Condensed', 'Arial Narrow', Arial, sans-serif;
-      --grain: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-    }
-
-    body {
-      background: var(--cream);
-      color: var(--ink);
-      font-family: var(--serif);
-      font-weight: 400;
-      line-height: 1.7;
-      overflow-x: hidden;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      text-rendering: optimizeLegibility;
-    }
-
-    /* ══ NAV OVERRIDE — cream theme (index.html only) ══
-       nav.css forces dark glassmorphism sitewide.
-       These rules re-scope its CSS variables + background for the cream homepage. */
-    #mainNav {
-      --cream:  #18150F;
-      --cream-70: rgba(24,21,15,0.90);
-      --cream-45: rgba(24,21,15,0.75);
-      --cream-20: rgba(24,21,15,0.55);
-      --black:  #F4EDE3;
-      --gold:   #B8932A;
-      --gold-border:  rgba(184,147,42,0.38);
-      --gold-border2: rgba(184,147,42,0.60);
-      background: rgba(244,237,227,0.92) !important;
-      backdrop-filter: blur(16px) !important;
-      -webkit-backdrop-filter: blur(16px) !important;
-      border-bottom: 1px solid rgba(24,21,15,0.10) !important;
-      box-shadow: none !important;
-    }
-    #mainNav.scrolled {
-      background: rgba(244,237,227,0.98) !important;
-      box-shadow: 0 2px 28px rgba(24,21,15,0.06) !important;
-      border-bottom-color: rgba(24,21,15,0.16) !important;
-    }
 
     /* ══ STICKY JOIN (mobile floating CTA) ══ */
     .sticky-join {

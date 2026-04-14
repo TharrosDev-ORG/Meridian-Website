@@ -1,11 +1,24 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useState, useTransition, useEffect } from "react";
 import { registerMember, RegistrationData } from "@/app/actions/register";
+
+const REG_KEY = "meridian_registered_v1";
 
 export default function RegistrationForm() {
   const [isPending, startTransition] = useTransition();
   const [result, setResult] = useState<{ success?: boolean; error?: string } | null>(null);
+  const [isAlreadyRegistered, setIsAlreadyRegistered] = useState(false);
+
+  // Check registration status on mount (LocalStorage + Cookies)
+  useEffect(() => {
+    const localReg = localStorage.getItem(REG_KEY);
+    const cookieReg = document.cookie.split("; ").find((row) => row.startsWith(`${REG_KEY}=`));
+    
+    if (localReg === "true" || cookieReg) {
+      setIsAlreadyRegistered(true);
+    }
+  }, []);
 
   // Form State for dynamic fields
   const [role, setRole] = useState("");
@@ -40,14 +53,22 @@ export default function RegistrationForm() {
       const res = await registerMember(data);
       setResult(res);
       if (res.success) {
+        // Set persistence
+        localStorage.setItem(REG_KEY, "true");
+        // Set cookie (1 year expiry)
+        const expiry = new Date();
+        expiry.setFullYear(expiry.getFullYear() + 1);
+        document.cookie = `${REG_KEY}=true; path=/; expires=${expiry.toUTCString()}; SameSite=Lax`;
+        
+        setIsAlreadyRegistered(true);
         window.scrollTo({ top: document.getElementById('register')?.offsetTop || 0, behavior: 'smooth' });
       }
     });
   }
 
-  if (result?.success) {
+  if (isAlreadyRegistered || result?.success) {
     return (
-      <div className="success-state">
+      <div className="success-state" role="status" aria-live="polite">
         <span className="success-icon" aria-hidden="true">◆</span>
         <h3 className="success-title">Welcome to Meridian.</h3>
         <p className="success-body">

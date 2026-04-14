@@ -48,13 +48,31 @@ export async function registerMember(data: RegistrationData) {
     volunteerInterest 
   } = validated.data;
 
-  // Insert into Supabase
+  const normalizedEmail = email.toLowerCase().trim();
+
+  // 1. Explicit existence check (Double safety)
+  const { data: existing, error: checkError } = await supabase
+    .from('members')
+    .select('email')
+    .eq('email', normalizedEmail)
+    .maybeSingle();
+
+  if (checkError) {
+    console.error('Database check error:', checkError);
+    return { success: false, error: 'Database connection issue. Please try again.' };
+  }
+
+  if (existing) {
+    return { success: false, error: 'This email is already registered.' };
+  }
+
+  // 2. Insert into Supabase
   const { error } = await supabase
     .from('members')
     .insert([
       {
         full_name: fullName,
-        email,
+        email: normalizedEmail,
         role,
         role_other: roleOther,
         institution,

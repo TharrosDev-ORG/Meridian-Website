@@ -7,6 +7,7 @@ export const membershipCss = `
     /* ── Keyframes ── */
     @keyframes riseIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
     @keyframes marqueeScroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+    @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); max-height: 0; } to { opacity: 1; transform: none; max-height: 100px; } }
 
     /* ── Page hero ── */
     .page-hero {
@@ -188,14 +189,14 @@ export const membershipCss = `
 
     /* ── Integrated Registration Form ── */
     .reg-form-container {
-      max-width: 600px;
+      max-width: 800px;
       margin: 60px auto 0;
       text-align: left;
       background: rgba(244, 237, 227, 0.4);
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
       border: 1px solid var(--ink-08);
-      padding: 48px;
+      padding: 64px;
       box-shadow: 0 12px 48px rgba(24, 21, 15, 0.05);
     }
     .reg-grid {
@@ -206,7 +207,7 @@ export const membershipCss = `
     .reg-field {
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 12px;
     }
     .reg-field--full {
       grid-column: span 2;
@@ -218,6 +219,7 @@ export const membershipCss = `
       letter-spacing: 0.24em;
       text-transform: uppercase;
       color: var(--ink-55);
+      margin-bottom: 4px;
     }
     .reg-input {
       background: transparent;
@@ -240,8 +242,64 @@ export const membershipCss = `
       font-style: italic;
       font-size: 16px;
     }
+
+    /* Options Grid (Radio/Checkboxes) */
+    .reg-options-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px 24px;
+      margin-top: 4px;
+    }
+    .reg-choice {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      font-family: var(--serif);
+      font-size: 17px;
+      color: var(--ink-75);
+      padding: 8px 0;
+      user-select: none;
+    }
+    .reg-choice input { display: none; }
+    .reg-choice-ui {
+      width: 18px;
+      height: 18px;
+      border: 1.5px solid var(--ink-30);
+      position: relative;
+      transition: border-color 0.3s, background 0.3s;
+      flex-shrink: 0;
+    }
+    .reg-choice--radio .reg-choice-ui { border-radius: 50%; }
+    .reg-choice--check .reg-choice-ui { border-radius: 2px; }
+    
+    .reg-choice:hover .reg-choice-ui { border-color: var(--gold); }
+    .reg-choice input:checked + .reg-choice-ui {
+      border-color: var(--gold);
+      background: var(--gold);
+    }
+    .reg-choice input:checked + .reg-choice-ui::after {
+      content: '';
+      position: absolute;
+      inset: 3px;
+      background: var(--cream);
+    }
+    .reg-choice--radio input:checked + .reg-choice-ui::after { border-radius: 50%; }
+    .reg-choice--check input:checked + .reg-choice-ui::after {
+      mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");
+      mask-size: contain;
+      mask-repeat: no-repeat;
+      background: var(--cream);
+    }
+
+    .reg-conditional {
+      overflow: hidden;
+      animation: slideDown 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      margin-top: 8px;
+    }
+
     .reg-submit-wrap {
-      margin-top: 48px;
+      margin-top: 56px;
       display: flex;
       justify-content: center;
     }
@@ -323,8 +381,9 @@ export const membershipCss = `
     }
 
     @media (max-width: 700px) {
-      .reg-form-container { padding: 32px 24px; }
-      .reg-grid { grid-template-columns: 1fr; gap: 24px; }
+      .reg-form-container { padding: 40px 24px; }
+      .reg-grid { grid-template-columns: 1fr; gap: 40px; }
+      .reg-options-grid { grid-template-columns: 1fr; }
       .reg-field--full { grid-column: auto; }
       .reg-submit { width: 100%; }
     }

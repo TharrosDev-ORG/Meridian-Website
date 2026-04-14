@@ -23,16 +23,6 @@ export default function RegistrationForm() {
     }
   }, []);
 
-  // Handle auto-redirect
-  useEffect(() => {
-    if (isAlreadyRegistered || result?.success) {
-      const timer = setTimeout(() => {
-        router.push("/");
-      }, 4000);
-      return () => clearTimeout(timer);
-    }
-  }, [isAlreadyRegistered, result, router]);
-
   // Form State for dynamic fields
   const [role, setRole] = useState("");
   const [institution, setInstitution] = useState("");
@@ -92,9 +82,6 @@ export default function RegistrationForm() {
           <Link href="/" className="reg-submit" style={{ textDecoration: "none", display: "inline-block" }}>
             <span>Return Home Now</span>
           </Link>
-          <p style={{ marginTop: "16px", fontSize: "14px", color: "var(--ink-30)", fontStyle: "italic" }}>
-            Redirecting to home in 4 seconds...
-          </p>
         </div>
       </div>
     );

@@ -218,9 +218,9 @@ export const speakCss = `
     @media (max-width: 700px) {
       .speak-why-grid { grid-template-columns: 1fr; }
       .speak-meta-row { grid-template-columns: 1fr; gap: 6px; }
-      .speak-apply-ctas { flex-direction: column; gap: 16px; }
+      .speak-apply-ctas { flex-direction: column; gap: 16px; width: 100%; }
       .btn-primary { width: 100%; display: block; text-align: center; }
-      .btn-ghost-link { display: none; }
+      .btn-ghost-link { display: inline-flex; justify-content: center; width: 100%; margin-top: 8px; font-size: 18px; }
       .wrap { padding: 0 20px; }
       .speak-why-sec, .speak-format-sec, .speak-apply-sec { padding: 60px 0; }
       .page-hero { padding: 80px 20px 48px; min-height: 50vh; }

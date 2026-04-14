@@ -193,9 +193,9 @@ export const eventsCss = `
       .page-hero { padding: 80px 20px 48px; min-height: 50vh; }
       .event-main { padding: 32px 24px; }
       .event-meta-row { padding: 18px 20px; }
-      .hero-actions { flex-wrap: wrap; gap: 16px; }
+      .hero-actions { flex-direction: column; gap: 16px; width: 100%; }
       .btn-primary { width: 100%; display: block; text-align: center; }
-      .btn-ghost-link { display: none; }
+      .btn-ghost-link { display: inline-flex; justify-content: center; width: 100%; margin-top: 8px; font-size: 18px; }
       .event-empty-state { padding: 48px 24px; }
       .rv { transform: none; transition: opacity 0.4s ease; }
       .rv[data-d="1"], .rv[data-d="2"] { transition-delay: 0s; }

@@ -618,7 +618,7 @@ export const indexCss = `
       .hero-eyebrow-rule { display: none; }
       .hero-eyebrow-text { font-size: 11px; letter-spacing: 0.12em; }
       .hero-sub { width: 100%; max-width: 100%; }
-      .hero-actions { flex-wrap: wrap; gap: 16px; }
+      .hero-actions { flex-direction: column; gap: 16px; width: 100%; }
       .hero-actions > span[aria-hidden="true"] { display: none; }
       .hero-stats { grid-template-columns: 1fr 1fr; }
       .stat { padding: 18px 20px; }
@@ -627,7 +627,7 @@ export const indexCss = `
       .stat:nth-child(4) { border-top: 1px solid var(--ink-08); }
       .stat-lbl { font-size: 11px; letter-spacing: 0.18em; }
       .btn-primary { width: 100%; justify-content: center; text-align: center; display: block; padding: 13px 24px; }
-      .btn-ghost-link { display: none; }
+      .btn-ghost-link { display: inline-flex; justify-content: center; width: 100%; margin-top: 8px; font-size: 18px; }
       .hero-ig-btn { width: 100%; height: auto; padding: 13px 24px; gap: 10px; justify-content: center; }
       .hero-ig-label { display: inline; font-family: var(--sans); font-size: 11.5px; font-weight: 700; letter-spacing: 0.24em; text-transform: uppercase; color: var(--ink-55); position: relative; z-index: 1; }
       .hero-ig-btn:hover .hero-ig-label { color: var(--cream); }

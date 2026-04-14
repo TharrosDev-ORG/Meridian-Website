@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useState } from "react";
 import { getMemberCount } from "@/app/actions/getMemberCount";
 import { supabase } from "@/lib/supabase";

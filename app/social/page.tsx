@@ -90,7 +90,7 @@ export default function SocialPage() {
             <div className="event-empty-state">
               <div className="event-empty-icon" aria-hidden="true">◇</div>
               <p className="event-empty-title">Our first social events are being planned.</p>
-              <p className="event-empty-body">We&rsquo;re building something worth showing up for. Follow us on Instagram and you&rsquo;ll be the first to know when tickets drop.</p>
+              <p className="event-empty-body">We&rsquo;re building something worth showing up for. Follow us on Instagram to find out more.</p>
               <a href="https://www.instagram.com/Meridian.Society" target="_blank" rel="noopener noreferrer" className="event-empty-cta">
                 Follow @Meridian.Society →
               </a>

@@ -62,9 +62,6 @@ export default function RegisterPage() {
           <h1 className="register-title" style={{ fontSize: 'clamp(40px, 6vw, 72px)', marginBottom: '16px' }}>
             Become a <em>Member.</em>
           </h1>
-          <p className="register-body" style={{ margin: '0 auto', maxWidth: '440px' }}>
-            Registration puts you in the room. Stay informed, attend events, and join our community of curiosity.
-          </p>
         </div>
         
         <RegistrationForm />

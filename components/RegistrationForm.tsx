@@ -73,10 +73,11 @@ export default function RegistrationForm() {
     return (
       <div className="success-state" role="status" aria-live="polite">
         <span className="success-icon" aria-hidden="true">◆</span>
-        <h3 className="success-title">Welcome to Meridian.</h3>
+        <h3 className="success-title">Welcome to the Meridian Society.</h3>
         <p className="success-body">
-          Your registration is complete. You are now part of our community of curiosity. 
-          Keep an eye on your inbox for event invitations.
+          Your registration is complete. You are now a member of our community. 
+          Follow us on <a href="https://www.instagram.com/Meridian.Society" target="_blank" rel="noopener noreferrer" style={{ color: "inherit", textDecoration: "underline" }}>Instagram</a> and 
+          keep an eye on your inbox for event invitations.
         </p>
         <div style={{ marginTop: "32px" }}>
           <Link href="/" className="reg-submit" style={{ textDecoration: "none", display: "inline-block" }}>

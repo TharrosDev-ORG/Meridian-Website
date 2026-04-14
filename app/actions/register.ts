@@ -2,6 +2,11 @@
 
 import { z } from 'zod';
 import { supabase } from '@/lib/supabase';
+import { headers } from 'next/headers';
+
+// Simple in-memory rate limit store (Note: In serverless environments, this is per-instance)
+const RATE_LIMIT_WINDOW = 5 * 60 * 1000; // 5 minutes
+const ipRecords = new Map<string, number>();
 
 const registrationSchema = z.object({
   fullName: z.string().min(2, 'Full name must be at least 2 characters'),
@@ -21,11 +26,33 @@ const registrationSchema = z.object({
   volunteerInterest: z.enum(['Yes', 'Maybe', 'Not at this time'] as const, {
     message: 'Please select a volunteer interest level',
   }),
+  // Honeypot field
+  fax_number: z.string().optional(),
 });
 
 export type RegistrationData = z.infer<typeof registrationSchema>;
 
 export async function registerMember(data: RegistrationData) {
+  // 1. Honeypot check (Instant fail if filled)
+  if (data.fax_number) {
+    console.warn('Honeypot triggered by bot submission.');
+    return { success: false, error: 'Registration failed. (Security Code: HP)' };
+  }
+
+  // 2. IP-based Rate Limiting
+  const headerList = await headers();
+  const ip = headerList.get('x-forwarded-for')?.split(',')[0] || 'unknown';
+  const now = Date.now();
+  const lastSubmission = ipRecords.get(ip);
+
+  if (lastSubmission && now - lastSubmission < RATE_LIMIT_WINDOW) {
+    const waitTime = Math.ceil((RATE_LIMIT_WINDOW - (now - lastSubmission)) / 60000);
+    return { 
+      success: false, 
+      error: `Too many attempts from this connection. Please wait ${waitTime} minute(s).` 
+    };
+  }
+
   // Validate data
   const validated = registrationSchema.safeParse(data);
   
@@ -35,6 +62,9 @@ export async function registerMember(data: RegistrationData) {
       error: validated.error.issues[0].message 
     };
   }
+
+  // Update IP record
+  ipRecords.set(ip, now);
 
   const { 
     fullName, 

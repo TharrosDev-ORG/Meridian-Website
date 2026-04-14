@@ -60,6 +60,7 @@ export default function RegistrationForm() {
       interests: selectedInterests,
       heardFrom: formData.get("heardFrom") as any,
       volunteerInterest: formData.get("volunteerInterest") as any,
+      fax_number: formData.get("fax_number") as string,
     };
 
     startTransition(async () => {
@@ -126,6 +127,18 @@ export default function RegistrationForm() {
             className="reg-input"
             placeholder="e.g. julian@example.com"
             disabled={isPending}
+          />
+        </div>
+
+        {/* Honeypot field - Visually hidden to humans, attractive to bots */}
+        <div style={{ display: 'none' }} aria-hidden="true">
+          <label htmlFor="fax_number">Fax Number</label>
+          <input
+            type="text"
+            id="fax_number"
+            name="fax_number"
+            tabIndex={-1}
+            autoComplete="off"
           />
         </div>
 

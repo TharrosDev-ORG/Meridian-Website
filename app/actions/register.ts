@@ -53,6 +53,9 @@ export async function registerMember(data: RegistrationData) {
     };
   }
 
+  // 3. Security Delay (Optional: Prevents timing attacks)
+  await new Promise(resolve => setTimeout(resolve, Math.random() * 500 + 300));
+
   // Validate data
   const validated = registrationSchema.safeParse(data);
   
@@ -80,24 +83,31 @@ export async function registerMember(data: RegistrationData) {
 
   const normalizedEmail = email.toLowerCase().trim();
 
-  // 1. Explicit existence check (Double safety)
-  const { data: existing, error: checkError } = await supabase
+  // 4. Database Operations
+  // Using supabaseAdmin (Service Role) to bypass RLS for this specific server-side flow
+  if (!supabaseAdmin) {
+    console.error('[ADMIN ERROR] Supabase Admin client not initialized.');
+    return { success: false, error: 'System configuration error.' };
+  }
+
+  // Explicit duplicate check (Lowercased)
+  const { data: existing, error: checkError } = await supabaseAdmin
     .from('members')
     .select('email')
     .eq('email', normalizedEmail)
     .maybeSingle();
 
   if (checkError) {
-    console.error('Database check error:', checkError);
-    return { success: false, error: 'Database connection issue. Please try again.' };
+    console.error(`[DB ERROR] Duplicate check failed for ${normalizedEmail}:`, checkError.message);
+    return { success: false, error: 'Database connection issue.' };
   }
 
   if (existing) {
     return { success: false, error: 'This email is already registered.' };
   }
 
-  // 2. Insert into Supabase
-  const { error } = await supabase
+  // Insert into Supabase
+  const { error: insertError } = await supabaseAdmin
     .from('members')
     .insert([
       {
@@ -113,13 +123,14 @@ export async function registerMember(data: RegistrationData) {
       },
     ]);
 
-  if (error) {
-    console.error('Registration error:', error);
-    if (error.code === '23505') {
+  if (insertError) {
+    console.error(`[DB ERROR] Insert failed for ${normalizedEmail}:`, insertError.message);
+    if (insertError.code === '23505') {
       return { success: false, error: 'This email is already registered.' };
     }
     return { success: false, error: 'Failed to register. Please try again later.' };
   }
 
+  console.log(`[SUCCESS] New member registered: ${fullName} (${normalizedEmail})`);
   return { success: true };
 }

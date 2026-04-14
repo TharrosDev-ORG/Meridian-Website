@@ -1,29 +1,36 @@
-"use client";
-
 import { useEffect, useState } from "react";
-
-const MEMBER_COUNT_URL =
-  "https://script.google.com/macros/s/AKfycbx12Z8U8xQUYUHYLZkgVBlzGvhvx2uqSd1WBJNBBQcP0vlbrGzxJFfqi8QWnQVHyiKS/exec";
+import { getMemberCount } from "@/app/actions/getMemberCount";
+import { supabase } from "@/lib/supabase";
 
 export default function MemberCount() {
-  const [count, setCount] = useState<string>("");
+  const [count, setCount] = useState<number>(0);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    fetch(MEMBER_COUNT_URL)
-      .then((r) => r.json())
-      .then((d) => {
-        if (d && typeof d.count === "number") {
-          setCount(String(d.count));
+    // 1. Initial Load
+    async function loadCount() {
+      const initialCount = await getMemberCount();
+      setCount(initialCount);
+      setIsLoading(false);
+    }
+    loadCount();
+
+    // 2. Real-time Subscription
+    // Listens for NEW rows in the members table to increment the count live
+    const channel = supabase
+      .channel('member-updates')
+      .on(
+        'postgres_changes',
+        { event: 'INSERT', schema: 'public', table: 'members' },
+        () => {
+          setCount(prev => prev + 1);
         }
-      })
-      .catch(() => {
-        console.warn("Member count unavailable");
-        setCount("\u2014");
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
   }, []);
 
   return (

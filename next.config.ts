@@ -12,7 +12,7 @@ const cspHeader = `
     frame-ancestors 'none';
     block-all-mixed-content;
     upgrade-insecure-requests;
-    connect-src 'self' va.vercel-scripts.com va.vercel-speed-insights.com dsyiuztquzkcikehkigv.supabase.co script.google.com script.googleusercontent.com;
+    connect-src 'self' va.vercel-scripts.com va.vercel-speed-insights.com dsyiuztquzkcikehkigv.supabase.co;
 `.replace(/\s{2,}/g, ' ').trim();
 
 const nextConfig: NextConfig = {

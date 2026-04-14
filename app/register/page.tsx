@@ -58,12 +58,6 @@ export default function RegisterPage() {
       </div>
 
       <div className="register-form-wrapper">
-        <div style={{ textAlign: 'center', marginBottom: '48px' }}>
-          <h1 className="register-title" style={{ fontSize: 'clamp(40px, 6vw, 72px)', marginBottom: '16px' }}>
-            Become a <em>Member.</em>
-          </h1>
-        </div>
-        
         <RegistrationForm />
       </div>
     </main>

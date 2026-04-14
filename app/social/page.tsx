@@ -143,7 +143,7 @@ function SocialCard({ ev, isPast }: { ev: SocialEvent, isPast: boolean }) {
         )}
         {!isPast && ev.ctaText && ev.ctaHref && (
           <div className="social-card-cta">
-            <a href={ev.ctaHref} target="_blank" rel="noopener noreferrer" className="btn-primary">
+            <a href={ev.ctaHref} className="btn-primary">
               <span>{ev.ctaText}</span>
             </a>
           </div>

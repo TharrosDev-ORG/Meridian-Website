@@ -135,7 +135,7 @@ export default function MobileMenu() {
           <Link href="/events" onClick={() => setMenuOpen(false)}>Events <span className="mob-arrow">→</span></Link>
           <Link href="/social" onClick={() => setMenuOpen(false)}>Social <span className="mob-arrow">→</span></Link>
           <Link href="/speak" onClick={() => setMenuOpen(false)}>Speak <span className="mob-arrow">→</span></Link>
-          <Link href="/membership" onClick={() => setMenuOpen(false)}>Membership <span className="mob-arrow">→</span></Link>
+          <Link href={REGISTER_URL} onClick={() => setMenuOpen(false)}>Membership <span className="mob-arrow">→</span></Link>
           <Link href="/team" onClick={() => setMenuOpen(false)}>Our Team <span className="mob-arrow">→</span></Link>
         </nav>
         <div className="mob-bottom">

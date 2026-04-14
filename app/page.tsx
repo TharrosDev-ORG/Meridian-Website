@@ -15,7 +15,7 @@ export default function Home() {
     <main>
       <PageStyles css={indexCss} />
       <a href="#main-content" className="skip-link">Skip to content</a>
-      <a href={REGISTER_URL} target="_blank" rel="noopener noreferrer" className="sticky-join" id="stickyJoin">Register</a>
+      <a href={REGISTER_URL} className="sticky-join" id="stickyJoin">Register</a>
       <section className="hero" id="main-content" aria-label="Hero">
   {/* Ghost "M" letterform — parallax via JS */}
   <div className="hero-ghost" id="heroGhost" aria-hidden="true">M</div>
@@ -34,7 +34,7 @@ export default function Home() {
     <p className="hero-sub rv" data-d="1">Bringing curious students together with the professionals, alumni, and scholars who can expand their world.</p>
     <div className="hero-actions">
       <Magnetic strength={0.2}>
-        <a href={REGISTER_URL} target="_blank" rel="noopener noreferrer" className="btn-primary" data-register>
+        <a href={REGISTER_URL} className="btn-primary" data-register>
           <span>Register for Updates</span>
         </a>
       </Magnetic>
@@ -242,7 +242,7 @@ export default function Home() {
     <MemberCount />
     <p className="register-body rv" data-d="2" id="register-speakable">Membership puts you in the room. Register to stay informed, attend events, and become part of a community built around curiosity and conversation.</p>
     <div className="register-actions rv" data-d="3">
-      <a href={REGISTER_URL} target="_blank" rel="noopener noreferrer" className="register-btn" data-register>
+      <a href={REGISTER_URL} className="register-btn" data-register>
         <span>Register for Updates</span>
       </a>
     </div>

@@ -70,7 +70,7 @@ export default function EventsPage() {
           <p className="hero-sub rv" data-d="2">Follow <a href="https://www.instagram.com/Meridian.Society" target="_blank" rel="noopener noreferrer">@Meridian.Society</a> for announcements and event details.</p>
           <div className="hero-actions rv" data-d="3">
             <Magnetic strength={0.25}>
-              <a href={REGISTER_URL} target="_blank" rel="noopener noreferrer" className="btn-primary"><span>Register as a Member</span></a>
+              <a href={REGISTER_URL} className="btn-primary"><span>Register as a Member</span></a>
             </Magnetic>
             <a href="#events" className="btn-ghost-link">View Events <span>&#8594;</span></a>
           </div>

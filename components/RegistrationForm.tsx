@@ -53,13 +53,13 @@ export default function RegistrationForm() {
     const data: RegistrationData = {
       fullName: formData.get("fullName") as string,
       email: formData.get("email") as string,
-      role: formData.get("role") as any,
-      roleOther: formData.get("roleOther") as string || undefined,
-      institution: formData.get("institution") as any,
-      institutionOther: formData.get("institutionOther") as string || undefined,
+      role: formData.get("role") as "Student" | "Alumni" | "Professor / Faculty" | "Professional" | "Other",
+      roleOther: (formData.get("roleOther") as string) || undefined,
+      institution: formData.get("institution") as "Carleton University" | "University of Ottawa" | "Algonquin College" | "Other",
+      institutionOther: (formData.get("institutionOther") as string) || undefined,
       interests: selectedInterests,
-      heardFrom: formData.get("heardFrom") as any,
-      volunteerInterest: formData.get("volunteerInterest") as any,
+      heardFrom: formData.get("heardFrom") as "Friend or Peer" | "Professor" | "Social Media" | "Campus Event" | "Current Member",
+      volunteerInterest: formData.get("volunteerInterest") as "Yes" | "Maybe" | "Not at this time",
       fax_number: formData.get("fax_number") as string,
     };
 

@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { REGISTER_URL } from "./NavBar";
 
 export default function Footer() {
   return (

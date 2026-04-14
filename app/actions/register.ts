@@ -1,7 +1,7 @@
 'use server';
 
 import { z } from 'zod';
-import { supabase, supabaseAdmin } from '@/lib/supabase';
+import { supabaseAdmin } from '@/lib/supabase';
 import { headers } from 'next/headers';
 
 // Simple in-memory rate limit store (Note: In serverless environments, this is per-instance)

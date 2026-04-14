@@ -214,7 +214,7 @@ export const membershipCss = `
     }
     .reg-label {
       font-family: var(--sans);
-      font-size: 10px;
+      font-size: 11px;
       font-weight: 700;
       letter-spacing: 0.24em;
       text-transform: uppercase;
@@ -381,11 +381,36 @@ export const membershipCss = `
     }
 
     @media (max-width: 700px) {
-      .reg-form-container { padding: 40px 24px; }
-      .reg-grid { grid-template-columns: 1fr; gap: 40px; }
-      .reg-options-grid { grid-template-columns: 1fr; }
+      .reg-form-container { 
+        padding: 32px 20px; 
+        margin-top: 40px;
+        border-right: none;
+        border-left: none;
+      }
+      .reg-grid { 
+        grid-template-columns: 1fr; 
+        gap: 28px; 
+      }
+      .reg-options-grid { 
+        grid-template-columns: 1fr; 
+        gap: 8px;
+      }
+      .reg-choice {
+        padding: 12px 0; /* Larger touch target */
+      }
       .reg-field--full { grid-column: auto; }
-      .reg-submit { width: 100%; }
+      .reg-submit { width: 100%; padding: 18px 48px; }
+      
+      .success-state {
+        padding: 20px 0;
+      }
+      .success-title {
+        font-size: 28px;
+      }
+      .success-body {
+        font-size: 17px;
+        padding: 0 10px;
+      }
     }
 
     /* ── Marquee ── */

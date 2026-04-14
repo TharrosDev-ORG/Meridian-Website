@@ -1,9 +1,9 @@
 import { Metadata } from 'next';
 import PageStyles from '@/components/PageStyles';
 import { membershipCss } from './pageCss';
-import { REGISTER_URL } from '@/components/NavBar';
 import MemberCount from '@/components/MemberCount';
 import FaqAccordion from '@/components/FaqAccordion';
+import RegistrationForm from '@/components/RegistrationForm';
 
 export const metadata: Metadata = {
   title: "Membership | The Meridian Society",
@@ -74,7 +74,7 @@ export default function Page() {
       </h1>
       <p className="hero-sub rv" data-d="2">Built for students. Free to join, no commitment required.</p>
       <div className="hero-actions rv" data-d="3">
-        <a href={REGISTER_URL} target="_blank" rel="noopener noreferrer" className="register-btn" >
+        <a href="#register" className="register-btn">
           <span>Register Now</span>
         </a>
       </div>
@@ -95,7 +95,7 @@ export default function Page() {
           <span className="rv-stagger-item">What You</span>
           <span className="rv-stagger-item"><em>Get.</em></span>
         </h2>
-        <a href="#memberCountBox" className="benefits-register-link rv" data-d="1" id="benefitsRegisterCta">Register  &#8594;</a>
+        <a href="#register" className="benefits-register-link rv" data-d="1" id="benefitsRegisterCta">Register  &#8594;</a>
       </div>
       <div className="benefits-grid">
 
@@ -153,11 +153,9 @@ export default function Page() {
       <h2 className="register-title rv" data-d="1" id="register-heading">Become a<br/><em>Member.</em></h2>
       <MemberCount />
       <p className="register-body rv" data-d="2">Membership puts you in the room. Register to stay informed, attend events, and become part of a community built around curiosity and conversation.</p>
-      <div className="register-actions rv" data-d="3">
-        <a href={REGISTER_URL} target="_blank" rel="noopener noreferrer" className="register-btn" >
-          <span>Register for Updates</span>
-        </a>
-      </div>
+      
+      <RegistrationForm />
+
       <div className="register-rule-btm" aria-hidden="true"></div>
     </div>
   </section>

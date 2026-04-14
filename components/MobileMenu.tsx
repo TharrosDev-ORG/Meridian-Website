@@ -140,9 +140,9 @@ export default function MobileMenu() {
         </nav>
         <div className="mob-bottom">
           <span className="mob-meta">Ottawa · Est. 2025</span>
-          <a href={REGISTER_URL} target="_blank" rel="noopener noreferrer" className="mob-cta" onClick={() => setMenuOpen(false)}>
+          <Link href={REGISTER_URL} className="mob-cta" onClick={() => setMenuOpen(false)}>
             Register as a Member
-          </a>
+          </Link>
         </div>
       </div>
     </>

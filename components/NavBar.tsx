@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useSiteContext } from "./Providers";
 
-export const REGISTER_URL = "https://docs.google.com/forms/d/1qThcXHxzfuW4uNVkZbHGhHwlDsy8x-YGtpHpOLnqTl4/viewform";
+export const REGISTER_URL = "/membership#register";
 export const SPEAK_URL = "https://docs.google.com/forms/d/e/1FAIpQLScP7jkZ_M1EXIYnxu7ERnCBRpDDmBNPpT3BWruAoyGnPtN6IA/viewform?usp=dialog";
 
 import Magnetic from "./Magnetic";
@@ -65,9 +65,9 @@ export default function NavBar() {
 
 
         <Magnetic strength={0.25}>
-          <a href={REGISTER_URL} target="_blank" rel="noopener noreferrer" className="nav-cta">
+          <Link href={REGISTER_URL} className="nav-cta">
             <span>Register</span>
-          </a>
+          </Link>
         </Magnetic>
 
         <button 

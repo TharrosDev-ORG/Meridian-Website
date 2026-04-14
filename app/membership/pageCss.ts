@@ -186,6 +186,149 @@ export const membershipCss = `
     .member-count-num { font-family: var(--serif); font-size: 52px; font-weight: 300; color: var(--gold); line-height: 1; }
     .member-count-lbl { font-family: var(--sans); font-size: 10px; font-weight: 600; letter-spacing: 0.24em; text-transform: uppercase; color: var(--ink-55); }
 
+    /* ── Integrated Registration Form ── */
+    .reg-form-container {
+      max-width: 600px;
+      margin: 60px auto 0;
+      text-align: left;
+      background: rgba(244, 237, 227, 0.4);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid var(--ink-08);
+      padding: 48px;
+      box-shadow: 0 12px 48px rgba(24, 21, 15, 0.05);
+    }
+    .reg-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+    }
+    .reg-field {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .reg-field--full {
+      grid-column: span 2;
+    }
+    .reg-label {
+      font-family: var(--sans);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--ink-55);
+    }
+    .reg-input {
+      background: transparent;
+      border: none;
+      border-bottom: 1.5px solid var(--ink-15);
+      padding: 12px 0;
+      font-family: var(--serif);
+      font-size: 18px;
+      color: var(--ink);
+      transition: border-color 0.3s ease, background 0.3s ease;
+      outline: none;
+      border-radius: 0;
+    }
+    .reg-input:focus {
+      border-color: var(--gold);
+      background: rgba(184, 147, 42, 0.03);
+    }
+    .reg-input::placeholder {
+      color: var(--ink-30);
+      font-style: italic;
+      font-size: 16px;
+    }
+    .reg-submit-wrap {
+      margin-top: 48px;
+      display: flex;
+      justify-content: center;
+    }
+    .reg-submit {
+      appearance: none;
+      border: none;
+      cursor: pointer;
+      display: inline-block;
+      font-family: var(--sans);
+      font-size: 11.5px;
+      font-weight: 700;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      color: var(--cream);
+      background: var(--ink);
+      padding: 16px 64px 15px;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .reg-submit::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--gold);
+      transform: translateX(-100%);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reg-submit span {
+      position: relative;
+      z-index: 1;
+    }
+    .reg-submit:not(:disabled):hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(24, 21, 15, 0.12);
+    }
+    .reg-submit:not(:disabled):hover::before {
+      transform: translateX(0);
+    }
+    .reg-submit:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .reg-feedback {
+      margin-top: 24px;
+      font-family: var(--serif);
+      font-size: 16px;
+      font-style: italic;
+      text-align: center;
+      min-height: 24px;
+    }
+    .reg-error { color: #b22d2d; }
+    .reg-success { color: var(--gold); }
+
+    .success-state {
+      text-align: center;
+      padding: 40px 0;
+      animation: riseIn 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .success-icon {
+      font-size: 48px;
+      color: var(--gold);
+      margin-bottom: 24px;
+      display: block;
+    }
+    .success-title {
+      font-family: var(--serif);
+      font-size: 32px;
+      font-weight: 300;
+      color: var(--ink);
+      margin-bottom: 16px;
+    }
+    .success-body {
+      font-family: var(--serif);
+      font-size: 18px;
+      color: var(--ink-75);
+      line-height: 1.6;
+    }
+
+    @media (max-width: 700px) {
+      .reg-form-container { padding: 32px 24px; }
+      .reg-grid { grid-template-columns: 1fr; gap: 24px; }
+      .reg-field--full { grid-column: auto; }
+      .reg-submit { width: 100%; }
+    }
+
     /* ── Marquee ── */
     .marquee-wrap {
       overflow: hidden; background: var(--ink);

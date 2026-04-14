@@ -31,7 +31,7 @@ export default function NavBar() {
     { name: "Events", href: "/events" },
     { name: "Social", href: "/social" },
     { name: "Speak", href: "/speak" },
-    { name: "Membership", href: REGISTER_URL },
+    { name: "Membership", href: "/membership" },
   ];
 
   return (

@@ -145,7 +145,7 @@ export default function Page() {
   </section>
 
   {/* ═══════════ REGISTER ═══════════ */}
-  <section className="register" id="join" aria-labelledby="register-heading">
+  <section className="register" id="register" aria-labelledby="register-heading">
     <div className="register-ghost" aria-hidden="true">MERIDIAN</div>
     <div className="wrap">
       <div className="register-rule-top" aria-hidden="true"></div>

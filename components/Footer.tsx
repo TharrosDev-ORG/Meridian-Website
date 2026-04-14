@@ -22,7 +22,7 @@ export default function Footer() {
           <Link href="/social">Social</Link>
           <Link href="/team">Team</Link>
           <Link href="/speak">Speak</Link>
-          <Link href={REGISTER_URL}>Membership</Link>
+          <Link href="/membership">Membership</Link>
         </div>
         <div className="footer-bottom">
           <span className="footer-copy">© {new Date().getFullYear()} The Meridian Society &nbsp;·&nbsp; Independent Student Organization</span>

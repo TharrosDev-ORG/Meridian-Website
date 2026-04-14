@@ -3,7 +3,7 @@ import PageStyles from '@/components/PageStyles';
 import { membershipCss } from './pageCss';
 import MemberCount from '@/components/MemberCount';
 import FaqAccordion from '@/components/FaqAccordion';
-import RegistrationForm from '@/components/RegistrationForm';
+import { REGISTER_URL } from '@/components/NavBar';
 
 export const metadata: Metadata = {
   title: "Membership | The Meridian Society",
@@ -74,7 +74,7 @@ export default function Page() {
       </h1>
       <p className="hero-sub rv" data-d="2">Built for students. Free to join, no commitment required.</p>
       <div className="hero-actions rv" data-d="3">
-        <a href="#register" className="register-btn">
+        <a href={REGISTER_URL} className="register-btn">
           <span>Register Now</span>
         </a>
       </div>
@@ -95,7 +95,7 @@ export default function Page() {
           <span className="rv-stagger-item">What You</span>
           <span className="rv-stagger-item"><em>Get.</em></span>
         </h2>
-        <a href="#register" className="benefits-register-link rv" data-d="1" id="benefitsRegisterCta">Register  &#8594;</a>
+        <a href={REGISTER_URL} className="benefits-register-link rv" data-d="1" id="benefitsRegisterCta">Register  &#8594;</a>
       </div>
       <div className="benefits-grid">
 
@@ -145,16 +145,20 @@ export default function Page() {
   </section>
 
   {/* ═══════════ REGISTER ═══════════ */}
-  <section className="register" id="register" aria-labelledby="register-heading">
+  <section className="register" id="join" aria-labelledby="register-heading">
     <div className="register-ghost" aria-hidden="true">MERIDIAN</div>
     <div className="wrap">
       <div className="register-rule-top" aria-hidden="true"></div>
       <p className="register-eyebrow rv">Independent  ·  Student-Run  ·  Ottawa  ·  Est. 2025</p>
       <h2 className="register-title rv" data-d="1" id="register-heading">Become a<br/><em>Member.</em></h2>
       <MemberCount />
-      <p className="register-body rv" data-d="2">Membership puts you in the room. Register to stay informed, attend events, and become part of a community built around curiosity and conversation.</p>
+      <p className="register-body rv" data-d="2" style={{ marginBottom: '40px' }}>Membership puts you in the room. Register to stay informed, attend events, and become part of a community built around curiosity and conversation.</p>
       
-      <RegistrationForm />
+      <div className="register-actions rv" data-d="3">
+        <a href={REGISTER_URL} className="register-btn">
+          <span>Complete Registration</span>
+        </a>
+      </div>
 
       <div className="register-rule-btm" aria-hidden="true"></div>
     </div>

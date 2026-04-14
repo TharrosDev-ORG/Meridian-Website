@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { REGISTER_URL } from "./NavBar";
 
 export default function Footer() {
   return (
@@ -21,7 +22,7 @@ export default function Footer() {
           <Link href="/social">Social</Link>
           <Link href="/team">Team</Link>
           <Link href="/speak">Speak</Link>
-          <Link href="/membership#register">Membership</Link>
+          <Link href={REGISTER_URL}>Membership</Link>
         </div>
         <div className="footer-bottom">
           <span className="footer-copy">© {new Date().getFullYear()} The Meridian Society &nbsp;·&nbsp; Independent Student Organization</span>

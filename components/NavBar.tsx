@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useSiteContext } from "./Providers";
 
-export const REGISTER_URL = "/membership#register";
+export const REGISTER_URL = "/register";
 export const SPEAK_URL = "https://docs.google.com/forms/d/e/1FAIpQLScP7jkZ_M1EXIYnxu7ERnCBRpDDmBNPpT3BWruAoyGnPtN6IA/viewform?usp=dialog";
 
 import Magnetic from "./Magnetic";

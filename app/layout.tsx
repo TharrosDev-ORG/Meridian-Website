@@ -107,12 +107,7 @@ export default function RootLayout({
     <html lang="en-CA" className={`${cormorant.variable} ${barlow.variable}`}>
       <body>
         <Providers>
-          <NavBar />
-          <TransitionWrapper>
-            {children}
-          </TransitionWrapper>
-          <Footer />
-          <MobileMenu />
+          {children}
           <div className="progress" id="progressBar"></div>
           <Analytics />
           <SpeedInsights />

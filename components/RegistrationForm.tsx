@@ -1,11 +1,14 @@
 "use client";
 
 import { useState, useTransition, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { registerMember, RegistrationData } from "@/app/actions/register";
+import Link from "next/link";
 
 const REG_KEY = "meridian_registered_v1";
 
 export default function RegistrationForm() {
+  const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const [result, setResult] = useState<{ success?: boolean; error?: string } | null>(null);
   const [isAlreadyRegistered, setIsAlreadyRegistered] = useState(false);
@@ -19,6 +22,16 @@ export default function RegistrationForm() {
       setIsAlreadyRegistered(true);
     }
   }, []);
+
+  // Handle auto-redirect
+  useEffect(() => {
+    if (isAlreadyRegistered || result?.success) {
+      const timer = setTimeout(() => {
+        router.push("/");
+      }, 4000);
+      return () => clearTimeout(timer);
+    }
+  }, [isAlreadyRegistered, result, router]);
 
   // Form State for dynamic fields
   const [role, setRole] = useState("");
@@ -61,7 +74,6 @@ export default function RegistrationForm() {
         document.cookie = `${REG_KEY}=true; path=/; expires=${expiry.toUTCString()}; SameSite=Lax`;
         
         setIsAlreadyRegistered(true);
-        window.scrollTo({ top: document.getElementById('register')?.offsetTop || 0, behavior: 'smooth' });
       }
     });
   }
@@ -75,6 +87,14 @@ export default function RegistrationForm() {
           Your registration is complete. You are now part of our community of curiosity. 
           Keep an eye on your inbox for event invitations.
         </p>
+        <div style={{ marginTop: "32px" }}>
+          <Link href="/" className="reg-submit" style={{ textDecoration: "none", display: "inline-block" }}>
+            <span>Return Home Now</span>
+          </Link>
+          <p style={{ marginTop: "16px", fontSize: "14px", color: "var(--ink-30)", fontStyle: "italic" }}>
+            Redirecting to home in 4 seconds...
+          </p>
+        </div>
       </div>
     );
   }

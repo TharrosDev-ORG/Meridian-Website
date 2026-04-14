@@ -6,7 +6,7 @@ export const EVENTS = [
     desc: "The Meridian Society's inaugural event — Connecting students, alumni, and professionals in Ottawa.",
     tags: ["Speaker Event", "Open Conversation", "Ottawa"],
     ctaText: "Register for Updates",
-    ctaHref: "https://docs.google.com/forms/d/1qThcXHxzfuW4uNVkZbHGhHwlDsy8x-YGtpHpOLnqTl4/viewform",
+    ctaHref: "/membership#register",
     when: "Fall 2026",
     where: "Ottawa,<br />Canada",
     format: "Speaker &amp;<br />Open Conversation",

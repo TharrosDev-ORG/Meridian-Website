@@ -6,7 +6,6 @@ export const speakCss = `
 
     /* ── Keyframes ── */
     @keyframes riseIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
-    @keyframes marqueeScroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
     /* ── Page hero ── */
     .page-hero {
@@ -102,32 +101,6 @@ export const speakCss = `
     .speak-apply-ctas { display: flex; align-items: center; justify-content: center; gap: 36px; margin-bottom: 28px; }
     .speak-apply-trust { font-family: var(--sans); font-size: 10.5px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink-55); }
 
-    /* ── Marquee ── */
-    .marquee-wrap {
-      overflow: hidden; background: var(--ink);
-      padding: 13px 0; position: relative; z-index: 2;
-      display: flex; align-items: center;
-    }
-    .marquee-wrap::before,
-    .marquee-wrap::after {
-      content: ''; position: absolute; top: 0; bottom: 0;
-      width: 80px; z-index: 1; pointer-events: none;
-    }
-    .marquee-wrap::before { left: 0; background: linear-gradient(to right, var(--ink), transparent); }
-    .marquee-wrap::after  { right: 0; background: linear-gradient(to left, var(--ink), transparent); }
-    .marquee-wrap .marquee-track {
-      display: flex; flex-wrap: nowrap; align-items: center;
-      white-space: nowrap; width: max-content;
-      animation: marqueeScroll 32s linear infinite;
-    }
-    .marquee-wrap:hover .marquee-track { animation-play-state: paused; }
-    .m-item {
-      font-family: var(--sans); font-size: 9px; font-weight: 600;
-      letter-spacing: 0.34em; text-transform: uppercase;
-      color: rgba(244,237,227,0.55); padding: 0 24px;
-      flex-shrink: 0; white-space: nowrap; line-height: 1;
-    }
-    .m-gem { color: rgba(212,175,80,0.45); padding: 0 4px; flex-shrink: 0; line-height: 1; }
 
     /* ── Footer ── */
     footer {

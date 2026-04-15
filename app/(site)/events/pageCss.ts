@@ -7,7 +7,6 @@ export const eventsCss = `
     /* ── Keyframes ── */
     @keyframes riseIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
     @keyframes goldPulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(184,147,42,0.5); } 50% { box-shadow: 0 0 0 4px rgba(184,147,42,0); } }
-    @keyframes marqueeScroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
     /* ── Page hero (subpage version of index hero) ── */
     .page-hero {
@@ -141,36 +140,6 @@ export const eventsCss = `
       .sig-p { font-size: 15.5px; line-height: 1.6; }
       .sig-card { padding: 32px 24px; }
     }
-    /* ── Marquee (matches index.html) ── */
-    @keyframes marqueeScroll {
-      0%   { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
-    }
-    .marquee-wrap {
-      overflow: hidden; background: var(--ink);
-      padding: 13px 0; position: relative; z-index: 2;
-      display: flex; align-items: center;
-    }
-    .marquee-wrap::before,
-    .marquee-wrap::after {
-      content: ''; position: absolute; top: 0; bottom: 0;
-      width: 80px; z-index: 1; pointer-events: none;
-    }
-    .marquee-wrap::before { left: 0; background: linear-gradient(to right, var(--ink), transparent); }
-    .marquee-wrap::after  { right: 0; background: linear-gradient(to left, var(--ink), transparent); }
-    .marquee-wrap .marquee-track {
-      display: flex; flex-wrap: nowrap; align-items: center;
-      white-space: nowrap; width: max-content;
-      animation: marqueeScroll 32s linear infinite;
-    }
-    .marquee-wrap:hover .marquee-track { animation-play-state: paused; }
-    .m-item {
-      font-family: var(--sans); font-size: 9px; font-weight: 600;
-      letter-spacing: 0.34em; text-transform: uppercase;
-      color: rgba(244,237,227,0.55); padding: 0 24px;
-      flex-shrink: 0; white-space: nowrap; line-height: 1;
-    }
-    .m-gem { color: rgba(212,175,80,0.45); padding: 0 4px; flex-shrink: 0; line-height: 1; }
 
     /* ── Footer (matches index.html — overrides page.css footer) ── */
     footer {

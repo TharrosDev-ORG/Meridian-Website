@@ -185,35 +185,6 @@ export const indexCss = `
     .stat-val { font-family: var(--serif); font-size: 28px; font-weight: 300; color: var(--ink); line-height: 1; margin-bottom: 5px; transition: color 0.3s; }
     .stat-lbl { font-family: var(--sans); font-size: 11px; font-weight: 600; letter-spacing: 0.24em; text-transform: uppercase; color: var(--ink-75); }
 
-    /* Stats bar — full width, pushed to bottom by flex */
-       MARQUEE
-    ══════════════════════════════ */
-    .marquee-wrap {
-      overflow: hidden; background: var(--ink);
-      padding: 13px 0; position: relative; z-index: 2;
-      display: flex; align-items: center;
-    }
-    .marquee-wrap::before,
-    .marquee-wrap::after {
-      content: ''; position: absolute; top: 0; bottom: 0;
-      width: 80px; z-index: 1; pointer-events: none;
-    }
-    .marquee-wrap::before { left: 0; background: linear-gradient(to right, var(--ink), transparent); }
-    .marquee-wrap::after  { right: 0; background: linear-gradient(to left, var(--ink), transparent); }
-    .marquee-track {
-      display: flex; flex-wrap: nowrap; align-items: center;
-      white-space: nowrap; width: max-content;
-      animation: marqueeScroll 32s linear infinite;
-    }
-    .marquee-wrap:hover .marquee-track { animation-play-state: paused; }
-    .m-item {
-      font-family: var(--sans); font-size: 9px; font-weight: 600;
-      letter-spacing: 0.34em; text-transform: uppercase;
-      color: rgba(244,237,227,0.55); padding: 0 24px;
-      flex-shrink: 0; white-space: nowrap; line-height: 1;
-    }
-    .m-gem { color: rgba(212,175,80,0.45); padding: 0 4px; flex-shrink: 0; line-height: 1; }
-
     /* ══════════════════════════════
        SHARED UTILS
     ══════════════════════════════ */

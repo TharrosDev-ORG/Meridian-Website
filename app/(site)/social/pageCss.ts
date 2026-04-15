@@ -62,7 +62,8 @@ export const socialCss = `
 
     /* ── Social Intro ── */
     .social-about-sec { padding: 110px 0; background: var(--cream-deep); border-bottom: 1px solid var(--ink-08); }
-    .social-intro-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: flex-start; }
+    .social-intro-grid { display: flex; flex-direction: column; gap: 48px; align-items: stretch; }
+    .social-intro-left { max-width: 800px; }
     .social-h2 { font-family: var(--serif); font-size: clamp(32px, 4vw, 56px); font-weight: 300; line-height: 1.1; color: var(--ink); margin-bottom: 24px; }
     .social-h2 em { font-style: italic; }
     .social-intro-right { background: var(--cream); padding: 48px; border: 1px solid var(--gold-lt); box-shadow: 0 4px 24px rgba(24,21,15,0.04); transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), box-shadow 0.4s ease; }

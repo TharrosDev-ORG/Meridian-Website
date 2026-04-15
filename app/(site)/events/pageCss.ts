@@ -63,7 +63,8 @@ export const eventsCss = `
     .events-sec { padding: 110px 0; background: var(--cream-deep); position: relative; overflow: hidden; }
     .events-sec::before { content: ''; position: absolute; top: 40px; right: 40px; width: 80px; height: 80px; border-top: 1px solid var(--ink-15); border-right: 1px solid var(--ink-15); pointer-events: none; }
     .events-sec::after  { content: ''; position: absolute; bottom: 40px; left: 40px; width: 80px; height: 80px; border-bottom: 1px solid var(--ink-15); border-left: 1px solid var(--ink-15); pointer-events: none; }
-    .events-intro-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: flex-start; }
+    .events-intro-grid { display: flex; flex-direction: column; gap: 48px; align-items: stretch; }
+    .events-intro-left { max-width: 800px; }
     .events-copy-title { font-family: var(--serif); font-size: clamp(32px, 4vw, 56px); font-weight: 300; line-height: 1.1; color: var(--ink); margin-bottom: 24px; }
     .events-copy-title em { font-style: italic; }
     .events-intro-right { background: var(--cream); padding: 48px; border: 1px solid var(--gold-lt); box-shadow: 0 4px 24px rgba(24,21,15,0.04); transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), box-shadow 0.4s ease; }

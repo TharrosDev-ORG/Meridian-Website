@@ -32,13 +32,16 @@ export default function MemberCount() {
           filter: `id=eq.meridian_global_stats`
         },
         (payload) => {
-          setCount(payload.new.member_count);
+          if (payload.new && typeof payload.new.member_count === 'number') {
+            setCount(payload.new.member_count);
+          }
         }
       )
       .subscribe();
 
     return () => {
-      supabase.removeChannel(channel);
+      // Clean up the subscription specifically
+      channel.unsubscribe().catch(console.error);
     };
   }, []);
 

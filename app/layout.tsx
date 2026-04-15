@@ -99,9 +99,10 @@ export default function RootLayout({
   return (
     <html lang="en-CA" className={`${cormorant.variable} ${barlow.variable}`}>
       <body>
+        <a href="#main-content" className="skip-link">Skip to main content</a>
         <Providers>
           {children}
-          <div className="progress" id="progressBar"></div>
+          <div className="progress" role="progressbar" aria-label="Reading progress" id="progressBar"></div>
           <Analytics />
           <SpeedInsights />
           {/* JSON-LD Organization Schema */}

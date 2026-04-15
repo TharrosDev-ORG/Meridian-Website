@@ -12,15 +12,18 @@ export default function RegistrationForm() {
   const [result, setResult] = useState<{ success?: boolean; error?: string } | null>(null);
   const [isAlreadyRegistered, setIsAlreadyRegistered] = useState(false);
 
-  // Check registration status on mount (LocalStorage + Cookies)
+  // Check registration status on mount
   useEffect(() => {
-    setMounted(true);
-    const localReg = localStorage.getItem(REG_KEY);
-    const cookieReg = document.cookie.split("; ").find((row) => row.startsWith(`${REG_KEY}=`));
-    
-    if (localReg === "true" || cookieReg) {
-      setIsAlreadyRegistered(true);
-    }
+    const timer = setTimeout(() => {
+      const localReg = localStorage.getItem(REG_KEY);
+      const cookieReg = document.cookie.split("; ").find((row) => row.startsWith(`${REG_KEY}=`));
+      
+      if (localReg === "true" || !!cookieReg) {
+        setIsAlreadyRegistered(true);
+      }
+      setMounted(true);
+    }, 0);
+    return () => clearTimeout(timer);
   }, []);
 
   // Form State for dynamic fields
@@ -195,7 +198,6 @@ export default function RegistrationForm() {
                   placeholder="Please specify your role"
                   required
                   disabled={isPending}
-                  autoFocus
                 />
               </div>
             )}
@@ -229,7 +231,6 @@ export default function RegistrationForm() {
                   placeholder="Please specify your institution"
                   required
                   disabled={isPending}
-                  autoFocus
                 />
               </div>
             )}

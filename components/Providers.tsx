@@ -16,6 +16,10 @@ export const useSiteContext = () => useContext(SiteContext);
 
 const CIRC = 2 * Math.PI * 22;
 
+interface MeridianWindow extends Window {
+  __observeReveal?: () => void;
+}
+
 export default function Providers({ children }: { children: React.ReactNode }) {
   const [showArc, setShowArc] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
@@ -71,7 +75,8 @@ export default function Providers({ children }: { children: React.ReactNode }) {
     document.querySelectorAll(".rv").forEach((el) => obs.observe(el));
 
     // Expose a global hook for dynamically added elements (like pages)
-    (window as any).__observeReveal = () => {
+    const win = window as unknown as MeridianWindow;
+    win.__observeReveal = () => {
       const candidates = document.querySelectorAll(".rv:not(.on)");
       if (candidates.length > 0) {
         candidates.forEach((el) => {
@@ -83,8 +88,8 @@ export default function Providers({ children }: { children: React.ReactNode }) {
 
     return () => {
       window.removeEventListener("scroll", onScroll);
-      if ((window as any).__observeReveal) {
-        delete (window as any).__observeReveal;
+      if (win.__observeReveal) {
+        delete win.__observeReveal;
       }
       obs.disconnect();
     };

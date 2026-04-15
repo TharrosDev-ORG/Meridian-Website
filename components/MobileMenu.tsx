@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { useEffect, useRef } from "react";
 import { useSiteContext } from "./Providers";
 import { REGISTER_URL } from "./NavBar";
@@ -10,23 +9,25 @@ const SWIPE_CLOSE_THRESHOLD = 72;
 
 export default function MobileMenu() {
   const { menuOpen, setMenuOpen } = useSiteContext();
-  const pathname = usePathname();
   const drawerRef = useRef<HTMLDivElement>(null);
-  
-  const isHome = pathname === "/" || pathname === "";
+  const startX = useRef(0);
+  const startY = useRef(0);
+  const dragging = useRef(false);
 
+  // 1. Body Scroll Lock & Escape Key
   useEffect(() => {
     if (menuOpen) {
       document.body.style.overflow = "hidden";
+      // Focus the drawer for screen readers when it opens
+      drawerRef.current?.focus();
     } else {
       document.body.style.overflow = "";
     }
 
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape" && menuOpen) {
-        setMenuOpen(false);
-      }
+      if (e.key === "Escape" && menuOpen) setMenuOpen(false);
     };
+
     document.addEventListener("keydown", handleKeyDown);
     return () => {
       document.body.style.overflow = "";
@@ -34,14 +35,18 @@ export default function MobileMenu() {
     };
   }, [menuOpen, setMenuOpen]);
 
+  // 2. Focus Trap
   useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key !== "Tab" || !menuOpen || !drawerRef.current) return;
-      const focusableElements = drawerRef.current.querySelectorAll(
-        'a[href], button, textarea, input[type="text"], input[type="radio"], input[type="checkbox"], select'
-      );
-      const first = focusableElements[0] as HTMLElement;
-      const last = focusableElements[focusableElements.length - 1] as HTMLElement;
+    if (!menuOpen || !drawerRef.current) return;
+
+    const trapFocus = (e: KeyboardEvent) => {
+      if (e.key !== "Tab") return;
+      const focusableSelectors = 'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
+      const elements = drawerRef.current?.querySelectorAll<HTMLElement>(focusableSelectors);
+      if (!elements || elements.length === 0) return;
+
+      const first = elements[0];
+      const last = elements[elements.length - 1];
 
       if (e.shiftKey && document.activeElement === first) {
         last.focus();
@@ -52,63 +57,54 @@ export default function MobileMenu() {
       }
     };
 
-    const drawer = drawerRef.current;
-    drawer?.addEventListener("keydown", handleKeyDown);
-    return () => drawer?.removeEventListener("keydown", handleKeyDown);
+    document.addEventListener("keydown", trapFocus);
+    return () => document.removeEventListener("keydown", trapFocus);
   }, [menuOpen]);
 
+  // 3. Swipe to Close (Improved Delta Handling)
   useEffect(() => {
-    const drawer = drawerRef.current;
-    if (!drawer) return;
+    const el = drawerRef.current;
+    if (!el) return;
 
-    let startX = 0;
-    let startY = 0;
-    let dragging = false;
-
-    const handleTouchStart = (e: TouchEvent) => {
+    const onStart = (e: TouchEvent) => {
       if (!menuOpen) return;
-      startX = e.touches[0].clientX;
-      startY = e.touches[0].clientY;
-      dragging = true;
-      drawer.style.transition = "none";
+      startX.current = e.touches[0].clientX;
+      startY.current = e.touches[0].clientY;
+      dragging.current = true;
+      el.style.transition = "none";
     };
 
-    const handleTouchMove = (e: TouchEvent) => {
-      if (!dragging) return;
-      const dx = e.touches[0].clientX - startX;
-      const dy = Math.abs(e.touches[0].clientY - startY);
-      if (dx > 0 && dx > dy) drawer.style.transform = `translateX(${dx}px)`;
-    };
-
-    const handleTouchEnd = (e: TouchEvent) => {
-      if (!dragging) return;
-      const dx = e.changedTouches[0].clientX - startX;
-      dragging = false;
-      drawer.style.transition = "";
-      if (dx > SWIPE_CLOSE_THRESHOLD) {
-        drawer.style.transform = "";
-        setMenuOpen(false);
-      } else {
-        drawer.style.transform = "";
+    const onMove = (e: TouchEvent) => {
+      if (!dragging.current) return;
+      const dx = e.touches[0].clientX - startX.current;
+      const dy = Math.abs(e.touches[0].clientY - startY.current);
+      
+      // Only drag if moving horizontally and to the right (close direction)
+      if (dx > 0 && dx > dy) {
+        el.style.transform = `translateX(${dx}px)`;
       }
     };
 
-    const handleTouchCancel = () => {
-      dragging = false;
-      drawer.style.transition = "";
-      drawer.style.transform = "";
+    const onEnd = (e: TouchEvent) => {
+      if (!dragging.current) return;
+      dragging.current = false;
+      const dx = e.changedTouches[0].clientX - startX.current;
+      el.style.transition = "";
+      el.style.transform = "";
+
+      if (dx > SWIPE_CLOSE_THRESHOLD) {
+        setMenuOpen(false);
+      }
     };
 
-    drawer.addEventListener("touchstart", handleTouchStart, { passive: true });
-    drawer.addEventListener("touchmove", handleTouchMove, { passive: true });
-    drawer.addEventListener("touchend", handleTouchEnd, { passive: true });
-    drawer.addEventListener("touchcancel", handleTouchCancel, { passive: true });
+    el.addEventListener("touchstart", onStart, { passive: true });
+    el.addEventListener("touchmove", onMove, { passive: true });
+    el.addEventListener("touchend", onEnd, { passive: true });
 
     return () => {
-      drawer.removeEventListener("touchstart", handleTouchStart);
-      drawer.removeEventListener("touchmove", handleTouchMove);
-      drawer.removeEventListener("touchend", handleTouchEnd);
-      drawer.removeEventListener("touchcancel", handleTouchCancel);
+      el.removeEventListener("touchstart", onStart);
+      el.removeEventListener("touchmove", onMove);
+      el.removeEventListener("touchend", onEnd);
     };
   }, [menuOpen, setMenuOpen]);
 
@@ -116,22 +112,21 @@ export default function MobileMenu() {
     <>
       <div 
         className={`mob-backdrop ${menuOpen ? "open" : ""}`} 
-        id="menuBackdrop"
         onClick={() => setMenuOpen(false)}
-      ></div>
+        aria-hidden="true"
+      />
       <div 
         className={`mob-drawer ${menuOpen ? "open" : ""}`} 
         id="mobileMenu" 
         role="dialog" 
-        aria-label="Navigation" 
+        aria-label="Navigation Menu" 
         aria-modal="true"
+        tabIndex={-1}
         ref={drawerRef}
       >
         <div className="mob-wordmark">The Meridian Society</div>
-        <nav className="mob-links" aria-label="Mobile navigation">
-          <Link href="/team" onClick={() => setMenuOpen(false)}>
-            Team <span className="mob-arrow">→</span>
-          </Link>
+        <nav className="mob-links">
+          <Link href="/team" onClick={() => setMenuOpen(false)}>Team <span className="mob-arrow">→</span></Link>
           <Link href="/events" onClick={() => setMenuOpen(false)}>Events <span className="mob-arrow">→</span></Link>
           <Link href="/social" onClick={() => setMenuOpen(false)}>Social <span className="mob-arrow">→</span></Link>
           <Link href="/speak" onClick={() => setMenuOpen(false)}>Speak <span className="mob-arrow">→</span></Link>

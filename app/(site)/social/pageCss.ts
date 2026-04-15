@@ -10,7 +10,7 @@ export const socialCss = `
     .page-hero {
       position: relative; min-height: 60vh;
       display: flex; flex-direction: column; align-items: center; justify-content: center;
-      text-align: center; padding: 120px 64px 80px; overflow: hidden;
+      text-align: center; padding: 70px 64px 60px; overflow: hidden;
       background: var(--cream);
     }
     .page-hero::before {
@@ -25,14 +25,14 @@ export const socialCss = `
       opacity: 0.03; background-image: var(--grain); background-size: 220px 220px; pointer-events: none;
     }
     .page-hero-content { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; }
-    .hero-eyebrow { display: flex; align-items: center; gap: 16px; margin-bottom: 52px; }
+    .hero-eyebrow { display: flex; align-items: center; gap: 16px; margin-bottom: 40px; }
     .hero-eyebrow-rule { width: 36px; height: 1px; background: var(--gold); opacity: 0.5; }
     .hero-eyebrow-text { font-family: var(--sans); font-size: 11px; font-weight: 700; letter-spacing: 0.32em; text-transform: uppercase; color: var(--gold); }
-    .hero-pre { font-family: var(--serif); font-size: clamp(18px, 2.5vw, 30px); font-style: italic; font-weight: 300; color: var(--ink-55); letter-spacing: 0.06em; margin-bottom: 10px; }
+    .hero-pre { font-family: var(--serif); font-size: clamp(18px, 2.5vw, 30px); font-style: italic; font-weight: 300; color: var(--ink-55); letter-spacing: 0.06em; margin-bottom: 8px; }
     .hero-title { font-family: var(--serif); font-size: clamp(64px, 12vw, 160px); font-weight: 300; line-height: 0.86; color: var(--ink); letter-spacing: 0.06em; text-shadow: 0 2px 40px rgba(24,21,15,0.04); }
     .hero-post { font-family: var(--serif); font-size: clamp(18px, 2.5vw, 30px); font-style: italic; font-weight: 300; color: var(--ink-55); letter-spacing: 0.06em; margin-top: 12px; }
-    .hero-hr { width: 44px; height: 1px; background: var(--ink-15); margin: 36px auto; }
-    .hero-sub { font-family: var(--serif); font-size: clamp(19px, 2vw, 26px); font-style: italic; font-weight: 300; color: var(--ink-75); max-width: 520px; line-height: 1.85; margin-bottom: 44px; }
+    .hero-hr { width: 44px; height: 1px; background: var(--ink-15); margin: 28px auto; }
+    .hero-sub { font-family: var(--serif); font-size: clamp(19px, 2vw, 26px); font-style: italic; font-weight: 300; color: var(--ink-75); max-width: 520px; line-height: 1.85; margin-bottom: 32px; }
     .hero-sub a { color: var(--gold); text-decoration: none; transition: color 0.2s; }
     .hero-sub a:hover { color: var(--ink); }
     .hero-actions { display: flex; align-items: center; gap: 36px; }
@@ -45,8 +45,8 @@ export const socialCss = `
     .btn-ghost-link:hover { color: var(--ink); gap: 14px; }
 
     /* ── Shared utils ── */
-    .wrap { max-width: 1280px; margin: 0 auto; padding: 0 64px; }
-    .sec-label { font-family: var(--sans); font-size: 10.5px; font-weight: 700; letter-spacing: 0.34em; text-transform: uppercase; color: var(--gold); display: flex; align-items: center; gap: 14px; margin-bottom: 28px; }
+    .wrap { max-width: 1440px; margin: 0 auto; padding: 0 64px; }
+    .sec-label { font-family: var(--sans); font-size: 10.5px; font-weight: 700; letter-spacing: 0.34em; text-transform: uppercase; color: var(--gold); display: flex; align-items: center; gap: 14px; margin-bottom: 20px; }
     .sec-label::after { content: ''; flex: 1; height: 1px; background: var(--gold); opacity: 0.15; }
     .text-link { display: inline-flex; align-items: center; gap: 10px; font-family: var(--sans); font-size: 11px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink-55); text-decoration: none; position: relative; }
     .text-link::after { content: ''; position: absolute; bottom: -3px; left: 0; width: 100%; height: 1px; background: var(--ink-30); transition: background 0.2s; }
@@ -55,7 +55,7 @@ export const socialCss = `
     /* Scroll reveals consolidated to globals.css */
 
     /* ── Social Intro ── */
-    .social-about-sec { padding: 110px 0; background: var(--cream-deep); border-bottom: 1px solid var(--ink-08); }
+    .social-about-sec { padding: 80px 0; background: var(--cream-deep); border-bottom: 1px solid var(--ink-08); }
     .social-intro-grid { display: flex; flex-direction: column; gap: 48px; align-items: stretch; }
     .social-intro-left { max-width: 800px; }
     .social-h2 { font-family: var(--serif); font-size: clamp(32px, 4vw, 56px); font-weight: 300; line-height: 1.1; color: var(--ink); margin-bottom: 24px; }
@@ -65,7 +65,7 @@ export const socialCss = `
     .social-p { font-family: var(--serif); font-size: 20px; line-height: 1.85; color: var(--ink-85); }
 
     /* ── The Vibe Grid ── */
-    .vibe-sec { padding: 100px 0; background: var(--cream); }
+    .vibe-sec { padding: 80px 0; background: var(--cream); }
     .vibe-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 32px; }
     .vibe-card { padding: 48px; border: 1px solid var(--ink-08); background: var(--cream-mid); transition: transform 0.4s ease; }
     .vibe-card:hover { transform: translateY(-4px); border-color: var(--gold-lt); }
@@ -74,7 +74,7 @@ export const socialCss = `
     .vibe-p { font-family: var(--serif); font-size: 18px; line-height: 1.7; color: var(--ink-75); }
 
     /* ── Stay Notified (Matches Events) ── */
-    .notify-sec { padding: 110px 0; background: var(--cream-deep); position: relative; overflow: hidden; border-top: 1px solid var(--ink-15); }
+    .notify-sec { padding: 80px 0; background: var(--cream-deep); position: relative; overflow: hidden; border-top: 1px solid var(--ink-15); }
     .notify-sec::before { content: ''; position: absolute; top: 40px; right: 40px; width: 80px; height: 80px; border-top: 1px solid var(--ink-15); border-right: 1px solid var(--ink-15); pointer-events: none; }
     .notify-sec::after  { content: ''; position: absolute; bottom: 40px; left: 40px; width: 80px; height: 80px; border-bottom: 1px solid var(--ink-15); border-left: 1px solid var(--ink-15); pointer-events: none; }
     .notify-inner { position: relative; z-index: 1; max-width: 640px; margin: 0 auto; text-align: center; }

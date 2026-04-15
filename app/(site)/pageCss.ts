@@ -33,7 +33,7 @@ export const indexCss = `
       position: relative; min-height: 94vh;
       display: flex; flex-direction: column;
       align-items: center; text-align: center;
-      padding: 80px 64px 0; overflow: hidden;
+      padding: 60px 64px 0; overflow: hidden;
       background: var(--cream);
     }
     .hero::before {
@@ -66,7 +66,7 @@ export const indexCss = `
       flex: 1; justify-content: center;
     }
     .hero-eyebrow {
-      display: flex; align-items: center; gap: 16px; margin-bottom: 52px;
+      display: flex; align-items: center; gap: 16px; margin-bottom: 40px;
       opacity: 0; animation: riseIn 0.7s 0.3s cubic-bezier(0.16,1,0.3,1) forwards;
     }
     .hero-eyebrow-rule { width: 36px; height: 1px; background: var(--gold); opacity: 0.5; }
@@ -77,7 +77,7 @@ export const indexCss = `
     .hero-pre {
       font-family: var(--serif); font-size: clamp(22px, 3vw, 38px);
       font-style: italic; font-weight: 300; color: var(--ink-55);
-      letter-spacing: 0.06em; margin-bottom: 10px;
+      letter-spacing: 0.06em; margin-bottom: 8px;
       opacity: 0; animation: riseIn 0.7s 0.55s cubic-bezier(0.16,1,0.3,1) forwards;
     }
     .hero-title {
@@ -88,17 +88,17 @@ export const indexCss = `
       transition: transform 0.4s cubic-bezier(0.16,1,0.3,1);
     }
     .hero-hr {
-      width: 44px; height: 1px; background: var(--ink-15); margin: 36px auto;
+      width: 44px; height: 1px; background: var(--ink-15); margin: 28px auto;
       opacity: 0; animation: riseIn 0.6s 0.95s ease forwards;
     }
     .hero-sub {
       font-family: var(--serif); font-size: clamp(19px, 2.2vw, 27px);
       font-style: italic; font-weight: 300; color: var(--ink-75);
-      max-width: 560px; line-height: 1.85; margin-bottom: 52px;
+      max-width: 560px; line-height: 1.85; margin-bottom: 40px;
       opacity: 0; animation: riseIn 0.7s 1.05s ease forwards;
     }
     .hero-actions {
-      display: flex; align-items: center; gap: 36px; margin-bottom: 56px;
+      display: flex; align-items: center; gap: 36px; margin-bottom: 48px;
       opacity: 0; animation: riseIn 0.7s 1.2s ease forwards;
     }
 
@@ -174,11 +174,11 @@ export const indexCss = `
     /* ══════════════════════════════
        SHARED UTILS
     ══════════════════════════════ */
-    .wrap { max-width: 1280px; margin: 0 auto; padding: 0 64px; }
+    .wrap { max-width: 1440px; margin: 0 auto; padding: 0 64px; }
     .sec-label {
       font-family: var(--sans); font-size: 10.5px; font-weight: 700;
       letter-spacing: 0.34em; text-transform: uppercase; color: var(--ink-55);
-      display: flex; align-items: center; gap: 14px; margin-bottom: 28px;
+      display: flex; align-items: center; gap: 14px; margin-bottom: 20px;
     }
     .sec-label::after { content: ''; flex: 1; height: 1px; background: var(--ink-15); }
     .text-link {
@@ -199,7 +199,7 @@ export const indexCss = `
     /* ══════════════════════════════
        ABOUT
     ══════════════════════════════ */
-    .about { padding: 120px 0; position: relative; overflow: hidden; }
+    .about { padding: 90px 0; position: relative; overflow: hidden; }
     .about::before {
       content: ''; position: absolute; inset: 0; z-index: 0;
       background-image: radial-gradient(circle, rgba(24,21,15,0.065) 1px, transparent 1px);
@@ -213,7 +213,7 @@ export const indexCss = `
       pointer-events: none;
     }
     .about .wrap { position: relative; z-index: 2; }
-    .about-layout { display: grid; grid-template-columns: 340px 1fr; gap: 0; align-items: stretch; }
+    .about-layout { display: grid; grid-template-columns: 380px 1fr; gap: 0; align-items: stretch; }
     .about-left { padding-right: 72px; border-right: 1px solid var(--ink-15); position: sticky; top: 96px; display: flex; flex-direction: column; justify-content: center; }
     .about-num {
       font-family: var(--serif); font-size: 96px; font-weight: 300; line-height: 1;
@@ -224,7 +224,7 @@ export const indexCss = `
     .about-section-label { font-family: var(--sans); font-size: 10.5px; font-weight: 700; letter-spacing: 0.32em; text-transform: uppercase; color: var(--ink-55); margin-bottom: 20px; }
     .about-title { font-family: var(--serif); font-size: clamp(36px, 3.5vw, 56px); font-weight: 300; line-height: 1.05; color: var(--ink); }
     .about-title em { font-style: italic; color: var(--gold); }
-    .about-right { padding-left: 80px; }
+    .about-right { padding-left: 96px; }
     .about-body { font-family: var(--serif); font-size: 19px; font-weight: 400; line-height: 1.95; color: var(--ink-90); margin-bottom: 28px; }
     .pull-quote {
       padding: 24px 28px 24px 32px; margin: 40px 0;
@@ -248,7 +248,7 @@ export const indexCss = `
     /* ══════════════════════════════
        WHO WE GATHER
     ══════════════════════════════ */
-    .who { padding: 110px 0; background: var(--cream-mid); position: relative; overflow: visible; }
+    .who { padding: 80px 0; background: var(--cream-mid); position: relative; overflow: visible; }
     .who::before {
       content: ''; position: absolute; inset: 0; z-index: 0;
       background-image: repeating-linear-gradient(-45deg, transparent, transparent 24px, rgba(24,21,15,0.025) 24px, rgba(24,21,15,0.025) 25px);
@@ -287,10 +287,10 @@ export const indexCss = `
     /* ══════════════════════════════
        WHAT WE ARE NOT
     ══════════════════════════════ */
-    .not-sec { padding: 110px 0; position: relative; overflow: hidden; }
+    .not-sec { padding: 80px 0; position: relative; overflow: hidden; }
     .not-sec::before { content: ''; position: absolute; inset: 0; z-index: 0; opacity: 0.03; background-image: var(--grain); background-size: 200px 200px; pointer-events: none; }
     .not-sec .wrap { position: relative; z-index: 1; }
-    .not-layout { display: grid; grid-template-columns: 400px 1fr; gap: 0; align-items: start; }
+    .not-layout { display: grid; grid-template-columns: 440px 1fr; gap: 0; align-items: start; }
     .not-left { padding-right: 72px; border-right: 1px solid var(--ink-15); }
     .not-title { font-family: var(--serif); font-size: clamp(34px, 3vw, 50px); font-weight: 300; line-height: 1.1; color: var(--ink); margin-bottom: 24px; }
     .not-body { font-family: var(--serif); font-size: 19px; line-height: 1.9; color: var(--ink-90); }
@@ -318,7 +318,7 @@ export const indexCss = `
     /* ══════════════════════════════
        EVENTS PORTAL
     ══════════════════════════════ */
-    .events { padding: 110px 0; background: var(--cream-deep); position: relative; overflow: hidden; }
+    .events { padding: 80px 0; background: var(--cream-deep); position: relative; overflow: hidden; }
     .events::before { content: ''; position: absolute; top: 40px; right: 40px; width: 80px; height: 80px; border-top: 1px solid var(--ink-15); border-right: 1px solid var(--ink-15); pointer-events: none; }
     .events::after  { content: ''; position: absolute; bottom: 40px; left: 40px; width: 80px; height: 80px; border-bottom: 1px solid var(--ink-15); border-left: 1px solid var(--ink-15); pointer-events: none; }
     .events .wrap { position: relative; z-index: 1; }
@@ -345,7 +345,7 @@ export const indexCss = `
     /* ══════════════════════════════
        GET INVOLVED
     ══════════════════════════════ */
-    .speaking { padding: 110px 0; position: relative; overflow: hidden; }
+    .speaking { padding: 80px 0; position: relative; overflow: hidden; }
     .speaking::before {
       content: ''; position: absolute; inset: 0; z-index: 0;
       background-image: radial-gradient(circle, rgba(24,21,15,0.055) 1px, transparent 1px);
@@ -388,7 +388,7 @@ export const indexCss = `
     /* ══════════════════════════════
        REGISTER
     ══════════════════════════════ */
-    .register { padding: 120px 0; background: var(--cream-mid); position: relative; overflow: hidden; }
+    .register { padding: 90px 0; background: var(--cream-mid); position: relative; overflow: hidden; }
     .register::before {
       content: ''; position: absolute; inset: 0; z-index: 0;
       background: radial-gradient(ellipse 65% 60% at 50% 50%, rgba(184,147,42,0.06) 0%, transparent 70%),

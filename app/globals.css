@@ -459,12 +459,12 @@ nav.scrolled {
 }
 
 /* ── SHARED PAGE UTILS ── */
-.wrap { max-width: 1280px; margin: 0 auto; padding: 0 64px; }
+.wrap { max-width: 1440px; margin: 0 auto; padding: 0 64px; }
 
 .sec-label { 
   font-family: var(--sans); font-size: 10.5px; font-weight: 700; 
   letter-spacing: 0.34em; text-transform: uppercase; color: var(--ink-55); 
-  display: flex; align-items: center; gap: 14px; margin-bottom: 28px; 
+  display: flex; align-items: center; gap: 14px; margin-bottom: 20px; 
 }
 .sec-label::after { content: ''; flex: 1; height: 1px; background: var(--ink-15); }
 
@@ -491,12 +491,12 @@ nav.scrolled {
 .btn-ghost-link:hover { color: var(--ink); gap: 14px; }
 
 /* Hero Text System */
-.hero-pre { font-family: var(--serif); font-size: clamp(18px, 2.5vw, 30px); font-style: italic; font-weight: 300; color: var(--ink-55); letter-spacing: 0.06em; margin-bottom: 10px; }
+.hero-pre { font-family: var(--serif); font-size: clamp(18px, 2.5vw, 30px); font-style: italic; font-weight: 300; color: var(--ink-55); letter-spacing: 0.06em; margin-bottom: 8px; }
 .hero-title { font-family: var(--serif); font-size: clamp(64px, 12vw, 160px); font-weight: 300; line-height: 0.86; color: var(--ink); letter-spacing: 0.06em; text-shadow: 0 2px 40px rgba(24,21,15,0.04); }
-.hero-sub { font-family: var(--serif); font-size: clamp(17px, 1.6vw, 22px); font-style: italic; font-weight: 300; color: var(--ink-75); max-width: 480px; line-height: 1.8; margin: 24px auto 0; }
-.hero-hr { width: 44px; height: 1px; background: var(--ink-15); margin: 36px auto; }
+.hero-sub { font-family: var(--serif); font-size: clamp(17px, 1.6vw, 22px); font-style: italic; font-weight: 300; color: var(--ink-75); max-width: 480px; line-height: 1.8; margin: 16px auto 0; }
+.hero-hr { width: 44px; height: 1px; background: var(--ink-15); margin: 28px auto; }
 
-.hero-eyebrow { display: flex; align-items: center; gap: 16px; margin-bottom: 52px; }
+.hero-eyebrow { display: flex; align-items: center; gap: 16px; margin-bottom: 40px; }
 .hero-eyebrow-rule { width: 36px; height: 1px; background: var(--gold); opacity: 0.5; }
 .hero-eyebrow-text { font-family: var(--sans); font-size: 11px; font-weight: 700; letter-spacing: 0.32em; text-transform: uppercase; color: var(--gold); }
 

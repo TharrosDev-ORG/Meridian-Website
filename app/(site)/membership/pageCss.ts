@@ -11,7 +11,7 @@ export const membershipCss = `
     .page-hero {
       position: relative; min-height: 60vh;
       display: flex; flex-direction: column; align-items: center; justify-content: center;
-      text-align: center; padding: 120px 64px 80px; overflow: hidden;
+      text-align: center; padding: 70px 64px 60px; overflow: hidden;
       background: var(--cream);
     }
     .page-hero::before {
@@ -26,13 +26,13 @@ export const membershipCss = `
       opacity: 0.03; background-image: var(--grain); background-size: 220px 220px; pointer-events: none;
     }
     .page-hero-content { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; }
-    .hero-eyebrow { display: flex; align-items: center; gap: 16px; margin-bottom: 52px; }
+    .hero-eyebrow { display: flex; align-items: center; gap: 16px; margin-bottom: 40px; }
     .hero-eyebrow-rule { width: 36px; height: 1px; background: var(--gold); opacity: 0.5; }
     .hero-eyebrow-text { font-family: var(--sans); font-size: 11px; font-weight: 700; letter-spacing: 0.32em; text-transform: uppercase; color: var(--gold); }
-    .hero-pre { font-family: var(--serif); font-size: clamp(18px, 2.5vw, 30px); font-style: italic; font-weight: 300; color: var(--ink-55); letter-spacing: 0.06em; margin-bottom: 10px; }
+    .hero-pre { font-family: var(--serif); font-size: clamp(18px, 2.5vw, 30px); font-style: italic; font-weight: 300; color: var(--ink-55); letter-spacing: 0.06em; margin-bottom: 8px; }
     .hero-title { font-family: var(--serif); font-size: clamp(64px, 12vw, 160px); font-weight: 300; line-height: 0.86; color: var(--ink); letter-spacing: 0.06em; text-shadow: 0 2px 40px rgba(24,21,15,0.04); }
     .hero-sub { font-family: var(--serif); font-size: clamp(17px, 1.6vw, 22px); font-style: italic; font-weight: 300; color: var(--ink-75); max-width: 480px; line-height: 1.8; margin: 24px auto 0; }
-    .hero-actions { display: flex; align-items: center; gap: 36px; margin-top: 44px; }
+    .hero-actions { display: flex; align-items: center; gap: 36px; margin-top: 32px; }
     .btn-ghost-link { font-family: var(--serif); font-size: 16px; font-style: italic; font-weight: 300; color: var(--ink-55); text-decoration: none; display: flex; align-items: center; gap: 8px; transition: color 0.2s, gap 0.25s; }
     .btn-ghost-link:hover { color: var(--ink); gap: 14px; }
 
@@ -61,14 +61,14 @@ export const membershipCss = `
     .benefits-register-link:hover { color: var(--gold-lt); border-color: var(--gold-lt); }
 
     /* ── Shared utils ── */
-    .wrap { max-width: 1280px; margin: 0 auto; padding: 0 64px; }
-    .sec-label { font-family: var(--sans); font-size: 10.5px; font-weight: 700; letter-spacing: 0.34em; text-transform: uppercase; color: var(--ink-55); display: flex; align-items: center; gap: 14px; margin-bottom: 28px; }
+    .wrap { max-width: 1440px; margin: 0 auto; padding: 0 64px; }
+    .sec-label { font-family: var(--sans); font-size: 10.5px; font-weight: 700; letter-spacing: 0.34em; text-transform: uppercase; color: var(--ink-55); display: flex; align-items: center; gap: 14px; margin-bottom: 20px; }
     .sec-label::after { content: ''; flex: 1; height: 1px; background: var(--ink-15); }
     /* Scroll reveals consolidated to globals.css */
 
     /* ── Benefits section ── */
     .benefits-sec {
-      padding: 110px 0; background: var(--cream-deep); position: relative; overflow: hidden;
+      padding: 80px 0; background: var(--cream-deep); position: relative; overflow: hidden;
     }
     .benefits-sec::before { content: ''; position: absolute; top: 40px; right: 40px; width: 80px; height: 80px; border-top: 1px solid var(--ink-15); border-right: 1px solid var(--ink-15); pointer-events: none; }
     .benefits-sec::after  { content: ''; position: absolute; bottom: 40px; left: 40px; width: 80px; height: 80px; border-bottom: 1px solid var(--ink-15); border-left: 1px solid var(--ink-15); pointer-events: none; }
@@ -89,7 +89,7 @@ export const membershipCss = `
     .benefit-body { font-family: var(--serif); font-size: 19px; line-height: 1.85; color: var(--ink-75); }
 
     /* ── FAQ section ── */
-    .faq-sec { padding: 110px 0; background: var(--cream); }
+    .faq-sec { padding: 80px 0; background: var(--cream); }
     .faq-sec .wrap { position: relative; z-index: 1; }
     .faq-header { margin-bottom: 52px; }
     .faq-title { font-family: var(--serif); font-size: clamp(36px, 3.5vw, 56px); font-weight: 300; line-height: 1.05; color: var(--ink); }
@@ -145,7 +145,7 @@ export const membershipCss = `
     .faq-answer a:hover { color: var(--gold-lt); border-color: var(--gold-lt); }
 
     /* ── Register section ── */
-    .register { padding: 120px 0; background: var(--cream-mid); position: relative; overflow: hidden; }
+    .register { padding: 90px 0; background: var(--cream-mid); position: relative; overflow: hidden; }
     .register::before {
       content: ''; position: absolute; inset: 0; z-index: 0;
       background: radial-gradient(ellipse 65% 60% at 50% 50%, rgba(184,147,42,0.06) 0%, transparent 70%),

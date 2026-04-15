@@ -7,18 +7,18 @@ import Link from "next/link";
 const REG_KEY = "meridian_registered_v1";
 
 export default function RegistrationForm() {
+  const [mounted, setMounted] = useState(false);
   const [isPending, startTransition] = useTransition();
   const [result, setResult] = useState<{ success?: boolean; error?: string } | null>(null);
   const [isAlreadyRegistered, setIsAlreadyRegistered] = useState(false);
 
   // Check registration status on mount (LocalStorage + Cookies)
-  // Client-side execution required to avoid Next.js hydration errors from localStorage usage
   useEffect(() => {
+    setMounted(true);
     const localReg = localStorage.getItem(REG_KEY);
     const cookieReg = document.cookie.split("; ").find((row) => row.startsWith(`${REG_KEY}=`));
     
     if (localReg === "true" || cookieReg) {
-      // eslint-disable-next-line
       setIsAlreadyRegistered(true);
     }
   }, []);
@@ -64,6 +64,16 @@ export default function RegistrationForm() {
         setIsAlreadyRegistered(true);
       }
     });
+  }
+
+  if (!mounted) {
+    return (
+      <div style={{ textAlign: 'center', minHeight: '400px' }}>
+        <h1 className="register-title" style={{ fontSize: 'clamp(40px, 6vw, 72px)', opacity: 0.1 }}>
+          Loading...
+        </h1>
+      </div>
+    );
   }
 
   if (isAlreadyRegistered || result?.success) {

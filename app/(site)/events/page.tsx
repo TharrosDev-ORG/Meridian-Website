@@ -80,8 +80,8 @@ export default function EventsPage() {
             </article>
             <article className="sig-card rv" data-d="3">
               <div className="sig-num">03</div>
-              <h3 className="sig-h">Real Connections</h3>
-              <p className="sig-p">Every forum concludes with an open networking session, giving you the rare opportunity to build genuine relationships with industry leaders.</p>
+              <h3 className="sig-h">Beyond the Classroom</h3>
+              <p className="sig-p">Step away from academic theory to explore the unwritten rules of your industry. This is where real-world strategy and practical execution take center stage.</p>
             </article>
           </div>
         </div>

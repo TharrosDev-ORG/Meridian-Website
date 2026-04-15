@@ -32,7 +32,7 @@ export const eventsCss = `
     .hero-eyebrow-rule { width: 36px; height: 1px; background: var(--gold); opacity: 0.5; }
     .hero-eyebrow-text { font-family: var(--sans); font-size: 11px; font-weight: 700; letter-spacing: 0.32em; text-transform: uppercase; color: var(--gold); }
     .hero-pre { font-family: var(--serif); font-size: clamp(18px, 2.5vw, 30px); font-style: italic; font-weight: 300; color: var(--ink-55); letter-spacing: 0.06em; margin-bottom: 10px; }
-    .hero-title { font-family: var(--serif); font-size: clamp(64px, 12vw, 160px); font-weight: 300; line-height: 0.86; color: var(--ink); letter-spacing: 0.06em; text-shadow: 0 2px 40px rgba(24,21,15,0.04); }
+    .hero-title { font-family: var(--serif); font-size: clamp(48px, 9vw, 120px); font-weight: 300; line-height: 0.86; color: var(--ink); letter-spacing: 0.06em; text-shadow: 0 2px 40px rgba(24,21,15,0.04); }
     .hero-hr { width: 44px; height: 1px; background: var(--ink-15); margin: 36px auto; }
     .hero-sub { font-family: var(--serif); font-size: clamp(19px, 2vw, 26px); font-style: italic; font-weight: 300; color: var(--ink-75); max-width: 520px; line-height: 1.85; margin-bottom: 44px; }
     .hero-sub a { color: var(--gold); text-decoration: none; transition: color 0.2s; }

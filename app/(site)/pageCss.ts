@@ -400,8 +400,8 @@ export const indexCss = `
     .portal-h3 { font-family: var(--serif); font-size: clamp(28px, 2.5vw, 42px); font-weight: 300; color: var(--ink); line-height: 1.1; margin-bottom: 20px; }
     .portal-h3 em { font-style: italic; }
     .portal-p { font-family: var(--serif); font-size: 19px; line-height: 1.75; color: var(--ink-75); margin-bottom: 36px; max-width: 440px; }
-    .portal-cta { font-family: var(--sans); font-size: 11.5px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink); display: flex; align-items: center; gap: 10px; transition: gap 0.25s; }
-    .portal-card:hover .portal-cta { gap: 16px; color: var(--gold-dt); }
+    .portal-cta { font-family: var(--sans); font-size: 11.5px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink); display: flex; align-items: center; gap: 10px; transition: gap 0.25s, color 0.25s; }
+    .portal-card:hover .portal-cta { gap: 16px; color: var(--gold); }
 
     /* ══════════════════════════════
        GET INVOLVED

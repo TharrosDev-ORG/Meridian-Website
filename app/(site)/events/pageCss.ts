@@ -66,6 +66,7 @@ export const eventsCss = `
     .events-intro-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: flex-start; }
     .events-copy-title { font-family: var(--serif); font-size: clamp(32px, 4vw, 56px); font-weight: 300; line-height: 1.1; color: var(--ink); margin-bottom: 24px; }
     .events-copy-title em { font-style: italic; }
+    .events-intro-right { background: #fff; padding: 48px; border: 1px solid var(--ink-08); box-shadow: 0 4px 24px rgba(24,21,15,0.04); }
     .events-copy-body { font-family: var(--serif); font-size: 20px; line-height: 1.85; color: var(--ink-85); }
 
     /* ── Signature Series ── */
@@ -127,6 +128,7 @@ export const eventsCss = `
       
       /* Optimize text heavy blocks on mobile */
       .events-intro-grid { grid-template-columns: 1fr; gap: 40px; }
+      .events-intro-right { padding: 32px 24px; }
       .sig-grid { grid-template-columns: 1fr; }
       .events-copy-title, .notify-title, .expect-title { font-size: 32px; line-height: 1.1; }
       .events-copy-body, .expect-val, .notify-sub { font-size: 16px; line-height: 1.7; }

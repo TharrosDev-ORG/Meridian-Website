@@ -65,6 +65,7 @@ export const socialCss = `
     .social-intro-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: flex-start; }
     .social-h2 { font-family: var(--serif); font-size: clamp(32px, 4vw, 56px); font-weight: 300; line-height: 1.1; color: var(--ink); margin-bottom: 24px; }
     .social-h2 em { font-style: italic; }
+    .social-intro-right { background: #fff; padding: 48px; border: 1px solid var(--ink-08); box-shadow: 0 4px 24px rgba(24,21,15,0.04); }
     .social-p { font-family: var(--serif); font-size: 20px; line-height: 1.85; color: var(--ink-85); }
 
     /* ── The Vibe Grid ── */
@@ -143,6 +144,7 @@ export const socialCss = `
       
       /* Optimize text heavy blocks on mobile */
       .social-intro-grid { grid-template-columns: 1fr; gap: 40px; }
+      .social-intro-right { padding: 32px 24px; }
       .vibe-grid { grid-template-columns: 1fr; }
       .social-h2, .notify-title { font-size: 32px; line-height: 1.1; }
       .social-p, .notify-sub { font-size: 16px; line-height: 1.7; }

@@ -1,5 +1,4 @@
 import { Metadata } from 'next';
-import Link from 'next/link';
 import PageStyles from '@/components/PageStyles';
 import { eventsCss } from './pageCss';
 import { REGISTER_URL } from '@/components/NavBar';

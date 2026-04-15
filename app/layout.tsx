@@ -92,9 +92,6 @@ export const metadata: Metadata = {
     apple: '/assets/favicons/apple-touch-icon.png'
   },
 };
-
-import TransitionWrapper from "@/components/TransitionWrapper";
-
 export default function RootLayout({
   children,
 }: Readonly<{

@@ -5,11 +5,12 @@ import { getMemberCount } from "@/app/actions/getMemberCount";
 import { createClient } from "@/utils/supabase/client";
 
 export default function MemberCount() {
-  const supabase = createClient();
   const [count, setCount] = useState<number>(0);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    const supabase = createClient();
+
     // 1. Initial Load
     async function loadCount() {
       const initialCount = await getMemberCount();

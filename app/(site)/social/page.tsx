@@ -1,5 +1,4 @@
 import { Metadata } from 'next';
-import Link from 'next/link';
 import PageStyles from '@/components/PageStyles';
 import { socialCss } from './pageCss';
 import Magnetic from '@/components/Magnetic';

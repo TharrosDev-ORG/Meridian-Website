@@ -1,24 +1,24 @@
 "use client";
 
 import { useState, useTransition, useEffect } from "react";
-import { useRouter } from "next/navigation";
 import { registerMember, RegistrationData } from "@/app/actions/register";
 import Link from "next/link";
 
 const REG_KEY = "meridian_registered_v1";
 
 export default function RegistrationForm() {
-  const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const [result, setResult] = useState<{ success?: boolean; error?: string } | null>(null);
   const [isAlreadyRegistered, setIsAlreadyRegistered] = useState(false);
 
   // Check registration status on mount (LocalStorage + Cookies)
+  // Client-side execution required to avoid Next.js hydration errors from localStorage usage
   useEffect(() => {
     const localReg = localStorage.getItem(REG_KEY);
     const cookieReg = document.cookie.split("; ").find((row) => row.startsWith(`${REG_KEY}=`));
     
     if (localReg === "true" || cookieReg) {
+      // eslint-disable-next-line
       setIsAlreadyRegistered(true);
     }
   }, []);

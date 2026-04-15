@@ -34,7 +34,7 @@ export default function EventsPage() {
               <Magnetic strength={0.25}>
                 <a href={REGISTER_URL} className="btn-primary"><span>Register as a Member</span></a>
               </Magnetic>
-              <a href="#about" className="btn-ghost-link">Explore the Program <span>&#8594;</span></a>
+              <a href="#about" className="btn-ghost-link">Learn More <span>&#8595;</span></a>
             </div>
           </div>
         </section>

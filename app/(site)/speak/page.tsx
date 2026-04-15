@@ -30,7 +30,7 @@ export default function Page() {
       <p className="hero-sub rv" data-d="2">Motivated students. Genuine curiosity. A room built for real conversation.</p>
       <div className="hero-actions rv" data-d="3">
         <a href={SPEAK_URL} className="btn-primary" target="_blank" rel="noopener noreferrer"><span>Apply to Speak</span></a>
-        <a href="#why" className="btn-ghost-link">Learn More <span>&#8594;</span></a>
+        <a href="#why" className="btn-ghost-link">Learn More <span>&#8595;</span></a>
       </div>
     </div>
   </section>

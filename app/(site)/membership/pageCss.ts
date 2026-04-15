@@ -34,7 +34,9 @@ export const membershipCss = `
     .hero-pre { font-family: var(--serif); font-size: clamp(18px, 2.5vw, 30px); font-style: italic; font-weight: 300; color: var(--ink-55); letter-spacing: 0.06em; margin-bottom: 10px; }
     .hero-title { font-family: var(--serif); font-size: clamp(64px, 12vw, 160px); font-weight: 300; line-height: 0.86; color: var(--ink); letter-spacing: 0.06em; text-shadow: 0 2px 40px rgba(24,21,15,0.04); }
     .hero-sub { font-family: var(--serif); font-size: clamp(17px, 1.6vw, 22px); font-style: italic; font-weight: 300; color: var(--ink-75); max-width: 480px; line-height: 1.8; margin: 24px auto 0; }
-    .hero-actions { margin-top: 44px; }
+    .hero-actions { display: flex; align-items: center; gap: 36px; margin-top: 44px; }
+    .btn-ghost-link { font-family: var(--serif); font-size: 16px; font-style: italic; font-weight: 300; color: var(--ink-55); text-decoration: none; display: flex; align-items: center; gap: 8px; transition: color 0.2s, gap 0.25s; }
+    .btn-ghost-link:hover { color: var(--ink); gap: 14px; }
 
     /* ── Register button ── */
     .register-btn {
@@ -497,6 +499,8 @@ export const membershipCss = `
       .benefits-grid { grid-template-columns: 1fr; }
       .register-actions { flex-direction: column; gap: 16px; }
       .register-btn { width: 100%; display: block; text-align: center; }
+      .hero-actions { flex-direction: column; gap: 16px; width: 100%; }
+      .btn-ghost-link { display: inline-flex; justify-content: center; width: 100%; margin-top: 8px; font-size: 18px; }
       .wrap { padding: 0 20px; }
       .benefits-sec, .faq-sec { padding: 60px 0; }
       .register { padding: 80px 0; }

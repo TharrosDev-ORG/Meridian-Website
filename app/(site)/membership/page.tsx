@@ -77,6 +77,7 @@ export default function Page() {
         <a href={REGISTER_URL} className="register-btn">
           <span>Register Now</span>
         </a>
+        <a href="#benefits" className="btn-ghost-link">Learn More <span>&#8595;</span></a>
       </div>
     </div>
   </section>

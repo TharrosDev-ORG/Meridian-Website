@@ -95,8 +95,9 @@ export const indexCss = `
       opacity: 0; animation: riseIn 0.7s 0.55s cubic-bezier(0.16,1,0.3,1) forwards;
     }
     .hero-title {
-      font-family: var(--serif); font-size: clamp(76px, 13.5vw, 196px);
-      font-weight: 300; line-height: 0.86; color: var(--ink); letter-spacing: 0.06em;
+      font-family: var(--sans); font-size: clamp(76px, 13.5vw, 196px);
+      font-weight: 700; line-height: 0.86; color: var(--ink); letter-spacing: 0.02em;
+      text-transform: uppercase;
       opacity: 0; animation: riseIn 0.9s 0.7s cubic-bezier(0.16,1,0.3,1) forwards;
       text-shadow: 0 2px 40px rgba(24,21,15,0.04);
       transition: transform 0.4s cubic-bezier(0.16,1,0.3,1);

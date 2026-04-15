@@ -22,7 +22,6 @@ export default function Home() {
       <span className="hero-eyebrow-text" id="hero-speakable">An Independent Student Organization  ·  Ottawa  ·  Est. 2025</span>
       <span className="hero-eyebrow-rule"></span>
     </div>
-    <p className="hero-pre rv">A Place For</p>
     <h1 className="hero-title rv rv-stagger" id="heroTitle">
       <span className="rv-stagger-item">The Meridian</span>
       <span className="rv-stagger-item"><em>Society.</em></span>

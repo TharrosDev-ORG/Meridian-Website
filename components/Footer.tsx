@@ -8,24 +8,9 @@ import { createClient } from "@/utils/supabase/client";
 export default function Footer() {
   const [count, setCount] = useState<number>(0);
   const [isLoading, setIsLoading] = useState(true);
-  const [time, setTime] = useState("");
 
   useEffect(() => {
-    // 1. Clock Logic (Ottawa Time)
-    const updateTime = () => {
-      const ottawaTime = new Intl.DateTimeFormat("en-US", {
-        timeZone: "America/Toronto",
-        hour: "2-digit",
-        minute: "2-digit",
-        second: "2-digit",
-        hour12: false,
-      }).format(new Date());
-      setTime(ottawaTime);
-    };
-    updateTime();
-    const clockInterval = setInterval(updateTime, 1000);
-
-    // 2. Member Count Logic
+    // Member Count Logic
     const supabase = createClient();
     async function loadCount() {
       const initialCount = await getMemberCount();
@@ -53,7 +38,6 @@ export default function Footer() {
       .subscribe();
 
     return () => {
-      clearInterval(clockInterval);
       channel.unsubscribe().catch(console.error);
     };
   }, []);
@@ -64,14 +48,11 @@ export default function Footer() {
       <div className="wrap">
         <div className="footer-grid">
           
-          {/* Column 1: Brand & Time */}
+          {/* Column 1: Brand */}
           <div className="footer-brand">
             <div className="footer-wordmark">The Meridian Society</div>
             <div className="footer-tagline">Independent Student Organization</div>
-            <div className="footer-time">
-              <span className="time-dot"></span>
-              Ottawa, CA — {time || "--:--:--"}
-            </div>
+            <div className="footer-est">Ottawa, ON · Est. 2025</div>
           </div>
 
           {/* Column 2: Index */}

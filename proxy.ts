@@ -1,11 +1,11 @@
 import { type NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/utils/supabase/middleware'
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   try {
     return await createClient(request)
   } catch (error) {
-    console.error('Middleware error:', error)
+    console.error('Proxy error:', error)
     return NextResponse.next()
   }
 }

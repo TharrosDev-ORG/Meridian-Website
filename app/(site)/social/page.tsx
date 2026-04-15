@@ -31,7 +31,7 @@ export default function SocialPage() {
             <Magnetic strength={0.25}>
               <a href="https://www.instagram.com/Meridian.Society" target="_blank" rel="noopener noreferrer" className="btn-primary"><span>Join the Community</span></a>
             </Magnetic>
-            <a href="#vibe" className="btn-ghost-link">The Meridian Vibe <span>&#8594;</span></a>
+            <a href="#vibe" className="btn-ghost-link">Learn More <span>&#8594;</span></a>
           </div>
         </div>
       </section>

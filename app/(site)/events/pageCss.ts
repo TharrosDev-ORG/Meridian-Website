@@ -10,7 +10,7 @@ export const eventsCss = `
     .page-hero {
       position: relative; min-height: 60vh;
       display: flex; flex-direction: column; align-items: center; justify-content: center;
-      text-align: center; padding: 70px 64px 60px; overflow: hidden;
+      text-align: center; padding: 110px 64px 60px; overflow: hidden;
       background: var(--cream);
     }
     .page-hero::before {

@@ -33,7 +33,7 @@ export const indexCss = `
       position: relative; min-height: 94vh;
       display: flex; flex-direction: column;
       align-items: center; text-align: center;
-      padding: 60px 64px 0; overflow: hidden;
+      padding: 100px 64px 0; overflow: hidden;
       background: var(--cream);
     }
     .hero::before {

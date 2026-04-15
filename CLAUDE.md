@@ -1,6 +1,6 @@
 # Meridian Website
 
-Next.js 14 (App Router) website for The Meridian Society — a student-run speaker forum for Ottawa students.
+Next.js 16 (App Router) website for The Meridian Society — a student-run speaker forum for Ottawa students.
 
 Live site: `meridiansociety.ca`
 GitHub remote: `https://github.com/meridiansociety/Meridian-Website.git`
@@ -9,7 +9,7 @@ GitHub remote: `https://github.com/meridiansociety/Meridian-Website.git`
 
 ## Stack
 
-- **Next.js 14** with TypeScript, App Router
+- **Next.js 16** with TypeScript, App Router
 - **React** — Server Components by default; Client Components (`"use client"`) for interactivity
 - **CSS** — shared `globals.css` (legacy base + nav) + per-page styles injected via `PageStyles` component
 - Deployed on **Vercel** (Framework Preset: Next.js); auto-deploys on push to `main`
@@ -28,6 +28,8 @@ app/
   IndexInteractive.tsx    # Client component — hero mouse-tilt, ghost parallax
   not-found.tsx           # Custom 404 page
   not-foundCss.ts         # 404 page styles
+  robots.ts               # Dynamic robots.txt generation
+  sitemap.ts              # Dynamic sitemap.xml generation
   events/
     page.tsx              # Events listing — renders from data/events.ts
     pageCss.ts            # Events page styles
@@ -43,6 +45,10 @@ app/
   team/
     page.tsx              # Team profiles — Magnus Abdelnour, Colin Sherwood
     pageCss.ts            # Team page styles
+  register/
+    page.tsx              # Internal registration form page
+  actions/
+    register.ts           # Server action for Supabase member registration
 
 components/
   NavBar.tsx              # Navigation bar (client) — exports REGISTER_URL constant
@@ -52,6 +58,9 @@ components/
   PageStyles.tsx          # Per-page CSS injection via <style> tag (client, server-rendered output)
   MemberCount.tsx         # Live member counter (client) — fetches from Google Apps Script
   FaqAccordion.tsx        # FAQ accordion (client) — click toggle + hover-to-open on desktop
+  RegistrationForm.tsx    # Zod-validated Supabase registration form (client)
+  Magnetic.tsx            # Framer Motion magnetic hover effect (client)
+  TransitionWrapper.tsx   # Page transition wrapper for smooth reveals (client)
 
 data/
   events.ts               # Speaker event data with TypeScript interfaces
@@ -66,8 +75,7 @@ public/
         colin.webp         # Team photo (~2.6 KB)
     favicons/              # Full favicon set (SVG, PNG 48/32/16, ICO, Apple touch)
   site.webmanifest         # PWA manifest
-  robots.txt               # SEO + AI crawler directives
-  sitemap.xml              # XML sitemap
+  (Note: robots.txt and sitemap.xml are handled by app/robots.ts and app/sitemap.ts)
 ```
 
 ---
@@ -119,6 +127,9 @@ The site uses a **cream/ink palette** defined in each page's `pageCss.ts` file. 
 - `components/PageStyles.tsx` — renders `<style>` tag with per-page CSS, triggers scroll reveal
 - `components/MemberCount.tsx` — fetches live count from Google Apps Script endpoint
 - `components/FaqAccordion.tsx` — FAQ with click toggle + desktop hover-to-open
+- `components/RegistrationForm.tsx` — registration form with Supabase backend
+- `components/Magnetic.tsx` — magnetic interaction for buttons
+- `components/TransitionWrapper.tsx` — reveal animations
 - `app/IndexInteractive.tsx` — homepage hero tilt + ghost parallax
 
 ### PageStyles Pattern
@@ -146,9 +157,10 @@ export default function Page() {
 ### Registration Form
 Defined once in `components/NavBar.tsx`:
 ```ts
-export const REGISTER_URL = "https://docs.google.com/forms/d/1qThcXHxzfuW4uNVkZbHGhHwlDsy8x-YGtpHpOLnqTl4/viewform";
+export const REGISTER_URL = "/register";
 ```
 All pages import this constant. Update it in one place.
+Internal registration uses **Supabase** via `app/actions/register.ts`.
 
 ### Speaker Application Form
 Hardcoded in `app/speak/page.tsx` (three instances: hero CTA, bottom CTA, noscript fallback):

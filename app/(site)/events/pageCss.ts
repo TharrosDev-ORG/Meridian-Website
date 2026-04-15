@@ -66,7 +66,8 @@ export const eventsCss = `
     .events-intro-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: flex-start; }
     .events-copy-title { font-family: var(--serif); font-size: clamp(32px, 4vw, 56px); font-weight: 300; line-height: 1.1; color: var(--ink); margin-bottom: 24px; }
     .events-copy-title em { font-style: italic; }
-    .events-intro-right { background: #fff; padding: 48px; border: 1px solid var(--ink-08); box-shadow: 0 4px 24px rgba(24,21,15,0.04); }
+    .events-intro-right { background: #fff; padding: 48px; border: 1px solid var(--gold-lt); box-shadow: 0 4px 24px rgba(24,21,15,0.04); transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), box-shadow 0.4s ease; }
+    .events-intro-right:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(184,147,42,0.12); }
     .events-copy-body { font-family: var(--serif); font-size: 20px; line-height: 1.85; color: var(--ink-85); }
 
     /* ── Signature Series ── */

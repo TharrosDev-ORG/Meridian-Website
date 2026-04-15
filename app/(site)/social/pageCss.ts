@@ -65,7 +65,8 @@ export const socialCss = `
     .social-intro-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: flex-start; }
     .social-h2 { font-family: var(--serif); font-size: clamp(32px, 4vw, 56px); font-weight: 300; line-height: 1.1; color: var(--ink); margin-bottom: 24px; }
     .social-h2 em { font-style: italic; }
-    .social-intro-right { background: #fff; padding: 48px; border: 1px solid var(--ink-08); box-shadow: 0 4px 24px rgba(24,21,15,0.04); }
+    .social-intro-right { background: #fff; padding: 48px; border: 1px solid var(--gold-lt); box-shadow: 0 4px 24px rgba(24,21,15,0.04); transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), box-shadow 0.4s ease; }
+    .social-intro-right:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(184,147,42,0.12); }
     .social-p { font-family: var(--serif); font-size: 20px; line-height: 1.85; color: var(--ink-85); }
 
     /* ── The Vibe Grid ── */

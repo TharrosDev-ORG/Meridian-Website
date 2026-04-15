@@ -24,7 +24,7 @@ export default function Home() {
     </div>
     <h1 className="hero-title rv rv-stagger" id="heroTitle">
       <span className="rv-stagger-item">The Meridian</span>
-      <span className="rv-stagger-item"><em>Society.</em></span>
+      <span className="rv-stagger-item"><em>Society</em></span>
     </h1>
     <div className="hero-hr" aria-hidden="true"></div>
     <p className="hero-sub rv" data-d="1">Bringing curious students together with the professionals, alumni, and scholars who can expand their world.</p>

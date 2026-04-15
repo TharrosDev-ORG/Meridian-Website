@@ -97,7 +97,7 @@ export default function EventsPage() {
           <div className="expect-grid rv" data-d="2" role="table">
             {[
               ['Length', '30-45 minute presentation'],
-              ['Format', 'Speaker talk followed by open Q&A'],
+              ['Format', 'Presentation followed by open Q&A'],
               ['Audience Size', '20-30 curated students'],
               ['Who Attends', 'Registered Meridian members'],
               ['Location', 'Ottawa, Canada'],

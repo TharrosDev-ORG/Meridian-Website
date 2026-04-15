@@ -86,7 +86,7 @@ export default function Page() {
         </div>
         <div className="speak-meta-row" role="row">
           <div className="speak-meta-lbl" role="rowheader">Format</div>
-          <div className="speak-meta-val" role="cell">Speaker talk followed by open Q&amp;A</div>
+          <div className="speak-meta-val" role="cell">Presentation followed by open Q&amp;A</div>
         </div>
         <div className="speak-meta-row" role="row">
           <div className="speak-meta-lbl" role="rowheader">Audience Size</div>

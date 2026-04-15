@@ -95,7 +95,7 @@ export default function SocialPage() {
       {/* NOTIFY / INSTAGRAM */}
       <section className="notify-sec">
         <div className="wrap notify-inner">
-          <h2 className="notify-title rv">Social Announcements<br />live on <em>Instagram.</em></h2>
+          <h2 className="notify-title rv">Social Announcements live on <em>Instagram.</em></h2>
           <p className="notify-sub rv" data-d="1">Our community gathers spontaneously. We post all social invitations, locations, and RSVPs via Instagram Stories first.</p>
           <div className="notify-actions rv" data-d="2">
             <Magnetic strength={0.3}>

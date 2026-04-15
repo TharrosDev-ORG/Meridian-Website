@@ -47,8 +47,7 @@ export default function Page() {
     <div className="wrap">
       <div className="team-header">
         <h2 className="team-title rv rv-stagger" id="team-heading">
-          <span className="rv-stagger-item">Leadership &amp;</span>
-          <span className="rv-stagger-item">Operations.</span>
+          <span className="rv-stagger-item">Leadership &amp; Operations.</span>
         </h2>
         <Link href="/events" className="text-link rv" data-d="1">View Events  &#8594;</Link>
       </div>

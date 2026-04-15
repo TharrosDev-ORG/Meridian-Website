@@ -45,7 +45,7 @@ export default function Page() {
   <section className="speak-why-sec" id="why" aria-labelledby="why-heading">
     <div className="wrap">
       <div className="speak-why-header">
-        <h2 className="speak-why-title rv" id="why-heading">Why Speak<br/><em>With Us.</em></h2>
+        <h2 className="speak-why-title rv" id="why-heading">Why Speak <em>With Us.</em></h2>
         <a href="#apply" className="text-link rv" data-d="1">Apply Now  &#8594;</a>
       </div>
       <div className="speak-why-grid">
@@ -76,7 +76,7 @@ export default function Page() {
   <section className="speak-format-sec" id="format" aria-labelledby="format-heading">
     <div className="wrap">
       <div className="speak-format-header">
-        <h2 className="speak-format-title rv" id="format-heading">What to<br/><em>Expect.</em></h2>
+        <h2 className="speak-format-title rv" id="format-heading">What to <em>Expect.</em></h2>
         <Link href="/events" className="text-link rv" data-d="1">View Events  &#8594;</Link>
       </div>
       <div className="speak-meta rv" data-d="2" role="table" aria-label="Speaker format details">

@@ -93,8 +93,7 @@ export default function Page() {
     <div className="wrap">
       <div className="benefits-header">
         <h2 className="benefits-title rv rv-stagger" id="benefits-heading">
-          <span className="rv-stagger-item">What You</span>
-          <span className="rv-stagger-item"><em>Get.</em></span>
+          <span className="rv-stagger-item">What You <em>Get.</em></span>
         </h2>
         <a href={REGISTER_URL} className="benefits-register-link rv" data-d="1" id="benefitsRegisterCta">Register  &#8594;</a>
       </div>
@@ -151,7 +150,7 @@ export default function Page() {
     <div className="wrap">
       <div className="register-rule-top" aria-hidden="true"></div>
       <p className="register-eyebrow rv">Independent  ·  Student-Run  ·  Ottawa  ·  Est. 2025</p>
-      <h2 className="register-title rv" data-d="1" id="register-heading">Become a<br/><em>Member.</em></h2>
+      <h2 className="register-title rv" data-d="1" id="register-heading">Become a <em>Member.</em></h2>
       <MemberCount />
       <p className="register-body rv" data-d="2" style={{ marginBottom: '40px' }}>Membership puts you in the room. Register to stay informed, attend events, and become part of a community built around curiosity and conversation.</p>
       

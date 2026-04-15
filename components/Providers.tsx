@@ -25,24 +25,28 @@ export default function Providers({ children }: { children: React.ReactNode }) {
     let ticking = false;
     const SCROLL_ARC_THRESHOLD = 200;
 
+    const progressBar = document.getElementById("progressBar");
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
     const onScroll = () => {
       if (!ticking) {
         requestAnimationFrame(() => {
-          const h = document.documentElement.scrollHeight - window.innerHeight;
-          const pct = h > 0 ? window.scrollY / h : 0;
+          const sY = window.scrollY;
+          const docH = document.documentElement.scrollHeight;
+          const winH = window.innerHeight;
+          const h = docH - winH;
+          const pct = h > 0 ? sY / h : 0;
           
           setScrollProgress(pct);
-          setShowArc(window.scrollY > SCROLL_ARC_THRESHOLD);
+          setShowArc(sY > SCROLL_ARC_THRESHOLD);
 
-          // Update progress bar
-          const bar = document.getElementById("progressBar");
-          if (bar) bar.style.width = `${pct * 100}%`;
+          if (progressBar) progressBar.style.width = `${pct * 100}%`;
 
-          // Legacy index.html specific animations
-          const footerGhost = document.querySelector(".footer-ghost") as HTMLElement;
-          const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-          if (footerGhost && !reducedMotion) {
-            footerGhost.style.transform = `translateX(-50%) translateY(${window.scrollY * 0.03}px)`;
+          if (!reducedMotion) {
+            const footerGhost = document.querySelector(".footer-ghost") as HTMLElement;
+            if (footerGhost) {
+              footerGhost.style.transform = `translateX(-50%) translateY(${sY * 0.03}px)`;
+            }
           }
 
           ticking = false;

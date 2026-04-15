@@ -28,11 +28,11 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "The Meridian Society | Ottawa Student Speaker Forum",
+  title: "The Meridian Society | Ottawa's Student Speaker Forum",
   description:
-    "Join The Meridian Society, Ottawa's student speaker forum. Attend free events connecting curious students with professionals, alumni, and scholars for open conversation.",
+    "Ottawa's flagship student speaker forum. The Meridian Society connects curious students with professionals, alumni, and scholars through curated speaker events and open dialogue.",
   keywords:
-    "The Meridian Society, Ottawa student speaker forum, free student events Ottawa, Carleton University student events, uOttawa student events, Algonquin College student events, student-run speaker forum Ottawa, student leadership Ottawa, Ottawa professional networking students, alumni speaker series Ottawa, Ottawa intellectual student community, Carleton uOttawa Algonquin events, student speaker series Ottawa, Ottawa campus events, Ottawa student organizations, Ottawa student clubs, student society Ottawa, Ottawa guest speaker events, Ottawa panel discussions students, Ottawa lecture series, Ottawa career talks students, Ottawa mentorship students, Ottawa student life, free events Ottawa 2026, Ottawa student community, Ottawa speaker events 2026, university events Ottawa, Ottawa student society, Ottawa student conference, Ottawa professional development students, Ottawa ideas forum, student forum Canada, Ottawa intellectual events, Ottawa student discourse, Ottawa academic events, student presentations Ottawa, free Ottawa student events, Ottawa young adult events, Ottawa student engagement, speaker series Ottawa 2025 2026, Ottawa student club registration, student forum Ottawa, Ottawa open conversation events, Carleton student clubs, uOttawa student clubs, Ottawa student networking, Ottawa alumni events students, Ottawa career development students, free speaker events Ottawa",
+    "Meridian Society, Ottawa Student Speaker Forum, Carleton University Student Club, uOttawa, Algonquin College, Academic Dialogue, Student Networking Ottawa, Professional Development Ottawa",
   verification: {
     google: "google2af069010dc1ab79",
   },
@@ -56,9 +56,8 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "The Meridian Society | Ottawa Student Speaker Forum",
-    description:
-      "A student-run speaker forum in Ottawa. Free events, open conversations, and a community of curious minds. For Students · By Students.",
+    title: "The Meridian Society | Ottawa's Student Speaker Forum",
+    description: "The Meridian Society is Ottawa's premier student speaker forum, connecting curious minds with professionals, alumni, and scholars.",
     url: "https://meridiansociety.ca/",
     siteName: "The Meridian Society",
     images: [

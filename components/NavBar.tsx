@@ -55,7 +55,11 @@ export default function NavBar() {
             const isActive = !isHome && pathname === link.href;
             return (
               <li key={link.name}>
-                <Link href={link.href} className={isActive ? "nav-active" : ""}>
+                <Link 
+                  href={link.href} 
+                  className={isActive ? "nav-active" : ""}
+                  aria-current={isActive ? "page" : undefined}
+                >
                   {link.name}
                 </Link>
               </li>

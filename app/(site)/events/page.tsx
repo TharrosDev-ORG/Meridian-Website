@@ -51,7 +51,7 @@ export default function EventsPage() {
             <div className="events-intro-grid">
               <div className="events-intro-left">
                 <div className="sec-label rv">The Program</div>
-                <h2 className="events-copy-title rv" data-d="1">A Room you&apos;ll want<br /><em>to be a part of.</em></h2>
+                <h2 className="events-copy-title rv" data-d="1">A Room you&apos;ll want to be a part of.</h2>
               </div>
               <div className="events-intro-right">
                 <p className="events-copy-body rv" data-d="2">

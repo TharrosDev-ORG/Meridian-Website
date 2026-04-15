@@ -48,7 +48,7 @@ export default function SocialPage() {
           <div className="social-intro-grid">
             <div className="social-intro-left">
               <div className="sec-label rv">Culture</div>
-              <h2 className="social-h2 rv" data-d="1">Our Social<br /><em>Culture.</em></h2>
+              <h2 className="social-h2 rv" data-d="1">Our Social Culture.</h2>
             </div>
             <div className="social-intro-right">
               <p className="social-p rv" data-d="2">

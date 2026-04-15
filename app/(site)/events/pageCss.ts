@@ -126,6 +126,8 @@ export const eventsCss = `
       .hero-sub { font-size: 16px; line-height: 1.65; margin-bottom: 32px; }
       
       /* Optimize text heavy blocks on mobile */
+      .events-intro-grid { grid-template-columns: 1fr; gap: 40px; }
+      .sig-grid { grid-template-columns: 1fr; }
       .events-copy-title, .notify-title, .expect-title { font-size: 32px; line-height: 1.1; }
       .events-copy-body, .expect-val, .notify-sub { font-size: 16px; line-height: 1.7; }
       .sig-h { font-size: 20px; }

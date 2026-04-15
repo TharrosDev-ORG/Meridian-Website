@@ -142,6 +142,8 @@ export const socialCss = `
       .hero-sub { font-size: 16px; line-height: 1.65; margin-bottom: 32px; }
       
       /* Optimize text heavy blocks on mobile */
+      .social-intro-grid { grid-template-columns: 1fr; gap: 40px; }
+      .vibe-grid { grid-template-columns: 1fr; }
       .social-h2, .notify-title { font-size: 32px; line-height: 1.1; }
       .social-p, .notify-sub { font-size: 16px; line-height: 1.7; }
       .vibe-h3 { font-size: 20px; }

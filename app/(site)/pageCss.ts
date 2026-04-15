@@ -558,6 +558,8 @@ export const indexCss = `
       .hero-actions { flex-direction: column; gap: 16px; width: 100%; }
       .hero-actions > span[aria-hidden="true"] { display: none; }
       .hero-stats { grid-template-columns: 1fr 1fr; }
+      .portal-grid { grid-template-columns: 1fr; }
+      .portal-card { padding: 32px 24px; }
       .stat { padding: 18px 20px; }
       .stat-val { font-size: 22px; }
       .stat:nth-child(3),

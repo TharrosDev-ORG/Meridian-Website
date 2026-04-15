@@ -508,12 +508,19 @@ export const membershipCss = `
       .page-hero-content { width: 100%; }
       .hero-sub { width: 100%; }
       .footer-top { flex-direction: column; gap: 20px; }
-      .hero-title { font-size: clamp(44px, 11.7vw, 64px); }
+      .hero-title { font-size: clamp(38px, 10.5vw, 52px); }
       .hero-eyebrow { margin-bottom: 24px; gap: 8px; flex-wrap: wrap; justify-content: center; }
       .hero-eyebrow-rule { display: none; }
       .hero-eyebrow-text { font-size: 11px; letter-spacing: 0.12em; }
       .benefits-header { flex-direction: column; align-items: flex-start; gap: 16px; }
-      .faq-item summary { padding: 24px 0; }
+      .hero-sub { font-size: 16px; line-height: 1.65; margin-bottom: 32px; }
+      
+      /* Optimize text heavy blocks on mobile */
+      .benefits-title, .faq-title, .register-title { font-size: 32px; line-height: 1.1; }
+      .benefit-heading { font-size: 20px; }
+      .benefit-body, .faq-answer, .register-body { font-size: 16px; line-height: 1.7; }
+      .benefit-card { padding: 32px 24px; }
+      .faq-item summary { font-size: 18px; padding: 20px 0; }
       .member-count-num { font-size: 40px; }
       .sticky-join { display: block; bottom: calc(1.4rem + env(safe-area-inset-bottom, 0px)); }
       .rv { transform: none; transition: opacity 0.4s ease; }

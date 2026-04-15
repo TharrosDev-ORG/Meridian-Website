@@ -182,12 +182,19 @@ export const speakCss = `
       .speak-why-sec, .speak-format-sec, .speak-apply-sec { padding: 60px 0; }
       .page-hero { padding: 80px 20px 48px; min-height: 50vh; }
       .footer-top { flex-direction: column; gap: 20px; }
-      .hero-title { font-size: clamp(44px, 11.7vw, 64px); }
+      .hero-title { font-size: clamp(38px, 10.5vw, 52px); }
       .hero-eyebrow { margin-bottom: 24px; gap: 8px; flex-wrap: wrap; justify-content: center; }
       .hero-eyebrow-rule { display: none; }
       .hero-eyebrow-text { font-size: 11px; letter-spacing: 0.12em; }
       .hero-hr { margin: 24px auto; }
-      .hero-sub { line-height: 1.65; margin-bottom: 32px; }
+      .hero-sub { font-size: 16px; line-height: 1.65; margin-bottom: 32px; }
+      
+      /* Optimize text heavy blocks on mobile */
+      .speak-why-title, .speak-format-title, .speak-apply-title { font-size: 32px; line-height: 1.1; }
+      .speak-why-body, .speak-apply-body { font-size: 16px; line-height: 1.7; }
+      .speak-why-heading { font-size: 20px; }
+      .speak-why-card { padding: 32px 24px; }
+      .speak-meta-val { font-size: 18px; }
       .speak-format-header { flex-direction: column; align-items: flex-start; gap: 16px; }
       .rv { transform: none; transition: opacity 0.4s ease; }
       .rv[data-d="1"], .rv[data-d="2"], .rv[data-d="3"] { transition-delay: 0s; }

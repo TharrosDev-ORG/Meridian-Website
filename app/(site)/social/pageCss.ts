@@ -134,12 +134,19 @@ export const socialCss = `
       .event-empty-state { padding: 48px 24px; }
       .rv { transform: none; transition: opacity 0.4s ease; }
       .rv[data-d="1"], .rv[data-d="2"] { transition-delay: 0s; }
-      .hero-title { font-size: clamp(44px, 11.7vw, 64px); }
+      .hero-title { font-size: clamp(38px, 10.5vw, 52px); }
       .hero-eyebrow { margin-bottom: 24px; gap: 8px; flex-wrap: wrap; justify-content: center; }
       .hero-eyebrow-rule { display: none; }
       .hero-eyebrow-text { font-size: 11px; letter-spacing: 0.12em; }
       .hero-hr { margin: 24px auto; }
-      .hero-sub { line-height: 1.65; margin-bottom: 32px; }
+      .hero-sub { font-size: 16px; line-height: 1.65; margin-bottom: 32px; }
+      
+      /* Optimize text heavy blocks on mobile */
+      .social-h2, .notify-title { font-size: 32px; line-height: 1.1; }
+      .social-p, .notify-sub { font-size: 16px; line-height: 1.7; }
+      .vibe-h3 { font-size: 20px; }
+      .vibe-p { font-size: 15.5px; line-height: 1.6; }
+      .vibe-card { padding: 32px 24px; }
       .footer-top { flex-direction: column; gap: 20px; }
     }
 

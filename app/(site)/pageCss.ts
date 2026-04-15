@@ -377,7 +377,7 @@ export const indexCss = `
     .not-list li:hover::before { color: var(--gold); }
 
     /* ══════════════════════════════
-       EVENTS TEASER
+       EVENTS PORTAL
     ══════════════════════════════ */
     .events { padding: 110px 0; background: var(--cream-deep); position: relative; overflow: hidden; }
     .events::before { content: ''; position: absolute; top: 40px; right: 40px; width: 80px; height: 80px; border-top: 1px solid var(--ink-15); border-right: 1px solid var(--ink-15); pointer-events: none; }
@@ -386,29 +386,22 @@ export const indexCss = `
     .events-header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 52px; }
     .events-title { font-family: var(--serif); font-size: clamp(36px, 3.5vw, 56px); font-weight: 300; line-height: 1.05; color: var(--ink); }
     .events-title em { font-style: italic; }
-    .event-card {
+
+    .portal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+    .portal-card {
       background: var(--cream); border: 1px solid var(--ink-15);
-      display: grid; grid-template-columns: 1fr 280px; gap: 0;
+      padding: 52px; display: flex; flex-direction: column; align-items: flex-start;
       box-shadow: 0 2px 12px rgba(24,21,15,0.04), 0 8px 40px rgba(24,21,15,0.06);
-      transition: transform 0.25s cubic-bezier(0.16,1,0.3,1), box-shadow 0.25s ease;
-      position: relative; overflow: hidden;
+      transition: transform 0.3s cubic-bezier(0.16,1,0.3,1), border-color 0.3s, box-shadow 0.3s ease;
+      position: relative; overflow: hidden; cursor: pointer; text-decoration: none;
     }
-    .event-card:hover { transform: translateY(-4px); box-shadow: 0 4px 24px rgba(24,21,15,0.06), 0 16px 60px rgba(24,21,15,0.10); }
-    .event-main { padding: 48px 52px; border-right: 1px solid var(--ink-15); position: relative; z-index: 1; }
-    .event-status { display: inline-flex; align-items: center; gap: 8px; font-family: var(--sans); font-size: 11.5px; font-weight: 700; letter-spacing: 0.28em; text-transform: uppercase; color: var(--ink-55); margin-bottom: 24px; }
-    .event-dot { width: 6px; height: 6px; background: var(--gold); border-radius: 50%; animation: goldPulse 2.2s ease-in-out infinite; }
-    .event-title { font-family: var(--serif); font-size: clamp(26px, 3vw, 42px); font-weight: 300; line-height: 1.1; color: var(--ink); margin-bottom: 20px; }
-    .event-title em { font-style: italic; }
-    .event-desc { font-family: var(--serif); font-size: 19px; line-height: 1.85; color: var(--ink-90); max-width: 520px; margin-bottom: 32px; }
-    .event-tags { display: flex; gap: 8px; flex-wrap: wrap; }
-    .event-tag { font-family: var(--sans); font-size: 11.5px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-55); border: 1px solid var(--ink-15); padding: 5px 12px; transition: border-color 0.2s, color 0.2s; }
-    .event-tag:hover { border-color: var(--gold); color: var(--ink); }
-    .event-meta { position: relative; z-index: 1; }
-    .event-meta-row { padding: 22px 28px; border-bottom: 1px solid var(--ink-08); transition: background 0.2s; }
-    .event-meta-row:last-child { border-bottom: none; }
-    .event-meta-row:hover { background: rgba(24,21,15,0.02); }
-    .meta-lbl { font-family: var(--sans); font-size: 11.5px; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: var(--ink-55); margin-bottom: 5px; }
-    .meta-val { font-family: var(--serif); font-size: 19px; font-style: italic; color: var(--ink); line-height: 1.3; }
+    .portal-card:hover { transform: translateY(-6px); border-color: var(--gold-lt); box-shadow: 0 16px 60px rgba(24,21,15,0.12); }
+    .portal-eyebrow { font-family: var(--sans); font-size: 10px; font-weight: 700; color: var(--gold); margin-bottom: 24px; letter-spacing: 0.28em; text-transform: uppercase; }
+    .portal-h3 { font-family: var(--serif); font-size: clamp(28px, 2.5vw, 42px); font-weight: 300; color: var(--ink); line-height: 1.1; margin-bottom: 20px; }
+    .portal-h3 em { font-style: italic; }
+    .portal-p { font-family: var(--serif); font-size: 19px; line-height: 1.75; color: var(--ink-75); margin-bottom: 36px; max-width: 440px; }
+    .portal-cta { font-family: var(--sans); font-size: 11.5px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink); display: flex; align-items: center; gap: 10px; transition: gap 0.25s; }
+    .portal-card:hover .portal-cta { gap: 16px; color: var(--gold-dt); }
 
     /* ══════════════════════════════
        GET INVOLVED

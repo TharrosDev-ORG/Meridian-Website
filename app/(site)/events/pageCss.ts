@@ -48,8 +48,8 @@ export const eventsCss = `
 
     /* ── Shared utils ── */
     .wrap { max-width: 1280px; margin: 0 auto; padding: 0 64px; }
-    .sec-label { font-family: var(--sans); font-size: 10.5px; font-weight: 700; letter-spacing: 0.34em; text-transform: uppercase; color: var(--ink-55); display: flex; align-items: center; gap: 14px; margin-bottom: 28px; }
-    .sec-label::after { content: ''; flex: 1; height: 1px; background: var(--ink-15); }
+    .sec-label { font-family: var(--sans); font-size: 10.5px; font-weight: 700; letter-spacing: 0.34em; text-transform: uppercase; color: var(--gold); display: flex; align-items: center; gap: 14px; margin-bottom: 28px; }
+    .sec-label::after { content: ''; flex: 1; height: 1px; background: var(--gold); opacity: 0.15; }
     .text-link { display: inline-flex; align-items: center; gap: 10px; font-family: var(--sans); font-size: 11px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink-55); text-decoration: none; position: relative; }
     .text-link::after { content: ''; position: absolute; bottom: -3px; left: 0; width: 100%; height: 1px; background: var(--ink-30); transition: background 0.2s; }
     .text-link:hover { color: var(--ink); }
@@ -59,84 +59,42 @@ export const eventsCss = `
     .rv[data-d="1"] { transition-delay: 0.08s; }
     .rv[data-d="2"] { transition-delay: 0.16s; }
 
-    /* ── Arc button — cream theme override ── */
-    .arc-btn { background: var(--cream-mid) !important; border: 1px solid var(--ink-15) !important; box-shadow: 0 4px 24px rgba(24,21,15,0.08) !important; }
-    .arc-btn:hover { background: var(--ink) !important; border-color: var(--ink) !important; }
-    .arc-track { stroke: var(--ink-08) !important; }
-    .arc-fill  { stroke: var(--gold) !important; }
-    .arc-icon  { color: var(--ink-75) !important; font-family: var(--serif) !important; font-size: 14px !important; }
-    .arc-btn:hover .arc-icon { color: var(--cream) !important; }
-    .arc-inner { background: transparent !important; border: none !important; inset: 0 !important; border-radius: 0 !important; }
-
-    /* ── Events section ── */
+    /* ── Events intro ── */
     .events-sec { padding: 110px 0; background: var(--cream-deep); position: relative; overflow: hidden; }
     .events-sec::before { content: ''; position: absolute; top: 40px; right: 40px; width: 80px; height: 80px; border-top: 1px solid var(--ink-15); border-right: 1px solid var(--ink-15); pointer-events: none; }
     .events-sec::after  { content: ''; position: absolute; bottom: 40px; left: 40px; width: 80px; height: 80px; border-bottom: 1px solid var(--ink-15); border-left: 1px solid var(--ink-15); pointer-events: none; }
-    .events-sec .wrap { position: relative; z-index: 1; }
-    .events-header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 52px; }
-    .events-title { font-family: var(--serif); font-size: clamp(36px, 3.5vw, 56px); font-weight: 300; line-height: 1.05; color: var(--ink); }
-    .events-title em { font-style: italic; }
+    .events-intro-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: flex-start; }
+    .events-copy-title { font-family: var(--serif); font-size: clamp(32px, 4vw, 56px); font-weight: 300; line-height: 1.1; color: var(--ink); margin-bottom: 24px; }
+    .events-copy-title em { font-style: italic; }
+    .events-copy-body { font-family: var(--serif); font-size: 20px; line-height: 1.85; color: var(--ink-85); }
 
-    /* ── EVENT CARD (matches index.html exactly) ── */
-    .event-card {
-      background: var(--cream); border: 1px solid var(--ink-15);
-      display: grid; grid-template-columns: 1fr 280px; gap: 0;
-      box-shadow: 0 2px 12px rgba(24,21,15,0.04), 0 8px 40px rgba(24,21,15,0.06);
-      transition: transform 0.45s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.4s ease;
-      position: relative; overflow: hidden;
-    }
-    .event-card:hover { transform: translateY(-4px); box-shadow: 0 4px 24px rgba(24,21,15,0.06), 0 16px 60px rgba(24,21,15,0.10); }
-    .event-main { padding: 48px 52px; border-right: 1px solid var(--ink-15); position: relative; z-index: 1; }
-    .event-status { display: inline-flex; align-items: center; gap: 8px; font-family: var(--sans); font-size: 11.5px; font-weight: 700; letter-spacing: 0.28em; text-transform: uppercase; color: var(--ink-55); margin-bottom: 24px; }
-    .event-dot { width: 6px; height: 6px; background: var(--gold); border-radius: 50%; animation: goldPulse 2.2s ease-in-out infinite; }
-    .event-title { font-family: var(--serif); font-size: clamp(26px, 3vw, 42px); font-weight: 300; line-height: 1.1; color: var(--ink); margin-bottom: 20px; }
-    .event-title em { font-style: italic; }
-    .event-desc { font-family: var(--serif); font-size: 19px; line-height: 1.85; color: var(--ink-90); max-width: 520px; margin-bottom: 32px; }
-    .event-tags { display: flex; gap: 8px; flex-wrap: wrap; }
-    .event-tag { font-family: var(--sans); font-size: 11.5px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-55); border: 1px solid var(--ink-15); padding: 5px 12px; transition: border-color 0.2s, color 0.2s; }
-    .event-tag:hover { border-color: var(--gold); color: var(--ink); }
-    .event-meta { position: relative; z-index: 1; }
-    .event-meta-row { padding: 22px 28px; border-bottom: 1px solid var(--ink-08); transition: background 0.2s; }
-    .event-meta-row:last-child { border-bottom: none; }
-    .event-meta-row:hover { background: rgba(24,21,15,0.02); }
-    .meta-lbl { font-family: var(--sans); font-size: 11.5px; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: var(--ink-55); margin-bottom: 5px; }
-    .meta-val { font-family: var(--serif); font-size: 19px; font-style: italic; color: var(--ink); line-height: 1.3; }
+    /* ── Signature Series ── */
+    .sig-sec { padding: 100px 0; background: var(--cream); position: relative; border-top: 1px solid var(--ink-08); }
+    .sig-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
+    .sig-card { padding: 40px; border: 1px solid var(--ink-08); background: var(--cream); transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), box-shadow 0.4s ease; }
+    .sig-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(24,21,15,0.06); }
+    .sig-num { font-family: var(--sans); font-size: 10px; font-weight: 700; color: var(--gold); margin-bottom: 20px; letter-spacing: 0.2em; }
+    .sig-h { font-family: var(--serif); font-size: 24px; font-weight: 300; color: var(--ink); margin-bottom: 16px; }
+    .sig-p { font-family: var(--serif); font-size: 17px; line-height: 1.7; color: var(--ink-75); }
 
-    /* EMPTY STATE */
-    .event-empty-state {
-      display: flex; flex-direction: column; align-items: center;
-      justify-content: center; text-align: center;
-      padding: 72px 48px;
-      border: 1px solid var(--ink-15);
-      background: var(--cream);
-      box-shadow: 0 2px 12px rgba(24,21,15,0.04), 0 8px 40px rgba(24,21,15,0.06);
-    }
-    .event-empty-icon {
-      font-size: 28px; color: var(--gold); opacity: 0.35;
-      margin-bottom: 28px; line-height: 1;
-    }
-    .event-empty-title {
-      font-family: var(--serif); font-size: clamp(22px, 2.5vw, 32px);
-      font-weight: 300; font-style: italic; color: var(--ink);
-      margin-bottom: 14px; line-height: 1.2;
-    }
-    .event-empty-body {
-      font-family: var(--serif); font-size: 19px; font-weight: 400;
-      color: var(--ink-75); line-height: 1.8;
-      max-width: 400px; margin-bottom: 36px;
-    }
-    .event-empty-cta {
-      display: inline-flex; align-items: center;
-      padding: 12px 32px;
-      border: 1px solid var(--ink-30); color: var(--ink-55);
-      font-family: var(--sans); font-size: 10px; font-weight: 700;
-      letter-spacing: 0.22em; text-transform: uppercase;
-      text-decoration: none;
-      transition: background 0.2s, color 0.2s, border-color 0.2s;
-    }
-    .event-empty-cta:hover { background: var(--ink); color: var(--cream); border-color: var(--ink); }
+    /* ── Metadata Grid (Expectations) ── */
+    .expect-sec { padding: 100px 0; background: var(--cream-mid); border-top: 1px solid var(--ink-08); }
+    .expect-grid { border-top: 1px solid var(--ink-15); margin-top: 40px; }
+    .expect-row { display: grid; grid-template-columns: 240px 1fr; border-bottom: 1px solid var(--ink-08); padding: 24px 0; transition: background 0.2s; }
+    .expect-row:hover { background: rgba(24,21,15,0.02); }
+    .expect-lbl { font-family: var(--sans); font-size: 11px; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); }
+    .expect-val { font-family: var(--serif); font-size: 19px; color: var(--ink); line-height: 1.4; }
 
-    /* ── Responsive — event card ── */
+    /* ── Stay Notified CTA ── */
+    .notify-sec { padding: 120px 0; background: var(--ink); color: var(--cream); text-align: center; position: relative; overflow: hidden; }
+    .notify-bg { position: absolute; inset: 0; opacity: 0.05; background-image: var(--grain); pointer-events: none; }
+    .notify-title { font-family: var(--serif); font-size: clamp(32px, 5vw, 72px); font-weight: 300; margin-bottom: 32px; letter-spacing: 0.02em; }
+    .notify-title em { font-style: italic; }
+    .notify-sub { font-family: var(--serif); font-size: 20px; font-style: italic; color: rgba(244,237,227,0.7); max-width: 600px; margin: 0 auto 48px; line-height: 1.6; }
+    .btn-gold { display: inline-flex; align-items: center; gap: 12px; background: var(--gold); color: var(--ink); text-decoration: none; padding: 16px 40px; font-family: var(--sans); font-size: 12px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; transition: transform 0.3s, background 0.3s; }
+    .btn-gold:hover { transform: translateY(-2px); background: var(--gold-lt); }
+
+    /* ── Responsive ── */
     @media (max-width: 1100px) {
       .event-card { grid-template-columns: 1fr; }
       .event-main { border-right: none; border-bottom: 1px solid var(--ink-15); }

@@ -2,39 +2,14 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import PageStyles from '@/components/PageStyles';
 import { socialCss } from './pageCss';
-import { SOCIAL_EVENTS, SocialEvent } from '@/data/social';
+import Magnetic from '@/components/Magnetic';
 
 export const metadata: Metadata = {
   title: "Socials | The Meridian Society",
   description: "Join us for coffee, gatherings, and community events in Ottawa. Explore the social side of The Meridian Society.",
 };
 
-const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-
-function parseDate(iso: string) {
-  const p = iso.split('-');
-  return new Date(parseInt(p[0], 10), parseInt(p[1], 10) - 1, parseInt(p[2], 10));
-}
-
-function fmtDate(iso: string) {
-  const d = parseDate(iso);
-  return `${MONTHS[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`;
-}
-
 export default function SocialPage() {
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-
-  const upcoming: SocialEvent[] = [];
-  const past: SocialEvent[] = [];
-
-  SOCIAL_EVENTS.forEach((ev) => {
-    (parseDate(ev.date) >= today ? upcoming : past).push(ev);
-  });
-
-  upcoming.sort((a, b) => parseDate(a.date).getTime() - parseDate(b.date).getTime());
-  past.sort((a, b) => parseDate(b.date).getTime() - parseDate(a.date).getTime());
-
   return (
     <main id="main-content">
       <PageStyles css={socialCss} />
@@ -47,18 +22,19 @@ export default function SocialPage() {
             <span className="hero-eyebrow-text">The Meridian Society</span>
             <span className="hero-eyebrow-rule"></span>
           </div>
-          <p className="hero-pre rv">Community</p>
+          <p className="hero-pre rv">Culture</p>
           <h1 className="hero-title rv rv-stagger">
-            <span className="rv-stagger-item">Social</span>
+            <span className="rv-stagger-item">Community &amp;</span>
+            <br />
+            <span className="rv-stagger-item">Gatherings.</span>
           </h1>
-          <p className="hero-post rv" data-d="1">Events</p>
           <div className="hero-hr rv" aria-hidden="true" data-d="1"></div>
-          <p className="hero-sub rv" data-d="2">Bar nights, fundraisers, and community gatherings. Follow <a href="https://www.instagram.com/Meridian.Society" target="_blank" rel="noopener noreferrer">@Meridian.Society</a> for announcements.</p>
+          <p className="hero-sub rv" data-d="2">From quiet coffee meetups to high-energy social nights. Building a community of genuinely curious people in Ottawa.</p>
           <div className="hero-actions rv" data-d="3">
             <Magnetic strength={0.25}>
-              <a href="#events" className="btn-primary"><span>View Events</span></a>
+              <a href="https://www.instagram.com/Meridian.Society" target="_blank" rel="noopener noreferrer" className="btn-primary"><span>Join the Community</span></a>
             </Magnetic>
-            <a href="https://www.instagram.com/Meridian.Society" target="_blank" rel="noopener noreferrer" className="btn-ghost-link">Follow for Updates <span>&#8594;</span></a>
+            <a href="#vibe" className="btn-ghost-link">The Meridian Vibe <span>&#8594;</span></a>
           </div>
         </div>
       </section>
@@ -69,108 +45,72 @@ export default function SocialPage() {
         </div>
       </div>
 
-      {/* UPCOMING EVENTS */}
-      <section className="events-sec" id="events" aria-labelledby="social-heading">
+      {/* SOCIAL ABOUT / INTRO */}
+      <section className="social-about-sec" id="vibe">
         <div className="wrap">
-          <div className="events-header">
-            <h2 className="events-title rv rv-stagger" id="social-heading">
-              <span className="rv-stagger-item">Upcoming</span>
-              <span className="rv-stagger-item"><em>Social Events.</em></span>
-            </h2>
-            <Link href="/" className="text-link rv" data-d="1">Back to Home &#8594;</Link>
+          <div className="social-intro-grid">
+            <div className="social-intro-left">
+              <div className="sec-label rv">Culture</div>
+              <h2 className="social-h2 rv" data-d="1">Beyond the<br /><em>Classroom.</em></h2>
+            </div>
+            <div className="social-intro-right">
+              <p className="social-p rv" data-d="2">
+                Meridian isn&apos;t just about formal talks; it&apos;s about the conversations that happen afterward. Our social program is designed to create a relaxed, authentic space for students to meet like-minded peers and established professionals.
+                <br /><br />
+                We believe that the best connections happen when the agenda is loose and the curiosity is high. Whether it&apos;s a themed bar night or a quiet weekend gathering, the focus is always on genuine interaction.
+              </p>
+            </div>
           </div>
-          
-          {upcoming.length > 0 ? (
-            <div className="social-grid">
-              {upcoming.map(ev => (
-                <SocialCard key={ev.id} ev={ev} isPast={false} />
-              ))}
-            </div>
-          ) : (
-            <div className="event-empty-state">
-              <div className="event-empty-icon" aria-hidden="true">◇</div>
-              <p className="event-empty-title">Our first social events are being planned.</p>
-              <p className="event-empty-body">We&rsquo;re building something worth showing up for. Follow us on Instagram to find out more.</p>
-              <a href="https://www.instagram.com/Meridian.Society" target="_blank" rel="noopener noreferrer" className="event-empty-cta">
-                Follow @Meridian.Society →
-              </a>
-            </div>
-          )}
         </div>
       </section>
 
-      {/* PAST EVENTS */}
-      {past.length > 0 && (
-        <section className="events-sec social-past-sec" id="pastSection" aria-labelledby="past-heading">
-          <div className="wrap">
-            <div className="events-header">
-              <h2 className="events-title rv rv-stagger" id="past-heading">
-                <span className="rv-stagger-item">Past</span>
-                <span className="rv-stagger-item"><em>Events.</em></span>
-              </h2>
-            </div>
-            <div className="social-grid">
-              {past.map(ev => (
-                <SocialCard key={ev.id} ev={ev} isPast={true} />
-              ))}
-            </div>
+      {/* VIBE GRID */}
+      <section className="vibe-sec">
+        <div className="wrap">
+          <div className="vibe-grid">
+            <article className="vibe-card rv" data-d="1">
+              <div className="vibe-type">Themed Gatherings</div>
+              <h3 className="vibe-h3">Bar Nights &amp; Lounges</h3>
+              <p className="vibe-p">Evening events in curated Ottawa spaces. High-impact social environments where student ambition meets professional experience.</p>
+            </article>
+
+            <article className="vibe-card rv" data-d="2">
+              <div className="vibe-type">Small Format</div>
+              <h3 className="vibe-h3">Coffee &amp; Conversation</h3>
+              <p className="vibe-p">Low-pressure meetups designed for smaller groups. Perfect for deeper dialogue and getting to know the core community.</p>
+            </article>
+
+            <article className="vibe-card rv" data-d="3">
+              <div className="vibe-type">Impact Driven</div>
+              <h3 className="vibe-h3">Fundraisers &amp; Galas</h3>
+              <p className="vibe-p">Specialized events dedicated to raising support for society missions while bringing the community together for a cause.</p>
+            </article>
+
+            <article className="vibe-card rv" data-d="4">
+              <div className="vibe-type">Academic Plus</div>
+              <h3 className="vibe-h3">Social Mixers</h3>
+              <p className="vibe-p">Post-Speaker Forum gatherings where students and guest speakers can continue the conversation in a casual setting.</p>
+            </article>
           </div>
-        </section>
-      )}
+        </div>
+      </section>
+
+      {/* NOTIFY / INSTAGRAM */}
+      <section className="notify-sec">
+        <div className="notify-bg" aria-hidden="true"></div>
+        <div className="wrap">
+          <h2 className="notify-title rv">Social Announcements<br />live on <em>Instagram.</em></h2>
+          <p className="notify-sub rv" data-d="1">Our community gathers spontaneously. We post all social invitations, locations, and RSVPs via Instagram Stories first.</p>
+          <div className="notify-actions rv" data-d="2">
+            <Magnetic strength={0.3}>
+              <a href="https://www.instagram.com/Meridian.Society" target="_blank" rel="noopener noreferrer" className="btn-gold">
+                <span>Follow @Meridian.Society</span>
+              </a>
+            </Magnetic>
+          </div>
+        </div>
+      </section>
 
     </main>
-  );
-}
-
-import Magnetic from '@/components/Magnetic';
-
-function SocialCard({ ev, isPast }: { ev: SocialEvent, isPast: boolean }) {
-  return (
-    <div className={`event-card ${isPast ? 'event-card--past' : ''}`} data-tilt>
-      <div className="event-main">
-        <div className="event-status">
-          <span className="event-dot" aria-hidden="true"></span>
-          &nbsp;{ev.type === 'members' ? 'Members Only' : 'Public Event'}
-        </div>
-        <h3 className="event-title">{ev.title}</h3>
-        <p className="event-desc" dangerouslySetInnerHTML={{ __html: ev.desc }} />
-        {ev.tags && ev.tags.length > 0 && (
-          <div className="event-tags" aria-label="Event tags">
-            {ev.tags.map((t: string) => (
-              <span key={t} className="event-tag">{t}</span>
-            ))}
-          </div>
-        )}
-        {!isPast && ev.ctaText && ev.ctaHref && (
-          <div className="social-card-cta">
-            <a href={ev.ctaHref} className="btn-primary">
-              <span>{ev.ctaText}</span>
-            </a>
-          </div>
-        )}
-      </div>
-      <div className="event-meta" aria-label="Event details">
-        <div className="event-meta-row">
-          <div className="meta-lbl">When</div>
-          <div className="meta-val" dangerouslySetInnerHTML={{ __html: fmtDate(ev.date) + (ev.time ? '<br />' + ev.time : '') }} />
-        </div>
-        <div className="event-meta-row">
-          <div className="meta-lbl">Where</div>
-          <div className="meta-val">{ev.where}</div>
-        </div>
-        {ev.cost && (
-          <div className="event-meta-row">
-            <div className="meta-lbl">Admission</div>
-            <div className="meta-val">{ev.cost}</div>
-          </div>
-        )}
-        {ev.capacity && (
-          <div className="event-meta-row">
-            <div className="meta-lbl">Capacity</div>
-            <div className="meta-val">{ev.capacity}</div>
-          </div>
-        )}
-      </div>
-    </div>
   );
 }

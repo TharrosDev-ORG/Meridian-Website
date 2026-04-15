@@ -1,12 +1,8 @@
-
-
 import PageStyles from '@/components/PageStyles';
 import { indexCss } from './pageCss';
 import { REGISTER_URL } from '@/components/NavBar';
 import IndexInteractive from './IndexInteractive';
 import MemberCount from '@/components/MemberCount';
-import { EVENTS } from '@/data/events';
-
 import Magnetic from '@/components/Magnetic';
 import Link from 'next/link';
 
@@ -153,58 +149,29 @@ export default function Home() {
   </div>
 </section>
 
-{/* EVENTS TEASER */}
+{/* OUR EVENTS PORTAL */}
 <section className="events" id="events" aria-labelledby="events-heading">
   <div className="wrap">
     <div className="events-header">
-      <h2 className="events-title rv" id="events-heading">Upcoming<br/><em>Events.</em></h2>
-      <Link href="/events" className="text-link rv" data-d="1">All Events  &#8594;</Link>
+      <h2 className="events-title rv" id="events-heading">Our<br/><em>Events.</em></h2>
+      <a href="https://www.instagram.com/Meridian.Society" target="_blank" rel="noopener noreferrer" className="text-link rv" data-d="1">Announcements  &#8594;</a>
     </div>
-    {(() => {
-      const currentEvent = EVENTS.find(e => e.isCurrent);
-      if (!currentEvent) {
-        return (
-          <div className="event-empty-state rv">
-            <div className="event-empty-icon" aria-hidden="true">◇</div>
-            <p className="event-empty-title">Our first event is coming.</p>
-            <p className="event-empty-body" style={{ color: 'var(--ink-75)' }}>Details will be announced on Instagram first. Follow us to be the first to know.</p>
-            <a href="https://www.instagram.com/Meridian.Society" target="_blank" rel="noopener noreferrer" className="event-empty-cta" style={{ marginTop: '20px' }}>
-              Follow @Meridian.Society →
-            </a>
-          </div>
-        );
-      }
-      return (
-        <div className="event-card rv" data-d="1">
-          <div className="event-main">
-            <div className="event-status">
-              <span className="event-dot" aria-hidden="true"></span>
-              {currentEvent.status}
-            </div>
-            <h3 className="event-title" dangerouslySetInnerHTML={{ __html: currentEvent.title }} />
-            <p className="event-desc" dangerouslySetInnerHTML={{ __html: currentEvent.desc }} />
-            <div className="event-tags" aria-label="Event tags">
-              {currentEvent.tags.map(tag => (
-                <span key={tag} className="event-tag">{tag}</span>
-              ))}
-            </div>
-          </div>
-          <div className="event-meta" aria-label="Event details">
-            {[
-              ['When', currentEvent.when],
-              ['Where', currentEvent.where],
-              ['Format', currentEvent.format],
-              ['Entry', currentEvent.entry]
-            ].map(([label, val]) => (
-              <div key={label} className="event-meta-row">
-                <div className="meta-lbl">{label}</div>
-                <div className="meta-val" dangerouslySetInnerHTML={{ __html: val }} />
-              </div>
-            ))}
-          </div>
-        </div>
-      );
-    })()}
+
+    <div className="portal-grid">
+      <Link href="/events" className="portal-card rv" data-d="1">
+        <div className="portal-eyebrow">Signature Program</div>
+        <h3 className="portal-h3">The Speaker<br/><em>Forum.</em></h3>
+        <p className="portal-p">Established professionals and academics sharing lived experience with a motivated student audience.</p>
+        <span className="portal-cta">View Program &#8594;</span>
+      </Link>
+
+      <Link href="/social" className="portal-card rv" data-d="2">
+        <div className="portal-eyebrow">Community</div>
+        <h3 className="portal-h3">Social<br/><em>Gatherings.</em></h3>
+        <p className="portal-p">Authentic spaces designed for interaction—from quiet coffee meetups to high-energy social nights.</p>
+        <span className="portal-cta">Explore Socials &#8594;</span>
+      </Link>
+    </div>
   </div>
 </section>
 

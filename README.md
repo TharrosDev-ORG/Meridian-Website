@@ -48,7 +48,8 @@ app/
 
 components/
   RegistrationForm.tsx — Custom glassmorphic registration interface
-  MemberCount.tsx      — Real-time statistics display
+  MemberCount.tsx      — Real-time statistics display via Supabase
+  BackToTop.tsx        — Standardized global 'Return to Top' arc button
   NavBar.tsx / Footer.tsx — Site-wide navigation components
   PageStyles.tsx       — Component for injecting page-specific CSS strings
 

@@ -185,19 +185,7 @@ export const indexCss = `
     .stat-val { font-family: var(--serif); font-size: 28px; font-weight: 300; color: var(--ink); line-height: 1; margin-bottom: 5px; transition: color 0.3s; }
     .stat-lbl { font-family: var(--sans); font-size: 11px; font-weight: 600; letter-spacing: 0.24em; text-transform: uppercase; color: var(--ink-75); }
 
-    /* Arc button — cream theme override (base.css defaults are dark-theme) */
-    .arc-btn {
-      background: var(--cream-mid) !important; border: 1px solid var(--ink-15) !important;
-      box-shadow: 0 4px 24px rgba(24,21,15,0.08) !important;
-    }
-    .arc-btn:hover { background: var(--ink) !important; border-color: var(--ink) !important; }
-    .arc-track { stroke: var(--ink-08) !important; }
-    .arc-fill  { stroke: var(--gold) !important; }
-    .arc-icon  { color: var(--ink-75) !important; font-family: var(--serif) !important; font-size: 14px !important; }
-    .arc-btn:hover .arc-icon  { color: var(--cream) !important; }
-    .arc-inner { background: transparent !important; border: none !important; inset: 0 !important; border-radius: 0 !important; }
-
-    /* ══════════════════════════════
+    /* Stats bar — full width, pushed to bottom by flex */
        MARQUEE
     ══════════════════════════════ */
     .marquee-wrap {

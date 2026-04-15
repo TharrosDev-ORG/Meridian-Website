@@ -54,9 +54,10 @@ components/
   NavBar.tsx              # Navigation bar (client) — exports REGISTER_URL constant
   Footer.tsx              # Site footer (server)
   MobileMenu.tsx          # Mobile drawer menu (client)
-  Providers.tsx           # Global context provider (client) — scroll state, arc button, scroll reveal
+  Providers.tsx           # Global context provider (client) — menu state, scroll reveal
+  BackToTop.tsx           # Global 'Return to Top' component (client) — scroll tracking, arc button
   PageStyles.tsx          # Per-page CSS injection via <style> tag (client, server-rendered output)
-  MemberCount.tsx         # Live member counter (client) — fetches from Google Apps Script
+  MemberCount.tsx         # Live member counter (client) — real-time Supabase subscription
   FaqAccordion.tsx        # FAQ accordion (client) — click toggle + hover-to-open on desktop
   RegistrationForm.tsx    # Zod-validated Supabase registration form (client)
   Magnetic.tsx            # Framer Motion magnetic hover effect (client)
@@ -123,9 +124,10 @@ The site uses a **cream/ink palette** defined in each page's `pageCss.ts` file. 
 ### Client Components (`"use client"`)
 - `components/NavBar.tsx` — scroll detection, active link, mobile menu toggle
 - `components/MobileMenu.tsx` — drawer with pull-to-dismiss gesture
-- `components/Providers.tsx` — global scroll handler (RAF-batched), arc button, scroll reveal observer
+- `components/Providers.tsx` — global menu context and scroll reveal observer
+- `components/BackToTop.tsx` — RAF-batched scroll listener for arc button progress
 - `components/PageStyles.tsx` — renders `<style>` tag with per-page CSS, triggers scroll reveal
-- `components/MemberCount.tsx` — fetches live count from Google Apps Script endpoint
+- `components/MemberCount.tsx` — real-time Supabase subscription and initial fetch
 - `components/FaqAccordion.tsx` — FAQ with click toggle + desktop hover-to-open
 - `components/RegistrationForm.tsx` — registration form with Supabase backend
 - `components/Magnetic.tsx` — magnetic interaction for buttons
@@ -169,11 +171,10 @@ https://docs.google.com/forms/d/e/1FAIpQLScP7jkZ_M1EXIYnxu7ERnCBRpDDmBNPpT3BWruA
 ```
 
 ### Member Count API
-Google Apps Script endpoint in `components/MemberCount.tsx`:
-```
-https://script.google.com/macros/s/AKfycbx12Z8U8xQUYUHYLZkgVBlzGvhvx2uqSd1WBJNBBQcP0vlbrGzxJFfqi8QWnQVHyiKS/exec
-```
-Returns `{ count: number }`. Used on homepage (`/`) and membership page (`/membership`).
+Member counts are managed via **Supabase**.
+- **Initial fetch**: `app/actions/getMemberCount.ts`
+- **Real-time**: Subscription to `site_stats` table in `components/MemberCount.tsx`.
+- **Logic**: Incremented automatically via the `register` server action.
 
 ---
 
@@ -211,6 +212,7 @@ Push to `main` → Vercel auto-deploys. Ensure Framework Preset is **Next.js** i
 - **Do not add `app/favicon.ico`** — it overrides the custom favicon set in `layout.tsx` metadata. Favicons are in `public/assets/favicons/`.
 - **Do not use `useEffect` for style injection** — use the `PageStyles` component pattern (renders `<style>` inline) to avoid FOUC.
 - **Do not hardcode the registration URL** — import `REGISTER_URL` from `components/NavBar.tsx`.
+- **Do not override `.arc-btn` styles locally** — use the global definitions in `globals.css` to prevent visual drift.
 - **Do not use `<nav>` for footer navigation** — `globals.css` has a `nav {}` type selector for the sticky navbar. Footer links use `<div role="navigation">`.
 - **Do not animate `border-left-width`** — use `::before` with `scaleY` + `transform-origin` instead.
 - **Do not use `padding` for slide effects** — use `transform: translateX()` (compositor-only, no layout reflow).

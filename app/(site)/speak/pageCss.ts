@@ -57,15 +57,6 @@ export const speakCss = `
     .rv[data-d="2"] { transition-delay: 0.16s; }
     .rv[data-d="3"] { transition-delay: 0.24s; }
 
-    /* ── Arc button — cream theme override ── */
-    .arc-btn { background: var(--cream-mid) !important; border: 1px solid var(--ink-15) !important; box-shadow: 0 4px 24px rgba(24,21,15,0.08) !important; }
-    .arc-btn:hover { background: var(--ink) !important; border-color: var(--ink) !important; }
-    .arc-track { stroke: var(--ink-08) !important; }
-    .arc-fill  { stroke: var(--gold) !important; }
-    .arc-icon  { color: var(--ink-75) !important; font-family: var(--serif) !important; font-size: 14px !important; }
-    .arc-btn:hover .arc-icon { color: var(--cream) !important; }
-    .arc-inner { background: transparent !important; border: none !important; inset: 0 !important; border-radius: 0 !important; }
-
     /* ── Why Speak section (value props) ── */
     .speak-why-sec { padding: 110px 0; background: var(--cream-deep); position: relative; overflow: hidden; }
     .speak-why-sec::before { content: ''; position: absolute; top: 40px; right: 40px; width: 80px; height: 80px; border-top: 1px solid var(--ink-15); border-right: 1px solid var(--ink-15); pointer-events: none; }

@@ -1,6 +1,7 @@
 import NavBar from "@/components/NavBar";
 import Footer from "@/components/Footer";
 import MobileMenu from "@/components/MobileMenu";
+import BackToTop from "@/components/BackToTop";
 import TransitionWrapper from "@/components/TransitionWrapper";
 
 export default function SiteLayout({
@@ -16,6 +17,7 @@ export default function SiteLayout({
       </TransitionWrapper>
       <Footer />
       <MobileMenu />
+      <BackToTop />
     </>
   );
 }

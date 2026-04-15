@@ -53,6 +53,18 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  async redirects() {
+    return [
+      { source: "/index.html", destination: "/", permanent: true },
+      { source: "/Index.html", destination: "/", permanent: true },
+      { source: "/events.html", destination: "/events", permanent: true },
+      { source: "/Team.html", destination: "/team", permanent: true },
+      { source: "/team.html", destination: "/team", permanent: true },
+      { source: "/membership.html", destination: "/membership", permanent: true },
+      { source: "/social.html", destination: "/social", permanent: true },
+      { source: "/speak.html", destination: "/speak", permanent: true },
+    ];
+  },
 };
 
 export default nextConfig;

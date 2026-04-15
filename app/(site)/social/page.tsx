@@ -26,7 +26,7 @@ export default function SocialPage() {
             Social <em>Events.</em>
           </h1>
           <div className="hero-hr rv" aria-hidden="true" data-d="1"></div>
-          <p className="hero-sub rv" data-d="2">From quiet coffee meetups to high-energy social nights. Building a community of genuinely curious people in Ottawa.</p>
+          <p className="hero-sub rv" data-d="2">From quiet coffee meetups to high-energy social nights. A space for students to connect.</p>
           <div className="hero-actions rv" data-d="3">
             <Magnetic strength={0.25}>
               <a href="https://www.instagram.com/Meridian.Society" target="_blank" rel="noopener noreferrer" className="btn-primary"><span>Join the Community</span></a>

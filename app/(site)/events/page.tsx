@@ -24,11 +24,12 @@ export default function EventsPage() {
             <span className="hero-eyebrow-text">The Meridian Society</span>
             <span className="hero-eyebrow-rule"></span>
           </div>
+          <p className="hero-pre rv">Society</p>
           <h1 className="hero-title rv">
             Speaker <em>Events.</em>
           </h1>
           <div className="hero-hr rv" aria-hidden="true" data-d="1"></div>
-          <p className="hero-sub rv" data-d="2">Connecting Ottawa students with the professionals, alumni, and scholars who can expand their world.</p>
+          <p className="hero-sub rv" data-d="2">Connecting Ottawa students with the professionals, alumni, and scholars who can expand their mindset.</p>
           <div className="hero-actions rv" data-d="3">
             <Magnetic strength={0.25}>
               <a href={REGISTER_URL} className="btn-primary"><span>Register as a Member</span></a>
@@ -50,11 +51,11 @@ export default function EventsPage() {
           <div className="events-intro-grid">
             <div className="events-intro-left">
               <div className="sec-label rv">The Program</div>
-              <h2 className="events-copy-title rv" data-d="1">A Room with the<br /><em>Right People.</em></h2>
+              <h2 className="events-copy-title rv" data-d="1">A Room you&apos;ll want<br /><em>to be a part of.</em></h2>
             </div>
             <div className="events-intro-right">
               <p className="events-copy-body rv" data-d="2">
-                The Speaker Forum is Meridian&apos;s flagship event series. We bring in established professionals, academics, and alumni to share their lived experience with a room of vetted, motivated students.
+                The Speaker Forum is our society&apos;s flagship event. Where we bring established professionals, academics, and alumni to share their lived experience and knowledge with a room of motivated students.
                 <br /><br />
                 These aren&apos;t just lectures. They are open dialogues designed to provide students with tangible orientation in their respective fields - exposure to ideas and networks that aren&apos;t found in a classroom.
               </p>
@@ -75,12 +76,12 @@ export default function EventsPage() {
             <article className="sig-card rv" data-d="2">
               <div className="sig-num">02</div>
               <h3 className="sig-h">Vetted Insight</h3>
-              <p className="sig-p">Our speakers are chosen for their willingness to share the unglamorous reality of their careers and the insights they wish they had as students.</p>
+              <p className="sig-p">Speakers are selected for their honesty and proven track records, offering practical advice and the hard-earned lessons they wish they had known starting out.</p>
             </article>
             <article className="sig-card rv" data-d="3">
               <div className="sig-num">03</div>
-              <h3 className="sig-h">Tangible Access</h3>
-              <p className="sig-p">Every event is followed by an open networking session, bridging the gap between current students and the professional world.</p>
+              <h3 className="sig-h">Real Connections</h3>
+              <p className="sig-p">Every forum concludes with an open networking session, giving you the rare opportunity to build genuine relationships with industry leaders.</p>
             </article>
           </div>
         </div>
@@ -91,7 +92,7 @@ export default function EventsPage() {
         <div className="wrap">
           <div className="expect-header">
             <div className="sec-label rv">Expectations</div>
-            <h2 className="expect-title rv" data-d="1">What to Expect<br /><em>At the Forum.</em></h2>
+            <h2 className="expect-title rv" data-d="1">What to <em>Expect.</em></h2>
           </div>
           <div className="expect-grid rv" data-d="2" role="table">
             {[
@@ -100,8 +101,7 @@ export default function EventsPage() {
               ['Audience Size', '20-30 curated students'],
               ['Who Attends', 'Registered Meridian members'],
               ['Location', 'Ottawa, Canada'],
-              ['Fields', 'Policy, academia, entrepreneurship, law, business, politics, and beyond'],
-              ['Compensation', 'Volunteer']
+              ['Fields', 'Policy, academia, entrepreneurship, law, business, politics, and beyond']
             ].map(([lbl, val]) => (
               <div key={lbl} className="expect-row" role="row">
                 <div className="expect-lbl" role="rowheader">{lbl}</div>

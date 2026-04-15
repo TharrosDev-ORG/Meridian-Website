@@ -6,6 +6,16 @@ import Link from "next/link";
 
 const REG_KEY = "meridian_registered_v1";
 
+const ROLES = ["Student", "Alumni", "Professor / Faculty", "Professional", "Other"];
+const INSTITUTIONS = ["Carleton University", "University of Ottawa", "Algonquin College", "Other"];
+const INTERESTS_LIST = [
+  "Politics", "Law", "Business", "Science", "Health Sciences", 
+  "Engineering", "Creative Careers (Art, music, film etc )", 
+  "Environment", "Psychology"
+];
+const HEARD_SOURCES = ["Friend or Peer", "Professor", "Social Media", "Campus Event", "Current Member"];
+const VOLUNTEER_OPTIONS = ["Yes", "Maybe", "Not at this time"];
+
 export default function RegistrationForm() {
   const [mounted, setMounted] = useState(false);
   const [isPending, startTransition] = useTransition();
@@ -14,7 +24,7 @@ export default function RegistrationForm() {
 
   // Check registration status on mount
   useEffect(() => {
-    const timer = setTimeout(() => {
+    const checkRegistration = () => {
       const localReg = localStorage.getItem(REG_KEY);
       const cookieReg = document.cookie.split("; ").find((row) => row.startsWith(`${REG_KEY}=`));
       
@@ -22,7 +32,10 @@ export default function RegistrationForm() {
         setIsAlreadyRegistered(true);
       }
       setMounted(true);
-    }, 0);
+    };
+
+    // Small delay to ensure browser environment is ready
+    const timer = setTimeout(checkRegistration, 0);
     return () => clearTimeout(timer);
   }, []);
 
@@ -30,18 +43,8 @@ export default function RegistrationForm() {
   const [role, setRole] = useState("");
   const [institution, setInstitution] = useState("");
 
-  const roles = ["Student", "Alumni", "Professor / Faculty", "Professional", "Other"];
-  const institutions = ["Carleton University", "University of Ottawa", "Algonquin College", "Other"];
-  const interestsList = [
-    "Politics", "Law", "Business", "Science", "Health Sciences", 
-    "Engineering", "Creative Careers (Art, music, film etc )", 
-    "Environment", "Psychology"
-  ];
-  const heardSources = ["Friend or Peer", "Professor", "Social Media", "Campus Event", "Current Member"];
-  const volunteerOptions = ["Yes", "Maybe", "Not at this time"];
-
   async function clientAction(formData: FormData) {
-    const selectedInterests = interestsList.filter(i => formData.get(`interest-${i}`) === "on");
+    const selectedInterests = INTERESTS_LIST.filter(i => formData.get(`interest-${i}`) === "on");
 
     const data: RegistrationData = {
       fullName: formData.get("fullName") as string,
@@ -104,19 +107,6 @@ export default function RegistrationForm() {
             <span>Return Home Now</span>
           </Link>
         </div>
-
-        <style jsx>{`
-          .success-ig-link {
-            color: var(--gold);
-            text-decoration: none;
-            font-weight: 700;
-            display: inline-block;
-            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-          }
-          .success-ig-link:hover, .success-ig-link:active {
-            transform: scale(1.1) rotate(-1deg);
-          }
-        `}</style>
       </div>
     );
   }
@@ -174,7 +164,7 @@ export default function RegistrationForm() {
           <div className="reg-field reg-field--full">
             <label className="reg-label">Your Role *</label>
             <div className="reg-options-grid">
-              {roles.map((r) => (
+              {ROLES.map((r) => (
                 <label key={r} className="reg-choice reg-choice--radio">
                   <input
                     type="radio"
@@ -207,7 +197,7 @@ export default function RegistrationForm() {
           <div className="reg-field reg-field--full">
             <label className="reg-label">Current or Most Recent Institution (If applicable)</label>
             <div className="reg-options-grid">
-              {institutions.map((inst) => (
+              {INSTITUTIONS.map((inst) => (
                 <label key={inst} className="reg-choice reg-choice--radio">
                   <input
                     type="radio"
@@ -240,7 +230,7 @@ export default function RegistrationForm() {
           <div className="reg-field reg-field--full">
             <label className="reg-label">Areas of Interest? (select all that apply) *</label>
             <div className="reg-options-grid">
-              {interestsList.map((interest) => (
+              {INTERESTS_LIST.map((interest) => (
                 <label key={interest} className="reg-choice reg-choice--check">
                   <input
                     type="checkbox"
@@ -258,7 +248,7 @@ export default function RegistrationForm() {
           <div className="reg-field reg-field--full">
             <label className="reg-label">How did you hear about The Meridian Society? *</label>
             <div className="reg-options-grid">
-              {heardSources.map((source) => (
+              {HEARD_SOURCES.map((source) => (
                 <label key={source} className="reg-choice reg-choice--radio">
                   <input
                     type="radio"
@@ -278,7 +268,7 @@ export default function RegistrationForm() {
           <div className="reg-field reg-field--full">
             <label className="reg-label">Would you be interested in volunteering or supporting future events? *</label>
             <div className="reg-options-grid">
-              {volunteerOptions.map((opt) => (
+              {VOLUNTEER_OPTIONS.map((opt) => (
                 <label key={opt} className="reg-choice reg-choice--radio">
                   <input
                     type="radio"

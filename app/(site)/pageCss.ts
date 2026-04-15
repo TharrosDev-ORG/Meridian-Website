@@ -24,21 +24,7 @@ export const indexCss = `
     .sticky-join.visible { opacity: 1; pointer-events: all; transform: translateX(-50%) translateY(0) scale(1); }
     .sticky-join:hover { background: var(--gold); color: var(--ink); }
 
-    /* ══════════════════════════════
-       KEYFRAMES
-    ══════════════════════════════ */
-    @keyframes riseIn {
-      from { opacity: 0; transform: translateY(16px); }
-      to   { opacity: 1; transform: none; }
-    }
-    @keyframes goldPulse {
-      0%, 100% { box-shadow: 0 0 0 0 rgba(184,147,42,0.5); }
-      50%       { box-shadow: 0 0 0 4px rgba(184,147,42,0); }
-    }
-    @keyframes marqueeScroll {
-      0%   { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
-    }
+    /* Keyframes consolidated to globals.css */
 
     /* ══════════════════════════════
        HERO
@@ -208,13 +194,7 @@ export const indexCss = `
     .text-link:hover { color: var(--ink); }
     .text-link:hover::after { background: var(--gold); }
 
-    /* Scroll reveal */
-    .rv { opacity: 0; transform: translateY(20px); transition: opacity 0.65s cubic-bezier(0.16,1,0.3,1), transform 0.65s cubic-bezier(0.16,1,0.3,1); }
-    .rv.on { opacity: 1; transform: none; }
-    .rv[data-d="1"] { transition-delay: 0.08s; }
-    .rv[data-d="2"] { transition-delay: 0.16s; }
-    .rv[data-d="3"] { transition-delay: 0.24s; }
-    .rv[data-d="4"] { transition-delay: 0.32s; }
+    /* Scroll reveals consolidated to globals.css */
 
     /* ══════════════════════════════
        ABOUT

@@ -4,9 +4,7 @@ export const eventsCss = `
      * Page-specific overrides only. Tokens and nav live in globals.css.
      */
 
-    /* ── Keyframes ── */
-    @keyframes riseIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
-    @keyframes goldPulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(184,147,42,0.5); } 50% { box-shadow: 0 0 0 4px rgba(184,147,42,0); } }
+    /* Keyframes consolidated to globals.css */
 
     /* ── Page hero (subpage version of index hero) ── */
     .page-hero {
@@ -53,10 +51,7 @@ export const eventsCss = `
     .text-link::after { content: ''; position: absolute; bottom: -3px; left: 0; width: 100%; height: 1px; background: var(--ink-30); transition: background 0.2s; }
     .text-link:hover { color: var(--ink); }
     .text-link:hover::after { background: var(--gold); }
-    .rv { opacity: 0; transform: translateY(20px); transition: opacity 0.65s cubic-bezier(0.16,1,0.3,1), transform 0.65s cubic-bezier(0.16,1,0.3,1); }
-    .rv.on { opacity: 1; transform: none; }
-    .rv[data-d="1"] { transition-delay: 0.08s; }
-    .rv[data-d="2"] { transition-delay: 0.16s; }
+    /* Scroll reveals consolidated to globals.css */
 
     /* ── Events intro ── */
     .events-sec { padding: 110px 0; background: var(--cream-deep); position: relative; overflow: hidden; }

@@ -4,8 +4,7 @@ export const membershipCss = `
      * Page-specific overrides only. Tokens and nav live in globals.css.
      */
 
-    /* ── Keyframes ── */
-    @keyframes riseIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+    /* Keyframes consolidated to globals.css */
     @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); max-height: 0; } to { opacity: 1; transform: none; max-height: 100px; } }
 
     /* ── Page hero ── */
@@ -65,13 +64,7 @@ export const membershipCss = `
     .wrap { max-width: 1280px; margin: 0 auto; padding: 0 64px; }
     .sec-label { font-family: var(--sans); font-size: 10.5px; font-weight: 700; letter-spacing: 0.34em; text-transform: uppercase; color: var(--ink-55); display: flex; align-items: center; gap: 14px; margin-bottom: 28px; }
     .sec-label::after { content: ''; flex: 1; height: 1px; background: var(--ink-15); }
-    .rv { opacity: 0; transform: translateY(20px); transition: opacity 0.65s cubic-bezier(0.16,1,0.3,1), transform 0.65s cubic-bezier(0.16,1,0.3,1); }
-    .rv.on { opacity: 1; transform: none; }
-    .rv[data-d="1"] { transition-delay: 0.08s; }
-    .rv[data-d="2"] { transition-delay: 0.16s; }
-    .rv[data-d="3"] { transition-delay: 0.24s; }
-    .rv[data-d="4"] { transition-delay: 0.32s; }
-    .rv[data-d="5"] { transition-delay: 0.40s; }
+    /* Scroll reveals consolidated to globals.css */
 
     /* ── Benefits section ── */
     .benefits-sec {

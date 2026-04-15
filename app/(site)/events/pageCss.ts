@@ -61,9 +61,31 @@ export const eventsCss = `
     .events-intro-left { max-width: 800px; }
     .events-copy-title { font-family: var(--serif); font-size: clamp(32px, 4vw, 56px); font-weight: 300; line-height: 1.1; color: var(--ink); margin-bottom: 24px; }
     .events-copy-title em { font-style: italic; }
-    .events-intro-right { background: var(--cream); padding: 48px; border: 1px solid var(--gold-lt); box-shadow: 0 4px 24px rgba(24,21,15,0.04); transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), box-shadow 0.4s ease; }
-    .events-intro-right:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(184,147,42,0.12); }
-    .events-copy-body { font-family: var(--serif); font-size: 20px; line-height: 1.85; color: var(--ink-85); }
+    .events-intro-right { 
+      background: var(--cream); padding: 56px; border: 1px solid var(--gold-lt); 
+      box-shadow: 0 4px 24px rgba(24,21,15,0.04); 
+      transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), box-shadow 0.4s ease; 
+      position: relative; overflow: hidden;
+    }
+    .events-intro-right::before {
+      content: 'FORUM'; position: absolute; bottom: -20px; right: -10px;
+      font-family: var(--sans); font-size: 140px; font-weight: 700;
+      color: var(--ink); opacity: 0.02; letter-spacing: 0.1em;
+      pointer-events: none; z-index: 0;
+    }
+    .events-intro-right::after {
+      content: ''; position: absolute; inset: 12px;
+      border: 1px solid var(--gold); opacity: 0.1;
+      pointer-events: none; z-index: 0;
+      mask-image: 
+        linear-gradient(to right, black 20px, transparent 20px, transparent calc(100% - 20px), black calc(100% - 20px)),
+        linear-gradient(to bottom, black 20px, transparent 20px, transparent calc(100% - 20px), black calc(100% - 20px));
+      mask-composite: intersect;
+    }
+    .events-copy-body { 
+      font-family: var(--serif); font-size: 20px; line-height: 1.85; color: var(--ink-85); 
+      position: relative; z-index: 1; padding-left: 32px; border-left: 1px solid rgba(184,147,42,0.2);
+    }
 
     /* ── Signature Series ── */
     .sig-sec { padding: 80px 0; background: var(--cream); position: relative; border-top: 1px solid var(--ink-08); }

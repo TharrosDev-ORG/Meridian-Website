@@ -1,62 +1,58 @@
-"use client";
-
 import RegistrationForm from "@/components/RegistrationForm";
 import Link from "next/link";
 import PageStyles from "@/components/PageStyles";
 import { membershipCss } from "../(site)/membership/pageCss";
 
+const registerPageCss = `
+  .register-page-minimal {
+    background: var(--cream);
+    min-height: 100vh;
+    padding: 60px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .register-nav {
+    width: 100%;
+    max-width: 800px;
+    margin-bottom: 60px;
+  }
+  .return-link {
+    font-family: var(--sans);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--ink-55);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: color 0.2s;
+  }
+  .return-link:hover {
+    color: var(--gold);
+  }
+  .register-form-wrapper {
+    width: 100%;
+    max-width: 800px;
+    animation: riseIn 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .reg-form-container {
+    margin-top: 0 !important;
+    background: rgba(244, 237, 227, 0.6) !important;
+  }
+`;
+
 export default function RegisterPage() {
   return (
     <main className="register-page-minimal">
-      <PageStyles css={membershipCss} />
-      <style jsx global>{`
-        .register-page-minimal {
-          background: var(--cream);
-          min-height: 100vh;
-          padding: 60px 20px;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-        }
-        .register-nav {
-          width: 100%;
-          max-width: 800px;
-          margin-bottom: 60px;
-        }
-        .return-link {
-          font-family: var(--sans);
-          font-size: 11px;
-          font-weight: 700;
-          letter-spacing: 0.24em;
-          text-transform: uppercase;
-          color: var(--ink-55);
-          text-decoration: none;
-          display: flex;
-          align-items: center;
-          gap: 12px;
-          transition: color 0.2s;
-        }
-        .return-link:hover {
-          color: var(--gold);
-        }
-        .register-form-wrapper {
-          width: 100%;
-          max-width: 800px;
-          animation: riseIn 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        /* Override some membership styles for the standalone page */
-        .reg-form-container {
-          margin-top: 0 !important;
-          background: rgba(244, 237, 227, 0.6) !important;
-        }
-      `}</style>
-
+      <PageStyles css={membershipCss + registerPageCss} />
       <div className="register-nav">
         <Link href="/" className="return-link">
-          <span style={{ fontSize: '14px' }}>←</span> Return Home
+          <span style={{ fontSize: "14px" }}>←</span> Return Home
         </Link>
       </div>
-
       <div className="register-form-wrapper">
         <RegistrationForm />
       </div>

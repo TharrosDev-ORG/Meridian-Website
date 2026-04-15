@@ -427,32 +427,9 @@ export const indexCss = `
     .member-count-num { font-family: var(--serif); font-size: 52px; font-weight: 300; color: var(--gold); line-height: 1; }
     .member-count-lbl { font-family: var(--sans); font-size: 10px; font-weight: 600; letter-spacing: 0.24em; text-transform: uppercase; color: var(--ink-55); }
 
-    /* ══════════════════════════════
-       FOOTER
-    ══════════════════════════════ */
-    footer {
-      padding: 60px 0 36px; background: var(--cream-deep);
-      border-top: 1px solid var(--ink-15); position: relative; overflow: hidden;
-    }
-    .footer-ghost {
-      position: absolute; bottom: -24px; left: 50%; transform: translateX(-50%);
-      font-family: var(--sans); font-size: 160px; font-weight: 700;
-      letter-spacing: 0.3em; white-space: nowrap;
-      color: transparent; -webkit-text-stroke: 1px rgba(24,21,15,0.04);
-      user-select: none; pointer-events: none; z-index: 0; display: block;
-    }
-    .footer-top { display: flex; align-items: flex-start; justify-content: space-between; padding-bottom: 32px; border-bottom: 1px solid var(--ink-08); margin-bottom: 28px; position: relative; z-index: 1; }
-    .footer-wordmark { font-family: var(--sans); font-size: 11px; font-weight: 700; letter-spacing: 0.26em; text-transform: uppercase; color: var(--ink); margin-bottom: 6px; }
-    .footer-tagline { font-family: var(--serif); font-size: 16px; font-style: italic; color: var(--ink-55); }
-    .footer-connect { display: flex; gap: 20px; align-items: center; padding-top: 3px; }
-    .footer-connect a { font-family: var(--serif); font-size: 17px; color: var(--ink-55); text-decoration: none; transition: color 0.2s; }
-    .footer-connect a:hover { color: var(--ink); }
-    .footer-nav { display: flex; flex-wrap: wrap; align-items: center; margin-bottom: 28px; position: relative; z-index: 1; }
-    .footer-nav a { font-family: var(--serif); font-size: 17px; color: var(--ink-55); text-decoration: none; transition: color 0.2s; padding-right: 20px; margin-right: 20px; border-right: 1px solid var(--ink-15); line-height: 1.6; }
-    .footer-nav a:last-child { border-right: none; padding-right: 0; margin-right: 0; }
-    .footer-nav a:hover { color: var(--ink); }
-    .footer-bottom { padding-top: 24px; border-top: 1px solid var(--ink-08); position: relative; z-index: 1; }
-    .footer-copy { font-family: var(--sans); font-size: 11px; font-weight: 400; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-55); }
+    .member-count-box { display: inline-flex; flex-direction: column; align-items: center; gap: 8px; margin-bottom: 40px; }
+    .member-count-num { font-family: var(--serif); font-size: 52px; font-weight: 300; color: var(--gold); line-height: 1; }
+    .member-count-lbl { font-family: var(--sans); font-size: 10px; font-weight: 600; letter-spacing: 0.24em; text-transform: uppercase; color: var(--ink-55); }
 
     /* ══════════════════════════════
        RESPONSIVE

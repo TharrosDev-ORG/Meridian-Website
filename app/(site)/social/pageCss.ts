@@ -106,61 +106,9 @@ export const socialCss = `
     .notify-actions { display: flex; align-items: center; justify-content: center; }
 
 
-    /* ── Footer ── */
-    footer { padding: 60px 0 36px; background: var(--cream-deep); border-top: 1px solid var(--ink-15); position: relative; overflow: hidden; }
-    .footer-ghost { position: absolute; bottom: -24px; left: 50%; transform: translateX(-50%); font-family: var(--sans); font-size: 160px; font-weight: 700; letter-spacing: 0.3em; white-space: nowrap; color: transparent; -webkit-text-stroke: 1px rgba(24,21,15,0.04); user-select: none; pointer-events: none; z-index: 0; display: block; }
-    .footer-top { display: flex; align-items: flex-start; justify-content: space-between; padding-bottom: 32px; border-bottom: 1px solid var(--ink-08); margin-bottom: 28px; position: relative; z-index: 1; }
-    .footer-wordmark { font-family: var(--sans); font-size: 11px; font-weight: 700; letter-spacing: 0.26em; text-transform: uppercase; color: var(--ink); margin-bottom: 6px; }
-    .footer-tagline { font-family: var(--serif); font-size: 16px; font-style: italic; color: var(--ink-55); }
-    .footer-connect { display: flex; gap: 20px; align-items: center; padding-top: 3px; }
-    .footer-connect a { font-family: var(--serif); font-size: 17px; color: var(--ink-55); text-decoration: none; transition: color 0.2s; }
-    .footer-connect a:hover { color: var(--ink); }
-    .footer-nav { display: flex; flex-wrap: wrap; align-items: center; margin-bottom: 28px; position: relative; z-index: 1; }
-    .footer-nav a { font-family: var(--serif); font-size: 17px; color: var(--ink-55); text-decoration: none; transition: color 0.2s; padding-right: 20px; margin-right: 20px; border-right: 1px solid var(--ink-15); line-height: 1.6; }
-    .footer-nav a:last-child { border-right: none; padding-right: 0; margin-right: 0; }
-    .footer-nav a:hover { color: var(--ink); }
-    .footer-bottom { padding-top: 24px; border-top: 1px solid var(--ink-08); position: relative; z-index: 1; }
-    .footer-copy { font-family: var(--sans); font-size: 11px; font-weight: 400; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-55); }
 
     /* ── Responsive ── */
     @media (max-width: 1100px) {
-      .event-card { grid-template-columns: 1fr; }
-      .event-main { border-right: none; border-bottom: 1px solid var(--ink-15); }
-      .wrap { padding: 0 40px; }
-      .events-sec { padding: 80px 0; }
-      .page-hero { padding: 100px 40px 60px; }
-      .footer-nav a { padding-right: 16px; margin-right: 16px; }
-    }
-    @media (max-width: 700px) {
-      .wrap { padding: 0 20px; }
-      .events-sec { padding: 60px 0; }
-      .page-hero { padding: 80px 20px 48px; min-height: 50vh; }
-      .page-hero-content { width: 100%; }
-      .event-main { padding: 32px 24px; }
-      .event-meta-row { padding: 18px 20px; }
-      .hero-actions { flex-direction: column; gap: 16px; width: 100%; }
-      .btn-primary { width: 100%; display: block; text-align: center; }
-      .btn-ghost-link { display: inline-flex; justify-content: center; width: 100%; margin-top: 8px; font-size: 18px; }
-      .event-empty-state { padding: 48px 24px; }
-      .rv { transform: none; transition: opacity 0.4s ease; }
-      .rv[data-d="1"], .rv[data-d="2"] { transition-delay: 0s; }
-      .hero-title { font-size: clamp(38px, 10.5vw, 52px); }
-      .hero-eyebrow { margin-bottom: 24px; gap: 8px; flex-wrap: wrap; justify-content: center; }
-      .hero-eyebrow-rule { display: none; }
-      .hero-eyebrow-text { font-size: 11px; letter-spacing: 0.12em; }
-      .hero-hr { margin: 24px auto; }
-      .hero-sub { font-size: 16px; line-height: 1.65; margin-bottom: 32px; }
-      
-      /* Optimize text heavy blocks on mobile */
-      .social-intro-grid { grid-template-columns: 1fr; gap: 40px; }
-      .social-intro-right { padding: 32px 24px; }
-      .vibe-grid { grid-template-columns: 1fr; }
-      .social-h2, .notify-title { font-size: 32px; line-height: 1.1; }
-      .social-p, .notify-sub { font-size: 16px; line-height: 1.7; }
-      .vibe-h3 { font-size: 20px; }
-      .vibe-p { font-size: 15.5px; line-height: 1.6; }
-      .vibe-card { padding: 32px 24px; }
-      .footer-top { flex-direction: column; gap: 20px; }
     }
 
     @media (prefers-reduced-motion: reduce) {

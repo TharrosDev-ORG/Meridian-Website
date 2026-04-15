@@ -419,52 +419,9 @@ export const membershipCss = `
     .sticky-join.visible { opacity: 1; pointer-events: all; transform: translateX(-50%) translateY(0) scale(1); }
     .sticky-join:hover { background: var(--gold); color: var(--ink); }
 
-    /* ── Footer ── */
-    footer {
-      padding: 60px 0 36px; background: var(--cream-deep);
-      border-top: 1px solid var(--ink-15); position: relative; overflow: hidden;
-    }
-    .footer-ghost {
-      position: absolute; bottom: -24px; left: 50%; transform: translateX(-50%);
-      font-family: var(--sans); font-size: 160px; font-weight: 700;
-      letter-spacing: 0.3em; white-space: nowrap;
-      color: transparent; -webkit-text-stroke: 1px rgba(24,21,15,0.04);
-      user-select: none; pointer-events: none; z-index: 0; display: block;
-    }
-    .footer-top { display: flex; align-items: flex-start; justify-content: space-between; padding-bottom: 32px; border-bottom: 1px solid var(--ink-08); margin-bottom: 28px; position: relative; z-index: 1; }
-    .footer-wordmark { font-family: var(--sans); font-size: 11px; font-weight: 700; letter-spacing: 0.26em; text-transform: uppercase; color: var(--ink); margin-bottom: 6px; }
-    .footer-tagline { font-family: var(--serif); font-size: 16px; font-style: italic; color: var(--ink-55); }
-    .footer-connect { display: flex; gap: 20px; align-items: center; padding-top: 3px; }
-    .footer-connect a { font-family: var(--serif); font-size: 17px; color: var(--ink-55); text-decoration: none; transition: color 0.2s; }
-    .footer-connect a:hover { color: var(--ink); }
-    .footer-nav { display: flex; flex-wrap: wrap; align-items: center; margin-bottom: 28px; position: relative; z-index: 1; }
-    .footer-nav a { font-family: var(--serif); font-size: 17px; color: var(--ink-55); text-decoration: none; transition: color 0.2s; padding-right: 20px; margin-right: 20px; border-right: 1px solid var(--ink-15); line-height: 1.6; }
-    .footer-nav a:last-child { border-right: none; padding-right: 0; margin-right: 0; }
-    .footer-nav a:hover { color: var(--ink); }
-    .footer-bottom { padding-top: 24px; border-top: 1px solid var(--ink-08); position: relative; z-index: 1; }
-    .footer-copy { font-family: var(--sans); font-size: 11px; font-weight: 400; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-55); }
 
     /* ── Responsive ── */
     @media (max-width: 1100px) {
-      .benefits-grid { grid-template-columns: repeat(2, 1fr); }
-      .footer-nav a { padding-right: 16px; margin-right: 16px; }
-      .wrap { padding: 0 40px; }
-      .benefits-sec, .faq-sec { padding: 80px 0; }
-      .page-hero { padding: 100px 40px 60px; }
-    }
-    @media (max-width: 700px) {
-      .benefits-grid { grid-template-columns: 1fr; }
-      .register-actions { flex-direction: column; gap: 16px; }
-      .register-btn { width: 100%; display: block; text-align: center; }
-      .hero-actions { flex-direction: column; gap: 16px; width: 100%; }
-      .btn-ghost-link { display: inline-flex; justify-content: center; width: 100%; margin-top: 8px; font-size: 18px; }
-      .wrap { padding: 0 20px; }
-      .benefits-sec, .faq-sec { padding: 60px 0; }
-      .register { padding: 80px 0; }
-      .page-hero { padding: 80px 20px 48px; min-height: 50vh; }
-      .page-hero-content { width: 100%; }
-      .hero-sub { width: 100%; }
-      .footer-top { flex-direction: column; gap: 20px; }
       .hero-title { font-size: clamp(38px, 10.5vw, 52px); }
       .hero-eyebrow { margin-bottom: 24px; gap: 8px; flex-wrap: wrap; justify-content: center; }
       .hero-eyebrow-rule { display: none; }

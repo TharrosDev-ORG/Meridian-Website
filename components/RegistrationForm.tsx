@@ -119,7 +119,7 @@ export default function RegistrationForm() {
         </h1>
       </div>
 
-      <form action={clientAction} className="reg-form-container rv" data-d="3">
+      <form action={clientAction} className="reg-form-container">
         <div className="reg-grid">
           {/* ── Basic Info ── */}
           <div className="reg-field">

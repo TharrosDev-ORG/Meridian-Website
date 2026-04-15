@@ -84,11 +84,12 @@ export const eventsCss = `
     .expect-header { margin-bottom: 40px; }
     .expect-title { font-family: var(--serif); font-size: clamp(36px, 4vw, 56px); font-weight: 300; line-height: 1.05; color: var(--ink); }
     .expect-title em { font-style: italic; }
-    .expect-grid { border-top: 1px solid var(--ink-15); margin-top: 40px; }
-    .expect-row { display: grid; grid-template-columns: 240px 1fr; border-bottom: 1px solid var(--ink-08); padding: 24px 0; transition: background 0.2s; }
+    .expect-grid { border: 1px solid var(--ink-15); background: var(--cream); box-shadow: 0 2px 12px rgba(24,21,15,0.04), 0 8px 40px rgba(24,21,15,0.06); margin-top: 40px; }
+    .expect-row { display: grid; grid-template-columns: 220px 1fr; border-bottom: 1px solid var(--ink-08); padding: 26px 32px; transition: background 0.2s; }
+    .expect-row:last-child { border-bottom: none; }
     .expect-row:hover { background: rgba(24,21,15,0.02); }
-    .expect-lbl { font-family: var(--sans); font-size: 11px; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); }
-    .expect-val { font-family: var(--serif); font-size: 19px; color: var(--ink); line-height: 1.4; }
+    .expect-lbl { font-family: var(--sans); font-size: 10.5px; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: var(--ink-55); padding-top: 4px; }
+    .expect-val { font-family: var(--serif); font-size: 22px; font-style: italic; color: var(--ink); line-height: 1.4; }
 
     /* ── Stay Notified CTA ── */
     .notify-sec { padding: 110px 0; background: var(--cream-deep); position: relative; overflow: hidden; border-top: 1px solid var(--ink-15); }
@@ -132,7 +133,9 @@ export const eventsCss = `
       .events-intro-right { padding: 32px 24px; }
       .sig-grid { grid-template-columns: 1fr; }
       .events-copy-title, .notify-title, .expect-title { font-size: 32px; line-height: 1.1; }
-      .events-copy-body, .expect-val, .notify-sub { font-size: 16px; line-height: 1.7; }
+      .events-copy-body, .notify-sub { font-size: 16px; line-height: 1.7; }
+      .expect-row { grid-template-columns: 1fr; gap: 6px; }
+      .expect-val { font-size: 18px; line-height: 1.4; }
       .sig-h { font-size: 20px; }
       .sig-p { font-size: 15.5px; line-height: 1.6; }
       .sig-card { padding: 32px 24px; }

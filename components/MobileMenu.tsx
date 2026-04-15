@@ -129,14 +129,13 @@ export default function MobileMenu() {
       >
         <div className="mob-wordmark">The Meridian Society</div>
         <nav className="mob-links" aria-label="Mobile navigation">
-          <Link href={isHome ? "#about" : "/#about"} onClick={() => setMenuOpen(false)}>
-            About <span className="mob-arrow">→</span>
+          <Link href="/team" onClick={() => setMenuOpen(false)}>
+            Team <span className="mob-arrow">→</span>
           </Link>
           <Link href="/events" onClick={() => setMenuOpen(false)}>Events <span className="mob-arrow">→</span></Link>
           <Link href="/social" onClick={() => setMenuOpen(false)}>Social <span className="mob-arrow">→</span></Link>
           <Link href="/speak" onClick={() => setMenuOpen(false)}>Speak <span className="mob-arrow">→</span></Link>
           <Link href="/membership" onClick={() => setMenuOpen(false)}>Membership <span className="mob-arrow">→</span></Link>
-          <Link href="/team" onClick={() => setMenuOpen(false)}>Our Team <span className="mob-arrow">→</span></Link>
         </nav>
         <div className="mob-bottom">
           <span className="mob-meta">Ottawa · Est. 2025</span>

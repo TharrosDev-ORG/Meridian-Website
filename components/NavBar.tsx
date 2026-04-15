@@ -27,7 +27,7 @@ export default function NavBar() {
   }, []);
 
   const navLinks = [
-    { name: "About", href: isHome ? "#about" : "/#about" },
+    { name: "Team", href: "/team" },
     { name: "Events", href: "/events" },
     { name: "Social", href: "/social" },
     { name: "Speak", href: "/speak" },

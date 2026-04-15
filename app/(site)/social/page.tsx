@@ -21,11 +21,9 @@ export default function SocialPage() {
             <span className="hero-eyebrow-text">The Meridian Society</span>
             <span className="hero-eyebrow-rule"></span>
           </div>
-          <p className="hero-pre rv">Culture</p>
-          <h1 className="hero-title rv rv-stagger">
-            <span className="rv-stagger-item">Community &amp;</span>
-            <br />
-            <span className="rv-stagger-item">Gatherings.</span>
+          <p className="hero-pre rv">Society</p>
+          <h1 className="hero-title rv">
+            Social <em>Events.</em>
           </h1>
           <div className="hero-hr rv" aria-hidden="true" data-d="1"></div>
           <p className="hero-sub rv" data-d="2">From quiet coffee meetups to high-energy social nights. Building a community of genuinely curious people in Ottawa.</p>
@@ -50,11 +48,11 @@ export default function SocialPage() {
           <div className="social-intro-grid">
             <div className="social-intro-left">
               <div className="sec-label rv">Culture</div>
-              <h2 className="social-h2 rv" data-d="1">Beyond the<br /><em>Classroom.</em></h2>
+              <h2 className="social-h2 rv" data-d="1">A Community you&apos;ll want<br /><em>to be a part of.</em></h2>
             </div>
             <div className="social-intro-right">
               <p className="social-p rv" data-d="2">
-                Meridian isn&apos;t just about formal talks; it&apos;s about the conversations that happen afterward. Our social program is designed to create a relaxed, authentic space for students to meet like-minded peers and established professionals.
+                The society isn&apos;t just about formal talks; it&apos;s about the conversations that happen afterward. Our social events are designed to create a relaxed, authentic space for students to meet peers who share their drive.
                 <br /><br />
                 We believe that the best connections happen when the agenda is loose and the curiosity is high. Whether it&apos;s a themed bar night or a quiet weekend gathering, the focus is always on genuine interaction.
               </p>
@@ -70,7 +68,7 @@ export default function SocialPage() {
             <article className="vibe-card rv" data-d="1">
               <div className="vibe-type">Themed Gatherings</div>
               <h3 className="vibe-h3">Bar Nights &amp; Lounges</h3>
-              <p className="vibe-p">Evening events in curated Ottawa spaces. High-impact social environments where student ambition meets professional experience.</p>
+              <p className="vibe-p">Evening events in premier Ottawa spaces. High-impact social environments where student ambition meets professional experience.</p>
             </article>
 
             <article className="vibe-card rv" data-d="2">

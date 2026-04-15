@@ -86,13 +86,14 @@ export const eventsCss = `
     .expect-val { font-family: var(--serif); font-size: 19px; color: var(--ink); line-height: 1.4; }
 
     /* ── Stay Notified CTA ── */
-    .notify-sec { padding: 120px 0; background: var(--ink); color: var(--cream); text-align: center; position: relative; overflow: hidden; }
-    .notify-bg { position: absolute; inset: 0; opacity: 0.05; background-image: var(--grain); pointer-events: none; }
-    .notify-title { font-family: var(--serif); font-size: clamp(32px, 5vw, 72px); font-weight: 300; margin-bottom: 32px; letter-spacing: 0.02em; }
+    .notify-sec { padding: 110px 0; background: var(--cream-deep); position: relative; overflow: hidden; border-top: 1px solid var(--ink-15); }
+    .notify-sec::before { content: ''; position: absolute; top: 40px; right: 40px; width: 80px; height: 80px; border-top: 1px solid var(--ink-15); border-right: 1px solid var(--ink-15); pointer-events: none; }
+    .notify-sec::after  { content: ''; position: absolute; bottom: 40px; left: 40px; width: 80px; height: 80px; border-bottom: 1px solid var(--ink-15); border-left: 1px solid var(--ink-15); pointer-events: none; }
+    .notify-inner { position: relative; z-index: 1; max-width: 640px; margin: 0 auto; text-align: center; }
+    .notify-title { font-family: var(--serif); font-size: clamp(40px, 5vw, 76px); font-weight: 300; line-height: 1.0; color: var(--ink); margin-bottom: 20px; }
     .notify-title em { font-style: italic; }
-    .notify-sub { font-family: var(--serif); font-size: 20px; font-style: italic; color: rgba(244,237,227,0.7); max-width: 600px; margin: 0 auto 48px; line-height: 1.6; }
-    .btn-gold { display: inline-flex; align-items: center; gap: 12px; background: var(--gold); color: var(--ink); text-decoration: none; padding: 16px 40px; font-family: var(--sans); font-size: 12px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; transition: transform 0.3s, background 0.3s; }
-    .btn-gold:hover { transform: translateY(-2px); background: var(--gold-lt); }
+    .notify-sub { font-family: var(--serif); font-size: clamp(19px, 2vw, 24px); font-style: italic; font-weight: 300; color: var(--ink-75); line-height: 1.85; margin-bottom: 44px; }
+    .notify-actions { display: flex; align-items: center; justify-content: center; }
 
     /* ── Responsive ── */
     @media (max-width: 1100px) {

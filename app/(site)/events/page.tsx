@@ -24,11 +24,8 @@ export default function EventsPage() {
             <span className="hero-eyebrow-text">The Meridian Society</span>
             <span className="hero-eyebrow-rule"></span>
           </div>
-          <p className="hero-pre rv">Inaugural Program</p>
-          <h1 className="hero-title rv rv-stagger">
-            <span className="rv-stagger-item">The Speaker</span>
-            <br />
-            <span className="rv-stagger-item">Forum.</span>
+          <h1 className="hero-title rv">
+            Speaker <em>Events.</em>
           </h1>
           <div className="hero-hr rv" aria-hidden="true" data-d="1"></div>
           <p className="hero-sub rv" data-d="2">Connecting Ottawa students with the professionals, alumni, and scholars who can expand their world.</p>
@@ -59,7 +56,7 @@ export default function EventsPage() {
               <p className="events-copy-body rv" data-d="2">
                 The Speaker Forum is Meridian&apos;s flagship event series. We bring in established professionals, academics, and alumni to share their lived experience with a room of vetted, motivated students.
                 <br /><br />
-                These aren&apos;t just lectures. They are open dialogues designed to provide students with tangible orientation in their respective fields—exposure to ideas and networks that aren&apos;t found in a classroom.
+                These aren&apos;t just lectures. They are open dialogues designed to provide students with tangible orientation in their respective fields - exposure to ideas and networks that aren&apos;t found in a classroom.
               </p>
             </div>
           </div>
@@ -98,11 +95,13 @@ export default function EventsPage() {
           </div>
           <div className="expect-grid rv" data-d="2" role="table">
             {[
-              ['Length', '45 minute talk followed by 30 minute open Q&A'],
-              ['Audience', '20–30 registered Meridian members'],
-              ['Location', 'Curated spaces across Downtown Ottawa'],
-              ['Admission', 'Free for registered members'],
-              ['Waitlist', 'First-come, first-served via Instagram registration']
+              ['Length', '30-45 minute presentation'],
+              ['Format', 'Speaker talk followed by open Q&A'],
+              ['Audience Size', '20-30 curated students'],
+              ['Who Attends', 'Registered Meridian members'],
+              ['Location', 'Ottawa, Canada'],
+              ['Fields', 'Policy, academia, entrepreneurship, law, business, politics, and beyond'],
+              ['Compensation', 'Volunteer']
             ].map(([lbl, val]) => (
               <div key={lbl} className="expect-row" role="row">
                 <div className="expect-lbl" role="rowheader">{lbl}</div>
@@ -115,13 +114,12 @@ export default function EventsPage() {
 
       {/* ═══════════ NOTIFY / INSTAGRAM ═══════════ */}
       <section className="notify-sec">
-        <div className="notify-bg" aria-hidden="true"></div>
-        <div className="wrap">
+        <div className="wrap notify-inner">
           <h2 className="notify-title rv">Event Announcements<br />live on <em>Instagram.</em></h2>
           <p className="notify-sub rv" data-d="1">We announce all forum dates, speakers, and registration links exclusively through our social channels first.</p>
           <div className="notify-actions rv" data-d="2">
             <Magnetic strength={0.3}>
-              <a href="https://www.instagram.com/Meridian.Society" target="_blank" rel="noopener noreferrer" className="btn-gold">
+              <a href="https://www.instagram.com/Meridian.Society" target="_blank" rel="noopener noreferrer" className="btn-primary">
                 <span>Follow @Meridian.Society</span>
               </a>
             </Magnetic>

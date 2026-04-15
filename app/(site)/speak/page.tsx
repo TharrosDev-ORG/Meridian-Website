@@ -90,7 +90,7 @@ export default function Page() {
         </div>
         <div className="speak-meta-row" role="row">
           <div className="speak-meta-lbl" role="rowheader">Audience Size</div>
-          <div className="speak-meta-val" role="cell">20–30 curated students</div>
+          <div className="speak-meta-val" role="cell">20–30 students</div>
         </div>
         <div className="speak-meta-row" role="row">
           <div className="speak-meta-lbl" role="rowheader">Who Attends</div>

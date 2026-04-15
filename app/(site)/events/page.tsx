@@ -99,7 +99,7 @@ export default function EventsPage() {
               ['Length', '30-45 minute presentation'],
               ['Format', 'Presentation followed by open Q&A'],
               ['Audience Size', '20-30 curated students'],
-              ['Who Attends', 'Registered Meridian members'],
+              ['Who Attends', 'Registered Society members'],
               ['Location', 'Ottawa, Canada'],
               ['Fields', 'Policy, academia, entrepreneurship, law, business, politics, and beyond']
             ].map(([lbl, val]) => (

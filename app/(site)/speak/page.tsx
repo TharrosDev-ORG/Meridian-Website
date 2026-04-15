@@ -94,7 +94,7 @@ export default function Page() {
         </div>
         <div className="speak-meta-row" role="row">
           <div className="speak-meta-lbl" role="rowheader">Who Attends</div>
-          <div className="speak-meta-val" role="cell">Registered Meridian members</div>
+          <div className="speak-meta-val" role="cell">Registered Society members</div>
         </div>
         <div className="speak-meta-row" role="row">
           <div className="speak-meta-lbl" role="rowheader">Location</div>

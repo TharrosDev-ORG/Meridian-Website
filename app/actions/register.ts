@@ -1,7 +1,7 @@
 'use server';
 
 import { z } from 'zod';
-import { supabaseAdmin } from '@/lib/supabase';
+import { createAdminClient } from '@/utils/supabase/admin';
 import { headers } from 'next/headers';
 
 // Simple in-memory rate limit store (Note: In serverless environments, this is per-instance)
@@ -84,11 +84,8 @@ export async function registerMember(data: RegistrationData) {
   const normalizedEmail = email.toLowerCase().trim();
 
   // 4. Database Operations
-  // Using supabaseAdmin (Service Role) to bypass RLS for this specific server-side flow
-  if (!supabaseAdmin) {
-    console.error('[ADMIN ERROR] Supabase Admin client not initialized.');
-    return { success: false, error: 'System configuration error.' };
-  }
+  // Using admin client (Service Role) to bypass RLS for this specific server-side flow
+  const supabaseAdmin = createAdminClient();
 
   // Explicit duplicate check (Lowercased)
   const { data: existing, error: checkError } = await supabaseAdmin

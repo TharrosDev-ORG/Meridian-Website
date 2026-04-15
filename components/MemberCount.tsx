@@ -2,9 +2,10 @@
 
 import { useEffect, useState } from "react";
 import { getMemberCount } from "@/app/actions/getMemberCount";
-import { supabase } from "@/lib/supabase";
+import { createClient } from "@/utils/supabase/client";
 
 export default function MemberCount() {
+  const supabase = createClient();
   const [count, setCount] = useState<number>(0);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -18,14 +19,19 @@ export default function MemberCount() {
     loadCount();
 
     // 2. Real-time Subscription
-    // Listens for NEW rows in the members table to increment the count live
+    // Listens for CHANGES to the site_stats table to update the count live
     const channel = supabase
-      .channel('member-updates')
+      .channel('site_stats_updates')
       .on(
         'postgres_changes',
-        { event: 'INSERT', schema: 'public', table: 'members' },
-        () => {
-          setCount(prev => prev + 1);
+        { 
+          event: 'UPDATE', 
+          schema: 'public', 
+          table: 'site_stats',
+          filter: `id=eq.meridian_global_stats`
+        },
+        (payload) => {
+          setCount(payload.new.member_count);
         }
       )
       .subscribe();

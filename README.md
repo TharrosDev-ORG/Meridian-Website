@@ -1,117 +1,140 @@
 # The Meridian Society — Website
 
-Public website for [The Meridian Society](https://meridiansociety.ca), an independent, student-run speaker forum and community based in Ottawa.
+Public website for [The Meridian Society](https://meridiansociety.ca), an independent, student-run speaker forum based in Ottawa.
 
 ---
 
-## Technical Stack
+## Stack
 
-- **Framework**: [Next.js 16.2](https://nextjs.org/) (App Router) with TypeScript
-- **State & Auth**: [Supabase SSR](https://supabase.com/docs/guides/auth/server-side-rendering) (`@supabase/ssr`)
-- **Database**: PostgreSQL via Supabase (Migrations-first workflow)
-- **Styling**: Vanilla CSS with a custom design system (Tokens in `globals.css`)
-- **Validation**: [Zod](https://zod.dev/) for server action type safety
-- **hosting**: [Vercel](https://vercel.com/) with Speed Insights and Analytics
-
----
-
-## Architecture & Data Flow
-
-### 1. Supabase Integration
-The project uses a consolidated Supabase pattern located in `utils/supabase/`:
-- **Server Client**: For use in Server Components and Layouts.
-- **Browser Client**: For real-time subscriptions (e.g., live member counter).
-- **Admin Client**: Secure service-role client for Server Actions (to bypass RLS for registration).
-- **Middleware**: Manages Supabase session refreshing globally.
-
-### 2. Member Registration
-Legacy Google Forms have been replaced with a custom, high-performance [RegistrationForm](file:///components/RegistrationForm.tsx). It uses **Next.js Server Actions** (`app/actions/register.ts`) and includes:
-- IP-based rate limiting.
-- Zod schema validation.
-- Honeypot bot protection.
-- Live database insertion to the `members` table.
-
-### 3. Real-time Member Counter
-The [MemberCount](file:///components/MemberCount.tsx) component utilizes Supabase Realtime to listen for `POSTGRES_CHANGES` on the `site_stats` table, ensuring the UI updates instantly when a new member registers.
-
----
-
-## Directory Structure
-
-```text
-app/
-  (site)/              — Primary page routes (Home, Events, Team, etc.)
-  actions/             — Server Actions (Registration, Member Counts)
-  layout.tsx           — Root layout: metadata, fonts, providers, global styles
-  globals.css          — Central design tokens and shared base styles
-  middleware.ts        — Global Supabase session management
-
-components/
-  RegistrationForm.tsx — Custom glassmorphic registration interface
-  MemberCount.tsx      — Real-time statistics display via Supabase
-  BackToTop.tsx        — Standardized global 'Return to Top' arc button
-  NavBar.tsx / Footer.tsx — Site-wide navigation components
-  PageStyles.tsx       — Component for injecting page-specific CSS strings
-
-supabase/
-  migrations/          — Versioned SQL migrations for schema management
-
-utils/supabase/        — Standardized Supabase utility clients (Browser, Server, Admin)
-
-data/                  — Static content for events and social pages
-```
+| Layer | Technology |
+|-------|-----------|
+| Framework | Next.js 16 (App Router), TypeScript |
+| UI | React 19 — Server Components by default |
+| Styling | Tailwind CSS v4 + per-page inline `pageCss.ts` |
+| Database | Supabase (Postgres + Realtime) |
+| Validation | Zod v4 |
+| Fonts | Cormorant Garamond + Barlow Condensed via `next/font/google` |
+| Deploy | Vercel — auto-deploys on push to `main` |
 
 ---
 
 ## Local Development
 
-1. **Install Dependencies**:
-   ```bash
-   npm install
-   ```
+**1. Install dependencies**
+```bash
+npm install
+```
 
-2. **Environment Variables**:
-   Create a `.env.local` file with the following keys:
-   ```env
-   NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
-   NEXT_PUBLIC_SUPABASE_ANON_KEY=your_anon_key
-   SUPABASE_SERVICE_ROLE_KEY=your_service_role_key
-   ```
+**2. Set up environment variables**
 
-3. **Run Dev Server**:
-   ```bash
-   npm run dev
-   ```
+Create `.env.local`:
+```env
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_anon_key
+SUPABASE_SERVICE_ROLE_KEY=your_service_role_key
+```
+
+**3. Run dev server**
+```bash
+npm run dev
+```
 
 ---
 
-## Database Management
+## Architecture
 
-Schema changes must be applied via migrations in `supabase/migrations/`. 
-To create a new migration manually:
-```sql
--- supabase/migrations/<timestamp>_description.sql
-CREATE TABLE ...
+### Routing
+
+All public pages live under `app/(site)/`. The site shell (`NavBar`, `Footer`, `MobileMenu`, `BackToTop`) is in `app/(site)/layout.tsx`. Each page is a server component with a sibling `pageCss.ts` for its scoped styles.
+
+### Styling
+
+`app/globals.css` is the single shared stylesheet — design tokens, reset, nav, footer, all animations, and utility classes. Per-page styles live in `pageCss.ts` template literals injected via the `PageStyles` component (prevents FOUC on client navigation).
+
+### Supabase
+
+Four client variants in `utils/supabase/`:
+
+| File | Use |
+|------|-----|
+| `client.ts` | Browser / client components |
+| `server.ts` | Server components |
+| `admin.ts` | Server actions (bypasses RLS) |
+| `middleware.ts` | Session refresh in middleware |
+
+Never import `admin.ts` from client components — it uses the service role key.
+
+### Member Registration
+
+`RegistrationForm` (client) → `registerMember()` server action → Supabase insert. Server action includes: honeypot check, IP rate limiting (1/5 min), Zod validation, case-insensitive duplicate check. Success state persisted to localStorage + cookie so the form isn't re-shown.
+
+### Real-time Member Count
+
+`Footer` and `MemberCount` components initial-fetch via `getMemberCount()` server action, then subscribe to `postgres_changes` on `site_stats` via Supabase Realtime. A DB trigger auto-increments `site_stats.member_count` on every insert into `members`.
+
+---
+
+## Directory Structure
+
+```
+app/
+  layout.tsx              # Root layout — metadata, fonts, JSON-LD, analytics
+  globals.css             # All shared CSS
+  robots.ts               # Dynamic robots.txt (blocks AI crawlers)
+  sitemap.ts              # Dynamic sitemap.xml
+  (site)/                 # Public pages: home, events, social, speak, membership, team
+  register/               # Registration form page
+  actions/                # Server actions: register.ts, getMemberCount.ts
+
+components/               # NavBar, Footer, MobileMenu, Providers, BackToTop,
+                          # PageStyles, MemberCount, RegistrationForm,
+                          # FaqAccordion, Magnetic, TransitionWrapper
+
+data/
+  events.ts               # Speaker events array
+  social.ts               # Social events array + SocialEvent interface
+
+utils/supabase/           # Browser / server / admin / middleware clients
+
+supabase/migrations/      # Versioned SQL schema migrations
+
+public/assets/
+  favicons/               # Full favicon set (SVG, PNG, ICO, apple-touch)
+  images/team/            # Team photos (WebP)
+  og-image.png            # OG image (1200×630)
 ```
 
 ---
 
 ## Content Updates
 
-- **Events**: Modify `data/events.ts`. Set `isCurrent: true` for the primary featured event.
-- **Socials**: Modify `data/social.ts`. Events are automatically sorted by date.
-- **Team**: Edit the profiles directly in `app/(site)/team/page.tsx`.
+**Speaker events** — edit `data/events.ts`. One event with `isCurrent: true` at a time.
+
+**Social events** — append to `SOCIAL_EVENTS` in `data/social.ts`. Page auto-sorts into upcoming/past by `date` (YYYY-MM-DD).
+
+**Team** — edit `app/(site)/team/page.tsx`. Add photos to `public/assets/images/team/` (WebP, <10KB).
+
+**Nav links** — update `NavBar.tsx` `navLinks` array and `MobileMenu.tsx` simultaneously.
+
+**Registration/speak URLs** — both exported from `components/NavBar.tsx` as `REGISTER_URL` and `SPEAK_URL`. Update in one place.
 
 ---
 
-## Favicons
+## Database
 
-Favicons are managed in `app/layout.tsx` via the metadata API. Source files are located in `public/assets/favicons/`.
+Schema managed via migrations in `supabase/migrations/`. Two tables:
+
+- **`members`** — registration records (email PK, name, role, institution, interests, etc.)
+- **`site_stats`** — single row `id='meridian_global_stats'` with `member_count` integer, auto-maintained by trigger
+
+RLS: anonymous insert to `members`; public read of `site_stats`. All other ops require authenticated role.
 
 ---
 
 ## Deployment
 
-Pushes to `main` trigger an automatic deployment on **Vercel**. 
-> [!IMPORTANT]
-> Ensure all Supabase environment variables (including the Service Role key) are configured in the Vercel Project Settings.
+Push to `main` → Vercel auto-deploys. No manual build step.
+
+Vercel env vars required: `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY`.
+
+Favicons are in `public/assets/favicons/` — do not add `app/favicon.ico` (overrides the metadata-managed set).

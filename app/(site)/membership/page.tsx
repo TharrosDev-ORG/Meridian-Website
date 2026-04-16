@@ -7,7 +7,7 @@ import { REGISTER_URL } from '@/components/NavBar';
 import Marquee from '@/components/Marquee';
 import RegisterSection from '@/components/sections/RegisterSection';
 import { getMetadata } from '@/utils/metadata-shared';
-import { generateFaqSchema } from '@/utils/jsonld';
+import { generateFaqSchema, generateBreadcrumbSchema } from '@/utils/jsonld';
 
 export const metadata: Metadata = getMetadata({
   title: "Membership",
@@ -38,6 +38,16 @@ export default function Page() {
   return (
     <>
       <PageStyles css={membershipCss} />
+      {/* JSON-LD Breadcrumb Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(generateBreadcrumbSchema([
+            { name: "Home", item: "/" },
+            { name: "Membership", item: "/membership" },
+          ])),
+        }}
+      />
       {/* JSON-LD FAQ Schema */}
       <script
         type="application/ld+json"
@@ -54,7 +64,7 @@ export default function Page() {
         <span className="hero-eyebrow-text">The Meridian Society</span>
         <span className="hero-eyebrow-rule"></span>
       </div>
-      <p className="hero-pre rv">Student Speaker Forum</p>
+      <p className="hero-pre rv rv-stagger">Student Speaker Forum</p>
       <h1 className="hero-title rv rv-stagger">
         <span className="rv-stagger-item">Membership.</span>
       </h1>

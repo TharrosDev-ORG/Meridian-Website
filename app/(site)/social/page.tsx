@@ -2,30 +2,31 @@ import { Metadata } from 'next';
 import PageStyles from '@/components/PageStyles';
 import { socialCss } from './pageCss';
 import Magnetic from '@/components/Magnetic';
+import Marquee from '@/components/Marquee';
+import { getMetadata } from '@/utils/metadata-shared';
+import { generateBreadcrumbSchema } from '@/utils/jsonld';
 
-export const metadata: Metadata = {
-  title: "Socials | The Meridian Society",
-  description: "The social side of the Society. From coffee meetups to social nights, we create relaxed, authentic spaces for Ottawa students to meet peers who share their drive.",
-  alternates: { canonical: "https://meridiansociety.ca/social" },
-  openGraph: {
-    title: "Social Events | The Meridian Society",
-    description: "Discover the social side of the Society, from coffee meetups to social nights.",
-    url: "https://meridiansociety.ca/social",
-    siteName: "The Meridian Society",
-    locale: "en_CA",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Social Events | The Meridian Society",
-    description: "Relaxed, authentic spaces for Ottawa students to meet peers who share their drive.",
-  },
-};
+export const metadata: Metadata = getMetadata({
+  title: "Social Gatherings",
+  description: "The social side of the Society. From coffee meetups to social nights, we create relaxed, authentic spaces for Ottawa students to meet like-minded peers.",
+  urlPath: "/social",
+  keywords: ['Ottawa Student Socials', 'Student Networking Socials', 'Community Events Ottawa', 'Peer Networking']
+});
 
 export default function SocialPage() {
   return (
     <main id="main-content">
       <PageStyles css={socialCss} />
+      {/* JSON-LD Breadcrumb Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(generateBreadcrumbSchema([
+            { name: "Home", item: "/" },
+            { name: "Socials", item: "/social" },
+          ])),
+        }}
+      />
 
       {/* PAGE HERO */}
       <section className="page-hero" aria-label="Social events hero">
@@ -50,11 +51,7 @@ export default function SocialPage() {
         </div>
       </section>
 
-      <div className="marquee-wrap" aria-hidden="true">
-        <div className="marquee-track" data-static="true">
-          <span className="m-item">The Meridian Society</span><span className="m-gem">◆</span><span className="m-item">Ottawa</span><span className="m-gem">◆</span><span className="m-item">Est. 2025</span><span className="m-gem">◆</span><span className="m-item">Student-Run</span><span className="m-gem">◆</span><span className="m-item">Carleton University</span><span className="m-gem">◆</span><span className="m-item">uOttawa</span><span className="m-gem">◆</span><span className="m-item">Algonquin College</span><span className="m-gem">◆</span><span className="m-item">The Meridian Society</span><span className="m-gem">◆</span><span className="m-item">Ottawa</span><span className="m-gem">◆</span><span className="m-item">Est. 2025</span><span className="m-gem">◆</span><span className="m-item">Student-Run</span><span className="m-gem">◆</span><span className="m-item">Carleton University</span><span className="m-gem">◆</span><span className="m-item">uOttawa</span><span className="m-gem">◆</span><span className="m-item">Algonquin College</span><span className="m-gem">◆</span>
-        </div>
-      </div>
+      <Marquee />
 
       {/* SOCIAL ABOUT / INTRO */}
       <section className="social-about-sec" id="vibe">

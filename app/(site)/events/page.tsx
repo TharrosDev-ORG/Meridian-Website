@@ -1,34 +1,34 @@
 import { Metadata } from 'next';
+import Link from 'next/link';
 import PageStyles from '@/components/PageStyles';
 import { eventsCss } from './pageCss';
 import { REGISTER_URL } from '@/components/NavBar';
-
-export const metadata: Metadata = {
-  title: "Events | The Meridian Society",
-  description: "The Speaker Forum is our flagship program. We bring established professionals and academics to share lived experience and knowledge through curated presentations and open dialogues.",
-  alternates: { canonical: "https://meridiansociety.ca/events" },
-  openGraph: {
-    title: "Speaker Events | The Meridian Society",
-    description: "Engage in the Speaker Forum, our signature program of curated presentations and open dialogues in Ottawa.",
-    url: "https://meridiansociety.ca/events",
-    siteName: "The Meridian Society",
-    locale: "en_CA",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Speaker Events | The Meridian Society",
-    description: "Flagship program of curated presentations and open dialogues with industry leaders and academics.",
-  },
-};
-
-import Link from 'next/link';
 import Magnetic from '@/components/Magnetic';
+import Marquee from '@/components/Marquee';
+import { getMetadata } from '@/utils/metadata-shared';
+import { generateBreadcrumbSchema } from '@/utils/jsonld';
+
+export const metadata: Metadata = getMetadata({
+  title: "Speaker Events",
+  description: "The Speaker Forum is our flagship program. We provide a platform for established professionals and academics to share lived experience with students.",
+  urlPath: "/events",
+  keywords: ['Ottawa Speaker Forum', 'Student Dialogue', 'Academic Presentations Ottawa', 'Student Networking Events']
+});
 
 export default function EventsPage() {
   return (
     <>
       <PageStyles css={eventsCss} />
+      {/* JSON-LD Breadcrumb Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(generateBreadcrumbSchema([
+            { name: "Home", item: "/" },
+            { name: "Events", item: "/events" },
+          ])),
+        }}
+      />
       <main id="main-content">
 
         {/* ═══════════ HERO ═══════════ */}
@@ -54,11 +54,7 @@ export default function EventsPage() {
           </div>
         </section>
 
-        <div className="marquee-wrap" aria-hidden="true">
-          <div className="marquee-track" data-static="true">
-            <span className="m-item">The Meridian Society</span><span className="m-gem">◆</span><span className="m-item">Ottawa</span><span className="m-gem">◆</span><span className="m-item">Est. 2025</span><span className="m-gem">◆</span><span className="m-item">Student-Run</span><span className="m-gem">◆</span><span className="m-item">Carleton University</span><span className="m-gem">◆</span><span className="m-item">uOttawa</span><span className="m-gem">◆</span><span className="m-item">Algonquin College</span><span className="m-gem">◆</span><span className="m-item">The Meridian Society</span><span className="m-gem">◆</span><span className="m-item">Ottawa</span><span className="m-gem">◆</span><span className="m-item">Est. 2025</span><span className="m-gem">◆</span><span className="m-item">Student-Run</span><span className="m-gem">◆</span><span className="m-item">Carleton University</span><span className="m-gem">◆</span><span className="m-item">uOttawa</span><span className="m-gem">◆</span><span className="m-item">Algonquin College</span><span className="m-gem">◆</span>
-          </div>
-        </div>
+        <Marquee />
 
         {/* ═══════════ ABOUT THE FORUM ═══════════ */}
         <section className="events-sec" id="about" aria-labelledby="events-heading">

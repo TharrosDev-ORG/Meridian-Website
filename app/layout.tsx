@@ -33,8 +33,16 @@ export const metadata: Metadata = {
   title: "The Meridian Society | Ottawa's Student Speaker Forum",
   description:
     "Ottawa's flagship student speaker forum. The Meridian Society connects curious students with professionals, alumni, and scholars through curated speaker events and open dialogue.",
-  keywords:
-    "Meridian Society, Ottawa Student Speaker Forum, Carleton University Student Club, uOttawa, Algonquin College, Academic Dialogue, Student Networking Ottawa, Professional Development Ottawa",
+  keywords: [
+    "Meridian Society", "Ottawa Student Speaker Forum", "Undergraduate Speaker Series",
+    "Academic Dialogue Ottawa", "Professional Networking for Students", "Career Orientation Students",
+    "Independent Student Org", "Ottawa Campus Community", "Student-Led Professional Development",
+    "Carleton University Student Club", "uOttawa Campus Life", "Algonquin College Events",
+    "Youth Leadership Ottawa", "Intellectual Community Students", "Ottawa Networking Events",
+    "Academic Social Groups Ottawa", "Student Mentorship Connections", "Campus Intellectual Life",
+    "Ottawa Career Readiness", "Higher Education Networking", "Ottawa Student Leadership",
+    "Speaker Forum Canada", "Student Engagement Ottawa", "Post-Secondary Dialogue", "Ottawa Student Community"
+  ],
   verification: {
     google: "google2af069010dc1ab79",
   },
@@ -42,9 +50,11 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true,
+    nocache: true,
     googleBot: {
       index: true,
       follow: true,
+      noimageindex: false,
       "max-image-preview": "large",
       "max-video-preview": -1,
       "max-snippet": -1,

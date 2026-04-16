@@ -3,14 +3,13 @@ import RegistrationForm from "@/components/RegistrationForm";
 import PageStyles from "@/components/PageStyles";
 import BackButton from "@/components/BackButton";
 import { membershipCss } from "../(site)/membership/pageCss";
+import { getMetadata } from "@/utils/metadata-shared";
 
-export const metadata: Metadata = {
-  title: "Register | The Meridian Society",
+export const metadata: Metadata = getMetadata({
+  title: "Register",
   description: "Register as a member of The Meridian Society. Free membership for Ottawa students — no commitment required.",
-  alternates: {
-    canonical: "https://meridiansociety.ca/register",
-  },
-};
+  urlPath: "/register"
+});
 
 const registerPageCss = `
   .register-page-minimal {

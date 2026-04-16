@@ -66,7 +66,7 @@ export default function SocialPage() {
             </div>
             <div className="social-intro-right">
               <p className="social-p rv" data-d="2">
-                The society isn&apos;t just about formal talks; it&apos;s about the conversations that happen afterward. Our social events are designed to create a relaxed, authentic space for students to meet peers who share their drive.
+                The Society isn&apos;t just about formal talks; it&apos;s about the conversations that happen afterward. Our social events are designed to create a relaxed, authentic space for students to meet peers who share their drive.
                 <br /><br />
                 We believe that the best connections happen when the agenda is loose and the curiosity is high. Whether it&apos;s a themed bar night or a quiet weekend gathering, the focus is always on genuine interaction.
               </p>

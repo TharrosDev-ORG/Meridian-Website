@@ -10,7 +10,7 @@ const ROLES = ["Student", "Alumni", "Professor / Faculty", "Professional", "Othe
 const INSTITUTIONS = ["Carleton University", "University of Ottawa", "Algonquin College", "Other"];
 const INTERESTS_LIST = [
   "Politics", "Law", "Business", "Science", "Health Sciences", 
-  "Engineering", "Creative Careers (Art, music, film etc )", 
+  "Engineering", "Creative Careers (Art, music, film, etc.)", 
   "Environment", "Psychology"
 ];
 const HEARD_SOURCES = ["Friend or Peer", "Professor", "Social Media", "Campus Event", "Current Member"];
@@ -228,7 +228,7 @@ export default function RegistrationForm() {
 
           {/* ── Interests ── */}
           <div className="reg-field reg-field--full">
-            <label className="reg-label">Areas of Interest? (select all that apply) *</label>
+            <label className="reg-label">Areas of interest? (Select all that apply) *</label>
             <div className="reg-options-grid">
               {INTERESTS_LIST.map((interest) => (
                 <label key={interest} className="reg-choice reg-choice--check">

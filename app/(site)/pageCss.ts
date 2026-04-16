@@ -106,8 +106,8 @@ export const indexCss = `
 
     /* Instagram button - Rectangular version */
     .hero-ig-btn {
-      display: inline-flex; align-items: center; justify-content: center; gap: 12px;
-      padding: 16px 32px 15px; border: 1px solid var(--ink-30); 
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 52px; height: 52px; border: 1px solid var(--ink-20); 
       text-decoration: none; position: relative; overflow: hidden;
       transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
     }
@@ -116,17 +116,10 @@ export const indexCss = `
       transform: translateX(-100%);
       transition: transform 0.35s cubic-bezier(0.16,1,0.3,1); z-index: 0;
     }
-    .hero-ig-btn svg { position: relative; z-index: 1; width: 16px; height: 16px; fill: var(--ink-55); transition: fill 0.25s; }
+    .hero-ig-btn svg { position: relative; z-index: 1; width: 18px; height: 18px; fill: var(--gold); transition: fill 0.25s; }
     .hero-ig-btn:hover { border-color: var(--gold); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(184,147,42,0.18); }
     .hero-ig-btn:hover::before { transform: translateX(0); }
     .hero-ig-btn:hover svg { fill: var(--cream); }
-    .hero-ig-label {
-      font-family: var(--sans); font-size: 11px; font-weight: 700;
-      letter-spacing: 0.2em; text-transform: uppercase;
-      color: var(--ink-55); transition: color 0.25s;
-      position: relative; z-index: 1;
-    }
-    .hero-ig-btn:hover .hero-ig-label { color: var(--cream); }
 
     /* Stats bar — full width, pushed to bottom by flex */
     .hero-stats {
@@ -435,9 +428,7 @@ export const indexCss = `
       .stat:nth-child(3),
       .stat:nth-child(4) { border-top: 1px solid var(--ink-08); }
       .stat-lbl { font-size: 11px; letter-spacing: 0.18em; }
-      .hero-ig-btn { width: 100%; height: auto; padding: 13px 24px; gap: 10px; justify-content: center; }
-      .hero-ig-label { display: inline; font-family: var(--sans); font-size: 11.5px; font-weight: 700; letter-spacing: 0.24em; text-transform: uppercase; color: var(--ink-55); position: relative; z-index: 1; }
-      .hero-ig-btn:hover .hero-ig-label { color: var(--cream); }
+      .hero-ig-btn { width: 44px; height: 44px; padding: 0; }
       .about-body { font-size: 17px; }
       .pull-quote p { font-size: 18px; }
       .who-grid { grid-template-columns: 1fr; }

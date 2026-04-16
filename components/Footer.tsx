@@ -85,7 +85,7 @@ export default function Footer() {
             </h4>
             <div className="footer-stat-item">
               <span className="footer-stat-val">
-                {isLoading ? <span className="member-count-shimmer" style={{height:'44px', width:'76px'}} /> : count}
+                {isLoading ? <span className="member-count-shimmer" style={{height:'68px', width:'110px'}} /> : count}
               </span>
             </div>
           </div>

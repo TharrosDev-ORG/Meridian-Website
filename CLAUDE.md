@@ -70,10 +70,6 @@ components/
   sections/
     RegisterSection.tsx   # Common "Become a Member" footer-adjacent section
 
-data/
-  events.ts               # EVENTS array — TypeScript typed speaker event objects
-  social.ts               # SOCIAL_EVENTS array + SocialEvent interface
-
 utils/supabase/
   client.ts               # Browser client (createBrowserClient)
   server.ts               # Server component client (createServerClient + cookies)
@@ -84,6 +80,7 @@ supabase/migrations/
   20260415000000_initial_schema.sql   # members + site_stats tables, trigger, RLS policies
   20260415000001_security_hardening.sql
   20260415000002_restrict_to_admin.sql
+  20260416113000_refined_members.sql  # ENUMs + Generated join dates (Latest)
 
 public/
   assets/
@@ -308,28 +305,14 @@ Additional headers: `nosniff`, `X-Frame-Options: DENY`, `HSTS`, `Referrer-Policy
 
 ---
 
-## Data Files
-
-### `data/events.ts` — EVENTS array
-Fields: `id`, `status`, `title` (HTML allowed), `desc`, `tags[]`, `ctaText`, `ctaHref`, `when`, `where`, `format`, `speaker`, `entry`, `isCurrent`.
-Only one event should have `isCurrent: true` at a time.
-
-### `data/social.ts` — SOCIAL_EVENTS array + SocialEvent interface
-Fields: `id`, `type` (`'members' | 'public'`), `date` (YYYY-MM-DD), `time?`, `title`, `where`, `desc`, `tags?`, `cost?`, `capacity?`, `ctaText?`, `ctaHref?`.
-Social page auto-sorts into Upcoming/Past by comparing `date` against today.
+## For deep technical specs, see TECHNICAL.md
 
 ---
 
 ## Adding Content
 
-### New Speaker Event
-Edit `data/events.ts`. One `isCurrent: true` max.
-
-### New Social Event
-Append to `SOCIAL_EVENTS` in `data/social.ts`. Auto-sorted by `date`.
-
 ### New Team Member
-Edit `app/(site)/team/page.tsx`. Copy existing `<article className="member-card">`. Add photo to `public/assets/images/team/` (WebP, <10KB).
+Edit `app/(site)/team/page.tsx`. Copy existing `<article className="member-card">` and JSON-LD block. Add photo to `public/assets/images/team/` (WebP).
 
 ### New Page
 1. Create `app/(site)/newpage/page.tsx` (server component)

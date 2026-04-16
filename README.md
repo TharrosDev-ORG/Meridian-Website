@@ -1,141 +1,99 @@
-# The Meridian Society — Website
+# The Meridian Society — Operations Manual
 
-Public website for [The Meridian Society](https://meridiansociety.ca), an independent, student-run speaker forum based in Ottawa.
-
----
-
-## Stack
-
-| Layer | Technology |
-|-------|-----------|
-| Framework | Next.js 16.2 (App Router), TypeScript |
-| UI | React 19.2 — Server Components by default |
-| Styling | Tailwind CSS v4 + per-page inline `pageCss.ts` |
-| Database | Supabase (Postgres + Realtime) |
-| Validation | Zod v4 |
-| Fonts | Cormorant Garamond + Barlow Condensed via `next/font/google` |
-| Deploy | Vercel — auto-deploys on push to `main` |
+Welcome to the administration manual for [The Meridian Society](https://meridiansociety.ca). This guide is designed for non-technical administrators to manage members, update team profiles, and edit site content without needing to write code.
 
 ---
 
-## Local Development
+## 🗺️ Visual-to-File Map
 
-**1. Install dependencies**
-```bash
-npm install
-```
+Use this table to find exactly which file you need to open to edit a specific page on the website.
 
-**2. Set up environment variables**
-
-Create `.env.local`:
-```env
-NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your_anon_key
-SUPABASE_SERVICE_ROLE_KEY=your_service_role_key
-```
-
-**3. Run dev server**
-```bash
-npm run dev
-```
+| Page Name | Website Link | Source File Path |
+| :--- | :--- | :--- |
+| **Homepage** | [/](https://meridiansociety.ca) | `app/(site)/page.tsx` |
+| **Speaker Events** | [/events](https://meridiansociety.ca/events) | `app/(site)/events/page.tsx` |
+| **Social Gatherings** | [/social](https://meridiansociety.ca/social) | `app/(site)/social/page.tsx` |
+| **The Team** | [/team](https://meridiansociety.ca/team) | `app/(site)/team/page.tsx` |
+| **Membership** | [/membership](https://meridiansociety.ca/membership) | `app/(site)/membership/page.tsx` |
+| **Speaker App** | [/speak](https://meridiansociety.ca/speak) | `app/(site)/speak/page.tsx` |
+| **Registration** | [/register](https://meridiansociety.ca/register) | `app/register/page.tsx` |
 
 ---
 
-## Architecture
+## 👥 Managing Members (Supabase)
 
-### Routing
+All member registrations are stored in **Supabase**. You can view, add, or remove members directly through the dashboard.
 
-All public pages live under `app/(site)/`. The site shell (`NavBar`, `Footer`, `MobileMenu`, `BackToTop`) is in `app/(site)/layout.tsx`. Each page is a server component with a sibling `pageCss.ts` for its scoped styles.
-
-### Styling
-
-`app/globals.css` is the single shared stylesheet — design tokens, reset, nav, footer, all animations, and utility classes. Per-page styles live in `pageCss.ts` template literals injected via the `PageStyles` component (prevents FOUC on client navigation).
-
-### Supabase
-
-Four client variants in `utils/supabase/`:
-
-| File | Use |
-|------|-----|
-| `client.ts` | Browser / client components |
-| `server.ts` | Server components |
-| `service.ts` | Server actions (bypasses RLS) |
-| `middleware.ts` | Session refresh in middleware |
-
-Never import `service.ts` from client components — it uses the service role key.
-
-### Member Registration
-
-`RegistrationForm` (client) → `registerMember()` server action → Supabase insert. Server action includes: honeypot check, IP rate limiting (1/5 min), Zod validation, case-insensitive duplicate check via service client. Success state persisted to localStorage + cookie so the form isn't re-shown.
-
-### Real-time Member Count
-
-The `Footer` initial-fetches via the `getMemberCount()` server action, then subscribes to `postgres_changes` on `site_stats` via Supabase Realtime. A DB trigger auto-increments `site_stats.member_count` on every insert into `members`. Standalone counting logic has been consolidated into the footer to maintain a clean, single-view architecture.
+1.  **Login**: Access your project at [database.new](https://database.new) (Supabase Dashboard).
+2.  **Table Editor**: Select the `members` table from the left sidebar.
+3.  **To Add a Member**: Click **Insert Row** and fill in the details. The "Join Date" is automatically created.
+4.  **To Remove a Member**: Right-click the row and select **Delete Row**.
+5.  **Live Counter**: Any changes you make here will automatically update the "Live Member Count" in the website footer within seconds.
 
 ---
 
-## Directory Structure
+## ✍️ Editing Site Text (Find & Replace)
 
-```
-app/
-  layout.tsx              # Root layout — metadata, fonts, JSON-LD, analytics
-  globals.css             # All shared CSS
-  robots.ts               # Dynamic robots.txt (blocks AI crawlers)
-  sitemap.ts              # Dynamic sitemap.xml
-  (site)/                 # Public pages: home, events, social, speak, membership, team
-  register/               # Registration form page
-  actions/                # Server actions: register.ts, getMemberCount.ts
+To change text on a page, follow these simple steps:
 
-components/               # NavBar, Footer, MobileMenu, Providers, BackToTop,
-                          # PageStyles, RegistrationForm, FaqAccordion,
-                          # Magnetic, TransitionWrapper, ScrollProgress
-                          # (Subdir: components/sections/RegisterSection.tsx)
+1.  Open the **Source File** from the map above.
+2.  Press `Ctrl + F` (Windows) or `Cmd + F` (Mac) to search for the specific sentence you want to change.
+3.  Type your new text inside the existing tags (e.g., `<p>Your New Text Here</p>`).
+4.  **Save the file**. The website will update automatically if you are connected to the deployment pipeline (Vercel).
 
-data/
-  events.ts               # Speaker events array
-  social.ts               # Social events array + SocialEvent interface
-
-utils/supabase/           # Browser / server / service / middleware clients
-
-supabase/migrations/      # Versioned SQL schema migrations
-
-public/assets/
-  favicons/               # Full favicon set (SVG, PNG, ICO, apple-touch)
-  images/team/            # Team photos (WebP)
-  og-image.png            # OG image (1200×630)
-```
+> [!WARNING]
+> **Don't touch the tags!** Avoid deleting characters like `< > / { } [ ]`. These are the "bones" of the site; only edit the text between them.
 
 ---
 
-## Content Updates
+## 🎖️ Adding a Team Member
 
-**Speaker events** — edit `data/events.ts`. One event with `isCurrent: true` at a time.
+Adding a new person to the [/team](https://meridiansociety.ca/team) page requires three steps:
 
-**Social events** — append to `SOCIAL_EVENTS` in `data/social.ts`. Page auto-sorts into upcoming/past by `date` (YYYY-MM-DD).
+### 1. Upload the Photo
+Save a portrait photo in the `public/assets/images/team/` folder. 
+- **Format**: `.webp` is preferred.
+- **Dimensions**: Vertical (portrait) orientation.
+- **Size**: Keep it under 20KB for fast loading.
 
-**Team** — edit `app/(site)/team/page.tsx`. Add photos to `public/assets/images/team/` (WebP, <10KB).
+### 2. Add the Search Info (JSON-LD)
+Open `app/(site)/team/page.tsx` and find the `<script type="application/ld+json">` section. Copy and paste an existing block and update the name, title, and bio.
 
-**Nav links** — update `NavBar.tsx` `navLinks` array and `MobileMenu.tsx` simultaneously.
-
-**Registration/speak URLs** — both exported from `components/NavBar.tsx` as `REGISTER_URL` and `SPEAK_URL`. Update in one place.
-
----
-
-## Database
-
-Schema managed via migrations in `supabase/migrations/`. Two tables:
-
-- **`members`** — registration records (email PK, name, role, institution, interests, etc.)
-- **`site_stats`** — single row `id='meridian_global_stats'` with `member_count` integer, auto-maintained by trigger
-
-RLS: anonymous insert to `members`; public read of `site_stats`. All other ops require authenticated role.
+### 3. Add the Display Card
+Find the `<div className="member-grid">` section. Copy an existing `<article className="member-card">` block and paste it below. Update the:
+- `Image src` (the filename of the photo you uploaded)
+- `h3.member-name`
+- `div.member-role`
+- `p.member-studies`
+- `p.member-bio`
 
 ---
 
-## Deployment
+## 📸 Social Media & Events
 
-Push to `main` → Vercel auto-deploys. No manual build step.
+> [!IMPORTANT]
+> **Events are posted on Instagram.** We do not announce specific event dates or speaker names directly on the website codebase. All live updates markers should direct users to [@Meridian.Society](https://www.instagram.com/Meridian.Society).
 
-Vercel env vars required: `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY`.
+The `/events` and `/social` pages on the website serve as **program descriptions** (explaining *what* we do), rather than a calendar.
 
-Favicons are in `public/assets/favicons/` — do not add `app/favicon.ico` (overrides the metadata-managed set).
+---
+
+## 🛠️ Troubleshooting
+
+| Issue | Likely Cause | Solution |
+| :--- | :--- | :--- |
+| **Text looks "glitchy"** | Unescaped character | If you used an apostrophe (`'`), replace it with `&apos;` in the code. |
+| **Photo won't load** | Wrong file path | Ensure the file name in the code matches the photo in `/public/assets/images/team/` exactly (case-sensitive). |
+| **Site didn't update** | Deployment failed | Ensure you "Pushed" your changes to GitHub. Check the Vercel dashboard for red error messages. |
+| **Counter stuck at 0** | Supabase connection | Verify that your `site_stats` table in Supabase hasn't been modified or deleted. |
+
+---
+
+## 🔒 Security & Performance
+
+- **Typography**: Preferred body size is 19px. Never use pure black (`#000`); use `--ink` (`#18150F`).
+- **Media**: Always use WebP for images.
+- **Deployment**: Any save + push to the `main` branch trigger a live update within ~60 seconds.
+
+---
+*For deep technical specifications, see [TECHNICAL.md](TECHNICAL.md).*

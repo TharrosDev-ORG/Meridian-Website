@@ -1,4 +1,4 @@
-# The Meridian Society — Developer & AI Agent Manual
+# The Meridian Society — Technical Specification
 
 This document is the definitive technical source of truth and "Master Specification" for The Meridian Society website. It defines the architecture, security pipelines, animation systems, and mental models required to maintain and expand the codebase.
 
@@ -80,7 +80,6 @@ We use a Postgres trigger (`handle_member_count_change`) on the `members` table.
     - `--sans`: Barlow Condensed (Eyebrows/UI).
     - **Rule**: Minimum `--serif` body size is 17px (preferred 19px). Minimum `--sans` eyebrow is 10.5px.
 - **Colors**: Never use pure black (#000). Use `--ink` (#18150F).
-- **Registration Section**: The "Become a Member" (register) section is implemented as a shared `RegisterSection.tsx` component. It must always be condensed with a single-line title and a maximum of two lines for the body text. Vertical padding is standardized to `64px`.
 - **Horizontal Protection**: `html` and `body` are strictly set to `overflow-x: hidden`. Never use `width: 100vw`; always use `width: 100%`.
 
 ---
@@ -94,7 +93,17 @@ Every `page.tsx` must export a unique `Metadata` object.
 
 ---
 
-## 🛠️ 7. Agentic Workflows: How to Expand
+## ⚙️ 7. Tech Stack & Infrastructure
+
+- **Framework**: Next.js 16.2 (App Router)
+- **UI**: React 19.2 (Server Components)
+- **Styling**: Tailwind CSS v4 + Per-page CSS injection
+- **Database**: Supabase (PostgreSQL)
+- **Deployment**: Vercel (Auto-deploys on push to `main`)
+
+---
+
+## 🛠️ 8. Developer Workflows
 
 ### Adding a New Page
 1.  **Definitions**: Add the route to `NavBar.tsx` (constants and links) and `app/sitemap.ts`.
@@ -103,8 +112,5 @@ Every `page.tsx` must export a unique `Metadata` object.
 4.  **UI Logic**: Implement the page using standardized sections (`.page-hero`, `.wrap`, etc.) and `.rv` classes for animations.
 
 ### Maintenance
-- **UI-First**: Page content is currently managed directly within the component files for maximum control over layout and performance.
+- **UI-First**: Page content is managed directly within the component files for maximum control over layout and performance.
 - **Supabase**: Always use `utils/supabase/service.ts` for database-level changes in server actions to bypass RLS safely.
-
----
-*End of Specification. Follow these rules to maintain the Meridian Society's premium status.*

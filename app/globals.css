@@ -705,9 +705,19 @@ footer {
   .footer-stats-wrap { grid-column: span 2; }
 }
 @media (max-width: 700px) {
-  footer { padding: 60px 0 40px; }
-  .footer-grid { grid-template-columns: 1fr; gap: 36px; padding-bottom: 40px; }
-  .footer-stats-wrap { grid-column: span 1; }
-  .footer-bottom { flex-direction: column; gap: 20px; align-items: flex-start; }
-  .footer-ghost { font-size: 100px; bottom: -12px; }
+  footer { padding: 48px 0 32px; }
+  .footer-grid { 
+    grid-template-columns: 1fr 1fr; 
+    gap: 32px 20px; 
+    padding-bottom: 32px; 
+  }
+  .footer-brand { grid-column: span 2; margin-bottom: 4px; }
+  .footer-brand .footer-tagline { margin-bottom: 12px; font-size: 15px; }
+  
+  .footer-stats-wrap { grid-column: span 2; padding: 24px 20px; }
+  .footer-stat-val { font-size: 56px; }
+  
+  .footer-bottom { flex-direction: column-reverse; gap: 24px; align-items: center; text-align: center; }
+  .footer-legal { width: 100%; justify-content: center; gap: 32px; }
+  .footer-ghost { font-size: 80px; bottom: -8px; }
 }

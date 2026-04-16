@@ -6,8 +6,19 @@ import { REGISTER_URL } from '@/components/NavBar';
 export const metadata: Metadata = {
   title: "Events | The Meridian Society",
   description: "View upcoming speaker events and student forums in Ottawa. Connect with professionals, alumni, and scholars.",
+  alternates: { canonical: "https://meridiansociety.ca/events" },
+  openGraph: {
+    title: "Speaker Events | The Meridian Society",
+    description: "View upcoming speaker events and student forums in Ottawa. Connect with professionals, alumni, and scholars.",
+    url: "https://meridiansociety.ca/events",
+    siteName: "The Meridian Society",
+    images: [{ url: "https://meridiansociety.ca/assets/og-image.png", width: 1200, height: 630, alt: "The Meridian Society — Ottawa Student Speaker Forum Logo" }],
+    locale: "en_CA",
+    type: "website",
+  },
 };
 
+import Link from 'next/link';
 import Magnetic from '@/components/Magnetic';
 
 export default function EventsPage() {
@@ -32,7 +43,7 @@ export default function EventsPage() {
             <p className="hero-sub rv" data-d="2">Connecting Ottawa students with the professionals, alumni, and scholars who can expand their mindset.</p>
             <div className="hero-actions rv" data-d="3">
               <Magnetic strength={0.25}>
-                <a href={REGISTER_URL} className="btn-primary"><span>Register as a Member</span></a>
+                <Link href={REGISTER_URL} className="btn-primary"><span>Register as a Member</span></Link>
               </Magnetic>
               <a href="#about" className="btn-ghost-link">Learn More <span>&#8595;</span></a>
             </div>

@@ -1,7 +1,16 @@
+import type { Metadata } from "next";
 import RegistrationForm from "@/components/RegistrationForm";
-import Link from "next/link";
 import PageStyles from "@/components/PageStyles";
+import BackButton from "@/components/BackButton";
 import { membershipCss } from "../(site)/membership/pageCss";
+
+export const metadata: Metadata = {
+  title: "Register | The Meridian Society",
+  description: "Register as a member of The Meridian Society. Free membership for Ottawa students — no commitment required.",
+  alternates: {
+    canonical: "https://meridiansociety.ca/register",
+  },
+};
 
 const registerPageCss = `
   .register-page-minimal {
@@ -49,9 +58,7 @@ export default function RegisterPage() {
     <main className="register-page-minimal">
       <PageStyles css={membershipCss + registerPageCss} />
       <div className="register-nav">
-        <Link href="/" className="return-link">
-          <span style={{ fontSize: "14px" }}>←</span> Return Home
-        </Link>
+        <BackButton className="return-link" />
       </div>
       <div className="register-form-wrapper">
         <RegistrationForm />

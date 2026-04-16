@@ -11,7 +11,7 @@ export default function Home() {
     <main>
       <PageStyles css={indexCss} />
       <a href="#main-content" className="skip-link">Skip to content</a>
-      <a href={REGISTER_URL} className="sticky-join" id="stickyJoin">Register</a>
+      <Link href={REGISTER_URL} className="sticky-join" id="stickyJoin">Register</Link>
       <section className="hero" id="main-content" aria-label="Hero">
   {/* Ghost "M" letterform — parallax via JS */}
   <div className="hero-ghost" id="heroGhost" aria-hidden="true">M</div>
@@ -30,9 +30,9 @@ export default function Home() {
     <p className="hero-sub rv" data-d="1">Bringing curious students together with the professionals, alumni, and scholars who can expand their world.</p>
     <div className="hero-actions">
       <Magnetic strength={0.2}>
-        <a href={REGISTER_URL} className="btn-primary" data-register>
+        <Link href={REGISTER_URL} className="btn-primary" data-register>
           <span>Register for Updates</span>
-        </a>
+        </Link>
       </Magnetic>
       <span aria-hidden="true" style={{"width":"1px","height":"18px","background":"var(--ink-15)"}}></span>
       <Link href="/events" className="btn-ghost-link">Explore Events  &#8594;</Link>
@@ -209,9 +209,9 @@ export default function Home() {
     <MemberCount />
     <p className="register-body rv" data-d="2" id="register-speakable">Membership puts you in the room. Register to stay informed, attend events, and become part of a community built around curiosity and conversation.</p>
     <div className="register-actions rv" data-d="3">
-      <a href={REGISTER_URL} className="register-btn" data-register>
+      <Link href={REGISTER_URL} className="register-btn" data-register>
         <span>Register for Updates</span>
-      </a>
+      </Link>
     </div>
     <div className="register-rule-btm" aria-hidden="true"></div>
   </div>

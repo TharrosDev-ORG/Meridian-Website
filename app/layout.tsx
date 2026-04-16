@@ -3,11 +3,12 @@ import { Cormorant_Garamond, Barlow_Condensed } from "next/font/google";
 import Providers from "@/components/Providers";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import ScrollProgress from "@/components/ScrollProgress";
 import "./globals.css";
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["300", "400", "700"],
   style: ["normal", "italic"],
   variable: "--serif",
   display: "swap",
@@ -104,6 +105,7 @@ export default function RootLayout({
         <Providers>
           {children}
           <div className="progress" role="progressbar" aria-label="Reading progress" id="progressBar"></div>
+          <ScrollProgress />
           <Analytics />
           <SpeedInsights />
           {/* JSON-LD Organization Schema */}

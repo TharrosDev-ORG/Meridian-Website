@@ -8,6 +8,15 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 /* ── AESTHETICS & UTILITIES ── */
+/* ── CUSTOM PREMIUM SCROLLBAR ── */
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: var(--ink); }
+::-webkit-scrollbar-thumb { background: var(--gold-20); border: 2px solid var(--ink); border-radius: 10px; transition: background 0.3s; }
+::-webkit-scrollbar-thumb:hover { background: var(--gold); }
+
+/* Custom Firefox scrollbar */
+* { scrollbar-width: thin; scrollbar-color: var(--gold-20) var(--ink); }
+
 .skip-link {
   position: absolute; top: -100px; left: 20px; z-index: 9999;
   padding: 10px 20px; background: var(--gold); color: var(--cream);
@@ -123,6 +132,12 @@ body {
   background-size: 200% 100%;
   animation: shimmer 2s infinite linear;
   border-radius: 4px;
+}
+
+.progress {
+  position: fixed; top: 0; left: 0; width: 0%; height: 3px;
+  background: linear-gradient(90deg, var(--gold), var(--gold-lt));
+  z-index: 9999; pointer-events: none; transition: width 0.15s ease-out;
 }
 
 /* ── MARQUEE ── */

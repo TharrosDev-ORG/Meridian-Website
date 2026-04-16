@@ -4,19 +4,18 @@ This document is the definitive technical source of truth and "Master Specificat
 
 ---
 
-## 🏗️ 1. Core Architecture: The "View Splitter" Pattern
+## 🏗️ 1. Core Architecture: Responsive Single-View Pattern
 
-To deliver a premium experience on both mobile and desktop without "squished" layouts or horizontal leaks, the site uses a **Dual-Experience Architecture**.
+The site uses a unified, mobile-first responsive architecture. Instead of splitting views into separate components, we maintain a single component tree per page that adapts via CSS media queries.
 
-### 1.1 Device Detection & Hydration
-- **Logic**: We use a `useIsMobile(breakpoint?: number)` hook powered by React 19's `useSyncExternalStore`. This ensures a safe subscription to window media queries that is both server-side safe and highly performant.
-- **The Splitter**: `ViewSplitter.tsx` is the gatekeeper. It delays rendering until the client-side mount (`hasMounted` state) to prevent hydration mismatches between the server (which defaults to Desktop) and the client.
+### 1.1 Page Structure & Layout
+- **Route Logic**: Pages are organized within the `app/(site)/` directory (e.g., `app/(site)/membership/page.tsx`). 
+- **The Wrapper**: `app/(site)/layout.tsx` provides the common structure, including the `NavBar`, `Footer`, and `MobileMenu`.
+- **Root Page**: The root `page.tsx` for each route contains the `Metadata` export and the main UI logic. We prioritize semantic HTML and accessibility across all views.
 
-### 1.2 Implementation Rules
-When modifying a core page (Home, Events, Team):
-- **Desktop View**: Lives in `Desktop{PageName}.tsx`. It uses the original "full-width" design logic.
-- **Mobile View**: Lives in `Mobile{PageName}.tsx`. It implements a vertical-first, single-column design optimized for touch and readability.
-- **Root Page**: The `app/(site)/{page}/page.tsx` should only contain `metadata` and the `ViewSplitter` integration. **NEVER** put UI logic in the root `page.tsx`.
+### 1.2 View Standardization
+- All core sections use the `.wrap` class for horizontal centering and consistent padding (max-width: 1280px).
+- Mobile optimization is handled via media queries in `globals.css` and the page-specific `pageCss.ts` injected via the `PageStyles` component.
 
 ---
 
@@ -30,9 +29,9 @@ Elements with the `.rv` class start at `opacity: 0` and `translateY(20px)`.
 - **Staggers**: Use `data-d="1"` through `data-d="5"` for explicit delays (80ms increments).
 - **Text Reveal**: Use `.rv-stagger` on a container and `.rv-stagger-item` on children (usually `<span>` tags) for a "rising mask" effect.
 
-### 2.2 The RevealTrigger Component
-Because `ViewSplitter` renders content dynamically after the initial page load, the global observer may miss newly mounted elements.
-- **Mandatory**: You **MUST** include `<RevealTrigger />` in the root of both `Mobile-` and `Desktop-` page components. This utility re-syncs the observer to the current DOM.
+### 2.2 Interactive Components
+For more complex interactions (parallax, magnetic effects, 3D tilts), we use dedicated client components like `IndexInteractive.tsx` or `Magnetic.tsx`.
+- **Manual Reveal**: When elements are added dynamically, call `window.__observeReveal()` to ensure the `IntersectionObserver` picks them up. This is exposed globally in `Providers.tsx`.
 
 ### 2.3 Page Transitions
 The `TransitionWrapper.tsx` uses a `key={pathname}` pattern. This forces a full component re-mount on navigation, triggering the `pageSweep` CSS animation in `globals.css`.
@@ -72,7 +71,7 @@ We use a Postgres trigger (`handle_member_count_change`) on the `members` table.
 
 ### 5.1 The CSS Architecture
 - **Global CSS (`globals.css`)**: Contains all core tokens (`:root`), typography, shared utility classes (`.btn-primary`, `.sec-label`, `.wrap`), and the hardened mobile reset rules.
-- **Page-Specific CSS (`pageCss.ts`)**: Injected via the `PageStyles` component. This prevents "Flash of Unstyled Content" (FOUC) during client-side navigation.
+- **Page-Specific CSS (`pageCss.ts`)**: Injected via the `PageStyles` component. This prevents "Flash of Unstyled Content" (FOUC) and also handles re-syncing the `IntersectionObserver` for the current page content.
 
 ### 5.2 Design Tokens & Rules
 - **Typography**: 
@@ -97,12 +96,12 @@ Every `page.tsx` must export a unique `Metadata` object.
 
 ### Adding a New Page
 1.  **Definitions**: Add the route to `NavBar.tsx` (constants and links) and `app/sitemap.ts`.
-2.  **Split Setup**: Create `Desktop{Page}.tsx` and `Mobile{Page}.tsx`.
-3.  **Reveal Trigger**: Ensure both split components include `<RevealTrigger />`.
-4.  **Metadata**: Define a unique title and description in the root `page.tsx`.
+2.  **Page Setup**: Create `app/(site)/{page}/page.tsx` and a corresponding `pageCss.ts` if specific styling is required.
+3.  **Metadata**: Define a unique title, description, and canonical URL in the root `page.tsx`.
+4.  **UI Logic**: Implement the page using standardized sections (`.page-hero`, `.wrap`, etc.) and `.rv` classes for animations.
 
 ### Maintenance
-- **Data-First**: Most content (Events, Socials) lives in `data/`. Update the arrays there to push content changes without touching UI code.
+- **UI-First**: Page content is currently managed directly within the component files for maximum control over layout and performance.
 - **Supabase**: Always use `utils/supabase/admin.ts` for database-level changes in server actions to bypass RLS safely.
 
 ---

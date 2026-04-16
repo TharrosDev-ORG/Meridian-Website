@@ -130,7 +130,7 @@ export default function RegistrationForm() {
               name="fullName"
               required
               className="reg-input"
-              placeholder="e.g. Julian Vane"
+              placeholder="e.g. John Smith"
               disabled={isPending}
             />
           </div>
@@ -143,7 +143,7 @@ export default function RegistrationForm() {
               name="email"
               required
               className="reg-input"
-              placeholder="e.g. julian@example.com"
+              placeholder="e.g. john.smith@example.com"
               disabled={isPending}
             />
           </div>

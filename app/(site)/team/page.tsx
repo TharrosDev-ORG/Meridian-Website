@@ -6,16 +6,20 @@ import Link from 'next/link';
 
 export const metadata: Metadata = {
   title: "Team | The Meridian Society",
-  description: "Meet the student team behind The Meridian Society. Leadership and operations and the vision for an Ottawa campus institution.",
+  description: "Meet the student team behind The Meridian Society. Driven by the mission to bring established professionals, alumni, and scholars into the room to share knowledge with students.",
   alternates: { canonical: "https://meridiansociety.ca/team" },
   openGraph: {
     title: "The Team | The Meridian Society",
-    description: "Meet the student team behind The Meridian Society. Leadership and operations and the vision for an Ottawa campus institution.",
+    description: "Meet the student team behind the vision for an Ottawa campus institution.",
     url: "https://meridiansociety.ca/team",
     siteName: "The Meridian Society",
-    images: [{ url: "https://meridiansociety.ca/assets/og-image.png", width: 1200, height: 630, alt: "The Meridian Society — Ottawa Student Speaker Forum Logo" }],
     locale: "en_CA",
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "The Team | The Meridian Society",
+    description: "The student team building The Meridian Society into an Ottawa campus institution.",
   },
 };
 

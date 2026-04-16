@@ -5,16 +5,20 @@ import Magnetic from '@/components/Magnetic';
 
 export const metadata: Metadata = {
   title: "Socials | The Meridian Society",
-  description: "Join us for coffee, gatherings, and community events in Ottawa. Explore the social side of The Meridian Society.",
+  description: "The social side of the Society. From coffee meetups to social nights, we create relaxed, authentic spaces for Ottawa students to meet peers who share their drive.",
   alternates: { canonical: "https://meridiansociety.ca/social" },
   openGraph: {
     title: "Social Events | The Meridian Society",
-    description: "Join us for coffee, gatherings, and community events in Ottawa. Explore the social side of The Meridian Society.",
+    description: "Discover the social side of the Society, from coffee meetups to social nights.",
     url: "https://meridiansociety.ca/social",
     siteName: "The Meridian Society",
-    images: [{ url: "https://meridiansociety.ca/assets/og-image.png", width: 1200, height: 630, alt: "The Meridian Society — Ottawa Student Speaker Forum Logo" }],
     locale: "en_CA",
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Social Events | The Meridian Society",
+    description: "Relaxed, authentic spaces for Ottawa students to meet peers who share their drive.",
   },
 };
 

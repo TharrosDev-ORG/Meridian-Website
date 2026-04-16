@@ -1,3 +1,4 @@
+import { Metadata } from 'next';
 import PageStyles from '@/components/PageStyles';
 import { indexCss } from './pageCss';
 import { REGISTER_URL } from '@/components/NavBar';
@@ -5,6 +6,24 @@ import IndexInteractive from './IndexInteractive';
 import MemberCount from '@/components/MemberCount';
 import Magnetic from '@/components/Magnetic';
 import Link from 'next/link';
+
+export const metadata: Metadata = {
+  title: "The Meridian Society | Ottawa's Student Speaker Forum",
+  description: "An independent, student-run organization connecting motivated Ottawa students with the professionals, alumni, and scholars who can expand their world. Built to facilitate discourse and a community of curious people.",
+  openGraph: {
+    title: "The Meridian Society | Ottawa's Student Speaker Forum",
+    description: "An independent, student-run organization connecting motivated Ottawa students with the professionals, alumni, and scholars who can expand their world.",
+    url: "https://meridiansociety.ca/",
+    siteName: "The Meridian Society",
+    locale: "en_CA",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "The Meridian Society | Ottawa Student Speaker Forum",
+    description: "An independent, student-run organization connecting curious minds with professionals, alumni, and scholars.",
+  },
+};
 
 export default function Home() { 
   return (

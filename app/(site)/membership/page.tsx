@@ -8,16 +8,20 @@ import { REGISTER_URL } from '@/components/NavBar';
 
 export const metadata: Metadata = {
   title: "Membership | The Meridian Society",
-  description: "Join The Meridian Society as a registered member. Gain priority access to speaker events, networking opportunities, and our student community.",
+  description: "Membership puts you in the room. Register for free priority access to speaker events and social gatherings, and join a community built around curiosity and conversation.",
   alternates: { canonical: "https://meridiansociety.ca/membership" },
   openGraph: {
     title: "Membership | The Meridian Society",
-    description: "Free membership for Ottawa students. Gain priority access to speaker events, social gatherings, and a community built around curiosity.",
+    description: "Register for free priority access to speaker events and social gatherings. Join a community built around curiosity and conversation.",
     url: "https://meridiansociety.ca/membership",
     siteName: "The Meridian Society",
-    images: [{ url: "https://meridiansociety.ca/assets/og-image.png", width: 1200, height: 630, alt: "The Meridian Society — Ottawa Student Speaker Forum Logo" }],
     locale: "en_CA",
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Membership | The Meridian Society",
+    description: "Join the Society for priority access to events and a community built around curiosity.",
   },
 };
 

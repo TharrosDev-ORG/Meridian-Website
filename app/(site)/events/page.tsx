@@ -5,16 +5,20 @@ import { REGISTER_URL } from '@/components/NavBar';
 
 export const metadata: Metadata = {
   title: "Events | The Meridian Society",
-  description: "View upcoming speaker events and student forums in Ottawa. Connect with professionals, alumni, and scholars.",
+  description: "The Speaker Forum is our flagship program. We bring established professionals and academics to share lived experience and knowledge through curated presentations and open dialogues.",
   alternates: { canonical: "https://meridiansociety.ca/events" },
   openGraph: {
     title: "Speaker Events | The Meridian Society",
-    description: "View upcoming speaker events and student forums in Ottawa. Connect with professionals, alumni, and scholars.",
+    description: "Engage in the Speaker Forum, our signature program of curated presentations and open dialogues in Ottawa.",
     url: "https://meridiansociety.ca/events",
     siteName: "The Meridian Society",
-    images: [{ url: "https://meridiansociety.ca/assets/og-image.png", width: 1200, height: 630, alt: "The Meridian Society — Ottawa Student Speaker Forum Logo" }],
     locale: "en_CA",
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Speaker Events | The Meridian Society",
+    description: "Flagship program of curated presentations and open dialogues with industry leaders and academics.",
   },
 };
 

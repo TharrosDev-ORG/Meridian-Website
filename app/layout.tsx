@@ -28,6 +28,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://meridiansociety.ca"),
   title: "The Meridian Society | Ottawa's Student Speaker Forum",
   description:
     "Ottawa's flagship student speaker forum. The Meridian Society connects curious students with professionals, alumni, and scholars through curated speaker events and open dialogue.",

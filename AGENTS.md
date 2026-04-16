@@ -63,7 +63,8 @@ We use React 19's `useTransition` to manage the submission state. This allows fo
 ### 4.2 The Live Counter Trigger
 We use a Postgres trigger (`handle_member_count_change`) on the `members` table.
 - **Automated**: Any insertion or deletion on `members` automatically increments or decrements the `site_stats.member_count`. 
-- **Real-time**: The `Footer.tsx` and `MemberCount.tsx` components subscribe to `postgres_changes` on the `site_stats` table to update the UI instantly without a page refresh.
+- **Real-time Restriction**: Display of the live member count is restricted exclusively to the `Footer.tsx` component. The `MemberCount.tsx` component exists for modular use but is currently disabled across the main and membership pages to reduce visual clutter.
+- **Pulse Indicator**: The live count in the footer features a real-time pulsing status indicator integrated directly into the "Live Member Count" sub-header.
 
 ---
 
@@ -79,6 +80,7 @@ We use a Postgres trigger (`handle_member_count_change`) on the `members` table.
     - `--sans`: Barlow Condensed (Eyebrows/UI).
     - **Rule**: Minimum `--serif` body size is 17px (preferred 19px). Minimum `--sans` eyebrow is 10.5px.
 - **Colors**: Never use pure black (#000). Use `--ink` (#18150F).
+- **Registration Section**: The "Become a Member" (register) section must always be condensed with a single-line title and a maximum of two lines for the body text. Vertical padding is standardized to `64px`.
 - **Horizontal Protection**: `html` and `body` are strictly set to `overflow-x: hidden`. Never use `width: 100vw`; always use `width: 100%`.
 
 ---

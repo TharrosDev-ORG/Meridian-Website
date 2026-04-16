@@ -97,10 +97,6 @@ export const indexCss = `
       max-width: 560px; line-height: 1.85; margin-bottom: 40px;
       opacity: 0; animation: riseIn 0.7s 1.05s ease forwards;
     }
-    .hero-actions {
-      display: flex; align-items: center; gap: 36px; margin-bottom: 48px;
-      opacity: 0; animation: riseIn 0.7s 1.2s ease forwards;
-    }
 
     /* Instagram icon button */
     .hero-ig-btn {

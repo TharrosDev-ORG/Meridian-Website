@@ -32,15 +32,19 @@ const registerPageCss = `
     font-weight: 700;
     letter-spacing: 0.24em;
     text-transform: uppercase;
-    color: var(--ink-55);
+    color: var(--gold);
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
     text-decoration: none;
     display: flex;
     align-items: center;
     gap: 12px;
-    transition: color 0.2s;
+    transition: opacity 0.2s;
   }
   .return-link:hover {
-    color: var(--gold);
+    opacity: 0.7;
   }
   .register-form-wrapper {
     width: 100%;

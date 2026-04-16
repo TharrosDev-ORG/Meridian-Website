@@ -1,12 +1,12 @@
 # The Meridian Society — Operations Manual
 
-Welcome to the administration manual for [The Meridian Society](https://meridiansociety.ca). This guide is designed for non-technical administrators to manage members, update team profiles, and edit site content without needing to write code.
+Welcome to the official manual for [The Meridian Society](https://meridiansociety.ca). This guide is designed for non-technical administrators to manage the site with zero coding knowledge.
 
 ---
 
 ## 🗺️ Visual-to-File Map
 
-Use this table to find exactly which file you need to open to edit a specific page on the website.
+Use this table to find exactly which file you need to open to edit a specific page.
 
 | Page Name | Website Link | Source File Path |
 | :--- | :--- | :--- |
@@ -22,59 +22,94 @@ Use this table to find exactly which file you need to open to edit a specific pa
 
 ## 👥 Managing Members (Supabase)
 
-All member registrations are stored in **Supabase**. You can view, add, or remove members directly through the dashboard.
+All member registrations are stored in **Supabase**. 
 
-1.  **Login**: Access your project at [database.new](https://database.new) (Supabase Dashboard).
+1.  **Login**: Access your project at [database.new](https://database.new).
 2.  **Table Editor**: Select the `members` table from the left sidebar.
-3.  **To Add a Member**: Click **Insert Row** and fill in the details. The "Join Date" is automatically created.
-4.  **To Remove a Member**: Right-click the row and select **Delete Row**.
-5.  **Live Counter**: Any changes you make here will automatically update the "Live Member Count" in the website footer within seconds.
+3.  **To Add/Delete**: Use the **Insert Row** or right-click to **Delete**.
+4.  **Live Counter**: Changes here update the website footer automatically in seconds.
 
 ---
 
-## ✍️ Editing Site Text (Find & Replace)
+## 🎖️ Adding a Team Member (Frictionless Templates)
 
-To change text on a page, follow these simple steps:
+Adding a person requires **three** copy-paste steps in `app/(site)/team/page.tsx`.
 
-1.  Open the **Source File** from the map above.
-2.  Press `Ctrl + F` (Windows) or `Cmd + F` (Mac) to search for the specific sentence you want to change.
-3.  Type your new text inside the existing tags (e.g., `<p>Your New Text Here</p>`).
-4.  **Save the file**. The website will update automatically if you are connected to the deployment pipeline (Vercel).
+### Step 1: Upload the Photo
+1. Upload a portrait-style photo to `public/assets/images/team/`.
+2. Name it something simple (e.g., `sarah.webp`).
 
-> [!WARNING]
-> **Don't touch the tags!** Avoid deleting characters like `< > / { } [ ]`. These are the "bones" of the site; only edit the text between them.
+### Step 2: Paste the "Search Data" (Template 1)
+Find **Line 57** in `app/(site)/team/page.tsx`. Paste this block immediately **below** the existing scripts:
 
----
+```tsx
+      {/* JSON-LD Person Schema (NAME) */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(generatePersonSchema({
+            name: "Full Name",
+            jobTitle: "Your Role Here",
+            description: "A short one-sentence bio for Google search results.",
+            image: "/assets/images/team/sarah.webp",
+            sameAs: ["https://linkedin.com/in/yourprofile"]
+          })),
+        }}
+      />
+```
 
-## 🎖️ Adding a Team Member
+### Step 3: Paste the "Display Card" (Templates 2 & 3)
+Find **Line 151** in `app/(site)/team/page.tsx`. Paste this block immediately **above** the `{/* Placeholder */}` comment. 
 
-Adding a new person to the [/team](https://meridiansociety.ca/team) page requires three steps:
+**Choose the icon you need (Template 3):**
 
-### 1. Upload the Photo
-Save a portrait photo in the `public/assets/images/team/` folder. 
-- **Format**: `.webp` is preferred.
-- **Dimensions**: Vertical (portrait) orientation.
-- **Size**: Keep it under 20KB for fast loading.
+#### Option A: With LinkedIn Icon
+```tsx
+        <article className="member-card rv" id="unique-id" aria-labelledby="name-id" data-tilt>
+          <div className="member-body">
+            <div className="member-header">
+              <div className="member-photo-wrap">
+                <Image src="/assets/images/team/sarah.webp" className="member-photo" alt="Full Name" width={96} height={120} />
+              </div>
+              <div>
+                <h3 className="member-name" id="name-id">Full Name</h3>
+                <div className="member-role">Your Role</div>
+              </div>
+            </div>
+            <p className="member-studies">Program Name, University</p>
+            <p className="member-bio">Your bio text goes here. Keep it professional and concise.</p>
+            <div className="member-social">
+              <a href="https://linkedin.com/..." target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+              </a>
+            </div>
+          </div>
+        </article>
+```
 
-### 2. Add the Search Info (JSON-LD)
-Open `app/(site)/team/page.tsx` and find the `<script type="application/ld+json">` section. Copy and paste an existing block and update the name, title, and bio.
-
-### 3. Add the Display Card
-Find the `<div className="member-grid">` section. Copy an existing `<article className="member-card">` block and paste it below. Update the:
-- `Image src` (the filename of the photo you uploaded)
-- `h3.member-name`
-- `div.member-role`
-- `p.member-studies`
-- `p.member-bio`
-
----
-
-## 📸 Social Media & Events
-
-> [!IMPORTANT]
-> **Events are posted on Instagram.** We do not announce specific event dates or speaker names directly on the website codebase. All live updates markers should direct users to [@Meridian.Society](https://www.instagram.com/Meridian.Society).
-
-The `/events` and `/social` pages on the website serve as **program descriptions** (explaining *what* we do), rather than a calendar.
+#### Option B: With Instagram Icon
+```tsx
+        <article className="member-card rv" id="unique-id" aria-labelledby="name-id" data-tilt>
+          <div className="member-body">
+            <div className="member-header">
+              <div className="member-photo-wrap">
+                <Image src="/assets/images/team/sarah.webp" className="member-photo" alt="Full Name" width={96} height={120} />
+              </div>
+              <div>
+                <h3 className="member-name" id="name-id">Full Name</h3>
+                <div className="member-role">Your Role</div>
+              </div>
+            </div>
+            <p className="member-studies">Program Name, University</p>
+            <p className="member-bio">Your bio text goes here. Keep it professional and concise.</p>
+            <div className="member-social">
+              <a href="https://instagram.com/..." target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" /></svg>
+              </a>
+            </div>
+          </div>
+        </article>
+```
 
 ---
 
@@ -82,18 +117,16 @@ The `/events` and `/social` pages on the website serve as **program descriptions
 
 | Issue | Likely Cause | Solution |
 | :--- | :--- | :--- |
-| **Text looks "glitchy"** | Unescaped character | If you used an apostrophe (`'`), replace it with `&apos;` in the code. |
-| **Photo won't load** | Wrong file path | Ensure the file name in the code matches the photo in `/public/assets/images/team/` exactly (case-sensitive). |
-| **Site didn't update** | Deployment failed | Ensure you "Pushed" your changes to GitHub. Check the Vercel dashboard for red error messages. |
-| **Counter stuck at 0** | Supabase connection | Verify that your `site_stats` table in Supabase hasn't been modified or deleted. |
+| **Error: "Unterminated string"** | Single quote used | Use `&apos;` instead of a normal apostrophe (`'`). |
+| **Photo is missing** | Filename mismatch | Case matters! `Sarah.webp` is not the same as `sarah.webp`. |
+| **Site didn't update** | Deployment delay | Wait ~60 seconds. If it doesn't work, check the "Deployment" tab in Vercel for errors. |
 
 ---
 
 ## 🔒 Security & Performance
 
-- **Typography**: Preferred body size is 19px. Never use pure black (`#000`); use `--ink` (`#18150F`).
-- **Media**: Always use WebP for images.
-- **Deployment**: Any save + push to the `main` branch trigger a live update within ~60 seconds.
+- **Media**: Always use **WebP** for photos. It makes the site load 10x faster.
+- **Save Early**: Any changes pushed to the `main` branch are live globally in under a minute.
 
 ---
-*For deep technical specifications, see [TECHNICAL.md](TECHNICAL.md).*
+*For technical specifications, see [TECHNICAL.md](TECHNICAL.md).*

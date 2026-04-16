@@ -1,116 +1,159 @@
-# The Meridian Society — Technical Specification
+# The Meridian Society — Ultra-Detailed Technical Specification
 
-This document is the definitive technical source of truth and "Master Specification" for The Meridian Society website. It defines the architecture, security pipelines, animation systems, and mental models required to maintain and expand the codebase.
-
----
-
-## 🏗️ 1. Core Architecture: Responsive Single-View Pattern
-
-The site uses a unified, mobile-first responsive architecture. Instead of splitting views into separate components, we maintain a single component tree per page that adapts via CSS media queries.
-
-### 1.1 Page Structure & Layout
-- **Route Logic**: Pages are organized within the `app/(site)/` directory (e.g., `app/(site)/membership/page.tsx`). 
-- **The Wrapper**: `app/(site)/layout.tsx` provides the common structure, including the `NavBar`, `Footer`, and `MobileMenu`.
-- **Root Page**: The root `page.tsx` for each route contains the `Metadata` export and the main UI logic. We prioritize semantic HTML and accessibility across all views.
-
-### 1.2 View Standardization
-- All core sections use the `.wrap` class for horizontal centering and consistent padding (max-width: 1280px).
-- Mobile optimization is handled via media queries in `globals.css` and the page-specific `pageCss.ts` injected via the `PageStyles` component.
+This document is the definitive, high-fidelity system of record for The Meridian Society website. It serves as an "Agent-Ready" encyclopedia of the site's architecture, security, data logic, and performance systems.
 
 ---
 
-## ✨ 2. The Animation & Reveal System
+## 🏗️ 1. Architecture: Responsive Single-View Pattern
 
-The site implements a premium animation suite that requires strict coordination across components.
+The site implements a unified, mobile-first component tree. We avoid separate mobile/desktop routes, instead relying on CSS media queries and the `PageStyles` pattern to adapt the UI.
 
-### 2.1 Reveal Elements (`.rv`)
-Elements with the `.rv` class start at `opacity: 0` and `translateY(20px)`.
-- **Observer**: `Providers.tsx` initializes a global `IntersectionObserver`. When a `.rv` element enters the viewport, the `.on` class is added.
-- **Staggers**: Use `data-d="1"` through `data-d="5"` for explicit delays (80ms increments).
-- **Text Reveal**: Use `.rv-stagger` on a container and `.rv-stagger-item` on children (usually `<span>` tags) for a "rising mask" effect.
+### 1.1 Source-to-Route Mapping
+| Public URL | Route Directory | Primary Logic | CSS Logic |
+| :--- | :--- | :--- | :--- |
+| `/` | `app/(site)/` | `page.tsx` | `pageCss.ts` |
+| `/events` | `app/(site)/events/` | `page.tsx` | `pageCss.ts` |
+| `/membership`| `app/(site)/membership/` | `page.tsx` | `pageCss.ts` |
+| `/social` | `app/(site)/social/` | `page.tsx` | `pageCss.ts` |
+| `/speak` | `app/(site)/speak/` | `page.tsx` | `pageCss.ts` |
+| `/team` | `app/(site)/team/` | `page.tsx` | `pageCss.ts` |
+| `/register` | `app/register/` | `page.tsx` | (Shared `globals.css`) |
 
-### 2.2 Interactive Components
-For more complex interactions (parallax, magnetic effects, 3D tilts), we use dedicated client components like `IndexInteractive.tsx` or `Magnetic.tsx`.
-- **Manual Reveal**: When elements are added dynamically, call `window.__observeReveal()` to ensure the `IntersectionObserver` picks them up. This is exposed globally in `Providers.tsx`.
-
-### 2.3 Page Transitions
-The `TransitionWrapper.tsx` uses a `key={pathname}` pattern. This forces a full component re-mount on navigation, triggering the `pageSweep` CSS animation in `globals.css`.
-
----
-
-## 🛡️ 3. The Registration Pipeline (Security & Validation)
-
-The registration flow (`/register`) is the most mission-critical and hardened part of the site.
-
-### 3.1 Multi-Layered Validation
-1. **Honeypot**: A hidden `fax_number` field. If filled, the server action (`register.ts`) fails instantly.
-2. **Client-Side Guard**: `RegistrationForm.tsx` checks `localStorage` and `document.cookie` for a `meridiansociety_registered_v1` key to prevent duplicate submissions in the same browser.
-3. **Rate Limiting**: An in-memory IP-based rate limit (1 submission per 5 minutes) is enforced in the server action.
-4. **Security Delay**: A randomized delay of 300ms–800ms is applied to all submissions to prevent timing attacks.
-5. **Backend Duplicate Check**: The server action uses a Supabase Service client to perform a case-insensitive email lookup before any insertion.
-
-### 3.2 Submission Lifecycle
-We use React 19's `useTransition` to manage the submission state. This allows for a "Pending" UI while the server action processes, followed by a permanent Success State that persists via cookies.
+### 1.2 Layout Composition
+- **Root Layout**: `app/layout.tsx` (Global Metadata, Google Search Verification, Analytics, JSON-LD Organization Schema).
+- **Site Shell**: `app/(site)/layout.tsx` (NavBar, TransitionWrapper, Footer, MobileMenu, ScrollProgress).
 
 ---
 
-## 🗄️ 4. Database & Real-time Engine
+## 🎨 2. Systemic Design Tokens & CSS Logic
 
-### 4.1 Schema Overview
-- **`members`**: Stores the primary member directory. Emails are unique and normalized to lowercase.
-- **`site_stats`**: A single-row table (`id: 'meridian_global_stats'`) that caches the total member count.
+All styling is grounded in a centralized token system defined in `globals.css` `:root`.
 
-### 4.2 The Live Counter Trigger
-We use a Postgres trigger (`handle_member_count_change`) on the `members` table.
-- **Automated**: Any insertion or deletion on `members` automatically increments or decrements the `site_stats.member_count`. 
-- **Real-time Restriction**: Display of the live member count is restricted exclusively to the `Footer.tsx` component. The previously separate `MemberCount.tsx` component has been removed to reduce redundant logic and visual clutter across the site.
-- **Pulse Indicator**: The live count in the footer features a real-time pulsing status indicator integrated directly into the "Live Member Count" sub-header.
+### 2.1 Design Tokens (CSS Variables)
+```css
+--cream:       #F4EDE3;   /* Page Background */
+--cream-mid:   #EBE2D4;   /* Secondary Surfaces */
+--ink:         #18150F;   /* Primary Text (Never use pure #000) */
+--gold:        #B8932A;   /* Brand Primary Accent */
+--gold-lt:     #D4AF50;   /* Secondary/Hover Accent */
+--grain: url("data:image/svg+xml,..."); /* Inline SVG Noise Overlay */
+```
 
----
-
-## 🎨 5. Styling & Visual Standards
-
-### 5.1 The CSS Architecture
-- **Global CSS (`globals.css`)**: Contains all core tokens (`:root`), typography, shared utility classes (`.btn-primary`, `.sec-label`, `.wrap`), and the hardened mobile reset rules.
-- **Page-Specific CSS (`pageCss.ts`)**: Injected via the `PageStyles` component. This prevents "Flash of Unstyled Content" (FOUC) and also handles re-syncing the `IntersectionObserver` for the current page content.
-
-### 5.2 Design Tokens & Rules
-- **Typography**: 
-    - `--serif`: Cormorant Garamond (Body/Titles).
-    - `--sans`: Barlow Condensed (Eyebrows/UI).
-    - **Rule**: Minimum `--serif` body size is 17px (preferred 19px). Minimum `--sans` eyebrow is 10.5px.
-- **Colors**: Never use pure black (#000). Use `--ink` (#18150F).
-- **Horizontal Protection**: `html` and `body` are strictly set to `overflow-x: hidden`. Never use `width: 100vw`; always use `width: 100%`.
+### 2.2 Z-Index Layering Chart
+| Layer | Z-Index | Component |
+| :--- | :--- | :--- |
+| **Highest** | 9999 | `SkipLink`, `ProgressBar` |
+| **Navigation** | 200 | `NavBar` (fixed) |
+| **Overlays** | 191 | `MobileMenu` (Drawer) |
+| **Backdrop** | 190 | `MobileMenu` (Backdrop Filter) |
+| **Interactive** | 98 | `BackToTop` (Arc Button) |
+| **Base UI** | 1–10 | Hero Ghost, Interactive Layers |
+| **Floor** | 0 | Section Backgrounds |
 
 ---
 
-## 📈 6. SEO & Dynamic Assets
+## ✨ 3. Animation Engine & Reveal Lifecycle
 
-### 6.1 Metadata Export
-Every `page.tsx` must export a unique `Metadata` object. 
-- **OG Images**: We use dynamic HTML-to-Image generation via `opengraph-image.tsx` using `next/og`. This ensures link previews always display the premium "A Room For Discourse" branding.
-- **Sitemap/Robots**: Both are generated dynamically (`sitemap.ts`, `robots.ts`) to ensure perfect indexing while blocking non-essential AI crawlers.
+The site utilizes a strict "Observer-Reveal" pattern managed through `Providers.tsx`.
 
----
+### 3.1 Intersection Observer (`.rv`)
+Elements with the `.rv` class are initialized as invisible (`opacity: 0, translateY(20px)`).
+- **Configuration**: `threshold: 0.01`, `rootMargin: "0px 0px 100px 0px"`.
+- **Global Hook**: `window.__observeReveal()` allows for re-invoking the observer when new content is added (e.g., during page navigation in `PageStyles.tsx`).
 
-## ⚙️ 7. Tech Stack & Infrastructure
-
-- **Framework**: Next.js 16.2 (App Router)
-- **UI**: React 19.2 (Server Components)
-- **Styling**: Tailwind CSS v4 + Per-page CSS injection
-- **Database**: Supabase (PostgreSQL)
-- **Deployment**: Vercel (Auto-deploys on push to `main`)
+### 3.2 Timings & Easing
+- **Default Reveal**: `0.65s` using `cubic-bezier(0.16, 1, 0.3, 1)`.
+- **Staggers**: Attributes `data-d="1"` through `data-d="5"` add `80ms` increments to the `transition-delay`.
+- **Page Transitions**: `pageSweep` keyframe (0.65s duration, opacity + blur + translate).
 
 ---
 
-## 🛠️ 8. Developer Workflows
+## 🗄️ 4. Backend Architecture: Supabase & Real-time
 
-### Adding a New Page
-1.  **Definitions**: Add the route to `NavBar.tsx` (constants and links) and `app/sitemap.ts`.
-2.  **Page Setup**: Create `app/(site)/{page}/page.tsx` and a corresponding `pageCss.ts` if specific styling is required.
-3.  **Metadata**: Define a unique title, description, and canonical URL in the root `page.tsx`.
-4.  **UI Logic**: Implement the page using standardized sections (`.page-hero`, `.wrap`, etc.) and `.rv` classes for animations.
+The backend is entirely serverless, utilizing Supabase for data persistence and real-time event broadcasting.
 
-### Maintenance
-- **UI-First**: Page content is managed directly within the component files for maximum control over layout and performance.
-- **Supabase**: Always use `utils/supabase/service.ts` for database-level changes in server actions to bypass RLS safely.
+### 4.1 Live Member Counter (PostgreSQL)
+The live counter in the footer is maintained via a PostgreSQL Trigger. It is **automated** and requires no manual updates to the `site_stats` table.
+
+```sql
+-- The Trigger Function
+CREATE OR REPLACE FUNCTION public.handle_member_count_change()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF (TG_OP = 'INSERT') THEN
+        UPDATE public.site_stats
+        SET member_count = member_count + 1,
+            last_updated = now()
+        WHERE id = 'meridial_global_stats';
+    ELSIF (TG_OP = 'DELETE') THEN
+        UPDATE public.site_stats
+        SET member_count = member_count - 1,
+            last_updated = now()
+        WHERE id = 'meridial_global_stats';
+    END IF;
+    RETURN NULL;
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
+
+-- The Trigger Definition
+CREATE TRIGGER on_member_change
+AFTER INSERT OR DELETE ON public.members
+FOR EACH ROW EXECUTE FUNCTION public.handle_member_count_change();
+```
+
+### 4.2 Security Clients
+| Client Type | Location | Permission Level |
+| :--- | :--- | :--- |
+| **Browser Client** | `utils/supabase/client.ts`| Restricted by RLS Policies (Anon Key) |
+| **Server Client** | `utils/supabase/server.ts`| Restricted by RLS Policies |
+| **Service Client**| `utils/supabase/service.ts`| **Bypasses RLS** (Service Role Key - Server Only) |
+
+---
+
+## 🛡️ 5. Infrastructure & Security
+
+### 5.1 Content Security Policy (CSP)
+The site enforces a strict CSP via `next.config.ts` to prevent XSS and data injection.
+
+```ts
+const cspHeader = `
+    default-src 'self';
+    script-src 'self' 'unsafe-inline' 'unsafe-eval' va.vercel-scripts.com;
+    style-src 'self' 'unsafe-inline';
+    img-src 'self' blob: data:;
+    font-src 'self';
+    form-action 'self' docs.google.com;
+    connect-src 'self' va.vercel-scripts.com dsyiuztquzkcikehkigv.supabase.co wss://dsyiuztquzkcikehkigv.supabase.co;
+`;
+```
+
+### 5.2 Redirect Strategy (Legacy Support)
+We maintain permanent (301) redirects for legacy `.html` endpoints to ensure no broken links for existing users.
+- `/events.html` → `/events`
+- `/team.html` → `/team`
+- `/index.html` → `/`
+
+---
+
+## 📈 6. SEO & Structured Data (JSON-LD)
+
+The Society uses dynamic JSON-LD generation found in `utils/jsonld.ts`.
+
+| Schema Type | Usage | Key Fields |
+| :--- | :--- | :--- |
+| `Organization` | Root Layout | Name, URL, Logo, SameAs (Instagram) |
+| `Person` | Team Page | Name, JobTitle, Image, sameAs (LinkedIn/Instagram) |
+| `BreadcrumbList`| Sub-Pages | Navigational hierarchy mapping |
+| `FAQPage` | Membership | Question/Answer Entity mapping |
+
+---
+
+## ♿ 7. Accessibility Standards (A11y)
+
+- **Focus Management**: The `MobileMenu` implements a focus trap and `aria-hidden` management to ensure screen readers remain within the drawer when open.
+- **Skip Links**: A `Skip to Content` link is the first tab-able element on every page.
+- **Color Contrast**: All primary text (`--ink`) against background (`--cream`) maintains a contrast ratio > 10:1.
+- **Reduced Motion**: Adaptive `prefers-reduced-motion` queries zero-out all transitions and animations for sensitive users.
+
+---
+*End of Technical Specification. This document is maintained by the Meridian Society technical team.*

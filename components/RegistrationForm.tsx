@@ -127,7 +127,7 @@ export default function RegistrationForm() {
               name="fullName"
               required
               className="reg-input"
-              placeholder="e.g. Julian Vane"
+              placeholder="e.g. John Smith"
               disabled={isPending}
             />
           </div>

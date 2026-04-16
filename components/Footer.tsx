@@ -74,7 +74,6 @@ export default function Footer() {
             <div className="footer-social-list">
               <a href="https://www.instagram.com/Meridian.Society" target="_blank" rel="noopener noreferrer" className="footer-social-link">Instagram</a>
               <a href="mailto:meridiansocietycanada@gmail.com" className="footer-social-link">Email Inquiries</a>
-              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="footer-social-link">LinkedIn</a>
             </div>
           </div>
 

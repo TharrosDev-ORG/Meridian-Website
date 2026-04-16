@@ -52,12 +52,16 @@ export default function IndexInteractive() {
 
     // 3. Global 3D Tilt for cards
     const cards = document.querySelectorAll("[data-tilt]");
-    let cardRafId: number | null = null;
+    const cardRafs = new Map<HTMLElement, number>();
 
     const handleCardMove = (e: MouseEvent) => {
       const card = e.currentTarget as HTMLElement;
-      if (cardRafId) cancelAnimationFrame(cardRafId);
-      cardRafId = requestAnimationFrame(() => {
+      
+      if (cardRafs.has(card)) {
+        cancelAnimationFrame(cardRafs.get(card)!);
+      }
+
+      const id = requestAnimationFrame(() => {
         const r = card.getBoundingClientRect();
         const x = (e.clientX - r.left) / r.width;
         const y = (e.clientY - r.top) / r.height;
@@ -66,11 +70,17 @@ export default function IndexInteractive() {
         card.style.transition = "transform 0.1s ease-out";
         card.style.transform = `perspective(1000px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale3d(1.02, 1.02, 1.02)`;
       });
+
+      cardRafs.set(card, id);
     };
+    
     const handleCardLeave = (e: MouseEvent) => {
       const card = e.currentTarget as HTMLElement;
-      if (cardRafId) cancelAnimationFrame(cardRafId);
-      card.style.transition = "";
+      if (cardRafs.has(card)) {
+        cancelAnimationFrame(cardRafs.get(card)!);
+        cardRafs.delete(card);
+      }
+      card.style.transition = "transform 0.4s cubic-bezier(0.16,1,0.3,1)";
       card.style.transform = "";
     };
 
@@ -88,7 +98,7 @@ export default function IndexInteractive() {
     return () => {
       if (heroRafId) cancelAnimationFrame(heroRafId);
       if (scrollRafId) cancelAnimationFrame(scrollRafId);
-      if (cardRafId) cancelAnimationFrame(cardRafId);
+      cardRafs.forEach(id => cancelAnimationFrame(id));
       
       if (hero && handleHeroMove && handleHeroLeave) {
         hero.removeEventListener("mousemove", handleHeroMove);

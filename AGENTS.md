@@ -63,7 +63,7 @@ We use React 19's `useTransition` to manage the submission state. This allows fo
 ### 4.2 The Live Counter Trigger
 We use a Postgres trigger (`handle_member_count_change`) on the `members` table.
 - **Automated**: Any insertion or deletion on `members` automatically increments or decrements the `site_stats.member_count`. 
-- **Real-time Restriction**: Display of the live member count is restricted exclusively to the `Footer.tsx` component. The `MemberCount.tsx` component exists for modular use but is currently disabled across the main and membership pages to reduce visual clutter.
+- **Real-time Restriction**: Display of the live member count is restricted exclusively to the `Footer.tsx` component. The previously separate `MemberCount.tsx` component has been removed to reduce redundant logic and visual clutter across the site.
 - **Pulse Indicator**: The live count in the footer features a real-time pulsing status indicator integrated directly into the "Live Member Count" sub-header.
 
 ---

@@ -15,7 +15,7 @@ export default async function Image() {
     }),
     {
       ...size,
-      fonts: fonts as any,
+      fonts: fonts,
     }
   );
 }

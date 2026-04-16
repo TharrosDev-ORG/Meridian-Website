@@ -18,9 +18,7 @@ const RegisterSection: React.FC<RegisterSectionProps> = ({
   // Extracting the emphasis part for the title if it contains a dot or specific pattern
   const renderTitle = () => {
     if (title.endsWith('.')) {
-      const base = title.slice(0, -1);
-      // Find the last word to italicize it? AGENTS.md says "Become a Member."
-      // The current implementation uses "Become a <em>Member.</em>"
+      // The current implementation uses "Become a <em>Member.</em>" per AGENTS.md
       return (
         <span dangerouslySetInnerHTML={{ __html: title.replace('Member.', '<em>Member.</em>') }} />
       );

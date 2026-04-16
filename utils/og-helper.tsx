@@ -1,7 +1,15 @@
-import { ReactNode } from 'react';
+import { ReactElement } from 'react';
+
+// Font type matching next/og requirements
+export interface OGFont {
+  name: string;
+  data: ArrayBuffer;
+  style: 'normal' | 'italic';
+  weight: 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900;
+}
 
 // Font loading helper
-export async function getFonts() {
+export async function getFonts(): Promise<OGFont[]> {
   // URLs for Google Fonts (subsetted for latin only to keep size down)
   const serifRegUrl = 'https://fonts.gstatic.com/s/cormorantgaramond/v21/co3umX5slCNuHLi8bLeY9MK7whWMhyjypVO7abI26QOD_v86GnM.ttf';
   const serifItalicUrl = 'https://fonts.gstatic.com/s/cormorantgaramond/v21/co3smX5slCNuHLi8bLeY9MK7whWMhyjYrGFEsdtdc62E6zd58jDOjw.ttf';

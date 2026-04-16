@@ -428,6 +428,9 @@ export const indexCss = `
       .stat:nth-child(3),
       .stat:nth-child(4) { border-top: 1px solid var(--ink-08); }
       .stat-lbl { font-size: 11px; letter-spacing: 0.18em; }
+      .hero-actions { flex-direction: column; gap: 24px; align-items: center; }
+      .hero-main-ctas { flex-direction: column; width: 100%; gap: 20px; align-items: center; }
+      .hero-actions-divider { display: none; }
       .hero-ig-btn { width: 44px; height: 44px; padding: 0; }
       .about-body { font-size: 17px; }
       .pull-quote p { font-size: 18px; }

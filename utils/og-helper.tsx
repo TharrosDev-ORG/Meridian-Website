@@ -3,9 +3,9 @@ import { ReactNode } from 'react';
 // Font loading helper
 export async function getFonts() {
   // URLs for Google Fonts (subsetted for latin only to keep size down)
-  const serifRegUrl = 'https://fonts.gstatic.com/s/cormorantgaramond/v16/co3bmX5slCNuHLi8bLeY9MK7whWMhyjYpHtK.ttf';
-  const serifItalicUrl = 'https://fonts.gstatic.com/s/cormorantgaramond/v16/co3ZmX5slCNuHLi8bLeY9MK7whWMhyjYpHvaH-8I.ttf';
-  const sansBoldUrl = 'https://fonts.gstatic.com/s/barlowcondensed/v12/HTAKL3o_37910Akqf4_6_z_3_n4pL_656K8.ttf'; // Bold 700
+  const serifRegUrl = 'https://fonts.gstatic.com/s/cormorantgaramond/v21/co3umX5slCNuHLi8bLeY9MK7whWMhyjypVO7abI26QOD_v86GnM.ttf';
+  const serifItalicUrl = 'https://fonts.gstatic.com/s/cormorantgaramond/v21/co3smX5slCNuHLi8bLeY9MK7whWMhyjYrGFEsdtdc62E6zd58jDOjw.ttf';
+  const sansBoldUrl = 'https://fonts.gstatic.com/s/barlowcondensed/v13/HTxwL3I-JCGChYJ8VI-L6OO_au7B46r2_3E.ttf';
 
   const [serifRegRes, serifItalicRes, sansBoldRes] = await Promise.all([
     fetch(serifRegUrl).then(res => res.arrayBuffer()),

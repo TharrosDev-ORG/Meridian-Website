@@ -80,16 +80,14 @@ export default function Footer() {
 
           {/* Column 4: Stats */}
           <div className="footer-stats-wrap">
-            <h4 className="footer-col-h">Society Pulse</h4>
+            <h4 className="footer-col-h">
+              Live Member Count
+              <div className="status-pulse" aria-hidden="true"></div>
+            </h4>
             <div className="footer-stat-item">
-              <span className="footer-stat-lbl">Members Registered</span>
               <span className="footer-stat-val">
-                {isLoading ? <span className="member-count-shimmer" style={{height:'44px', width:'72px'}} /> : count}
+                {isLoading ? <span className="member-count-shimmer" style={{height:'44px', width:'76px'}} /> : count}
               </span>
-            </div>
-            <div className="footer-status">
-              <div className="status-pulse"></div>
-              <span>Status: Active Registration</span>
             </div>
           </div>
 

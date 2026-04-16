@@ -593,10 +593,9 @@ footer {
 .footer-col-h {
   font-family: var(--sans); font-size: 10px; font-weight: 700;
   letter-spacing: 0.32em; text-transform: uppercase;
-  color: var(--gold); margin-bottom: 24px;
-  display: flex; align-items: center; gap: 10px;
+  color: var(--gold); margin-bottom: 20px;
+  display: flex; align-items: center; gap: 12px;
 }
-.footer-col-h::after { content: ''; flex: 1; height: 1px; background: var(--gold); opacity: 0.25; }
 
 .footer-brand .footer-wordmark {
   font-family: var(--sans); font-size: 12px; font-weight: 700;
@@ -636,8 +635,8 @@ footer {
 }
 .footer-stat-item { display: flex; flex-direction: column; gap: 12px; }
 .footer-stat-val {
-  font-family: var(--serif); font-size: 56px; font-weight: 300;
-  color: var(--gold); line-height: 1; margin-bottom: 4px;
+  font-family: var(--serif); font-size: 72px; font-weight: 300;
+  color: var(--gold); line-height: 1; margin-bottom: 0px;
   text-shadow: 0 4px 24px rgba(184, 147, 42, 0.15);
 }
 .footer-stat-lbl {

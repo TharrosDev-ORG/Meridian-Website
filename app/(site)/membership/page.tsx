@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import Link from 'next/link';
 import PageStyles from '@/components/PageStyles';
 import { membershipCss } from './pageCss';
 import MemberCount from '@/components/MemberCount';
@@ -8,6 +9,16 @@ import { REGISTER_URL } from '@/components/NavBar';
 export const metadata: Metadata = {
   title: "Membership | The Meridian Society",
   description: "Join The Meridian Society as a registered member. Gain priority access to speaker events, networking opportunities, and our student community.",
+  alternates: { canonical: "https://meridiansociety.ca/membership" },
+  openGraph: {
+    title: "Membership | The Meridian Society",
+    description: "Free membership for Ottawa students. Gain priority access to speaker events, social gatherings, and a community built around curiosity.",
+    url: "https://meridiansociety.ca/membership",
+    siteName: "The Meridian Society",
+    images: [{ url: "https://meridiansociety.ca/assets/og-image.png", width: 1200, height: 630, alt: "The Meridian Society — Ottawa Student Speaker Forum Logo" }],
+    locale: "en_CA",
+    type: "website",
+  },
 };
 
 
@@ -74,9 +85,9 @@ export default function Page() {
       </h1>
       <p className="hero-sub rv" data-d="2">Built for students. Free to join, no commitment required.</p>
       <div className="hero-actions rv" data-d="3">
-        <a href={REGISTER_URL} className="register-btn">
+        <Link href={REGISTER_URL} className="register-btn">
           <span>Register Now</span>
-        </a>
+        </Link>
         <a href="#benefits" className="btn-ghost-link">Learn More <span>&#8595;</span></a>
       </div>
     </div>
@@ -95,7 +106,7 @@ export default function Page() {
         <h2 className="benefits-title rv rv-stagger" id="benefits-heading">
           <span className="rv-stagger-item">What You <em>Get.</em></span>
         </h2>
-        <a href={REGISTER_URL} className="benefits-register-link rv" data-d="1" id="benefitsRegisterCta">Register  &#8594;</a>
+        <Link href={REGISTER_URL} className="benefits-register-link rv" data-d="1" id="benefitsRegisterCta">Register  &#8594;</Link>
       </div>
       <div className="benefits-grid">
 
@@ -155,9 +166,9 @@ export default function Page() {
       <p className="register-body rv" data-d="2" style={{ marginBottom: '40px' }}>Membership puts you in the room. Register to stay informed, attend events, and become part of a community built around curiosity and conversation.</p>
       
       <div className="register-actions rv" data-d="3">
-        <a href={REGISTER_URL} className="register-btn">
+        <Link href={REGISTER_URL} className="register-btn">
           <span>Complete Registration</span>
-        </a>
+        </Link>
       </div>
 
       <div className="register-rule-btm" aria-hidden="true"></div>

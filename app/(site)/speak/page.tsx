@@ -7,6 +7,16 @@ import { SPEAK_URL } from '@/components/NavBar';
 export const metadata: Metadata = {
   title: "Speak | The Meridian Society",
   description: "Apply to speak at The Meridian Society in Ottawa. Share your experience with a motivated student audience and join our growing forum.",
+  alternates: { canonical: "https://meridiansociety.ca/speak" },
+  openGraph: {
+    title: "Speak at The Meridian Society",
+    description: "Apply to speak at The Meridian Society in Ottawa. Share your experience with a motivated student audience and join our growing forum.",
+    url: "https://meridiansociety.ca/speak",
+    siteName: "The Meridian Society",
+    images: [{ url: "https://meridiansociety.ca/assets/og-image.png", width: 1200, height: 630, alt: "The Meridian Society — Ottawa Student Speaker Forum Logo" }],
+    locale: "en_CA",
+    type: "website",
+  },
 };
 
 

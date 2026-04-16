@@ -222,7 +222,7 @@ export default function Home() {
   <div className="wrap">
     <div className="register-rule-top" aria-hidden="true"></div>
     <p className="register-eyebrow rv">Independent  ·  Student-Run  ·  Ottawa  ·  Est. 2025</p>
-    <h2 className="register-title rv" data-d="1" id="register-heading">Become a<br/><em>Member.</em></h2>
+    <h2 className="register-title rv" data-d="1" id="register-heading">Become a <em>Member.</em></h2>
     <p className="register-body rv" data-d="2" id="register-speakable">Membership puts you in the room. Register to stay informed, attend events, and become part of a community built around curiosity and conversation.</p>
     <div className="register-actions rv" data-d="3">
       <Link href={REGISTER_URL} className="register-btn" data-register>

@@ -336,7 +336,7 @@ export const indexCss = `
     /* ══════════════════════════════
        REGISTER
     ══════════════════════════════ */
-    .register { padding: 90px 0; background: var(--cream-mid); position: relative; overflow: hidden; }
+    .register { padding: 64px 0; background: var(--cream-mid); position: relative; overflow: hidden; }
     .register::before {
       content: ''; position: absolute; inset: 0; z-index: 0;
       background: radial-gradient(ellipse 65% 60% at 50% 50%, rgba(184,147,42,0.06) 0%, transparent 70%),
@@ -352,11 +352,11 @@ export const indexCss = `
       user-select: none; pointer-events: none; z-index: 0;
     }
     .register .wrap { position: relative; z-index: 1; text-align: center; }
-    .register-rule-top { width: 1px; height: 60px; background: var(--ink-15); margin: 0 auto 40px; }
-    .register-eyebrow { font-family: var(--sans); font-size: 10.5px; font-weight: 700; letter-spacing: 0.38em; text-transform: uppercase; color: var(--ink-55); margin-bottom: 36px; }
-    .register-title { font-family: var(--serif); font-size: clamp(46px, 7.5vw, 108px); font-weight: 300; line-height: 0.88; color: var(--ink); margin-bottom: 36px; }
+    .register-rule-top { width: 1px; height: 40px; background: var(--ink-15); margin: 0 auto 24px; }
+    .register-eyebrow { font-family: var(--sans); font-size: 10.5px; font-weight: 700; letter-spacing: 0.38em; text-transform: uppercase; color: var(--ink-55); margin-bottom: 24px; }
+    .register-title { font-family: var(--serif); font-size: clamp(42px, 6vw, 84px); font-weight: 300; line-height: 0.95; color: var(--ink); margin-bottom: 24px; }
     .register-title em { font-style: italic; font-weight: 300; color: var(--gold); }
-    .register-body { font-family: var(--serif); font-size: 19px; font-style: italic; font-weight: 300; color: var(--ink-75); max-width: 440px; margin: 0 auto 52px; line-height: 1.85; }
+    .register-body { font-family: var(--serif); font-size: 18px; font-style: italic; font-weight: 300; color: var(--ink-75); max-width: 560px; margin: 0 auto 40px; line-height: 1.8; }
     .register-actions { display: flex; align-items: center; gap: 28px; justify-content: center; }
     .register-btn {
       display: inline-block; font-family: var(--sans); font-size: 11.5px; font-weight: 700;
@@ -368,7 +368,7 @@ export const indexCss = `
     .register-btn span { position: relative; z-index: 1; }
     .register-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(24,21,15,0.12); }
     .register-btn:hover::before { transform: translateX(0); }
-    .register-rule-btm { width: 1px; height: 60px; background: var(--ink-15); margin: 44px auto 0; }
+    .register-rule-btm { width: 1px; height: 40px; background: var(--ink-15); margin: 32px auto 0; }
 
     /* Member count box (lives inside register section) */
     .member-count-box { display: inline-flex; flex-direction: column; align-items: center; gap: 8px; margin-bottom: 40px; }

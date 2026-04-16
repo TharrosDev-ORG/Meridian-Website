@@ -97,13 +97,18 @@ export const indexCss = `
       max-width: 560px; line-height: 1.85; margin-bottom: 40px;
       opacity: 0; animation: riseIn 0.7s 1.05s ease forwards;
     }
+    .hero-actions {
+      display: flex; align-items: center; justify-content: center; gap: 24px;
+      opacity: 0; animation: riseIn 0.8s 1.2s ease forwards; width: 100%;
+    }
+    .hero-main-ctas { display: flex; align-items: center; gap: 12px; }
+    .hero-actions-divider { width: 1px; height: 18px; background: var(--ink-15); }
 
-    /* Instagram icon button */
+    /* Instagram button - Rectangular version */
     .hero-ig-btn {
-      display: inline-flex; align-items: center; justify-content: center;
-      width: 44px; height: 44px; flex-shrink: 0;
-      border: 1px solid var(--ink-30); text-decoration: none;
-      position: relative; overflow: hidden;
+      display: inline-flex; align-items: center; justify-content: center; gap: 12px;
+      padding: 16px 32px 15px; border: 1px solid var(--ink-30); 
+      text-decoration: none; position: relative; overflow: hidden;
       transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
     }
     .hero-ig-btn::before {
@@ -115,7 +120,13 @@ export const indexCss = `
     .hero-ig-btn:hover { border-color: var(--gold); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(184,147,42,0.18); }
     .hero-ig-btn:hover::before { transform: translateX(0); }
     .hero-ig-btn:hover svg { fill: var(--cream); }
-    .hero-ig-label { display: none; }
+    .hero-ig-label {
+      font-family: var(--sans); font-size: 11px; font-weight: 700;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--ink-55); transition: color 0.25s;
+      position: relative; z-index: 1;
+    }
+    .hero-ig-btn:hover .hero-ig-label { color: var(--cream); }
 
     /* Stats bar — full width, pushed to bottom by flex */
     .hero-stats {

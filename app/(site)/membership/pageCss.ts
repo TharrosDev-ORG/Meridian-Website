@@ -8,34 +8,6 @@ export const membershipCss = `
     @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); max-height: 0; } to { opacity: 1; transform: none; max-height: 100px; } }
 
     /* ── Page hero ── */
-    .page-hero {
-      position: relative; min-height: 60vh;
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      text-align: center; padding: 110px 64px 60px; overflow: hidden;
-      background: var(--cream);
-    }
-    .page-hero::before {
-      content: ''; position: absolute; inset: 0; z-index: 0;
-      background:
-        radial-gradient(ellipse 70% 55% at 50% 35%, transparent 45%, rgba(166,138,88,0.08) 100%),
-        radial-gradient(ellipse 100% 60% at 50% 90%, rgba(150,120,70,0.07) 0%, transparent 60%);
-      pointer-events: none;
-    }
-    .page-hero::after {
-      content: ''; position: absolute; inset: 0; z-index: 1;
-      opacity: 0.03; background-image: var(--grain); background-size: 220px 220px; pointer-events: none;
-    }
-    .page-hero-content { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; }
-    .hero-eyebrow { display: flex; align-items: center; gap: 16px; margin-bottom: 40px; }
-    .hero-eyebrow-rule { width: 36px; height: 1px; background: var(--gold); opacity: 0.5; }
-    .hero-eyebrow-text { font-family: var(--sans); font-size: 11px; font-weight: 700; letter-spacing: 0.32em; text-transform: uppercase; color: var(--gold); }
-    .hero-pre { font-family: var(--serif); font-size: clamp(18px, 2.5vw, 30px); font-style: italic; font-weight: 300; color: var(--ink-55); letter-spacing: 0.06em; margin-bottom: 8px; }
-    .hero-title { font-family: var(--serif); font-size: clamp(64px, 12vw, 160px); font-weight: 300; line-height: 0.86; color: var(--ink); letter-spacing: 0.06em; text-shadow: 0 2px 40px rgba(24,21,15,0.04); }
-    .hero-sub { font-family: var(--serif); font-size: clamp(17px, 1.6vw, 22px); font-style: italic; font-weight: 300; color: var(--ink-75); max-width: 480px; line-height: 1.8; margin: 24px auto 0; }
-    .hero-actions { display: flex; align-items: center; gap: 36px; margin-top: 32px; }
-    .btn-ghost-link { font-family: var(--serif); font-size: 16px; font-style: italic; font-weight: 300; color: var(--ink-55); text-decoration: none; display: flex; align-items: center; gap: 8px; transition: color 0.2s, gap 0.25s; }
-    .btn-ghost-link:hover { color: var(--ink); gap: 14px; }
-
     /* ── Register button ── */
     .register-btn {
       display: inline-block; font-family: var(--sans); font-size: 11.5px; font-weight: 700;
@@ -59,12 +31,6 @@ export const membershipCss = `
       white-space: nowrap;
     }
     .benefits-register-link:hover { color: var(--gold-lt); border-color: var(--gold-lt); }
-
-    /* ── Shared utils ── */
-    .wrap { max-width: 1440px; margin: 0 auto; padding: 0 64px; }
-    .sec-label { font-family: var(--sans); font-size: 10.5px; font-weight: 700; letter-spacing: 0.34em; text-transform: uppercase; color: var(--ink-55); display: flex; align-items: center; gap: 14px; margin-bottom: 20px; }
-    .sec-label::after { content: ''; flex: 1; height: 1px; background: var(--ink-15); }
-    /* Scroll reveals consolidated to globals.css */
 
     /* ── Benefits section ── */
     .benefits-sec {
@@ -422,12 +388,7 @@ export const membershipCss = `
 
     /* ── Responsive ── */
     @media (max-width: 1100px) {
-      .hero-title { font-size: clamp(38px, 10.5vw, 52px); }
-      .hero-eyebrow { margin-bottom: 24px; gap: 8px; flex-wrap: wrap; justify-content: center; }
-      .hero-eyebrow-rule { display: none; }
-      .hero-eyebrow-text { font-size: 11px; letter-spacing: 0.12em; }
       .benefits-header { flex-direction: column; align-items: flex-start; gap: 16px; }
-      .hero-sub { font-size: 16px; line-height: 1.65; margin-bottom: 32px; }
       
       /* Optimize text heavy blocks on mobile */
       .benefits-title, .faq-title, .register-title { font-size: 32px; line-height: 1.1; }
@@ -439,17 +400,5 @@ export const membershipCss = `
       .sticky-join { display: block; bottom: calc(1.4rem + env(safe-area-inset-bottom, 0px)); }
       .rv { transform: none; transition: opacity 0.4s ease; }
       .rv[data-d="1"], .rv[data-d="2"], .rv[data-d="3"], .rv[data-d="4"], .rv[data-d="5"] { transition-delay: 0s; }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .rv, .hero-eyebrow, .hero-pre, .hero-title, .hero-sub {
-        opacity: 1 !important; transform: none !important; animation: none !important;
-      }
-    }
-
-    @media print {
-      .progress, .arc-btn, .sticky-join, .hamburger, .mob-backdrop, .mob-drawer { display: none !important; }
-      nav { position: static; }
-      body { background: #fff; color: #000; }
     }
   `;

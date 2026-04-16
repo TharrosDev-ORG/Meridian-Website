@@ -8,17 +8,7 @@ export const membershipCss = `
     @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); max-height: 0; } to { opacity: 1; transform: none; max-height: 100px; } }
 
     /* ── Page hero ── */
-    /* ── Register button ── */
-    .register-btn {
-      display: inline-block; font-family: var(--sans); font-size: 11.5px; font-weight: 700;
-      letter-spacing: 0.26em; text-transform: uppercase; color: var(--cream);
-      background: var(--ink); text-decoration: none; padding: 16px 48px 15px;
-      position: relative; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s;
-    }
-    .register-btn::before { content: ''; position: absolute; inset: 0; background: var(--gold); transform: translateX(-100%); transition: transform 0.35s cubic-bezier(0.16,1,0.3,1); }
-    .register-btn span { position: relative; z-index: 1; }
-    .register-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(24,21,15,0.12); }
-    .register-btn:hover::before { transform: translateX(0); }
+
 
     /* ── Benefits register CTA ── */
     .benefits-register-link {

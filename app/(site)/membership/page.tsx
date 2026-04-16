@@ -4,26 +4,35 @@ import PageStyles from '@/components/PageStyles';
 import { membershipCss } from './pageCss';
 import FaqAccordion from '@/components/FaqAccordion';
 import { REGISTER_URL } from '@/components/NavBar';
+import Marquee from '@/components/Marquee';
+import RegisterSection from '@/components/sections/RegisterSection';
+import { getMetadata } from '@/utils/metadata-shared';
+import { generateFaqSchema } from '@/utils/jsonld';
 
-export const metadata: Metadata = {
-  title: "Membership | The Meridian Society",
+export const metadata: Metadata = getMetadata({
+  title: "Membership",
   description: "Membership puts you in the room. Register for free priority access to speaker events and social gatherings, and join a community built around curiosity and conversation.",
-  alternates: { canonical: "https://meridiansociety.ca/membership" },
-  openGraph: {
-    title: "Membership | The Meridian Society",
-    description: "Register for free priority access to speaker events and social gatherings. Join a community built around curiosity and conversation.",
-    url: "https://meridiansociety.ca/membership",
-    siteName: "The Meridian Society",
-    locale: "en_CA",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Membership | The Meridian Society",
-    description: "Join the Society for priority access to events and a community built around curiosity.",
-  },
-};
+  urlPath: "/membership"
+});
 
+const FAQS = [
+  {
+    question: "Is membership free?",
+    answer: "Yes. Membership is completely free. There is no cost to join The Meridian Society."
+  },
+  {
+    question: "Who can join?",
+    answer: "Any motivated, curious student in the Ottawa area is welcome to register. You don't need to be from a specific school or program."
+  },
+  {
+    question: "What happens after I register?",
+    answer: "You'll receive event announcements and invitations as they go out. No spam, no commitments. You can also follow us on Instagram for updates."
+  },
+  {
+    question: "Do I have to attend every event?",
+    answer: "No. Register once, come to what interests you. There is no attendance requirement. Membership is yours to use how it suits you."
+  }
+];
 
 export default function Page() { 
   return (
@@ -33,44 +42,7 @@ export default function Page() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "FAQPage",
-            "mainEntity": [
-              {
-                "@type": "Question",
-                "name": "Is membership free?",
-                "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "Yes. Membership is completely free. There is no cost to join The Meridian Society."
-                }
-              },
-              {
-                "@type": "Question",
-                "name": "Who can join?",
-                "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "Any motivated, curious student in the Ottawa area is welcome to register. You don't need to be from a specific school or program."
-                }
-              },
-              {
-                "@type": "Question",
-                "name": "What happens after I register?",
-                "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "You'll receive event announcements and invitations as they go out. No spam, no commitments. You can also follow us on Instagram for updates."
-                }
-              },
-              {
-                "@type": "Question",
-                "name": "Do I have to attend every event?",
-                "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "No. Register once, come to what interests you. There is no attendance requirement. Membership is yours to use how it suits you."
-                }
-              }
-            ]
-          }),
+          __html: JSON.stringify(generateFaqSchema(FAQS)),
         }}
       />
       <main id="main-content">
@@ -82,7 +54,7 @@ export default function Page() {
         <span className="hero-eyebrow-text">The Meridian Society</span>
         <span className="hero-eyebrow-rule"></span>
       </div>
-      <p className="hero-pre">Student Speaker Forum</p>
+      <p className="hero-pre rv">Student Speaker Forum</p>
       <h1 className="hero-title rv rv-stagger">
         <span className="rv-stagger-item">Membership.</span>
       </h1>
@@ -96,11 +68,7 @@ export default function Page() {
     </div>
   </section>
 
-  <div className="marquee-wrap" aria-hidden="true">
-    <div className="marquee-track" data-static="true">
-      <span className="m-item">The Meridian Society</span><span className="m-gem">◆</span><span className="m-item">Ottawa</span><span className="m-gem">◆</span><span className="m-item">Est. 2025</span><span className="m-gem">◆</span><span className="m-item">Student-Run</span><span className="m-gem">◆</span><span className="m-item">Free Membership</span><span className="m-gem">◆</span><span className="m-item">Speaker Events</span><span className="m-gem">◆</span><span className="m-item">Social Gatherings</span><span className="m-gem">◆</span><span className="m-item">Ottawa Community</span><span className="m-gem">◆</span><span className="m-item">The Meridian Society</span><span className="m-gem">◆</span><span className="m-item">Ottawa</span><span className="m-gem">◆</span><span className="m-item">Est. 2025</span><span className="m-gem">◆</span><span className="m-item">Student-Run</span><span className="m-gem">◆</span><span className="m-item">Free Membership</span><span className="m-gem">◆</span><span className="m-item">Speaker Events</span><span className="m-gem">◆</span><span className="m-item">Social Gatherings</span><span className="m-gem">◆</span><span className="m-item">Ottawa Community</span><span className="m-gem">◆</span>
-    </div>
-  </div>
+  <Marquee />
 
   {/* ═══════════ BENEFITS ═══════════ */}
   <section className="benefits-sec" id="benefits" aria-labelledby="benefits-heading">
@@ -158,24 +126,7 @@ export default function Page() {
     </div>
   </section>
 
-  {/* ═══════════ REGISTER ═══════════ */}
-  <section className="register" id="register" aria-labelledby="register-heading">
-    <div className="register-ghost" aria-hidden="true">MERIDIAN</div>
-    <div className="wrap">
-      <div className="register-rule-top" aria-hidden="true"></div>
-      <p className="register-eyebrow rv">Independent  ·  Student-Run  ·  Ottawa  ·  Est. 2025</p>
-      <h2 className="register-title rv" data-d="1" id="register-heading">Become a <em>Member.</em></h2>
-      <p className="register-body rv" data-d="2" style={{ marginBottom: '40px' }}>Membership puts you in the room. Register to stay informed, attend events, and become part of a community built around curiosity and conversation.</p>
-      
-      <div className="register-actions rv" data-d="3">
-        <Link href={REGISTER_URL} className="register-btn">
-          <span>Complete Registration</span>
-        </Link>
-      </div>
-
-      <div className="register-rule-btm" aria-hidden="true"></div>
-    </div>
-  </section>
+  <RegisterSection />
 
 </main>
     </>

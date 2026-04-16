@@ -5,29 +5,28 @@ import { REGISTER_URL } from '@/components/NavBar';
 import IndexInteractive from './IndexInteractive';
 import Magnetic from '@/components/Magnetic';
 import Link from 'next/link';
+import Marquee from '@/components/Marquee';
+import RegisterSection from '@/components/sections/RegisterSection';
+import { getMetadata } from '@/utils/metadata-shared';
+import { generateOrganizationSchema } from '@/utils/jsonld';
 
-export const metadata: Metadata = {
-  title: "The Meridian Society | Ottawa's Student Speaker Forum",
+export const metadata: Metadata = getMetadata({
+  title: "Ottawa's Student Speaker Forum",
   description: "An independent, student-run organization connecting motivated Ottawa students with the professionals, alumni, and scholars who can expand their world. Built to facilitate discourse and a community of curious people.",
-  openGraph: {
-    title: "The Meridian Society | Ottawa's Student Speaker Forum",
-    description: "An independent, student-run organization connecting motivated Ottawa students with the professionals, alumni, and scholars who can expand their world.",
-    url: "https://meridiansociety.ca/",
-    siteName: "The Meridian Society",
-    locale: "en_CA",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "The Meridian Society | Ottawa Student Speaker Forum",
-    description: "An independent, student-run organization connecting curious minds with professionals, alumni, and scholars.",
-  },
-};
+  urlPath: "/"
+});
 
 export default function Home() { 
   return (
     <main>
       <PageStyles css={indexCss} />
+      {/* JSON-LD Organization Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(generateOrganizationSchema()),
+        }}
+      />
       <a href="#main-content" className="skip-link">Skip to content</a>
       <Link href={REGISTER_URL} className="sticky-join" id="stickyJoin">Register</Link>
       <section className="hero" id="main-content" aria-label="Hero">
@@ -89,11 +88,7 @@ export default function Home() {
 </section>
 
 {/* MARQUEE */}
-<div className="marquee-wrap" aria-hidden="true">
-  <div className="marquee-track" data-static="true">
-    <span className="m-item">The Meridian Society</span><span className="m-gem">◆</span><span className="m-item">Ottawa</span><span className="m-gem">◆</span><span className="m-item">Est. 2025</span><span className="m-gem">◆</span><span className="m-item">Student-Run</span><span className="m-gem">◆</span><span className="m-item">Carleton University</span><span className="m-gem">◆</span><span className="m-item">uOttawa</span><span className="m-gem">◆</span><span className="m-item">Algonquin College</span><span className="m-gem">◆</span><span className="m-item">The Meridian Society</span><span className="m-gem">◆</span><span className="m-item">Ottawa</span><span className="m-gem">◆</span><span className="m-item">Est. 2025</span><span className="m-gem">◆</span><span className="m-item">Student-Run</span><span className="m-gem">◆</span><span className="m-item">Carleton University</span><span className="m-gem">◆</span><span className="m-item">uOttawa</span><span className="m-gem">◆</span><span className="m-item">Algonquin College</span><span className="m-gem">◆</span>
-  </div>
-</div>
+<Marquee />
 
 {/* ABOUT */}
 <section className="about" id="about" aria-labelledby="about-heading">
@@ -218,23 +213,7 @@ export default function Home() {
   </div>
 </section>
 
-{/* REGISTER */}
-<section className="register" id="register" aria-labelledby="register-heading">
-  <div className="register-ghost" aria-hidden="true">MERIDIAN</div>
-  <div className="wrap">
-    <div className="register-rule-top" aria-hidden="true"></div>
-    <p className="register-eyebrow rv">Independent  ·  Student-Run  ·  Ottawa  ·  Est. 2025</p>
-    <h2 className="register-title rv" data-d="1" id="register-heading">Become a <em>Member.</em></h2>
-    <p className="register-body rv" data-d="2" id="register-speakable">Membership puts you in the room. Register to stay informed, attend events, and become part of a community built around curiosity and conversation.</p>
-    <div className="register-actions rv" data-d="3">
-      <Link href={REGISTER_URL} className="register-btn" data-register>
-        <span>Register for Updates</span>
-      </Link>
-    </div>
-    <div className="register-rule-btm" aria-hidden="true"></div>
-  </div>
-</section>
-
+<RegisterSection />
 
       <IndexInteractive />
     </main>

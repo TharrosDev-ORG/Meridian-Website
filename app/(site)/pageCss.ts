@@ -338,51 +338,13 @@ export const indexCss = `
     .formats-text { font-family: var(--serif); font-size: 19px; font-style: italic; color: var(--ink-90); position: relative; z-index: 1; transition: color 0.2s; }
     .formats-item:hover .formats-text { color: var(--ink); }
 
-    /* ══════════════════════════════
-       REGISTER
-    ══════════════════════════════ */
-    .register { padding: 64px 0; background: var(--cream-mid); position: relative; overflow: hidden; }
-    .register::before {
-      content: ''; position: absolute; inset: 0; z-index: 0;
-      background: radial-gradient(ellipse 65% 60% at 50% 50%, rgba(184,147,42,0.06) 0%, transparent 70%),
-                  radial-gradient(ellipse 100% 100% at 50% 50%, transparent 50%, rgba(24,21,15,0.04) 100%);
-      pointer-events: none;
-    }
-    .register::after { content: ''; position: absolute; inset: 0; z-index: 0; opacity: 0.03; background-image: var(--grain); background-size: 200px 200px; pointer-events: none; }
-    .register-ghost {
-      position: absolute; bottom: -32px; left: 50%; transform: translateX(-50%);
-      font-family: var(--sans); font-size: clamp(60px, 30vw, 180px); font-weight: 700;
-      letter-spacing: 0.3em; white-space: nowrap;
-      color: transparent; -webkit-text-stroke: 1.5px rgba(24,21,15,0.13);
-      user-select: none; pointer-events: none; z-index: 0;
-    }
-    .register .wrap { position: relative; z-index: 1; text-align: center; }
-    .register-rule-top { width: 1px; height: 40px; background: var(--ink-15); margin: 0 auto 24px; }
-    .register-eyebrow { font-family: var(--sans); font-size: 10.5px; font-weight: 700; letter-spacing: 0.38em; text-transform: uppercase; color: var(--ink-55); margin-bottom: 24px; }
-    .register-title { font-family: var(--serif); font-size: clamp(42px, 6vw, 84px); font-weight: 300; line-height: 0.95; color: var(--ink); margin-bottom: 24px; }
-    .register-title em { font-style: italic; font-weight: 300; color: var(--gold); }
-    .register-body { font-family: var(--serif); font-size: 18px; font-style: italic; font-weight: 300; color: var(--ink-75); max-width: 560px; margin: 0 auto 40px; line-height: 1.8; }
-    .register-actions { display: flex; align-items: center; gap: 28px; justify-content: center; }
-    .register-btn {
-      display: inline-block; font-family: var(--sans); font-size: 11.5px; font-weight: 700;
-      letter-spacing: 0.26em; text-transform: uppercase; color: var(--cream);
-      background: var(--ink); padding: 16px 48px 15px; text-decoration: none;
-      position: relative; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s;
-    }
-    .register-btn::before { content: ''; position: absolute; inset: 0; background: var(--gold); transform: translateX(-100%); transition: transform 0.35s cubic-bezier(0.16,1,0.3,1); }
-    .register-btn span { position: relative; z-index: 1; }
-    .register-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(24,21,15,0.12); }
-    .register-btn:hover::before { transform: translateX(0); }
-    .register-rule-btm { width: 1px; height: 40px; background: var(--ink-15); margin: 32px auto 0; }
+
 
     /* Member count box (lives inside register section) */
     .member-count-box { display: inline-flex; flex-direction: column; align-items: center; gap: 8px; margin-bottom: 40px; }
     .member-count-num { font-family: var(--serif); font-size: 52px; font-weight: 300; color: var(--gold); line-height: 1; }
     .member-count-lbl { font-family: var(--sans); font-size: 10px; font-weight: 600; letter-spacing: 0.24em; text-transform: uppercase; color: var(--ink-55); }
 
-    .member-count-box { display: inline-flex; flex-direction: column; align-items: center; gap: 8px; margin-bottom: 40px; }
-    .member-count-num { font-family: var(--serif); font-size: 52px; font-weight: 300; color: var(--gold); line-height: 1; }
-    .member-count-lbl { font-family: var(--sans); font-size: 10px; font-weight: 600; letter-spacing: 0.24em; text-transform: uppercase; color: var(--ink-55); }
 
     /* ══════════════════════════════
        RESPONSIVE

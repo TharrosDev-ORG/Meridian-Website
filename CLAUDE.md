@@ -77,7 +77,7 @@ utils/supabase/
   client.ts               # Browser client (createBrowserClient)
   server.ts               # Server component client (createServerClient + cookies)
   middleware.ts           # Middleware client (for auth session refresh)
-  admin.ts                # Admin client (SERVICE_ROLE_KEY — server-only, bypasses RLS)
+  service.ts               # Service client (SERVICE_ROLE_KEY — server-only, bypasses RLS)
 
 supabase/migrations/
   20260415000000_initial_schema.sql   # members + site_stats tables, trigger, RLS policies
@@ -245,10 +245,10 @@ Import these wherever needed. Update in one place.
 |---------|------|----------|
 | Client component | `utils/supabase/client.ts` | `createClient()` |
 | Server component | `utils/supabase/server.ts` | `createClient(cookieStore)` |
-| Server action (bypass RLS) | `utils/supabase/admin.ts` | `createAdminClient()` |
+| Server action (Service Role) | `utils/supabase/service.ts` | `createServiceClient()` |
 | Middleware | `utils/supabase/middleware.ts` | `createClient(request)` |
 
-**Never** import `admin.ts` from client components — it exposes the service role key.
+**Never** import `service.ts` from client components — it exposes the service role key.
 
 ---
 
@@ -261,7 +261,7 @@ Import these wherever needed. Update in one place.
    - IP-based rate limit — 1 per 5 min per IP (in-memory, per serverless instance)
    - Security delay — 300–800ms random (timing attack prevention)
    - Zod schema validation
-   - Duplicate email check via admin client (case-insensitive)
+   - Duplicate email check via service client (case-insensitive)
    - Insert into `members` table — trigger fires to increment `site_stats`
 4. On success: `localStorage.setItem('meridian_registered_v1', 'true')` + 1-year cookie
 5. Form replaced with success state; duplicate prevention persists across sessions
@@ -357,7 +357,7 @@ Edit `app/(site)/team/page.tsx`. Copy existing `<article className="member-card"
 - **Do not add `app/favicon.ico`** — overrides the custom favicon set. Favicons live in `public/assets/favicons/`.
 - **Do not use `useEffect` for style injection** — use `PageStyles` pattern to prevent FOUC.
 - **Do not hardcode `/register` or the speaker form URL** — import `REGISTER_URL` / `SPEAK_URL` from `components/NavBar.tsx`.
-- **Do not import `utils/supabase/admin.ts` from client components** — service role key must stay server-side.
+- **Do not import `utils/supabase/service.ts` from client components** — service role key must stay server-side.
 - **Do not override `.arc-btn` styles locally** — edit `globals.css` only.
 - **Do not use `<nav>` for footer navigation** — `globals.css` `nav {}` type selector targets the sticky navbar. The mobile drawer's `<nav className="mob-links">` explicitly resets these properties inline. Footer uses `<div role="navigation">`.
 - **Do not animate `border-left-width`** — non-interpolatable; use `::before` + `scaleY` + `transform-origin`.

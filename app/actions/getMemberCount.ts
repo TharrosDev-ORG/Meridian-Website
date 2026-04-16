@@ -1,12 +1,12 @@
 'use server';
 
-import { createAdminClient } from '@/utils/supabase/admin';
+import { createServiceClient } from '@/utils/supabase/service';
 
 export async function getMemberCount(): Promise<number> {
-  const supabaseAdmin = createAdminClient();
+  const supabaseService = createServiceClient();
 
   try {
-    const { data, error } = await supabaseAdmin
+    const { data, error } = await supabaseService
       .from('site_stats')
       .select('member_count')
       .eq('id', 'meridian_global_stats')
@@ -15,7 +15,7 @@ export async function getMemberCount(): Promise<number> {
     if (error) {
       console.error('Error fetching member count from site_stats:', error);
       // Fallback to direct count if site_stats fails
-      const { count } = await supabaseAdmin
+      const { count } = await supabaseService
         .from('members')
         .select('*', { count: 'exact', head: true });
       return count || 0;

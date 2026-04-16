@@ -59,14 +59,14 @@ Four client variants in `utils/supabase/`:
 |------|-----|
 | `client.ts` | Browser / client components |
 | `server.ts` | Server components |
-| `admin.ts` | Server actions (bypasses RLS) |
+| `service.ts` | Server actions (bypasses RLS) |
 | `middleware.ts` | Session refresh in middleware |
 
-Never import `admin.ts` from client components — it uses the service role key.
+Never import `service.ts` from client components — it uses the service role key.
 
 ### Member Registration
 
-`RegistrationForm` (client) → `registerMember()` server action → Supabase insert. Server action includes: honeypot check, IP rate limiting (1/5 min), Zod validation, case-insensitive duplicate check. Success state persisted to localStorage + cookie so the form isn't re-shown.
+`RegistrationForm` (client) → `registerMember()` server action → Supabase insert. Server action includes: honeypot check, IP rate limiting (1/5 min), Zod validation, case-insensitive duplicate check via service client. Success state persisted to localStorage + cookie so the form isn't re-shown.
 
 ### Real-time Member Count
 
@@ -94,7 +94,7 @@ data/
   events.ts               # Speaker events array
   social.ts               # Social events array + SocialEvent interface
 
-utils/supabase/           # Browser / server / admin / middleware clients
+utils/supabase/           # Browser / server / service / middleware clients
 
 supabase/migrations/      # Versioned SQL schema migrations
 

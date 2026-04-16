@@ -47,7 +47,7 @@ The registration flow (`/register`) is the most mission-critical and hardened pa
 2. **Client-Side Guard**: `RegistrationForm.tsx` checks `localStorage` and `document.cookie` for a `meridiansociety_registered_v1` key to prevent duplicate submissions in the same browser.
 3. **Rate Limiting**: An in-memory IP-based rate limit (1 submission per 5 minutes) is enforced in the server action.
 4. **Security Delay**: A randomized delay of 300ms–800ms is applied to all submissions to prevent timing attacks.
-5. **Admin Duplicate Check**: The server action uses a Supabase Admin client to perform a case-insensitive email lookup before any insertion.
+5. **Backend Duplicate Check**: The server action uses a Supabase Service client to perform a case-insensitive email lookup before any insertion.
 
 ### 3.2 Submission Lifecycle
 We use React 19's `useTransition` to manage the submission state. This allows for a "Pending" UI while the server action processes, followed by a permanent Success State that persists via cookies.
@@ -104,7 +104,7 @@ Every `page.tsx` must export a unique `Metadata` object.
 
 ### Maintenance
 - **UI-First**: Page content is currently managed directly within the component files for maximum control over layout and performance.
-- **Supabase**: Always use `utils/supabase/admin.ts` for database-level changes in server actions to bypass RLS safely.
+- **Supabase**: Always use `utils/supabase/service.ts` for database-level changes in server actions to bypass RLS safely.
 
 ---
 *End of Specification. Follow these rules to maintain the Meridian Society's premium status.*

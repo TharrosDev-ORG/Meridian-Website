@@ -1,7 +1,7 @@
 'use server';
 
 import { z } from 'zod';
-import { createAdminClient } from '@/utils/supabase/admin';
+import { createServiceClient } from '@/utils/supabase/service';
 import { headers } from 'next/headers';
 
 // Simple in-memory rate limit store (Note: In serverless environments, this is per-instance)
@@ -84,11 +84,11 @@ export async function registerMember(data: RegistrationData) {
   const normalizedEmail = email.toLowerCase().trim();
 
   // 4. Database Operations
-  // Using admin client (Service Role) to bypass RLS for this specific server-side flow
-  const supabaseAdmin = createAdminClient();
+  // Using service client (Service Role) to bypass RLS for this specific server-side flow
+  const supabaseService = createServiceClient();
 
   // Explicit duplicate check (Lowercased)
-  const { data: existing, error: checkError } = await supabaseAdmin
+  const { data: existing, error: checkError } = await supabaseService
     .from('members')
     .select('email')
     .eq('email', normalizedEmail)
@@ -104,7 +104,7 @@ export async function registerMember(data: RegistrationData) {
   }
 
   // Insert into Supabase
-  const { error: insertError } = await supabaseAdmin
+  const { error: insertError } = await supabaseService
     .from('members')
     .insert([
       {

@@ -9,10 +9,10 @@ Live: `meridiansociety.ca` | Repo: `meridiansociety/Meridian-Website`
 
 | Layer | Technology |
 |-------|-----------|
-| Framework | Next.js 16, App Router, TypeScript |
-| UI | React 19, Server Components by default |
+| Framework | Next.js 16.2, App Router, TypeScript |
+| UI | React 19.2, Server Components by default |
 | Styling | Tailwind CSS v4 (`@tailwindcss/postcss`) + inline `pageCss.ts` per-page styles |
-| Database | Supabase (Postgres + Realtime) |
+| Database | Supabase (PostgreSQL + Realtime) |
 | Validation | Zod v4 |
 | Fonts | Cormorant Garamond (`--serif`), Barlow Condensed (`--sans`) via `next/font/google` |
 | Analytics | Vercel Analytics + Speed Insights |
@@ -63,11 +63,12 @@ components/
   Providers.tsx           # SiteContext (menuOpen) + IntersectionObserver for .rv reveals
   BackToTop.tsx           # Scroll-progress arc button (passive scroll listener)
   PageStyles.tsx          # Injects per-page <style> tag + calls window.__observeReveal
-  MemberCount.tsx         # Standalone member count — initial fetch + real-time subscription
   RegistrationForm.tsx    # Client form — useTransition, localStorage/cookie state, honeypot
   FaqAccordion.tsx        # FAQ — click toggle + hover-to-open on desktop
   Magnetic.tsx            # CSS-var magnetic hover effect (disabled on touch/coarse pointer)
   TransitionWrapper.tsx   # Page sweep animation via key={pathname}
+  sections/
+    RegisterSection.tsx   # Common "Become a Member" footer-adjacent section
 
 data/
   events.ts               # EVENTS array — TypeScript typed speaker event objects
@@ -155,7 +156,6 @@ Defined in `globals.css` `:root`. Never redefine these in `pageCss.ts` files —
 - `Providers.tsx` — `SiteContext` + global IntersectionObserver for `.rv` reveals + `window.__observeReveal`
 - `BackToTop.tsx` — passive scroll listener, SVG arc progress ring
 - `PageStyles.tsx` — renders `<style>` tag + calls `window.__observeReveal` on mount
-- `MemberCount.tsx` — standalone member counter (used on homepage)
 - `RegistrationForm.tsx` — registration form with `useTransition` + localStorage/cookie duplicate guard
 - `FaqAccordion.tsx` — accordion with click toggle + desktop hover-to-open
 - `Magnetic.tsx` — magnetic hover via CSS custom properties, skipped on `pointer: coarse`
@@ -270,10 +270,9 @@ Import these wherever needed. Update in one place.
 
 ## Member Count Flow
 
-- **Initial load:** Footer and MemberCount call `getMemberCount()` server action → reads `site_stats.member_count`
+- **Initial load:** Footer calls `getMemberCount()` server action → reads `site_stats.member_count`
 - **Fallback:** If `site_stats` read fails → `COUNT(*)` on `members` table
 - **Real-time:** Footer subscribes to `postgres_changes` on `site_stats` via Supabase Realtime; updates instantly when DB trigger fires
-- **MemberCount.tsx:** Standalone version used on homepage — same pattern (initial + realtime)
 - **Loading state:** `.member-count-shimmer` animated skeleton while fetching
 
 ---

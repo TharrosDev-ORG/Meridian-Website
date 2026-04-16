@@ -8,8 +8,8 @@ Public website for [The Meridian Society](https://meridiansociety.ca), an indepe
 
 | Layer | Technology |
 |-------|-----------|
-| Framework | Next.js 16 (App Router), TypeScript |
-| UI | React 19 — Server Components by default |
+| Framework | Next.js 16.2 (App Router), TypeScript |
+| UI | React 19.2 — Server Components by default |
 | Styling | Tailwind CSS v4 + per-page inline `pageCss.ts` |
 | Database | Supabase (Postgres + Realtime) |
 | Validation | Zod v4 |
@@ -70,7 +70,7 @@ Never import `service.ts` from client components — it uses the service role ke
 
 ### Real-time Member Count
 
-`Footer` and `MemberCount` components initial-fetch via `getMemberCount()` server action, then subscribe to `postgres_changes` on `site_stats` via Supabase Realtime. A DB trigger auto-increments `site_stats.member_count` on every insert into `members`.
+The `Footer` initial-fetches via the `getMemberCount()` server action, then subscribes to `postgres_changes` on `site_stats` via Supabase Realtime. A DB trigger auto-increments `site_stats.member_count` on every insert into `members`. Standalone counting logic has been consolidated into the footer to maintain a clean, single-view architecture.
 
 ---
 
@@ -87,8 +87,9 @@ app/
   actions/                # Server actions: register.ts, getMemberCount.ts
 
 components/               # NavBar, Footer, MobileMenu, Providers, BackToTop,
-                          # PageStyles, MemberCount, RegistrationForm,
-                          # FaqAccordion, Magnetic, TransitionWrapper
+                          # PageStyles, RegistrationForm, FaqAccordion,
+                          # Magnetic, TransitionWrapper, ScrollProgress
+                          # (Subdir: components/sections/RegisterSection.tsx)
 
 data/
   events.ts               # Speaker events array

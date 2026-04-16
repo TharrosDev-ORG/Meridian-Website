@@ -80,7 +80,7 @@ We use a Postgres trigger (`handle_member_count_change`) on the `members` table.
     - `--sans`: Barlow Condensed (Eyebrows/UI).
     - **Rule**: Minimum `--serif` body size is 17px (preferred 19px). Minimum `--sans` eyebrow is 10.5px.
 - **Colors**: Never use pure black (#000). Use `--ink` (#18150F).
-- **Registration Section**: The "Become a Member" (register) section must always be condensed with a single-line title and a maximum of two lines for the body text. Vertical padding is standardized to `64px`.
+- **Registration Section**: The "Become a Member" (register) section is implemented as a shared `RegisterSection.tsx` component. It must always be condensed with a single-line title and a maximum of two lines for the body text. Vertical padding is standardized to `64px`.
 - **Horizontal Protection**: `html` and `body` are strictly set to `overflow-x: hidden`. Never use `width: 100vw`; always use `width: 100%`.
 
 ---

@@ -62,11 +62,11 @@ export default function EventsPage() {
             <div className="events-intro-grid">
               <div className="events-intro-left">
                 <div className="sec-label rv">The Program</div>
-                <h2 className="events-copy-title rv" data-d="1">A room you'll want to be a part of.</h2>
+                <h2 className="events-copy-title rv" data-d="1">A room you&apos;ll want to be a part of.</h2>
               </div>
               <div className="events-intro-right">
                 <p className="events-copy-body rv" data-d="2">
-                  The Speaker Forum is our society's flagship event, where we bring established professionals, academics, and alumni to share their lived experience and knowledge with a room of motivated students.
+                  The Speaker Forum is our society&apos;s flagship event, where we bring established professionals, academics, and alumni to share their lived experience and knowledge with a room of motivated students.
                   <br /><br />
                   These aren&apos;t just lectures. They are open dialogues designed to provide students with tangible orientation in their respective fields - exposure to ideas and networks that aren&apos;t found in a classroom.
                 </p>

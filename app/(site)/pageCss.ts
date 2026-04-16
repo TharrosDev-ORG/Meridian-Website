@@ -108,7 +108,7 @@ export const indexCss = `
     .hero-ig-btn {
       display: inline-flex; align-items: center; justify-content: center;
       width: 52px; height: 52px; border: 1px solid var(--ink-20); 
-      color: var(--gold); padding: 0;
+      color: var(--ink); padding: 0; background: transparent;
       text-decoration: none; position: relative; overflow: hidden !important;
       transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
     }
@@ -117,10 +117,10 @@ export const indexCss = `
       transform: translateX(-101%);
       transition: transform 0.35s cubic-bezier(0.16,1,0.3,1); z-index: 0;
     }
-    .hero-ig-btn svg { position: relative; z-index: 1; width: 20px; height: 20px; fill: currentColor; display: block; transition: fill 0.25s; }
-    .hero-ig-btn:hover { border-color: var(--gold); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(184,147,42,0.18); }
+    .hero-ig-btn svg { position: relative; z-index: 2; width: 20px; height: 20px; fill: currentColor; display: block; transition: transform 0.3s; }
+    .hero-ig-btn:hover { border-color: var(--gold); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(184,147,42,0.18); color: var(--ink); }
     .hero-ig-btn:hover::before { transform: translateX(0); }
-    .hero-ig-btn:hover svg { fill: var(--cream); }
+    .hero-ig-btn:hover svg { transform: scale(1.1); }
 
     /* Stats bar — full width, pushed to bottom by flex */
     .hero-stats {

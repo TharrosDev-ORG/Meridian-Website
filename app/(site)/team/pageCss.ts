@@ -88,7 +88,18 @@ export const teamCss = `
 
     /* ── Responsive ── */
     @media (max-width: 1100px) {
+      .team-header { flex-direction: column; align-items: flex-start; gap: 16px; }
+      .member-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
       .rv { transform: none; transition: opacity 0.4s ease; }
       .rv[data-d="1"], .rv[data-d="2"], .rv[data-d="3"] { transition-delay: 0s; }
+    }
+
+    @media (max-width: 750px) {
+      .member-grid { grid-template-columns: 1fr; }
+      .member-header { flex-direction: column; align-items: flex-start; gap: 24px; }
+      .member-photo-wrap { width: 120px; height: 150px; }
+      .member-name { font-size: 24px; }
+      .member-studies { font-size: 16px; }
+      .member-bio { font-size: 17px; }
     }
 `;

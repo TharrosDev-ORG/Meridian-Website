@@ -63,7 +63,16 @@ export const speakCss = `
       .speak-why-card { padding: 32px 24px; }
       .speak-meta-val { font-size: 18px; }
       .speak-format-header { flex-direction: column; align-items: flex-start; gap: 16px; }
+      .speak-why-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
       .rv { transform: none; transition: opacity 0.4s ease; }
       .rv[data-d="1"], .rv[data-d="2"], .rv[data-d="3"] { transition-delay: 0s; }
+    }
+
+    @media (max-width: 750px) {
+      .speak-why-grid { grid-template-columns: 1fr; }
+      .speak-meta-row { grid-template-columns: 1fr; gap: 12px; padding: 24px 20px; }
+      .speak-meta-lbl { padding-top: 0; }
+      .speak-apply-ctas { flex-direction: column; gap: 20px; width: 100%; }
+      .speak-apply-ctas .btn-primary { width: 100%; text-align: center; }
     }
   `;

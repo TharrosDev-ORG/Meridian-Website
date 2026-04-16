@@ -62,5 +62,14 @@ export const socialCss = `
 
     /* ── Responsive ── */
     @media (max-width: 1100px) {
+      .social-intro-right { padding: 40px; }
+      .vibe-card { padding: 32px; }
+      .rv { transform: none; transition: opacity 0.4s ease; }
+    }
+
+    @media (max-width: 750px) {
+      .vibe-grid { grid-template-columns: 1fr; gap: 20px; }
+      .social-p { font-size: 18px; padding-left: 20px; }
+      .social-h2 { font-size: 32px; }
     }
   `;

@@ -389,6 +389,7 @@ export const membershipCss = `
     /* ── Responsive ── */
     @media (max-width: 1100px) {
       .benefits-header { flex-direction: column; align-items: flex-start; gap: 16px; }
+      .benefits-grid { grid-template-columns: 1fr; gap: 20px; }
       
       /* Optimize text heavy blocks on mobile */
       .benefits-title, .faq-title, .register-title { font-size: 32px; line-height: 1.1; }

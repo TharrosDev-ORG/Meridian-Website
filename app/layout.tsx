@@ -34,7 +34,7 @@ export const metadata: Metadata = {
   description:
     "Ottawa's flagship student speaker forum. The Meridian Society connects curious students with professionals, alumni, and scholars through curated speaker events and open dialogue.",
   keywords: [
-    "Meridian Society", "Ottawa Student Speaker Forum", "Undergraduate Speaker Series",
+    "Meridian Society", "Magnus Abdelnour", "Colin Sherwood", "Ottawa Student Speaker Forum", "Undergraduate Speaker Series",
     "Academic Dialogue Ottawa", "Professional Networking for Students", "Career Orientation Students",
     "Independent Student Org", "Ottawa Campus Community", "Student-Led Professional Development",
     "Carleton University Student Club", "uOttawa Campus Life", "Algonquin College Events",

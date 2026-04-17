@@ -1,5 +1,3 @@
-import { ReactElement } from 'react';
-
 // Font type matching next/og requirements
 export interface OGFont {
   name: string;

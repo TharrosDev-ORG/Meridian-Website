@@ -8,6 +8,7 @@ import { createClient } from "@/utils/supabase/client";
 export default function Footer() {
   const [count, setCount] = useState<number>(0);
   const [isLoading, setIsLoading] = useState(true);
+  const [currentYear, setCurrentYear] = useState<number>(2025);
 
   useEffect(() => {
     // Member Count Logic
@@ -18,6 +19,9 @@ export default function Footer() {
       setIsLoading(false);
     }
     loadCount();
+
+    // Current year to avoid hydration mismatch
+    setCurrentYear(new Date().getFullYear());
 
     const channel = supabase
       .channel('footer_stats_updates')
@@ -86,7 +90,7 @@ export default function Footer() {
             
             <div className="footer-stat-item">
               <span className="footer-stat-val">
-                {isLoading ? <span className="member-count-shimmer" style={{height:'82px', width:'130px'}} /> : count}
+                {count}
               </span>
               <span className="footer-stat-lbl">Live Members</span>
             </div>
@@ -108,7 +112,7 @@ export default function Footer() {
 
         <div className="footer-bottom">
           <span className="footer-copy">
-            © {new Date().getFullYear()} The Meridian Society. All Rights Reserved.
+            © {currentYear} The Meridian Society. All Rights Reserved.
           </span>
           <div className="footer-legal">
             <Link href="/privacy">Privacy</Link>

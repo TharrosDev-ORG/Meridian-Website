@@ -634,6 +634,12 @@ footer {
   letter-spacing: 0.1em; color: rgba(244, 237, 227, 0.3);
 }
 
+.footer-nav-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
 .footer-nav-list {
   display: grid;
   grid-template-columns: auto auto;

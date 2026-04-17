@@ -13,7 +13,8 @@ export default async function Image() {
       eyebrow: 'SIGNATURE PROGRAM',
       title: 'The Speaker Forum',
       subtitle: 'Where lived experience meets a motivated student audience.',
-      label: 'Program'
+      label: 'Program',
+      variant: 'events',
     }),
     {
       ...size,

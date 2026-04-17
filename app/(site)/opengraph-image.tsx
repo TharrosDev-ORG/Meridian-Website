@@ -12,6 +12,7 @@ export default async function Image() {
     getOGLayout({
       title: 'A Room For Discourse',
       subtitle: 'Connecting motivated students with the professionals, alumni, and scholars who can expand their world.',
+      variant: 'home',
     }),
     {
       ...size,

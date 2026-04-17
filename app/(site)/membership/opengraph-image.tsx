@@ -13,7 +13,8 @@ export default async function Image() {
       eyebrow: 'JOIN THE SOCIETY',
       title: 'Become a Member',
       subtitle: 'Free to join. Built for students. Priority access to all forums and socials.',
-      label: 'Membership'
+      label: 'Membership',
+      variant: 'membership',
     }),
     {
       ...size,

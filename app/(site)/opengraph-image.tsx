@@ -10,8 +10,10 @@ export default async function Image() {
 
   return new ImageResponse(
     getOGLayout({
+      eyebrow: 'A Student Forum',
       title: 'A Room For Discourse',
       subtitle: 'Connecting motivated students with the professionals, alumni, and scholars who can expand their world.',
+      label: 'Society',
       variant: 'home',
     }),
     {

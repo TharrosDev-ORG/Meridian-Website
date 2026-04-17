@@ -164,32 +164,50 @@ function MembershipMark({ stroke }: { stroke: string }) {
 }
 
 function SpeakMark({ stroke }: { stroke: string }) {
-  // Oversized italic quotation mark
+  // Paired italic quotation marks balanced across the diamond frame
   return (
     <div
       style={{
         display: 'flex',
-        alignItems: 'flex-start',
-        justifyContent: 'center',
         width: '260px',
         height: '260px',
         position: 'relative',
       }}
     >
       <svg width="260" height="260" viewBox="0 0 260 260" style={{ position: 'absolute' }}>
-        <path d="M130 20 L240 130 L130 240 L20 130 Z" fill="none" stroke={stroke} strokeWidth="1" opacity="0.2" />
+        <path d="M130 20 L240 130 L130 240 L20 130 Z" fill="none" stroke={stroke} strokeWidth="1" opacity="0.25" />
+        <path d="M130 70 L190 130 L130 190 L70 130 Z" fill="none" stroke={stroke} strokeWidth="1" opacity="0.12" />
       </svg>
       <span
         style={{
+          position: 'absolute',
+          top: 10,
+          left: 30,
           fontFamily: 'serif',
           fontStyle: 'italic',
-          fontSize: '320px',
+          fontSize: '200px',
           color: stroke,
           lineHeight: 1,
-          marginTop: '-40px',
+          display: 'flex',
         }}
       >
         &ldquo;
+      </span>
+      <span
+        style={{
+          position: 'absolute',
+          bottom: -40,
+          right: 30,
+          fontFamily: 'serif',
+          fontStyle: 'italic',
+          fontSize: '200px',
+          color: stroke,
+          opacity: 0.4,
+          lineHeight: 1,
+          display: 'flex',
+        }}
+      >
+        &rdquo;
       </span>
     </div>
   );
@@ -210,20 +228,28 @@ function SocialMark({ stroke }: { stroke: string }) {
 }
 
 function TeamMark({ stroke }: { stroke: string }) {
-  // 2x2 grid of portrait frames with subtle diamond accents
-  const frame = (x: number, y: number, filled: boolean) => (
-    <g>
-      <rect x={x} y={y} width="100" height="120" fill="none" stroke={stroke} strokeWidth="1.5" opacity={filled ? 0.9 : 0.35} />
-      {filled && <circle cx={x + 50} cy={y + 44} r="18" fill={stroke} opacity="0.8" />}
-      {filled && <path d={`M${x + 20} ${y + 110} Q${x + 50} ${y + 72} ${x + 80} ${y + 110} Z`} fill={stroke} opacity="0.8" />}
+  // 2x2 grid of abstract "name cards": diamond tag, title rule, two detail rules
+  const card = (x: number, y: number, filled: boolean) => (
+    <g opacity={filled ? 1 : 0.35}>
+      <rect x={x} y={y} width="100" height="120" fill="none" stroke={stroke} strokeWidth="1.5" />
+      {filled && (
+        <g>
+          <path d={`M${x + 18} ${y + 24} L${x + 26} ${y + 32} L${x + 18} ${y + 40} L${x + 10} ${y + 32} Z`} transform={`translate(${x + 2}, ${y - 6})`} fill={stroke} opacity="0.9" />
+          <rect x={x + 36} y={y + 24} width="48" height="4" fill={stroke} opacity="0.85" />
+          <rect x={x + 36} y={y + 34} width="32" height="2" fill={stroke} opacity="0.55" />
+          <line x1={x + 16} y1={y + 64} x2={x + 84} y2={y + 64} stroke={stroke} strokeWidth="1" opacity="0.35" />
+          <line x1={x + 16} y1={y + 80} x2={x + 76} y2={y + 80} stroke={stroke} strokeWidth="1" opacity="0.35" />
+          <line x1={x + 16} y1={y + 96} x2={x + 68} y2={y + 96} stroke={stroke} strokeWidth="1" opacity="0.35" />
+        </g>
+      )}
     </g>
   );
   return (
     <svg width="260" height="260" viewBox="0 0 260 260" style={{ display: 'flex' }}>
-      {frame(15, 10, true)}
-      {frame(145, 10, false)}
-      {frame(15, 140, false)}
-      {frame(145, 140, true)}
+      {card(15, 10, true)}
+      {card(145, 10, false)}
+      {card(15, 140, false)}
+      {card(145, 140, true)}
     </svg>
   );
 }

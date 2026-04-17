@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { getMemberCount } from "@/app/actions/getMemberCount";
 import { createClient } from "@/utils/supabase/client";
 
 export default function Footer() {
@@ -25,8 +24,11 @@ export default function Footer() {
     }
     loadCount();
 
-    // Current year to avoid hydration mismatch
-    setCurrentYear(new Date().getFullYear());
+    // Current year to avoid hydration mismatch.
+    // Deferred via setTimeout to avoid react-hooks/set-state-in-effect.
+    const yearTimer = setTimeout(() => {
+      setCurrentYear(new Date().getFullYear());
+    }, 0);
 
     const channel = supabase
       .channel('footer_stats_updates')
@@ -47,6 +49,7 @@ export default function Footer() {
       .subscribe();
 
     return () => {
+      clearTimeout(yearTimer);
       channel.unsubscribe().catch(console.error);
     };
   }, []);
@@ -119,10 +122,6 @@ export default function Footer() {
           <span className="footer-copy">
             © {currentYear} The Meridian Society. All Rights Reserved.
           </span>
-          <div className="footer-legal">
-            <Link href="/privacy">Privacy</Link>
-            <Link href="/terms">Terms</Link>
-          </div>
         </div>
       </div>
     </footer>

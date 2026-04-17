@@ -12,7 +12,7 @@ export default async function Image() {
     getOGLayout({
       eyebrow: 'A Student Forum',
       title: 'A Room For Discourse',
-      subtitle: 'Connecting motivated students with the professionals, alumni, and scholars who can expand their world.',
+      subtitle: 'Connecting motivated students with the professionals, alumni, and scholars who can expand their mindset.',
       label: 'Society',
       variant: 'home',
     }),

@@ -12,7 +12,7 @@ export default async function Image() {
     getOGLayout({
       eyebrow: 'COMMUNITY',
       title: 'Social Gatherings',
-      subtitle: 'Authentic spaces for interaction—from quiet coffee meetups to community nights.',
+      subtitle: 'Authentic spaces for Ottawa students to meet like-minded peers.',
       label: 'Socials',
       variant: 'social',
     }),

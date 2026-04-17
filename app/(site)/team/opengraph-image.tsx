@@ -12,7 +12,7 @@ export default async function Image() {
     getOGLayout({
       eyebrow: 'THE SOCIETY',
       title: 'Our Team',
-      subtitle: 'Built, owned, and run entirely by students based at Carleton University.',
+      subtitle: 'Built, owned, and run entirely by students.',
       label: 'Team',
       variant: 'team',
     }),

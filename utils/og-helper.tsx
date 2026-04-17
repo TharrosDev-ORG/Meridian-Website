@@ -50,8 +50,6 @@ const COLORS = {
   ink75: 'rgba(24, 21, 15, 0.75)',
   ink30: 'rgba(24, 21, 15, 0.30)',
   ink15: 'rgba(24, 21, 15, 0.15)',
-  cream75: 'rgba(244, 237, 227, 0.75)',
-  cream15: 'rgba(244, 237, 227, 0.15)',
 };
 
 export type OGVariant =
@@ -270,13 +268,12 @@ function renderVariant(variant: OGVariant, stroke: string) {
 // ---------- Main layout ----------
 
 export function getOGLayout({ title, subtitle, eyebrow, label, variant = 'home' }: OGLayoutProps) {
-  const inverted = variant === 'membership';
-  const bg = inverted ? COLORS.ink : COLORS.cream;
-  const fg = inverted ? COLORS.cream : COLORS.ink;
-  const fgMuted = inverted ? COLORS.cream75 : COLORS.ink75;
-  const rule = inverted ? COLORS.cream15 : COLORS.ink15;
+  const bg = COLORS.cream;
+  const fg = COLORS.ink;
+  const fgMuted = COLORS.ink75;
+  const rule = COLORS.ink15;
   const accent = COLORS.gold;
-  const markStroke = inverted ? COLORS.goldLt : COLORS.gold;
+  const markStroke = COLORS.gold;
 
   const titleWords = title.split(' ');
   const lastWord = titleWords.length > 1 ? titleWords.pop()! : '';
@@ -301,12 +298,9 @@ export function getOGLayout({ title, subtitle, eyebrow, label, variant = 'home' 
           position: 'absolute',
           inset: 0,
           display: 'flex',
-          backgroundImage: inverted
-            ? `radial-gradient(circle at 85% 15%, rgba(184, 147, 42, 0.18) 0%, transparent 55%),
-               radial-gradient(circle at 10% 90%, rgba(184, 147, 42, 0.08) 0%, transparent 50%)`
-            : `radial-gradient(circle at 0% 0%, ${COLORS.creamMid} 0%, transparent 55%),
-               radial-gradient(circle at 100% 100%, ${COLORS.creamMid} 0%, transparent 55%),
-               radial-gradient(circle at 85% 15%, rgba(184, 147, 42, 0.08) 0%, transparent 45%)`,
+          backgroundImage: `radial-gradient(circle at 0% 0%, ${COLORS.creamMid} 0%, transparent 55%),
+             radial-gradient(circle at 100% 100%, ${COLORS.creamMid} 0%, transparent 55%),
+             radial-gradient(circle at 85% 15%, rgba(184, 147, 42, 0.08) 0%, transparent 45%)`,
         }}
       />
 
@@ -315,8 +309,8 @@ export function getOGLayout({ title, subtitle, eyebrow, label, variant = 'home' 
         style={{
           position: 'absolute',
           inset: 0,
-          opacity: inverted ? 0.06 : 0.04,
-          backgroundImage: `radial-gradient(${inverted ? COLORS.cream : COLORS.ink} 1px, transparent 1px)`,
+          opacity: 0.04,
+          backgroundImage: `radial-gradient(${COLORS.ink} 1px, transparent 1px)`,
           backgroundSize: '32px 32px',
         }}
       />
@@ -358,7 +352,7 @@ export function getOGLayout({ title, subtitle, eyebrow, label, variant = 'home' 
           <Diamond size={10} fill={accent} />
           <span>The Meridian Society</span>
         </div>
-        <span style={{ color: accent, opacity: inverted ? 0.85 : 1 }}>meridiansociety.ca</span>
+        <span style={{ color: accent }}>meridiansociety.ca</span>
       </div>
 
       {/* Content: editorial split */}

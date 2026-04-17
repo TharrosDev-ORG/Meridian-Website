@@ -35,13 +35,22 @@ export type RegistrationData = z.infer<typeof registrationSchema>;
 export async function registerMember(data: RegistrationData) {
   // 1. Honeypot check (Instant fail if filled)
   if (data.fax_number) {
-    console.warn('Honeypot triggered by bot submission.');
+    console.warn(`[SECURITY] Honeypot triggered by submission.`);
     return { success: false, error: 'Registration failed. (Security Code: HP)' };
   }
 
   // 2. IP-based Rate Limiting
   const headerList = await headers();
   const ip = headerList.get('x-forwarded-for')?.split(',')[0] || 'unknown';
+  const userAgent = headerList.get('user-agent') || 'unknown';
+
+  // Basic bot detection: check for common non-browser user agents or missing UA
+  const isSuspicious = userAgent === 'unknown' || /bot|spider|crawler|curl|python|wget|postman/i.test(userAgent);
+  if (isSuspicious) {
+    console.warn(`[SECURITY] Suspicious User-Agent blocked: ${userAgent} (IP: ${ip})`);
+    return { success: false, error: 'Access denied. (Security Code: UA)' };
+  }
+
   const now = Date.now();
   const lastSubmission = ipRecords.get(ip);
 

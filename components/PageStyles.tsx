@@ -8,13 +8,16 @@ interface ExtendedWindow extends Window {
 
 export default function PageStyles({ css }: { css: string }) {
   useEffect(() => {
-    let timer: NodeJS.Timeout;
+    let rafId: number;
     const win = window as unknown as ExtendedWindow;
     if (typeof window !== "undefined" && win.__observeReveal) {
-      timer = setTimeout(() => win.__observeReveal!(), 50);
+      // Use requestAnimationFrame to ensure styles are applied before reveal
+      rafId = requestAnimationFrame(() => {
+        if (win.__observeReveal) win.__observeReveal();
+      });
     }
     return () => {
-      if (timer) clearTimeout(timer);
+      if (rafId) cancelAnimationFrame(rafId);
     };
   }, [css]);
 

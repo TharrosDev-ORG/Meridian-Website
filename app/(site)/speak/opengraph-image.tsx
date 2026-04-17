@@ -13,7 +13,8 @@ export default async function Image() {
       eyebrow: 'GET INVOLVED',
       title: 'Partner With Us',
       subtitle: 'Have a story worth sharing? We’d love to hear from you.',
-      label: 'Speakers'
+      label: 'Speakers',
+      variant: 'speak',
     }),
     {
       ...size,

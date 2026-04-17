@@ -13,7 +13,8 @@ export default async function Image() {
       eyebrow: 'COMMUNITY',
       title: 'Social Gatherings',
       subtitle: 'Authentic spaces for interaction—from quiet coffee meetups to community nights.',
-      label: 'Socials'
+      label: 'Socials',
+      variant: 'social',
     }),
     {
       ...size,

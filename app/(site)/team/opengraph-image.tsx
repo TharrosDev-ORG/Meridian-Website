@@ -13,7 +13,8 @@ export default async function Image() {
       eyebrow: 'THE SOCIETY',
       title: 'Our Team',
       subtitle: 'Built, owned, and run entirely by students based at Carleton University.',
-      label: 'Team'
+      label: 'Team',
+      variant: 'team',
     }),
     {
       ...size,

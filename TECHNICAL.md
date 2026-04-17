@@ -97,7 +97,7 @@ $$ LANGUAGE plpgsql SECURITY DEFINER;
 ```
 
 ### 4.2 Row Level Security (RLS) Policies
-- **`members`**: `Allow anonymous inserts` WITH CHECK (valid email, valid name).
+- **`members`**: **Strict Lockdown**. Anonymous `INSERT` is disabled. All growth happens through the `registerMember` Server Action (which uses the Service Role).
 - **`site_stats`**: `Public can view stats` (FOR SELECT USING true).
 
 ---
@@ -114,7 +114,8 @@ Agents must maintain the following scores:
 ### 5.2 Optimization Strategies
 - **Images**: Mandatory `.webp` format. Team headshots must be <20KB.
 - **Fonts**: Preloaded via `next/font` (Barlow Condensed, Cormorant Garamond).
-- **CSS**: Per-page injection via `PageStyles` to eliminate FOUC (Flash of Unstyled Content).
+- **CSS**: Tailwind 4 theme-layer optimization in `globals.css`.
+- **Telemetry**: Edge API Route (`/api/stats/count`) with SWR (`stale-while-revalidate=300`) to eliminate DB fetch latency for the public count.
 
 ---
 

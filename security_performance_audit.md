@@ -25,8 +25,10 @@
 
 ### 4. CSP & Header Security
 - **Action**: Tightened the **Content Security Policy (CSP)** in `next.config.ts`.
+- [x] **CSP Hardening**: Whitelisted Va/Speed-Insights and removed `unsafe-eval`.
+- [x] **Tailwind 4 Migration**: Optimized CSS token delivery via `@theme` layer.
+- [x] **Edge Telemetry**: Deployed `/api/stats/count` API route with SWR for near-zero footer latency.
 - **Changes**:
-    - Removed `unsafe-eval` from `script-src` to prevent data injection attacks.
     - Enforced `Strict-Transport-Security` (HSTS) with a 1-year max-age.
     - Set `X-Frame-Options: DENY` to prevent clickjacking.
     - Hardened `connect-src` to specifically allow only verified Supabase and Vercel endpoints.

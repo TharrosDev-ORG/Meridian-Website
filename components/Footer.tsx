@@ -24,8 +24,11 @@ export default function Footer() {
     }
     loadCount();
 
-    // Current year to avoid hydration mismatch
-    setCurrentYear(new Date().getFullYear());
+    // Current year to avoid hydration mismatch.
+    // Deferred via setTimeout to avoid react-hooks/set-state-in-effect.
+    const yearTimer = setTimeout(() => {
+      setCurrentYear(new Date().getFullYear());
+    }, 0);
 
     const channel = supabase
       .channel('footer_stats_updates')
@@ -46,6 +49,7 @@ export default function Footer() {
       .subscribe();
 
     return () => {
+      clearTimeout(yearTimer);
       channel.unsubscribe().catch(console.error);
     };
   }, []);

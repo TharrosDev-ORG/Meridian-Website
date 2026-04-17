@@ -60,7 +60,7 @@ export default function Footer() {
             <div className="footer-est">Ottawa, ON · Est. 2025</div>
           </div>
 
-          <div className="footer-col" role="navigation" aria-label="Footer navigation">
+          <nav className="footer-col" aria-label="Footer navigation">
             <h4 className="footer-col-h">Index</h4>
             <ul className="footer-list">
               <li><Link href="/">Home</Link></li>
@@ -70,7 +70,7 @@ export default function Footer() {
               <li><Link href="/team">Team</Link></li>
               <li><Link href="/speak">Speak</Link></li>
             </ul>
-          </div>
+          </nav>
 
           <div className="footer-col">
             <h4 className="footer-col-h">Connect</h4>

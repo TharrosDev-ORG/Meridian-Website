@@ -14,8 +14,13 @@ export default function Footer() {
     // Member Count Logic
     const supabase = createClient();
     async function loadCount() {
-      const initialCount = await getMemberCount();
-      setCount(initialCount);
+      try {
+        const response = await fetch('/api/stats/count');
+        const data = await response.json();
+        setCount(data.count || 0);
+      } catch (error) {
+        console.error('[SECURITY] Stats API failed. Falling back.');
+      }
       setIsLoading(false);
     }
     loadCount();

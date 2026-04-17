@@ -27,22 +27,48 @@
 .skip-link:focus { top: 8px; }
 
 /* ── DESIGN TOKENS ── */
+@theme {
+  --color-cream: #F4EDE3;
+  --color-cream-mid: #EBE2D4;
+  --color-cream-deep: #DDD0BC;
+  
+  --color-ink: #18150F;
+  --color-ink-90: rgba(24,21,15,0.90);
+  --color-ink-75: rgba(24,21,15,0.75);
+  --color-ink-55: rgba(24,21,15,0.55);
+  --color-ink-30: rgba(24,21,15,0.30);
+  --color-ink-15: rgba(24,21,15,0.15);
+  --color-ink-08: rgba(24,21,15,0.08);
+
+  --color-gold: #B8932A;
+  --color-gold-lt: #D4AF50;
+  --color-gold-20: rgba(184,147,42,0.2);
+
+  --font-serif: var(--serif);
+  --font-sans: var(--sans);
+
+  --border-gold-bw: 1.5px;
+  
+  --image-grain: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Backwards compatibility for variable-based usage */
 :root {
-  --cream:       #F4EDE3;
-  --cream-mid:   #EBE2D4;
-  --cream-deep:  #DDD0BC;
-  --ink:         #18150F;
-  --ink-90:      rgba(24,21,15,0.90);
-  --ink-75:      rgba(24,21,15,0.75);
-  --ink-55:      rgba(24,21,15,0.55);
-  --ink-30:      rgba(24,21,15,0.30);
-  --ink-15:      rgba(24,21,15,0.15);
-  --ink-08:      rgba(24,21,15,0.08);
-  --gold:        #B8932A;
-  --gold-lt:     #D4AF50;
-  --gold-bw:      1.5px;
-  --grain: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  /* serif and sans are provided by Next.js font optimization */
+  --cream: var(--color-cream);
+  --cream-mid: var(--color-cream-mid);
+  --cream-deep: var(--color-cream-deep);
+  --ink: var(--color-ink);
+  --ink-90: var(--color-ink-90);
+  --ink-75: var(--color-ink-75);
+  --ink-55: var(--color-ink-55);
+  --ink-30: var(--color-ink-30);
+  --ink-15: var(--color-ink-15);
+  --ink-08: var(--color-ink-08);
+  --gold: var(--color-gold);
+  --gold-lt: var(--color-gold-lt);
+  --gold-20: var(--color-gold-20);
+  --gold-bw: var(--border-gold-bw);
+  --grain: var(--image-grain);
 }
 
 /* ── BASE ── */

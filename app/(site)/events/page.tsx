@@ -6,7 +6,7 @@ import { REGISTER_URL } from '@/components/NavBar';
 import Magnetic from '@/components/Magnetic';
 import Marquee from '@/components/Marquee';
 import { getMetadata } from '@/utils/metadata-shared';
-import { generateBreadcrumbSchema } from '@/utils/jsonld';
+import { generateBreadcrumbSchema, generateEventSchema } from '@/utils/jsonld';
 
 export const metadata: Metadata = getMetadata({
   title: "Speaker Events",
@@ -27,6 +27,19 @@ export default function EventsPage() {
             { name: "Home", item: "/" },
             { name: "Events", item: "/events" },
           ])),
+        }}
+      />
+      {/* JSON-LD Event Series Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(generateEventSchema({
+            name: "The Meridian Speaker Forum",
+            startDate: "2026-09-01T18:00:00",
+            description: "Ottawa's flagship student speaker forum connecting curious students with professionals, alumni, and scholars.",
+            locationName: "Carleton University",
+            performerName: "The Meridian Society Speakers"
+          })),
         }}
       />
       <main id="main-content">

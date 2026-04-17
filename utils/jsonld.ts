@@ -75,3 +75,47 @@ export function generatePersonSchema(person: {
     }
   };
 }
+export function generateEventSchema(event: {
+  name: string;
+  startDate: string;
+  endDate?: string;
+  description: string;
+  locationName: string;
+  locationAddress?: string;
+  image?: string;
+  performerName?: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Event",
+    "name": event.name,
+    "startDate": event.startDate,
+    "endDate": event.endDate || event.startDate,
+    "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+    "eventStatus": "https://schema.org/EventScheduled",
+    "location": {
+      "@type": "Place",
+      "name": event.locationName,
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Ottawa",
+        "addressRegion": "ON",
+        "addressCountry": "CA",
+        "streetAddress": event.locationAddress || "Carleton University"
+      }
+    },
+    "image": event.image ? `https://meridiansociety.ca${event.image}` : [
+      "https://meridiansociety.ca/assets/og-image.png"
+    ],
+    "description": event.description,
+    "performer": {
+      "@type": "Person",
+      "name": event.performerName || "Guest Speaker"
+    },
+    "organizer": {
+      "@type": "Organization",
+      "name": "The Meridian Society",
+      "url": "https://meridiansociety.ca"
+    }
+  };
+}

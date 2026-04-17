@@ -79,14 +79,28 @@ export default function Footer() {
 
           {/* Column 4: Stats */}
           <div className="footer-stats-wrap">
-            <h4 className="footer-col-h">
-              Live Member Count
-              <div className="status-pulse" aria-hidden="true"></div>
-            </h4>
+            <div className="footer-stats-meta footer-stats-meta--top">
+              <span>Telemetry: Active</span>
+              <span>Ref: Arch-V5</span>
+            </div>
+            
             <div className="footer-stat-item">
               <span className="footer-stat-val">
-                {isLoading ? <span className="member-count-shimmer" style={{height:'68px', width:'110px'}} /> : count}
+                {isLoading ? <span className="member-count-shimmer" style={{height:'82px', width:'130px'}} /> : count}
               </span>
+              <span className="footer-stat-lbl">Live Members</span>
+            </div>
+
+            <div className="footer-status">
+              <div className="status-pulse-ring">
+                <div className="status-pulse" aria-hidden="true"></div>
+              </div>
+              <span>System Online</span>
+            </div>
+
+            <div className="footer-stats-meta footer-stats-meta--bottom">
+              <span>Node: Meridian_Global</span>
+              <span>Sync: Real-time</span>
             </div>
           </div>
 

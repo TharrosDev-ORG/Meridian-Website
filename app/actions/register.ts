@@ -95,11 +95,14 @@ export async function registerMember(data: RegistrationData) {
     .maybeSingle();
 
   if (checkError) {
-    console.error(`[DB ERROR] Duplicate check failed for ${normalizedEmail}:`, checkError.message);
+    // Audit: Sanitized log — no raw error object in server logs.
+    console.error(`[SECURITY] Duplicate check failed for salt-email. Message: ${checkError.message}`);
     return { success: false, error: 'Database connection issue.' };
   }
 
   if (existing) {
+    // Audit: Log security-relevant duplication attempt.
+    console.warn(`[SECURITY] Registration attempt for existing email blocked.`);
     return { success: false, error: 'This email is already registered.' };
   }
 
@@ -121,7 +124,8 @@ export async function registerMember(data: RegistrationData) {
     ]);
 
   if (insertError) {
-    console.error(`[DB ERROR] Insert failed for ${normalizedEmail}:`, insertError.message);
+    // Audit: Sanitized log — preventing raw leak of table metadata.
+    console.error(`[SECURITY] Member insertion failed. DB Code: ${insertError.code}`);
     if (insertError.code === '23505') {
       return { success: false, error: 'This email is already registered.' };
     }

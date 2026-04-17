@@ -13,7 +13,8 @@ export async function getMemberCount(): Promise<number> {
       .single();
 
     if (error) {
-      console.error('Error fetching member count from site_stats:', error);
+      // Audit: Sanitized log — removing raw error object.
+      console.error(`[SECURITY] Stats fetch failed. Using head-count fallback.`);
       // Fallback to direct count if site_stats fails
       const { count } = await supabaseService
         .from('members')
@@ -22,8 +23,9 @@ export async function getMemberCount(): Promise<number> {
     }
 
     return data?.member_count || 0;
-  } catch (err) {
-    console.error('Unexpected error fetching count:', err);
+  } catch (_err) {
+    // Audit: Sanitized exception trail.
+    console.error('[SECURITY] Unexpected telemetry failure.');
     return 0;
   }
 }

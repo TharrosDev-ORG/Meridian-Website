@@ -4,16 +4,6 @@ Welcome to the central maintenance dashboard for The Meridian Society. This docu
 
 ---
 
-### 🚀 Quick Access Dashboard
-*Click a task to jump directly to its instructions.*
-
-| **Content & Team** | **Administration** | **Strategy** |
-| :--- | :--- | :--- |
-| [Add a Team Member](#add-team) | [Manage Member List](#manage-members) | [Instagram Guidelines](#social-strategy) |
-| [Edit Site Text](#edit-text) | [Visual File Map](#file-map) | [Project Context](#mission) |
-
----
-
 ## 💎 The Golden Rules of Maintenance
 
 If you stay within these guidelines, you can manage the site with 100% safety.

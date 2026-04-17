@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import RegistrationForm from "@/components/RegistrationForm";
 import PageStyles from "@/components/PageStyles";
 import BackButton from "@/components/BackButton";
+import TransitionWrapper from "@/components/TransitionWrapper";
 import { membershipCss } from "../(site)/membership/pageCss";
 import { getMetadata } from "@/utils/metadata-shared";
 
@@ -58,14 +59,16 @@ const registerPageCss = `
 
 export default function RegisterPage() {
   return (
-    <main className="register-page-minimal">
-      <PageStyles css={membershipCss + registerPageCss} />
-      <div className="register-nav">
-        <BackButton className="return-link" />
-      </div>
-      <div className="register-form-wrapper">
-        <RegistrationForm />
-      </div>
-    </main>
+    <TransitionWrapper>
+      <main className="register-page-minimal">
+        <PageStyles css={membershipCss + registerPageCss} />
+        <div className="register-nav">
+          <BackButton className="return-link" />
+        </div>
+        <div className="register-form-wrapper">
+          <RegistrationForm />
+        </div>
+      </main>
+    </TransitionWrapper>
   );
 }

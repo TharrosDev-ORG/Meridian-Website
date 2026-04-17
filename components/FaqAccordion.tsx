@@ -61,9 +61,9 @@ export default function FaqAccordion() {
       {FAQ_DATA.map((item, i) => {
         const isOpen = openIndex === i;
         return (
-          <details 
-            className="faq-item" 
-            key={i} 
+          <details
+            className="faq-item"
+            key={item.question}
             open={isOpen}
             onMouseEnter={() => handleMouseEnter(i)}
             onMouseLeave={handleMouseLeave}

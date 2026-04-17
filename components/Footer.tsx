@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { getMemberCount } from "@/app/actions/getMemberCount";
 import { createClient } from "@/utils/supabase/client";
 
 export default function Footer() {
@@ -119,10 +118,6 @@ export default function Footer() {
           <span className="footer-copy">
             © {currentYear} The Meridian Society. All Rights Reserved.
           </span>
-          <div className="footer-legal">
-            <Link href="/privacy">Privacy</Link>
-            <Link href="/terms">Terms</Link>
-          </div>
         </div>
       </div>
     </footer>

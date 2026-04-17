@@ -145,17 +145,6 @@ Paste **ONE** of these blocks above the `{/* Placeholder */}` block.
 
 ---
 
-<a name="social-strategy"></a>
-## 🤳 I want to manage Socials & Events
-
-> [!NOTE]
-> **Instagram-First Strategy**: All event dates, locations, and RSVPs are managed via Instagram. The website is an informational "Program Guide." 
-> *   Do not look for a calendar file.
-> *   Do not add specific dates to the codebase.
-> *   Direct all inquiries to [@Meridian.Society](https://www.instagram.com/Meridian.Society).
-
----
-
 <a name="mission"></a>
 ## 📜 Project Context: The Mission
 

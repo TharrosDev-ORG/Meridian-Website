@@ -29,19 +29,6 @@ export default function EventsPage() {
           ])),
         }}
       />
-      {/* JSON-LD Event Series Schema */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(generateEventSchema({
-            name: "The Meridian Speaker Forum",
-            startDate: "2026-09-01T18:00:00",
-            description: "Ottawa's flagship student speaker forum connecting curious students with professionals, alumni, and scholars.",
-            locationName: "Carleton University",
-            performerName: "The Meridian Society Speakers"
-          })),
-        }}
-      />
       <main id="main-content">
 
         {/* ═══════════ HERO ═══════════ */}

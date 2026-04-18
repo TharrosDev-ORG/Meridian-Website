@@ -10,7 +10,7 @@ const ROLES = ["Student", "Alumni", "Professor / Faculty", "Professional", "Othe
 const INSTITUTIONS = ["Carleton University", "University of Ottawa", "Algonquin College", "Other"];
 const INTERESTS_LIST = [
   "Politics", "Law", "Business", "Science", "Health Sciences", 
-  "Engineering", "Creative Careers (Art, music, film etc )", 
+  "Engineering", "Creative Careers (Art, music, film, etc.)", 
   "Environment", "Psychology"
 ];
 const HEARD_SOURCES = ["Friend or Peer", "Professor", "Social Media", "Campus Event", "Current Member"];
@@ -119,7 +119,7 @@ export default function RegistrationForm() {
         </h1>
       </div>
 
-      <form action={clientAction} className="reg-form-container rv" data-d="3">
+      <form action={clientAction} className="reg-form-container">
         <div className="reg-grid">
           {/* ── Basic Info ── */}
           <div className="reg-field">
@@ -130,7 +130,7 @@ export default function RegistrationForm() {
               name="fullName"
               required
               className="reg-input"
-              placeholder="e.g. Julian Vane"
+              placeholder="e.g. John Smith"
               disabled={isPending}
             />
           </div>
@@ -143,7 +143,7 @@ export default function RegistrationForm() {
               name="email"
               required
               className="reg-input"
-              placeholder="e.g. julian@example.com"
+              placeholder="e.g. john.smith@example.com"
               disabled={isPending}
             />
           </div>
@@ -228,7 +228,7 @@ export default function RegistrationForm() {
 
           {/* ── Interests ── */}
           <div className="reg-field reg-field--full">
-            <label className="reg-label">Areas of Interest? (select all that apply) *</label>
+            <label className="reg-label">Areas of interest? (Select all that apply) *</label>
             <div className="reg-options-grid">
               {INTERESTS_LIST.map((interest) => (
                 <label key={interest} className="reg-choice reg-choice--check">

@@ -35,7 +35,7 @@ export default function NavBar() {
   ];
 
   return (
-    <nav id="mainNav" className={scrolled ? "scrolled" : ""} role="navigation" aria-label="Main navigation">
+    <nav id="mainNav" className={`site-nav${scrolled ? " scrolled" : ""}`} role="navigation" aria-label="Main navigation">
       <div className="nav-inner">
         <Link 
           href="/" 

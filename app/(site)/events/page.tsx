@@ -1,19 +1,34 @@
 import { Metadata } from 'next';
+import Link from 'next/link';
 import PageStyles from '@/components/PageStyles';
 import { eventsCss } from './pageCss';
 import { REGISTER_URL } from '@/components/NavBar';
-
-export const metadata: Metadata = {
-  title: "Events | The Meridian Society",
-  description: "View upcoming speaker events and student forums in Ottawa. Connect with professionals, alumni, and scholars.",
-};
-
 import Magnetic from '@/components/Magnetic';
+import Marquee from '@/components/Marquee';
+import { getMetadata } from '@/utils/metadata-shared';
+import { generateBreadcrumbSchema, generateEventSchema } from '@/utils/jsonld';
+
+export const metadata: Metadata = getMetadata({
+  title: "Speaker Events",
+  description: "The Speaker Forum is our flagship program. We provide a platform for established professionals and academics to share lived experience with students.",
+  urlPath: "/events",
+  keywords: ['Ottawa Speaker Forum', 'Student Dialogue', 'Academic Presentations Ottawa', 'Student Networking Events']
+});
 
 export default function EventsPage() {
   return (
     <>
       <PageStyles css={eventsCss} />
+      {/* JSON-LD Breadcrumb Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(generateBreadcrumbSchema([
+            { name: "Home", item: "/" },
+            { name: "Events", item: "/events" },
+          ])),
+        }}
+      />
       <main id="main-content">
 
         {/* ═══════════ HERO ═══════════ */}
@@ -32,18 +47,14 @@ export default function EventsPage() {
             <p className="hero-sub rv" data-d="2">Connecting Ottawa students with the professionals, alumni, and scholars who can expand their mindset.</p>
             <div className="hero-actions rv" data-d="3">
               <Magnetic strength={0.25}>
-                <a href={REGISTER_URL} className="btn-primary"><span>Register as a Member</span></a>
+                <Link href={REGISTER_URL} className="btn-primary"><span>Register as a Member</span></Link>
               </Magnetic>
               <a href="#about" className="btn-ghost-link">Learn More <span>&#8595;</span></a>
             </div>
           </div>
         </section>
 
-        <div className="marquee-wrap" aria-hidden="true">
-          <div className="marquee-track" data-static="true">
-            <span className="m-item">The Meridian Society</span><span className="m-gem">◆</span><span className="m-item">Ottawa</span><span className="m-gem">◆</span><span className="m-item">Est. 2025</span><span className="m-gem">◆</span><span className="m-item">Student-Run</span><span className="m-gem">◆</span><span className="m-item">Carleton University</span><span className="m-gem">◆</span><span className="m-item">uOttawa</span><span className="m-gem">◆</span><span className="m-item">Algonquin College</span><span className="m-gem">◆</span><span className="m-item">The Meridian Society</span><span className="m-gem">◆</span><span className="m-item">Ottawa</span><span className="m-gem">◆</span><span className="m-item">Est. 2025</span><span className="m-gem">◆</span><span className="m-item">Student-Run</span><span className="m-gem">◆</span><span className="m-item">Carleton University</span><span className="m-gem">◆</span><span className="m-item">uOttawa</span><span className="m-gem">◆</span><span className="m-item">Algonquin College</span><span className="m-gem">◆</span>
-          </div>
-        </div>
+        <Marquee />
 
         {/* ═══════════ ABOUT THE FORUM ═══════════ */}
         <section className="events-sec" id="about" aria-labelledby="events-heading">
@@ -51,11 +62,11 @@ export default function EventsPage() {
             <div className="events-intro-grid">
               <div className="events-intro-left">
                 <div className="sec-label rv">The Program</div>
-                <h2 className="events-copy-title rv" data-d="1">A Room you&apos;ll want to be a part of.</h2>
+                <h2 className="events-copy-title rv" data-d="1">A room you&apos;ll want to be a part of.</h2>
               </div>
               <div className="events-intro-right">
                 <p className="events-copy-body rv" data-d="2">
-                  The Speaker Forum is our society&apos;s flagship event. Where we bring established professionals, academics, and alumni to share their lived experience and knowledge with a room of motivated students.
+                  The Speaker Forum is our society&apos;s flagship event, where we bring established professionals, academics, and alumni to share their lived experience and knowledge with a room of motivated students.
                   <br /><br />
                   These aren&apos;t just lectures. They are open dialogues designed to provide students with tangible orientation in their respective fields - exposure to ideas and networks that aren&apos;t found in a classroom.
                 </p>

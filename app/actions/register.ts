@@ -1,7 +1,7 @@
 'use server';
 
 import { z } from 'zod';
-import { createAdminClient } from '@/utils/supabase/admin';
+import { createServiceClient } from '@/utils/supabase/service';
 import { headers } from 'next/headers';
 
 // Simple in-memory rate limit store (Note: In serverless environments, this is per-instance)
@@ -35,13 +35,22 @@ export type RegistrationData = z.infer<typeof registrationSchema>;
 export async function registerMember(data: RegistrationData) {
   // 1. Honeypot check (Instant fail if filled)
   if (data.fax_number) {
-    console.warn('Honeypot triggered by bot submission.');
+    console.warn(`[SECURITY] Honeypot triggered by submission.`);
     return { success: false, error: 'Registration failed. (Security Code: HP)' };
   }
 
   // 2. IP-based Rate Limiting
   const headerList = await headers();
   const ip = headerList.get('x-forwarded-for')?.split(',')[0] || 'unknown';
+  const userAgent = headerList.get('user-agent') || 'unknown';
+
+  // Basic bot detection: check for common non-browser user agents or missing UA
+  const isSuspicious = userAgent === 'unknown' || /bot|spider|crawler|curl|python|wget|postman/i.test(userAgent);
+  if (isSuspicious) {
+    console.warn(`[SECURITY] Suspicious User-Agent blocked: ${userAgent} (IP: ${ip})`);
+    return { success: false, error: 'Access denied. (Security Code: UA)' };
+  }
+
   const now = Date.now();
   const lastSubmission = ipRecords.get(ip);
 
@@ -84,27 +93,30 @@ export async function registerMember(data: RegistrationData) {
   const normalizedEmail = email.toLowerCase().trim();
 
   // 4. Database Operations
-  // Using admin client (Service Role) to bypass RLS for this specific server-side flow
-  const supabaseAdmin = createAdminClient();
+  // Using service client (Service Role) to bypass RLS for this specific server-side flow
+  const supabaseService = createServiceClient();
 
   // Explicit duplicate check (Lowercased)
-  const { data: existing, error: checkError } = await supabaseAdmin
+  const { data: existing, error: checkError } = await supabaseService
     .from('members')
     .select('email')
     .eq('email', normalizedEmail)
     .maybeSingle();
 
   if (checkError) {
-    console.error(`[DB ERROR] Duplicate check failed for ${normalizedEmail}:`, checkError.message);
+    // Audit: Sanitized log — no raw error object in server logs.
+    console.error(`[SECURITY] Duplicate check failed for salt-email. Message: ${checkError.message}`);
     return { success: false, error: 'Database connection issue.' };
   }
 
   if (existing) {
+    // Audit: Log security-relevant duplication attempt.
+    console.warn(`[SECURITY] Registration attempt for existing email blocked.`);
     return { success: false, error: 'This email is already registered.' };
   }
 
   // Insert into Supabase
-  const { error: insertError } = await supabaseAdmin
+  const { error: insertError } = await supabaseService
     .from('members')
     .insert([
       {
@@ -121,7 +133,8 @@ export async function registerMember(data: RegistrationData) {
     ]);
 
   if (insertError) {
-    console.error(`[DB ERROR] Insert failed for ${normalizedEmail}:`, insertError.message);
+    // Audit: Sanitized log — preventing raw leak of table metadata.
+    console.error(`[SECURITY] Member insertion failed. DB Code: ${insertError.code}`);
     if (insertError.code === '23505') {
       return { success: false, error: 'This email is already registered.' };
     }

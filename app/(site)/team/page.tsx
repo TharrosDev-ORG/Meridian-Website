@@ -3,17 +3,58 @@ import Image from 'next/image';
 import PageStyles from '@/components/PageStyles';
 import { teamCss } from './pageCss';
 import Link from 'next/link';
+import Marquee from '@/components/Marquee';
+import { getMetadata } from '@/utils/metadata-shared';
+import { generateBreadcrumbSchema, generatePersonSchema } from '@/utils/jsonld';
 
-export const metadata: Metadata = {
-  title: "Team | The Meridian Society",
-  description: "Meet the student team behind The Meridian Society. Leadership and operations and the vision for an Ottawa campus institution.",
-};
+export const metadata: Metadata = getMetadata({
+  title: "The Team",
+  description: "Meet the student leadership behind The Meridian Society. Dedicated to building an Ottawa campus institution for open dialogue.",
+  urlPath: "/team",
+  keywords: ['Magnus Abdelnour', 'Colin Sherwood', 'Meridian Society Founder', 'The Meridian Society Team', 'Student Leadership Ottawa']
+});
 
 
 export default function Page() { 
   return (
     <>
       <PageStyles css={teamCss} />
+      {/* JSON-LD Breadcrumb Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(generateBreadcrumbSchema([
+            { name: "Home", item: "/" },
+            { name: "Team", item: "/team" },
+          ])),
+        }}
+      />
+      {/* JSON-LD Person Schema (Magnus) */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(generatePersonSchema({
+            name: "Magnus Abdelnour",
+            jobTitle: "Founder & President",
+            description: "Started The Meridian Society to bring journalists, founders, scholars, and accomplished professionals to the room to share knowledge with students.",
+            image: "/assets/images/team/magnus.webp",
+            sameAs: ["https://www.linkedin.com/in/magnus-a-9b5b50378"]
+          })),
+        }}
+      />
+      {/* JSON-LD Person Schema (Colin) */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(generatePersonSchema({
+            name: "Colin Sherwood",
+            jobTitle: "Event Coordinator",
+            description: "Dedicated student leader coordinating the logistics and execution of Meridian Society speaker forums.",
+            image: "/assets/images/team/colin.webp",
+            sameAs: ["https://www.instagram.com/colinsherwood34"]
+          })),
+        }}
+      />
       <main id="main-content">
 
   {/* PAGE HERO */}
@@ -35,12 +76,7 @@ export default function Page() {
       </div>
     </div>
   </section>
-
-  <div className="marquee-wrap" aria-hidden="true">
-    <div className="marquee-track" data-static="true">
-      <span className="m-item">The Meridian Society</span><span className="m-gem">◆</span><span className="m-item">Ottawa</span><span className="m-gem">◆</span><span className="m-item">Est. 2025</span><span className="m-gem">◆</span><span className="m-item">Student-Run</span><span className="m-gem">◆</span><span className="m-item">Carleton University</span><span className="m-gem">◆</span><span className="m-item">uOttawa</span><span className="m-gem">◆</span><span className="m-item">Algonquin College</span><span className="m-gem">◆</span><span className="m-item">The Meridian Society</span><span className="m-gem">◆</span><span className="m-item">Ottawa</span><span className="m-gem">◆</span><span className="m-item">Est. 2025</span><span className="m-gem">◆</span><span className="m-item">Student-Run</span><span className="m-gem">◆</span><span className="m-item">Carleton University</span><span className="m-gem">◆</span><span className="m-item">uOttawa</span><span className="m-gem">◆</span><span className="m-item">Algonquin College</span><span className="m-gem">◆</span>
-    </div>
-  </div>
+  <Marquee />
 
   {/* ═══════════ TEAM SECTION ═══════════ */}
   <section className="team-sec" id="team" aria-labelledby="team-heading">

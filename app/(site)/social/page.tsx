@@ -2,16 +2,31 @@ import { Metadata } from 'next';
 import PageStyles from '@/components/PageStyles';
 import { socialCss } from './pageCss';
 import Magnetic from '@/components/Magnetic';
+import Marquee from '@/components/Marquee';
+import { getMetadata } from '@/utils/metadata-shared';
+import { generateBreadcrumbSchema } from '@/utils/jsonld';
 
-export const metadata: Metadata = {
-  title: "Socials | The Meridian Society",
-  description: "Join us for coffee, gatherings, and community events in Ottawa. Explore the social side of The Meridian Society.",
-};
+export const metadata: Metadata = getMetadata({
+  title: "Social Gatherings",
+  description: "The social side of the Society. From coffee meetups to social nights, we create relaxed, authentic spaces for Ottawa students to meet like-minded peers.",
+  urlPath: "/social",
+  keywords: ['Ottawa Student Socials', 'Student Networking Socials', 'Community Events Ottawa', 'Peer Networking']
+});
 
 export default function SocialPage() {
   return (
     <main id="main-content">
       <PageStyles css={socialCss} />
+      {/* JSON-LD Breadcrumb Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(generateBreadcrumbSchema([
+            { name: "Home", item: "/" },
+            { name: "Socials", item: "/social" },
+          ])),
+        }}
+      />
 
       {/* PAGE HERO */}
       <section className="page-hero" aria-label="Social events hero">
@@ -36,11 +51,7 @@ export default function SocialPage() {
         </div>
       </section>
 
-      <div className="marquee-wrap" aria-hidden="true">
-        <div className="marquee-track" data-static="true">
-          <span className="m-item">The Meridian Society</span><span className="m-gem">◆</span><span className="m-item">Ottawa</span><span className="m-gem">◆</span><span className="m-item">Est. 2025</span><span className="m-gem">◆</span><span className="m-item">Student-Run</span><span className="m-gem">◆</span><span className="m-item">Carleton University</span><span className="m-gem">◆</span><span className="m-item">uOttawa</span><span className="m-gem">◆</span><span className="m-item">Algonquin College</span><span className="m-gem">◆</span><span className="m-item">The Meridian Society</span><span className="m-gem">◆</span><span className="m-item">Ottawa</span><span className="m-gem">◆</span><span className="m-item">Est. 2025</span><span className="m-gem">◆</span><span className="m-item">Student-Run</span><span className="m-gem">◆</span><span className="m-item">Carleton University</span><span className="m-gem">◆</span><span className="m-item">uOttawa</span><span className="m-gem">◆</span><span className="m-item">Algonquin College</span><span className="m-gem">◆</span>
-        </div>
-      </div>
+      <Marquee />
 
       {/* SOCIAL ABOUT / INTRO */}
       <section className="social-about-sec" id="vibe">
@@ -52,7 +63,7 @@ export default function SocialPage() {
             </div>
             <div className="social-intro-right">
               <p className="social-p rv" data-d="2">
-                The society isn&apos;t just about formal talks; it&apos;s about the conversations that happen afterward. Our social events are designed to create a relaxed, authentic space for students to meet peers who share their drive.
+                The Society isn&apos;t just about formal talks; it&apos;s about the conversations that happen afterward. Our social events are designed to create a relaxed, authentic space for students to meet peers who share their drive.
                 <br /><br />
                 We believe that the best connections happen when the agenda is loose and the curiosity is high. Whether it&apos;s a themed bar night or a quiet weekend gathering, the focus is always on genuine interaction.
               </p>

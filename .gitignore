@@ -1,7 +1,7 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
-# dependencies
-/node_modules
+# ─────────────────────────────────────────────────────────────────────────────
+# DEPENDENCIES
+# ─────────────────────────────────────────────────────────────────────────────
+node_modules/
 /.pnp
 .pnp.*
 .yarn/*
@@ -10,42 +10,53 @@
 !.yarn/releases
 !.yarn/versions
 
-# testing
-/coverage
+# ─────────────────────────────────────────────────────────────────────────────
+# NEXT.JS & BUILD OUTPUT
+# ─────────────────────────────────────────────────────────────────────────────
+.next/
+out/
+build/
+dist/
+coverage/
 
-# next.js
-/.next/
-/out/
-
-# production
-/build
-
-# misc
-.DS_Store
+# ─────────────────────────────────────────────────────────────────────────────
+# ENVIRONMENT & SECURITY (NEVER COMMIT SENSITIVE KEYS)
+# ─────────────────────────────────────────────────────────────────────────────
+.env
+.env.local
+.env.production
+.env.development
+.env.*.local
 *.pem
 
-# debug
+# ─────────────────────────────────────────────────────────────────────────────
+# IDE, OS & LOGS
+# ─────────────────────────────────────────────────────────────────────────────
+.vscode/
+.idea/
+.DS_Store
+*.swp
+*.swo
+Thumbs.db
+desktop.ini
+*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
-.env*
-
-# vercel
-.vercel
-
-# agents
+# ─────────────────────────────────────────────────────────────────────────────
+# AI & AGENTS (Local Instruction Cache)
+# ─────────────────────────────────────────────────────────────────────────────
 .agents/
 .claude/
 .mcp.json
 skills-lock.json
-supabase/.temp/
 
-# typescript
+# ─────────────────────────────────────────────────────────────────────────────
+# SUPABASE & MISC
+# ─────────────────────────────────────────────────────────────────────────────
+supabase/.temp/
 *.tsbuildinfo
 next-env.d.ts
-node_modules
-
-.vercel
+.vercel/

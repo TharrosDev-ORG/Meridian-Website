@@ -1,382 +1,142 @@
-# Meridian Website — CLAUDE.md
+# Meridian Website — AI Agent Guide
 
-Next.js 16 (App Router) website for The Meridian Society.
-Live: `meridiansociety.ca` | Repo: `meridiansociety/Meridian-Website`
-
----
-
-## Stack
-
-| Layer | Technology |
-|-------|-----------|
-| Framework | Next.js 16, App Router, TypeScript |
-| UI | React 19, Server Components by default |
-| Styling | Tailwind CSS v4 (`@tailwindcss/postcss`) + inline `pageCss.ts` per-page styles |
-| Database | Supabase (Postgres + Realtime) |
-| Validation | Zod v4 |
-| Fonts | Cormorant Garamond (`--serif`), Barlow Condensed (`--sans`) via `next/font/google` |
-| Analytics | Vercel Analytics + Speed Insights |
-| Deploy | Vercel — auto-deploys on push to `main` |
+This document is the entry point for any AI coding assistant working on this repo. It captures the invariants, guardrails, and mental model you need before touching code. Keep edits minimal and honor the project's existing aesthetic.
 
 ---
 
-## File Structure
+## 🏛️ Project Identity
+**The Meridian Society**: an independent student-led speaker forum in Ottawa.
+**Aesthetic**: "Deep Ink" — premium, editorial, quiet.
 
+- **Background**: `--cream` (#F4EDE3)
+- **Primary Text**: `--ink` (#18150F)
+- **Accent**: `--gold` (#B8932A)
+- **Typography**: serif (Cormorant Garamond via `--serif`) for titles; condensed sans (Barlow Condensed via `--sans`) for metadata/UI.
+
+---
+
+## ⚡ Tech Stack
+- **Framework**: Next.js **16.2** (App Router, static by default, Turbopack builds).
+- **UI**: React **19.2**, Server Components primary; `"use client"` only where necessary (forms, subscriptions, scroll hooks).
+- **Styling**: Tailwind CSS **v4** is installed but **not used in components** — all styling lives in a single `app/globals.css`. Treat globals.css as the stylesheet of record.
+- **Database / Realtime**: Supabase (Postgres + Realtime channels). Trigger-maintained `site_stats.member_count`.
+- **Live telemetry**: Edge API `/api/stats/count` with 60s revalidation + `stale-while-revalidate=300`.
+- **Validation**: `zod` (registration schema).
+- **Deployment**: Vercel, auto-deploys on push to `main`.
+
+### Next.js 16 rename: middleware → proxy
+In Next.js 16, root `middleware.ts` is renamed to **`proxy.ts`**. Ours lives at `/proxy.ts` and re-uses `utils/supabase/middleware.ts` to refresh Supabase sessions on every request. Do **not** create a root `middleware.ts` — Next will error with "Both middleware file and proxy file are detected."
+
+---
+
+## 🗂️ Repository Layout
 ```
 app/
-  layout.tsx              # Root layout — metadata, fonts, JSON-LD org schema, Analytics, Providers
-  globals.css             # ALL shared CSS — reset, tokens, nav, footer, animations, utilities
-  robots.ts               # Dynamic robots.txt (blocks AI crawlers)
-  sitemap.ts              # Dynamic sitemap.xml
-  (site)/
-    layout.tsx            # Site shell — NavBar, TransitionWrapper, Footer, MobileMenu, BackToTop
-    page.tsx              # Homepage — hero, marquee, about, who, events teaser, speaking, register
-    pageCss.ts            # Homepage inline styles
-    IndexInteractive.tsx  # Client — hero ghost tilt parallax
-    events/
-      page.tsx            # Speaker events list from data/events.ts
-      pageCss.ts
-    social/
-      page.tsx            # Social events — auto-sorted into upcoming/past by date
-      pageCss.ts
-    speak/
-      page.tsx            # Speaker application page
-      pageCss.ts
-    membership/
-      page.tsx            # Membership benefits + FAQ + register CTA
-      pageCss.ts
-    team/
-      page.tsx            # Team profiles (Magnus Abdelnour, Colin Sherwood)
-      pageCss.ts
-    not-found.tsx         # Custom 404
-    not-foundCss.ts
-  register/
-    page.tsx              # Registration form page (uses RegistrationForm component)
+  layout.tsx                    Root layout (fonts, ScrollProgress, globals.css)
+  (site)/                       Layout group — wraps children in TransitionWrapper,
+    layout.tsx                    renders NavBar, Footer, MobileMenu, BackToTop
+    page.tsx                    /        (home)
+    events/, social/, team/, membership/, speak/
+  register/page.tsx             /register  — OUTSIDE the (site) group;
+                                  wraps its own <TransitionWrapper> manually
   actions/
-    register.ts           # Server action — Zod validation, rate limiting, Supabase insert
-    getMemberCount.ts     # Server action — reads site_stats table (with fallback to COUNT)
+    register.ts                 Server action: honeypot + rate limit + Zod +
+                                  service-role insert into `members`
+    getMemberCount.ts           Server action: site_stats.member_count (+ fallback)
+  api/stats/count/route.ts      Edge runtime; cached read used by Footer bootstrap
 
 components/
-  NavBar.tsx              # Fixed nav bar — exports REGISTER_URL + SPEAK_URL constants
-  Footer.tsx              # Footer — "use client" — real-time Supabase member count subscription
-  MobileMenu.tsx          # Mobile drawer — swipe-to-close, focus trap, ESC key, scroll lock
-  Providers.tsx           # SiteContext (menuOpen) + IntersectionObserver for .rv reveals
-  BackToTop.tsx           # Scroll-progress arc button (passive scroll listener)
-  PageStyles.tsx          # Injects per-page <style> tag + calls window.__observeReveal
-  MemberCount.tsx         # Standalone member count — initial fetch + real-time subscription
-  RegistrationForm.tsx    # Client form — useTransition, localStorage/cookie state, honeypot
-  FaqAccordion.tsx        # FAQ — click toggle + hover-to-open on desktop
-  Magnetic.tsx            # CSS-var magnetic hover effect (disabled on touch/coarse pointer)
-  TransitionWrapper.tsx   # Page sweep animation via key={pathname}
-
-data/
-  events.ts               # EVENTS array — TypeScript typed speaker event objects
-  social.ts               # SOCIAL_EVENTS array + SocialEvent interface
+  NavBar.tsx, MobileMenu.tsx    Header + mobile drawer (`.site-nav` class, see guardrail 6)
+  Footer.tsx                    Live-member counter + Supabase realtime subscription
+  TransitionWrapper.tsx         Keyed wrapper that re-triggers `pageSweep` on nav
+  Magnetic.tsx                  Mouse-follow "pull" effect for premium CTAs
+  RegistrationForm.tsx          Form that calls the `registerMember` server action
+  FaqAccordion.tsx, BackButton.tsx, BackToTop.tsx, ScrollProgress.tsx,
+  PageStyles.tsx, Marquee.tsx, sections/RegisterSection.tsx
 
 utils/supabase/
-  client.ts               # Browser client (createBrowserClient)
-  server.ts               # Server component client (createServerClient + cookies)
-  middleware.ts           # Middleware client (for auth session refresh)
-  admin.ts                # Admin client (SERVICE_ROLE_KEY — server-only, bypasses RLS)
+  client.ts                     Browser (anon key)
+  server.ts                     Server component client w/ cookies
+  middleware.ts                 Helper used by proxy.ts
+  service.ts                    SERVICE ROLE — server-only; bypasses RLS
 
-supabase/migrations/
-  20260415000000_initial_schema.sql   # members + site_stats tables, trigger, RLS policies
-  20260415000001_security_hardening.sql
-  20260415000002_restrict_to_admin.sql
-
-public/
-  assets/
-    favicons/             # Full favicon set — SVG, PNG 48/32/16, ICO, apple-touch
-    images/team/          # Team photos (WebP, ~3KB, 96×120px display)
-    og-image.png          # OG image (1200×630)
-  (no robots.txt or sitemap.xml — handled by app/robots.ts + app/sitemap.ts)
+proxy.ts                        Next.js 16 edge proxy (session refresh)
+supabase/migrations/            Schema + triggers (source of truth for DB)
+app/globals.css                 **All CSS lives here.** See "CSS Architecture" below.
 ```
 
 ---
 
-## Environment Variables
+## 🛡️ Critical Guardrails (Anti-Patterns)
 
-```
-NEXT_PUBLIC_SUPABASE_URL          # Supabase project URL (public, client-safe)
-NEXT_PUBLIC_SUPABASE_ANON_KEY     # Supabase anon key (public, client-safe)
-SUPABASE_SERVICE_ROLE_KEY         # Service role key — server-only, NEVER expose to client
-```
-
-All three must be set in Vercel project settings for production.
-
----
-
-## Design Tokens
-
-Defined in `globals.css` `:root`. Never redefine these in `pageCss.ts` files — reference them.
-
-```css
---cream:       #F4EDE3   /* page background */
---cream-mid:   #EBE2D4   /* secondary surface */
---cream-deep:  #DDD0BC   /* section backgrounds */
---ink:         #18150F   /* primary text */
---ink-90 / --ink-75 / --ink-55 / --ink-30 / --ink-15 / --ink-08  /* opacity variants */
---gold:        #B8932A   /* primary accent */
---gold-lt:     #D4AF50   /* lighter gold */
---grain: ...             /* inline SVG noise texture */
---serif: 'Cormorant Garamond', Georgia, serif
---sans:  'Barlow Condensed', 'Arial Narrow', Arial, sans-serif
-```
+1. **Never use `overflow: visible`** on elements with `.rv-stagger`. It breaks the clipping mask that gates the reveal animation.
+2. **Never use pure white (#FFF) or pure black (#000)**. Use `--cream` (#F4EDE3) and `--ink` (#18150F). Opacity variants (`--ink-75`, `--cream-mid`, etc.) are defined in `:root`.
+3. **Escaped apostrophes**: write `&apos;` inside JSX text. `eslint-plugin-react` rule `react/no-unescaped-entities` will fail the build otherwise.
+4. **No anonymous DB writes.** RLS on `members` is locked down. All enrollment must go through the `registerMember` server action (which uses `utils/supabase/service.ts` — service role key, server-only). Never import `service.ts` from a `"use client"` file.
+5. **Static-first content policy**: `/events` and `/social` are permanent informational program guides. Dynamic announcements happen on Instagram only. **Do not add dated upcoming events to the codebase.**
+6. **Prefer class selectors over type selectors for structural components.** The header nav uses `.site-nav` (not bare `nav {}`) precisely because a bare type selector once hijacked every `<nav>` on the page — including the footer Index column, which got teleported into a fixed top bar. Follow the same pattern if you add other structural components (modals, drawers, etc.).
+7. **`setState` inside `useEffect` must be deferred.** The ESLint rule `react-hooks/set-state-in-effect` treats a synchronous `setState` call in an effect body as an error. Use `setTimeout(() => setX(...), 0)` or set it inside an event handler / subscription callback. See `components/FaqAccordion.tsx` and `components/Footer.tsx` for the canonical pattern.
+8. **Routes outside `(site)` must self-wrap `TransitionWrapper`.** `/register` is the only current example. If you add another route outside the group (or a new top-level group), wrap its page content in `<TransitionWrapper>` so the `.page-sweep` entry animation still fires.
 
 ---
 
-## Typography Scale
-
-| Role | Family | Size |
-|------|--------|------|
-| Hero display | `--serif` | `clamp(64px, 12vw, 160px)` |
-| Section titles | `--serif` | `clamp(36px, 3.5vw, 56px)` |
-| Body paragraphs | `--serif` | 19–20px |
-| Footer nav / connect links | `--serif` | 17px |
-| Section eyebrow labels | `--sans` | 10.5px |
-| Buttons | `--sans` | 11–11.5px |
-
-**Rules:** Never add `--sans` below 10px. Never add `--serif` body below 17px (prefer 19px). Always err larger.
+## ✨ Premium UI Patterns
+- **Scroll reveals**: add `className="rv"` to an element and optionally `data-d="1"` through `data-d="5"` to stagger entry by 80ms steps. Parent reveal groups can use `.reveal` or IntersectionObserver `.on` to trigger children.
+- **Magnetic buttons**: wrap a CTA in `<Magnetic strength={0.2}>` for the cursor-pull effect. Used on the primary register CTA and hero actions.
+- **Page transitions**: `TransitionWrapper` is keyed on `usePathname()` so it re-mounts on every route change, firing the `pageSweep` keyframe in globals.css. Already in place for `(site)` pages via the group layout.
+- **Inline per-page CSS**: `<PageStyles css={...} />` injects a `<style>` block for page-local rules. Use it sparingly and only for genuinely page-scoped concerns (e.g. `app/register/page.tsx` imports and extends `membershipCss`).
+- **Magnetic + Back-to-top**: `BackToTop.tsx` renders an arc progress button; `ScrollProgress.tsx` renders the top gold progress bar.
 
 ---
 
-## Component Architecture
+## 🧪 Supabase Architecture
+Four clients, each with a narrow purpose. All validate their env vars at creation time.
 
-### Server Components (no `"use client"`)
-- `app/layout.tsx` — root layout
-- `app/(site)/layout.tsx` — site shell
-- `app/(site)/*/page.tsx` — all page components
-- `app/(site)/not-found.tsx`
+| File | Key | Used from | Purpose |
+|------|-----|-----------|---------|
+| `utils/supabase/client.ts` | anon | `"use client"` components | Browser client (e.g. Footer realtime subscription) |
+| `utils/supabase/server.ts` | anon | Server Components | Server-side reads with cookie propagation |
+| `utils/supabase/middleware.ts` | anon | `proxy.ts` | Refreshes auth session per request |
+| `utils/supabase/service.ts` | **service role** | Server Actions / API routes **only** | Bypasses RLS — privileged writes |
 
-### Client Components (`"use client"`)
-- `NavBar.tsx` — scroll detection (`scrolled` state), `usePathname` for active link, hamburger toggle
-- `Footer.tsx` — real-time Supabase subscription for member count (also initial fetch via server action)
-- `MobileMenu.tsx` — drawer with swipe/ESC/focus-trap/body-scroll-lock
-- `Providers.tsx` — `SiteContext` + global IntersectionObserver for `.rv` reveals + `window.__observeReveal`
-- `BackToTop.tsx` — passive scroll listener, SVG arc progress ring
-- `PageStyles.tsx` — renders `<style>` tag + calls `window.__observeReveal` on mount
-- `MemberCount.tsx` — standalone member counter (used on homepage)
-- `RegistrationForm.tsx` — registration form with `useTransition` + localStorage/cookie duplicate guard
-- `FaqAccordion.tsx` — accordion with click toggle + desktop hover-to-open
-- `Magnetic.tsx` — magnetic hover via CSS custom properties, skipped on `pointer: coarse`
-- `TransitionWrapper.tsx` — page sweep animation via `key={pathname}` re-mount
-- `app/(site)/IndexInteractive.tsx` — homepage hero ghost parallax + tilt
+**Env vars**: `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY` (public), and `SUPABASE_SERVICE_ROLE_KEY` (server-only, never prefix with `NEXT_PUBLIC_`).
 
 ---
 
-## CSS Systems in globals.css
+## 🔁 Data Flows
 
-`globals.css` is the single shared stylesheet loaded by every page. Do not split it.
+### Registration
+`/register` → `<RegistrationForm>` → `registerMember` server action (`app/actions/register.ts`) → `createServiceClient()` → `INSERT INTO members`. Honeypot field + in-memory per-instance rate limit run before the insert. Success is signaled via localStorage/cookie flag so the form can show its success state on reload.
 
-**Scroll reveal system:**
-- `.rv` + `.rv.on` — fade-in + slide-up (opacity 0→1, translateY 20→0). IntersectionObserver in `Providers.tsx` adds `.on` on intersect; element then unobserved.
-- `.rv-stagger` / `.rv-stagger-item` — staggered text reveals (translateY 100%→0). Parent `.rv.rv-stagger` has opacity/transform disabled to prevent double-pop.
-- `data-d="N"` attribute (1–5) — explicit transition-delay on `.rv` elements: 0.08s, 0.16s, 0.24s, 0.32s, 0.40s.
-
-**Page transitions:**
-- `.page-transition-wrapper` — CSS `pageSweep` keyframe (opacity + translateY + blur). Triggered by `TransitionWrapper` key={pathname} re-mount.
-
-**Shared utilities:**
-- `.wrap` — `max-width: 1440px; margin: 0 auto; padding: 0 64px;`
-- `.sec-label` — uppercase eyebrow label with trailing `::after` rule
-- `.btn-primary` — ink fill button with gold slide-in on hover (via `::before` translateX)
-- `.btn-ghost-link` — serif italic arrow link with gap animation
-- `.hero-pre / .hero-title / .hero-sub / .hero-hr / .hero-eyebrow` — shared hero typography
-- `.arc-btn` — back-to-top button (do not override locally)
-- `.progress` — reading progress bar (fixed top, 1px)
-- `.marquee-wrap / .marquee-track / .m-item` — scrolling text marquee
-- `.member-count-shimmer` — animated skeleton for loading state
-
-**Footer system:**
-- `.footer-grid`, `.footer-ghost`, `.footer-stat-val`, `.footer-status`, `.status-pulse` — all defined in globals.css
+### Live member counter
+`Footer.tsx` on mount fetches `/api/stats/count` (edge, cached) for the initial number, then subscribes to Supabase Realtime channel `footer_stats_updates` listening for `UPDATE`s on `site_stats` where `id = meridian_global_stats`. A Postgres trigger on `members` increments `site_stats.member_count`, which propagates to all connected footers in real time.
 
 ---
 
-## PageStyles Pattern
+## 🎨 CSS Architecture
+**Single file**: `app/globals.css`. Tailwind v4 is installed but intentionally not used in component files — the site is styled by hand in the same stylesheet for consistency.
 
-Per-page CSS lives in `pageCss.ts` as a template literal. Injected via `PageStyles` — renders a `<style>` tag inline in the React tree (not `useEffect`) to prevent FOUC on client navigation. Also calls `window.__observeReveal` so newly rendered `.rv` elements get observed.
+**Section map** (search for `/* ── X ── */` headers):
+- RESET · AESTHETICS · SCROLLBAR · **DESIGN TOKENS** · BASE · FOCUS VISIBLE · BACK-TO-TOP · KEYFRAMES · MARQUEE · REDUCED MOTION · MOBILE BASE · **NAV BAR** · HAMBURGER · **MOBILE DRAWER** · MOBILE RESPONSIVE · PAGE TRANSITIONS · STAGGERED REVEALS · SUCCESS STATE UTILS · SHARED PAGE UTILS · **FOOTER** · SHARED RESPONSIVE OVERRIDES · Responsive Footer · REGISTER SECTION.
 
-```tsx
-// In any page.tsx:
-import PageStyles from '@/components/PageStyles';
-import { eventsCss } from './pageCss';
-
-export default function EventsPage() {
-  return (
-    <>
-      <PageStyles css={eventsCss} />
-      <main>{/* ... */}</main>
-    </>
-  );
-}
-```
+Design tokens live in `:root` around lines 30–72: `--cream*`, `--ink*` (opacity variants), `--gold*`, `--serif`, `--sans`, plus `--grain` (SVG noise). Reach for these rather than hard-coding colors.
 
 ---
 
-## Key Constants (Never Hardcode)
+## 📋 Workflow Commands
+- `npm run dev` — start local dev server (Turbopack).
+- `npm run build` — production build; fails on type errors.
+- `npm run lint` — ESLint (Next + TS-ESLint). Must be clean.
+- `npx tsc --noEmit` — standalone typecheck.
 
-Both exported from `components/NavBar.tsx`:
-
-```ts
-export const REGISTER_URL = "/register";
-export const SPEAK_URL = "https://docs.google.com/forms/d/e/1FAIpQLScP7jkZ_M1EXIYnxu7ERnCBRpDDmBNPpT3BWruAoyGnPtN6IA/viewform?usp=dialog";
-```
-
-Import these wherever needed. Update in one place.
+When touching UI: don't claim success on build alone. Type checks verify code, not feature correctness. If you can't open a browser in your environment, say so explicitly in the final report.
 
 ---
 
-## Supabase Architecture
-
-### Tables
-- **`members`** — `email` (PK), `full_name`, `role`, `role_other`, `institution`, `institution_other`, `interests` (TEXT[]), `heard_from`, `volunteer_interest`, `created_at`
-- **`site_stats`** — `id` (PK: `'meridian_global_stats'`), `member_count` (INTEGER), `last_updated`
-
-### Trigger
-`handle_member_count_change()` — fires `AFTER INSERT OR DELETE` on `members`. Auto-increments/decrements `site_stats.member_count`. No manual count updates needed.
-
-### RLS Policies
-- `members`: anonymous INSERT allowed (with field validation); all other operations require authenticated role
-- `site_stats`: public SELECT; UPDATE requires authenticated
-
-### Supabase Client Usage
-
-| Context | File | Function |
-|---------|------|----------|
-| Client component | `utils/supabase/client.ts` | `createClient()` |
-| Server component | `utils/supabase/server.ts` | `createClient(cookieStore)` |
-| Server action (bypass RLS) | `utils/supabase/admin.ts` | `createAdminClient()` |
-| Middleware | `utils/supabase/middleware.ts` | `createClient(request)` |
-
-**Never** import `admin.ts` from client components — it exposes the service role key.
+## 🗺️ Source of Truth
+- **Administrative Manual**: [README.md](README.md)
+- **System Encyclopedia**: [TECHNICAL.md](TECHNICAL.md)
+- **Database Schema**: [supabase/migrations/](supabase/migrations/)
 
 ---
-
-## Registration Flow
-
-1. `RegistrationForm` (client, `/register`) collects form data
-2. `clientAction` → calls `registerMember(data)` server action
-3. Server action pipeline:
-   - Honeypot check (`fax_number` field) — instant fail if filled
-   - IP-based rate limit — 1 per 5 min per IP (in-memory, per serverless instance)
-   - Security delay — 300–800ms random (timing attack prevention)
-   - Zod schema validation
-   - Duplicate email check via admin client (case-insensitive)
-   - Insert into `members` table — trigger fires to increment `site_stats`
-4. On success: `localStorage.setItem('meridian_registered_v1', 'true')` + 1-year cookie
-5. Form replaced with success state; duplicate prevention persists across sessions
-
----
-
-## Member Count Flow
-
-- **Initial load:** Footer and MemberCount call `getMemberCount()` server action → reads `site_stats.member_count`
-- **Fallback:** If `site_stats` read fails → `COUNT(*)` on `members` table
-- **Real-time:** Footer subscribes to `postgres_changes` on `site_stats` via Supabase Realtime; updates instantly when DB trigger fires
-- **MemberCount.tsx:** Standalone version used on homepage — same pattern (initial + realtime)
-- **Loading state:** `.member-count-shimmer` animated skeleton while fetching
-
----
-
-## Scroll Reveal System
-
-**`.rv` elements** — observed by `Providers.tsx` IntersectionObserver (`threshold: 0.01`, `rootMargin: '0px 0px 100px 0px'`). `.on` added on intersect; element unobserved after first fire.
-
-**After page navigation** — `PageStyles.tsx` calls `window.__observeReveal()` (set by `Providers.tsx`) with 50ms delay, re-querying `.rv:not(.on)` elements.
-
-**Stagger delays** — `data-d="N"` attribute (1–5): 0.08s / 0.16s / 0.24s / 0.32s / 0.40s.
-
-**`.rv-stagger`** wrapper + **`.rv-stagger-item`** children — items slide from `translateY(100%)` with nth-child staggered delays (defined in globals.css through 8 items). Parent `.rv.rv-stagger` overrides to `opacity:1, transform:none` to prevent the container from double-animating.
-
----
-
-## Security (next.config.ts)
-
-CSP applied to all routes via `async headers()`. Key domains:
-- `connect-src`: Supabase URL + WSS (Realtime), Vercel analytics/insights
-- `form-action`: self + `docs.google.com`
-- `script-src`: self, unsafe-inline, unsafe-eval, Vercel VA
-
-Additional headers: `nosniff`, `X-Frame-Options: DENY`, `HSTS`, `Referrer-Policy`, `Permissions-Policy`, `X-XSS-Protection`.
-
-**Legacy URL redirects** (permanent 301):
-- `/index.html` → `/`
-- `/events.html` → `/events`
-- `/team.html`, `/Team.html` → `/team`
-- `/membership.html` → `/membership`
-- `/social.html` → `/social`
-- `/speak.html` → `/speak`
-
----
-
-## Data Files
-
-### `data/events.ts` — EVENTS array
-Fields: `id`, `status`, `title` (HTML allowed), `desc`, `tags[]`, `ctaText`, `ctaHref`, `when`, `where`, `format`, `speaker`, `entry`, `isCurrent`.
-Only one event should have `isCurrent: true` at a time.
-
-### `data/social.ts` — SOCIAL_EVENTS array + SocialEvent interface
-Fields: `id`, `type` (`'members' | 'public'`), `date` (YYYY-MM-DD), `time?`, `title`, `where`, `desc`, `tags?`, `cost?`, `capacity?`, `ctaText?`, `ctaHref?`.
-Social page auto-sorts into Upcoming/Past by comparing `date` against today.
-
----
-
-## Adding Content
-
-### New Speaker Event
-Edit `data/events.ts`. One `isCurrent: true` max.
-
-### New Social Event
-Append to `SOCIAL_EVENTS` in `data/social.ts`. Auto-sorted by `date`.
-
-### New Team Member
-Edit `app/(site)/team/page.tsx`. Copy existing `<article className="member-card">`. Add photo to `public/assets/images/team/` (WebP, <10KB).
-
-### New Page
-1. Create `app/(site)/newpage/page.tsx` (server component)
-2. Create `app/(site)/newpage/pageCss.ts`
-3. Add `<PageStyles css={...} />` at page top
-4. Add link to `NavBar.tsx` navLinks array and `MobileMenu.tsx` nav
-5. Add route to `app/sitemap.ts`
-
----
-
-## SEO
-
-- **Metadata** — global in `app/layout.tsx`; override per page via `export const metadata`
-- **JSON-LD** — Organization schema in `app/layout.tsx` (single location — no sync across files)
-- **robots.ts** — blocks GPTBot, ClaudeBot, CCBot, Google-Extended; disallows `/*.html`
-- **sitemap.ts** — all public routes with priority/changeFrequency
-- **Google Search Console** — verified via `metadata.verification.google` in `app/layout.tsx`
-- **OG/Twitter** — `public/assets/og-image.png` (1200×630)
-
----
-
-## What to Avoid
-
-- **Do not add `app/favicon.ico`** — overrides the custom favicon set. Favicons live in `public/assets/favicons/`.
-- **Do not use `useEffect` for style injection** — use `PageStyles` pattern to prevent FOUC.
-- **Do not hardcode `/register` or the speaker form URL** — import `REGISTER_URL` / `SPEAK_URL` from `components/NavBar.tsx`.
-- **Do not import `utils/supabase/admin.ts` from client components** — service role key must stay server-side.
-- **Do not override `.arc-btn` styles locally** — edit `globals.css` only.
-- **Do not use `<nav>` for footer navigation** — `globals.css` `nav {}` type selector targets the sticky navbar. The mobile drawer's `<nav className="mob-links">` explicitly resets these properties inline. Footer uses `<div role="navigation">`.
-- **Do not animate `border-left-width`** — non-interpolatable; use `::before` + `scaleY` + `transform-origin`.
-- **Do not use `padding` for hover slide effects** — triggers layout reflow; use `transform: translateX()`.
-- **JS scroll transforms need reduced-motion guards** — CSS `prefers-reduced-motion` zeroes CSS transitions but not JS `element.style.transform`. Check `window.matchMedia('(prefers-reduced-motion: reduce)').matches` and skip if true.
-- **Do not redefine design tokens in pageCss.ts** — tokens are in `globals.css :root`; just reference them.
-
----
-
-## Copy Style Rules
-
-- **No em-dashes in visible body text** — use periods or commas to break clauses
-- **Do not name specific universities in audience-facing descriptions** — use "Registered Meridian members" or "Ottawa students"
-- Preferred framing: "curious students" / "Ottawa students" / "Meridian members"
-
----
-
-## Deployment
-
-Push to `main` → Vercel auto-deploys. Framework preset: **Next.js**. No manual build step.
-
-Required Vercel env vars: `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY`.
+*Keep this document honest: when an invariant changes or a new footgun is discovered, update this file in the same PR.*

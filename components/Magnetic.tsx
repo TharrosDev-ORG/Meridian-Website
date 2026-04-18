@@ -24,9 +24,16 @@ export default function Magnetic({ children, strength = 0.3 }: Props) {
     const isTouch = window.matchMedia("(pointer: coarse)").matches;
     if (isTouch) return;
 
+    let bounds: DOMRect | null = null;
+
+    const handleMouseEnter = () => {
+      bounds = el.getBoundingClientRect();
+    };
+
     const handleMouseMove = (e: MouseEvent) => {
+      if (!bounds) bounds = el.getBoundingClientRect();
       const { clientX, clientY } = e;
-      const { left, top, width, height } = el.getBoundingClientRect();
+      const { left, top, width, height } = bounds;
       
       const x = (clientX - (left + width / 2)) * strength;
       const y = (clientY - (top + height / 2)) * strength;
@@ -38,21 +45,21 @@ export default function Magnetic({ children, strength = 0.3 }: Props) {
     const handleMouseLeave = () => {
       el.style.setProperty('--mag-x', '0px');
       el.style.setProperty('--mag-y', '0px');
+      bounds = null;
     };
 
+    el.addEventListener('mouseenter', handleMouseEnter);
     el.addEventListener('mousemove', handleMouseMove);
     el.addEventListener('mouseleave', handleMouseLeave);
 
     return () => {
+      el.removeEventListener('mouseenter', handleMouseEnter);
       el.removeEventListener('mousemove', handleMouseMove);
       el.removeEventListener('mouseleave', handleMouseLeave);
     };
   }, [strength]);
 
-  // Clone the child and apply the CSS variables to the transform
-  // The transition logic is moved to CSS for better performance
-  // eslint-disable-next-line react-hooks/refs, @typescript-eslint/no-explicit-any
-  return React.cloneElement(children as any, {
+  return React.cloneElement(children, {
     ref,
     style: {
       ...(children.props.style || {}),
@@ -61,6 +68,6 @@ export default function Magnetic({ children, strength = 0.3 }: Props) {
       '--mag-y': '0px',
       transform: 'translate3d(var(--mag-x), var(--mag-y), 0)',
       transition: 'transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s',
-    }
+    } as React.CSSProperties
   });
 }

@@ -11,17 +11,22 @@ export default function IndexInteractive() {
     
     let handleHeroMove: ((e: MouseEvent) => void) | undefined;
     let handleHeroLeave: (() => void) | undefined;
+    let heroRafId: number | null = null;
 
     if (hero && title) {
       handleHeroMove = (e: MouseEvent) => {
-        const r = hero.getBoundingClientRect();
-        const dx = (e.clientX - r.left - r.width / 2) / r.width;
-        const dy = (e.clientY - r.top - r.height / 2) / r.height;
-        title.style.transform = `perspective(1200px) rotateY(${dx * 3}deg) rotateX(${-dy * 2}deg)`;
-        title.style.transition = "transform 0.1s linear";
+        if (heroRafId) cancelAnimationFrame(heroRafId);
+        heroRafId = requestAnimationFrame(() => {
+          const r = hero.getBoundingClientRect();
+          const dx = (e.clientX - r.left - r.width / 2) / r.width;
+          const dy = (e.clientY - r.top - r.height / 2) / r.height;
+          title.style.transform = `perspective(1200px) rotateY(${dx * 3}deg) rotateX(${-dy * 2}deg)`;
+          title.style.transition = "transform 0.1s linear";
+        });
       };
       
       handleHeroLeave = () => {
+        if (heroRafId) cancelAnimationFrame(heroRafId);
         title.style.transform = "perspective(1200px) rotateY(0deg) rotateX(0deg)";
         title.style.transition = "transform 0.4s cubic-bezier(0.16,1,0.3,1)";
       };
@@ -33,29 +38,49 @@ export default function IndexInteractive() {
     // 2. Register ghost parallax
     const ghost = document.querySelector(".register-ghost") as HTMLElement;
     let onScroll: (() => void) | undefined;
+    let scrollRafId: number | null = null;
 
     if (ghost && !isReducedMotion) {
       onScroll = () => {
-        ghost.style.transform = `translateX(-50%) translateY(${window.scrollY * 0.08}px)`;
+        if (scrollRafId) cancelAnimationFrame(scrollRafId);
+        scrollRafId = requestAnimationFrame(() => {
+          ghost.style.transform = `translateX(-50%) translateY(${window.scrollY * 0.08}px)`;
+        });
       };
       window.addEventListener("scroll", onScroll, { passive: true });
     }
 
     // 3. Global 3D Tilt for cards
     const cards = document.querySelectorAll("[data-tilt]");
+    const cardRafs = new Map<HTMLElement, number>();
+
     const handleCardMove = (e: MouseEvent) => {
       const card = e.currentTarget as HTMLElement;
-      const r = card.getBoundingClientRect();
-      const x = (e.clientX - r.left) / r.width;
-      const y = (e.clientY - r.top) / r.height;
-      const rotX = (y - 0.5) * 10;
-      const rotY = (x - 0.5) * -10;
-      card.style.transition = "transform 0.1s ease-out";
-      card.style.transform = `perspective(1000px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale3d(1.02, 1.02, 1.02)`;
+      
+      if (cardRafs.has(card)) {
+        cancelAnimationFrame(cardRafs.get(card)!);
+      }
+
+      const id = requestAnimationFrame(() => {
+        const r = card.getBoundingClientRect();
+        const x = (e.clientX - r.left) / r.width;
+        const y = (e.clientY - r.top) / r.height;
+        const rotX = (y - 0.5) * 10;
+        const rotY = (x - 0.5) * -10;
+        card.style.transition = "transform 0.1s ease-out";
+        card.style.transform = `perspective(1000px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale3d(1.02, 1.02, 1.02)`;
+      });
+
+      cardRafs.set(card, id);
     };
+    
     const handleCardLeave = (e: MouseEvent) => {
       const card = e.currentTarget as HTMLElement;
-      card.style.transition = "";
+      if (cardRafs.has(card)) {
+        cancelAnimationFrame(cardRafs.get(card)!);
+        cardRafs.delete(card);
+      }
+      card.style.transition = "transform 0.4s cubic-bezier(0.16,1,0.3,1)";
       card.style.transform = "";
     };
 
@@ -71,6 +96,10 @@ export default function IndexInteractive() {
     }
 
     return () => {
+      if (heroRafId) cancelAnimationFrame(heroRafId);
+      if (scrollRafId) cancelAnimationFrame(scrollRafId);
+      cardRafs.forEach(id => cancelAnimationFrame(id));
+      
       if (hero && handleHeroMove && handleHeroLeave) {
         hero.removeEventListener("mousemove", handleHeroMove);
         hero.removeEventListener("mouseleave", handleHeroLeave);

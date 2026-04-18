@@ -1,0 +1,74 @@
+# The Meridian Society — Ultra-Detailed Technical Specification
+
+This document is the definitive, high-fidelity system of record for The Meridian Society website. It serves as an **"Agent-Ready" encyclopedia** of the site's architecture, security, data logic, and performance systems.
+
+---
+
+## 🏗️ 1. Architecture: Responsive Single-View Pattern
+
+The site implements a unified, mobile-first component tree. We avoid separate mobile/desktop routes, instead relying on CSS media queries and the `PageStyles` pattern to adapt the UI.
+
+### 1.1 Source-to-Route Mapping
+| Public URL | Route Directory | Source File Path | CSS Logic |
+| :--- | :--- | :--- | :--- |
+| `/` | `app/(site)/` | `page.tsx` | `pageCss.ts` |
+| `/events` | `app/(site)/events/` | `page.tsx` | `pageCss.ts` |
+| `/membership`| `app/(site)/membership/` | `page.tsx` | `pageCss.ts` |
+| `/social` | `app/(site)/social/` | `page.tsx` | `pageCss.ts` |
+| `/team` | `app/(site)/team/` | `page.tsx` | `pageCss.ts` |
+| `/register` | `app/register/` | `page.tsx` | (Shared `globals.css`) |
+
+---
+
+## 🛡️ 2. The Registration Pipeline (Hardened)
+
+The registration flow (`/register`) is the most mission-critical and hardened part of the site.
+
+### 2.1 Security Pipeline Flow
+1. **Honeypot**: Captures bots filling the hidden `fax_number` field. Returns instant failure.
+2. **Rate Limiting**: IP-based window (5 minutes) managed in `app/actions/register.ts`.
+3. **Zod Validation**: Strict schema enforcement for all fields (fullName, email, institution, etc.).
+4. **Service Role Bypass**: The server action utilizes `createServiceClient` to bypass Row Level Security (RLS) for two critical checks:
+    - **Duplicate Check**: Case-insensitive email lookup before insertion.
+    - **Insertion**: High-privilege insert into the `members` table (Anonymous inserts are disabled via RLS).
+
+---
+
+## ⚡ 3. Telemetry & Live Member Counting
+
+The live member counter in the footer uses a multi-layered architecture for near-zero latency.
+
+### 3.1 Data Flow Architecture
+1. **DB Level**: A PostgreSQL trigger `handle_member_count_change()` on the `members` table automatically updates the `site_stats` table on `INSERT` or `DELETE`.
+2. **API Level**: An Edge API Route `/api/stats/count` fetches the single row from `site_stats`. 
+3. **Caching**: Uses **Stale-While-Revalidate (SWR)** headers (`s-maxage=60, stale-while-revalidate=300`) to eliminate database fetch latency for 99% of requests.
+4. **Frontend**: The `Footer.tsx` uses a standard `fetch` with a fallback mechanism that performs an exact count if the stats table is unavailable.
+
+---
+
+## ✨ 4. Animation Engine & Reveal Lifecycle
+
+The site utilizes a strict "Observer-Reveal" pattern managed through `Providers.tsx`.
+
+### 4.1 Intersection Observer (`.rv`)
+- **Properties**: `threshold: 0.01`, `rootMargin: "0px 0px 100px 0px"`.
+- **Logic**: Elements with the `.rv` class gain the `.on` class when entering the viewport.
+- **Stagger Delays**: Managed via `data-d` attributes (80ms increments).
+- **Page Transitions**: Content is wrapped in `TransitionWrapper` which applies the `pageSweep` keyframe (opacity: 0->1, blur: 8px->0, translateY: 10px->0).
+
+### 4.2 Magnetic UI Logic (`Magnetic.tsx`)
+- Uses mouse events to calculate pull strength relative to the element center.
+- **Performance**: High-frequency mouse moves update **CSS variables** (`--mag-x`, `--mag-y`) rather than React state, ensuring 60FPS fluid motion.
+- **Auto-Disable**: Component detects `(pointer: coarse)` and disables the effect for touch devices to save battery.
+
+---
+
+## 🔒 5. Permanent Information Policy
+
+**Static-First Intent**: The `/events` and `/social` pages are documented as **archival program guides**. 
+- No dynamic event fetching is implemented.
+- JSON-LD Event schemas pointing to future dates are strictly prohibited to maintain static integrity.
+- All real-time updates are redirected to the Society's Instagram.
+
+---
+*Maintained to ensure 100% Agent Performance.*

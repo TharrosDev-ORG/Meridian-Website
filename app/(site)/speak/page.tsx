@@ -1,19 +1,34 @@
 import { Metadata } from 'next';
+import Link from 'next/link';
 import PageStyles from '@/components/PageStyles';
 import { speakCss } from './pageCss';
-import Link from 'next/link';
 import { SPEAK_URL } from '@/components/NavBar';
+import Marquee from '@/components/Marquee';
+import { getMetadata } from '@/utils/metadata-shared';
+import { generateBreadcrumbSchema } from '@/utils/jsonld';
 
-export const metadata: Metadata = {
-  title: "Speak | The Meridian Society",
-  description: "Apply to speak at The Meridian Society in Ottawa. Share your experience with a motivated student audience and join our growing forum.",
-};
+export const metadata: Metadata = getMetadata({
+  title: "Speak at The Meridian",
+  description: "Share your professional experience with motivated students. We provide a platform for experts to engage with the next generation in Ottawa.",
+  urlPath: "/speak",
+  keywords: ['Speak at Meridian', 'Student Guest Speaker', 'Mentor Ottawa', 'Professional Networking', 'Thought Leadership Ottawa']
+});
 
 
 export default function Page() { 
   return (
     <>
       <PageStyles css={speakCss} />
+      {/* JSON-LD Breadcrumb Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(generateBreadcrumbSchema([
+            { name: "Home", item: "/" },
+            { name: "Speak", item: "/speak" },
+          ])),
+        }}
+      />
       <main id="main-content">
 
   {/* ═══════════ HERO ═══════════ */}
@@ -25,7 +40,9 @@ export default function Page() {
         <span className="hero-eyebrow-rule"></span>
       </div>
       <p className="hero-pre">Speaker Applications</p>
-      <h1 className="hero-title">Make an Impact.</h1>
+      <h1 className="hero-title rv rv-stagger">
+        <span className="rv-stagger-item">Make an Impact.</span>
+      </h1>
       <div className="hero-hr rv" aria-hidden="true" data-d="1"></div>
       <p className="hero-sub rv" data-d="2">Motivated students. Genuine curiosity. A room built for real conversation.</p>
       <div className="hero-actions rv" data-d="3">
@@ -35,11 +52,7 @@ export default function Page() {
     </div>
   </section>
 
-  <div className="marquee-wrap" aria-hidden="true">
-    <div className="marquee-track" data-static="true">
-      <span className="m-item">The Meridian Society</span><span className="m-gem">◆</span><span className="m-item">Ottawa</span><span className="m-gem">◆</span><span className="m-item">Est. 2025</span><span className="m-gem">◆</span><span className="m-item">Student-Run</span><span className="m-gem">◆</span><span className="m-item">Carleton University</span><span className="m-gem">◆</span><span className="m-item">uOttawa</span><span className="m-gem">◆</span><span className="m-item">Algonquin College</span><span className="m-gem">◆</span><span className="m-item">The Meridian Society</span><span className="m-gem">◆</span><span className="m-item">Ottawa</span><span className="m-gem">◆</span><span className="m-item">Est. 2025</span><span className="m-gem">◆</span><span className="m-item">Student-Run</span><span className="m-gem">◆</span><span className="m-item">Carleton University</span><span className="m-gem">◆</span><span className="m-item">uOttawa</span><span className="m-gem">◆</span><span className="m-item">Algonquin College</span><span className="m-gem">◆</span>
-    </div>
-  </div>
+  <Marquee />
 
   {/* ═══════════ WHY SPEAK ═══════════ */}
   <section className="speak-why-sec" id="why" aria-labelledby="why-heading">

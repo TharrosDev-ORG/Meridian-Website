@@ -10,17 +10,25 @@ The **Meridian Website** is the public facade of The Meridian Society. It repres
 ---
 
 ## 🚦 Strategic Rules
-1.  **Sovereign Gate (Security)**: All public registration and data ingestion must follow the "Sovereign Gate" protocol. The database independently verifies all administrative mutations.
-2.  **Aesthetic Permanence**: Use Tailwind 4 tokens for theme consistency. Never use ad-hoc hex codes; always reference the CSS variables in `globals.css`.
-3.  **Registry Hierarchy**: This site operates on the **Foundation** layer of the project. It handles the `members` registry which is shared with EventOS and MemberOS.
-4.  **No FOUC Style Injection**: Use the `PageStyles` pattern for per-page CSS to prevent Flash of Unstyled Content during navigation.
+1.  **Strict Typing**: Maintain TypeScript integrity. Avoid `any` for registration or member objects.
+2.  **No Dynamic Overrides**: Do not modify `globals.css` design tokens without explicit authorization. Use Tailwind 4 tokens for theme consistency.
+3.  **Pathing & Network Proxy**: 
+    - **Sovereign Gate**: All public registrations and data ingestion must follow the "Sovereign Gate" protocol defined in `src/proxy.ts`.
+    - Note that `middleware.ts` is deprecated; all gating logic lives in the proxy.
+4.  **Supabase Client**: 
+    - Front-facing work MUST use the singleton in `src/lib/supabase.ts`.
+    - BEWARE: The client is wrapped in a **Proxy** for SSR safety. Initialization only happens in the browser.
+5.  **Hardened SSR Pattern**: 
+    - To prevent `ReferenceError: document/window is not defined`, use the **Mounted Guard** pattern on all `'use client'` pages.
+    - Check `if (!mounted) return <Loader />` before rendering interactive components.
 
 ---
 
-## 🛡️ Security Protocols (SOVEREIGN-GATE)
-- **Credential Safety**: Never commit `.env.local`.
-- **Administrative Handshake**: Administrative actions (if any) are gated by the `PORTER_SECRET` or `MEMBER_SECRET`.
-- **RPC-SOVEREIGN Pattern**: All sensitive mutations MUST use the hardened `SECURITY DEFINER` RPCs defined in the `3-Master` SQL architecture.
+- **RPC-SOVEREIGN Pattern**: All sensitive mutations MUST use the hardened `SECURITY DEFINER` RPCs that verify credentials against the internal **Sovereign Vault** (`archival_settings`).
+- **3-Master SQL Architecture**: The database is structured into three "Sources of Truth":
+    1. `master_foundation.sql`: Core identity and member registry (Primary for this site).
+    2. `master_event_os.sql`: Event orchestration.
+    3. `master_member_os.sql`: Security audit logs and governance.
 
 ---
 
@@ -33,14 +41,15 @@ The **Meridian Website** is the public facade of The Meridian Society. It repres
 
 ---
 
-## 🏛 Archival Registry (SQL)
-The project utilizes a Unified Database architecture split into three master modules:
-1. `master_foundation.sql` (Foundational Identity - **Primary for this site**)
-2. `master_event_os.sql` (Event Orchestration)
-3. `master_member_os.sql` (Governance & Audit)
+- Always use `serif` (Cormorant Garamond) for primary headings.
+- Always use `sans` (Barlow Condensed) for labels and metadata.
+- Borders should be subtle: `border-[var(--ink)]/10`.
+- Hover states should use `var(--gold)`.
 
-**Required Database Config**:
+---
+
+## 🏛 Archival Registry (SQL)
+The project utilizes a Unified Database architecture. To initialize the archival settings vault, run this in the Supabase SQL Editor:
 ```sql
-ALTER DATABASE postgres SET "app.settings.porter_secret" = 'YOUR_SECRET';
-ALTER DATABASE postgres SET "app.settings.member_secret" = 'YOUR_SECRET';
+SELECT initialize_archival_vault('YOUR_SECRET_HERE');
 ```

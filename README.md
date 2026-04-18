@@ -120,14 +120,25 @@ public/assets/
 
 ---
 
-## Database
+## 🏛️ Sovereign Registry (SQL Architecture)
 
-Schema managed via migrations in `supabase/migrations/`. Two tables:
+The Meridian Project utilizes a unified database architecture split into three "Sources of Truth." These must be applied in order to your Supabase instance:
 
-- **`members`** — registration records (email PK, name, role, institution, interests, etc.)
-- **`site_stats`** — single row `id='meridian_global_stats'` with `member_count` integer, auto-maintained by trigger
+1.  **`master_foundation.sql`**: Core member registry and identity essentials (**Primary for this site**).
+2.  **`master_event_os.sql`**: Hardened event orchestration and Porter check-in logic.
+3.  **`master_member_os.sql`**: Immutable security audit logs.
 
-RLS: anonymous insert to `members`; public read of `site_stats`. All other ops require authenticated role.
+### Sovereign Hardening
+To activate the administrative locks, run the following in your SQL Editor:
+```sql
+ALTER DATABASE postgres SET "app.settings.porter_secret" = 'YOUR_SECRET';
+ALTER DATABASE postgres SET "app.settings.member_secret" = 'YOUR_SECRET';
+```
+
+### Table Definitions
+- **`members`**: Registration records (Email PK, Full Name, Verification status). Linked to EventOS for ticketing.
+- **`site_stats`**: Global metadata (member counts), auto-maintained by database triggers.
+- **`archival_audit_logs`**: Security ledger for tracking sensitive mutations.
 
 ---
 

@@ -18,7 +18,7 @@ This document is the entry point for any AI coding assistant working on this rep
 ## ⚡ Tech Stack
 - **Framework**: Next.js **16.2** (App Router, static by default, Turbopack builds).
 - **UI**: React **19.2**, Server Components primary; `"use client"` only where necessary (forms, subscriptions, scroll hooks).
-- **Styling**: Tailwind CSS **v4** is installed but **not used in components** — all styling lives in a single `app/globals.css`. Treat globals.css as the stylesheet of record.
+- **Styling**: Tailwind CSS **v4** is installed and used only for its `@theme {}` token block in `app/globals.css` — utility classes are **not used in components**. All component styling is hand-written CSS in `app/globals.css` (or page-local `pageCss.ts` strings passed through `<PageStyles>`). Treat globals.css as the stylesheet of record. Do **not** remove Tailwind; the `@theme` block depends on it.
 - **Database / Realtime**: Supabase (Postgres + Realtime channels). Trigger-maintained `site_stats.member_count`.
 - **Live telemetry**: Edge API `/api/stats/count` with 60s revalidation + `stale-while-revalidate=300`.
 - **Validation**: `zod` (registration schema).

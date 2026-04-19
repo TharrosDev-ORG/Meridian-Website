@@ -5,6 +5,7 @@ import Magnetic from '@/components/Magnetic';
 import Marquee from '@/components/Marquee';
 import { getMetadata } from '@/utils/metadata-shared';
 import { generateBreadcrumbSchema } from '@/utils/jsonld';
+import { INSTAGRAM_URL } from '@/utils/social';
 
 export const metadata: Metadata = getMetadata({
   title: "Social Gatherings",
@@ -44,7 +45,7 @@ export default function SocialPage() {
           <p className="hero-sub rv" data-d="2">From quiet coffee meetups to high-energy social nights.<br />A space for students to connect.</p>
           <div className="hero-actions rv" data-d="3">
             <Magnetic strength={0.25}>
-              <a href="https://www.instagram.com/Meridian.Society" target="_blank" rel="noopener noreferrer" className="btn-primary"><span>Join the Community</span></a>
+              <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="btn-primary"><span>Join the Community</span></a>
             </Magnetic>
             <a href="#vibe" className="btn-ghost-link">Learn More <span>&#8595;</span></a>
           </div>
@@ -110,7 +111,7 @@ export default function SocialPage() {
           <p className="notify-sub rv" data-d="1">Our community gathers spontaneously. We post all social invitations, locations, and RSVPs via Instagram Stories first.</p>
           <div className="notify-actions rv" data-d="2">
             <Magnetic strength={0.3}>
-              <a href="https://www.instagram.com/Meridian.Society" target="_blank" rel="noopener noreferrer" className="btn-primary">
+              <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="btn-primary">
                 <span>Follow @Meridian.Society</span>
               </a>
             </Magnetic>

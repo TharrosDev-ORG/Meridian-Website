@@ -129,6 +129,7 @@ export default function Page() {
                   src="/assets/images/team/colin.webp"
                   className="member-photo"
                   alt="Colin Sherwood, Event Coordinator of The Meridian Society"
+                  priority
                   width={96}
                   height={120}
                 />

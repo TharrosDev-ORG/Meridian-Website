@@ -150,6 +150,16 @@ export const membershipCss = `
       flex-direction: column;
       gap: 12px;
     }
+    .reg-fieldset {
+      border: 0;
+      padding: 0;
+      margin: 0;
+      min-inline-size: 0;
+    }
+    .reg-fieldset .reg-label {
+      display: block;
+      padding: 0;
+    }
     .reg-field--full {
       grid-column: span 2;
     }

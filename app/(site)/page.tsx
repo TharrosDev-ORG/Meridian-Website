@@ -103,7 +103,7 @@ export default function Home() {
       </h2>
     </div>
     <div className="about-right">
-      <p className="about-body rv" id="about-speakable">The Meridian Society is an independent, student-run organization based at Carleton University. We exist to connect motivated students with the professionals, alumni, and scholars who can expand their world, and to build a community of genuinely curious people.</p>
+      <p className="about-body rv" id="about-speakable">The Meridian Society is an independent, student-run organization based at Carleton University. We exist to connect motivated students with the professionals, alumni, and scholars who can expand their mindset, and to build a community of students ottawa and young professionals.</p>
       <p className="about-body rv" data-d="1">Through events, open conversations, and gatherings of all kinds, we help our members orient themselves in an increasingly complex world. Not an extension of any institution. Something built, owned, and run entirely by students.</p>
       <div className="pull-quote rv" data-d="2">
         <p>&quot;We cannot promise outcomes, but we can provide access, exposure, and orientation to people and their ideas.&quot;</p>

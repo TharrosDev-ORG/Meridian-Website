@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { createClient } from "@/utils/supabase/client";
+import { INSTAGRAM_URL, CONTACT_MAILTO } from "@/utils/social";
 
 export default function Footer() {
   const [count, setCount] = useState<number>(0);
@@ -77,7 +78,7 @@ export default function Footer() {
             <ul className="footer-list">
               <li>
                 <a
-                  href="https://www.instagram.com/Meridian.Society"
+                  href={INSTAGRAM_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -85,12 +86,22 @@ export default function Footer() {
                 </a>
               </li>
               <li>
-                <a href="mailto:meridiansocietycanada@gmail.com">
-                  Email Inquiries
-                </a>
+                <a href={CONTACT_MAILTO}>Email Inquiries</a>
+              </li>
+              <li>
+                <Link href="/contact">Contact</Link>
               </li>
             </ul>
           </div>
+
+          <nav className="footer-col" aria-label="Footer legal">
+            <h4 className="footer-col-h">Info</h4>
+            <ul className="footer-list">
+              <li><Link href="/privacy">Privacy</Link></li>
+              <li><Link href="/terms">Terms</Link></li>
+              <li><Link href="/accessibility">Accessibility</Link></li>
+            </ul>
+          </nav>
         </div>
 
         <div className="footer-bottom">

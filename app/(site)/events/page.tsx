@@ -7,6 +7,7 @@ import Magnetic from '@/components/Magnetic';
 import Marquee from '@/components/Marquee';
 import { getMetadata } from '@/utils/metadata-shared';
 import { generateBreadcrumbSchema, generateEventSchema } from '@/utils/jsonld';
+import { INSTAGRAM_URL } from '@/utils/social';
 
 export const metadata: Metadata = getMetadata({
   title: "Speaker Events",
@@ -130,7 +131,7 @@ export default function EventsPage() {
             <p className="notify-sub rv" data-d="1">We announce all forum dates, speakers, and registration links exclusively through our social channels first.</p>
             <div className="notify-actions rv" data-d="2">
               <Magnetic strength={0.3}>
-                <a href="https://www.instagram.com/Meridian.Society" target="_blank" rel="noopener noreferrer" className="btn-primary">
+                <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="btn-primary">
                   <span>Follow @Meridian.Society</span>
                 </a>
               </Magnetic>

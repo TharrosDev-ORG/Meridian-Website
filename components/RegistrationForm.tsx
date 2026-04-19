@@ -3,6 +3,7 @@
 import { useState, useTransition, useEffect } from "react";
 import { registerMember, RegistrationData } from "@/app/actions/register";
 import Link from "next/link";
+import { INSTAGRAM_URL } from "@/utils/social";
 
 const REG_KEY = "meridian_registered_v1";
 
@@ -92,10 +93,10 @@ export default function RegistrationForm() {
         <h3 className="success-title">Welcome to the Meridian Society.</h3>
         <p className="success-body">
           Your registration is complete. You are now a member of our community. 
-          Follow us on <a 
-            href="https://www.instagram.com/Meridian.Society" 
-            target="_blank" 
-            rel="noopener noreferrer" 
+          Follow us on <a
+            href={INSTAGRAM_URL}
+            target="_blank"
+            rel="noopener noreferrer"
             className="success-ig-link"
           >
             Instagram
@@ -161,8 +162,8 @@ export default function RegistrationForm() {
           </div>
 
           {/* ── Role ── */}
-          <div className="reg-field reg-field--full">
-            <label className="reg-label">Your Role *</label>
+          <fieldset className="reg-field reg-field--full reg-fieldset">
+            <legend className="reg-label">Your Role *</legend>
             <div className="reg-options-grid">
               {ROLES.map((r) => (
                 <label key={r} className="reg-choice reg-choice--radio">
@@ -186,16 +187,17 @@ export default function RegistrationForm() {
                   name="roleOther"
                   className="reg-input"
                   placeholder="Please specify your role"
+                  aria-label="Please specify your role"
                   required
                   disabled={isPending}
                 />
               </div>
             )}
-          </div>
+          </fieldset>
 
           {/* ── Institution ── */}
-          <div className="reg-field reg-field--full">
-            <label className="reg-label">Current or Most Recent Institution (If applicable)</label>
+          <fieldset className="reg-field reg-field--full reg-fieldset">
+            <legend className="reg-label">Current or Most Recent Institution (If applicable)</legend>
             <div className="reg-options-grid">
               {INSTITUTIONS.map((inst) => (
                 <label key={inst} className="reg-choice reg-choice--radio">
@@ -219,16 +221,17 @@ export default function RegistrationForm() {
                   name="institutionOther"
                   className="reg-input"
                   placeholder="Please specify your institution"
+                  aria-label="Please specify your institution"
                   required
                   disabled={isPending}
                 />
               </div>
             )}
-          </div>
+          </fieldset>
 
           {/* ── Interests ── */}
-          <div className="reg-field reg-field--full">
-            <label className="reg-label">Areas of interest? (Select all that apply) *</label>
+          <fieldset className="reg-field reg-field--full reg-fieldset">
+            <legend className="reg-label">Areas of interest? (Select all that apply) *</legend>
             <div className="reg-options-grid">
               {INTERESTS_LIST.map((interest) => (
                 <label key={interest} className="reg-choice reg-choice--check">
@@ -242,11 +245,11 @@ export default function RegistrationForm() {
                 </label>
               ))}
             </div>
-          </div>
+          </fieldset>
 
           {/* ── Referral ── */}
-          <div className="reg-field reg-field--full">
-            <label className="reg-label">How did you hear about The Meridian Society? *</label>
+          <fieldset className="reg-field reg-field--full reg-fieldset">
+            <legend className="reg-label">How did you hear about The Meridian Society? *</legend>
             <div className="reg-options-grid">
               {HEARD_SOURCES.map((source) => (
                 <label key={source} className="reg-choice reg-choice--radio">
@@ -262,11 +265,11 @@ export default function RegistrationForm() {
                 </label>
               ))}
             </div>
-          </div>
+          </fieldset>
 
           {/* ── Volunteering ── */}
-          <div className="reg-field reg-field--full">
-            <label className="reg-label">Would you be interested in volunteering or supporting future events? *</label>
+          <fieldset className="reg-field reg-field--full reg-fieldset">
+            <legend className="reg-label">Would you be interested in volunteering or supporting future events? *</legend>
             <div className="reg-options-grid">
               {VOLUNTEER_OPTIONS.map((opt) => (
                 <label key={opt} className="reg-choice reg-choice--radio">
@@ -282,7 +285,7 @@ export default function RegistrationForm() {
                 </label>
               ))}
             </div>
-          </div>
+          </fieldset>
         </div>
 
         {result?.error && (

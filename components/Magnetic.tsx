@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useEffect, ReactElement } from 'react';
+import React, { useRef, useEffect, ReactElement, useCallback } from 'react';
 
 interface Props {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -9,18 +9,21 @@ interface Props {
 }
 
 /**
- * Magnetic component adds a "pull" effect to any child button/link.
- * Uses high-performance CSS variables to avoid React re-renders on mousemove.
- * Automatically disabled on touch devices to conserve CPU/battery.
+ * Magnetic wraps a child button/link in a span and adds a "pull" effect.
+ * Uses CSS variables on the wrapper to avoid React re-renders on mousemove.
+ * Disabled on touch devices to conserve CPU/battery.
  */
 export default function Magnetic({ children, strength = 0.3 }: Props) {
-  const ref = useRef<HTMLElement>(null);
+  const wrapperRef = useRef<HTMLSpanElement>(null);
+
+  const handleRef = useCallback((node: HTMLSpanElement | null) => {
+    wrapperRef.current = node;
+  }, []);
 
   useEffect(() => {
-    const el = ref.current;
+    const el = wrapperRef.current;
     if (!el) return;
 
-    // Check for touch device / coarse pointer
     const isTouch = window.matchMedia("(pointer: coarse)").matches;
     if (isTouch) return;
 
@@ -34,10 +37,10 @@ export default function Magnetic({ children, strength = 0.3 }: Props) {
       if (!bounds) bounds = el.getBoundingClientRect();
       const { clientX, clientY } = e;
       const { left, top, width, height } = bounds;
-      
+
       const x = (clientX - (left + width / 2)) * strength;
       const y = (clientY - (top + height / 2)) * strength;
-      
+
       el.style.setProperty('--mag-x', `${x}px`);
       el.style.setProperty('--mag-y', `${y}px`);
     };
@@ -59,15 +62,18 @@ export default function Magnetic({ children, strength = 0.3 }: Props) {
     };
   }, [strength]);
 
-  return React.cloneElement(children, {
-    ref,
-    style: {
-      ...(children.props.style || {}),
-      display: 'inline-block',
-      '--mag-x': '0px',
-      '--mag-y': '0px',
-      transform: 'translate3d(var(--mag-x), var(--mag-y), 0)',
-      transition: 'transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s',
-    } as React.CSSProperties
-  });
+  return (
+    <span
+      ref={handleRef}
+      style={{
+        display: 'inline-block',
+        ['--mag-x' as string]: '0px',
+        ['--mag-y' as string]: '0px',
+        transform: 'translate3d(var(--mag-x), var(--mag-y), 0)',
+        transition: 'transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)',
+      } as React.CSSProperties}
+    >
+      {children}
+    </span>
+  );
 }

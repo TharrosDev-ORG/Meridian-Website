@@ -11,14 +11,19 @@ export default function Footer() {
 
   useEffect(() => {
     const supabase = createClient();
+    const controller = new AbortController();
+    let cancelled = false;
 
     async function loadCount() {
       try {
-        const response = await fetch("/api/stats/count");
+        const response = await fetch("/api/stats/count", { signal: controller.signal });
+        if (!response.ok) return;
         const data = await response.json();
-        setCount(data.count || 0);
-      } catch {
-        console.error("[SECURITY] Stats API failed. Falling back.");
+        if (cancelled) return;
+        if (typeof data?.count === "number") setCount(data.count);
+      } catch (err) {
+        if ((err as Error)?.name === "AbortError") return;
+        console.error("[Footer] Stats API failed. Realtime channel will populate count.");
       }
     }
     loadCount();
@@ -46,8 +51,11 @@ export default function Footer() {
       .subscribe();
 
     return () => {
+      cancelled = true;
+      controller.abort();
       clearTimeout(yearTimer);
-      channel.unsubscribe().catch(console.error);
+      // Best-effort cleanup; failures here are expected during hot-reload teardown.
+      void supabase.removeChannel(channel);
     };
   }, []);
 

@@ -8,18 +8,40 @@ import { headers } from 'next/headers';
 const RATE_LIMIT_WINDOW = 5 * 60 * 1000; // 5 minutes
 const ipRecords = new Map<string, number>();
 
+async function securityDelay() {
+  await new Promise((resolve) => setTimeout(resolve, Math.random() * 500 + 300));
+}
+
+function redactEmail(email: string) {
+  const [local, domain] = email.split('@');
+  if (!domain) return '***';
+  const head = local.slice(0, 1);
+  return `${head}***@${domain}`;
+}
+
 const registrationSchema = z.object({
-  fullName: z.string().min(2, 'Full name must be at least 2 characters'),
-  email: z.string().email('Invalid email address'),
+  fullName: z
+    .string()
+    .trim()
+    .min(2, 'Full name must be at least 2 characters')
+    .max(120, 'Full name is too long'),
+  email: z
+    .string()
+    .trim()
+    .email('Invalid email address')
+    .max(254, 'Email is too long'),
   role: z.enum(['Student', 'Alumni', 'Professor / Faculty', 'Professional', 'Other'] as const, {
     message: 'Please select your role',
   }),
-  roleOther: z.string().optional(),
+  roleOther: z.string().trim().max(120, 'Role description is too long').optional(),
   institution: z.enum(['Carleton University', 'University of Ottawa', 'Algonquin College', 'Other'] as const, {
     message: 'Please select an institution',
   }),
-  institutionOther: z.string().optional(),
-  interests: z.array(z.string()).min(1, 'Select at least one area of interest'),
+  institutionOther: z.string().trim().max(160, 'Institution name is too long').optional(),
+  interests: z
+    .array(z.string().max(80))
+    .min(1, 'Select at least one area of interest')
+    .max(20, 'Too many interests selected'),
   heardFrom: z.enum(['Friend or Peer', 'Professor', 'Social Media', 'Campus Event', 'Current Member'] as const, {
     message: 'Please tell us how you heard about us',
   }),
@@ -27,14 +49,16 @@ const registrationSchema = z.object({
     message: 'Please select a volunteer interest level',
   }),
   // Honeypot field
-  fax_number: z.string().optional(),
+  fax_number: z.string().max(200).optional(),
 });
 
 export type RegistrationData = z.infer<typeof registrationSchema>;
 
 export async function registerMember(data: RegistrationData) {
-  // 1. Honeypot check (Instant fail if filled)
+  // 1. Honeypot check (apply the same timing delay as the success path so the
+  //    fail-fast branch doesn't reveal that the honeypot fired).
   if (data.fax_number) {
+    await securityDelay();
     console.warn(`[SECURITY] Honeypot triggered by submission.`);
     return { success: false, error: 'Registration failed. (Security Code: HP)' };
   }
@@ -47,6 +71,7 @@ export async function registerMember(data: RegistrationData) {
   // Basic bot detection: check for common non-browser user agents or missing UA
   const isSuspicious = userAgent === 'unknown' || /bot|spider|crawler|curl|python|wget|postman/i.test(userAgent);
   if (isSuspicious) {
+    await securityDelay();
     console.warn(`[SECURITY] Suspicious User-Agent blocked: ${userAgent} (IP: ${ip})`);
     return { success: false, error: 'Access denied. (Security Code: UA)' };
   }
@@ -56,41 +81,42 @@ export async function registerMember(data: RegistrationData) {
 
   if (lastSubmission && now - lastSubmission < RATE_LIMIT_WINDOW) {
     const waitTime = Math.ceil((RATE_LIMIT_WINDOW - (now - lastSubmission)) / 60000);
-    return { 
-      success: false, 
-      error: `Too many attempts from this connection. Please wait ${waitTime} minute(s).` 
+    return {
+      success: false,
+      error: `Too many attempts from this connection. Please wait ${waitTime} minute(s).`,
     };
   }
 
-  // 3. Security Delay (Optional: Prevents timing attacks)
-  await new Promise(resolve => setTimeout(resolve, Math.random() * 500 + 300));
+  // Record the attempt BEFORE any slow work so concurrent requests from the
+  // same IP can't race past the rate-limit check.
+  ipRecords.set(ip, now);
+
+  // 3. Security Delay (Prevents timing attacks)
+  await securityDelay();
 
   // Validate data
   const validated = registrationSchema.safeParse(data);
-  
+
   if (!validated.success) {
-    return { 
-      success: false, 
-      error: validated.error.issues[0].message 
+    return {
+      success: false,
+      error: validated.error.issues[0].message,
     };
   }
 
-  // Update IP record
-  ipRecords.set(ip, now);
-
-  const { 
-    fullName, 
-    email, 
-    role, 
-    roleOther, 
-    institution, 
-    institutionOther, 
-    interests, 
-    heardFrom, 
-    volunteerInterest 
+  const {
+    fullName,
+    email,
+    role,
+    roleOther,
+    institution,
+    institutionOther,
+    interests,
+    heardFrom,
+    volunteerInterest,
   } = validated.data;
 
-  const normalizedEmail = email.toLowerCase().trim();
+  const normalizedEmail = email.toLowerCase();
 
   // 4. Database Operations
   // Using service client (Service Role) to bypass RLS for this specific server-side flow
@@ -105,7 +131,7 @@ export async function registerMember(data: RegistrationData) {
 
   if (checkError) {
     // Audit: Sanitized log — no raw error object in server logs.
-    console.error(`[SECURITY] Duplicate check failed for salt-email. Message: ${checkError.message}`);
+    console.error(`[SECURITY] Duplicate check failed. Message: ${checkError.message}`);
     return { success: false, error: 'Database connection issue.' };
   }
 
@@ -141,6 +167,6 @@ export async function registerMember(data: RegistrationData) {
     return { success: false, error: 'Failed to register. Please try again later.' };
   }
 
-  console.log(`[SUCCESS] New member registered: ${fullName} (${normalizedEmail})`);
+  console.log(`[SUCCESS] New member registered: ${redactEmail(normalizedEmail)}`);
   return { success: true };
 }

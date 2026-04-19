@@ -8,8 +8,8 @@ import Link from 'next/link';
 import Marquee from '@/components/Marquee';
 import RegisterSection from '@/components/sections/RegisterSection';
 import { getMetadata } from '@/utils/metadata-shared';
-import { generateOrganizationSchema } from '@/utils/jsonld';
 import { INSTAGRAM_URL } from '@/utils/social';
+import { INAUGURAL_EVENT_LABEL } from '@/utils/copy';
 
 export const metadata: Metadata = getMetadata({
   title: "Ottawa's Student Speaker Forum",
@@ -21,13 +21,7 @@ export default function Home() {
   return (
     <main>
       <PageStyles css={indexCss} />
-      {/* JSON-LD Organization Schema */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(generateOrganizationSchema()),
-        }}
-      />
+      {/* Organization JSON-LD lives in app/layout.tsx so it ships site-wide. */}
       <a href="#main-content" className="skip-link">Skip to content</a>
       <Link href={REGISTER_URL} className="sticky-join" id="stickyJoin">Register</Link>
       <section className="hero" id="main-content" aria-label="Hero">
@@ -78,7 +72,7 @@ export default function Home() {
       <div className="stat-lbl">Based at Carleton</div>
     </div>
     <div className="stat" role="listitem">
-      <div className="stat-val">Fall &apos;26</div>
+      <div className="stat-val">{INAUGURAL_EVENT_LABEL}</div>
       <div className="stat-lbl">Inaugural Event</div>
     </div>
     <div className="stat" role="listitem">

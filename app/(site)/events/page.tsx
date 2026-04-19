@@ -6,7 +6,7 @@ import { REGISTER_URL } from '@/components/NavBar';
 import Magnetic from '@/components/Magnetic';
 import Marquee from '@/components/Marquee';
 import { getMetadata } from '@/utils/metadata-shared';
-import { generateBreadcrumbSchema, generateEventSchema } from '@/utils/jsonld';
+import { generateBreadcrumbSchema } from '@/utils/jsonld';
 import { INSTAGRAM_URL } from '@/utils/social';
 
 export const metadata: Metadata = getMetadata({

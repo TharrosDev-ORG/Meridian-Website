@@ -11,7 +11,7 @@ import { INSTAGRAM_URL } from '@/utils/social';
 
 export const metadata: Metadata = getMetadata({
   title: "Speaker Events",
-  description: "The Speaker Forum is our flagship program. We provide a platform for established professionals and academics to share lived experience with students.",
+  description: "The Speaker Forum is our flagship event. We work to provide a platform for professionals and academics to share their experience with students.",
   urlPath: "/events",
   keywords: ['Ottawa Speaker Forum', 'Student Dialogue', 'Academic Presentations Ottawa', 'Student Networking Events']
 });
@@ -67,9 +67,9 @@ export default function EventsPage() {
               </div>
               <div className="events-intro-right">
                 <p className="events-copy-body rv" data-d="2">
-                  The Speaker Forum is our society&apos;s flagship event, where we bring established professionals, academics, and alumni to share their lived experience and knowledge with a room of motivated students.
+                  The Speaker Forum is our flagship event. We work to provide a platform for professionals and academics to share their experience with students.
                   <br /><br />
-                  These aren&apos;t just lectures. They are open dialogues designed to provide students with tangible orientation in their respective fields - exposure to ideas and networks that aren&apos;t found in a classroom.
+                  These aren&apos;t just lectures. They are open dialogues designed to provide students with tangible knowledge in their respective fields - exposure to ideas and networks that aren&apos;t found in a classroom.
                 </p>
               </div>
             </div>
@@ -88,12 +88,12 @@ export default function EventsPage() {
               <article className="sig-card rv" data-d="2">
                 <div className="sig-num">02</div>
                 <h3 className="sig-h">Vetted Insight</h3>
-                <p className="sig-p">Speakers are selected for their honesty and proven track records, offering practical advice and the hard-earned lessons they wish they had known starting out.</p>
+                <p className="sig-p">Our speakers share honest perspectives, practical advice, and knowledge drawn from experience.</p>
               </article>
               <article className="sig-card rv" data-d="3">
                 <div className="sig-num">03</div>
                 <h3 className="sig-h">Beyond the Classroom</h3>
-                <p className="sig-p">Step away from academic theory to explore the unwritten rules of your industry. This is where real-world strategy and practical execution take center stage.</p>
+                <p className="sig-p">Bridge the gap between theory and practice by exploring how ideas are applied in real-world contexts.</p>
               </article>
             </div>
           </div>
@@ -109,9 +109,9 @@ export default function EventsPage() {
             <div className="expect-grid rv" data-d="2" role="table">
               {[
                 ['Length', '30-45 minute presentation'],
-                ['Format', 'Presentation followed by open Q&A'],
+                ['Format', 'followed by a Q&A'],
                 ['Audience Size', '20-30 students'],
-                ['Who Attends', 'Registered Society members'],
+                ['Who Attends', 'Society Members'],
                 ['Location', 'Ottawa, Canada'],
                 ['Fields', 'Policy, academia, entrepreneurship, law, business, politics, and beyond']
               ].map(([lbl, val]) => (
@@ -127,7 +127,7 @@ export default function EventsPage() {
         {/* ═══════════ NOTIFY / INSTAGRAM ═══════════ */}
         <section className="notify-sec">
           <div className="wrap notify-inner">
-            <h2 className="notify-title rv">Event Announcements live on <em>Instagram.</em></h2>
+            <h2 className="notify-title rv">All Announcements For Upcominng Event Will be on <em>Instagram.</em></h2>
             <p className="notify-sub rv" data-d="1">We announce all forum dates, speakers, and registration links exclusively through our social channels first.</p>
             <div className="notify-actions rv" data-d="2">
               <Magnetic strength={0.3}>

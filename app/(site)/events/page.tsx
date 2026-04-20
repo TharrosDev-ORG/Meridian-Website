@@ -7,7 +7,6 @@ import Magnetic from '@/components/Magnetic';
 import Marquee from '@/components/Marquee';
 import { getMetadata } from '@/utils/metadata-shared';
 import { generateBreadcrumbSchema } from '@/utils/jsonld';
-import { INSTAGRAM_URL } from '@/utils/social';
 import SocialInstagramSection from '@/components/sections/SocialInstagramSection';
 
 export const metadata: Metadata = getMetadata({
@@ -34,8 +33,8 @@ export default function EventsPage() {
       <main id="main-content">
 
         {/* ═══════════ HERO ═══════════ */}
-        <section className="page-hero" aria-label="Events hero">
-          <div className="page-hero-content">
+        <section className="module-page-hero" aria-label="Events hero">
+          <div className="module-page-hero-content">
             <div className="hero-eyebrow rv">
               <span className="hero-eyebrow-rule"></span>
               <span className="hero-eyebrow-text">The Meridian Society</span>
@@ -61,13 +60,13 @@ export default function EventsPage() {
         {/* ═══════════ ABOUT THE FORUM ═══════════ */}
         <section className="events-sec" id="about" aria-labelledby="events-heading">
           <div className="wrap">
-            <div className="events-intro-grid">
-              <div className="events-intro-left">
+            <div className="module-intro-grid">
+              <div className="module-intro-left">
                 <div className="sec-label rv">The Program</div>
                 <h2 className="events-copy-title rv" data-d="1">A room you&apos;ll want to be a part of.</h2>
               </div>
-              <div className="events-intro-right">
-                <p className="events-copy-body rv" data-d="2">
+              <div className="module-intro-right">
+                <p className="module-intro-copy rv" data-d="2">
                   The Speaker Forum is our flagship event. We work to provide a platform for professionals and academics to share their experience with students.
                   <br /><br />
                   These aren&apos;t just lectures. They are open dialogues designed to provide students with tangible knowledge in their respective fields - exposure to ideas and networks that aren&apos;t found in a classroom.
@@ -80,18 +79,18 @@ export default function EventsPage() {
         {/* ═══════════ SIGNATURE SERIES ═══════════ */}
         <section className="sig-sec">
           <div className="wrap">
-            <div className="sig-grid">
-              <article className="sig-card rv" data-d="1">
+            <div className="module-card-grid" style={{ gridTemplateColumns: 'repeat(3, 1fr)' }}>
+              <article className="module-card rv" data-d="1">
                 <div className="sig-num">01</div>
                 <h3 className="sig-h">Dialogue Over Noise</h3>
                 <p className="sig-p">Small, curated audiences ensure that every student has the chance to ask questions and engage directly with the speaker.</p>
               </article>
-              <article className="sig-card rv" data-d="2">
+              <article className="module-card rv" data-d="2">
                 <div className="sig-num">02</div>
                 <h3 className="sig-h">Vetted Insight</h3>
                 <p className="sig-p">Our speakers share honest perspectives, practical advice, and knowledge drawn from experience.</p>
               </article>
-              <article className="sig-card rv" data-d="3">
+              <article className="module-card rv" data-d="3">
                 <div className="sig-num">03</div>
                 <h3 className="sig-h">Beyond the Classroom</h3>
                 <p className="sig-p">Bridge the gap between theory and practice by exploring how ideas are applied in real-world contexts.</p>

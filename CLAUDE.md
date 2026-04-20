@@ -18,7 +18,7 @@ This document is the entry point for any AI coding assistant working on this rep
 ## ⚡ Tech Stack
 - **Framework**: Next.js **16.2** (App Router, static by default, Turbopack builds).
 - **UI**: React **19.2**, Server Components primary; `"use client"` only where necessary (forms, subscriptions, scroll hooks).
-- **Styling**: Tailwind CSS **v4** is installed and used only for its `@theme {}` token block in `app/globals.css` — utility classes are **not used in components**. All component styling is hand-written CSS in `app/globals.css` (or page-local `pageCss.ts` strings passed through `<PageStyles>`). Treat globals.css as the stylesheet of record. Do **not** remove Tailwind; the `@theme` block depends on it.
+- **Styling**: Tailwind CSS **v4** is sparingly used for its `@theme {}` block in `globals.css`. The primary styling engine consists of hand-written CSS in **`app/globals.css`** (featuring a shared `.module-` layer for performance) and page-specific `pageCss.ts` strings. Treat `globals.css` as the source of truth for structural components.
 - **Database / Realtime**: Supabase (Postgres + Realtime channels). Trigger-maintained `site_stats.member_count`.
 - **Live telemetry**: Edge API `/api/stats/count` with 60s revalidation + `stale-while-revalidate=300`.
 - **Validation**: `zod` (registration schema).
@@ -46,23 +46,21 @@ app/
   api/stats/count/route.ts      Edge runtime; cached read used by Footer bootstrap
 
 components/
-  NavBar.tsx, MobileMenu.tsx    Header + mobile drawer (`.site-nav` class, see guardrail 6)
-  Footer.tsx                    Live-member counter + Supabase realtime subscription
-  TransitionWrapper.tsx         Keyed wrapper that re-triggers `pageSweep` on nav
-  Magnetic.tsx                  Mouse-follow "pull" effect for premium CTAs
-  RegistrationForm.tsx          Form that calls the `registerMember` server action
-  FaqAccordion.tsx, BackButton.tsx, BackToTop.tsx, ScrollProgress.tsx,
-  PageStyles.tsx, Marquee.tsx, sections/RegisterSection.tsx
+  NavBar.tsx, MobileMenu.tsx    Header + mobile drawer
+  Footer.tsx                    Live-member counter + Realtime subscription
+  TransitionWrapper.tsx         Keyed wrapper for page entry animations
+  Magnetic.tsx                  Mouse-follow "pull" effect for CTAs
+  RegistrationForm.tsx          Form handling Member registration
+  sections/                     Shared UI modules (e.g., SocialInstagramSection.tsx)
 
 utils/supabase/
-  client.ts                     Browser (anon key)
-  server.ts                     Server component client w/ cookies
-  middleware.ts                 Helper used by proxy.ts
-  service.ts                    SERVICE ROLE — server-only; bypasses RLS
+  client.ts                     Browser client (anon)
+  server.ts                     Server-side reads (anon)
+  middleware.ts                 Session refresh (used by proxy.ts)
+  service.ts                    SERVICE ROLE — privileged writes (bypass RLS)
 
-proxy.ts                        Next.js 16 edge proxy (session refresh)
-supabase/migrations/            Schema + triggers (source of truth for DB)
-app/globals.css                 **All CSS lives here.** See "CSS Architecture" below.
+proxy.ts                        Next.js 16 edge proxy (root level)
+app/globals.css                 **The Single Source of Truth for Styles.**
 ```
 
 ---
@@ -117,7 +115,7 @@ Four clients, each with a narrow purpose. All validate their env vars at creatio
 **Single file**: `app/globals.css`. Tailwind v4 is installed but intentionally not used in component files — the site is styled by hand in the same stylesheet for consistency.
 
 **Section map** (search for `/* ── X ── */` headers):
-- RESET · AESTHETICS · SCROLLBAR · **DESIGN TOKENS** · BASE · FOCUS VISIBLE · BACK-TO-TOP · KEYFRAMES · MARQUEE · REDUCED MOTION · MOBILE BASE · **NAV BAR** · HAMBURGER · **MOBILE DRAWER** · MOBILE RESPONSIVE · PAGE TRANSITIONS · STAGGERED REVEALS · SUCCESS STATE UTILS · SHARED PAGE UTILS · **FOOTER** · SHARED RESPONSIVE OVERRIDES · Responsive Footer · REGISTER SECTION.
+- RESET · AESTHETICS · SCROLLBAR · **DESIGN TOKENS** · BASE · FOCUS VISIBLE · BACK-TO-TOP · KEYFRAMES · MARQUEE · REDUCED MOTION · MOBILE BASE · **NAV BAR** · HAMBURGER · **MOBILE DRAWER** · MOBILE RESPONSIVE · PAGE TRANSITIONS · STAGGERED REVEALS · SUCCESS STATE UTILS · SHARED PAGE UTILS · **SHARED MODULES (v1.3)** · **FOOTER** · SHARED RESPONSIVE OVERRIDES · Responsive Footer · REGISTER SECTION.
 
 Design tokens live in `:root` around lines 30–72: `--cream*`, `--ink*` (opacity variants), `--gold*`, `--serif`, `--sans`, plus `--grain` (SVG noise). Reach for these rather than hard-coding colors.
 

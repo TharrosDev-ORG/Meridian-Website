@@ -12,10 +12,10 @@ The site implements a unified, mobile-first component tree. We avoid separate mo
 | Public URL | Route Directory | Source File Path | CSS Logic |
 | :--- | :--- | :--- | :--- |
 | `/` | `app/(site)/` | `page.tsx` | `pageCss.ts` |
-| `/events` | `app/(site)/events/` | `page.tsx` | `pageCss.ts` |
+| `/events` | `app/(site)/events/` | `page.tsx` | Shared Modules + `pageCss.ts` |
 | `/membership`| `app/(site)/membership/` | `page.tsx` | `pageCss.ts` |
-| `/social` | `app/(site)/social/` | `page.tsx` | `pageCss.ts` |
-| `/team` | `app/(site)/team/` | `page.tsx` | `pageCss.ts` |
+| `/social` | `app/(site)/social/` | `page.tsx` | Shared Modules + `pageCss.ts` |
+| `/team` | `app/(site)/team/` | `page.tsx` | (Standard CSS) |
 | `/register` | `app/register/` | `page.tsx` | (Shared `globals.css`) |
 
 ---
@@ -39,10 +39,10 @@ The registration flow (`/register`) is the most mission-critical and hardened pa
 The live member counter in the footer uses a multi-layered architecture for near-zero latency.
 
 ### 3.1 Data Flow Architecture
-1. **DB Level**: A PostgreSQL trigger `handle_member_count_change()` on the `members` table automatically updates the `site_stats` table on `INSERT` or `DELETE`.
-2. **API Level**: An Edge API Route `/api/stats/count` fetches the single row from `site_stats`. 
-3. **Caching**: Uses **Stale-While-Revalidate (SWR)** headers (`s-maxage=60, stale-while-revalidate=300`) to eliminate database fetch latency for 99% of requests.
-4. **Frontend**: The `Footer.tsx` uses a standard `fetch` with a fallback mechanism that performs an exact count if the stats table is unavailable.
+1. **Bootstrap**: The `Footer.tsx` fetches `/api/stats/count` on mount (Edge route, cached).
+2. **Realtime**: Upon mount, a Supabase Realtime channel (`footer_stats_updates`) is established to listen for `UPDATE` events on `site_stats`.
+3. **Trigger**: DB trigger `handle_member_count_change()` maintains the count on the `members` table.
+4. **Caching**: Edge route uses SWR headers (`s-maxage=60, stale-while-revalidate=300`) to ensure instant loads.
 
 ---
 
@@ -60,6 +60,11 @@ The site utilizes a strict "Observer-Reveal" pattern managed through `Providers.
 - Uses mouse events to calculate pull strength relative to the element center.
 - **Performance**: High-frequency mouse moves update **CSS variables** (`--mag-x`, `--mag-y`) rather than React state, ensuring 60FPS fluid motion.
 - **Auto-Disable**: Component detects `(pointer: coarse)` and disables the effect for touch devices to save battery.
+
+### 4.3 Social Record Pattern (`SocialInstagramSection.tsx`)
+- **Purpose**: A unified Call-to-Action module used across all informational subpages.
+- **Design**: Centered, high-contrast "Official Notice" aesthetic with the magnetic "Follow" interaction.
+- **Logic**: Imports `INSTAGRAM_URL` from common social utils to ensure link persistence.
 
 ---
 

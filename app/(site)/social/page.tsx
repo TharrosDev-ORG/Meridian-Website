@@ -5,7 +5,6 @@ import Magnetic from '@/components/Magnetic';
 import Marquee from '@/components/Marquee';
 import { getMetadata } from '@/utils/metadata-shared';
 import { generateBreadcrumbSchema } from '@/utils/jsonld';
-import { INSTAGRAM_URL } from '@/utils/social';
 import SocialInstagramSection from '@/components/sections/SocialInstagramSection';
 
 export const metadata: Metadata = getMetadata({
@@ -31,8 +30,8 @@ export default function SocialPage() {
       />
 
       {/* PAGE HERO */}
-      <section className="page-hero" aria-label="Social events hero">
-        <div className="page-hero-content">
+      <section className="module-page-hero" aria-label="Social events hero">
+        <div className="module-page-hero-content">
           <div className="hero-eyebrow rv">
             <span className="hero-eyebrow-rule"></span>
             <span className="hero-eyebrow-text">The Meridian Society</span>
@@ -58,13 +57,13 @@ export default function SocialPage() {
       {/* SOCIAL ABOUT / INTRO */}
       <section className="social-about-sec" id="vibe">
         <div className="wrap">
-          <div className="social-intro-grid">
-            <div className="social-intro-left">
+          <div className="module-intro-grid">
+            <div className="module-intro-left">
               <div className="sec-label rv">Culture</div>
               <h2 className="social-h2 rv" data-d="1">Our Social Culture.</h2>
             </div>
-            <div className="social-intro-right">
-              <p className="social-p rv" data-d="2">
+            <div className="module-intro-right">
+              <p className="module-intro-copy rv" data-d="2">
                 The Society isn&apos;t just about formal talks; it&apos;s about the conversations that happen afterward. Our social events are designed to create opportunities for students to meet peers who share their drive.
               </p>
             </div>
@@ -75,26 +74,26 @@ export default function SocialPage() {
       {/* VIBE GRID */}
       <section className="vibe-sec">
         <div className="wrap">
-          <div className="vibe-grid">
-            <article className="vibe-card rv" data-d="1">
+          <div className="module-card-grid" style={{ gridTemplateColumns: 'repeat(2, 1fr)' }}>
+            <article className="module-card rv" data-d="1">
               <div className="vibe-type">Themed Gatherings</div>
               <h3 className="vibe-h3">Bar Nights &amp; Lounges</h3>
               <p className="vibe-p">High-impact social environments where students can socialize and expand there circles.</p>
             </article>
 
-            <article className="vibe-card rv" data-d="2">
+            <article className="module-card rv" data-d="2">
               <div className="vibe-type">Small Format</div>
               <h3 className="vibe-h3">Coffee &amp; Conversation</h3>
               <p className="vibe-p">Low-pressure meetups designed for smaller groups. Perfect for deeper dialogue and getting to know the community.</p>
             </article>
 
-            <article className="vibe-card rv" data-d="3">
+            <article className="module-card rv" data-d="3">
               <div className="vibe-type">Impact Driven</div>
               <h3 className="vibe-h3">Fundraisers &amp; Galas</h3>
               <p className="vibe-p">Specialized events dedicated to raising support for society missions while bringing the community together for a cause.</p>
             </article>
 
-            <article className="vibe-card rv" data-d="4">
+            <article className="module-card rv" data-d="4">
               <div className="vibe-type">Academic Plus</div>
               <h3 className="vibe-h3">Social Mixers</h3>
               <p className="vibe-p">Post-Speaker Forum gatherings where students and guest speakers can continue the conversation in a casual setting.</p>

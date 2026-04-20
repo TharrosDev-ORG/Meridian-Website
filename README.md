@@ -142,7 +142,7 @@ Paste **ONE** of these blocks above the `{/* Placeholder */}` block.
 
 Founded on the belief that curiosity is the primary driver of education, the Society serves as a bridge between the university campus and the professional world. We bring journalists, founders, scholars, and accomplished professionals directly to the room to share knowledge, challenge assumptions, and inspire the next generation of leaders.
 
-The site is built as a premium, "Deep Ink" digital institution—reflecting the weight and seriousness of the discourse it hosts.
+The site is built as a premium, "Deep Ink" digital institution—reflecting the weight and seriousness of the discourse it hosts. It utilizes a unified **Social Record** system to bridge informational content with real-time community dispatches.
 
 ---
 
@@ -155,10 +155,11 @@ The Meridian Project utilizes a unified database architecture split into three "
 3.  **`master_member_os.sql`**: Immutable security audit logs.
 
 ### Sovereign Hardening
-To activate the administrative locks, run the following in your SQL Editor:
+To initialize the archival settings vault and lock down permissions, run following in your SQL Editor:
 ```sql
-ALTER DATABASE postgres SET "app.settings.porter_secret" = 'YOUR_SECRET';
-ALTER DATABASE postgres SET "app.settings.member_secret" = 'YOUR_SECRET';
+SELECT initialize_archival_vault('YOUR_SECRET_HERE');
+-- Hardening: REVOKE public execute rights
+REVOKE EXECUTE ON ALL FUNCTIONS IN SCHEMA public FROM PUBLIC;
 ```
 
 ### Table Definitions

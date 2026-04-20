@@ -191,7 +191,7 @@ export default function Home() {
       <div className="sec-label rv">Get Involved</div>
       <h2 className="speaking-title rv" data-d="1" id="speaking-heading">Have a Story<br/> or Idea Worth <em>Sharing?</em></h2>
       <p className="speaking-sub rv" data-d="2">We’d love to hear from you.</p>
-      <p className="speaking-body rv" data-d="2">Whether you want to speak, collaborate, or simply get involved, The Meridian Society is always looking to grow its circle, commn.</p>
+      <p className="speaking-body rv" data-d="2">Whether you want to speak, collaborate, or simply get involved, The Meridian Society is always looking to grow its community and team.</p>
       <Link href="/speak" className="text-link rv" data-d="3">Speak at The Meridian  &#8594;</Link>
     </div>
     <div className="speaking-right">

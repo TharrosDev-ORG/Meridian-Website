@@ -127,7 +127,7 @@ export default function EventsPage() {
         {/* ═══════════ NOTIFY / INSTAGRAM ═══════════ */}
         <section className="notify-sec">
           <div className="wrap notify-inner">
-            <h2 className="notify-title rv">All Announcements For Upcominng Event Will be on <em>Instagram.</em></h2>
+            <h2 className="notify-title rv">Announcements For Upcominng Event Will be on <em>Instagram.</em></h2>
             <p className="notify-sub rv" data-d="1">We announce all forum dates, speakers, and registration links exclusively through our social channels first.</p>
             <div className="notify-actions rv" data-d="2">
               <Magnetic strength={0.3}>

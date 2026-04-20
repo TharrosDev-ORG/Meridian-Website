@@ -13,7 +13,7 @@ const SocialInstagramSection: React.FC = () => {
           The Society on <em>Instagram.</em>
         </h2>
         <p className="social-record-copy rv" data-d="2">
-          Announcements and priority registration.
+          Follow for announcements and priority registration.
         </p>
         <div className="social-record-actions rv" data-d="3">
           <Magnetic strength={0.2}>

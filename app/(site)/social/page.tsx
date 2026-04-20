@@ -42,7 +42,7 @@ export default function SocialPage() {
             Social <em>Events.</em>
           </h1>
           <div className="hero-hr rv" aria-hidden="true" data-d="1"></div>
-          <p className="hero-sub rv" data-d="2">From quiet coffee meetups to high-energy social nights.<br />A space for students to connect.</p>
+          <p className="hero-sub rv" data-d="2">A space for students to connect.</p>
           <div className="hero-actions rv" data-d="3">
             <Magnetic strength={0.25}>
               <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="btn-primary"><span>Join the Community</span></a>
@@ -64,9 +64,7 @@ export default function SocialPage() {
             </div>
             <div className="social-intro-right">
               <p className="social-p rv" data-d="2">
-                The Society isn&apos;t just about formal talks; it&apos;s about the conversations that happen afterward. Our social events are designed to create a relaxed, authentic space for students to meet peers who share their drive.
-                <br /><br />
-                We believe that the best connections happen when the agenda is loose and the curiosity is high. Whether it&apos;s a themed bar night or a quiet weekend gathering, the focus is always on genuine interaction.
+                The Society isn&apos;t just about formal talks; it&apos;s about the conversations that happen afterward. Our social events are designed to create opportunities for students to meet peers who share their drive.
               </p>
             </div>
           </div>
@@ -80,13 +78,13 @@ export default function SocialPage() {
             <article className="vibe-card rv" data-d="1">
               <div className="vibe-type">Themed Gatherings</div>
               <h3 className="vibe-h3">Bar Nights &amp; Lounges</h3>
-              <p className="vibe-p">Evening events in premier Ottawa spaces. High-impact social environments where student ambition meets professional experience.</p>
+              <p className="vibe-p">High-impact social environments where students can socialize and expand there circles.</p>
             </article>
 
             <article className="vibe-card rv" data-d="2">
               <div className="vibe-type">Small Format</div>
               <h3 className="vibe-h3">Coffee &amp; Conversation</h3>
-              <p className="vibe-p">Low-pressure meetups designed for smaller groups. Perfect for deeper dialogue and getting to know the core community.</p>
+              <p className="vibe-p">Low-pressure meetups designed for smaller groups. Perfect for deeper dialogue and getting to know the community.</p>
             </article>
 
             <article className="vibe-card rv" data-d="3">
@@ -107,7 +105,7 @@ export default function SocialPage() {
       {/* NOTIFY / INSTAGRAM */}
       <section className="notify-sec">
         <div className="wrap notify-inner">
-          <h2 className="notify-title rv">Social Announcements live on <em>Instagram.</em></h2>
+          <h2 className="notify-title rv">Event Announcements can be Found on <em>Instagram.</em></h2>
           <p className="notify-sub rv" data-d="1">Our community gathers spontaneously. We post all social invitations, locations, and RSVPs via Instagram Stories first.</p>
           <div className="notify-actions rv" data-d="2">
             <Magnetic strength={0.3}>

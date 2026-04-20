@@ -6,6 +6,7 @@ import Marquee from '@/components/Marquee';
 import { getMetadata } from '@/utils/metadata-shared';
 import { generateBreadcrumbSchema } from '@/utils/jsonld';
 import { INSTAGRAM_URL } from '@/utils/social';
+import SocialInstagramSection from '@/components/sections/SocialInstagramSection';
 
 export const metadata: Metadata = getMetadata({
   title: "Social Gatherings",
@@ -102,20 +103,7 @@ export default function SocialPage() {
         </div>
       </section>
 
-      {/* NOTIFY / INSTAGRAM */}
-      <section className="notify-sec">
-        <div className="wrap notify-inner">
-          <h2 className="notify-title rv">Event Announcements can be Found on <em>Instagram.</em></h2>
-          <p className="notify-sub rv" data-d="1">Our community gathers spontaneously. We post all social invitations, locations, and RSVPs via Instagram Stories first.</p>
-          <div className="notify-actions rv" data-d="2">
-            <Magnetic strength={0.3}>
-              <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="btn-primary">
-                <span>Follow @Meridian.Society</span>
-              </a>
-            </Magnetic>
-          </div>
-        </div>
-      </section>
+      <SocialInstagramSection />
 
     </main>
   );

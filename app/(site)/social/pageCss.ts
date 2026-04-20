@@ -49,14 +49,6 @@ export const socialCss = `
     .vibe-p { font-family: var(--serif); font-size: 18px; line-height: 1.7; color: var(--ink-75); }
 
     /* ── Stay Notified (Matches Events) ── */
-    .notify-sec { padding: 80px 0; background: var(--cream-deep); position: relative; overflow: hidden; border-top: 1px solid var(--ink-15); }
-    .notify-sec::before { content: ''; position: absolute; top: 40px; right: 40px; width: 80px; height: 80px; border-top: 1px solid var(--ink-15); border-right: 1px solid var(--ink-15); pointer-events: none; }
-    .notify-sec::after  { content: ''; position: absolute; bottom: 40px; left: 40px; width: 80px; height: 80px; border-bottom: 1px solid var(--ink-15); border-left: 1px solid var(--ink-15); pointer-events: none; }
-    .notify-inner { position: relative; z-index: 1; max-width: 640px; margin: 0 auto; text-align: center; }
-    .notify-title { font-family: var(--serif); font-size: clamp(40px, 5vw, 76px); font-weight: 300; line-height: 1.0; color: var(--ink); margin-bottom: 20px; }
-    .notify-title em { font-style: italic; color: var(--gold); }
-    .notify-sub { font-family: var(--serif); font-size: clamp(19px, 2vw, 24px); font-style: italic; font-weight: 300; color: var(--ink-75); line-height: 1.85; margin-bottom: 44px; }
-    .notify-actions { display: flex; align-items: center; justify-content: center; }
 
 
 

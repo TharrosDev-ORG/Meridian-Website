@@ -5,6 +5,7 @@ import Magnetic from '@/components/Magnetic';
 import Marquee from '@/components/Marquee';
 import { getMetadata } from '@/utils/metadata-shared';
 import { generateBreadcrumbSchema } from '@/utils/jsonld';
+import { INSTAGRAM_URL } from '@/utils/social';
 import SocialInstagramSection from '@/components/sections/SocialInstagramSection';
 
 export const metadata: Metadata = getMetadata({

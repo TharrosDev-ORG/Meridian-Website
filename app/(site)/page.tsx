@@ -13,7 +13,7 @@ import { INAUGURAL_EVENT_LABEL } from '@/utils/copy';
 
 export const metadata: Metadata = getMetadata({
   title: "Ottawa's Student Speaker Forum",
-  description: "An independent, student-run organization connecting motivated Ottawa students with the professionals, alumni, and scholars who can expand their world. Built to facilitate discourse and a community of curious people.",
+  description: "An independent, student-run organization connecting motivated Ottawa students with the professionals, alumni, and scholars who can expand their mindset. Built to facilitate discourse and a community of motivated people.",
   urlPath: "/"
 });
 
@@ -39,7 +39,7 @@ export default function Home() {
       <span className="rv-stagger-item">DISCOURSE</span>
     </h1>
     <div className="hero-hr" aria-hidden="true"></div>
-    <p className="hero-sub rv" data-d="1">Bringing curious students together with the professionals, alumni, and scholars who can expand their world.</p>
+    <p className="hero-sub rv" data-d="1">Bringing students together with the professionals, alumni, and scholars who can expand their mindset.</p>
     <div className="hero-actions">
       <div className="hero-main-ctas rv" data-d="3">
         <Magnetic strength={0.2}>
@@ -69,7 +69,7 @@ export default function Home() {
     </div>
     <div className="stat" role="listitem">
       <div className="stat-val">Ottawa</div>
-      <div className="stat-lbl">Based at Carleton</div>
+      <div className="stat-lbl">Canada</div>
     </div>
     <div className="stat" role="listitem">
       <div className="stat-val">{INAUGURAL_EVENT_LABEL}</div>
@@ -92,18 +92,17 @@ export default function Home() {
       <span className="about-num" aria-hidden="true">01</span>
       <div className="about-section-label">About</div>
       <h2 className="about-title rv rv-stagger" id="about-heading">
-        <span className="rv-stagger-item">A Room</span>
-        <span className="rv-stagger-item">With the</span>
-        <span className="rv-stagger-item"><em>Right People.</em></span>
+        <span className="rv-stagger-item">Building a</span>
+        <span className="rv-stagger-item"><em>Community.</em></span>
       </h2>
     </div>
     <div className="about-right">
-      <p className="about-body rv" id="about-speakable">The Meridian Society is an independent, student-run organization based at Carleton University. We exist to connect motivated students with the professionals, alumni, and scholars who can expand their mindset, and to build a community of students and young professionals in Ottawa.</p>
-      <p className="about-body rv" data-d="1">Through events, open conversations, and gatherings of all kinds, we help our members orient themselves in an increasingly complex world. Not an extension of any institution. Something built, owned, and run entirely by students.</p>
+      <p className="about-body rv" id="about-speakable">The Meridian Society is an independent, student-run organization based in ottawa. Founded with the goal of connecting motivated students with the professionals who can expand their mindset, and to build a community of students and young professionals in Ottawa.</p>
+      <p className="about-body rv" data-d="1">Through events, open conversations, and gatherings of all kinds, we aim to build a place where members can orient themselves in an increasingly complex and competitive world. Not an extension of any institution. Something built, owned, and run entirely by students.</p>
       <div className="pull-quote rv" data-d="2">
-        <p>&quot;We cannot promise outcomes, but we can provide access, exposure, and orientation to people and their ideas.&quot;</p>
+        <p>&quot;Shaped by the effort you put in, your input defines your outcome by building knowledge, connections, and opportunity.&quot;</p>
       </div>
-      <Link href="/team" className="text-link rv" data-d="3">Meet the Team  &#8594;</Link>
+      <Link href="/team" className="text-link rv" data-d="3">The Team  &#8594;</Link>
     </div>
   </div>
 </section>
@@ -116,18 +115,18 @@ export default function Home() {
         <span className="rv-stagger-item">Who We</span>
         <span className="rv-stagger-item"><em>Gather.</em></span>
       </h2>
-      <p className="who-intro-body rv" data-d="1">The Society brings together thoughtful people at all stages: from students still finding their footing to professionals and scholars with something worth sharing.</p>
+      <p className="who-intro-body rv" data-d="1">We bring together people at every stage, from students to seasoned professionals.</p>
     </div>
     <div className="who-grid">
       <div className="who-item rv" data-num="01" data-tilt>
         <div className="who-num">01</div>
         <div className="who-item-title">Students &amp; Alumni</div>
-        <p className="who-item-desc">Motivated, curious individuals from Carleton University, uOttawa, and Algonquin College, and anyone drawn to the work we do.</p>
+        <p className="who-item-desc">Motivated, individuals from Carleton University, uOttawa, and Algonquin College, and anyone drawn to the work we do.</p>
       </div>
       <div className="who-item rv" data-d="1" data-num="02" data-tilt>
         <div className="who-num">02</div>
         <div className="who-item-title">Speakers &amp; Professionals</div>
-        <p className="who-item-desc">People across law, business, policy, media, and beyond, with lived experience and a story worth telling.</p>
+        <p className="who-item-desc">People across law, business, policy, media, and beyond, with lived experience.</p>
       </div>
       <div className="who-item rv" data-d="2" data-num="03" data-tilt>
         <div className="who-num">03</div>
@@ -164,21 +163,21 @@ export default function Home() {
   <div className="wrap">
     <div className="events-header">
       <h2 className="events-title rv" id="events-heading">Our<br/><em>Events.</em></h2>
-      <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="text-link rv" data-d="1">Announcements  &#8594;</a>
+      <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="text-link rv" data-d="1">Instagram  &#8594;</a>
     </div>
 
     <div className="portal-grid">
       <Link href="/events" className="portal-card rv" data-d="1">
         <div className="portal-eyebrow">Signature Program</div>
         <h3 className="portal-h3">The Speaker<br/><em>Forum.</em></h3>
-        <p className="portal-p">Established professionals and academics sharing lived experience with a motivated student audience.</p>
+        <p className="portal-p">Established professionals and academics sharing lived experience with a motivated students.</p>
         <span className="portal-cta">View Program &#8594;</span>
       </Link>
 
       <Link href="/social" className="portal-card rv" data-d="2">
         <div className="portal-eyebrow">Community</div>
-        <h3 className="portal-h3">Social<br/><em>Gatherings.</em></h3>
-        <p className="portal-p">Authentic spaces designed for interaction—from quiet coffee meetups to high-energy social nights.</p>
+        <h3 className="portal-h3">Social<br/><em>Events.</em></h3>
+        <p className="portal-p">Events that build community, from quiet coffee meetups to high-energy nights out.</p>
         <span className="portal-cta">Explore Socials &#8594;</span>
       </Link>
     </div>
@@ -190,9 +189,9 @@ export default function Home() {
   <div className="wrap speaking-layout">
     <div className="speaking-left">
       <div className="sec-label rv">Get Involved</div>
-      <h2 className="speaking-title rv" data-d="1" id="speaking-heading">Have a Story<br/>Worth <em>Sharing?</em></h2>
+      <h2 className="speaking-title rv" data-d="1" id="speaking-heading">Have a Story<br/> or Idea Worth <em>Sharing?</em></h2>
       <p className="speaking-sub rv" data-d="2">We’d love to hear from you.</p>
-      <p className="speaking-body rv" data-d="2">Whether you want to speak, collaborate, or simply get involved, The Meridian Society is always looking to grow its circle of people worth knowing.</p>
+      <p className="speaking-body rv" data-d="2">Whether you want to speak, collaborate, or simply get involved, The Meridian Society is always looking to grow its circle, commn.</p>
       <Link href="/speak" className="text-link rv" data-d="3">Speak at The Meridian  &#8594;</Link>
     </div>
     <div className="speaking-right">

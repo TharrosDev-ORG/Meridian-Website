@@ -31,9 +31,9 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://meridiansociety.ca"),
-  title: "The Meridian Society | Ottawa's Student Speaker Forum",
+  title: "The Meridian Society | Ottawa Student Speaker Forum & Social Community",
   description:
-    "Ottawa's flagship student speaker forum. The Meridian Society connects curious students with professionals, alumni, and scholars through curated speaker events and open dialogue.",
+    "An independent, student-run community in Ottawa. The Meridian Society connects motivated students with professionals through our curated speaker forum and vibrant social events. Built by students, for students.",
   keywords: [
     "Meridian Society", "Magnus Abdelnour", "Colin Sherwood", "Ottawa Student Speaker Forum", "Undergraduate Speaker Series",
     "Academic Dialogue Ottawa", "Professional Networking for Students", "Career Orientation Students",
@@ -69,8 +69,8 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "The Meridian Society | Ottawa's Student Speaker Forum",
-    description: "The Meridian Society is Ottawa's premier student speaker forum, connecting curious minds with professionals, alumni, and scholars.",
+    title: "The Meridian Society | Ottawa Student Speaker Forum & Social Community",
+    description: "An independent, student-run community in Ottawa. The Meridian Society connects motivated students with professionals through our curated speaker forum and vibrant social events. Built by students, for students.",
     url: "https://meridiansociety.ca/",
     siteName: "The Meridian Society",
     images: [
@@ -86,9 +86,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "The Meridian Society | Ottawa Student Speaker Forum",
+    title: "The Meridian Society | Ottawa Student Speaker Forum & Social Community",
     description:
-      "A student-run speaker forum in Ottawa. Free events, open conversations, and a community of curious minds.",
+      "An independent, student-run community in Ottawa. The Meridian Society connects motivated students with professionals through our curated speaker forum and vibrant social events. Built by students, for students.",
     site: "@MeridianSociety",
     images: ["https://meridiansociety.ca/assets/og-image.png"],
   },

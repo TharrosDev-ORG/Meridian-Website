@@ -12,8 +12,8 @@ import { INSTAGRAM_URL } from '@/utils/social';
 import { INAUGURAL_EVENT_LABEL } from '@/utils/copy';
 
 export const metadata: Metadata = getMetadata({
-  title: "Ottawa's Student Speaker Forum",
-  description: "An independent, student-run organization connecting motivated Ottawa students with the professionals, alumni, and scholars who can expand their mindset. Built to facilitate discourse and a community of motivated people.",
+  title: "Ottawa Student Speaker Forum & Social Community",
+  description: "An independent, student-run community in Ottawa. The Meridian Society connects motivated students with professionals through our curated speaker forum and vibrant social events. Built by students, for students.",
   urlPath: "/"
 });
 

@@ -3,7 +3,7 @@ import { Metadata } from 'next';
 const SITE_CONFIG = {
   name: 'The Meridian Society',
   url: 'https://meridiansociety.ca',
-  description: 'An independent, student-run organization connecting motivated Ottawa students with the professionals, alumni, and scholars who can expand their world.',
+  description: 'An independent, student-run community in Ottawa. The Meridian Society connects motivated students with professionals through our curated speaker forum and vibrant social events. Built by students, for students.',
   locale: 'en_CA',
   twitter: '@MeridianSociety',
   keywords: [
@@ -26,7 +26,7 @@ export function getMetadata(options: {
 }): Metadata {
   const { title, description = SITE_CONFIG.description, urlPath = '', type = 'website', keywords = [] } = options;
   const url = `${SITE_CONFIG.url}${urlPath}`;
-  const fullTitle = `${title} | ${SITE_CONFIG.name}`;
+  const fullTitle = `${SITE_CONFIG.name} | ${title}`;
 
   // Combine global keywords with page-specific ones
   const combinedKeywords = Array.isArray(keywords) 

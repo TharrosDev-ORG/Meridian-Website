@@ -18,6 +18,12 @@ The site implements a unified, mobile-first component tree. We avoid separate mo
 | `/team` | `app/(site)/team/` | `page.tsx` | (Standard CSS) |
 | `/register` | `app/register/` | `page.tsx` | (Shared `globals.css`) |
 
+### 1.2 Desktop UI Optimization (v1.4)
+The site implements a strict **Mobile Isolation Strategy** for high-resolution displays (>1101px):
+- **Spacing**: Increased vertical rhythm using `--section-spacing-dt: 120px`.
+- **Typography**: Responsive `hero-title` scaling using `clamp` (up to 220px on ultra-wide).
+- **Performance Hardening**: High-traffic animated elements utilize `will-change: transform, opacity` to ensure hardware acceleration and 60FPS fluidity on desktop.
+
 ---
 
 ## 🛡️ 2. The Registration Pipeline (Hardened)
@@ -60,6 +66,7 @@ The site utilizes a strict "Observer-Reveal" pattern managed through `Providers.
 - Uses mouse events to calculate pull strength relative to the element center.
 - **Performance**: High-frequency mouse moves update **CSS variables** (`--mag-x`, `--mag-y`) rather than React state, ensuring 60FPS fluid motion.
 - **Auto-Disable**: Component detects `(pointer: coarse)` and disables the effect for touch devices to save battery.
+- **Wordmark Integration**: The primary site wordmark in the `NavBar` utilizes the Magnetic effect on desktop for enhanced interactive discovery.
 
 ### 4.3 Social Record Pattern (`SocialInstagramSection.tsx`)
 - **Purpose**: A unified Call-to-Action module used across all informational subpages.

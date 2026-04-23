@@ -1,7 +1,7 @@
-# Security & Performance Audit Report: Meridian Website v1.3
+# Security & Performance Audit Report: Meridian Website v1.4
 
 **Status**: HARDENED & OPTIMIZED (Deep Audit)
-**Audit Date**: 2026-04-20
+**Audit Date**: 2026-04-23
 **Infrastructure**: Next.js 16 (React 19) + Supabase
 
 ---
@@ -54,6 +54,11 @@
 
 ### 5. Asset Hierarchy Hardening
 - **Optimization**: Verified all content images use `next/image` for automatic lazy loading, resolution switching, and cumulative layout shift (CLS) prevention.
+
+### 6. Desktop Visual Hardening (v1.4 Enhancement)
+- **Action**: Implemented **Mobile Isolation Strategy** using strict media query encapsulation (>1101px).
+- **Optimization**: Applied `will-change: transform, opacity` to high-frequency animated components (Hero Stats, Portal Cards, Reveal Items).
+- **Result**: Enabled hardware-accelerated GPU layers for desktop hover transitions, maintaining 60FPS fluid motion on high-resolution displays without affecting mobile resource consumption.
 
 ---
 

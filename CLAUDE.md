@@ -5,8 +5,8 @@ This document is the entry point for any AI coding assistant working on this rep
 ---
 
 ## 🏛️ Project Identity
-**The Meridian Society**: an independent student-led speaker forum in Ottawa.
-**Aesthetic**: "Deep Ink" — premium, editorial, quiet.
+**The Meridian Society**: The website is the society's core identity and foundational base.
+**Aesthetic**: Premium, professional, high-contrast.
 
 - **Background**: `--cream` (#F4EDE3)
 - **Primary Text**: `--ink` (#18150F)
@@ -71,8 +71,9 @@ app/globals.css                 **The Single Source of Truth for Styles.**
 2. **Never use pure white (#FFF) or pure black (#000)**. Use `--cream` (#F4EDE3) and `--ink` (#18150F). Opacity variants (`--ink-75`, `--cream-mid`, etc.) are defined in `:root`.
 3. **Escaped apostrophes**: write `&apos;` inside JSX text. `eslint-plugin-react` rule `react/no-unescaped-entities` will fail the build otherwise.
 4. **No anonymous DB writes.** RLS on `members` is locked down. All enrollment must go through the `registerMember` server action (which uses `utils/supabase/service.ts` — service role key, server-only). Never import `service.ts` from a `"use client"` file.
-5. **Static-first content policy**: `/events` and `/social` are permanent informational program guides. Dynamic announcements happen on Instagram only. **Do not add dated upcoming events to the codebase.**
+5. **Static-first content policy**: `/events` and `/social` are permanent informational event history guides. Dynamic announcements happen on Instagram only. **Do not add dated upcoming events to the codebase.**
 6. **Prefer class selectors over type selectors for structural components.** The header nav uses `.site-nav` (not bare `nav {}`) precisely because a bare type selector once hijacked every `<nav>` on the page — including the footer Index column, which got teleported into a fixed top bar. Follow the same pattern if you add other structural components (modals, drawers, etc.).
+7. **Mobile Isolation Strategy**: Desktop-specific optimizations (hovers, spacing, scaling) must be strictly encapsulated in `@media (min-width: 1101px)` to protect mobile stability.
 7. **`setState` inside `useEffect` must be deferred.** The ESLint rule `react-hooks/set-state-in-effect` treats a synchronous `setState` call in an effect body as an error. Use `setTimeout(() => setX(...), 0)` or set it inside an event handler / subscription callback. See `components/FaqAccordion.tsx` and `components/Footer.tsx` for the canonical pattern.
 8. **Routes outside `(site)` must self-wrap `TransitionWrapper`.** `/register` is the only current example. If you add another route outside the group (or a new top-level group), wrap its page content in `<TransitionWrapper>` so the `.page-sweep` entry animation still fires.
 
@@ -115,7 +116,7 @@ Four clients, each with a narrow purpose. All validate their env vars at creatio
 **Single file**: `app/globals.css`. Tailwind v4 is installed but intentionally not used in component files — the site is styled by hand in the same stylesheet for consistency.
 
 **Section map** (search for `/* ── X ── */` headers):
-- RESET · AESTHETICS · SCROLLBAR · **DESIGN TOKENS** · BASE · FOCUS VISIBLE · BACK-TO-TOP · KEYFRAMES · MARQUEE · REDUCED MOTION · MOBILE BASE · **NAV BAR** · HAMBURGER · **MOBILE DRAWER** · MOBILE RESPONSIVE · PAGE TRANSITIONS · STAGGERED REVEALS · SUCCESS STATE UTILS · SHARED PAGE UTILS · **SHARED MODULES (v1.3)** · **FOOTER** · SHARED RESPONSIVE OVERRIDES · Responsive Footer · REGISTER SECTION.
+- RESET · AESTHETICS · SCROLLBAR · **DESIGN TOKENS** · BASE · FOCUS VISIBLE · BACK-TO-TOP · KEYFRAMES · MARQUEE · REDUCED MOTION · MOBILE BASE · **NAV BAR** · HAMBURGER · **MOBILE DRAWER** · MOBILE RESPONSIVE · PAGE TRANSITIONS · STAGGERED REVEALS · SUCCESS STATE UTILS · SHARED PAGE UTILS · **SHARED MODULES (v1.3)** · **DESKTOP OPTIMIZATIONS (v1.4)** · **FOOTER** · SHARED RESPONSIVE OVERRIDES · Responsive Footer · REGISTER SECTION.
 
 Design tokens live in `:root` around lines 30–72: `--cream*`, `--ink*` (opacity variants), `--gold*`, `--serif`, `--sans`, plus `--grain` (SVG noise). Reach for these rather than hard-coding colors.
 

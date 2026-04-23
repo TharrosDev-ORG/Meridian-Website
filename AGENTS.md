@@ -24,6 +24,9 @@ The **Meridian Website** is the core of The Meridian Society—it is the society
     - Check `if (!mounted) return <Loader />` before rendering interactive components.
 6.  **CSS Module Policy**:
     - Centralized layout patterns (Heros, Intro Grids, Cards) MUST use the shared `.module-` classes in `app/globals.css`. Do not duplicate structural CSS in `pageCss.ts`.
+7.  **Mobile Isolation Strategy**:
+    - All desktop-only visual and interactive enhancements (increased spacing, high-fidelity hovers, desktop-specific typography) MUST be strictly encapsulated within `@media (min-width: 1101px)` blocks.
+    - This protects recent mobile optimizations (iOS input zoom fixes, safe-area insets) from regression on high-resolution displays.
 
 ---
 

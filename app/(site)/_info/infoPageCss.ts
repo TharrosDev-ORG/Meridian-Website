@@ -147,8 +147,40 @@ export const infoPageCss = `
   .info-contact-val a { text-decoration: none; border-bottom: 1px solid var(--gold); padding-bottom: 2px; }
 
   @media (max-width: 700px) {
-    .info-hero { padding: 110px 24px 48px; }
-    .info-body { padding: 56px 24px 80px; }
-    .info-body p, .info-body li { font-size: 16.5px; }
+    .info-hero { padding: 104px 22px 48px; }
+    .info-eyebrow { margin-bottom: 18px; font-size: 10px; letter-spacing: 0.26em; }
+    .info-title {
+      font-size: clamp(36px, 10vw, 52px);
+      line-height: 1.02;
+      margin-bottom: 16px;
+    }
+    .info-meta { font-size: 10px; letter-spacing: 0.2em; }
+
+    .info-body { padding: 48px 22px 72px; }
+    .info-body h2 {
+      font-size: 22px;
+      margin: 40px 0 14px;
+      padding-bottom: 10px;
+      line-height: 1.25;
+    }
+    .info-body p, .info-body li {
+      font-size: 16.5px;
+      line-height: 1.75;
+      margin-bottom: 14px;
+    }
+    .info-body li { padding-left: 20px; }
+    .info-body li::before { left: 4px; }
+
+    .info-contact-grid { grid-template-columns: 1fr; gap: 14px; margin: 24px 0; }
+    .info-contact-card { padding: 22px; }
+    .info-contact-lbl { font-size: 10px; letter-spacing: 0.24em; margin-bottom: 10px; }
+    .info-contact-val { font-size: 16.5px; line-height: 1.55; }
+    .info-contact-val a { word-break: break-word; }
+  }
+
+  @media (max-width: 380px) {
+    .info-hero { padding: 100px 18px 44px; }
+    .info-body { padding: 44px 18px 64px; }
+    .info-title { font-size: clamp(32px, 11vw, 44px); }
   }
 `;

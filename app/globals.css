@@ -190,8 +190,21 @@ body {
 
 /* ── MOBILE BASE ── */
 @media (max-width: 700px) {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    scroll-padding-top: 80px;
+  }
+  body {
+    line-height: 1.65;
+  }
   a { -webkit-tap-highlight-color: transparent; }
   button { touch-action: manipulation; }
+  /* Hide custom chunky scrollbar on mobile — native thin bar is less intrusive */
+  ::-webkit-scrollbar { width: 0; display: none; }
+  * { scrollbar-width: none; }
+  /* Prevent iOS input zoom on focus (ensures all inputs are ≥16px) */
+  input, select, textarea { font-size: 16px; }
 }
 
 
@@ -403,11 +416,65 @@ body {
 @media (max-width: 700px) {
   .nav-links, .nav-cta { display: none; }
   .hamburger { display: flex; }
-  .nav-inner { padding: 0 20px; }
-  .nav-wordmark { font-size: 11px; }
+  .nav-inner { padding: 0 22px; }
+  .nav-wordmark { font-size: 11.5px; letter-spacing: 0.24em; }
   /* Reduce blur cost on mobile */
   .site-nav { -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); }
   .mob-drawer { -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
+
+  /* ── Mobile Drawer Refinements ── */
+  .mob-drawer {
+    width: min(88vw, 340px);
+    padding-top: env(safe-area-inset-top, 0px);
+  }
+  .mob-wordmark {
+    top: calc(72px + env(safe-area-inset-top, 0px));
+    font-size: 10px;
+    letter-spacing: 0.36em;
+    color: rgba(24,21,15,0.55);
+  }
+  .mob-links {
+    top: calc(120px + env(safe-area-inset-top, 0px));
+    padding: 0 28px;
+  }
+  .mob-links a {
+    padding: 20px 0;
+    font-size: 22px;
+    letter-spacing: 0.08em;
+    color: rgba(24,21,15,0.78);
+    min-height: 48px;
+  }
+  .mob-links a:active { color: var(--gold); }
+  .mob-arrow {
+    font-size: 15px;
+    opacity: 0.4;
+    transform: none;
+  }
+  .mob-bottom {
+    padding: 22px 28px;
+    padding-bottom: calc(22px + env(safe-area-inset-bottom, 0px));
+    gap: 14px;
+  }
+  .mob-meta {
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    color: rgba(24,21,15,0.5);
+  }
+  .mob-cta {
+    padding: 18px 20px;
+    font-size: 12px;
+    letter-spacing: 0.24em;
+    border-width: 1.5px;
+    min-height: 52px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .mob-cta:active { background: var(--gold); color: var(--cream); }
+
+  /* Ensure hamburger has a comfortable tap area */
+  .hamburger {
+    width: 48px; height: 48px;
+    margin-right: -10px; /* optically align with edge of container */
+  }
 }
 
 /* ── PAGE TRANSITIONS ── */
@@ -738,14 +805,41 @@ footer {
 }
 
 @media (max-width: 700px) {
-  .wrap { padding: 0 20px; }
-  .page-hero { padding: 80px 20px 48px; min-height: 50vh; }
-  .btn-primary { width: 100%; display: block; text-align: center; }
-  .btn-ghost-link { display: inline-flex; justify-content: center; width: 100%; margin-top: 8px; font-size: 18px; }
+  .wrap { padding: 0 22px; }
+  .page-hero, .module-page-hero {
+    padding: 104px 22px 56px;
+    min-height: 56vh;
+  }
+  .btn-primary {
+    width: 100%; display: block; text-align: center;
+    padding: 16px 32px 15px;
+    font-size: 12px;
+    letter-spacing: 0.22em;
+    min-height: 52px;
+  }
+  .btn-ghost-link {
+    display: inline-flex; justify-content: center;
+    width: 100%; margin-top: 10px;
+    font-size: 17px; padding: 8px 0;
+    min-height: 44px; align-items: center;
+  }
   .hero-actions { gap: 16px; width: 100%; }
-  .hero-title { font-size: clamp(38px, 10.5vw, 52px); }
-  .hero-sub { font-size: 16px; line-height: 1.65; margin-bottom: 32px; }
-  .hero-hr { margin: 24px auto; }
+  .hero-pre { font-size: clamp(16px, 4.5vw, 22px); }
+  .hero-title {
+    font-size: clamp(42px, 11.2vw, 58px);
+    letter-spacing: 0.03em;
+    line-height: 0.94;
+  }
+  .hero-sub {
+    font-size: 16.5px;
+    line-height: 1.7;
+    margin: 14px auto 28px;
+    max-width: 38ch;
+  }
+  .hero-hr { margin: 22px auto; }
+  .hero-eyebrow-text { font-size: 10px; letter-spacing: 0.26em; }
+  .sec-label { font-size: 10px; letter-spacing: 0.28em; margin-bottom: 16px; gap: 12px; }
+  .text-link { font-size: 11px; letter-spacing: 0.2em; padding: 6px 0; min-height: 36px; align-items: center; }
 }
 
 /* Responsive Footer */
@@ -757,18 +851,33 @@ footer {
   .footer-brand { grid-column: span 2; }
 }
 @media (max-width: 500px) {
-  footer { padding: 48px 0 24px; }
+  footer { padding: 52px 0 calc(28px + env(safe-area-inset-bottom, 0px)); }
   .footer-main {
-    gap: 28px 24px;
-    padding-bottom: 28px;
+    gap: 32px 24px;
+    padding-bottom: 32px;
+    margin-bottom: 24px;
   }
-  .footer-brand .footer-tagline { font-size: 15px; margin-bottom: 12px; }
+  .footer-brand .footer-wordmark { font-size: 11.5px; letter-spacing: 0.24em; }
+  .footer-brand .footer-tagline { font-size: 15px; margin-bottom: 10px; }
+  .footer-est { font-size: 9.5px; letter-spacing: 0.18em; }
+  .footer-col-h { font-size: 10px; margin-bottom: 14px; letter-spacing: 0.28em; }
+  .footer-list { gap: 12px; }
+  .footer-list a {
+    font-size: 15.5px;
+    display: inline-block;
+    padding: 4px 0;
+    min-height: 32px;
+    color: rgba(244, 237, 227, 0.82);
+  }
   .footer-bottom {
     flex-direction: column-reverse;
     align-items: center;
-    gap: 12px;
+    gap: 14px;
     text-align: center;
   }
+  .footer-live { font-size: 10px; letter-spacing: 0.22em; }
+  .footer-live-val { font-size: 18px; }
+  .footer-copy { font-size: 10px; letter-spacing: 0.14em; line-height: 1.6; }
 }
 
 /* ── REGISTER SECTION (Shared) ── */
@@ -870,7 +979,104 @@ footer {
 }
 
 @media (max-width: 700px) {
-  .social-record-sec { padding: 80px 20px; }
-  .social-record-title { font-size: 40px; margin-bottom: 20px; }
-  .social-record-copy { font-size: 17px; margin-bottom: 40px; }
+  .social-record-sec { padding: 72px 22px; }
+  .social-record-eyebrow { font-size: 10px; letter-spacing: 0.32em; margin-bottom: 20px; }
+  .social-record-title { font-size: 40px; margin-bottom: 22px; line-height: 0.98; letter-spacing: 0.02em; }
+  .social-record-copy { font-size: 17px; line-height: 1.7; margin-bottom: 36px; max-width: 40ch; }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   MOBILE UI POLISH — Comprehensive enhancements for small screens
+   Everything below only applies at ≤700px (mobile breakpoint).
+   Desktop/tablet rendering is untouched.
+   ══════════════════════════════════════════════════════════════ */
+@media (max-width: 700px) {
+  /* ── Back-to-top arc: keep small and out of the way; avoid overlap with sticky CTA ── */
+  .arc-btn {
+    width: 44px; height: 44px;
+    bottom: calc(1.2rem + env(safe-area-inset-bottom, 0px));
+    right: 1.2rem;
+    box-shadow: 0 6px 20px rgba(24,21,15,0.12);
+  }
+
+  /* ── Module page hero (shared subpage hero) refinements ── */
+  .module-page-hero {
+    padding: 104px 22px 56px;
+    min-height: 56vh;
+  }
+  .module-page-hero-content { width: 100%; }
+
+  /* ── Module intro grid (events/social "about" block) ── */
+  .module-intro-grid { gap: 32px; }
+  .module-intro-right {
+    padding: 36px 24px;
+  }
+  .module-intro-copy {
+    font-size: 17px; line-height: 1.75;
+    padding-left: 20px;
+  }
+
+  /* Soften the oversized ghost watermarks inside module-intro-right */
+  .module-intro-right::before {
+    font-size: 96px !important;
+    bottom: -14px !important;
+    right: -6px !important;
+  }
+
+  /* ── Module card grid (signature series cards) ── */
+  .module-card-grid {
+    grid-template-columns: 1fr !important;
+    gap: 18px;
+  }
+  .module-card { padding: 30px 24px; }
+
+  /* ── Tighten shared hero eyebrow rhythm on mobile ── */
+  .hero-eyebrow {
+    margin-bottom: 20px;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .hero-eyebrow-rule { display: none; }
+
+  /* ── Marquee: slightly thinner & quieter on tiny screens ── */
+  .marquee-wrap { padding: 10px 0; }
+  .m-item { padding: 0 28px; font-size: 8.5px; letter-spacing: 0.28em; }
+  .marquee-wrap::before,
+  .marquee-wrap::after { width: 40px; }
+
+  /* ── Focus outlines on mobile: tighter offset so they don't extend beyond edges ── */
+  :focus-visible { outline-offset: 2px; }
+
+  /* ── Page transitions: reduce blur cost for smoother first paint on mobile ── */
+  @keyframes pageSweep {
+    0% { opacity: 0; transform: translateY(6px); filter: blur(4px); }
+    100% { opacity: 1; transform: translateY(0); filter: blur(0); }
+  }
+
+  /* ── Improve nav backdrop contrast when scrolled ── */
+  .site-nav.scrolled {
+    background: rgba(244,237,227,0.97);
+  }
+
+  /* ── Ensure live-region shimmer is sized correctly on mobile ── */
+  .member-count-shimmer { width: 48px; height: 38px; }
+
+  /* ── Progress bar: slightly less chunky on mobile ── */
+  .progress { height: 2px; }
+
+  /* ── Skip-link: friendlier on mobile ── */
+  .skip-link { font-size: 11px; padding: 12px 18px; }
+}
+
+/* Very small phones (≤380px) — extra tightening so nothing clips or crowds */
+@media (max-width: 380px) {
+  .wrap { padding: 0 18px; }
+  .page-hero, .module-page-hero { padding: 100px 18px 48px; }
+  .nav-inner { padding: 0 18px; }
+  .hero-title { font-size: clamp(38px, 11vw, 48px); }
+  .module-card { padding: 26px 20px; }
+  .module-intro-right { padding: 30px 20px; }
+  .module-intro-copy { padding-left: 16px; font-size: 16.5px; }
+  .mob-drawer { width: 92vw; }
 }

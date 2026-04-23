@@ -48,22 +48,51 @@ export const eventsCss = `
       .event-main { border-right: none; border-bottom: 1px solid var(--ink-15); }
     }
     @media (max-width: 700px) {
+      .events-sec, .sig-sec, .expect-sec { padding: 60px 0; }
+      .events-sec::before, .events-sec::after { width: 48px; height: 48px; top: 22px; right: 22px; }
+      .events-sec::after { top: auto; right: auto; bottom: 22px; left: 22px; }
       .event-main { padding: 32px 24px; }
       .event-meta-row { padding: 18px 20px; }
       .event-empty-state { padding: 48px 24px; }
       .rv { transform: none; transition: opacity 0.4s ease; }
       .rv[data-d="1"], .rv[data-d="2"] { transition-delay: 0s; }
-      
+
       /* Optimize text heavy blocks on mobile */
-      .events-intro-grid { grid-template-columns: 1fr; gap: 40px; }
+      .events-intro-grid { grid-template-columns: 1fr; gap: 32px; }
       .events-intro-right { padding: 32px 24px; }
       .sig-grid { grid-template-columns: 1fr; }
-      .events-copy-title, .notify-title, .expect-title { font-size: 32px; line-height: 1.1; }
-      .events-copy-body, .notify-sub { font-size: 16px; line-height: 1.7; }
-      .expect-row { grid-template-columns: 1fr; gap: 6px; }
-      .expect-val { font-size: 18px; line-height: 1.4; }
-      .sig-h { font-size: 20px; }
-      .sig-p { font-size: 15.5px; line-height: 1.6; }
-      .sig-card { padding: 32px 24px; }
+      .events-copy-title, .notify-title, .expect-title {
+        font-size: clamp(30px, 8vw, 40px);
+        line-height: 1.1;
+        margin-bottom: 18px;
+      }
+      .events-copy-body, .notify-sub { font-size: 16.5px; line-height: 1.75; }
+
+      /* Signature series cards: tighter + clearer */
+      .sig-num { font-size: 9.5px; letter-spacing: 0.22em; margin-bottom: 14px; }
+      .sig-h { font-size: 20px; margin-bottom: 12px; line-height: 1.2; }
+      .sig-p { font-size: 16px; line-height: 1.7; }
+      .sig-card { padding: 30px 22px; }
+
+      /* Expectations grid: readable stacked rows */
+      .expect-header { margin-bottom: 28px; }
+      .expect-grid { margin-top: 28px; }
+      .expect-row {
+        grid-template-columns: 1fr;
+        gap: 8px;
+        padding: 22px 22px;
+      }
+      .expect-lbl {
+        padding-top: 0;
+        font-size: 10px;
+        letter-spacing: 0.26em;
+        color: var(--gold);
+      }
+      .expect-val { font-size: 18px; line-height: 1.5; }
+    }
+
+    @media (max-width: 380px) {
+      .expect-row { padding: 20px 18px; }
+      .expect-val { font-size: 17px; }
     }
   `;

@@ -39,8 +39,25 @@ export const socialCss = `
     }
 
     @media (max-width: 750px) {
-      .vibe-grid { grid-template-columns: 1fr; gap: 20px; }
-      .social-p { font-size: 18px; padding-left: 20px; }
-      .social-h2 { font-size: 32px; }
+      .vibe-grid { grid-template-columns: 1fr; gap: 16px; }
+      .social-p { font-size: 17px; padding-left: 18px; line-height: 1.72; }
+      .social-h2 {
+        font-size: clamp(30px, 8vw, 40px);
+        line-height: 1.08;
+        margin-bottom: 20px;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .social-about-sec, .vibe-sec { padding: 60px 0; }
+      .vibe-type { font-size: 9.5px; letter-spacing: 0.22em; margin-bottom: 14px; }
+      .vibe-h3 { font-size: 20px; margin-bottom: 12px; line-height: 1.2; }
+      .vibe-p { font-size: 16.5px; line-height: 1.72; }
+      .vibe-card { padding: 30px 22px; }
+    }
+
+    @media (max-width: 380px) {
+      .vibe-card { padding: 26px 20px; }
+      .vibe-p { font-size: 16px; }
     }
   `;

@@ -55,6 +55,21 @@ const registerPageCss = `
     margin-top: 0 !important;
     background: rgba(244, 237, 227, 0.6) !important;
   }
+
+  @media (max-width: 700px) {
+    .register-page-minimal {
+      padding: 32px 18px calc(40px + env(safe-area-inset-bottom, 0px));
+    }
+    .register-nav {
+      margin-bottom: 28px;
+    }
+    .return-link {
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      padding: 8px 0;
+      min-height: 40px;
+    }
+  }
 `;
 
 export default function RegisterPage() {

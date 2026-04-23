@@ -31,12 +31,6 @@ export default function PrivacyPage() {
         </section>
 
         <section className="info-body">
-          <p>
-            The Meridian Society is a student-run organization. This page explains, in plain language,
-            what we ask for when you register and how we use it. It is intended as an informational
-            overview, not a formal legal document.
-          </p>
-
           <h2>What we collect</h2>
           <p>When you register through this site, we ask for:</p>
           <ul>

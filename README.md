@@ -1,6 +1,6 @@
-# 🏛️ The Meridian Society — Dashboard
+# 🏛️ The Meridian Society — Core Platform
 
-Welcome to the central maintenance dashboard for The Meridian Society. This document is designed for zero-friction management of the site's content and members.
+The **Meridian Website** is the core of The Meridian Society—it is the society's entire identity and the foundational base for all its operations. This document is designed for zero-friction management of the society's primary engine.
 
 ---
 
@@ -136,13 +136,11 @@ Paste **ONE** of these blocks above the `{/* Placeholder */}` block.
 ---
 
 <a name="mission"></a>
-## 📜 Project Context: The Mission
-
 **The Meridian Society** is a student-led speaker forum based in Ottawa, Ontario. 
 
 Founded on the belief that curiosity is the primary driver of education, the Society serves as a bridge between the university campus and the professional world. We bring journalists, founders, scholars, and accomplished professionals directly to the room to share knowledge, challenge assumptions, and inspire the next generation of leaders.
 
-The site is built as a premium digital presence—providing a professional platform for the society. It utilizes a unified **Social Record** system to bridge informational content with real-time community dispatches.
+The Meridian Website is the society's entire identity and the base of everything it does. It is a premium digital presence that serves as the society's central engine, utilizing a unified **Social Record** system to bridge informational content with real-time community dispatches.
 
 ---
 

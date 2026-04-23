@@ -1,6 +1,6 @@
 # The Meridian Society — Ultra-Detailed Technical Specification
 
-This document is the definitive, high-fidelity system of record for The Meridian Society website. It serves as an **"Agent-Ready" encyclopedia** of the site's architecture, security, data logic, and performance systems.
+This document is the definitive, high-fidelity system of record for the **Meridian Website**—the society's entire identity and the foundational base for everything it does. It serves as an **"Agent-Ready" encyclopedia** of the society's core architecture, security, and data systems.
 
 ---
 

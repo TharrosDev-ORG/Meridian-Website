@@ -5,7 +5,8 @@ Instructions and context for AI agents working on the Meridian Society flagship 
 ---
 
 ## 🏛 Organizational Context
-The **Meridian Website** is the public facade of The Meridian Society. It represents the "Member Registry" to the public. All designs must adhere to the high-contrast, cream-and-ink aesthetic.
+The **Meridian Website** is the core of The Meridian Society—it is the society's entire identity and the foundational base for all its operations. All designs must adhere to the high-contrast, cream-and-ink aesthetic.
+
 
 ---
 

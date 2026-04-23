@@ -62,7 +62,6 @@ export const teamCss = `
       display: flex; align-items: center; justify-content: center;
       width: 34px; height: 34px;
       border: 1px solid var(--ink-15); color: var(--ink-55);
-      background: transparent;
       transition: background 0.3s, color 0.3s, transform 0.3s, box-shadow 0.3s, border-color 0.3s;
     }
     .member-social a:hover {
@@ -71,6 +70,14 @@ export const teamCss = `
       transform: translateY(-3px);
       box-shadow: 0 8px 20px rgba(24,21,15,0.12);
     }
+    @media (min-width: 1101px) {
+      .member-social a:hover {
+        transform: translateY(-5px) scale(1.1);
+        transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.3s, color 0.3s;
+      }
+    }
+
+
     .member-social svg { width: 15px; height: 15px; }
 
     /* Placeholder card */

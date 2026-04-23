@@ -65,6 +65,10 @@ export const infoPageCss = `
     margin: 0 auto;
     padding: 80px 52px 120px;
   }
+  @media (min-width: 1101px) {
+    .info-body { padding: 120px 0 160px; }
+  }
+
 
   .info-body h2 {
     font-family: var(--serif);

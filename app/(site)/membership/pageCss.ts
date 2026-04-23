@@ -33,6 +33,10 @@ export const membershipCss = `
     .benefits-title { font-family: var(--serif); font-size: clamp(36px, 3.5vw, 56px); font-weight: 300; line-height: 1.05; color: var(--ink); }
     .benefits-title em { font-style: italic; color: var(--gold); }
     .benefits-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    @media (min-width: 1101px) {
+      .benefits-grid { gap: 48px; }
+    }
+
     .benefit-card {
       background: var(--cream); border: 1px solid var(--ink-15);
       padding: 40px 36px; display: flex; flex-direction: column;
@@ -74,6 +78,11 @@ export const membershipCss = `
     }
     .faq-item summary::-webkit-details-marker { display: none; }
     .faq-item summary:hover { color: var(--gold); }
+    @media (min-width: 1101px) {
+      .faq-item summary { transition: color 0.2s, background 0.3s; padding: 32px 24px; margin: 0 -24px; }
+      .faq-item summary:hover { background: rgba(184, 147, 42, 0.03); }
+    }
+
     .faq-icon {
       font-family: var(--sans); font-size: 20px; font-weight: 300; color: var(--ink-30);
       flex-shrink: 0; transition: transform 0.65s cubic-bezier(0.16,1,0.3,1), color 0.2s;

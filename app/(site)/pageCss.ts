@@ -131,8 +131,13 @@ export const indexCss = `
     }
     .stat {
       padding: 26px 40px; border-right: 1px solid var(--ink-08);
-      position: relative; cursor: default; transition: background 0.3s; overflow: hidden;
+      position: relative; cursor: default; 
+      transition: background 0.3s, transform 0.4s cubic-bezier(0.16,1,0.3,1), box-shadow 0.4s; 
+      overflow: hidden;
+      will-change: transform, opacity;
     }
+
+
     .stat:last-child { border-right: none; }
     .stat::after {
       content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
@@ -140,8 +145,16 @@ export const indexCss = `
       transition: transform 0.4s cubic-bezier(0.16,1,0.3,1);
     }
     .stat:hover { background: rgba(184,147,42,0.04); }
+    @media (min-width: 1101px) {
+      .stat:hover { 
+        transform: translateY(-4px); 
+        box-shadow: 0 12px 32px rgba(184,147,42,0.08); 
+      }
+      .stat::after { transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1); }
+    }
     .stat:hover::after { transform: scaleX(1); }
     .stat:hover .stat-val { color: var(--gold); }
+
     .stat-val { font-family: var(--serif); font-size: 28px; font-weight: 300; color: var(--ink); line-height: 1; margin-bottom: 5px; transition: color 0.3s; }
     .stat-lbl { font-family: var(--sans); font-size: 11px; font-weight: 600; letter-spacing: 0.24em; text-transform: uppercase; color: var(--ink-75); }
 
@@ -195,7 +208,11 @@ export const indexCss = `
       pointer-events: none;
     }
     .pull-quote:hover { box-shadow: inset 0 0 0 1px var(--ink-08), 0 8px 32px rgba(24,21,15,0.10); transform: translateX(4px); }
+    @media (min-width: 1101px) {
+      .pull-quote:hover { transform: translateX(8px) translateY(-2px); }
+    }
     .pull-quote:hover::before { transform: scaleY(1); }
+
     .pull-quote p { font-family: var(--serif); font-size: 21px; font-style: italic; font-weight: 300; line-height: 1.65; color: var(--ink); }
 
     /* ══════════════════════════════
@@ -217,7 +234,9 @@ export const indexCss = `
       background: var(--cream-mid); padding: 40px 36px;
       position: relative; overflow: hidden; cursor: default;
       transition: background 0.25s, transform 0.25s cubic-bezier(0.16,1,0.3,1), box-shadow 0.25s;
+      will-change: transform, opacity;
     }
+
     .who-item::before {
       content: attr(data-num); position: absolute; bottom: -16px; right: -8px;
       font-family: var(--serif); font-size: 120px; font-weight: 300;
@@ -230,7 +249,11 @@ export const indexCss = `
       transition: transform 0.4s cubic-bezier(0.16,1,0.3,1);
     }
     .who-item:hover { background: var(--cream); transform: translateY(-3px); box-shadow: 0 12px 48px rgba(24,21,15,0.11); transition: background 0.25s, transform 0.25s cubic-bezier(0.16,1,0.3,1), box-shadow 0.2s 0s; }
+    @media (min-width: 1101px) {
+      .who-item:hover { transform: translateY(-8px) scale(1.02); box-shadow: 0 20px 64px rgba(24,21,15,0.14); }
+    }
     .who-item:hover::after { transform: scaleX(1); }
+
     .who-item:hover::before { -webkit-text-stroke-color: rgba(184,147,42,0.1); }
     .who-num { font-family: var(--sans); font-size: 10px; font-weight: 700; letter-spacing: 0.28em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; transition: letter-spacing 0.3s; }
     .who-item:hover .who-num { letter-spacing: 0.36em; }
@@ -286,8 +309,14 @@ export const indexCss = `
       box-shadow: 0 2px 12px rgba(24,21,15,0.04), 0 8px 40px rgba(24,21,15,0.06);
       transition: transform 0.3s cubic-bezier(0.16,1,0.3,1), border-color 0.3s, box-shadow 0.3s ease;
       position: relative; overflow: hidden; cursor: pointer; text-decoration: none;
+      will-change: transform, opacity;
     }
+
     .portal-card:hover { transform: translateY(-6px); border-color: var(--gold-lt); box-shadow: 0 16px 60px rgba(24,21,15,0.12); }
+    @media (min-width: 1101px) {
+      .portal-card:hover { transform: translateY(-12px) scale(1.02); box-shadow: 0 24px 80px rgba(24,21,15,0.16); }
+    }
+
     .portal-eyebrow { font-family: var(--sans); font-size: 10px; font-weight: 700; color: var(--gold); margin-bottom: 24px; letter-spacing: 0.28em; text-transform: uppercase; }
     .portal-h3 { font-family: var(--serif); font-size: clamp(28px, 2.5vw, 42px); font-weight: 300; color: var(--ink); line-height: 1.1; margin-bottom: 20px; }
     .portal-h3 em { font-style: italic; }

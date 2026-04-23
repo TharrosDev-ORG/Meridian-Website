@@ -47,8 +47,11 @@ export default function NavBar() {
             }
           }}
         >
-          <span className="nav-wordmark">The Meridian Society</span>
+          <Magnetic strength={0.15}>
+            <span className="nav-wordmark">The Meridian Society</span>
+          </Magnetic>
         </Link>
+
         
         <ul className="nav-links" role="list">
           {navLinks.map((link) => {

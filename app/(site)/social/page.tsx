@@ -48,7 +48,7 @@ export default function SocialPage() {
             <Magnetic strength={0.25}>
               <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="btn-primary"><span>Join the Community</span></a>
             </Magnetic>
-            <a href="#vibe" className="btn-ghost-link">Learn More <span>&#8595;</span></a>
+            <a href="#details" className="btn-ghost-link">Learn More <span>&#8595;</span></a>
           </div>
         </div>
       </section>
@@ -56,49 +56,48 @@ export default function SocialPage() {
       <Marquee />
 
       {/* SOCIAL ABOUT / INTRO */}
-      <section className="social-about-sec" id="vibe">
+      <section className="social-about-sec" id="details">
         <div className="wrap">
-          <div className="module-intro-grid">
-            <div className="module-intro-left">
-              <div className="sec-label rv">Culture</div>
-              <h2 className="social-h2 rv" data-d="1">Our Social Culture.</h2>
+          <div className="social-about-layout">
+            <div className="social-about-left rv" data-d="1">
+              <h2 className="social-about-title">Why We <em>Gather</em></h2>
             </div>
-            <div className="module-intro-right">
-              <p className="module-intro-copy rv" data-d="2">
-                The Society isn&apos;t just about formal talks; it&apos;s about the conversations that happen afterward. Our social events are designed to create opportunities for students to meet peers who share their drive.
+            <div className="social-about-right rv" data-d="2">
+              <p className="social-about-body">
+                The Meridian Society is more than a speaker series. It is a community of students who value dialogue, debate, and discovery. Our social gatherings are designed to facilitate these connections in a casual, high-impact environment.
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* VIBE GRID */}
-      <section className="vibe-sec">
+      {/* GATHERING GRID */}
+      <section className="gathering-sec">
         <div className="wrap">
-          <div className="module-card-grid" style={{ gridTemplateColumns: 'repeat(2, 1fr)' }}>
-            <article className="module-card rv" data-d="1">
-              <div className="vibe-type">Themed Gatherings</div>
-              <h3 className="vibe-h3">Bar Nights &amp; Lounges</h3>
-              <p className="vibe-p">High-impact social environments where students can socialize and expand there circles.</p>
-            </article>
+          <div className="gathering-grid">
+            <div className="gathering-card rv" data-d="1">
+              <div className="gathering-type">Themed Gatherings</div>
+              <h3 className="gathering-h3">Bar Nights &amp; Lounges</h3>
+              <p className="gathering-p">High-impact social environments where students can socialize and expand there circles.</p>
+            </div>
 
-            <article className="module-card rv" data-d="2">
-              <div className="vibe-type">Small Format</div>
-              <h3 className="vibe-h3">Coffee &amp; Conversation</h3>
-              <p className="vibe-p">Low-pressure meetups designed for smaller groups. Perfect for deeper dialogue and getting to know the community.</p>
-            </article>
+            <div className="gathering-card rv" data-d="2">
+              <div className="gathering-type">Small Format</div>
+              <h3 className="gathering-h3">Coffee &amp; Conversation</h3>
+              <p className="gathering-p">Low-pressure meetups designed for smaller groups. Perfect for deeper dialogue and getting to know the community.</p>
+            </div>
 
-            <article className="module-card rv" data-d="3">
-              <div className="vibe-type">Impact Driven</div>
-              <h3 className="vibe-h3">Fundraisers &amp; Galas</h3>
-              <p className="vibe-p">Specialized events dedicated to raising support for society missions while bringing the community together for a cause.</p>
-            </article>
+            <div className="gathering-card rv" data-d="3">
+              <div className="gathering-type">Impact Driven</div>
+              <h3 className="gathering-h3">Fundraisers &amp; Galas</h3>
+              <p className="gathering-p">Specialized events dedicated to raising support for society missions while bringing the community together for a cause.</p>
+            </div>
 
-            <article className="module-card rv" data-d="4">
-              <div className="vibe-type">Academic Plus</div>
-              <h3 className="vibe-h3">Social Mixers</h3>
-              <p className="vibe-p">Post-Speaker Forum gatherings where students and guest speakers can continue the conversation in a casual setting.</p>
-            </article>
+            <div className="gathering-card rv" data-d="4">
+              <div className="gathering-type">Academic Plus</div>
+              <h3 className="gathering-h3">Social Mixers</h3>
+              <p className="gathering-p">Post-Speaker Forum gatherings where students and guest speakers can continue the conversation in a casual setting.</p>
+            </div>
           </div>
         </div>
       </section>

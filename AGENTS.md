@@ -5,7 +5,7 @@ Instructions and context for AI agents working on the Meridian Society flagship 
 ---
 
 ## 🏛 Organizational Context
-The **Meridian Website** is the public facade of The Meridian Society. It represents the "Archival Registry" to the public. All designs must adhere to the high-contrast, parchment-and-ink aesthetic.
+The **Meridian Website** is the public facade of The Meridian Society. It represents the "Member Registry" to the public. All designs must adhere to the high-contrast, cream-and-ink aesthetic.
 
 ---
 
@@ -26,7 +26,7 @@ The **Meridian Website** is the public facade of The Meridian Society. It repres
 
 ---
 
-- **RPC-SOVEREIGN Pattern**: All sensitive mutations MUST use the hardened `SECURITY DEFINER` RPCs that verify credentials against the internal **Sovereign Vault** (`archival_settings`).
+- **RPC-SOVEREIGN Pattern**: All sensitive mutations MUST use the hardened `SECURITY DEFINER` RPCs that verify credentials against the internal **Sovereign Vault** (`system_settings`).
 - **3-Master SQL Architecture**: The database is structured into three "Sources of Truth":
     1. `master_foundation.sql`: Core identity and member registry (Primary for this site).
     2. `master_event_os.sql`: Event orchestration.
@@ -51,8 +51,9 @@ The **Meridian Website** is the public facade of The Meridian Society. It repres
 
 ---
 
-## 🏛 Archival Registry (SQL)
-The project utilizes a Unified Database architecture. To initialize the archival settings vault, run this in the Supabase SQL Editor:
+## 🏛 Registry Foundation (SQL)
+The project utilizes a Unified Database architecture. To initialize the system settings vault, run this in the Supabase SQL Editor:
+
 ```sql
-SELECT initialize_archival_vault('YOUR_SECRET_HERE');
+SELECT initialize_system_vault('YOUR_SECRET_HERE');
 ```

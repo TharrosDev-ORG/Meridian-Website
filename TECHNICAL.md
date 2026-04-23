@@ -70,7 +70,7 @@ The site utilizes a strict "Observer-Reveal" pattern managed through `Providers.
 
 ## 🔒 5. Permanent Information Policy
 
-**Static-First Intent**: The `/events` and `/social` pages are documented as **archival program guides**. 
+**Static-First Intent**: The `/events` and `/social` pages are documented as **event history guides**. 
 - No dynamic event fetching is implemented.
 - JSON-LD Event schemas pointing to future dates are strictly prohibited to maintain static integrity.
 - All real-time updates are redirected to the Society's Instagram.

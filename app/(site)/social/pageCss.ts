@@ -19,13 +19,14 @@ export const socialCss = `
       pointer-events: none; z-index: 0;
     }
 
-    /* ── Vibe Grid ── */
-    .vibe-sec { padding: 80px 0; background: var(--cream-mid); }
-    /* ── Vibe Grid ── */
-    .vibe-sec { padding: 80px 0; background: var(--cream-mid); }
-    .vibe-type { font-family: var(--sans); font-size: 10px; font-weight: 700; color: var(--gold); margin-bottom: 20px; letter-spacing: 0.2em; text-transform: uppercase; }
-    .vibe-h3 { font-family: var(--serif); font-size: 24px; font-weight: 300; color: var(--ink); margin-bottom: 16px; }
-    .vibe-p { font-family: var(--serif); font-size: 17px; line-height: 1.7; color: var(--ink-75); }
+    /* ── Gathering Grid ── */
+    .gathering-sec { padding: 80px 0; background: var(--cream-mid); }
+    .gathering-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 32px; }
+    .gathering-card { background: var(--cream); padding: 48px; border: 1px solid var(--ink-08); box-shadow: 0 4px 20px rgba(24,21,15,0.04); transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), box-shadow 0.4s ease; position: relative; overflow: hidden; will-change: transform, opacity; }
+    .gathering-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(24,21,15,0.06); }
+    .gathering-type { font-family: var(--sans); font-size: 10px; font-weight: 700; color: var(--gold); margin-bottom: 20px; letter-spacing: 0.2em; text-transform: uppercase; }
+    .gathering-h3 { font-family: var(--serif); font-size: 24px; font-weight: 300; color: var(--ink); margin-bottom: 16px; }
+    .gathering-p { font-family: var(--serif); font-size: 17px; line-height: 1.7; color: var(--ink-75); }
 
     /* ── Stay Notified (Matches Events) ── */
 
@@ -34,12 +35,12 @@ export const socialCss = `
     /* ── Responsive ── */
     @media (max-width: 1100px) {
       .social-intro-right { padding: 40px; }
-      .vibe-card { padding: 32px; }
+      .gathering-card { padding: 32px; }
       .rv { transform: none; transition: opacity 0.4s ease; }
     }
 
     @media (max-width: 750px) {
-      .vibe-grid { grid-template-columns: 1fr; gap: 16px; }
+      .gathering-grid { grid-template-columns: 1fr; gap: 16px; }
       .social-p { font-size: 17px; padding-left: 18px; line-height: 1.72; }
       .social-h2 {
         font-size: clamp(30px, 8vw, 40px);
@@ -49,15 +50,15 @@ export const socialCss = `
     }
 
     @media (max-width: 700px) {
-      .social-about-sec, .vibe-sec { padding: 60px 0; }
-      .vibe-type { font-size: 9.5px; letter-spacing: 0.22em; margin-bottom: 14px; }
-      .vibe-h3 { font-size: 20px; margin-bottom: 12px; line-height: 1.2; }
-      .vibe-p { font-size: 16.5px; line-height: 1.72; }
-      .vibe-card { padding: 30px 22px; }
+      .social-about-sec, .gathering-sec { padding: 60px 0; }
+      .gathering-type { font-size: 9.5px; letter-spacing: 0.22em; margin-bottom: 14px; }
+      .gathering-h3 { font-size: 20px; margin-bottom: 12px; line-height: 1.2; }
+      .gathering-p { font-size: 16.5px; line-height: 1.72; }
+      .gathering-card { padding: 30px 22px; }
     }
 
     @media (max-width: 380px) {
-      .vibe-card { padding: 26px 20px; }
-      .vibe-p { font-size: 16px; }
+      .gathering-card { padding: 26px 20px; }
+      .gathering-p { font-size: 16px; }
     }
   `;

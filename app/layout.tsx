@@ -92,7 +92,6 @@ export const metadata: Metadata = {
     site: "@MeridianSociety",
     images: ["https://meridiansociety.ca/assets/og-image.png"],
   },
-  manifest: "/site.webmanifest",
   icons: {
     icon: [
       { url: '/assets/favicons/favicon-16x16.png', type: 'image/png', sizes: '16x16' },

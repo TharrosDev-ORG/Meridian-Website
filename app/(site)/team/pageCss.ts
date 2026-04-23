@@ -95,11 +95,36 @@ export const teamCss = `
     }
 
     @media (max-width: 750px) {
-      .member-grid { grid-template-columns: 1fr; }
-      .member-header { flex-direction: column; align-items: flex-start; gap: 24px; }
-      .member-photo-wrap { width: 120px; height: 150px; }
-      .member-name { font-size: 24px; }
-      .member-studies { font-size: 16px; }
-      .member-bio { font-size: 17px; }
+      .member-grid { grid-template-columns: 1fr; gap: 16px; }
+      .member-header { flex-direction: row; align-items: center; gap: 20px; margin-bottom: 20px; }
+      .member-photo-wrap { width: 88px; height: 108px; flex-shrink: 0; }
+      .member-name { font-size: 23px; line-height: 1.1; margin-bottom: 4px; }
+      .member-role { font-size: 10px; letter-spacing: 0.24em; }
+      .member-studies { font-size: 16px; line-height: 1.6; padding-left: 12px; margin-bottom: 16px; }
+      .member-bio { font-size: 16.5px; line-height: 1.72; margin-bottom: 20px; }
+      .member-body { padding: 26px 24px 28px; }
+    }
+
+    @media (max-width: 700px) {
+      .team-sec { padding: 60px 0; }
+      .team-sec::before, .team-sec::after { width: 48px; height: 48px; top: 22px; right: 22px; }
+      .team-sec::after { top: auto; right: auto; bottom: 22px; left: 22px; }
+      .team-header { margin-bottom: 28px; gap: 14px; }
+      .team-title { font-size: clamp(30px, 8vw, 40px); line-height: 1.08; }
+
+      .member-card--placeholder { min-height: 220px; padding: 32px 20px; }
+      .placeholder-text { font-size: 17px; }
+      .placeholder-sub { font-size: 9px; }
+
+      .member-social a {
+        width: 40px; height: 40px;
+      }
+      .member-social svg { width: 16px; height: 16px; }
+    }
+
+    @media (max-width: 380px) {
+      .member-body { padding: 24px 20px 26px; }
+      .member-photo-wrap { width: 80px; height: 100px; }
+      .member-name { font-size: 22px; }
     }
 `;

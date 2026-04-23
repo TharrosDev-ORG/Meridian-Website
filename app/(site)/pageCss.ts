@@ -370,43 +370,159 @@ export const indexCss = `
     }
 
     @media (max-width: 700px) {
-      .hero { padding: 80px 20px 0; }
-      .hero-pre { font-size: clamp(17px, 3vw, 30px); }
-      .hero-title { font-size: clamp(40px, 10.7vw, 76px); }
-      .about { padding: 64px 0; }
-      .who { padding: 64px 0; }
-      .not-sec { padding: 64px 0; }
-      .events { padding: 80px 0; }
-      .speaking { padding: 64px 0; }
-      .register { padding: 64px 0; }
+      .hero { padding: 96px 22px 0; min-height: auto; }
+      .hero-eyebrow { margin-bottom: 24px; }
+      .hero-pre { font-size: clamp(17px, 4.8vw, 24px); margin-bottom: 4px; }
+      .hero-title {
+        font-size: clamp(44px, 12vw, 76px);
+        letter-spacing: 0.02em;
+        line-height: 0.92;
+      }
+      .hero-hr { margin: 20px auto; }
+      .about { padding: 60px 0; }
+      .who { padding: 60px 0; }
+      .not-sec { padding: 60px 0; }
+      .events { padding: 72px 0; }
+      .speaking { padding: 60px 0; }
+      .register { padding: 72px 0; }
       .hero-ghost { display: none; }
-      .hero-content { width: 100%; }
-      .hero-sub { width: 100%; max-width: 100%; }
+      .hero-content { width: 100%; flex: none; justify-content: flex-start; padding: 24px 0 48px; }
+      .hero-sub {
+        width: 100%; max-width: 100%;
+        font-size: 17px; line-height: 1.72;
+        margin-bottom: 32px;
+        padding: 0 4px;
+      }
       .hero-actions > span[aria-hidden="true"] { display: none; }
-      .hero-stats { grid-template-columns: 1fr 1fr; }
-      .portal-grid { grid-template-columns: 1fr; }
-      .portal-card { padding: 32px 24px; }
-      .stat { padding: 18px 20px; }
-      .stat-val { font-size: 22px; }
+
+      /* Stats: sleeker 2x2 grid with clearer hierarchy */
+      .hero-stats {
+        grid-template-columns: 1fr 1fr;
+        border-top: 1px solid var(--ink-15);
+        border-bottom: 1px solid var(--ink-15);
+        margin-top: 0;
+      }
+      .stat {
+        padding: 20px 18px;
+        border-right: 1px solid var(--ink-08);
+      }
+      .stat:nth-child(2n) { border-right: none; }
       .stat:nth-child(3),
       .stat:nth-child(4) { border-top: 1px solid var(--ink-08); }
-      .stat-lbl { font-size: 11px; letter-spacing: 0.18em; }
-      .hero-actions { flex-direction: column; gap: 24px; align-items: center; }
-      .hero-main-ctas { flex-direction: column; width: 100%; gap: 20px; align-items: center; }
+      .stat-val { font-size: 23px; line-height: 1.1; margin-bottom: 6px; }
+      .stat-lbl { font-size: 10px; letter-spacing: 0.18em; line-height: 1.4; }
+
+      .portal-grid { grid-template-columns: 1fr; gap: 20px; }
+      .portal-card {
+        padding: 36px 26px;
+        box-shadow: 0 2px 12px rgba(24,21,15,0.04), 0 6px 24px rgba(24,21,15,0.05);
+      }
+      .portal-eyebrow { font-size: 9.5px; margin-bottom: 18px; letter-spacing: 0.24em; }
+      .portal-h3 { font-size: 28px; line-height: 1.08; margin-bottom: 16px; }
+      .portal-p { font-size: 16.5px; line-height: 1.7; margin-bottom: 28px; }
+      .portal-cta { font-size: 11px; letter-spacing: 0.18em; }
+
+      .hero-actions { flex-direction: column; gap: 20px; align-items: center; margin-top: 8px; }
+      .hero-main-ctas { flex-direction: column; width: 100%; gap: 16px; align-items: stretch; }
       .hero-actions-divider { display: none; }
-      .hero-ig-btn { width: 44px; height: 44px; padding: 0; }
-      .about-body { font-size: 17px; }
-      .pull-quote p { font-size: 18px; }
-      .who-grid { grid-template-columns: 1fr; }
-      .who-item { padding: 28px 20px; overflow: hidden; }
-      .event-meta-row { padding: 16px 20px; }
-      .event-main { padding: 32px 24px; }
-      .event-meta { background: rgba(24,21,15,0.025); }
-      .events-header { flex-direction: column; align-items: flex-start; gap: 20px; margin-bottom: 36px; }
-      .register-btn { width: 100%; text-align: center; }
+      .hero-ig-btn {
+        width: 100%; max-width: 100%;
+        height: 56px; padding: 0;
+        border-color: var(--ink-15);
+      }
+      .hero-ig-btn svg { width: 26px; height: 26px; }
+
+      /* ABOUT section */
+      .about-num { font-size: 72px; margin-bottom: 6px; }
+      .about-section-label { margin-bottom: 16px; font-size: 10px; letter-spacing: 0.28em; }
+      .about-title { font-size: clamp(30px, 8vw, 40px); line-height: 1.08; }
+      .about-left { padding-bottom: 36px; }
+      .about-right { padding-top: 36px; }
+      .about-body { font-size: 17px; line-height: 1.8; margin-bottom: 20px; }
+      .pull-quote { padding: 22px 22px 22px 26px; margin: 30px 0; }
+      .pull-quote p { font-size: 18px; line-height: 1.6; }
+
+      /* WHO section */
+      .who-top { gap: 20px; margin-bottom: 32px; }
+      .who-title { font-size: clamp(30px, 8vw, 40px); line-height: 1.08; }
+      .who-intro-body { font-size: 17px; line-height: 1.75; }
+      .who-grid { grid-template-columns: 1fr; gap: 1px; }
+      .who-item { padding: 28px 22px; overflow: hidden; }
+      .who-item::before {
+        font-size: 88px; bottom: -10px; right: -4px;
+      }
+      .who-num { font-size: 9.5px; margin-bottom: 12px; letter-spacing: 0.24em; }
+      .who-item-title { font-size: 20px; margin-bottom: 10px; line-height: 1.25; }
+      .who-item-desc { font-size: 16.5px; line-height: 1.7; }
+
+      /* NOT section */
+      .not-title { font-size: clamp(28px, 7.5vw, 38px); line-height: 1.1; }
+      .not-body { font-size: 17px; line-height: 1.78; }
+      .not-left { padding-bottom: 36px; margin-bottom: 36px; }
+      .not-list-header { font-size: 10.5px; letter-spacing: 0.28em; padding-bottom: 10px; }
+      .not-list li {
+        padding: 16px 0; font-size: 16.5px; line-height: 1.5;
+        gap: 14px;
+      }
+
+      /* EVENTS portal header */
+      .events-header { flex-direction: column; align-items: flex-start; gap: 16px; margin-bottom: 28px; }
+      .events-title { font-size: clamp(30px, 8vw, 40px); line-height: 1.08; }
+
+      /* SPEAKING section */
+      .speaking-left { padding-bottom: 36px; margin-bottom: 36px; }
+      .speaking-title { font-size: clamp(30px, 7.8vw, 40px); line-height: 1.08; margin-bottom: 6px; }
+      .speaking-sub { font-size: 17px; margin-bottom: 20px; }
+      .speaking-body { font-size: 17px; line-height: 1.78; margin-bottom: 24px; }
+      .formats-item { padding: 14px 0; gap: 16px; }
+      .formats-num { font-size: 10px; letter-spacing: 0.16em; }
+      .formats-text { font-size: 16.5px; line-height: 1.4; }
+
+      /* REGISTER block */
+      .register-rule-top { height: 28px; margin-bottom: 18px; }
+      .register-eyebrow { font-size: 10px; letter-spacing: 0.3em; margin-bottom: 18px; }
+      .register-title { font-size: clamp(36px, 10vw, 52px); margin-bottom: 20px; line-height: 1.0; }
+      .register-body { font-size: 16.5px; line-height: 1.75; margin-bottom: 32px; max-width: 42ch; }
+      .register-ghost {
+        font-size: clamp(54px, 24vw, 120px) !important;
+        letter-spacing: 0.22em !important;
+        bottom: -18px !important;
+        -webkit-text-stroke-width: 1px !important;
+      }
+      .register-btn {
+        width: 100%; text-align: center;
+        padding: 18px 32px 17px;
+        font-size: 12px; letter-spacing: 0.22em;
+        min-height: 54px;
+      }
+      .register-actions { flex-direction: column; gap: 16px; width: 100%; }
+      .register-rule-btm { height: 28px; margin-top: 24px; }
+      .member-count-num { font-size: 42px; }
+      .member-count-lbl { font-size: 9.5px; letter-spacing: 0.22em; }
+
       .footer-top { flex-direction: column; gap: 20px; }
-      .sticky-join { display: block; bottom: calc(1.4rem + env(safe-area-inset-bottom, 0px)); }
+      .sticky-join {
+        display: block;
+        bottom: calc(1.2rem + env(safe-area-inset-bottom, 0px));
+        padding: 0.9rem 2.4rem;
+        font-size: 11px;
+        letter-spacing: 0.22em;
+        min-height: 44px;
+      }
       .rv { transform: none; transition: opacity 0.4s ease; }
       .rv[data-d="1"], .rv[data-d="2"], .rv[data-d="3"], .rv[data-d="4"] { transition-delay: 0s; }
+    }
+
+    @media (max-width: 380px) {
+      .hero { padding: 92px 18px 0; }
+      .hero-pre { font-size: 16px; }
+      .hero-title { font-size: clamp(38px, 12.5vw, 48px); }
+      .hero-sub { font-size: 16px; }
+      .stat { padding: 16px 12px; }
+      .stat-val { font-size: 20px; }
+      .stat-lbl { font-size: 9.5px; letter-spacing: 0.14em; }
+      .portal-card { padding: 30px 22px; }
+      .who-item, .not-list li { font-size: 16px; }
+      .register-ghost { display: none !important; }
     }
   `;

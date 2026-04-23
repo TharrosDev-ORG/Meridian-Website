@@ -390,7 +390,7 @@ export const membershipCss = `
     @media (max-width: 1100px) {
       .benefits-header { flex-direction: column; align-items: flex-start; gap: 16px; }
       .benefits-grid { grid-template-columns: 1fr; gap: 20px; }
-      
+
       /* Optimize text heavy blocks on mobile */
       .benefits-title, .faq-title, .register-title { font-size: 32px; line-height: 1.1; }
       .benefit-heading { font-size: 20px; }
@@ -401,5 +401,88 @@ export const membershipCss = `
       .sticky-join { display: block; bottom: calc(1.4rem + env(safe-area-inset-bottom, 0px)); }
       .rv { transform: none; transition: opacity 0.4s ease; }
       .rv[data-d="1"], .rv[data-d="2"], .rv[data-d="3"], .rv[data-d="4"], .rv[data-d="5"] { transition-delay: 0s; }
+    }
+
+    /* ── Dedicated mobile polish ── */
+    @media (max-width: 700px) {
+      .benefits-sec, .faq-sec { padding: 60px 0; }
+      .benefits-sec::before, .benefits-sec::after { width: 48px; height: 48px; top: 22px; right: 22px; }
+      .benefits-sec::after { top: auto; right: auto; bottom: 22px; left: 22px; }
+
+      .benefits-header { margin-bottom: 28px; gap: 14px; }
+      .benefits-title, .faq-title, .register-title {
+        font-size: clamp(30px, 8vw, 40px);
+        line-height: 1.08;
+      }
+      .benefits-register-link {
+        font-size: 10.5px; letter-spacing: 0.22em;
+        padding-bottom: 6px; min-height: 40px;
+        display: inline-flex; align-items: center;
+      }
+
+      .benefit-num { font-size: 9.5px; letter-spacing: 0.22em; margin-bottom: 14px; }
+      .benefit-heading { font-size: 22px; line-height: 1.15; margin-bottom: 12px; }
+      .benefit-body { font-size: 16.5px; line-height: 1.72; }
+      .benefit-card {
+        padding: 32px 24px;
+        box-shadow: 0 2px 10px rgba(24,21,15,0.04), 0 6px 20px rgba(24,21,15,0.04);
+      }
+
+      /* FAQ — more tappable & readable */
+      .faq-header { margin-bottom: 28px; }
+      .faq-item { padding-left: 10px; }
+      .faq-item summary {
+        font-size: 18px;
+        padding: 22px 0;
+        gap: 14px;
+        min-height: 56px;
+      }
+      .faq-icon { font-size: 22px; }
+      .faq-answer {
+        font-size: 16.5px;
+        line-height: 1.75;
+        padding: 0 0 26px !important;
+      }
+
+      /* Register form container padding already adjusted at 700px above */
+      .reg-form-container {
+        padding: 32px 22px;
+        margin-top: 32px;
+        background: rgba(244, 237, 227, 0.55) !important;
+      }
+      .reg-label { font-size: 10.5px; letter-spacing: 0.22em; margin-bottom: 2px; }
+      .reg-input {
+        font-size: 17px;
+        padding: 14px 0;
+      }
+      .reg-input::placeholder { font-size: 15px; }
+      .reg-options-grid { gap: 6px 20px; }
+      .reg-choice {
+        padding: 14px 0;
+        font-size: 16.5px;
+        gap: 14px;
+        min-height: 48px;
+      }
+      .reg-choice-ui { width: 20px; height: 20px; }
+      .reg-submit {
+        width: 100%;
+        padding: 18px 24px 17px;
+        font-size: 12px;
+        letter-spacing: 0.22em;
+        min-height: 54px;
+      }
+      .reg-submit-wrap { margin-top: 40px; }
+      .reg-feedback { font-size: 15px; }
+
+      .success-state { padding: 28px 0; }
+      .success-icon { font-size: 42px; margin-bottom: 20px; }
+      .success-title { font-size: 24px; line-height: 1.2; margin-bottom: 14px; }
+      .success-body { font-size: 16px; line-height: 1.7; padding: 0 8px; }
+    }
+
+    @media (max-width: 380px) {
+      .reg-form-container { padding: 28px 18px; }
+      .benefit-card { padding: 28px 20px; }
+      .faq-item summary { font-size: 17px; }
     }
   `;

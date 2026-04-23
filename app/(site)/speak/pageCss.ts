@@ -69,10 +69,41 @@ export const speakCss = `
     }
 
     @media (max-width: 750px) {
-      .speak-why-grid { grid-template-columns: 1fr; }
-      .speak-meta-row { grid-template-columns: 1fr; gap: 12px; padding: 24px 20px; }
-      .speak-meta-lbl { padding-top: 0; }
-      .speak-apply-ctas { flex-direction: column; gap: 20px; width: 100%; }
+      .speak-why-grid { grid-template-columns: 1fr; gap: 16px; }
+      .speak-meta-row { grid-template-columns: 1fr; gap: 10px; padding: 22px 22px; }
+      .speak-meta-lbl { padding-top: 0; font-size: 10px; letter-spacing: 0.26em; color: var(--gold); }
+      .speak-apply-ctas { flex-direction: column; gap: 16px; width: 100%; }
       .speak-apply-ctas .btn-primary { width: 100%; text-align: center; }
+    }
+
+    @media (max-width: 700px) {
+      .speak-why-sec, .speak-format-sec, .speak-apply-sec { padding: 60px 0; }
+      .speak-why-sec::before, .speak-why-sec::after,
+      .speak-apply-sec::before, .speak-apply-sec::after {
+        width: 48px; height: 48px; top: 22px; right: 22px;
+      }
+      .speak-why-sec::after, .speak-apply-sec::after {
+        top: auto; right: auto; bottom: 22px; left: 22px;
+      }
+      .speak-why-header, .speak-format-header { margin-bottom: 28px; gap: 14px; }
+      .speak-why-title, .speak-format-title {
+        font-size: clamp(30px, 8vw, 40px);
+        line-height: 1.08;
+      }
+      .speak-why-num { font-size: 9.5px; letter-spacing: 0.22em; margin-bottom: 14px; }
+      .speak-why-heading { font-size: 22px; line-height: 1.15; margin-bottom: 12px; }
+      .speak-why-body { font-size: 16.5px; line-height: 1.75; }
+      .speak-why-card { padding: 30px 22px; }
+
+      .speak-meta-val { font-size: 17px; line-height: 1.45; }
+
+      .speak-apply-title { font-size: clamp(34px, 9.5vw, 48px); line-height: 1.02; margin-bottom: 16px; }
+      .speak-apply-body { font-size: 17px; line-height: 1.72; margin-bottom: 32px; }
+      .speak-apply-trust { font-size: 10px; letter-spacing: 0.2em; }
+    }
+
+    @media (max-width: 380px) {
+      .speak-why-card { padding: 28px 20px; }
+      .speak-meta-row { padding: 20px 18px; }
     }
   `;

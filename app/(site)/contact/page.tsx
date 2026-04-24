@@ -33,9 +33,9 @@ export default function ContactPage() {
         </section>
 
         <section className="info-body">
-          <p>
-            The Meridian Society is based in Ottawa and run by students. The best way to reach us
-            depends on what you&apos;re writing about.
+          <p className="info-lede">
+            The Meridian Society is based in Ottawa and run by students. We&apos;re a small,
+            direct team — the right path depends on why you&apos;re writing.
           </p>
 
           <div className="info-contact-grid">
@@ -44,33 +44,53 @@ export default function ContactPage() {
               <div className="info-contact-val">
                 <a href="mailto:meridiansocietycanada@gmail.com">meridiansocietycanada@gmail.com</a>
               </div>
+              <div className="info-contact-desc">
+                Press, partnerships, and anything else. We typically reply within two business days.
+              </div>
             </div>
             <div className="info-contact-card">
               <div className="info-contact-lbl">Instagram</div>
               <div className="info-contact-val">
                 <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer">@Meridian.Society</a>
               </div>
+              <div className="info-contact-desc">
+                Event announcements, speaker highlights, and Society updates in real time.
+              </div>
             </div>
           </div>
 
           <h2>Speaking at an event</h2>
           <p>
-            If you&apos;re a professional, academic, or alum who would like to speak at a future
-            Meridian event, start with the application on the{' '}
-            <Link href="/speak">Speak</Link> page. It gives us the basics we need to follow up.
+            If you&apos;re a professional, academic, or alum who would like to speak at a Meridian
+            event, begin with the application on the <Link href="/speak">Speak</Link> page.
+            It captures what we need to assess fit — we follow up within two weeks.
+          </p>
+          <p>
+            We host speakers across disciplines: law, business, public policy, the sciences, and
+            beyond. The common thread is a willingness to engage a curious, generalist audience.
           </p>
 
           <h2>Joining as a member</h2>
           <p>
-            Registration is free. Head to{' '}
-            <Link href="/register">Register</Link> to receive invitations to upcoming events.
+            Membership is free and open to anyone. Visit the <Link href="/register">Register</Link>{' '}
+            page to submit your information — we&apos;ll reach out with invitations as events are
+            scheduled. There is no commitment and no fee.
           </p>
 
-          <h2>Everything else</h2>
+          <h2>Press &amp; partnerships</h2>
           <p>
-            Press, partnerships, or a question that doesn&apos;t fit the above — email the general
-            inbox and we&apos;ll route it to the right person on the team.
+            For media inquiries, collaboration proposals, or anything that doesn&apos;t fit the
+            above, write to the general inbox with a brief description of your request. We&apos;ll
+            route it to the right person on the team.
           </p>
+
+          <div className="info-related">
+            <div className="info-related-label">Also on this site</div>
+            <div className="info-related-links">
+              <Link href="/privacy">Privacy Notice</Link>
+              <Link href="/terms">Terms of Use</Link>
+            </div>
+          </div>
         </section>
       </main>
     </>

@@ -178,4 +178,7 @@ Favicons are in `public/assets/favicons/` — do not add `app/favicon.ico` (over
 ---
 
 ## 🗺️ Future Roadmap
-- [ ] **The Ledger (Interactive Timeline)**: Implement once more substantial milestones and society history are ready for public archival.
+- [ ] **The Ledger (Interactive Timeline)**: 
+    - **Concept**: An immutable digital record of the Society's trajectory, serving as the definitive historical archive of all forums and milestones.
+    - **Function**: A vertical, scroll-synchronized timeline documenting forum dates, key speakers, founding declarations, and member growth metrics.
+    - **Aesthetic**: Minimalist "Ink-on-Cream" vertical spine. Utilizes monospace-style timestamps paired with elegant Serif narratives. Milestones should "fade into view" with a subtle ink-bleed animation, as if the record is being written in real-time during the scroll.

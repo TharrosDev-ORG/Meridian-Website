@@ -47,15 +47,16 @@ export const teamCss = `
     .member-card:hover::after { opacity: 0.1; }
 
     .member-photo-wrap {
-      position: relative; width: 96px; height: 120px; flex-shrink: 0;
+      position: relative; width: 100%; height: 320px; flex-shrink: 0;
       overflow: hidden; background: var(--cream-mid);
-      border: 1px solid var(--ink-15);
-      box-shadow: inset 0 0 0 1px rgba(24,21,15,0.05);
+      border-bottom: 1px solid var(--ink-15);
+      z-index: 1;
     }
     .member-photo {
-      width: 100%; height: 100%; object-fit: cover; object-position: center top;
-      display: block; transition: filter 0.4s ease;
+      width: 100%; height: 100%; object-fit: cover; object-position: center 15%;
+      display: block; transition: filter 0.6s ease, transform 0.8s cubic-bezier(0.16,1,0.3,1);
     }
+    .member-card:hover .member-photo { transform: scale(1.04); }
     .member-photo-placeholder {
       width: 100%; height: 100%;
       display: flex; align-items: center; justify-content: center;
@@ -64,12 +65,15 @@ export const teamCss = `
       letter-spacing: 0.24em; text-transform: uppercase;
     }
 
-    .member-body { padding: 28px 28px 32px; display: flex; flex-direction: column; flex: 1; position: relative; z-index: 1; }
-    .member-header { display: flex; align-items: flex-start; gap: 18px; margin-bottom: 22px; }
+    .member-body { padding: 32px 32px 40px; display: flex; flex-direction: column; flex: 1; position: relative; z-index: 1; }
+    .member-identity { margin-bottom: 24px; }
 
-    .member-name { font-family: var(--serif); font-size: 26px; font-weight: 300; color: var(--ink); line-height: 1.1; margin-bottom: 6px; }
-    .member-role { font-family: var(--sans); font-size: 11px; font-weight: 700; letter-spacing: 0.32em; text-transform: uppercase; color: var(--gold); }
-    .member-studies { font-family: var(--serif); font-size: 17px; font-style: italic; color: var(--ink-75); line-height: 1.55; border-left: 2px solid var(--ink-15); padding-left: 14px; margin-bottom: 18px; }
+    .member-name { font-family: var(--serif); font-size: 30px; font-weight: 300; color: var(--ink); line-height: 1.1; margin-bottom: 8px; }
+    .member-role { font-family: var(--sans); font-size: 11.5px; font-weight: 700; letter-spacing: 0.36em; text-transform: uppercase; color: var(--gold); }
+    
+    .member-divider { width: 40px; height: 1px; background: var(--gold-20); margin-bottom: 24px; }
+
+    .member-studies { font-family: var(--serif); font-size: 18px; font-style: italic; color: var(--ink-75); line-height: 1.6; border-left: 2px solid var(--ink-15); padding-left: 18px; margin-bottom: 28px; }
     .member-bio { font-family: var(--serif); font-size: 18px; font-weight: 400; color: var(--ink-90); line-height: 1.75; flex: 1; margin-bottom: 24px; }
 
     .member-social { display: flex; gap: 10px; margin-top: auto; }
@@ -98,11 +102,12 @@ export const teamCss = `
     /* Placeholder card */
     .member-card--placeholder {
       display: flex; flex-direction: column; align-items: center; justify-content: center;
-      text-align: center; min-height: 320px; 
+      text-align: center; min-height: 480px; 
       border: 1px dashed var(--ink-30);
       background: linear-gradient(135deg, var(--cream) 0%, var(--cream-mid) 100%); 
       box-shadow: inset 0 0 40px rgba(24,21,15,0.02);
       transition: border-color 0.4s ease, transform 0.6s cubic-bezier(0.16,1,0.3,1);
+      padding: 40px;
     }
     .member-card--placeholder::before {
       content: ''; position: absolute; inset: 0;
@@ -126,32 +131,30 @@ export const teamCss = `
 
 
 
-    /* ══ Desktop optimizations ══ */
+    /* ── Desktop optimizations ── */
     @media (min-width: 1101px) {
       .team-sec { padding: 112px 0; }
       .team-header { margin-bottom: 64px; }
       .member-grid { gap: 32px; }
 
       /* Photo + header: more presence on desktop */
-      .member-photo-wrap { width: 104px; height: 130px; }
-      .member-header { gap: 22px; margin-bottom: 26px; }
-      .member-name { font-size: 28px; margin-bottom: 8px; }
-      .member-role { font-size: 11px; }
-      .member-studies { font-size: 18px; padding-left: 16px; margin-bottom: 22px; line-height: 1.6; }
-      .member-bio { font-size: 19px; line-height: 1.8; }
-      .member-body { padding: 32px 32px 36px; }
+      .member-photo-wrap { height: 400px; }
+      .member-name { font-size: 34px; margin-bottom: 10px; }
+      .member-role { font-size: 12px; }
+      .member-studies { font-size: 19px; padding-left: 20px; margin-bottom: 32px; line-height: 1.6; }
+      .member-body { padding: 40px 40px 48px; }
 
       /* Social icons: larger & more tactile */
-      .member-social a { width: 38px; height: 38px; }
-      .member-social svg { width: 16px; height: 16px; }
+      .member-social a { width: 42px; height: 42px; }
+      .member-social svg { width: 18px; height: 18px; }
 
       /* Subtle photo treatment on card hover */
-      .member-card:hover .member-photo { filter: brightness(1.05) saturate(1.05); }
+      .member-card:hover .member-photo { filter: brightness(1.05) contrast(1.02); }
 
       /* Placeholder card feels more balanced on desktop */
-      .member-card--placeholder { min-height: 360px; }
-      .placeholder-icon { font-size: 26px; margin-bottom: 24px; }
-      .placeholder-text { font-size: 22px; }
+      .member-card--placeholder { min-height: 600px; }
+      .placeholder-icon { font-size: 32px; margin-bottom: 28px; }
+      .placeholder-text { font-size: 24px; }
     }
 
     /* ── Responsive ── */
@@ -163,14 +166,11 @@ export const teamCss = `
     }
 
     @media (max-width: 750px) {
-      .member-grid { grid-template-columns: 1fr; gap: 16px; }
-      .member-header { flex-direction: row; align-items: center; gap: 20px; margin-bottom: 20px; }
-      .member-photo-wrap { width: 88px; height: 108px; flex-shrink: 0; }
-      .member-name { font-size: 23px; line-height: 1.1; margin-bottom: 4px; }
-      .member-role { font-size: 10px; letter-spacing: 0.24em; }
-      .member-studies { font-size: 16px; line-height: 1.6; padding-left: 12px; margin-bottom: 16px; }
-      .member-bio { font-size: 16.5px; line-height: 1.72; margin-bottom: 20px; }
-      .member-body { padding: 26px 24px 28px; }
+      .member-grid { grid-template-columns: 1fr; gap: 24px; }
+      .member-photo-wrap { height: 420px; }
+      .member-name { font-size: 28px; }
+      .member-studies { font-size: 17px; }
+      .member-body { padding: 32px 28px 36px; }
     }
 
     @media (max-width: 700px) {

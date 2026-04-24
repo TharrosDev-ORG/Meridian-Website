@@ -182,3 +182,27 @@ Favicons are in `public/assets/favicons/` — do not add `app/favicon.ico` (over
     - **Concept**: An immutable digital record of the Society's trajectory, serving as the definitive historical archive of all forums and milestones.
     - **Function**: A vertical, scroll-synchronized timeline documenting forum dates, key speakers, founding declarations, and member growth metrics.
     - **Aesthetic**: Minimalist "Ink-on-Cream" vertical spine. Utilizes monospace-style timestamps paired with elegant Serif narratives. Milestones should "fade into view" with a subtle ink-bleed animation, as if the record is being written in real-time during the scroll.
+    - **Visual Sketch**:
+      ```mermaid
+      graph TD
+        A[MS-2024-001] --- Spine(( ))
+        Spine --- B[MS-2024-002]
+        Spine --- C[MS-2024-003]
+        
+        subgraph Milestone_01 [Founding Declaration]
+          A -.-> A1[Oct 2024: Society Initialized]
+        end
+        
+        subgraph Milestone_02 [First Forum]
+          B -.-> B1[Nov 2024: The inaugural speaker event]
+        end
+        
+        subgraph Milestone_03 [Member OS 1.0]
+          C -.-> C1[Jan 2025: Security infrastructure hardened]
+        end
+
+        style Spine fill:#18150F,stroke:#D4AF37,stroke-width:2px
+        style Milestone_01 fill:#FDFCF8,stroke:#18150F
+        style Milestone_02 fill:#FDFCF8,stroke:#18150F
+        style Milestone_03 fill:#FDFCF8,stroke:#18150F
+      ```

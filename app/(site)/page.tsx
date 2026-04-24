@@ -34,14 +34,14 @@ export default function Home() {
       <span className="hero-eyebrow-text" id="hero-speakable">An Independent Student Organization  ·  Ottawa  ·  Est. 2025</span>
       <span className="hero-eyebrow-rule"></span>
     </div>
-    <p className="hero-pre rv">A Place for</p>
-    <h1 className="hero-title rv rv-stagger" id="heroTitle">
+    <p className="hero-pre">A Place for</p>
+    <h1 className="hero-title" id="heroTitle">
       <span className="rv-stagger-item">DISCOURSE</span>
     </h1>
     <div className="hero-hr" aria-hidden="true"></div>
-    <p className="hero-sub rv" data-d="1">Bringing students together with the professionals, alumni, and scholars who can expand their mindset.</p>
+    <p className="hero-sub">Bringing students together with the professionals, alumni, and scholars who can expand their mindset.</p>
     <div className="hero-actions">
-      <div className="hero-main-ctas rv" data-d="3">
+      <div className="hero-main-ctas">
         <Magnetic strength={0.2}>
           <Link href={REGISTER_URL} className="btn-primary" data-register>
             <span>Register for Updates</span>
@@ -56,8 +56,8 @@ export default function Home() {
           </a>
         </Magnetic>
       </div>
-      <div className="hero-actions-divider rv" data-d="4"></div>
-      <Link href="/events" className="btn-ghost-link rv" data-d="4">Explore Events  &#8594;</Link>
+      <div className="hero-actions-divider"></div>
+      <Link href="/events" className="btn-ghost-link">Explore Events  &#8594;</Link>
     </div>
   </div>
 

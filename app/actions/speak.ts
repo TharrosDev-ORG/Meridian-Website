@@ -33,13 +33,13 @@ const speakerSchema = z.object({
   keyTakeaways: z.string().trim().max(1500).optional(),
   bio: z.string().trim().min(30, 'Please provide a professional bio').max(3000),
   preferredFormat: z.array(z.string()).min(1, 'Select at least one preferred format'),
-  availability: z.string().trim().max(200).optional(),
+  availability: z.string().trim().min(2, 'Please select an availability window').max(200),
   locationConstraints: z.string().trim().min(2, 'Location constraints are required').max(300),
   previousExperience: z.boolean().optional(),
   portfolioLink: z.string().max(500).optional(),
   linkedinUrl: z.string().max(500).optional(),
   socialMedia: z.string().trim().max(200).optional(),
-  referralSource: z.string().trim().max(200).optional(),
+  referralSource: z.string().trim().min(2, 'Please tell us how you heard about us').max(200),
   additionalNotes: z.string().trim().max(1500).optional(),
   // Honeypot field
   fax_number: z.string().max(200).optional(),
@@ -129,4 +129,27 @@ export async function submitSpeakerApplication(data: SpeakerApplicationData) {
 
   console.log(`[SUCCESS] New speaker application from: ${redactEmail(normalizedEmail)}`);
   return { success: true };
+}
+
+export async function checkSpeakerEmail(email: string) {
+  if (!email || !email.includes('@')) {
+    return { exists: false, error: 'Invalid email' };
+  }
+
+  // Security Delay to prevent rapid probing
+  await securityDelay();
+
+  const supabaseService = createServiceClient();
+  const { data, error } = await supabaseService
+    .from('speaker_applications')
+    .select('id')
+    .eq('email', email.toLowerCase())
+    .maybeSingle();
+
+  if (error) {
+    console.error(`[SECURITY] Email check failed: ${error.message}`);
+    return { exists: false, error: 'Connection error' };
+  }
+
+  return { exists: !!data };
 }

@@ -43,7 +43,8 @@ CREATE TABLE IF NOT EXISTS public.members (
     heard_from public.referral_source,
     volunteer_interest public.volunteer_level,
     join_date_readable TEXT,
-    is_verified BOOLEAN DEFAULT false
+    is_verified BOOLEAN DEFAULT false,
+    accepted_terms BOOLEAN NOT NULL DEFAULT false
 );
 
 COMMENT ON TABLE public.members IS 'Archival member directory. Identity core for the Meridian Society.';

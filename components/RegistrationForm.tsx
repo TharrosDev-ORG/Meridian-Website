@@ -131,6 +131,7 @@ export default function RegistrationForm() {
       interests: selectedInterests,
       heardFrom: formData.get("heardFrom") as "Friend or Peer" | "Professor" | "Social Media" | "Campus Event" | "Current Member",
       volunteerInterest: formData.get("volunteerInterest") as "Yes" | "Maybe" | "Not at this time",
+      acceptedTerms: formData.get("consent") === "on",
       fax_number: formData.get("fax_number") as string,
     };
 

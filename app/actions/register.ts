@@ -48,6 +48,9 @@ const registrationSchema = z.object({
   volunteerInterest: z.enum(['Yes', 'Maybe', 'Not at this time'] as const, {
     message: 'Please select a volunteer interest level',
   }),
+  acceptedTerms: z.literal(true, {
+    errorMap: () => ({ message: 'You must agree to the Privacy and Terms to register' }),
+  }),
   // Honeypot field
   fax_number: z.string().max(200).optional(),
 });
@@ -114,6 +117,7 @@ export async function registerMember(data: RegistrationData) {
     interests,
     heardFrom,
     volunteerInterest,
+    acceptedTerms,
   } = validated.data;
 
   const normalizedEmail = email.toLowerCase();
@@ -155,6 +159,7 @@ export async function registerMember(data: RegistrationData) {
         interests,
         heard_from: heardFrom,
         volunteer_interest: volunteerInterest,
+        accepted_terms: acceptedTerms,
       },
     ]);
 

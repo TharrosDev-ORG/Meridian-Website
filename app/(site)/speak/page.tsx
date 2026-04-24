@@ -58,7 +58,7 @@ export default function Page() {
       <div className="nominate-card rv" data-d="4">
         <div className="nominate-content">
           <h2 className="nominate-h">Nominate a Speaker</h2>
-          <p className="nominate-p">Know a visionary or professional who should be on our stage? We&apos;d love to hear your suggestions.</p>
+          <p className="nominate-p">The best dialogues begin with a recommendation. Help us identify the voices that will shape our next forum.</p>
         </div>
         <a href="mailto:meridiansocietycanada@gmail.com?subject=Speaker%20Nomination" className="btn-nominate">
           <span>Email Nomination</span>

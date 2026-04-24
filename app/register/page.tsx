@@ -48,7 +48,7 @@ const registerPageCss = `
   }
   .register-form-wrapper {
     width: 100%;
-    max-width: 800px;
+    max-width: 1000px;
   }
   .reg-form-container {
     margin-top: 0 !important;
@@ -57,8 +57,8 @@ const registerPageCss = `
 
   @media (min-width: 1101px) {
     .register-page-minimal { padding: 88px 40px 120px; }
-    .register-nav { max-width: 840px; margin-bottom: 72px; }
-    .register-form-wrapper { max-width: 840px; }
+    .register-nav { max-width: 1100px; margin-bottom: 72px; }
+    .register-form-wrapper { max-width: 1100px; }
     .return-link { font-size: 12px; letter-spacing: 0.28em; }
   }
 

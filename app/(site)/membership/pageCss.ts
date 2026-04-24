@@ -139,7 +139,7 @@ export const membershipCss = `
 
     /* ── Integrated Registration Form ── */
     .reg-form-container {
-      max-width: 800px;
+      max-width: 1000px;
       margin: 60px auto 0;
       text-align: left;
       background: rgba(244, 237, 227, 0.4);
@@ -399,8 +399,9 @@ export const membershipCss = `
       .faq-item { padding-left: 16px; }
 
       /* Register form container: refined desktop feel */
-      .reg-form-container { padding: 72px 72px 64px; }
-      .reg-grid { gap: 40px; }
+      .reg-form-container { max-width: 1100px; padding: 72px 80px 64px; }
+      .reg-options-grid { grid-template-columns: repeat(3, 1fr); gap: 16px 32px; }
+      .reg-grid { gap: 40px 60px; }
       .reg-label { font-size: 11px; letter-spacing: 0.26em; }
       .reg-input { font-size: 19px; padding: 14px 0; }
       .reg-submit { padding: 17px 72px 16px; }

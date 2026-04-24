@@ -141,8 +141,10 @@ export async function registerMember(data: RegistrationData) {
 
   if (existing) {
     // Audit: Log security-relevant duplication attempt.
-    console.warn(`[SECURITY] Registration attempt for existing email blocked.`);
-    return { success: false, error: 'This email is already registered.' };
+    // Instead of erroring, we allow the frontend to treat this as a success path
+    // so the user is "redirected" to the completion state.
+    console.warn(`[SECURITY] Registration attempt for existing email — Redirecting to completion.`);
+    return { success: true, alreadyRegistered: true };
   }
 
   // Insert into Supabase
@@ -167,7 +169,7 @@ export async function registerMember(data: RegistrationData) {
     // Audit: Sanitized log — preventing raw leak of table metadata.
     console.error(`[SECURITY] Member insertion failed. DB Code: ${insertError.code}`);
     if (insertError.code === '23505') {
-      return { success: false, error: 'This email is already registered.' };
+      return { success: true, alreadyRegistered: true };
     }
     return { success: false, error: 'Failed to register. Please try again later.' };
   }

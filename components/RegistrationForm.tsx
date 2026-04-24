@@ -21,7 +21,7 @@ const VOLUNTEER_OPTIONS = ["Yes", "Maybe", "Not at this time"];
 export default function RegistrationForm() {
   const [mounted, setMounted] = useState(false);
   const [isPending, startTransition] = useTransition();
-  const [result, setResult] = useState<{ success?: boolean; error?: string } | null>(null);
+  const [result, setResult] = useState<{ success?: boolean; error?: string; alreadyRegistered?: boolean } | null>(null);
   const [isAlreadyRegistered, setIsAlreadyRegistered] = useState(false);
 
   // Check registration status on mount

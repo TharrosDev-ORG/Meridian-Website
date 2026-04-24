@@ -2,8 +2,8 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import PageStyles from '@/components/PageStyles';
 import { speakCss } from './pageCss';
-import { SPEAK_URL } from '@/components/NavBar';
 import Marquee from '@/components/Marquee';
+import SpeakerForm from '@/components/SpeakerForm';
 import { getMetadata } from '@/utils/metadata-shared';
 import { generateBreadcrumbSchema } from '@/utils/jsonld';
 
@@ -46,7 +46,7 @@ export default function Page() {
       <div className="hero-hr rv" aria-hidden="true" data-d="1"></div>
       <p className="hero-sub rv" data-d="2">Motivated students. Genuine curiosity. A room built for real conversation.</p>
       <div className="hero-actions rv" data-d="3">
-        <a href={SPEAK_URL} className="btn-primary" target="_blank" rel="noopener noreferrer"><span>Apply to Speak</span></a>
+        <a href="#apply" className="btn-primary"><span>Apply to Speak</span></a>
         <a href="#why" className="btn-ghost-link">Learn More <span>&#8595;</span></a>
       </div>
     </div>
@@ -143,17 +143,18 @@ export default function Page() {
   {/* ═══════════ APPLY ═══════════ */}
   <section className="speak-apply-sec" id="apply" aria-labelledby="apply-heading">
     <div className="wrap">
-      <div className="speak-apply-inner">
-        <h2 className="speak-apply-title rv" id="apply-heading">Ready to Speak?</h2>
-        <p className="speak-apply-body rv" data-d="1">Tell us about yourself and what you&apos;d like to discuss. We&apos;ll be in touch.</p>
-        <div className="speak-apply-ctas rv" data-d="2">
-          <a href={SPEAK_URL} className="btn-primary" data-speak target="_blank" rel="noopener noreferrer"><span>Apply to Speak</span></a>
-          <a href="mailto:meridiansocietycanada@gmail.com" className="btn-ghost-link">or email us <span>&#8594;</span></a>
+      <div className="speak-apply-inner" style={{ maxWidth: 'none' }}>
+        <h2 className="speak-apply-title rv" id="apply-heading" style={{ textAlign: 'center' }}>Apply to Speak</h2>
+        <p className="speak-apply-body rv" data-d="1" style={{ textAlign: 'center', marginBottom: '40px' }}>Tell us about yourself and what you&apos;d like to discuss. We&apos;ll be in touch.</p>
+        
+        <div className="rv" data-d="2">
+          <SpeakerForm />
         </div>
-        <p className="speak-apply-trust rv" data-d="3">We take every application seriously.</p>
-        <p className="noscript-speak-note" style={{"display":"none","fontSize":"0.85em","marginTop":"1rem"}}>
-          <a href={SPEAK_URL} target="_blank" rel="noopener noreferrer">Apply directly</a>
-        </p>
+
+        <div className="speak-apply-footer" style={{ marginTop: '56px', textAlign: 'center' }}>
+          <p className="speak-apply-trust rv" data-d="3">We take every application seriously.</p>
+          <a href="mailto:meridiansocietycanada@gmail.com" className="btn-ghost-link" style={{ justifyContent: 'center', marginTop: '20px' }}>or email us directly <span>&#8594;</span></a>
+        </div>
       </div>
     </div>
   </section>

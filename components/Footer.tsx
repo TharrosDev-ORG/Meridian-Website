@@ -113,11 +113,6 @@ export default function Footer() {
         </div>
 
         <div className="footer-bottom">
-          <div className="footer-live" aria-live="polite">
-            <span className="footer-live-dot" aria-hidden="true"></span>
-            <span className="footer-live-val">{count}</span>
-            <span className="footer-live-lbl">Live Members</span>
-          </div>
           <span className="footer-copy">
             © {currentYear} The Meridian Society. All Rights Reserved.
           </span>

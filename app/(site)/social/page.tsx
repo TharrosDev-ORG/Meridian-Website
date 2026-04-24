@@ -39,8 +39,8 @@ export default function SocialPage() {
             <span className="hero-eyebrow-rule"></span>
           </div>
           <p className="hero-pre rv">Society</p>
-          <h1 className="hero-title rv">
-            Social <em>Events.</em>
+          <h1 className="hero-title rv rv-stagger">
+            <span className="rv-stagger-item">Social <em>Events.</em></span>
           </h1>
           <div className="hero-hr rv" aria-hidden="true" data-d="1"></div>
           <p className="hero-sub rv" data-d="2">A space for students to connect.</p>

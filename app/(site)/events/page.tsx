@@ -41,8 +41,8 @@ export default function EventsPage() {
               <span className="hero-eyebrow-rule"></span>
             </div>
             <p className="hero-pre rv">Society</p>
-            <h1 className="hero-title rv">
-              Speaker <em>Events.</em>
+            <h1 className="hero-title rv rv-stagger">
+              <span className="rv-stagger-item">Speaker <em>Events.</em></span>
             </h1>
             <div className="hero-hr rv" aria-hidden="true" data-d="1"></div>
             <p className="hero-sub rv" data-d="2">Connecting Ottawa students with the professionals, alumni, and scholars who can expand their mindset.</p>

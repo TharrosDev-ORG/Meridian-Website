@@ -97,8 +97,12 @@ export default function SpeakerForm() {
     if (input.dataset.checked === "true") {
       input.checked = false;
       input.dataset.checked = "false";
+      // Manually trigger change to update state/draft
       const event = new Event("change", { bubbles: true });
       input.dispatchEvent(event);
+      
+      // Clear conditional states
+      if (input.name === "availability") setSelectedAvail("");
     } else {
       const group = document.querySelectorAll(`input[name="${input.name}"]`);
       group.forEach((el) => {

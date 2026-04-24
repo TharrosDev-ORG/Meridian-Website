@@ -56,6 +56,13 @@ const registerPageCss = `
     background: rgba(244, 237, 227, 0.6) !important;
   }
 
+  @media (min-width: 1101px) {
+    .register-page-minimal { padding: 88px 40px 120px; }
+    .register-nav { max-width: 840px; margin-bottom: 72px; }
+    .register-form-wrapper { max-width: 840px; }
+    .return-link { font-size: 12px; letter-spacing: 0.28em; }
+  }
+
   @media (max-width: 700px) {
     .register-page-minimal {
       padding: 32px 18px calc(40px + env(safe-area-inset-bottom, 0px));

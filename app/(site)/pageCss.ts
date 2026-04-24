@@ -376,6 +376,78 @@ export const indexCss = `
 
 
     /* ══════════════════════════════
+       DESKTOP OPTIMIZATIONS (home)
+       Readability caps, comfortable rhythm, refined hover polish.
+    ══════════════════════════════ */
+    @media (min-width: 1101px) {
+      /* Hero: slightly airier breathing for widescreen */
+      .hero { padding: 112px 72px 0; }
+      .hero-sub { max-width: 620px; }
+      .hero-actions { margin-top: 8px; }
+
+      /* Stats bar: more comfortable density & refined spacing */
+      .stat { padding: 32px 48px; }
+      .stat-val { font-size: 32px; margin-bottom: 8px; letter-spacing: -0.01em; }
+      .stat-lbl { font-size: 11.5px; letter-spacing: 0.26em; }
+
+      /* About: richer rhythm and constrained body line-length for readability */
+      .about { padding: 120px 0; }
+      .about-layout { grid-template-columns: 420px 1fr; }
+      .about-left { padding-right: 88px; }
+      .about-right { padding-left: 104px; }
+      .about-num { font-size: 104px; }
+      .about-body { max-width: 62ch; font-size: 20px; line-height: 1.95; }
+      .pull-quote { margin: 48px 0; padding: 28px 32px 28px 36px; }
+      .pull-quote p { font-size: 22px; }
+
+      /* Who we gather: tighter readability on the intro copy */
+      .who { padding: 112px 0; }
+      .who-top { gap: 88px; margin-bottom: 72px; }
+      .who-intro-body { max-width: 48ch; font-size: 20px; line-height: 1.9; }
+      .who-item { padding: 48px 40px; }
+      .who-item-title { font-size: 24px; margin-bottom: 16px; }
+      .who-item-desc { font-size: 19px; line-height: 1.8; max-width: 36ch; }
+
+      /* What we are not: readable paragraph & list hover polish */
+      .not-sec { padding: 112px 0; }
+      .not-layout { grid-template-columns: 460px 1fr; }
+      .not-left { padding-right: 88px; }
+      .not-right { padding-left: 88px; }
+      .not-body { max-width: 46ch; font-size: 19px; line-height: 1.9; }
+      .not-list li { padding: 22px 0; font-size: 20px; }
+      .not-list li:hover { transform: translateX(12px); }
+
+      /* Events portal: portal cards get richer space on desktop */
+      .events { padding: 112px 0; }
+      .events-header { margin-bottom: 64px; }
+      .portal-grid { gap: 40px; }
+      .portal-card { padding: 64px 56px; }
+      .portal-p { font-size: 20px; line-height: 1.8; }
+
+      /* Speaking: comfortable body line-length */
+      .speaking { padding: 112px 0; }
+      .speaking-left { padding-right: 96px; }
+      .speaking-right { padding-left: 96px; }
+      .speaking-body { max-width: 48ch; font-size: 20px; line-height: 1.95; }
+      .speaking-sub { font-size: 20px; margin-bottom: 36px; }
+      .formats-item { padding: 20px 0; }
+      .formats-text { font-size: 20px; }
+
+      /* Register section: airier hero-like presence */
+      .register { padding: 120px 0; }
+      .register-title { margin-bottom: 28px; }
+      .register-body { font-size: 20px; max-width: 600px; }
+    }
+
+    /* Ultra-wide screens: slightly more generous paragraph widths */
+    @media (min-width: 1600px) {
+      .about-body { max-width: 64ch; }
+      .who-intro-body { max-width: 52ch; }
+      .speaking-body { max-width: 52ch; }
+    }
+
+
+    /* ══════════════════════════════
        RESPONSIVE
     ══════════════════════════════ */
     /* ── Responsive ── */

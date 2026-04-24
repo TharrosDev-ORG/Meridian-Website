@@ -54,6 +54,39 @@ export const speakCss = `
 
 
 
+    /* ══ Desktop optimizations ══ */
+    @media (min-width: 1101px) {
+      .speak-why-sec { padding: 120px 0; }
+      .speak-format-sec { padding: 120px 0; }
+      .speak-apply-sec { padding: 120px 0; }
+
+      .speak-why-header { margin-bottom: 64px; }
+      .speak-why-grid { gap: 40px; }
+      .speak-why-card { padding: 48px 42px; }
+      .speak-why-body { font-size: 19px; line-height: 1.85; }
+      .speak-why-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 18px 56px rgba(24,21,15,0.10), 0 2px 8px rgba(184,147,42,0.05);
+      }
+
+      /* Format rows: consistent with events expectations */
+      .speak-format-header { margin-bottom: 48px; }
+      .speak-meta-row {
+        grid-template-columns: 240px 1fr;
+        padding: 32px 40px;
+        transition: background 0.3s ease, padding 0.3s ease;
+      }
+      .speak-meta-row:hover { padding-left: 48px; }
+      .speak-meta-lbl { font-size: 11px; letter-spacing: 0.32em; }
+      .speak-meta-val { font-size: 23px; line-height: 1.45; }
+
+      /* Apply block: more inviting, airy */
+      .speak-apply-inner { max-width: 720px; }
+      .speak-apply-title { margin-bottom: 28px; }
+      .speak-apply-body { margin-bottom: 52px; line-height: 1.9; }
+      .speak-apply-ctas { gap: 40px; margin-bottom: 36px; }
+    }
+
     /* ── Responsive ── */
     @media (max-width: 1100px) {
       /* Optimize text heavy blocks on mobile */

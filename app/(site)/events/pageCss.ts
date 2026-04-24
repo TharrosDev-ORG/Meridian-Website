@@ -42,6 +42,37 @@ export const eventsCss = `
 
     /* ── Stay Notified CTA ── */
 
+    /* ══ Desktop optimizations ══ */
+    @media (min-width: 1101px) {
+      .events-sec { padding: 112px 0; }
+      .sig-sec { padding: 112px 0; }
+      .expect-sec { padding: 112px 0; }
+
+      /* Intro grid: switch to 2-col at desktop for richer layout */
+      .module-intro-grid {
+        display: grid;
+        grid-template-columns: 0.9fr 1.1fr;
+        gap: 72px;
+        align-items: start;
+      }
+      .module-intro-left { padding-right: 16px; }
+
+      /* Signature series cards: more breathing room */
+      .sig-h { font-size: 26px; margin-bottom: 18px; }
+      .sig-p { font-size: 18px; line-height: 1.8; }
+
+      /* Expectations grid: richer row rhythm */
+      .expect-grid { margin-top: 48px; }
+      .expect-row {
+        grid-template-columns: 240px 1fr;
+        padding: 32px 40px;
+        transition: background 0.3s ease, padding 0.3s ease;
+      }
+      .expect-row:hover { padding-left: 48px; }
+      .expect-lbl { font-size: 11px; letter-spacing: 0.32em; }
+      .expect-val { font-size: 23px; line-height: 1.45; }
+    }
+
     /* ── Responsive ── */
     @media (max-width: 1100px) {
       .event-card { grid-template-columns: 1fr; }

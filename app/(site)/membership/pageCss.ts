@@ -374,6 +374,39 @@ export const membershipCss = `
     }
 
 
+    /* ══ Desktop optimizations ══ */
+    @media (min-width: 1101px) {
+      .benefits-sec { padding: 120px 0; }
+      .faq-sec { padding: 120px 0; }
+
+      .benefits-header { margin-bottom: 64px; }
+      .benefits-grid {
+        /* 5 cards lay out naturally in 3x2; give balanced breathing */
+        gap: 40px;
+      }
+      .benefit-card { padding: 48px 44px; }
+      .benefit-heading { margin-bottom: 20px; }
+      .benefit-body { font-size: 19px; line-height: 1.85; }
+      .benefit-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 18px 56px rgba(24,21,15,0.10), 0 2px 8px rgba(184,147,42,0.05);
+      }
+
+      /* FAQ refinements: richer spacing & smoother body */
+      .faq-header { margin-bottom: 64px; }
+      .faq-item summary { padding: 36px 24px; font-size: clamp(20px, 2vw, 26px); }
+      .faq-answer { font-size: 20px; line-height: 1.9; padding-bottom: 36px; max-width: 680px; }
+      .faq-item { padding-left: 16px; }
+
+      /* Register form container: refined desktop feel */
+      .reg-form-container { padding: 72px 72px 64px; }
+      .reg-grid { gap: 40px; }
+      .reg-label { font-size: 11px; letter-spacing: 0.26em; }
+      .reg-input { font-size: 19px; padding: 14px 0; }
+      .reg-submit { padding: 17px 72px 16px; }
+    }
+
+
     /* ── Mobile sticky CTA ── */
     .sticky-join {
       display: none; position: fixed;

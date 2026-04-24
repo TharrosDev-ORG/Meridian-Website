@@ -66,7 +66,24 @@ export const infoPageCss = `
     padding: 80px 52px 120px;
   }
   @media (min-width: 1101px) {
-    .info-body { padding: 120px 0 160px; }
+    .info-hero { padding: 168px 72px 72px; }
+    .info-hero::after { width: 56px; }
+    .info-body { padding: 128px 0 176px; max-width: 740px; }
+    .info-body h2 { margin: 64px 0 22px; }
+    .info-body p, .info-body li { font-size: 19px; line-height: 1.85; }
+    .info-body a { transition: color 0.25s ease, text-decoration-color 0.25s ease; }
+    .info-body a:hover { text-decoration-color: var(--ink); }
+    .info-contact-grid { gap: 32px; margin: 40px 0; }
+    .info-contact-card {
+      padding: 32px;
+      transition: transform 0.3s cubic-bezier(0.16,1,0.3,1), border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    .info-contact-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--gold-lt);
+      box-shadow: 0 8px 28px rgba(24,21,15,0.06);
+    }
+    .info-contact-val { font-size: 19px; }
   }
 
 

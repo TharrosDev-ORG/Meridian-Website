@@ -12,7 +12,7 @@ export const teamCss = `
     .team-sec::before { content: ''; position: absolute; top: 40px; right: 40px; width: 80px; height: 80px; border-top: 1px solid var(--ink-15); border-right: 1px solid var(--ink-15); pointer-events: none; }
     .team-sec::after  { content: ''; position: absolute; bottom: 40px; left: 40px; width: 80px; height: 80px; border-bottom: 1px solid var(--ink-15); border-left: 1px solid var(--ink-15); pointer-events: none; }
     .team-sec .wrap { position: relative; z-index: 1; }
-    .team-anchor { position: absolute; top: 40px; left: 0; pointer-events: none; visibility: hidden; }
+    .team-anchor { position: absolute; top: 90px; left: 0; pointer-events: none; visibility: hidden; }
     .team-header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 52px; }
     .team-title { font-family: var(--serif); font-size: clamp(36px, 3.5vw, 56px); font-weight: 300; line-height: 1.05; color: var(--ink); }
     .team-title em { font-style: italic; }

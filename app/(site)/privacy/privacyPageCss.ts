@@ -22,13 +22,13 @@ export const privacyPageCss = infoPageCss + `
     padding-bottom: 160px !important;
   }
 
-  h2 {
+  .info-body h2 {
     position: relative;
     display: inline-block;
     margin-top: 64px !important;
     margin-bottom: 32px !important;
   }
-  h2::before {
+  .info-body h2::before {
     content: '◈';
     position: absolute;
     left: -32px;
@@ -39,12 +39,12 @@ export const privacyPageCss = infoPageCss + `
     opacity: 0.4;
   }
 
-  ul {
+  .info-body ul {
     list-style: none;
     padding-left: 0;
     margin: 24px 0;
   }
-  ul li {
+  .info-body ul li {
     position: relative;
     padding-left: 28px;
     margin-bottom: 16px;
@@ -53,7 +53,7 @@ export const privacyPageCss = infoPageCss + `
     color: var(--ink-90);
     line-height: 1.6;
   }
-  ul li::before {
+  .info-body ul li::before {
     content: '';
     position: absolute;
     left: 0;

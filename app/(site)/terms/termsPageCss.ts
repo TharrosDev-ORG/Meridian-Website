@@ -22,13 +22,13 @@ export const termsPageCss = infoPageCss + `
     padding-bottom: 160px !important;
   }
 
-  h2 {
+  .info-body h2 {
     position: relative;
     display: inline-block;
     margin-top: 64px !important;
     margin-bottom: 24px !important;
   }
-  h2::before {
+  .info-body h2::before {
     content: '◈';
     position: absolute;
     left: -32px;
@@ -48,7 +48,7 @@ export const termsPageCss = infoPageCss + `
     line-height: 1.7;
   }
 
-  p {
+  .info-body p {
     font-size: 18px;
     line-height: 1.8;
     color: var(--ink-90);
@@ -56,8 +56,8 @@ export const termsPageCss = infoPageCss + `
   }
 
   @media (max-width: 700px) {
-    h2::before { display: none; }
-    p { font-size: 16.5px; }
+    .info-body h2::before { display: none; }
+    .info-body p { font-size: 16.5px; }
     .info-body { padding: 60px 24px 100px !important; }
   }
 `;

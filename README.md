@@ -185,24 +185,34 @@ Favicons are in `public/assets/favicons/` — do not add `app/favicon.ico` (over
     - **Visual Sketch**:
       ```mermaid
       graph TD
-        A[MS-2024-001] --- Spine(( ))
-        Spine --- B[MS-2024-002]
-        Spine --- C[MS-2024-003]
-        
-        subgraph Milestone_01 [Founding Declaration]
-          A -.-> A1[Oct 2024: Society Initialized]
-        end
-        
-        subgraph Milestone_02 [First Forum]
-          B -.-> B1[Nov 2024: The inaugural speaker event]
-        end
-        
-        subgraph Milestone_03 [Member OS 1.0]
-          C -.-> C1[Jan 2025: Security infrastructure hardened]
-        end
+        %% The Central Spine
+        SpineStart(( )) --- P1(( ))
+        P1 --- P2(( ))
+        P2 --- P3(( ))
+        P3 --- SpineEnd(( ))
 
-        style Spine fill:#18150F,stroke:#D4AF37,stroke-width:2px
-        style Milestone_01 fill:#FDFCF8,stroke:#18150F
-        style Milestone_02 fill:#FDFCF8,stroke:#18150F
-        style Milestone_03 fill:#FDFCF8,stroke:#18150F
+        %% Milestone Connections
+        P1 --- M1["<b>OCT 2024</b><br/>Founding Declaration"]
+        P2 --- M2["<b>NOV 2024</b><br/>Inaugural Speaker Forum"]
+        P3 --- M3["<b>JAN 2025</b><br/>Member OS 1.0 Deployment"]
+
+        %% Expansion Mockups
+        M1 -.-> D1["[+] Expansion Record: <i>Founding signatories gathered in Ottawa...</i>"]
+        M2 -.-> D2["[+] Expansion Record: <i>A forum on the future of intellectual curiosity...</i>"]
+        M3 -.-> D3["[+] Expansion Record: <i>Sovereign Gate protocol finalized...</i>"]
+
+        %% Institutional Styling
+        style SpineStart fill:#18150F,stroke:#D4AF37,stroke-width:2px
+        style SpineEnd fill:#18150F,stroke:#D4AF37,stroke-width:2px
+        style P1 fill:#D4AF37,stroke:#18150F,stroke-width:2px
+        style P2 fill:#D4AF37,stroke:#18150F,stroke-width:2px
+        style P3 fill:#D4AF37,stroke:#18150F,stroke-width:2px
+        
+        style M1 fill:#FDFCF8,stroke:#18150F,stroke-width:1px
+        style M2 fill:#FDFCF8,stroke:#18150F,stroke-width:1px
+        style M3 fill:#FDFCF8,stroke:#18150F,stroke-width:1px
+        
+        style D1 fill:#FDFCF8,stroke:#D4AF37,stroke-dasharray: 5 5
+        style D2 fill:#FDFCF8,stroke:#D4AF37,stroke-dasharray: 5 5
+        style D3 fill:#FDFCF8,stroke:#D4AF37,stroke-dasharray: 5 5
       ```

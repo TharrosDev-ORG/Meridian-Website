@@ -194,7 +194,7 @@ export const indexCss = `
       content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px;
       background: var(--gold);
     }
-    .about-counter-wrap .count-num { font-family: var(--serif); font-size: 36px; font-weight: 300; color: var(--ink); line-height: 1; }
+    .about-counter-wrap .count-num { font-family: var(--sans); font-size: 34px; font-weight: 500; color: var(--ink); line-height: 1; }
     .about-counter-wrap .count-lbl { font-family: var(--sans); font-size: 9px; font-weight: 700; letter-spacing: 0.24em; text-transform: uppercase; color: var(--gold); margin-top: 6px; }
     .about-title em { font-style: italic; color: var(--gold); }
     .about-right { padding-left: 96px; }
@@ -378,7 +378,7 @@ export const indexCss = `
 
     /* Member count box (lives inside register section) */
     .member-count-box { display: inline-flex; flex-direction: column; align-items: center; gap: 8px; margin-bottom: 40px; }
-    .member-count-num { font-family: var(--serif); font-size: 52px; font-weight: 300; color: var(--gold); line-height: 1; }
+    .member-count-num { font-family: var(--sans); font-size: 48px; font-weight: 500; color: var(--gold); line-height: 1; }
     .member-count-lbl { font-family: var(--sans); font-size: 10px; font-weight: 600; letter-spacing: 0.24em; text-transform: uppercase; color: var(--ink-55); }
 
 

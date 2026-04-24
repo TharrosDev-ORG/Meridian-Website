@@ -335,7 +335,7 @@ export const membershipCss = `
     .registry-label { font-family: var(--sans); font-size: 10px; font-weight: 700; letter-spacing: 0.24em; text-transform: uppercase; color: var(--ink-30); margin-bottom: 16px; }
     .registry-id { display: flex; align-items: baseline; gap: 12px; margin-bottom: 16px; }
     .registry-prefix { font-family: var(--sans); font-size: 11px; font-weight: 600; color: var(--ink-55); letter-spacing: 0.12em; }
-    .registry-val { font-family: var(--serif); font-size: 42px; font-weight: 300; color: var(--ink); line-height: 1; }
+    .registry-val { font-family: var(--sans); font-size: 38px; font-weight: 500; color: var(--ink); line-height: 1; }
     .registry-status { display: flex; align-items: center; gap: 10px; }
     .status-dot { width: 6px; height: 6px; background: #2d8a4e; border-radius: 50%; box-shadow: 0 0 12px rgba(45,138,78,0.5); }
     .status-text { font-family: var(--sans); font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: #2d8a4e; }

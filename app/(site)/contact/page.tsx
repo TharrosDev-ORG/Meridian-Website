@@ -27,9 +27,11 @@ export default function ContactPage() {
       />
       <main id="main-content">
         <section className="info-hero">
-          <div className="info-eyebrow">The Meridian Society</div>
-          <h1 className="info-title">Get in <em>Touch.</em></h1>
-          <div className="info-meta">Ottawa · Est. 2025</div>
+          <div className="info-eyebrow rv">The Meridian Society</div>
+          <h1 className="info-title rv rv-stagger">
+            <span className="rv-stagger-item">Get in <em>Touch.</em></span>
+          </h1>
+          <div className="info-meta rv" data-d="1">Ottawa · Est. 2025</div>
         </section>
 
         <section className="info-body">

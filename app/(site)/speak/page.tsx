@@ -39,7 +39,7 @@ export default function Page() {
         <span className="hero-eyebrow-text">The Meridian Society</span>
         <span className="hero-eyebrow-rule"></span>
       </div>
-      <p className="hero-pre">Speaker Applications</p>
+      <p className="hero-pre rv">Speaker Applications</p>
       <h1 className="hero-title rv rv-stagger">
         <span className="rv-stagger-item">Make an Impact.</span>
       </h1>

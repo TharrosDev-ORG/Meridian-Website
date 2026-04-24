@@ -26,9 +26,11 @@ export default function TermsPage() {
       />
       <main id="main-content">
         <section className="info-hero">
-          <div className="info-eyebrow">The Meridian Society</div>
-          <h1 className="info-title">Terms of <em>Use.</em></h1>
-          <div className="info-meta">Last updated · April 2026</div>
+          <div className="info-eyebrow rv">The Meridian Society</div>
+          <h1 className="info-title rv rv-stagger">
+            <span className="rv-stagger-item">Terms of <em>Use.</em></span>
+          </h1>
+          <div className="info-meta rv" data-d="1">Last updated · April 2026</div>
         </section>
 
         <section className="info-body">

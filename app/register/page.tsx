@@ -49,7 +49,6 @@ const registerPageCss = `
   .register-form-wrapper {
     width: 100%;
     max-width: 800px;
-    animation: riseIn 0.8s cubic-bezier(0.16, 1, 0.3, 1);
   }
   .reg-form-container {
     margin-top: 0 !important;
@@ -84,10 +83,10 @@ export default function RegisterPage() {
     <TransitionWrapper>
       <main className="register-page-minimal">
         <PageStyles css={membershipCss + registerPageCss} />
-        <div className="register-nav">
+        <div className="register-nav rv">
           <BackButton className="return-link" />
         </div>
-        <div className="register-form-wrapper">
+        <div className="register-form-wrapper rv" data-d="1">
           <RegistrationForm />
         </div>
       </main>

@@ -93,6 +93,34 @@ export const teamCss = `
 
 
 
+    /* ══ Desktop optimizations ══ */
+    @media (min-width: 1101px) {
+      .team-sec { padding: 112px 0; }
+      .team-header { margin-bottom: 64px; }
+      .member-grid { gap: 32px; }
+
+      /* Photo + header: more presence on desktop */
+      .member-photo-wrap { width: 104px; height: 130px; }
+      .member-header { gap: 22px; margin-bottom: 26px; }
+      .member-name { font-size: 28px; margin-bottom: 8px; }
+      .member-role { font-size: 11px; }
+      .member-studies { font-size: 18px; padding-left: 16px; margin-bottom: 22px; line-height: 1.6; }
+      .member-bio { font-size: 19px; line-height: 1.8; }
+      .member-body { padding: 32px 32px 36px; }
+
+      /* Social icons: larger & more tactile */
+      .member-social a { width: 38px; height: 38px; }
+      .member-social svg { width: 16px; height: 16px; }
+
+      /* Subtle photo treatment on card hover */
+      .member-card:hover .member-photo { filter: brightness(1.05) saturate(1.05); }
+
+      /* Placeholder card feels more balanced on desktop */
+      .member-card--placeholder { min-height: 360px; }
+      .placeholder-icon { font-size: 26px; margin-bottom: 24px; }
+      .placeholder-text { font-size: 22px; }
+    }
+
     /* ── Responsive ── */
     @media (max-width: 1100px) {
       .team-header { flex-direction: column; align-items: flex-start; gap: 16px; }

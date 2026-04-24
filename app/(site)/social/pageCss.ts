@@ -30,7 +30,30 @@ export const socialCss = `
 
     /* ── Stay Notified (Matches Events) ── */
 
+    /* ══ Desktop optimizations ══ */
+    @media (min-width: 1101px) {
+      .social-about-sec { padding: 112px 0; }
+      .gathering-sec { padding: 112px 0; }
 
+      /* Intro grid: 2-col at desktop for richer layout */
+      .module-intro-grid {
+        display: grid;
+        grid-template-columns: 0.9fr 1.1fr;
+        gap: 72px;
+        align-items: start;
+      }
+      .module-intro-left { padding-right: 16px; }
+
+      /* Gathering cards: richer breathing & content width */
+      .gathering-grid { gap: 40px; }
+      .gathering-card { padding: 56px; }
+      .gathering-h3 { font-size: 26px; margin-bottom: 18px; }
+      .gathering-p { font-size: 18px; line-height: 1.8; max-width: 42ch; }
+      .gathering-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 18px 56px rgba(24,21,15,0.10), 0 2px 8px rgba(184,147,42,0.05);
+      }
+    }
 
     /* ── Responsive ── */
     @media (max-width: 1100px) {

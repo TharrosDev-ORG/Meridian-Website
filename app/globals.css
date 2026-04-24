@@ -830,6 +830,141 @@ footer {
 .module-card:hover { transform: translateY(-4px); border-color: var(--gold-lt); box-shadow: 0 12px 40px rgba(24,21,15,0.06); }
 
 
+/* ══════════════════════════════════════════════════════════════
+   DESKTOP OPTIMIZATIONS (v1.5) — Comprehensive polish for ≥1101px
+   Readability caps, comfortable rhythm, and refined hover feedback.
+   All rules isolated to desktop to preserve mobile stability.
+   ══════════════════════════════════════════════════════════════ */
+@media (min-width: 1101px) {
+  /* ── Container rhythm ── */
+  .wrap { padding: 0 72px; }
+
+  /* ── Readable body max-widths (prevents overly long lines on wide screens) ── */
+  .hero-sub { max-width: 620px; line-height: 1.85; }
+  .register-body { max-width: 600px; }
+  .social-record-copy { max-width: 600px; }
+  .module-intro-copy { max-width: 62ch; }
+
+  /* ── Shared page hero: balanced vertical rhythm & constrained title wrap ── */
+  .page-hero,
+  .module-page-hero {
+    padding: 132px 72px 84px;
+    min-height: 64vh;
+  }
+  .page-hero .hero-title,
+  .module-page-hero .hero-title {
+    max-width: 16ch;
+  }
+  .hero-eyebrow { margin-bottom: 48px; }
+  .hero-eyebrow-rule { width: 48px; }
+
+  /* ── Section label: a touch more presence on wide screens ── */
+  .sec-label { font-size: 11px; gap: 16px; margin-bottom: 24px; }
+
+  /* ── Nav: comfortable density at desktop widths ── */
+  .nav-inner { padding: 0 64px; }
+  .nav-links { gap: 6px; }
+  .nav-links a { padding: 9px 18px; font-size: 13px; letter-spacing: 0.18em; }
+  .nav-cta { padding: 10px 24px; font-size: 11px; }
+
+  /* ── Primary button: refined lift on desktop ── */
+  .btn-primary { padding: 14px 36px 13px; }
+  .btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 44px rgba(24,21,15,0.16);
+  }
+
+  /* ── Ghost link: subtle letter-tracking on hover ── */
+  .btn-ghost-link { transition: color 0.25s ease, gap 0.3s cubic-bezier(0.16,1,0.3,1); }
+
+  /* ── Text links: smoother underline reveal ── */
+  .text-link::after { transition: background 0.3s ease, height 0.25s ease; }
+  .text-link:hover::after { height: 1.5px; }
+
+  /* ── Module cards: richer padding & layered hover ── */
+  .module-card { padding: 48px 42px; }
+  .module-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 18px 56px rgba(24,21,15,0.10), 0 2px 8px rgba(184,147,42,0.05);
+  }
+
+  /* ── Module intro block: breathing room on wide screens ── */
+  .module-intro-grid { gap: 56px; }
+  .module-intro-right { padding: 64px; }
+  .module-intro-copy {
+    font-size: 21px;
+    line-height: 1.9;
+    padding-left: 40px;
+  }
+
+  /* ── Footer: denser, more interactive ── */
+  .footer-main {
+    gap: 64px;
+    padding-bottom: 44px;
+    margin-bottom: 28px;
+  }
+  .footer-brand .footer-tagline { max-width: 280px; line-height: 1.45; }
+  .footer-col-h { margin-bottom: 20px; }
+  .footer-list { gap: 12px; }
+  .footer-list a {
+    font-size: 16.5px;
+    display: inline-block;
+    transition: color 0.25s ease, transform 0.3s cubic-bezier(0.16,1,0.3,1);
+  }
+  .footer-list a:hover { transform: translateX(4px); color: var(--gold-lt); }
+  .footer-live-val { font-size: 18px; }
+
+  /* ── Back-to-top: slightly larger, more inviting on desktop ── */
+  .arc-btn {
+    width: 56px; height: 56px;
+    bottom: 2.4rem; right: 2.4rem;
+  }
+
+  /* ── Skip link: larger & crisper on desktop ── */
+  .skip-link { font-size: 12px; padding: 12px 22px; }
+
+  /* ── Marquee: a touch more presence on wide screens ── */
+  .m-item { font-size: 10px; padding: 0 48px; }
+
+  /* ── Page-transition: finer blur/translate for smoother desktop entries ── */
+  @keyframes pageSweep {
+    0% { opacity: 0; transform: translateY(12px); filter: blur(6px); }
+    100% { opacity: 1; transform: translateY(0); filter: blur(0); }
+  }
+
+  /* ── Reveal: slightly longer easing for large hero typography ── */
+  .rv {
+    transition: opacity 0.75s cubic-bezier(0.16,1,0.3,1),
+                transform 0.75s cubic-bezier(0.16,1,0.3,1);
+  }
+
+  /* ── Shared decorative corners (events/team/speak/membership): larger at desktop ── */
+  .events-sec::before, .events-sec::after,
+  .team-sec::before, .team-sec::after,
+  .benefits-sec::before, .benefits-sec::after,
+  .speak-why-sec::before, .speak-why-sec::after,
+  .speak-apply-sec::before, .speak-apply-sec::after {
+    width: 96px; height: 96px;
+    top: 52px; right: 52px;
+  }
+  .events-sec::after,
+  .team-sec::after,
+  .benefits-sec::after,
+  .speak-why-sec::after,
+  .speak-apply-sec::after {
+    top: auto; right: auto; bottom: 52px; left: 52px;
+  }
+}
+
+/* ── Extra-wide screens (≥1600px): additional breathing room ── */
+@media (min-width: 1600px) {
+  .wrap { padding: 0 96px; }
+  .page-hero,
+  .module-page-hero { padding: 148px 96px 96px; }
+  .nav-inner { padding: 0 88px; }
+}
+
+
 /* ── SHARED RESPONSIVE OVERRIDES ── */
 @media (max-width: 1100px) {
   .wrap { padding: 0 40px; }

@@ -162,6 +162,16 @@ export const notFoundCss = `
     }
     .e404-cta-ghost:hover { color: var(--ink); }
 
+    @media (min-width: 1101px) {
+      .e404-main { padding: 140px 72px 100px; }
+      .e404-wrap { max-width: 720px; }
+      .e404-code { font-size: clamp(160px, 16vw, 220px); margin-bottom: 44px; }
+      .e404-title { margin-bottom: 24px; }
+      .e404-desc { margin-bottom: 52px; line-height: 1.8; }
+      .e404-cta-primary { padding: 16px 40px; font-size: 12px; letter-spacing: 0.24em; }
+      .e404-cta-ghost { font-size: 12px; letter-spacing: 0.22em; }
+    }
+
     @media (max-width: 700px) {
       .e404-main { padding: 100px 20px 60px; }
       .e404-ctas { flex-direction: column; gap: 16px; }

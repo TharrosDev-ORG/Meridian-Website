@@ -36,7 +36,7 @@ export default function Home() {
     </div>
     <p className="hero-pre">A Place for</p>
     <h1 className="hero-title" id="heroTitle">
-      <span className="rv-stagger-item">DISCOURSE</span>
+      <span>DISCOURSE</span>
     </h1>
     <div className="hero-hr" aria-hidden="true"></div>
     <p className="hero-sub">Bringing students together with the professionals, alumni, and scholars who can expand their mindset.</p>

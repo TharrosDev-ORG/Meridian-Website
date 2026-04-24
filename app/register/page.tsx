@@ -3,7 +3,6 @@ import RegistrationForm from "@/components/RegistrationForm";
 import PageStyles from "@/components/PageStyles";
 import BackButton from "@/components/BackButton";
 import TransitionWrapper from "@/components/TransitionWrapper";
-import Footer from "@/components/Footer";
 import { membershipCss } from "../(site)/membership/pageCss";
 import { getMetadata } from "@/utils/metadata-shared";
 
@@ -81,19 +80,16 @@ const registerPageCss = `
 
 export default function RegisterPage() {
   return (
-    <>
-      <TransitionWrapper>
-        <main className="register-page-minimal">
-          <PageStyles css={membershipCss + registerPageCss} />
-          <div className="register-nav rv">
-            <BackButton className="return-link" />
-          </div>
-          <div className="register-form-wrapper rv" data-d="1">
-            <RegistrationForm />
-          </div>
-        </main>
-      </TransitionWrapper>
-      <Footer />
-    </>
+    <TransitionWrapper>
+      <main className="register-page-minimal">
+        <PageStyles css={membershipCss + registerPageCss} />
+        <div className="register-nav rv">
+          <BackButton className="return-link" />
+        </div>
+        <div className="register-form-wrapper rv" data-d="1">
+          <RegistrationForm />
+        </div>
+      </main>
+    </TransitionWrapper>
   );
 }

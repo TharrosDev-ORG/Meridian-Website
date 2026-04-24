@@ -37,7 +37,7 @@ export default function Page() {
             name: "Magnus Abdelnour",
             jobTitle: "Founder & President",
             description: "Started The Meridian Society to bring journalists, founders, scholars, and accomplished professionals to the room to share knowledge with students.",
-            image: "/assets/images/team/magnus.webp",
+            image: "/assets/images/team/magnus.jpg",
             sameAs: ["https://www.linkedin.com/in/magnus-a-9b5b50378"]
           })),
         }}
@@ -94,7 +94,7 @@ export default function Page() {
         <article className="member-card rv" id="magnus" aria-labelledby="name-magnus" data-tilt>
           <div className="member-photo-wrap">
             <Image
-              src="/assets/images/team/magnus.webp"
+              src="/assets/images/team/magnus.jpg"
               className="member-photo"
               alt="Magnus Abdelnour, Founder and President of The Meridian Society"
               priority

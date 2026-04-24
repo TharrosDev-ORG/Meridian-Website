@@ -20,6 +20,7 @@ export default function SpeakerForm() {
   const [result, setResult] = useState<{ success?: boolean; error?: string } | null>(null);
   const [currentStep, setCurrentStep] = useState(1);
   const [emailValue, setEmailValue] = useState("");
+  const [nameValue, setNameValue] = useState("");
 
   useEffect(() => {
     const timer = setTimeout(() => setMounted(true), 0);
@@ -41,6 +42,7 @@ export default function SpeakerForm() {
       try {
         const draft = JSON.parse(saved);
         if (draft.email) setEmailValue(draft.email);
+        if (draft.fullName) setNameValue(draft.fullName);
         
         // Populate fields (both Step 1 and Step 2 if visible)
         const form = document.querySelector('form');
@@ -173,7 +175,7 @@ export default function SpeakerForm() {
         <div className="success-header">
           <div className="success-eyebrow rv-stagger-item">Proposal Received</div>
           <h1 className="success-title rv-stagger-item">
-            Thank you for <em>Contributing.</em>
+            Thank you, <em>{nameValue.split(' ')[0] || "Contributor"}.</em>
           </h1>
           <div className="success-rule rv-stagger-item"></div>
         </div>
@@ -224,6 +226,8 @@ export default function SpeakerForm() {
             className="reg-input" 
             placeholder="e.g. Dr. Helena Vance" 
             disabled={isPending}
+            value={nameValue}
+            onChange={(e) => setNameValue(e.target.value)}
             readOnly={currentStep === 2}
           />
         </div>

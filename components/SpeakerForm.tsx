@@ -11,7 +11,7 @@ const EXPERTISE_LIST = [
   "Education", "Law", "Other"
 ];
 const FORMAT_LIST = ["Keynote Presentation", "Panel Discussion", "Interactive Workshop", "Informal Fireside Chat", "Open Forum / Q&A"];
-const AVAILABILITY_LIST = ["Fall 2026", "Winter 2027", "Spring/Summer 2027", "Flexible / Rolling", "Specific Event Date"];
+const AVAILABILITY_LIST = ["Fall 2026", "Winter 2027", "Spring/Summer 2027", "Flexible / Rolling", "Specific date/window"];
 const REFERRAL_LIST = ["Society Website", "Social Media", "Personal Recommendation", "Past Society Event", "Other"];
 
 export default function SpeakerForm() {
@@ -21,6 +21,7 @@ export default function SpeakerForm() {
   const [currentStep, setCurrentStep] = useState(1);
   const [emailValue, setEmailValue] = useState("");
   const [nameValue, setNameValue] = useState("");
+  const [selectedAvail, setSelectedAvail] = useState("");
 
   useEffect(() => {
     const timer = setTimeout(() => setMounted(true), 0);
@@ -125,6 +126,15 @@ export default function SpeakerForm() {
     const selectedExpertise = EXPERTISE_LIST.filter(i => formData.get(`expertise-${i}`) === "on");
     const selectedFormats = FORMAT_LIST.filter(f => formData.get(`format-${f}`) === "on");
 
+    const selectedAvailVal = formData.get("availability") as string;
+    let finalAvail = selectedAvailVal;
+    if (selectedAvailVal === "Specific date/window") {
+      const start = formData.get("availStart");
+      const end = formData.get("availEnd");
+      if (start && end) finalAvail = `Window: ${start} to ${end}`;
+      else if (start) finalAvail = `Date: ${start}`;
+    }
+
     const data: SpeakerApplicationData = {
       fullName: formData.get("fullName") as string,
       email: formData.get("email") as string,
@@ -137,7 +147,7 @@ export default function SpeakerForm() {
       keyTakeaways: formData.get("keyTakeaways") as string,
       bio: formData.get("bio") as string,
       preferredFormat: selectedFormats,
-      availability: formData.get("availability") as string,
+      availability: finalAvail,
       locationConstraints: formData.get("locationConstraints") as string,
       previousExperience: formData.get("prevExp") === "Yes",
       portfolioLink: formData.get("portfolioLink") as string,
@@ -351,13 +361,37 @@ export default function SpeakerForm() {
                   const choiceId = `avail-${a.toLowerCase().replace(/\s+/g, '-')}`;
                   return (
                     <label key={a} htmlFor={choiceId} className="reg-choice reg-choice--radio">
-                      <input type="radio" id={choiceId} name="availability" value={a} required onClick={handleRadioClick} disabled={isPending} />
+                      <input 
+                        type="radio" 
+                        id={choiceId} 
+                        name="availability" 
+                        value={a} 
+                        required 
+                        onClick={(e) => { handleRadioClick(e); setSelectedAvail(a); }} 
+                        disabled={isPending} 
+                      />
                       <span className="reg-choice-ui"></span>
                       <span>{a}</span>
                     </label>
                   );
                 })}
               </div>
+
+              {selectedAvail === "Specific date/window" && (
+                <div className="date-picker-sub" style={{ marginTop: '20px', padding: '20px', border: '1px solid var(--ink-10)', borderRadius: '4px', background: 'rgba(255,255,255,0.3)' }}>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+                    <div className="reg-field" style={{ marginBottom: 0 }}>
+                      <label htmlFor="availStart" className="reg-label" style={{ fontSize: '10px' }}>Start Date</label>
+                      <input type="date" id="availStart" name="availStart" required className="reg-input" style={{ fontSize: '12px' }} disabled={isPending} />
+                    </div>
+                    <div className="reg-field" style={{ marginBottom: 0 }}>
+                      <label htmlFor="availEnd" className="reg-label" style={{ fontSize: '10px' }}>End Date (Optional)</label>
+                      <input type="date" id="availEnd" name="availEnd" className="reg-input" style={{ fontSize: '12px' }} disabled={isPending} />
+                    </div>
+                  </div>
+                  <p style={{ fontSize: '11px', color: 'var(--ink-50)', marginTop: '12px', fontStyle: 'italic' }}>Mark a single day or a range of dates.</p>
+                </div>
+              )}
             </fieldset>
             <div className="reg-field">
               <label htmlFor="locationConstraints" className="reg-label">Location Constraints</label>

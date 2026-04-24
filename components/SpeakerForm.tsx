@@ -32,6 +32,17 @@ export default function SpeakerForm() {
     if (result?.success) {
       window.scrollTo({ top: 0, behavior: 'smooth' });
       localStorage.removeItem("speaker_form_draft");
+      
+      // Trigger animations for dynamically rendered success content
+      const timer = setTimeout(() => {
+        const win = window as any;
+        if (win.__observeReveal) win.__observeReveal();
+        
+        // Fallback: manually add 'on' class to success container if observer is slow
+        const successEl = document.querySelector('.success-overhaul');
+        if (successEl) successEl.classList.add('reveal', 'on');
+      }, 100);
+      return () => clearTimeout(timer);
     }
   }, [result]);
 

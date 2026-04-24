@@ -45,12 +45,20 @@ export default function RegistrationForm() {
     loadInitialCount();
   }, []);
 
-  // Animate count on success
+  // Animate count on success and trigger reveal
   useEffect(() => {
     if (result?.success && !result.alreadyRegistered && !isAlreadyRegistered) {
       // Small delay before starting the "joining" animation
       const timer = setTimeout(() => {
         setDisplayCount(prev => prev + 1);
+        
+        // Trigger animations for dynamically rendered success content
+        const win = window as any;
+        if (win.__observeReveal) win.__observeReveal();
+        
+        // Fallback: manually add 'on' class to success container
+        const successEl = document.querySelector('.success-overhaul');
+        if (successEl) successEl.classList.add('reveal', 'on');
       }, 800);
       return () => clearTimeout(timer);
     }
@@ -199,7 +207,7 @@ export default function RegistrationForm() {
 
   if (isAlreadyRegistered || result?.success) {
     return (
-      <div className="success-overhaul" role="status" aria-live="polite">
+      <div className="success-overhaul reveal on" role="status" aria-live="polite">
         <div className="success-header">
           <div className="success-eyebrow rv-stagger-item">Registration Confirmed</div>
           <h1 className="success-title rv-stagger-item">

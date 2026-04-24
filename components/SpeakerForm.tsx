@@ -216,7 +216,7 @@ export default function SpeakerForm() {
           <div className="success-eyebrow rv-stagger-item">Proposal Received</div>
           <h1 className="success-title rv-stagger-item">
             Thank you, <br />
-            <em>{nameValue.split(' ')[0] || "Contributor"}.</em>
+            <em>{nameValue || "Contributor"}.</em>
           </h1>
           <div className="success-rule rv-stagger-item"></div>
         </div>

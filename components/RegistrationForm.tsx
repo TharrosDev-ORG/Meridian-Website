@@ -6,6 +6,7 @@ import Link from "next/link";
 import { INSTAGRAM_URL } from "@/utils/social";
 
 const REG_KEY = "meridian_registered_v1";
+const DRAFT_KEY = "meridian_registration_draft_v1";
 
 const ROLES = ["Student", "Alumni", "Professor / Faculty", "Professional", "Other"];
 const INSTITUTIONS = ["Carleton University", "University of Ottawa", "Algonquin College", "Other"];
@@ -43,6 +44,58 @@ export default function RegistrationForm() {
   // Form State for dynamic fields
   const [role, setRole] = useState("");
   const [institution, setInstitution] = useState("");
+  const [draftLoaded, setDraftLoaded] = useState(false);
+
+  // Load draft on mount
+  useEffect(() => {
+    if (!mounted) return;
+    const saved = localStorage.getItem(DRAFT_KEY);
+    if (saved) {
+      try {
+        const data = JSON.parse(saved);
+        if (data.role) setRole(data.role);
+        if (data.institution) setInstitution(data.institution);
+        
+        // Populate inputs manually after a short delay to ensure DOM is ready
+        setTimeout(() => {
+          const form = document.querySelector(".reg-form-container") as HTMLFormElement;
+          if (form) {
+            Object.entries(data).forEach(([name, value]) => {
+              const input = form.elements.namedItem(name);
+              if (input instanceof HTMLInputElement || input instanceof HTMLTextAreaElement || input instanceof HTMLSelectElement) {
+                if (input.type === "checkbox" || input.type === "radio") {
+                  // Handle groups
+                  const group = form.querySelectorAll(`[name="${name}"]`);
+                  group.forEach((el: any) => {
+                    if (el.value === value) el.checked = true;
+                    if (name.startsWith("interest-") && value === "on") el.checked = true;
+                  });
+                } else {
+                  input.value = value as string;
+                }
+              }
+            });
+          }
+          setDraftLoaded(true);
+        }, 10);
+      } catch (e) {
+        console.error("Failed to load draft", e);
+        setDraftLoaded(true);
+      }
+    } else {
+      setDraftLoaded(true);
+    }
+  }, [mounted]);
+
+  // Save draft on change
+  const handleFormChange = (e: React.FormEvent<HTMLFormElement>) => {
+    const fd = new FormData(e.currentTarget);
+    const data: Record<string, string> = {};
+    fd.forEach((value, key) => {
+      if (typeof value === "string") data[key] = value;
+    });
+    localStorage.setItem(DRAFT_KEY, JSON.stringify(data));
+  };
 
   async function clientAction(formData: FormData) {
     const selectedInterests = INTERESTS_LIST.filter(i => formData.get(`interest-${i}`) === "on");
@@ -69,6 +122,7 @@ export default function RegistrationForm() {
         expiry.setFullYear(expiry.getFullYear() + 1);
         document.cookie = `${REG_KEY}=true; path=/; expires=${expiry.toUTCString()}; SameSite=Lax`;
         setIsAlreadyRegistered(true);
+        localStorage.removeItem(DRAFT_KEY);
       }
     });
   }
@@ -120,7 +174,11 @@ export default function RegistrationForm() {
         </h1>
       </div>
 
-      <form action={clientAction} className="reg-form-container">
+      <form 
+        action={clientAction} 
+        className="reg-form-container"
+        onChange={handleFormChange}
+      >
         <div className="reg-grid">
           {/* ── Basic Info ── */}
           <div className="reg-field">
@@ -299,7 +357,7 @@ export default function RegistrationForm() {
             />
             <span className="reg-choice-ui"></span>
             <span style={{ fontSize: '15px', lineHeight: '1.5' }}>
-              I agree to the <Link href="/privacy" target="_blank" className="success-ig-link" style={{ borderBottom: '1px solid var(--gold)', textDecoration: 'none' }}>Privacy Notice</Link> and <Link href="/terms" target="_blank" className="success-ig-link" style={{ borderBottom: '1px solid var(--gold)', textDecoration: 'none' }}>Terms of Use</Link> of The Meridian Society. *
+              I agree to the <Link href="/privacy" className="success-ig-link" style={{ borderBottom: '1px solid var(--gold)', textDecoration: 'none' }}>Privacy Notice</Link> and <Link href="/terms" className="success-ig-link" style={{ borderBottom: '1px solid var(--gold)', textDecoration: 'none' }}>Terms of Use</Link> of The Meridian Society. *
             </span>
           </label>
         </div>

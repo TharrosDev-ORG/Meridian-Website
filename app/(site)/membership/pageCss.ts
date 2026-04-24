@@ -315,30 +315,57 @@ export const membershipCss = `
     .reg-error { color: #b22d2d; }
     .reg-success { color: var(--gold); }
 
-    .success-state {
-      text-align: center;
-      padding: 40px 0;
-      animation: riseIn 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    .success-overhaul {
+      max-width: 1000px; margin: 0 auto; padding: 40px 0;
+      display: flex; flex-direction: column; align-items: center; text-align: center;
     }
-    .success-icon {
-      font-size: 48px;
-      color: var(--gold);
-      margin-bottom: 24px;
-      display: block;
+    .success-header { margin-bottom: 48px; }
+    .success-eyebrow { font-family: var(--sans); font-size: 11px; font-weight: 700; letter-spacing: 0.32em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
+    .success-title { font-family: var(--serif); font-size: clamp(48px, 6vw, 84px); font-weight: 300; line-height: 1; color: var(--ink); margin-bottom: 24px; }
+    .success-title em { font-style: italic; color: var(--gold); }
+    .success-rule { width: 44px; height: 1px; background: var(--ink-15); margin: 0 auto; }
+
+    .success-registry { margin-bottom: 56px; width: 100%; display: flex; justify-content: center; }
+    .registry-box {
+      padding: 32px 48px; background: var(--cream); border: 1px solid var(--ink-10);
+      box-shadow: 0 12px 48px rgba(24,21,15,0.06); position: relative; overflow: hidden;
+      display: flex; flex-direction: column; align-items: center;
     }
-    .success-title {
-      font-family: var(--serif);
-      font-size: 32px;
-      font-weight: 300;
-      color: var(--ink);
-      margin-bottom: 16px;
+    .registry-box::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: var(--gold); }
+    .registry-label { font-family: var(--sans); font-size: 10px; font-weight: 700; letter-spacing: 0.24em; text-transform: uppercase; color: var(--ink-30); margin-bottom: 16px; }
+    .registry-id { display: flex; align-items: baseline; gap: 12px; margin-bottom: 16px; }
+    .registry-prefix { font-family: var(--sans); font-size: 11px; font-weight: 600; color: var(--ink-55); letter-spacing: 0.12em; }
+    .registry-val { font-family: var(--serif); font-size: 42px; font-weight: 300; color: var(--ink); line-height: 1; }
+    .registry-status { display: flex; align-items: center; gap: 10px; }
+    .status-dot { width: 6px; height: 6px; background: #2d8a4e; border-radius: 50%; box-shadow: 0 0 12px rgba(45,138,78,0.5); }
+    .status-text { font-family: var(--sans); font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: #2d8a4e; }
+
+    .success-lead { font-family: var(--serif); font-size: 22px; font-weight: 300; font-style: italic; color: var(--ink-75); line-height: 1.8; max-width: 680px; margin-bottom: 64px; }
+
+    .success-actions-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; width: 100%; margin-bottom: 64px; }
+    .action-card {
+      background: var(--cream); border: 1px solid var(--ink-08); padding: 36px 28px;
+      display: flex; flex-direction: column; align-items: center; text-align: center;
+      transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), box-shadow 0.4s;
     }
-    .success-body {
-      font-family: var(--serif);
-      font-size: 18px;
-      color: var(--ink-75);
-      line-height: 1.6;
+    .action-card:hover { transform: translateY(-6px); box-shadow: 0 16px 48px rgba(24,21,15,0.08); }
+    .action-num { font-family: var(--sans); font-size: 10px; font-weight: 700; color: var(--gold); margin-bottom: 16px; letter-spacing: 0.2em; }
+    .action-h { font-family: var(--serif); font-size: 22px; font-weight: 400; color: var(--ink); margin-bottom: 12px; }
+    .action-p { font-family: var(--serif); font-size: 16px; color: var(--ink-55); line-height: 1.6; margin-bottom: 24px; flex-grow: 1; }
+    .action-btn {
+      font-family: var(--sans); font-size: 10.5px; font-weight: 700; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--ink); text-decoration: none;
+      padding: 10px 24px; border: 1px solid var(--ink-15); transition: all 0.3s;
     }
+    .action-btn:hover { background: var(--ink); color: var(--cream); border-color: var(--ink); }
+
+    .success-home-link {
+      font-family: var(--sans); font-size: 11px; font-weight: 700; letter-spacing: 0.3em;
+      text-transform: uppercase; color: var(--gold); text-decoration: none;
+      border-bottom: 1px solid rgba(184,147,42,0.3); padding-bottom: 6px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .success-home-link:hover { color: var(--gold-lt); border-color: var(--gold-lt); }
 
     @media (max-width: 700px) {
       .reg-form-container { 
@@ -517,10 +544,13 @@ export const membershipCss = `
       .reg-submit-wrap { margin-top: 40px; }
       .reg-feedback { font-size: 15px; }
 
-      .success-state { padding: 28px 0; }
-      .success-icon { font-size: 42px; margin-bottom: 20px; }
-      .success-title { font-size: 24px; line-height: 1.2; margin-bottom: 14px; }
-      .success-body { font-size: 16px; line-height: 1.7; padding: 0 8px; }
+      .success-overhaul { padding: 20px 0; }
+      .success-title { font-size: 38px; }
+      .success-lead { font-size: 17px; line-height: 1.7; padding: 0 10px; margin-bottom: 40px; }
+      .success-actions-grid { grid-template-columns: 1fr; gap: 16px; }
+      .action-card { padding: 32px 24px; }
+      .registry-box { padding: 24px; width: 100%; }
+      .registry-val { font-size: 32px; }
     }
 
     @media (max-width: 380px) {

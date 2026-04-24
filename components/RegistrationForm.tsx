@@ -23,6 +23,21 @@ export default function RegistrationForm() {
   const [isPending, startTransition] = useTransition();
   const [result, setResult] = useState<{ success?: boolean; error?: string; alreadyRegistered?: boolean } | null>(null);
   const [isAlreadyRegistered, setIsAlreadyRegistered] = useState(false);
+  const [memberCount, setMemberCount] = useState<number>(0);
+
+  // Fetch count for the registry display
+  useEffect(() => {
+    async function loadInitialCount() {
+      try {
+        const res = await fetch("/api/stats/count");
+        if (res.ok) {
+          const data = await res.json();
+          if (typeof data.count === "number") setMemberCount(data.count);
+        }
+      } catch (e) {}
+    }
+    loadInitialCount();
+  }, []);
 
   // Check registration status on mount
   useEffect(() => {
@@ -161,27 +176,65 @@ export default function RegistrationForm() {
 
   if (isAlreadyRegistered || result?.success) {
     return (
-      <div className="success-state" role="status" aria-live="polite">
-        <h1 className="register-title" style={{ fontSize: 'clamp(40px, 6vw, 72px)', marginBottom: '32px', textAlign: 'center' }}>
-          You are now a <em>Member.</em>
-        </h1>
-        <span className="success-icon" aria-hidden="true">◆</span>
-        <h3 className="success-title">Welcome to the Meridian Society.</h3>
-        <p className="success-body">
-          Your registration is complete. You are now a member of our community. 
-          Follow us on <a
-            href={INSTAGRAM_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="success-ig-link"
-          >
-            Instagram
-          </a> and 
-          keep an eye on your inbox for event invitations.
+      <div className="success-overhaul" role="status" aria-live="polite">
+        <div className="success-header">
+          <div className="success-eyebrow rv-stagger-item">Registration Confirmed</div>
+          <h1 className="success-title rv-stagger-item">
+            Welcome to the <em>Society.</em>
+          </h1>
+          <div className="success-rule rv-stagger-item"></div>
+        </div>
+
+        <div className="success-registry rv-stagger-item" data-d="1">
+          <div className="registry-box">
+            <div className="registry-label">Official Registry Entry</div>
+            <div className="registry-id">
+              <span className="registry-prefix">MEMBER NO.</span>
+              <span className="registry-val">000{memberCount || "---"}</span>
+            </div>
+            <div className="registry-status">
+              <span className="status-dot"></span>
+              <span className="status-text">Active Member Status</span>
+            </div>
+          </div>
+        </div>
+
+        <p className="success-lead rv-stagger-item" data-d="2">
+          Your presence in the dialogue is now official. The Meridian Society is built on the shared curiosity of its members.
         </p>
-        <div style={{ marginTop: "32px" }}>
-          <Link href="/" className="reg-submit" style={{ textDecoration: "none", display: "inline-block" }}>
-            <span>Return Home Now</span>
+
+        <div className="success-actions-grid">
+          <div className="action-card rv-stagger-item" data-d="3">
+            <div className="action-num">01</div>
+            <h4 className="action-h">Follow the Dialogue</h4>
+            <p className="action-p">Join our community on Instagram for event highlights and updates.</p>
+            <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="action-btn">
+              <span>Instagram</span>
+            </a>
+          </div>
+
+          <div className="action-card rv-stagger-item" data-d="4">
+            <div className="action-num">02</div>
+            <h4 className="action-h">Explore Events</h4>
+            <p className="action-p">View our upcoming speaker forum and social gathering schedule.</p>
+            <Link href="/events" className="action-btn">
+              <span>View Calendar</span>
+            </Link>
+          </div>
+
+          <div className="action-card rv-stagger-item" data-d="5">
+            <div className="action-num">03</div>
+            <h4 className="action-h">Meet the Team</h4>
+            <p className="action-p">Learn about the students and professionals behind the society.</p>
+            <Link href="/team" className="action-btn">
+              <span>About Us</span>
+            </Link>
+          </div>
+        </div>
+
+        <div className="success-footer rv-stagger-item" data-d="6">
+          <Link href="/" className="success-home-link">
+            <span>Return to Home Index</span>
           </Link>
         </div>
       </div>

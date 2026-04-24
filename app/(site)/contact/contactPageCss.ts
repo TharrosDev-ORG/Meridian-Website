@@ -30,7 +30,7 @@ export const contactPageCss = infoPageCss + `
   .contact-card-v2 {
     background: var(--cream);
     border: 1px solid var(--ink-10);
-    padding: 48px;
+    padding: 48px 36px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -73,11 +73,13 @@ export const contactPageCss = infoPageCss + `
 
   .contact-card-val {
     font-family: var(--serif);
-    font-size: clamp(24px, 3vw, 36px);
-    line-height: 1.1;
+    font-size: clamp(20px, 2.2vw, 28px);
+    line-height: 1.2;
     color: var(--ink);
     margin-bottom: 24px;
-    word-break: break-all;
+    word-break: normal;
+    overflow-wrap: anywhere;
+    letter-spacing: -0.01em;
     display: inline-block;
     background-image: linear-gradient(var(--gold), var(--gold));
     background-position: 0% 100%;

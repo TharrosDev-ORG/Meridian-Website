@@ -1171,6 +1171,7 @@ footer {
   }
 
   /* ── Module page hero (shared subpage hero) refinements ── */
+  .page-hero,
   .module-page-hero {
     padding: 104px 22px 56px;
     min-height: 56vh;

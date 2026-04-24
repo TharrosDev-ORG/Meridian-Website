@@ -31,8 +31,8 @@ export default function SocialPage() {
       />
 
       {/* PAGE HERO */}
-      <section className="module-page-hero" aria-label="Social events hero">
-        <div className="module-page-hero-content">
+      <section className="page-hero" aria-label="Social events hero">
+        <div className="page-hero-content">
           <div className="hero-eyebrow rv">
             <span className="hero-eyebrow-rule"></span>
             <span className="hero-eyebrow-text">The Meridian Society</span>

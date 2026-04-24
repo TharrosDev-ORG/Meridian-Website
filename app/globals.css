@@ -688,6 +688,7 @@ body {
 .rv[data-d="6"] { transition-delay: 0.48s; }
 .rv[data-d="7"] { transition-delay: 0.56s; }
 .rv[data-d="8"] { transition-delay: 0.64s; }
+.rv[data-d="9"] { transition-delay: 0.72s; }
 
 /* ── FOOTER ── */
 footer {

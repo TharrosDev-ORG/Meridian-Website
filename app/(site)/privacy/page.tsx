@@ -113,7 +113,7 @@ export default function PrivacyPage() {
             </p>
           </div>
 
-          <div className="info-related rv" data-d="8">
+          <div className="info-related rv" data-d="9">
             <div className="info-related-label">Also on this site</div>
             <div className="info-related-links">
               <Link href="/terms">Terms of Use</Link>

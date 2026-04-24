@@ -288,6 +288,22 @@ export default function RegistrationForm() {
           </fieldset>
         </div>
 
+        {/* ── Consent ── */}
+        <div className="reg-field reg-field--full" style={{ marginTop: '32px' }}>
+          <label className="reg-choice reg-choice--check">
+            <input
+              type="checkbox"
+              name="consent"
+              required
+              disabled={isPending}
+            />
+            <span className="reg-choice-ui"></span>
+            <span style={{ fontSize: '15px', lineHeight: '1.5' }}>
+              I agree to the <Link href="/privacy" target="_blank" className="success-ig-link" style={{ borderBottom: '1px solid var(--gold)', textDecoration: 'none' }}>Privacy Notice</Link> and <Link href="/terms" target="_blank" className="success-ig-link" style={{ borderBottom: '1px solid var(--gold)', textDecoration: 'none' }}>Terms of Use</Link> of The Meridian Society. *
+            </span>
+          </label>
+        </div>
+
         {result?.error && (
           <div className="reg-feedback reg-error" role="alert">
             {result.error}

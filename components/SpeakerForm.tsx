@@ -35,7 +35,7 @@ export default function SpeakerForm() {
     }
   }, [result]);
 
-  // Drafting Logic
+  // Drafting Logic: Initial Load
   const autoJumped = useRef(false);
   useEffect(() => {
     if (!mounted) return;
@@ -43,38 +43,51 @@ export default function SpeakerForm() {
     if (saved) {
       try {
         const draft = JSON.parse(saved);
-        if (draft.email) setEmailValue(draft.email);
-        if (draft.fullName) setNameValue(draft.fullName);
-        
+        requestAnimationFrame(() => {
+          if (draft.email) setEmailValue(draft.email);
+          if (draft.fullName) setNameValue(draft.fullName);
+          
+          if (Object.keys(draft).length > 2 && !autoJumped.current) {
+            autoJumped.current = true;
+            setCurrentStep(2);
+          }
+        });
+      } catch (e) { console.error("Draft load failed", e); }
+    }
+  }, [mounted]);
+
+  // Drafting Logic: DOM Population on step change
+  useEffect(() => {
+    if (!mounted) return;
+    const saved = localStorage.getItem("speaker_form_draft");
+    if (saved) {
+      try {
+        const draft = JSON.parse(saved);
         const form = document.querySelector('form');
         if (form) {
           Object.entries(draft).forEach(([name, value]) => {
             const inputs = form.querySelectorAll(`[name="${name}"]`);
-            inputs.forEach((inputEl: any) => {
-              if (inputEl.type === 'checkbox' || inputEl.type === 'radio') {
-                if (inputEl.value === value || (inputEl.type === 'checkbox' && value === 'on')) {
-                  inputEl.checked = true;
+            inputs.forEach((inputEl) => {
+              const el = inputEl as HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement;
+              if (el.type === 'checkbox' || el.type === 'radio') {
+                if (el.value === value || (el.type === 'checkbox' && value === 'on')) {
+                  (el as HTMLInputElement).checked = true;
                 }
               } else if (name !== 'email' && name !== 'fullName') {
-                inputEl.value = value as string;
+                el.value = value as string;
               }
             });
           });
-
-          if (currentStep === 1 && Object.keys(draft).length > 2 && !autoJumped.current) {
-            autoJumped.current = true;
-            setCurrentStep(2);
-          }
         }
-      } catch (e) { console.error("Draft load failed", e); }
+      } catch (e) { console.error("Draft sync failed", e); }
     }
   }, [mounted, currentStep]);
 
   const handleFormChange = (e: React.FormEvent<HTMLFormElement>) => {
     const formData = new FormData(e.currentTarget);
-    const draft: Record<string, any> = {};
+    const draft: Record<string, string> = {};
     formData.forEach((value, key) => {
-      if (key !== 'fax_number') draft[key] = value;
+      if (typeof value === "string" && key !== 'fax_number') draft[key] = value;
     });
     localStorage.setItem("speaker_form_draft", JSON.stringify(draft));
   };
@@ -88,7 +101,9 @@ export default function SpeakerForm() {
       input.dispatchEvent(event);
     } else {
       const group = document.querySelectorAll(`input[name="${input.name}"]`);
-      group.forEach((el: any) => (el.dataset.checked = "false"));
+      group.forEach((el) => {
+        (el as HTMLInputElement).dataset.checked = "false";
+      });
       input.dataset.checked = "true";
     }
   };
@@ -140,7 +155,7 @@ export default function SpeakerForm() {
       email: formData.get("email") as string,
       roleTitle: formData.get("roleTitle") as string,
       organization: formData.get("organization") as string,
-      classification: formData.get("classification") as any,
+      classification: formData.get("classification") as "Academic" | "Industry" | "Entrepreneur" | "Policy" | "NGO" | "Other",
       expertise: selectedExpertise,
       proposedTitle: formData.get("proposedTitle") as string,
       topicOverview: formData.get("topicOverview") as string,
@@ -325,7 +340,7 @@ export default function SpeakerForm() {
             </div>
             <div className="reg-field reg-field--full">
               <label htmlFor="topicOverview" className="reg-label">Topic Overview *</label>
-              <textarea id="topicOverview" name="topicOverview" required className="reg-input" style={{ minHeight: '120px' }} placeholder="Provide a detailed summary of what you'd like to discuss..." disabled={isPending} />
+              <textarea id="topicOverview" name="topicOverview" required className="reg-input" style={{ minHeight: '120px' }} placeholder="Provide a detailed summary of what you&apos;d like to discuss..." disabled={isPending} />
             </div>
             <div className="reg-field reg-field--full">
               <label htmlFor="keyTakeaways" className="reg-label">Key Takeaways (3-5 main points)</label>
@@ -448,7 +463,7 @@ export default function SpeakerForm() {
 
             <div className="reg-field reg-field--full">
               <label htmlFor="additionalNotes" className="reg-label">Additional Notes</label>
-              <textarea id="additionalNotes" name="additionalNotes" className="reg-input" style={{ minHeight: '80px' }} placeholder="Anything else you'd like us to know?" disabled={isPending} />
+              <textarea id="additionalNotes" name="additionalNotes" className="reg-input" style={{ minHeight: '80px' }} placeholder="Anything else you&apos;d like us to know?" disabled={isPending} />
             </div>
           </>
         )}

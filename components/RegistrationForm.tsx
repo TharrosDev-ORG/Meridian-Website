@@ -25,6 +25,8 @@ export default function RegistrationForm() {
   const [isAlreadyRegistered, setIsAlreadyRegistered] = useState(false);
   const [memberCount, setMemberCount] = useState<number>(0);
   const [displayCount, setDisplayCount] = useState<number>(0);
+  const [role, setRole] = useState("");
+  const [institution, setInstitution] = useState("");
 
   // Fetch count for the registry display
   useEffect(() => {
@@ -71,49 +73,51 @@ export default function RegistrationForm() {
     return () => clearTimeout(timer);
   }, []);
 
-  // Form State for dynamic fields
-  const [role, setRole] = useState("");
-  const [institution, setInstitution] = useState("");
-  const [draftLoaded, setDraftLoaded] = useState(false);
-
-  // Load draft on mount
+  // Load draft on mount (Initial Load)
   useEffect(() => {
     if (!mounted) return;
     const saved = localStorage.getItem(DRAFT_KEY);
     if (saved) {
       try {
         const data = JSON.parse(saved);
-        if (data.role) setRole(data.role);
-        if (data.institution) setInstitution(data.institution);
-        
-        // Populate inputs manually after a short delay to ensure DOM is ready
-        setTimeout(() => {
-          const form = document.querySelector(".reg-form-container") as HTMLFormElement;
-          if (form) {
-            Object.entries(data).forEach(([name, value]) => {
-              const input = form.elements.namedItem(name);
-              if (input instanceof HTMLInputElement || input instanceof HTMLTextAreaElement || input instanceof HTMLSelectElement) {
-                if (input.type === "checkbox" || input.type === "radio") {
-                  // Handle groups
-                  const group = form.querySelectorAll(`[name="${name}"]`);
-                  group.forEach((el: any) => {
-                    if (el.value === value) el.checked = true;
-                    if (name.startsWith("interest-") && value === "on") el.checked = true;
-                  });
-                } else {
-                  input.value = value as string;
-                }
-              }
-            });
-          }
-          setDraftLoaded(true);
-        }, 10);
+        requestAnimationFrame(() => {
+          if (data.role) setRole(data.role);
+          if (data.institution) setInstitution(data.institution);
+        });
       } catch (e) {
-        console.error("Failed to load draft", e);
-        setDraftLoaded(true);
+        console.error("Failed to load initial draft", e);
       }
-    } else {
-      setDraftLoaded(true);
+    }
+  }, [mounted]);
+
+  // Load draft on mount (DOM Population)
+  useEffect(() => {
+    if (!mounted) return;
+    const saved = localStorage.getItem(DRAFT_KEY);
+    if (saved) {
+      try {
+        const data = JSON.parse(saved);
+        const form = document.querySelector(".reg-form-container") as HTMLFormElement;
+        if (form) {
+          Object.entries(data).forEach(([name, value]) => {
+            const input = form.elements.namedItem(name);
+            if (input instanceof HTMLInputElement || input instanceof HTMLTextAreaElement || input instanceof HTMLSelectElement) {
+              if (input.type === "checkbox" || input.type === "radio") {
+                const group = form.querySelectorAll(`[name="${name}"]`);
+                group.forEach((el) => {
+                  const inputEl = el as HTMLInputElement;
+                  if (inputEl.value === value) inputEl.checked = true;
+                  if (name.startsWith("interest-") && value === "on") inputEl.checked = true;
+                });
+              } else {
+                input.value = value as string;
+              }
+            }
+          });
+        }
+      } catch (e) {
+        console.error("Failed to sync draft to DOM", e);
+      }
     }
   }, [mounted]);
 
@@ -122,7 +126,7 @@ export default function RegistrationForm() {
     const fd = new FormData(e.currentTarget);
     const data: Record<string, string> = {};
     fd.forEach((value, key) => {
-      if (typeof value === "string") data[key] = value;
+      if (typeof value === "string" && key !== "fax_number") data[key] = value;
     });
     localStorage.setItem(DRAFT_KEY, JSON.stringify(data));
   };
@@ -143,7 +147,9 @@ export default function RegistrationForm() {
     } else {
       // Mark this one as checked, others in group as unchecked
       const group = document.querySelectorAll(`input[name="${input.name}"]`);
-      group.forEach((el: any) => (el.dataset.checked = "false"));
+      group.forEach((el) => {
+        (el as HTMLInputElement).dataset.checked = "false";
+      });
       input.dataset.checked = "true";
     }
   };
@@ -181,10 +187,12 @@ export default function RegistrationForm() {
 
   if (!mounted) {
     return (
-      <div style={{ textAlign: 'center', minHeight: '400px' }}>
-        <h1 className="register-title" style={{ fontSize: 'clamp(40px, 6vw, 72px)', opacity: 0.1 }}>
-          Loading...
-        </h1>
+      <div className="reg-form-container" style={{ textAlign: 'center', minHeight: '400px', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(244, 237, 227, 0.4)' }}>
+        <div className="skeleton-loader rv-stagger-item" style={{ opacity: 0.2 }}>
+          <h1 className="register-title" style={{ fontSize: 'clamp(32px, 5vw, 48px)', letterSpacing: '-0.02em', margin: 0 }}>
+            Initializing <em>Registry...</em>
+          </h1>
+        </div>
       </div>
     );
   }
@@ -233,7 +241,7 @@ export default function RegistrationForm() {
           <div className="action-card rv-stagger-item" data-d="4">
             <div className="action-num">02</div>
             <h4 className="action-h">Nominate a Speaker</h4>
-            <p className="action-p">Help shape our future events by nominating speakers or professionals you'd like to hear from.</p>
+            <p className="action-p">Help shape our future events by nominating speakers or professionals you&apos;d like to hear from.</p>
             <Link href="/speak" className="action-btn">
               <span>Nominate</span>
             </Link>
@@ -421,7 +429,7 @@ export default function RegistrationForm() {
 
           {/* ── Volunteering ── */}
           <fieldset className="reg-field reg-field--full reg-fieldset">
-            <legend className="reg-label">Would you be interested in volunteering or supporting future events? *</legend>
+            <legend className="reg-label">Would you be interested in volunteering for The Meridian Society? *</legend>
             <div className="reg-options-grid">
               {VOLUNTEER_OPTIONS.map((opt) => (
                 <label key={opt} className="reg-choice reg-choice--radio">

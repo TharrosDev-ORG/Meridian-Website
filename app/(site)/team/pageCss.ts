@@ -24,12 +24,27 @@ export const teamCss = `
       background: var(--cream); border: 1px solid var(--ink-15);
       overflow: hidden; position: relative;
       box-shadow: 0 2px 12px rgba(24,21,15,0.04), 0 8px 40px rgba(24,21,15,0.06);
-      transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), box-shadow 0.4s;
+      transition: transform 0.6s cubic-bezier(0.16,1,0.3,1), box-shadow 0.6s cubic-bezier(0.16,1,0.3,1), border-color 0.4s ease;
+    }
+    .member-card::before {
+      content: ''; position: absolute; inset: 0;
+      background-image: var(--grain); background-size: 200px 200px;
+      opacity: 0.04; pointer-events: none; z-index: 0;
+      transition: opacity 0.4s ease;
     }
     .member-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 4px 24px rgba(24,21,15,0.06), 0 16px 60px rgba(24,21,15,0.10);
+      transform: translateY(-8px);
+      border-color: var(--gold-20);
+      box-shadow: 0 12px 32px rgba(24,21,15,0.08), 0 24px 80px rgba(24,21,15,0.12);
     }
+    .member-card:hover::before { opacity: 0.07; }
+    
+    .member-card::after {
+      content: ''; position: absolute; inset: 0;
+      border: 1px solid var(--gold); opacity: 0;
+      pointer-events: none; transition: opacity 0.4s ease; z-index: 5;
+    }
+    .member-card:hover::after { opacity: 0.1; }
 
     .member-photo-wrap {
       position: relative; width: 96px; height: 120px; flex-shrink: 0;
@@ -49,7 +64,7 @@ export const teamCss = `
       letter-spacing: 0.24em; text-transform: uppercase;
     }
 
-    .member-body { padding: 28px 28px 32px; display: flex; flex-direction: column; flex: 1; }
+    .member-body { padding: 28px 28px 32px; display: flex; flex-direction: column; flex: 1; position: relative; z-index: 1; }
     .member-header { display: flex; align-items: flex-start; gap: 18px; margin-bottom: 22px; }
 
     .member-name { font-family: var(--serif); font-size: 26px; font-weight: 300; color: var(--ink); line-height: 1.1; margin-bottom: 6px; }
@@ -83,13 +98,31 @@ export const teamCss = `
     /* Placeholder card */
     .member-card--placeholder {
       display: flex; flex-direction: column; align-items: center; justify-content: center;
-      text-align: center; min-height: 320px; border-style: dashed;
-      background: transparent; box-shadow: none;
+      text-align: center; min-height: 320px; 
+      border: 1px dashed var(--ink-30);
+      background: linear-gradient(135deg, var(--cream) 0%, var(--cream-mid) 100%); 
+      box-shadow: inset 0 0 40px rgba(24,21,15,0.02);
+      transition: border-color 0.4s ease, transform 0.6s cubic-bezier(0.16,1,0.3,1);
     }
-    .member-card--placeholder:hover { transform: none; box-shadow: none; border-color: var(--ink-30); }
-    .placeholder-icon { font-size: 22px; color: var(--gold); opacity: 0.25; margin-bottom: 20px; line-height: 1; }
-    .placeholder-text { font-family: var(--serif); font-size: 20px; font-style: italic; font-weight: 300; color: var(--ink-55); line-height: 1.4; }
-    .placeholder-sub { font-family: var(--sans); font-size: 9px; font-weight: 600; letter-spacing: 0.28em; text-transform: uppercase; color: var(--gold); opacity: 0.50; margin-top: 12px; }
+    .member-card--placeholder::before {
+      content: ''; position: absolute; inset: 0;
+      background-image: var(--grain); background-size: 180px 180px;
+      opacity: 0.03; pointer-events: none;
+    }
+    .member-card--placeholder:hover { 
+      transform: translateY(-4px); 
+      border-color: var(--gold); 
+      border-style: solid;
+      background: var(--cream);
+    }
+    .placeholder-icon { 
+      font-size: 28px; color: var(--gold); opacity: 0.4; 
+      margin-bottom: 24px; line-height: 1; 
+      transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s;
+    }
+    .member-card--placeholder:hover .placeholder-icon { transform: scale(1.2) rotate(15deg); opacity: 1; }
+    .placeholder-text { font-family: var(--serif); font-size: 22px; font-style: italic; font-weight: 300; color: var(--ink-75); line-height: 1.4; }
+    .placeholder-sub { font-family: var(--sans); font-size: 10px; font-weight: 700; letter-spacing: 0.32em; text-transform: uppercase; color: var(--gold); opacity: 0.60; margin-top: 16px; }
 
 
 
@@ -147,9 +180,10 @@ export const teamCss = `
       .team-header { margin-bottom: 28px; gap: 14px; }
       .team-title { font-size: clamp(30px, 8vw, 40px); line-height: 1.08; }
 
-      .member-card--placeholder { min-height: 220px; padding: 32px 20px; }
-      .placeholder-text { font-size: 17px; }
-      .placeholder-sub { font-size: 9px; }
+      .member-card--placeholder { min-height: 240px; padding: 40px 24px; }
+      .placeholder-icon { font-size: 24px; margin-bottom: 18px; }
+      .placeholder-text { font-size: 18px; }
+      .placeholder-sub { font-size: 10px; }
 
       .member-social a {
         width: 40px; height: 40px;

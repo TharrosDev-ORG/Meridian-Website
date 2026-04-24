@@ -34,7 +34,7 @@ const speakerSchema = z.object({
   bio: z.string().trim().min(30, 'Please provide a professional bio').max(3000),
   preferredFormat: z.array(z.string()).min(1, 'Select at least one preferred format'),
   availability: z.string().trim().min(2, 'Please select an availability window').max(200),
-  locationConstraints: z.string().trim().min(2, 'Location constraints are required').max(300),
+  locationConstraints: z.string().trim().max(300).optional(),
   previousExperience: z.boolean().optional(),
   portfolioLink: z.string().max(500).optional(),
   linkedinUrl: z.string().max(500).optional(),

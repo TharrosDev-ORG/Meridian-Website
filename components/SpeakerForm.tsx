@@ -360,8 +360,8 @@ export default function SpeakerForm() {
               </div>
             </fieldset>
             <div className="reg-field">
-              <label htmlFor="locationConstraints" className="reg-label">Location Constraints *</label>
-              <input type="text" id="locationConstraints" name="locationConstraints" required className="reg-input" placeholder="e.g. Based in Ottawa / Travel required" disabled={isPending} />
+              <label htmlFor="locationConstraints" className="reg-label">Location Constraints</label>
+              <input type="text" id="locationConstraints" name="locationConstraints" className="reg-input" placeholder="e.g. Based in Ottawa / Travel required" disabled={isPending} />
             </div>
 
             {/* Experience & Links */}

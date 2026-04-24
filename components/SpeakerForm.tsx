@@ -241,7 +241,7 @@ export default function SpeakerForm() {
         </div>
 
         <p className="success-lead rv-stagger-item">
-          We appreciate the depth and intent of your proposal. If your perspective aligns with our upcoming forum sequences, we will reach out to coordinate a preliminary dialogue.
+          We are grateful for the depth of your proposal. The Society is built around the shared curiosity and knowledge of its contributors, and our team will be in touch to coordinate the next steps in bringing your perspective to our community.
         </p>
 
         <div className="success-footer rv-stagger-item">

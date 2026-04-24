@@ -1,10 +1,11 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 import PageStyles from '@/components/PageStyles';
-import { infoPageCss } from '../_info/infoPageCss';
+import { contactPageCss } from './contactPageCss';
 import { getMetadata } from '@/utils/metadata-shared';
 import { generateBreadcrumbSchema } from '@/utils/jsonld';
 import { INSTAGRAM_URL } from '@/utils/social';
+import Magnetic from '@/components/Magnetic';
 
 export const metadata: Metadata = getMetadata({
   title: "Contact",
@@ -15,7 +16,7 @@ export const metadata: Metadata = getMetadata({
 export default function ContactPage() {
   return (
     <>
-      <PageStyles css={infoPageCss} />
+      <PageStyles css={contactPageCss} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -26,67 +27,82 @@ export default function ContactPage() {
         }}
       />
       <main id="main-content">
-        <section className="info-hero">
-          <div className="info-eyebrow rv">The Meridian Society</div>
+        <section className="info-hero contact-hero">
+          <div className="info-eyebrow rv">Communication</div>
           <h1 className="info-title rv rv-stagger">
             <span className="rv-stagger-item">Get in <em>Touch.</em></span>
           </h1>
-          <div className="info-meta rv" data-d="1">Ottawa · Est. 2025</div>
+          <div className="info-meta rv" data-d="1">Direct paths to our team.</div>
         </section>
 
-        <section className="info-body">
-          <p className="info-lede">
-            The Meridian Society is based in Ottawa and run by students. We&apos;re a small,
-            direct team — the right path depends on why you&apos;re writing.
-          </p>
+        <section className="info-body" style={{ paddingTop: 0 }}>
+          <div className="contact-grid-premium">
+            <Magnetic strength={0.08}>
+              <div className="contact-card-v2 rv" data-d="2">
+                <div>
+                  <div className="contact-card-lbl">General Inquiry</div>
+                  <div className="contact-card-val">
+                    <a href="mailto:meridiansocietycanada@gmail.com">meridiansocietycanada@gmail.com</a>
+                  </div>
+                </div>
+                <div className="contact-card-desc">
+                  For press, partnerships, and general Society administration.
+                </div>
+              </div>
+            </Magnetic>
 
-          <div className="info-contact-grid">
-            <div className="info-contact-card">
-              <div className="info-contact-lbl">General</div>
-              <div className="info-contact-val">
-                <a href="mailto:meridiansocietycanada@gmail.com">meridiansocietycanada@gmail.com</a>
+            <Magnetic strength={0.08}>
+              <div className="contact-card-v2 rv" data-d="3">
+                <div>
+                  <div className="contact-card-lbl">Social Presence</div>
+                  <div className="contact-card-val">
+                    <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer">@Meridian.Society</a>
+                  </div>
+                </div>
+                <div className="contact-card-desc">
+                  Event updates, speaker highlights, and real-time interaction.
+                </div>
               </div>
-              <div className="info-contact-desc">
-                Press, partnerships, and anything else. We typically reply within two business days.
-              </div>
+            </Magnetic>
+          </div>
+
+          <div className="contact-sub-header rv" data-d="4">
+            <h2 className="contact-sub-title">Looking for <em>more?</em></h2>
+            <p className="info-lede" style={{ margin: '0 auto', maxWidth: '640px' }}>
+              The Meridian Society is built on collaboration across disciplines. 
+              Choose the path that best fits your intent.
+            </p>
+          </div>
+
+          <div style={{ marginTop: '80px' }}>
+            <div className="rv" data-d="5">
+              <h2>Speaking at an event</h2>
+              <p>
+                If you&apos;re a professional, academic, or alum who would like to speak at a Meridian
+                event, begin with the application on the <Link href="/speak">Speak</Link> page.
+                It captures what we need to assess fit — we follow up within two weeks.
+              </p>
             </div>
-            <div className="info-contact-card">
-              <div className="info-contact-lbl">Instagram</div>
-              <div className="info-contact-val">
-                <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer">@Meridian.Society</a>
-              </div>
-              <div className="info-contact-desc">
-                Event announcements, speaker highlights, and Society updates in real time.
-              </div>
+
+            <div className="rv" data-d="6">
+              <h2>Joining as a member</h2>
+              <p>
+                Membership is free and open to anyone. Visit the <Link href="/register">Register</Link>{' '}
+                page to submit your information — we&apos;ll reach out with invitations as events are
+                scheduled.
+              </p>
+            </div>
+
+            <div className="rv" data-d="7">
+              <h2>Press &amp; partnerships</h2>
+              <p>
+                For media inquiries or collaboration proposals, write to the general inbox. 
+                We route all requests to the appropriate organizers within 48 hours.
+              </p>
             </div>
           </div>
 
-          <h2>Speaking at an event</h2>
-          <p>
-            If you&apos;re a professional, academic, or alum who would like to speak at a Meridian
-            event, begin with the application on the <Link href="/speak">Speak</Link> page.
-            It captures what we need to assess fit — we follow up within two weeks.
-          </p>
-          <p>
-            We host speakers across disciplines: law, business, public policy, the sciences, and
-            beyond. The common thread is a willingness to engage a curious, generalist audience.
-          </p>
-
-          <h2>Joining as a member</h2>
-          <p>
-            Membership is free and open to anyone. Visit the <Link href="/register">Register</Link>{' '}
-            page to submit your information — we&apos;ll reach out with invitations as events are
-            scheduled. There is no commitment and no fee.
-          </p>
-
-          <h2>Press &amp; partnerships</h2>
-          <p>
-            For media inquiries, collaboration proposals, or anything that doesn&apos;t fit the
-            above, write to the general inbox with a brief description of your request. We&apos;ll
-            route it to the right person on the team.
-          </p>
-
-          <div className="info-related">
+          <div className="info-related rv" data-d="8">
             <div className="info-related-label">Also on this site</div>
             <div className="info-related-links">
               <Link href="/privacy">Privacy Notice</Link>

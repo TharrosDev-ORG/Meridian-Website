@@ -183,7 +183,7 @@ export const indexCss = `
     .about-left:hover .about-num { -webkit-text-stroke-color: rgba(184,147,42,0.45); letter-spacing: -0.06em; }
     .about-section-label { font-family: var(--sans); font-size: 10.5px; font-weight: 700; letter-spacing: 0.32em; text-transform: uppercase; color: var(--ink-55); margin-bottom: 20px; }
     .about-title { font-family: var(--serif); font-size: clamp(36px, 3.5vw, 56px); font-weight: 300; line-height: 1.05; color: var(--ink); }
-    .about-counter-wrap { margin-bottom: 40px; }
+    .about-counter-wrap { margin-top: 40px; }
     .about-counter-wrap .count-box {
       display: inline-flex; flex-direction: column; align-items: flex-start;
       padding: 16px 20px; border: 1px solid var(--ink-10);

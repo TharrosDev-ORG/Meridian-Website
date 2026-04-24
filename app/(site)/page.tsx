@@ -92,11 +92,11 @@ export default function Home() {
     <div className="about-left rv">
       <span className="about-num" aria-hidden="true">01</span>
       <div className="about-section-label">About</div>
-      <MemberCounter className="about-counter-wrap rv" />
       <h2 className="about-title rv rv-stagger" id="about-heading">
         <span className="rv-stagger-item">Building a</span>
         <span className="rv-stagger-item"><em>Community.</em></span>
       </h2>
+      <MemberCounter className="about-counter-wrap rv" />
     </div>
     <div className="about-right">
       <p className="about-body rv" id="about-speakable">The Meridian Society is an independent, student-run organization based in ottawa. Founded with the goal of connecting motivated students with the professionals who can expand their mindset, and to build a community of students and young professionals in Ottawa.</p>

@@ -6,6 +6,9 @@ export const contactPageCss = infoPageCss + `
     overflow: hidden;
     padding-bottom: 120px !important;
   }
+  .info-body {
+    max-width: 1100px !important;
+  }
   .contact-hero::before {
     content: '';
     position: absolute;
@@ -73,13 +76,12 @@ export const contactPageCss = infoPageCss + `
 
   .contact-card-val {
     font-family: var(--serif);
-    font-size: clamp(20px, 2.2vw, 28px);
+    font-size: clamp(16px, 1.8vw, 24px);
     line-height: 1.2;
     color: var(--ink);
     margin-bottom: 24px;
-    word-break: normal;
-    overflow-wrap: anywhere;
-    letter-spacing: -0.01em;
+    white-space: nowrap;
+    letter-spacing: -0.02em;
     display: inline-block;
     background-image: linear-gradient(var(--gold), var(--gold));
     background-position: 0% 100%;

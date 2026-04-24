@@ -185,34 +185,37 @@ Favicons are in `public/assets/favicons/` — do not add `app/favicon.ico` (over
     - **Visual Sketch**:
       ```mermaid
       graph TD
-        %% The Central Spine
-        SpineStart(( )) --- P1(( ))
+        %% Vertical Spine
+        S1(( )) --- P1(( ))
         P1 --- P2(( ))
         P2 --- P3(( ))
-        P3 --- SpineEnd(( ))
+        P3 --- S2(( ))
 
-        %% Milestone Connections
+        %% Milestones (Linked horizontally to force verticality of spine)
         P1 --- M1["<b>OCT 2024</b><br/>Founding Declaration"]
         P2 --- M2["<b>NOV 2024</b><br/>Inaugural Speaker Forum"]
         P3 --- M3["<b>JAN 2025</b><br/>Member OS 1.0 Deployment"]
 
-        %% Expansion Mockups
-        M1 -.-> D1["[+] Expansion Record: <i>Founding signatories gathered in Ottawa...</i>"]
-        M2 -.-> D2["[+] Expansion Record: <i>A forum on the future of intellectual curiosity...</i>"]
-        M3 -.-> D3["[+] Expansion Record: <i>Sovereign Gate protocol finalized...</i>"]
+        %% Details
+        M1 --- D1["[+] Expansion Record: <i>Founding signatories gathered...</i>"]
+        M2 --- D2["[+] Expansion Record: <i>A forum on the future of curiosity...</i>"]
+        M3 --- D3["[+] Expansion Record: <i>Sovereign Gate protocol finalized...</i>"]
 
-        %% Institutional Styling
-        style SpineStart fill:#18150F,stroke:#D4AF37,stroke-width:2px
-        style SpineEnd fill:#18150F,stroke:#D4AF37,stroke-width:2px
-        style P1 fill:#D4AF37,stroke:#18150F,stroke-width:2px
-        style P2 fill:#D4AF37,stroke:#18150F,stroke-width:2px
-        style P3 fill:#D4AF37,stroke:#18150F,stroke-width:2px
+        %% Styling to emphasize the straight "Ink" line
+        style S1 fill:#18150F,stroke:#D4AF37
+        style S2 fill:#18150F,stroke:#D4AF37
+        style P1 fill:#D4AF37,stroke:#18150F
+        style P2 fill:#D4AF37,stroke:#18150F
+        style P3 fill:#D4AF37,stroke:#18150F
         
-        style M1 fill:#FDFCF8,stroke:#18150F,stroke-width:1px
-        style M2 fill:#FDFCF8,stroke:#18150F,stroke-width:1px
-        style M3 fill:#FDFCF8,stroke:#18150F,stroke-width:1px
+        style M1 fill:#FDFCF8,stroke:#18150F
+        style M2 fill:#FDFCF8,stroke:#18150F
+        style M3 fill:#FDFCF8,stroke:#18150F
         
-        style D1 fill:#FDFCF8,stroke:#D4AF37,stroke-dasharray: 5 5
-        style D2 fill:#FDFCF8,stroke:#D4AF37,stroke-dasharray: 5 5
-        style D3 fill:#FDFCF8,stroke:#D4AF37,stroke-dasharray: 5 5
+        style D1 fill:#FDFCF8,stroke:#D4AF37,stroke-dasharray: 3 3
+        style D2 fill:#FDFCF8,stroke:#D4AF37,stroke-dasharray: 3 3
+        style D3 fill:#FDFCF8,stroke:#D4AF37,stroke-dasharray: 3 3
+
+        %% Layout hints
+        classDef default font-family:serif,font-size:12px;
       ```

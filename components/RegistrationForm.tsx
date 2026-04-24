@@ -24,6 +24,7 @@ export default function RegistrationForm() {
   const [result, setResult] = useState<{ success?: boolean; error?: string; alreadyRegistered?: boolean } | null>(null);
   const [isAlreadyRegistered, setIsAlreadyRegistered] = useState(false);
   const [memberCount, setMemberCount] = useState<number>(0);
+  const [displayCount, setDisplayCount] = useState<number>(0);
 
   // Fetch count for the registry display
   useEffect(() => {
@@ -32,12 +33,26 @@ export default function RegistrationForm() {
         const res = await fetch("/api/stats/count");
         if (res.ok) {
           const data = await res.json();
-          if (typeof data.count === "number") setMemberCount(data.count);
+          if (typeof data.count === "number") {
+            setMemberCount(data.count);
+            setDisplayCount(data.count);
+          }
         }
       } catch (e) {}
     }
     loadInitialCount();
   }, []);
+
+  // Animate count on success
+  useEffect(() => {
+    if (result?.success && !result.alreadyRegistered && !isAlreadyRegistered) {
+      // Small delay before starting the "joining" animation
+      const timer = setTimeout(() => {
+        setDisplayCount(prev => prev + 1);
+      }, 800);
+      return () => clearTimeout(timer);
+    }
+  }, [result, isAlreadyRegistered]);
 
   // Check registration status on mount
   useEffect(() => {
@@ -190,7 +205,9 @@ export default function RegistrationForm() {
             <div className="registry-label">Official Registry Entry</div>
             <div className="registry-id">
               <span className="registry-prefix">MEMBER NO.</span>
-              <span className="registry-val">000{memberCount || "---"}</span>
+              <span className={`registry-val ${displayCount > memberCount ? 'count-up' : ''}`}>
+                {displayCount || memberCount || "---"}
+              </span>
             </div>
             <div className="registry-status">
               <span className="status-dot"></span>

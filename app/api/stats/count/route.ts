@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { createServiceClient } from '@/utils/supabase/service';
 
 export const runtime = 'edge';
-export const revalidate = 60; // Revalidate every minute
+export const revalidate = 0; // Disable static caching for immediate accuracy
 
 /**
  * High-performance Edge API for the global member counter.
@@ -29,7 +29,7 @@ export async function GET() {
         { 
           status: 200,
           headers: {
-            'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=300',
+            'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
           }
         }
       );
@@ -40,7 +40,7 @@ export async function GET() {
       { 
         status: 200,
         headers: {
-          'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=300',
+          'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
         }
       }
     );

@@ -174,3 +174,16 @@ Push to `main` → Vercel auto-deploys. No manual build step.
 Vercel env vars required: `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY`.
 
 Favicons are in `public/assets/favicons/` — do not add `app/favicon.ico` (overrides the metadata-managed set).
+
+---
+
+## 🎨 Visual Design System
+
+| Layer | Breakpoint | Where it lives |
+| :--- | :--- | :--- |
+| **Mobile** (base) | `≤700px` | Base rules in `globals.css` + page-specific mobile blocks; protected by the Mobile Isolation Strategy. |
+| **Tablet / mid** | `701px – 1100px` | Shared responsive overrides in `globals.css` and each `pageCss.ts`. |
+| **Desktop v1.5** | `≥1101px` | Dedicated `/* DESKTOP OPTIMIZATIONS (v1.5) */` block in `globals.css` + per-page `@media (min-width: 1101px)` blocks. Covers paragraph readability caps, hero rhythm, nav density, module-card hover, footer interactivity, and richer padding throughout. |
+| **Ultra-wide** | `≥1600px` | Extra `@media (min-width: 1600px)` tier for breathing room on very large screens. |
+
+Never add desktop rules outside the `1101px` gate — mobile stability depends on it. When tuning desktop UX, extend the existing blocks rather than creating ad-hoc queries.

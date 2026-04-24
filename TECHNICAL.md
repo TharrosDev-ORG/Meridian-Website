@@ -11,17 +11,38 @@ The site implements a unified, mobile-first component tree. We avoid separate mo
 ### 1.1 Source-to-Route Mapping
 | Public URL | Route Directory | Source File Path | CSS Logic |
 | :--- | :--- | :--- | :--- |
-| `/` | `app/(site)/` | `page.tsx` | `pageCss.ts` |
-| `/events` | `app/(site)/events/` | `page.tsx` | Shared Modules + `pageCss.ts` |
-| `/membership`| `app/(site)/membership/` | `page.tsx` | `pageCss.ts` |
-| `/social` | `app/(site)/social/` | `page.tsx` | Shared Modules + `pageCss.ts` |
-| `/team` | `app/(site)/team/` | `page.tsx` | (Standard CSS) |
-| `/register` | `app/register/` | `page.tsx` | (Shared `globals.css`) |
+| `/` | `app/(site)/` | `page.tsx` | `pageCss.ts` (+ v1.5 desktop block) |
+| `/events` | `app/(site)/events/` | `page.tsx` | Shared Modules + `pageCss.ts` (+ v1.5 desktop block) |
+| `/membership`| `app/(site)/membership/` | `page.tsx` | `pageCss.ts` (+ v1.5 desktop block) |
+| `/social` | `app/(site)/social/` | `page.tsx` | Shared Modules + `pageCss.ts` (+ v1.5 desktop block) |
+| `/team` | `app/(site)/team/` | `page.tsx` | `pageCss.ts` (+ v1.5 desktop block) |
+| `/speak` | `app/(site)/speak/` | `page.tsx` | `pageCss.ts` (+ v1.5 desktop block) |
+| `/contact`, `/privacy`, `/terms` | `app/(site)/_info/` shared | `page.tsx` | `infoPageCss.ts` (shared + v1.5 desktop block) |
+| `/register` | `app/register/` | `page.tsx` | `membershipCss` + inline `registerPageCss` (with desktop block) |
 
-### 1.2 Desktop UI Optimization (v1.4)
-The site implements a strict **Mobile Isolation Strategy** for high-resolution displays (>1101px):
-- **Spacing**: Increased vertical rhythm using `--section-spacing-dt: 120px`.
-- **Typography**: Responsive `hero-title` scaling using `clamp` (up to 220px on ultra-wide).
+### 1.2 Desktop UI Optimization (v1.5)
+The site implements a strict **Mobile Isolation Strategy** for high-resolution displays (≥1101px). All desktop polish lives inside `@media (min-width: 1101px)` gates — never leaking into mobile.
+
+**Global layer (`globals.css` → "DESKTOP OPTIMIZATIONS v1.5" block):**
+- **Container rhythm**: `.wrap { padding: 0 72px; }`; an ultra-wide `@media (min-width: 1600px)` tier lifts padding to `96px` and widens page-hero padding.
+- **Readability caps**: Paragraph max-widths on `.hero-sub` (620px), `.register-body` / `.social-record-copy` (600px), and `.module-intro-copy` (62ch) prevent overly long lines on wide screens.
+- **Hero rhythm**: `.page-hero`, `.module-page-hero` unified at `padding: 132px 72px 84px; min-height: 64vh;` with a 16ch `max-width` on the title and widened eyebrow rule/bottom-margin.
+- **Nav density**: `.nav-inner { padding: 0 64px; }`, `.nav-links` gap 6px with comfortable link padding and letter-spacing.
+- **Button elevation**: `.btn-primary` lifts `-3px` on hover with a `14px 44px` gold shadow on desktop.
+- **Module cards**: `.module-card` padded to `48px 42px` with a layered ink + gold-tinted box-shadow on hover.
+- **Footer interactivity**: `.footer-list a` translates `+4px` on hover and recolours to `--gold-lt`; footer brand tagline clamped to 280px.
+- **Scroll UX**: larger `.arc-btn` (56×56) and longer `.rv` reveal easing for a calmer feel on large hero typography.
+- **Reveal/page-sweep** tuned with finer blur/translate for smoother desktop entries.
+
+**Per-page layer (`pageCss.ts` → each page's own `@media (min-width: 1101px)` block):**
+- **Home**: stats bar density (32px values, 48px padding), `.about-body` / `.who-intro-body` / `.speaking-body` line-length caps, richer portal-card padding (`64px 56px`), airier register section.
+- **Events / Social**: 2-col module intro grid, meta-row hover padding shift, signature/gathering card `56px` padding.
+- **Team**: larger photo (104×130), 19px serif bio, subtle `filter: brightness/saturate` treatment on photo hover, refined social icons.
+- **Membership**: benefits-grid `40px` gap, FAQ summary `36px 24px` padding with `20px` serif answers capped at 680px, 72px register-form padding.
+- **Speak**: meta-row hover shift + airier apply block (`720px` inner width, 52px body margin).
+- **Info (privacy/terms/contact)**: wider `740px` body, interactive contact-card hover, `168px` top hero padding.
+- **404 / register**: consistent desktop padding + container widths.
+
 - **Performance Hardening**: High-traffic animated elements utilize `will-change: transform, opacity` to ensure hardware acceleration and 60FPS fluidity on desktop.
 
 ---

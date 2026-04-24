@@ -1,7 +1,7 @@
-# Security & Performance Audit Report: Meridian Website v1.4
+# Security & Performance Audit Report: Meridian Website v1.5
 
 **Status**: HARDENED & OPTIMIZED (Deep Audit)
-**Audit Date**: 2026-04-23
+**Audit Date**: 2026-04-24
 **Infrastructure**: Next.js 16 (React 19) + Supabase
 
 ---
@@ -56,9 +56,16 @@
 - **Optimization**: Verified all content images use `next/image` for automatic lazy loading, resolution switching, and cumulative layout shift (CLS) prevention.
 
 ### 6. Desktop Visual Hardening (v1.4 Enhancement)
-- **Action**: Implemented **Mobile Isolation Strategy** using strict media query encapsulation (>1101px).
+- **Action**: Implemented **Mobile Isolation Strategy** using strict media query encapsulation (≥1101px).
 - **Optimization**: Applied `will-change: transform, opacity` to high-frequency animated components (Hero Stats, Portal Cards, Reveal Items).
 - **Result**: Enabled hardware-accelerated GPU layers for desktop hover transitions, maintaining 60FPS fluid motion on high-resolution displays without affecting mobile resource consumption.
+
+### 7. Comprehensive Desktop UI Polish (v1.5 Enhancement)
+- **Action**: Added a site-wide **Desktop Optimizations v1.5** block in `globals.css` and mirrored per-page `@media (min-width: 1101px)` blocks in every `pageCss.ts` (home, events, social, team, membership, speak, info, 404, register).
+- **Scope**: Paragraph readability caps (`hero-sub`, `register-body`, `social-record-copy`, `module-intro-copy`), unified page-hero padding + `min-height: 64vh`, 16ch hero-title wrap, denser nav (`padding: 0 64px`), richer module-card hover layering, primary-button elevation (`-3px`, 14px/44px gold shadow), footer link hover-lift, larger `.arc-btn` (56×56), extended `.rv` easing, and an ultra-wide `@media (min-width: 1600px)` tier for additional breathing room.
+- **Per-page refinements**: Home stats bar density, about/who/not/speaking body line-length caps, portal cards at `64px 56px`, 2-col intro grid on events & social at desktop, team photo lift (104×130), benefits-grid `40px` gap, FAQ summary `36px 24px` with 20px serif answers capped at 680px, meta-row hover padding shift on speak & events, info-body widened to 740px with interactive contact-card hover.
+- **Guardrails honored**: Every rule sits behind the `1101px` gate. Mobile CSS untouched. No design-token changes. Tested via `npm run lint` (0 errors), `npx tsc --noEmit` (clean), `npm run build` (all 20 static pages generated), and all 10 routes returning 200 in the dev server.
+- **Result**: High-resolution displays get the comfortable rhythm and readable line-lengths expected of a premium professional site, while mobile continues to ship its existing polish untouched.
 
 ---
 

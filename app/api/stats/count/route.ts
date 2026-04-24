@@ -44,7 +44,7 @@ export async function GET() {
         }
       }
     );
-  } catch (err) {
+  } catch {
     return NextResponse.json({ count: 0, error: 'Telemetry failure' }, { status: 500 });
   }
 }

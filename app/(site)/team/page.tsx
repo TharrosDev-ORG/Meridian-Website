@@ -109,8 +109,8 @@ export default function Page() {
                 className="member-photo"
                 alt="Magnus Abdelnour, Founder and President of The Meridian Society"
                 priority
-                width={120}
-                height={140}
+                width={100}
+                height={120}
               />
             </div>
           </div>
@@ -152,8 +152,8 @@ export default function Page() {
                 className="member-photo"
                 alt="Colin Sherwood, Event Coordinator of The Meridian Society"
                 priority
-                width={120}
-                height={140}
+                width={100}
+                height={120}
               />
             </div>
           </div>

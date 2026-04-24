@@ -23,7 +23,7 @@ export async function getMemberCount(): Promise<number> {
     }
 
     return data?.member_count || 0;
-  } catch (_err) {
+  } catch {
     // Audit: Sanitized exception trail.
     console.error('[SECURITY] Unexpected telemetry failure.');
     return 0;

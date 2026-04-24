@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useTransition, useEffect } from "react";
+import { useState, useTransition, useEffect, useRef } from "react";
 import { submitSpeakerApplication, checkSpeakerEmail, SpeakerApplicationData } from "@/app/actions/speak";
 import Link from "next/link";
 
@@ -36,6 +36,7 @@ export default function SpeakerForm() {
   }, [result]);
 
   // Drafting Logic
+  const autoJumped = useRef(false);
   useEffect(() => {
     if (!mounted) return;
     const saved = localStorage.getItem("speaker_form_draft");
@@ -45,7 +46,6 @@ export default function SpeakerForm() {
         if (draft.email) setEmailValue(draft.email);
         if (draft.fullName) setNameValue(draft.fullName);
         
-        // Populate fields (both Step 1 and Step 2 if visible)
         const form = document.querySelector('form');
         if (form) {
           Object.entries(draft).forEach(([name, value]) => {
@@ -55,14 +55,14 @@ export default function SpeakerForm() {
                 if (inputEl.value === value || (inputEl.type === 'checkbox' && value === 'on')) {
                   inputEl.checked = true;
                 }
-              } else {
+              } else if (name !== 'email' && name !== 'fullName') {
                 inputEl.value = value as string;
               }
             });
           });
 
-          // Only jump to step 2 once on mount if we have data
-          if (currentStep === 1 && Object.keys(draft).length > 2) {
+          if (currentStep === 1 && Object.keys(draft).length > 2 && !autoJumped.current) {
+            autoJumped.current = true;
             setCurrentStep(2);
           }
         }

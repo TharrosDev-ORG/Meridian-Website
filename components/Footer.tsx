@@ -61,7 +61,7 @@ export default function Footer() {
 
   return (
     <footer>
-      <div className="wrap rv" data-d="10">
+      <div className="wrap">
         <div className="footer-main">
           <div className="footer-brand">
             <div className="footer-wordmark">The Meridian Society</div>

@@ -9,15 +9,24 @@ interface MemberCounterProps {
 
 export default function MemberCounter({ className }: MemberCounterProps) {
   const [count, setCount] = useState<number>(0);
-  const [isPulsing, setIsPulsing] = useState(false);
+  const [prevCount, setPrevCount] = useState<number>(0);
+  const [isAnimating, setIsAnimating] = useState(false);
 
-  // Pulse when count changes (realtime)
+  // Handle animation sequence
   useEffect(() => {
-    if (count > 0) {
-      setIsPulsing(true);
-      const timer = setTimeout(() => setIsPulsing(false), 600);
+    if (count > 0 && prevCount !== count) {
+      setIsAnimating(true);
+      const timer = setTimeout(() => {
+        setIsAnimating(false);
+        setPrevCount(count);
+      }, 1000); // Animation duration
       return () => clearTimeout(timer);
     }
+  }, [count]);
+
+  // Initial set
+  useEffect(() => {
+    if (count > 0 && prevCount === 0) setPrevCount(count);
   }, [count]);
 
   // Trigger reveal when count becomes available
@@ -81,8 +90,13 @@ export default function MemberCounter({ className }: MemberCounterProps) {
 
   return (
     <div className={className}>
-      <div className={`count-box ${isPulsing ? 'pulse' : ''}`}>
-        <span className="count-num">{count}</span>
+      <div className="count-box">
+        <div className="count-num-overflow">
+          <div className={`count-num-reel ${isAnimating ? "is-rolling" : ""}`}>
+            <span className="count-num prev">{prevCount}</span>
+            <span className="count-num next">{count}</span>
+          </div>
+        </div>
         <span className="count-lbl">Society Members</span>
       </div>
     </div>

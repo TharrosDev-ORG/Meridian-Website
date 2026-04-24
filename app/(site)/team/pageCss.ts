@@ -169,9 +169,10 @@ export const teamCss = `
 
     @media (max-width: 750px) {
       .member-grid { grid-template-columns: 1fr; gap: 24px; }
-      .registry-header { padding: 28px; }
-      .member-body { padding: 0 28px 28px; }
-      .member-photo-wrap { width: 90px; height: 110px; }
+      .registry-header { padding: 24px; gap: 16px; }
+      .member-body { padding: 0 24px 24px; }
+      .member-photo-wrap { width: 84px; height: 104px; margin-left: 12px; }
+      .member-name { font-size: 24px; }
     }
 
     @media (max-width: 700px) {
@@ -187,14 +188,18 @@ export const teamCss = `
       .placeholder-sub { font-size: 10px; }
 
       .member-social a {
-        width: 40px; height: 40px;
+        width: 44px; height: 44px; /* Optimal touch target size */
       }
-      .member-social svg { width: 16px; height: 16px; }
+      .member-social svg { width: 18px; height: 18px; }
+      .member-role { letter-spacing: 0.2em; font-size: 11px; }
+      .registry-info { gap: 16px; }
     }
 
     @media (max-width: 380px) {
-      .member-body { padding: 24px 20px 26px; }
-      .member-photo-wrap { width: 80px; height: 100px; }
+      .registry-header { padding: 20px; flex-direction: column-reverse; align-items: flex-start; gap: 20px; }
+      .member-photo-wrap { margin-left: 0; width: 100%; height: 140px; }
+      .member-photo { object-position: center 20%; }
+      .member-body { padding: 0 20px 24px; }
       .member-name { font-size: 22px; }
     }
 `;

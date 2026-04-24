@@ -37,7 +37,7 @@ export default function Page() {
             name: "Magnus Abdelnour",
             jobTitle: "Founder & President",
             description: "Started The Meridian Society to bring journalists, founders, scholars, and accomplished professionals to the room to share knowledge with students.",
-            image: "/assets/images/team/magnus.jpg",
+            image: "/assets/images/team/magnus.webp",
             sameAs: ["https://www.linkedin.com/in/magnus-a-9b5b50378"]
           })),
         }}
@@ -50,7 +50,7 @@ export default function Page() {
             name: "Colin Sherwood",
             jobTitle: "Event Coordinator",
             description: "Dedicated student leader coordinating the logistics and execution of Meridian Society speaker forums.",
-            image: "/assets/images/team/colin.jpg",
+            image: "/assets/images/team/colin.webp",
             sameAs: ["https://www.instagram.com/colinsherwood34"]
           })),
         }}
@@ -95,17 +95,17 @@ export default function Page() {
           <div className="registry-header">
             <div className="registry-info">
               <div className="registry-field">
-                <span className="field-label">IDENTITY / NAME</span>
+                <span className="field-label">NAME</span>
                 <h3 className="member-name field-value" id="name-magnus">Magnus Abdelnour</h3>
               </div>
               <div className="registry-field">
-                <span className="field-label">DESIGNATION / STATUS</span>
+                <span className="field-label">ROLE</span>
                 <div className="member-role field-value">Founder &amp; President</div>
               </div>
             </div>
             <div className="member-photo-wrap">
               <Image
-                src="/assets/images/team/magnus.jpg"
+                src="/assets/images/team/magnus.webp"
                 className="member-photo"
                 alt="Magnus Abdelnour, Founder and President of The Meridian Society"
                 priority
@@ -117,7 +117,7 @@ export default function Page() {
 
           <div className="member-body">
             <div className="registry-field">
-              <span className="field-label">INSTITUTIONAL RECORD / STUDIES</span>
+              <span className="field-label">PROGRAM/SCHOOL</span>
               <p className="member-studies field-value">Bachelor&apos;s of Global and International Studies — European and Russian Studies, Carleton University</p>
             </div>
             
@@ -138,17 +138,17 @@ export default function Page() {
           <div className="registry-header">
             <div className="registry-info">
               <div className="registry-field">
-                <span className="field-label">IDENTITY / NAME</span>
+                <span className="field-label">NAME</span>
                 <h3 className="member-name field-value" id="name-colin">Colin Sherwood</h3>
               </div>
               <div className="registry-field">
-                <span className="field-label">DESIGNATION / STATUS</span>
+                <span className="field-label">ROLE</span>
                 <div className="member-role field-value">Event Coordinator</div>
               </div>
             </div>
             <div className="member-photo-wrap">
               <Image
-                src="/assets/images/team/colin.jpg"
+                src="/assets/images/team/colin.webp"
                 className="member-photo"
                 alt="Colin Sherwood, Event Coordinator of The Meridian Society"
                 priority
@@ -160,7 +160,7 @@ export default function Page() {
 
           <div className="member-body">
             <div className="registry-field">
-              <span className="field-label">INSTITUTIONAL RECORD / STUDIES</span>
+              <span className="field-label">PROGRAM/SCHOOL</span>
               <p className="member-studies field-value">Bachelor&apos;s of Criminology and Criminal Justice — Concentration in Law, Minor in French, Carleton University</p>
             </div>
             

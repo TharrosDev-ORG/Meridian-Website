@@ -78,17 +78,14 @@ export const contactPageCss = infoPageCss + `
     color: var(--ink);
     margin-bottom: 24px;
     word-break: break-all;
-  }
-  .contact-card-val a {
-    text-decoration: none;
-    color: inherit;
+    display: inline-block;
     background-image: linear-gradient(var(--gold), var(--gold));
     background-position: 0% 100%;
     background-repeat: no-repeat;
     background-size: 0% 2px;
     transition: background-size 0.5s cubic-bezier(0.16, 1, 0.3, 1);
   }
-  .contact-card-v2:hover .contact-card-val a {
+  .contact-card-v2:hover .contact-card-val {
     background-size: 100% 2px;
   }
 

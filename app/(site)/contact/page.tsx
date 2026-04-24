@@ -38,31 +38,31 @@ export default function ContactPage() {
         <section className="info-body" style={{ paddingTop: 0 }}>
           <div className="contact-grid-premium">
             <Magnetic strength={0.08}>
-              <div className="contact-card-v2 rv" data-d="2">
+              <a href="mailto:meridiansocietycanada@gmail.com" className="contact-card-v2 rv" data-d="2" style={{ textDecoration: 'none' }}>
                 <div>
                   <div className="contact-card-lbl">General Inquiry</div>
                   <div className="contact-card-val">
-                    <a href="mailto:meridiansocietycanada@gmail.com">meridiansocietycanada@gmail.com</a>
+                    meridiansocietycanada@gmail.com
                   </div>
                 </div>
                 <div className="contact-card-desc">
                   For press, partnerships, and general Society administration.
                 </div>
-              </div>
+              </a>
             </Magnetic>
 
             <Magnetic strength={0.08}>
-              <div className="contact-card-v2 rv" data-d="3">
+              <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="contact-card-v2 rv" data-d="3" style={{ textDecoration: 'none' }}>
                 <div>
                   <div className="contact-card-lbl">Social Presence</div>
                   <div className="contact-card-val">
-                    <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer">@Meridian.Society</a>
+                    @Meridian.Society
                   </div>
                 </div>
                 <div className="contact-card-desc">
                   Event updates, speaker highlights, and real-time interaction.
                 </div>
-              </div>
+              </a>
             </Magnetic>
           </div>
 

@@ -97,6 +97,27 @@ export default function RegistrationForm() {
     localStorage.setItem(DRAFT_KEY, JSON.stringify(data));
   };
 
+  // Allow deselecting radios
+  const handleRadioClick = (e: React.MouseEvent<HTMLInputElement>) => {
+    const input = e.currentTarget;
+    if (input.dataset.checked === "true") {
+      input.checked = false;
+      input.dataset.checked = "false";
+      // Manually trigger change to update state/draft
+      const event = new Event("change", { bubbles: true });
+      input.dispatchEvent(event);
+      
+      // Also reset conditional states if applicable
+      if (input.name === "role") setRole("");
+      if (input.name === "institution") setInstitution("");
+    } else {
+      // Mark this one as checked, others in group as unchecked
+      const group = document.querySelectorAll(`input[name="${input.name}"]`);
+      group.forEach((el: any) => (el.dataset.checked = "false"));
+      input.dataset.checked = "true";
+    }
+  };
+
   async function clientAction(formData: FormData) {
     const selectedInterests = INTERESTS_LIST.filter(i => formData.get(`interest-${i}`) === "on");
 
@@ -231,6 +252,7 @@ export default function RegistrationForm() {
                     value={r}
                     required
                     onChange={(e) => setRole(e.target.value)}
+                    onClick={handleRadioClick}
                     disabled={isPending}
                   />
                   <span className="reg-choice-ui"></span>
@@ -263,8 +285,8 @@ export default function RegistrationForm() {
                     type="radio"
                     name="institution"
                     value={inst}
-                    required
                     onChange={(e) => setInstitution(e.target.value)}
+                    onClick={handleRadioClick}
                     disabled={isPending}
                   />
                   <span className="reg-choice-ui"></span>
@@ -316,6 +338,7 @@ export default function RegistrationForm() {
                     name="heardFrom"
                     value={source}
                     required
+                    onClick={handleRadioClick}
                     disabled={isPending}
                   />
                   <span className="reg-choice-ui"></span>
@@ -336,6 +359,7 @@ export default function RegistrationForm() {
                     name="volunteerInterest"
                     value={opt}
                     required
+                    onClick={handleRadioClick}
                     disabled={isPending}
                   />
                   <span className="reg-choice-ui"></span>

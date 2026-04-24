@@ -51,6 +51,21 @@ export default function Page() {
       </div>
     </div>
   </section>
+  
+  {/* ═══════════ NOMINATE ═══════════ */}
+  <section className="speak-nominate-sec" aria-label="Nominate a speaker">
+    <div className="wrap">
+      <div className="nominate-card rv" data-d="4">
+        <div className="nominate-content">
+          <h2 className="nominate-h">Nominate a Speaker</h2>
+          <p className="nominate-p">Know a visionary or professional who should be on our stage? We&apos;d love to hear your suggestions.</p>
+        </div>
+        <a href="mailto:meridiansocietycanada@gmail.com?subject=Speaker%20Nomination" className="btn-nominate">
+          <span>Email Nomination</span>
+        </a>
+      </div>
+    </div>
+  </section>
 
   <Marquee />
 

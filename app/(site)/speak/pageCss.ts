@@ -7,6 +7,25 @@ export const speakCss = `
     /* Keyframes consolidated to globals.css */
 
     /* ── Page hero ── */
+    /* ── Nominate Section ── */
+    .speak-nominate-sec { padding: 40px 0; background: var(--cream); position: relative; z-index: 5; }
+    .nominate-card { 
+      background: var(--cream-deep); border: 1px solid var(--ink-10);
+      padding: 32px 40px; display: flex; align-items: center; justify-content: space-between; gap: 32px;
+      box-shadow: 0 4px 20px rgba(24,21,15,0.03); transition: border-color 0.4s;
+    }
+    .nominate-card:hover { border-color: var(--gold-45); }
+    .nominate-content { flex: 1; }
+    .nominate-h { font-family: var(--serif); font-size: 28px; font-weight: 300; color: var(--ink); margin-bottom: 8px; }
+    .nominate-p { font-family: var(--serif); font-size: 17px; font-style: italic; color: var(--ink-75); line-height: 1.5; }
+    .btn-nominate {
+      padding: 14px 28px; border: 1px solid var(--ink-15); background: transparent;
+      font-family: var(--sans); font-size: 11px; font-weight: 700; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--ink); text-decoration: none;
+      transition: all 0.3s cubic-bezier(0.16,1,0.3,1); display: inline-block;
+    }
+    .btn-nominate:hover { background: var(--ink); color: var(--cream); border-color: var(--ink); transform: translateY(-2px); }
+
     /* ── Why Speak section (value props) ── */
     .speak-why-sec { padding: 80px 0; background: var(--cream-deep); position: relative; overflow: hidden; }
     .speak-why-sec::before { content: ''; position: absolute; top: 40px; right: 40px; width: 80px; height: 80px; border-top: 1px solid var(--ink-15); border-right: 1px solid var(--ink-15); pointer-events: none; }
@@ -59,6 +78,10 @@ export const speakCss = `
       .speak-why-sec { padding: 120px 0; }
       .speak-format-sec { padding: 120px 0; }
       .speak-apply-sec { padding: 120px 0; }
+      
+      .speak-nominate-sec { padding: 60px 0; }
+      .nominate-card { padding: 48px 60px; }
+      .nominate-h { font-size: 32px; }
 
       .speak-why-header { margin-bottom: 64px; }
       .speak-why-grid { gap: 40px; }
@@ -107,6 +130,10 @@ export const speakCss = `
       .speak-meta-lbl { padding-top: 0; font-size: 10px; letter-spacing: 0.26em; color: var(--gold); }
       .speak-apply-ctas { flex-direction: column; gap: 16px; width: 100%; }
       .speak-apply-ctas .btn-primary { width: 100%; text-align: center; }
+
+      .nominate-card { flex-direction: column; text-align: center; padding: 32px 24px; gap: 24px; }
+      .btn-nominate { width: 100%; text-align: center; }
+      .nominate-h { font-size: 24px; }
     }
 
     @media (max-width: 700px) {

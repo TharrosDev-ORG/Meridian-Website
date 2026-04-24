@@ -47,16 +47,16 @@ export const teamCss = `
     .member-card:hover::after { opacity: 0.1; }
 
     .member-photo-wrap {
-      position: relative; width: 100%; height: 320px; flex-shrink: 0;
+      position: relative; width: 100px; height: 120px; flex-shrink: 0;
       overflow: hidden; background: var(--cream-mid);
-      border-bottom: 1px solid var(--ink-15);
-      z-index: 1;
+      border: 1px solid var(--ink-15);
+      z-index: 1; margin-left: 20px;
     }
     .member-photo {
-      width: 100%; height: 100%; object-fit: cover; object-position: center 15%;
-      display: block; transition: filter 0.6s ease, transform 0.8s cubic-bezier(0.16,1,0.3,1);
+      width: 100%; height: 100%; object-fit: cover; object-position: center top;
+      display: block; transition: filter 0.6s ease;
     }
-    .member-card:hover .member-photo { transform: scale(1.04); }
+    .member-card:hover .member-photo { filter: contrast(1.1) brightness(1.05); }
     .member-photo-placeholder {
       width: 100%; height: 100%;
       display: flex; align-items: center; justify-content: center;
@@ -65,23 +65,29 @@ export const teamCss = `
       letter-spacing: 0.24em; text-transform: uppercase;
     }
 
-    .member-body { padding: 32px 32px 40px; display: flex; flex-direction: column; flex: 1; position: relative; z-index: 1; }
-    .member-identity { margin-bottom: 24px; }
+    .member-body { padding: 0 32px 32px; display: flex; flex-direction: column; flex: 1; position: relative; z-index: 1; }
 
-    .member-name { font-family: var(--serif); font-size: 30px; font-weight: 300; color: var(--ink); line-height: 1.1; margin-bottom: 8px; }
-    .member-role { font-family: var(--sans); font-size: 11.5px; font-weight: 700; letter-spacing: 0.36em; text-transform: uppercase; color: var(--gold); }
+    .registry-header { padding: 32px 32px 24px; display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 1px solid var(--ink-10); margin-bottom: 24px; }
+    .registry-info { flex: 1; display: flex; flex-direction: column; gap: 20px; }
     
-    .member-divider { width: 40px; height: 1px; background: var(--gold-20); margin-bottom: 24px; }
+    .registry-field { display: flex; flex-direction: column; gap: 4px; }
+    .field-label { font-family: var(--sans); font-size: 10px; font-weight: 700; letter-spacing: 0.2em; color: var(--gold); opacity: 0.8; text-transform: uppercase; }
+    .field-value { margin: 0 !important; border: none !important; padding: 0 !important; }
 
-    .member-studies { font-family: var(--serif); font-size: 18px; font-style: italic; color: var(--ink-75); line-height: 1.6; border-left: 2px solid var(--ink-15); padding-left: 18px; margin-bottom: 28px; }
+    .member-name { font-family: var(--serif); font-size: 28px; font-weight: 300; color: var(--ink); line-height: 1.1; }
+    .member-role { font-family: var(--sans); font-size: 11.5px; font-weight: 700; letter-spacing: 0.36em; text-transform: uppercase; color: var(--ink-75); }
+    .member-studies { font-family: var(--serif); font-size: 17px; font-style: italic; color: var(--ink-75); line-height: 1.6; }
     .member-bio { font-family: var(--serif); font-size: 18px; font-weight: 400; color: var(--ink-90); line-height: 1.75; flex: 1; margin-bottom: 24px; }
 
-    .member-social { display: flex; gap: 10px; margin-top: auto; }
+    .registry-footer { margin-top: auto; padding-top: 24px; border-top: 1px solid var(--ink-10); display: flex; align-items: flex-end; justify-content: space-between; }
+    .registry-id { font-family: var(--sans); font-size: 10px; font-weight: 700; letter-spacing: 0.3em; color: var(--ink-30); }
+
+    .member-social { display: flex; gap: 10px; }
     .member-social a {
       display: flex; align-items: center; justify-content: center;
-      width: 34px; height: 34px;
+      width: 32px; height: 32px;
       border: 1px solid var(--ink-15); color: var(--ink-55);
-      transition: background 0.3s, color 0.3s, transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+      transition: background 0.3s, color 0.3s, transform 0.3s;
     }
     .member-social a:hover {
       background: var(--ink); color: var(--cream);
@@ -137,22 +143,19 @@ export const teamCss = `
       .team-header { margin-bottom: 64px; }
       .member-grid { gap: 32px; }
 
-      /* Photo + header: more presence on desktop */
-      .member-photo-wrap { height: 400px; }
-      .member-name { font-size: 34px; margin-bottom: 10px; }
-      .member-role { font-size: 12px; }
-      .member-studies { font-size: 19px; padding-left: 20px; margin-bottom: 32px; line-height: 1.6; }
-      .member-body { padding: 40px 40px 48px; }
+      .registry-header { padding: 40px 40px 32px; }
+      .member-body { padding: 0 40px 40px; }
+      .member-name { font-size: 32px; }
+      .member-photo-wrap { width: 120px; height: 144px; }
 
-      /* Social icons: larger & more tactile */
-      .member-social a { width: 42px; height: 42px; }
-      .member-social svg { width: 18px; height: 18px; }
-
-      /* Subtle photo treatment on card hover */
-      .member-card:hover .member-photo { filter: brightness(1.05) contrast(1.02); }
+      .member-social a:hover {
+        background: var(--ink); color: var(--cream);
+        border-color: var(--ink);
+        transform: translateY(-3px);
+      }
 
       /* Placeholder card feels more balanced on desktop */
-      .member-card--placeholder { min-height: 600px; }
+      .member-card--placeholder { min-height: 480px; }
       .placeholder-icon { font-size: 32px; margin-bottom: 28px; }
       .placeholder-text { font-size: 24px; }
     }
@@ -167,10 +170,9 @@ export const teamCss = `
 
     @media (max-width: 750px) {
       .member-grid { grid-template-columns: 1fr; gap: 24px; }
-      .member-photo-wrap { height: 420px; }
-      .member-name { font-size: 28px; }
-      .member-studies { font-size: 17px; }
-      .member-body { padding: 32px 28px 36px; }
+      .registry-header { padding: 28px; }
+      .member-body { padding: 0 28px 28px; }
+      .member-photo-wrap { width: 90px; height: 110px; }
     }
 
     @media (max-width: 700px) {

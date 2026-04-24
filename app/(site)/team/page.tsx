@@ -50,7 +50,7 @@ export default function Page() {
             name: "Colin Sherwood",
             jobTitle: "Event Coordinator",
             description: "Dedicated student leader coordinating the logistics and execution of Meridian Society speaker forums.",
-            image: "/assets/images/team/colin.webp",
+            image: "/assets/images/team/colin.jpg",
             sameAs: ["https://www.instagram.com/colinsherwood34"]
           })),
         }}
@@ -122,7 +122,7 @@ export default function Page() {
         <article className="member-card rv" id="colin" aria-labelledby="name-colin" data-tilt>
           <div className="member-photo-wrap">
             <Image
-              src="/assets/images/team/colin.webp"
+              src="/assets/images/team/colin.jpg"
               className="member-photo"
               alt="Colin Sherwood, Event Coordinator of The Meridian Society"
               priority

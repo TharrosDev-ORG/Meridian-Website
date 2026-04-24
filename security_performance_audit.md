@@ -38,7 +38,7 @@
 ## ⚡ Performance Audit
 
 ### 1. Image Asset Optimization
-- **Audit**: `magnus.webp` (8.5 KB), `colin.webp` (2.6 KB). Target <20KB maintained.
+- **Audit**: High-fidelity JPG portraits (magnus.jpg, colin.jpg). Ported for "Signature Style" layout.
 
 ### 2. Stylesheet Efficiency
 - **Efficiency**: Static CSS injection via `PageStyles`. Zero FOUC.
@@ -69,7 +69,7 @@
 | **Auth Gateway** | ELITE | Service Role Proxy + UA Shielding |
 | **RPC Security** | LOCKED | Restricted Execute Privileges |
 | **Bot Resistance** | MAX | Honeypot + UA Filter + IP Rate Limit |
-| **UI Performance** | ELITE | WebP + RAF Sync + CSS Variables |
+| **UI Performance** | ELITE | High-Res JPG + RAF Sync + CSS Variables |
 
 ---
 

@@ -233,7 +233,7 @@ export default function RegistrationForm() {
           <div className="action-card rv-stagger-item" data-d="4">
             <div className="action-num">02</div>
             <h4 className="action-h">Nominate a Speaker</h4>
-            <p className="action-p">Help shape our future forums by nominating visionaries or professionals you'd like to hear from.</p>
+            <p className="action-p">Help shape our future events by nominating speakers or professionals you'd like to hear from.</p>
             <Link href="/speak" className="action-btn">
               <span>Nominate</span>
             </Link>

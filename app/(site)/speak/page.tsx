@@ -3,7 +3,6 @@ import Link from 'next/link';
 import PageStyles from '@/components/PageStyles';
 import { speakCss } from './pageCss';
 import Marquee from '@/components/Marquee';
-import SpeakerForm from '@/components/SpeakerForm';
 import { getMetadata } from '@/utils/metadata-shared';
 import { generateBreadcrumbSchema } from '@/utils/jsonld';
 
@@ -46,7 +45,7 @@ export default function Page() {
       <div className="hero-hr rv" aria-hidden="true" data-d="1"></div>
       <p className="hero-sub rv" data-d="2">Motivated students. Genuine curiosity. A room built for real conversation.</p>
       <div className="hero-actions rv" data-d="3">
-        <a href="#apply" className="btn-primary"><span>Apply to Speak</span></a>
+        <Link href="/apply" className="btn-primary"><span>Apply to Speak</span></Link>
         <a href="#why" className="btn-ghost-link">Learn More <span>&#8595;</span></a>
       </div>
     </div>
@@ -74,7 +73,7 @@ export default function Page() {
     <div className="wrap">
       <div className="speak-why-header">
         <h2 className="speak-why-title rv" id="why-heading">Why Speak <em>With Us.</em></h2>
-        <a href="#apply" className="text-link rv" data-d="1">Apply Now  &#8594;</a>
+        <Link href="/apply" className="text-link rv" data-d="1">Apply Now  &#8594;</Link>
       </div>
       <div className="speak-why-grid">
 
@@ -143,12 +142,14 @@ export default function Page() {
   {/* ═══════════ APPLY ═══════════ */}
   <section className="speak-apply-sec" id="apply" aria-labelledby="apply-heading">
     <div className="wrap">
-      <div className="speak-apply-inner" style={{ maxWidth: 'none' }}>
-        <h2 className="speak-apply-title rv" id="apply-heading" style={{ textAlign: 'center' }}>Apply to Speak</h2>
-        <p className="speak-apply-body rv" data-d="1" style={{ textAlign: 'center', marginBottom: '40px' }}>Tell us about yourself and what you&apos;d like to discuss. We&apos;ll be in touch.</p>
+      <div className="speak-apply-inner">
+        <h2 className="speak-apply-title rv" id="apply-heading">Ready to Share?</h2>
+        <p className="speak-apply-body rv" data-d="1">Join a community built on genuine curiosity. Tell us about your expertise and what you&apos;d like to discuss.</p>
         
-        <div className="rv" data-d="2">
-          <SpeakerForm />
+        <div className="speak-apply-ctas rv" data-d="2">
+          <Link href="/apply" className="btn-primary">
+            <span>Open Application Form</span>
+          </Link>
         </div>
 
         <div className="speak-apply-footer" style={{ marginTop: '56px', textAlign: 'center' }}>

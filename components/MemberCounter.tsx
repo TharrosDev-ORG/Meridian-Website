@@ -10,6 +10,16 @@ interface MemberCounterProps {
 export default function MemberCounter({ className }: MemberCounterProps) {
   const [count, setCount] = useState<number>(0);
 
+  // Trigger reveal when count becomes available
+  useEffect(() => {
+    if (count > 0 && typeof window !== "undefined") {
+      const win = window as any;
+      if (win.__observeReveal) {
+        setTimeout(() => win.__observeReveal(), 100);
+      }
+    }
+  }, [count]);
+
   useEffect(() => {
     const supabase = createClient();
     const controller = new AbortController();
@@ -60,7 +70,7 @@ export default function MemberCounter({ className }: MemberCounterProps) {
     <div className={className}>
       <div className="count-box">
         <span className="count-num">{count}</span>
-        <span className="count-lbl">Live Members</span>
+        <span className="count-lbl">Society Members</span>
       </div>
     </div>
   );

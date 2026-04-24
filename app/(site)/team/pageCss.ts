@@ -169,9 +169,9 @@ export const teamCss = `
 
     @media (max-width: 750px) {
       .member-grid { grid-template-columns: 1fr; gap: 24px; }
-      .registry-header { padding: 24px; gap: 16px; }
+      .registry-header { padding: 24px; gap: 20px; }
       .member-body { padding: 0 24px 24px; }
-      .member-photo-wrap { width: 84px; height: 104px; margin-left: 12px; }
+      .member-photo-wrap { width: 110px; height: 132px; margin-left: 12px; }
       .member-name { font-size: 24px; }
     }
 
@@ -197,7 +197,7 @@ export const teamCss = `
 
     @media (max-width: 380px) {
       .registry-header { padding: 20px; flex-direction: column-reverse; align-items: flex-start; gap: 20px; }
-      .member-photo-wrap { margin-left: 0; width: 100%; height: 140px; }
+      .member-photo-wrap { margin-left: 0; width: 100%; height: 180px; }
       .member-photo { object-position: center 20%; }
       .member-body { padding: 0 20px 24px; }
       .member-name { font-size: 22px; }

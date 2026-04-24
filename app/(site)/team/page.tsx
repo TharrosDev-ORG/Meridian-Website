@@ -72,15 +72,16 @@ export default function Page() {
       <div className="hero-hr rv" aria-hidden="true" data-d="1"></div>
       <p className="hero-sub rv" data-d="2">The student team behind the Meridian Society.</p>
       <div className="hero-actions rv" data-d="3">
-        <a href="#team" className="btn-ghost-link">Meet the Team <span>&#8594;</span></a>
+        <a href="#team" className="btn-ghost-link">Meet the Team <span>&#8595;</span></a>
       </div>
     </div>
   </section>
   <Marquee />
 
   {/* ═══════════ TEAM SECTION ═══════════ */}
-  <section className="team-sec" id="team" aria-labelledby="team-heading">
+  <section className="team-sec" aria-labelledby="team-heading">
     <div className="wrap">
+      <div id="team" className="team-anchor" aria-hidden="true" />
       <div className="team-header">
         <h2 className="team-title rv rv-stagger" id="team-heading">
           <span className="rv-stagger-item">Leadership &amp; Operations.</span>

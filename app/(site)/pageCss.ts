@@ -67,7 +67,6 @@ export const indexCss = `
     }
     .hero-eyebrow {
       display: flex; align-items: center; gap: 16px; margin-bottom: 40px;
-      opacity: 0; animation: riseIn 0.7s 0.3s cubic-bezier(0.16,1,0.3,1) forwards;
     }
     .hero-eyebrow-rule { width: 36px; height: 1px; background: var(--gold); opacity: 0.5; }
     .hero-eyebrow-text {
@@ -78,28 +77,24 @@ export const indexCss = `
       font-family: var(--serif); font-size: clamp(22px, 3vw, 38px);
       font-style: italic; font-weight: 300; color: var(--ink-55);
       letter-spacing: 0.06em; margin-bottom: 8px;
-      opacity: 0; animation: riseIn 0.7s 0.55s cubic-bezier(0.16,1,0.3,1) forwards;
     }
     .hero-title {
       font-family: var(--serif); font-size: clamp(76px, 13.5vw, 196px);
       font-weight: 300; line-height: 0.86; color: var(--ink); letter-spacing: 0.06em;
-      opacity: 0; animation: riseIn 0.9s 0.7s cubic-bezier(0.16,1,0.3,1) forwards;
       text-shadow: 0 2px 40px rgba(24,21,15,0.04);
       transition: transform 0.4s cubic-bezier(0.16,1,0.3,1);
     }
     .hero-hr {
       width: 44px; height: 1px; background: var(--ink-15); margin: 28px auto;
-      opacity: 0; animation: riseIn 0.6s 0.95s ease forwards;
     }
     .hero-sub {
       font-family: var(--serif); font-size: clamp(19px, 2.2vw, 27px);
       font-style: italic; font-weight: 300; color: var(--ink-75);
       max-width: 560px; line-height: 1.85; margin-bottom: 40px;
-      opacity: 0; animation: riseIn 0.7s 1.05s ease forwards;
     }
     .hero-actions {
       display: flex; align-items: center; justify-content: center; gap: 24px;
-      opacity: 0; animation: riseIn 0.8s 1.2s ease forwards; width: 100%;
+      width: 100%;
     }
     .hero-main-ctas { display: flex; align-items: center; gap: 12px; }
     .hero-actions-divider { width: 1px; height: 18px; background: var(--ink-15); }
@@ -127,7 +122,6 @@ export const indexCss = `
       position: relative; z-index: 2; width: 100%; margin-top: auto;
       display: grid; grid-template-columns: repeat(4, 1fr);
       border-top: 1px solid var(--ink-15);
-      opacity: 0; animation: riseIn 0.7s 1.4s ease forwards;
     }
     .stat {
       padding: 26px 40px; border-right: 1px solid var(--ink-08);

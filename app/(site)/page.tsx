@@ -29,19 +29,19 @@ export default function Home() {
   <div className="hero-ghost" id="heroGhost" aria-hidden="true">M</div>
 
   <div className="hero-content">
-    <div className="hero-eyebrow" aria-hidden="true">
+    <div className="hero-eyebrow rv" aria-hidden="true">
       <span className="hero-eyebrow-rule"></span>
       <span className="hero-eyebrow-text" id="hero-speakable">An Independent Student Organization  ·  Ottawa  ·  Est. 2025</span>
       <span className="hero-eyebrow-rule"></span>
     </div>
-    <p className="hero-pre">A Place for</p>
-    <h1 className="hero-title" id="heroTitle">
-      <span>DISCOURSE</span>
+    <p className="hero-pre rv">A Place for</p>
+    <h1 className="hero-title rv rv-stagger" id="heroTitle">
+      <span className="rv-stagger-item">DISCOURSE</span>
     </h1>
-    <div className="hero-hr" aria-hidden="true"></div>
-    <p className="hero-sub">Bringing students together with the professionals, alumni, and scholars who can expand their mindset.</p>
+    <div className="hero-hr rv" aria-hidden="true" data-d="1"></div>
+    <p className="hero-sub rv" data-d="2">Bringing students together with the professionals, alumni, and scholars who can expand their mindset.</p>
     <div className="hero-actions">
-      <div className="hero-main-ctas">
+      <div className="hero-main-ctas rv" data-d="3">
         <Magnetic strength={0.2}>
           <Link href={REGISTER_URL} className="btn-primary" data-register>
             <span>Register for Updates</span>
@@ -56,13 +56,13 @@ export default function Home() {
           </a>
         </Magnetic>
       </div>
-      <div className="hero-actions-divider"></div>
-      <Link href="/events" className="btn-ghost-link">Explore Events  &#8594;</Link>
+      <div className="hero-actions-divider rv" data-d="4"></div>
+      <Link href="/events" className="btn-ghost-link rv" data-d="4">Explore Events  &#8594;</Link>
     </div>
   </div>
 
   {/* Stats bar — pinned to hero bottom by flex margin-top: auto */}
-  <div className="hero-stats" role="list" aria-label="Key facts">
+  <div className="hero-stats rv" data-d="5" role="list" aria-label="Key facts">
     <div className="stat" role="listitem">
       <div className="stat-val">3</div>
       <div className="stat-lbl">Universities &amp; Colleges</div>

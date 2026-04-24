@@ -1,4 +1,7 @@
 import { createBrowserClient } from "@supabase/ssr";
+import { type SupabaseClient } from "@supabase/supabase-js";
+
+let client: SupabaseClient | undefined;
 
 export const createClient = () => {
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -8,5 +11,15 @@ export const createClient = () => {
     throw new Error("Missing Supabase public environment variables");
   }
 
-  return createBrowserClient(supabaseUrl, supabaseKey);
+  // Always create a new client on the server
+  if (typeof window === "undefined") {
+    return createBrowserClient(supabaseUrl, supabaseKey);
+  }
+
+  // Use singleton on the client
+  if (!client) {
+    client = createBrowserClient(supabaseUrl, supabaseKey);
+  }
+
+  return client;
 };

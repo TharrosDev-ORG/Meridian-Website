@@ -59,7 +59,7 @@ export default function MemberCounter({ className }: MemberCounterProps) {
     loadCount();
 
     const channel = supabase
-      .channel("member-stats")
+      .channel("member-stats-global")
       .on(
         "postgres_changes",
         {
@@ -68,14 +68,21 @@ export default function MemberCounter({ className }: MemberCounterProps) {
           table: "site_stats",
         },
         (payload) => {
-          if (payload.new && typeof payload.new.member_count === "number") {
-            setCount(payload.new.member_count);
+          console.log("[Realtime] Received update:", payload);
+          if (payload.new && payload.new.member_count !== undefined) {
+            const newCount = Number(payload.new.member_count);
+            if (!isNaN(newCount)) {
+              setCount(newCount);
+            }
           }
         }
       )
-      .subscribe((status) => {
+      .subscribe((status, err) => {
         if (status === "SUBSCRIBED") {
-          console.log("[Realtime] Subscribed to member count updates.");
+          console.log("[Realtime] Connected to Member Registry.");
+        }
+        if (status === "CHANNEL_ERROR") {
+          console.error("[Realtime] Connection failed:", err);
         }
       });
 

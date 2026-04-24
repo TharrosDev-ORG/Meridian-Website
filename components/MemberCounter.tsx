@@ -9,6 +9,16 @@ interface MemberCounterProps {
 
 export default function MemberCounter({ className }: MemberCounterProps) {
   const [count, setCount] = useState<number>(0);
+  const [isPulsing, setIsPulsing] = useState(false);
+
+  // Pulse when count changes (realtime)
+  useEffect(() => {
+    if (count > 0) {
+      setIsPulsing(true);
+      const timer = setTimeout(() => setIsPulsing(false), 600);
+      return () => clearTimeout(timer);
+    }
+  }, [count]);
 
   // Trigger reveal when count becomes available
   useEffect(() => {
@@ -68,7 +78,7 @@ export default function MemberCounter({ className }: MemberCounterProps) {
 
   return (
     <div className={className}>
-      <div className="count-box">
+      <div className={`count-box ${isPulsing ? 'pulse' : ''}`}>
         <span className="count-num">{count}</span>
         <span className="count-lbl">Society Members</span>
       </div>

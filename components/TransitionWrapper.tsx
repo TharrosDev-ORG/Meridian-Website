@@ -13,6 +13,7 @@ export default function TransitionWrapper({ children }: { children: ReactNode })
 
   return (
     <div key={pathname} className="page-transition-wrapper">
+      <div className="page-transition-overlay" />
       {children}
     </div>
   );

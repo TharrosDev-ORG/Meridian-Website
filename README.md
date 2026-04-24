@@ -174,3 +174,8 @@ Push to `main` → Vercel auto-deploys. No manual build step.
 Vercel env vars required: `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY`.
 
 Favicons are in `public/assets/favicons/` — do not add `app/favicon.ico` (overrides the metadata-managed set).
+
+---
+
+## 🗺️ Future Roadmap
+- [ ] **The Ledger (Interactive Timeline)**: Implement once more substantial milestones and society history are ready for public archival.

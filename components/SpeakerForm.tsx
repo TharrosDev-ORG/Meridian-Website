@@ -157,17 +157,19 @@ export default function SpeakerForm() {
 
   if (!mounted) {
     return (
-      <div style={{ textAlign: 'center', minHeight: '400px' }}>
-        <h1 className="success-title" style={{ fontSize: 'clamp(40px, 6vw, 72px)', opacity: 0.1 }}>
-          Loading...
-        </h1>
+      <div className="reg-form-container" style={{ textAlign: 'center', minHeight: '400px', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(244, 237, 227, 0.4)' }}>
+        <div className="skeleton-loader rv-stagger-item" style={{ opacity: 0.2 }}>
+          <h1 className="success-title" style={{ fontSize: 'clamp(32px, 5vw, 48px)', letterSpacing: '-0.02em' }}>
+            Initializing <em>Registry...</em>
+          </h1>
+        </div>
       </div>
     );
   }
 
   if (result?.success) {
     return (
-      <div className="success-overhaul" role="status" aria-live="polite">
+      <div className="success-overhaul rv" data-d="1" role="status" aria-live="polite">
         <div className="success-header">
           <div className="success-eyebrow rv-stagger-item">Proposal Received</div>
           <h1 className="success-title rv-stagger-item">
@@ -212,7 +214,7 @@ export default function SpeakerForm() {
     <form action={clientAction} onChange={handleFormChange} className="reg-form-container" style={{ background: 'rgba(244, 237, 227, 0.7)' }}>
       <div className="reg-grid">
         {/* Step 1: Identity */}
-        <div className="reg-field" style={currentStep === 2 ? { borderBottom: '1px solid var(--ink-10)', paddingBottom: '20px', marginBottom: '20px' } : {}}>
+        <div className={`reg-field ${currentStep === 2 ? 'reg-field--full' : ''}`} style={currentStep === 2 ? { borderBottom: '1px solid var(--ink-10)', paddingBottom: '24px', marginBottom: '8px' } : {}}>
           <label htmlFor="fullName" className="reg-label">Full Name *</label>
           <input 
             type="text" 
@@ -226,7 +228,7 @@ export default function SpeakerForm() {
           />
         </div>
 
-        <div className="reg-field" style={currentStep === 2 ? { borderBottom: '1px solid var(--ink-10)', paddingBottom: '20px', marginBottom: '20px' } : {}}>
+        <div className={`reg-field ${currentStep === 2 ? 'reg-field--full' : ''}`} style={currentStep === 2 ? { borderBottom: '1px solid var(--ink-10)', paddingBottom: '20px', marginBottom: '20px' } : {}}>
           <label htmlFor="email" className="reg-label">Email Address *</label>
           <input 
             type="email" 
@@ -245,9 +247,9 @@ export default function SpeakerForm() {
               type="button" 
               onClick={() => { setCurrentStep(1); setResult(null); }} 
               className="text-link" 
-              style={{ fontSize: '12px', marginTop: '8px', display: 'inline-block' }}
+              style={{ fontSize: '11px', marginTop: '10px', display: 'inline-block', letterSpacing: '0.05em' }}
             >
-              ← Edit identity info
+              ← Edit identity details
             </button>
           )}
         </div>

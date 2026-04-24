@@ -10,6 +10,7 @@ import RegisterSection from '@/components/sections/RegisterSection';
 import { getMetadata } from '@/utils/metadata-shared';
 import { INSTAGRAM_URL } from '@/utils/social';
 import { INAUGURAL_EVENT_LABEL } from '@/utils/copy';
+import MemberCounter from '@/components/MemberCounter';
 
 export const metadata: Metadata = getMetadata({
   title: "Ottawa Student Speaker Forum & Social Community",
@@ -91,6 +92,7 @@ export default function Home() {
     <div className="about-left rv">
       <span className="about-num" aria-hidden="true">01</span>
       <div className="about-section-label">About</div>
+      <MemberCounter className="about-counter-wrap rv" />
       <h2 className="about-title rv rv-stagger" id="about-heading">
         <span className="rv-stagger-item">Building a</span>
         <span className="rv-stagger-item"><em>Community.</em></span>

@@ -183,6 +183,19 @@ export const indexCss = `
     .about-left:hover .about-num { -webkit-text-stroke-color: rgba(184,147,42,0.45); letter-spacing: -0.06em; }
     .about-section-label { font-family: var(--sans); font-size: 10.5px; font-weight: 700; letter-spacing: 0.32em; text-transform: uppercase; color: var(--ink-55); margin-bottom: 20px; }
     .about-title { font-family: var(--serif); font-size: clamp(36px, 3.5vw, 56px); font-weight: 300; line-height: 1.05; color: var(--ink); }
+    .about-counter-wrap { margin-bottom: 40px; }
+    .about-counter-wrap .count-box {
+      display: inline-flex; flex-direction: column; align-items: flex-start;
+      padding: 16px 20px; border: 1px solid var(--ink-10);
+      background: var(--cream-mid); position: relative;
+      box-shadow: 0 4px 20px rgba(24,21,15,0.03);
+    }
+    .about-counter-wrap .count-box::before {
+      content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px;
+      background: var(--gold);
+    }
+    .about-counter-wrap .count-num { font-family: var(--serif); font-size: 36px; font-weight: 300; color: var(--ink); line-height: 1; }
+    .about-counter-wrap .count-lbl { font-family: var(--sans); font-size: 9px; font-weight: 700; letter-spacing: 0.24em; text-transform: uppercase; color: var(--gold); margin-top: 6px; }
     .about-title em { font-style: italic; color: var(--gold); }
     .about-right { padding-left: 96px; }
     .about-body { font-family: var(--serif); font-size: 19px; font-weight: 400; line-height: 1.95; color: var(--ink-90); margin-bottom: 28px; }

@@ -49,7 +49,7 @@ const registrationSchema = z.object({
     message: 'Please select a volunteer interest level',
   }),
   acceptedTerms: z.literal(true, {
-    errorMap: () => ({ message: 'You must agree to the Privacy and Terms to register' }),
+    error: 'You must agree to the Privacy and Terms to register',
   }),
   // Honeypot field
   fax_number: z.string().max(200).optional(),

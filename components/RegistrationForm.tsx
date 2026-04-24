@@ -242,7 +242,7 @@ export default function RegistrationForm() {
           <div className="action-card rv-stagger-item" data-d="5">
             <div className="action-num">03</div>
             <h4 className="action-h">Meet the Team</h4>
-            <p className="action-p">Learn about the students and professionals behind the society.</p>
+            <p className="action-p">Learn about the student team behind the society.</p>
             <Link href="/team" className="action-btn">
               <span>About Us</span>
             </Link>

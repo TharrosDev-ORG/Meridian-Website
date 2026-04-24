@@ -50,14 +50,13 @@ export default function MemberCounter({ className }: MemberCounterProps) {
     loadCount();
 
     const channel = supabase
-      .channel("member_count_updates")
+      .channel("member-stats")
       .on(
         "postgres_changes",
         {
           event: "UPDATE",
           schema: "public",
           table: "site_stats",
-          filter: `id=eq.meridian_global_stats`,
         },
         (payload) => {
           if (payload.new && typeof payload.new.member_count === "number") {
@@ -65,7 +64,11 @@ export default function MemberCounter({ className }: MemberCounterProps) {
           }
         }
       )
-      .subscribe();
+      .subscribe((status) => {
+        if (status === "SUBSCRIBED") {
+          console.log("[Realtime] Subscribed to member count updates.");
+        }
+      });
 
     return () => {
       cancelled = true;

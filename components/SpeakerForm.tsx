@@ -93,6 +93,13 @@ export default function SpeakerForm() {
   async function clientAction(formData: FormData) {
     if (currentStep === 1) {
       const email = formData.get("email") as string;
+      const fullName = formData.get("fullName") as string;
+
+      if (!fullName || fullName.length < 2) {
+        setResult({ success: false, error: "Please enter your full name." });
+        return;
+      }
+
       if (!email || !email.includes('@')) {
         setResult({ success: false, error: "Please enter a valid email address." });
         return;
@@ -204,8 +211,22 @@ export default function SpeakerForm() {
   return (
     <form action={clientAction} onChange={handleFormChange} className="reg-form-container" style={{ background: 'rgba(244, 237, 227, 0.7)' }}>
       <div className="reg-grid">
-        {/* Identity & Step 1 */}
-        <div className={`reg-field ${currentStep === 2 ? 'reg-field--full' : ''}`} style={currentStep === 2 ? { borderBottom: '1px solid var(--ink-10)', paddingBottom: '20px', marginBottom: '20px' } : {}}>
+        {/* Step 1: Identity */}
+        <div className="reg-field" style={currentStep === 2 ? { borderBottom: '1px solid var(--ink-10)', paddingBottom: '20px', marginBottom: '20px' } : {}}>
+          <label htmlFor="fullName" className="reg-label">Full Name *</label>
+          <input 
+            type="text" 
+            id="fullName" 
+            name="fullName" 
+            required 
+            className="reg-input" 
+            placeholder="e.g. Dr. Helena Vance" 
+            disabled={isPending}
+            readOnly={currentStep === 2}
+          />
+        </div>
+
+        <div className="reg-field" style={currentStep === 2 ? { borderBottom: '1px solid var(--ink-10)', paddingBottom: '20px', marginBottom: '20px' } : {}}>
           <label htmlFor="email" className="reg-label">Email Address *</label>
           <input 
             type="email" 
@@ -226,7 +247,7 @@ export default function SpeakerForm() {
               className="text-link" 
               style={{ fontSize: '12px', marginTop: '8px', display: 'inline-block' }}
             >
-              ← Use a different email
+              ← Edit identity info
             </button>
           )}
         </div>
@@ -238,11 +259,6 @@ export default function SpeakerForm() {
 
         {currentStep === 2 && (
           <>
-            <div className="reg-field">
-              <label htmlFor="fullName" className="reg-label">Full Name *</label>
-              <input type="text" id="fullName" name="fullName" required className="reg-input" placeholder="e.g. Dr. Helena Vance" disabled={isPending} />
-            </div>
-
             <div className="reg-field">
               <label htmlFor="roleTitle" className="reg-label">Current Role / Title *</label>
               <input type="text" id="roleTitle" name="roleTitle" required className="reg-input" placeholder="e.g. Senior Fellow / VP Research" disabled={isPending} />

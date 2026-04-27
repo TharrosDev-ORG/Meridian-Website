@@ -456,11 +456,10 @@ export default function RegistrationForm() {
               </span>
             </button>
             
-            <div style={{ marginTop: '24px', display: 'flex', justifyContent: 'center' }}>
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
               <button 
                 onClick={() => window.location.href = '/'}
-                className="action-btn"
-                style={{ width: '100%', justifyContent: 'center', background: 'transparent', border: '1px solid var(--ink-10)', color: 'var(--ink-75)' }}
+                className="reg-home-btn"
               >
                 <span>Return to Home</span>
               </button>

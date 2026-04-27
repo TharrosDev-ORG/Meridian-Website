@@ -347,6 +347,31 @@ export const membershipCss = `
     .reg-download-btn.is-active::before {
       display: none;
     }
+
+    .reg-home-btn {
+      appearance: none;
+      background: transparent;
+      border: 1px solid var(--ink-10);
+      color: var(--ink-75);
+      font-family: var(--sans);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      width: 100%;
+      padding: 14px;
+      margin-top: 24px;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reg-home-btn:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px rgba(197, 160, 89, 0.1);
+    }
     .reg-submit:disabled {
       opacity: 0.5;
       cursor: not-allowed;

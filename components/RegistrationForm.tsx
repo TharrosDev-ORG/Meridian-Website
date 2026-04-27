@@ -467,43 +467,6 @@ export default function RegistrationForm() {
           </div>
         </div>
 
-        <p className="success-lead rv-stagger-item" data-d="2">
-          Your presence in the dialogue is now official. The Meridian Society is built on the shared curiosity of its members.
-        </p>
-
-        <div className="success-actions-grid">
-          <div className="action-card rv-stagger-item" data-d="3">
-            <div className="action-num">01</div>
-            <h4 className="action-h">Follow the Dialogue</h4>
-            <p className="action-p">Join our community on Instagram for event highlights and updates.</p>
-            <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="action-btn">
-              <span>Instagram</span>
-            </a>
-          </div>
-
-          <div className="action-card rv-stagger-item" data-d="4">
-            <div className="action-num">02</div>
-            <h4 className="action-h">Nominate a Speaker</h4>
-            <p className="action-p">Help shape our future events by nominating speakers or professionals you&apos;d like to hear from.</p>
-            <Link href="/speak" className="action-btn">
-              <span>Nominate</span>
-            </Link>
-          </div>
-
-          <div className="action-card rv-stagger-item" data-d="5">
-            <div className="action-num">03</div>
-            <h4 className="action-h">Meet the Team</h4>
-            <p className="action-p">Learn about the student team behind the society.</p>
-            <Link href="/team" className="action-btn">
-              <span>About Us</span>
-            </Link>
-          </div>
-        </div>
-
-        <div className="success-footer rv-stagger-item" data-d="6">
-          <Link href="/" className="success-home-link">
-            <span>Return to Home Index</span>
-          </Link>
         </div>
       </div>
     );

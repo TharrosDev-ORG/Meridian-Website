@@ -27,6 +27,11 @@ function ScrambleTicker({ value }: { value: string }) {
   useEffect(() => {
     if (!value) return;
     let iteration = 0;
+    const duration = 2000; // 2 seconds
+    const intervalTime = 40;
+    const totalSteps = duration / intervalTime;
+    const increment = value.length / totalSteps;
+
     const interval = setInterval(() => {
       setDisplay(
         value.split("").map((char, index) => {
@@ -36,8 +41,8 @@ function ScrambleTicker({ value }: { value: string }) {
         }).join("")
       );
       if (iteration >= value.length) clearInterval(interval);
-      iteration += 1/8;
-    }, 60);
+      iteration += increment;
+    }, intervalTime);
     return () => clearInterval(interval);
   }, [value]);
 

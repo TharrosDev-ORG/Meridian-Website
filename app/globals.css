@@ -625,7 +625,6 @@ body {
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  background: radial-gradient(circle at center, #fffdf8 0%, #f4ede3 100%);
 }
 
 /* Parchment Texture */

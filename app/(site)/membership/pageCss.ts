@@ -727,8 +727,6 @@ export const membershipCss = `
       justify-content: center;
       transition: color 0.2s, border-color 0.2s, background 0.2s;
       flex-shrink: 0;
-      align-self: flex-end;
-      margin-bottom: 4px;
     }
     .registry-copy-btn:hover {
       border-color: var(--gold);
@@ -783,7 +781,6 @@ export const membershipCss = `
       padding: 16px 20px;
       width: 100%;
       height: 100%;
-      gap: 0;
       position: relative;
       z-index: 3;
     }

@@ -32,6 +32,7 @@ export default function RegistrationForm() {
   const [emailChecked, setEmailChecked] = useState(false);
   const [isCheckingEmail, setIsCheckingEmail] = useState(false);
   const [email, setEmail] = useState("");
+  const [lookupError, setLookupError] = useState("");
 
   // Fetch count for the registry display
   useEffect(() => {
@@ -171,8 +172,12 @@ export default function RegistrationForm() {
 
   const handleEmailCheck = async (e: React.MouseEvent) => {
     e.preventDefault();
-    if (!email || !email.includes("@")) return;
+    if (!email || !email.includes("@")) {
+      setLookupError("Please enter a valid email address.");
+      return;
+    }
 
+    setLookupError("");
     setIsCheckingEmail(true);
     try {
       const status = await checkMemberStatus(email);
@@ -188,12 +193,27 @@ export default function RegistrationForm() {
       }
     } catch (err) {
       console.error("Email check failed", err);
+      setLookupError("The registry is temporarily unreachable. Please try again.");
     } finally {
       setIsCheckingEmail(false);
     }
   };
 
-  const downloadMemberCard = () => {
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const val = e.target.value;
+    setEmail(val);
+    // Reset lookup state if they start editing again after a fail/check
+    if (emailChecked) setEmailChecked(false);
+    if (lookupError) setLookupError("");
+  };
+
+  const downloadMemberCard = async () => {
+    // Ensure fonts are ready before drawing
+    if (document.fonts) {
+      await document.fonts.load('italic 48px Cormorant Garamond');
+      await document.fonts.load('700 140px Cormorant Garamond');
+    }
+    
     const canvas = document.createElement("canvas");
     canvas.width = 1200;
     canvas.height = 750;
@@ -220,13 +240,15 @@ export default function RegistrationForm() {
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
 
+    const serifStack = "'Cormorant Garamond', 'Georgia', serif";
+    const sansStack = "'Barlow Condensed', 'Helvetica', sans-serif";
+
     // Header: The Society Title
-    ctx.font = "italic 48px serif";
+    ctx.font = `italic 48px ${serifStack}`;
     ctx.fillText("The Meridian Society", canvas.width / 2, 180);
 
     // Subheader: Registry Label
-    ctx.font = "700 20px sans-serif";
-    // Simulated letter spacing
+    ctx.font = `700 20px ${sansStack}`;
     const label = "OFFICIAL REGISTRY ENTRY";
     ctx.fillText(label, canvas.width / 2, 240);
 
@@ -238,7 +260,7 @@ export default function RegistrationForm() {
     ctx.lineTo(canvas.width / 2 + 150, 350);
     ctx.stroke();
 
-    ctx.font = "700 140px serif";
+    ctx.font = `700 140px ${serifStack}`;
     ctx.fillText(memberNumber || "M26-XXXX", canvas.width / 2, 460);
 
     ctx.beginPath();
@@ -248,10 +270,10 @@ export default function RegistrationForm() {
 
     // 5. Footer Metadata
     ctx.fillStyle = "rgba(26,26,26,0.5)";
-    ctx.font = "500 16px sans-serif";
+    ctx.font = `500 16px ${sansStack}`;
     ctx.fillText("ESTABLISHED MMXXVI", canvas.width / 2, 640);
     
-    ctx.font = "italic 14px serif";
+    ctx.font = `italic 14px ${serifStack}`;
     ctx.fillText("A dialogue built on shared curiosity.", canvas.width / 2, 675);
 
     // 6. Trigger Download
@@ -422,7 +444,7 @@ export default function RegistrationForm() {
                 placeholder="e.g. john.smith@example.com"
                 disabled={isPending || isCheckingEmail || emailChecked}
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={handleEmailChange}
               />
               {!emailChecked && (
                 <button 
@@ -440,6 +462,11 @@ export default function RegistrationForm() {
                 </button>
               )}
             </div>
+            {lookupError && (
+              <div className="reg-feedback reg-error" style={{ marginTop: '8px', fontSize: '12px' }}>
+                {lookupError}
+              </div>
+            )}
           </div>
 
           {emailChecked && (

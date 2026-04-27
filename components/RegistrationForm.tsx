@@ -271,7 +271,8 @@ export default function RegistrationForm() {
     // 5. Footer Metadata
     ctx.fillStyle = "rgba(26,26,26,0.5)";
     ctx.font = `500 16px ${sansStack}`;
-    ctx.fillText("ESTABLISHED MMXXVI", canvas.width / 2, 640);
+    const today = new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }).toUpperCase();
+    ctx.fillText(`REGISTERED ${today}`, canvas.width / 2, 640);
     
     ctx.font = `italic 14px ${serifStack}`;
     ctx.fillText("A dialogue built on shared curiosity.", canvas.width / 2, 675);

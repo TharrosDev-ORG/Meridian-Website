@@ -193,6 +193,74 @@ export default function RegistrationForm() {
     }
   };
 
+  const downloadMemberCard = () => {
+    const canvas = document.createElement("canvas");
+    canvas.width = 1200;
+    canvas.height = 750;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    // 1. Background (Cream)
+    ctx.fillStyle = "#fffcf5"; 
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    // 2. Border System
+    // Outer Ink Border
+    ctx.strokeStyle = "#1a1a1a";
+    ctx.lineWidth = 2;
+    ctx.strokeRect(40, 40, canvas.width - 80, canvas.height - 80);
+
+    // Inner Gold Frame
+    ctx.strokeStyle = "#c5a059";
+    ctx.lineWidth = 1;
+    ctx.strokeRect(60, 60, canvas.width - 120, canvas.height - 120);
+
+    // 3. Typography Setup
+    ctx.fillStyle = "#1a1a1a";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+
+    // Header: The Society Title
+    ctx.font = "italic 48px serif";
+    ctx.fillText("The Meridian Society", canvas.width / 2, 180);
+
+    // Subheader: Registry Label
+    ctx.font = "700 20px sans-serif";
+    // Simulated letter spacing
+    const label = "OFFICIAL REGISTRY ENTRY";
+    ctx.fillText(label, canvas.width / 2, 240);
+
+    // 4. Central Identity: Member Number
+    // Decorative lines around number
+    ctx.strokeStyle = "rgba(26,26,26,0.1)";
+    ctx.beginPath();
+    ctx.moveTo(canvas.width / 2 - 150, 350);
+    ctx.lineTo(canvas.width / 2 + 150, 350);
+    ctx.stroke();
+
+    ctx.font = "700 140px serif";
+    ctx.fillText(memberNumber || "M26-XXXX", canvas.width / 2, 460);
+
+    ctx.beginPath();
+    ctx.moveTo(canvas.width / 2 - 150, 570);
+    ctx.lineTo(canvas.width / 2 + 150, 570);
+    ctx.stroke();
+
+    // 5. Footer Metadata
+    ctx.fillStyle = "rgba(26,26,26,0.5)";
+    ctx.font = "500 16px sans-serif";
+    ctx.fillText("ESTABLISHED MMXXVI", canvas.width / 2, 640);
+    
+    ctx.font = "italic 14px serif";
+    ctx.fillText("A dialogue built on shared curiosity.", canvas.width / 2, 675);
+
+    // 6. Trigger Download
+    const link = document.createElement("a");
+    link.download = `Meridian_Member_Card_${memberNumber}.jpg`;
+    link.href = canvas.toDataURL("image/jpeg", 0.95);
+    link.click();
+  };
+
   async function clientAction(formData: FormData) {
     const selectedInterests = INTERESTS_LIST.filter(i => formData.get(`interest-${i}`) === "on");
 
@@ -267,6 +335,20 @@ export default function RegistrationForm() {
             <p className="registry-disclaimer">
               This is your official Society ID. Please keep it private and save it for future event check-ins.
             </p>
+            <button 
+              onClick={downloadMemberCard}
+              className="action-btn"
+              style={{ 
+                marginTop: '24px', 
+                background: 'var(--ink)', 
+                color: 'var(--cream)',
+                width: '100%',
+                justifyContent: 'center',
+                padding: '12px'
+              }}
+            >
+              <span>Download Member Card</span>
+            </button>
           </div>
         </div>
 

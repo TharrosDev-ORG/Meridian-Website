@@ -97,6 +97,23 @@ export default function RegistrationForm() {
   // Load draft on mount (Initial Load)
   useEffect(() => {
     if (!mounted) return;
+
+    // Background Sync: If registered but date is missing, fetch it
+    const syncMemberDetails = async () => {
+      if (isAlreadyRegistered && !registrationDate && email) {
+        try {
+          const status = await checkMemberStatus(email);
+          if (status.createdAt) {
+            setRegistrationDate(status.createdAt);
+            localStorage.setItem("meridian_join_date_v1", status.createdAt);
+          }
+        } catch (e) {
+          console.error("Failed to sync member details", e);
+        }
+      }
+    };
+    syncMemberDetails();
+
     const saved = localStorage.getItem(DRAFT_KEY);
     if (saved) {
       try {
@@ -217,6 +234,15 @@ export default function RegistrationForm() {
   };
 
   const downloadMemberCard = async () => {
+    // Final fallback: If still no date, try one last check
+    if (!registrationDate && email) {
+      const status = await checkMemberStatus(email);
+      if (status.createdAt) {
+        setRegistrationDate(status.createdAt);
+        localStorage.setItem("meridian_join_date_v1", status.createdAt);
+      }
+    }
+
     setIsDownloading(true);
     setDownloadFinished(false);
     // Ensure fonts are ready before drawing

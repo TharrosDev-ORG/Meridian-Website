@@ -588,11 +588,6 @@ export default function RegistrationForm() {
 
     return (
       <div className="success-overhaul reveal on" role="status" aria-live="polite">
-        {/* Atmospheric Ornaments */}
-        <div className="success-ornament success-ornament--tl" />
-        <div className="success-ornament success-ornament--tr" />
-        <div className="success-ornament success-ornament--bl" />
-        <div className="success-ornament success-ornament--br" />
 
         <div className="success-header">
           <div className="success-eyebrow rv-stagger-item">Registration Confirmed</div>

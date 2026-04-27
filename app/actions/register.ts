@@ -8,6 +8,7 @@ export type MemberStatus = {
   registered: boolean;
   memberNumber?: string;
   createdAt?: string;
+  fullName?: string;
 };
 
 export async function checkMemberStatus(identifier: string): Promise<MemberStatus> {
@@ -20,7 +21,7 @@ export async function checkMemberStatus(identifier: string): Promise<MemberStatu
 
   const { data, error } = await supabase
     .from("members")
-    .select("member_number, created_at")
+    .select("member_number, created_at, full_name")
     .eq(column, value)
     .maybeSingle();
 
@@ -33,6 +34,7 @@ export async function checkMemberStatus(identifier: string): Promise<MemberStatu
     registered: !!data,
     memberNumber: data?.member_number,
     createdAt: data?.created_at,
+    fullName: data?.full_name,
   };
 }
 
@@ -161,7 +163,7 @@ export async function registerMember(data: RegistrationData) {
   // Explicit duplicate check (Lowercased)
   const { data: existing, error: checkError } = await supabaseService
     .from('members')
-    .select('email, member_number, created_at')
+    .select('email, member_number, created_at, full_name')
     .eq('email', normalizedEmail)
     .maybeSingle();
 
@@ -180,7 +182,8 @@ export async function registerMember(data: RegistrationData) {
       success: true, 
       alreadyRegistered: true, 
       memberNumber: existing.member_number,
-      createdAt: existing.created_at
+      createdAt: existing.created_at,
+      fullName: existing.full_name
     };
   }
 
@@ -201,7 +204,7 @@ export async function registerMember(data: RegistrationData) {
         accepted_terms: acceptedTerms,
       },
     ])
-    .select('member_number, created_at')
+    .select('member_number, created_at, full_name')
     .single();
 
   if (insertError) {

@@ -22,9 +22,10 @@ const VOLUNTEER_OPTIONS = ["Yes", "Maybe", "Not at this time"];
 export default function RegistrationForm() {
   const [mounted, setMounted] = useState(false);
   const [isPending, startTransition] = useTransition();
-  const [result, setResult] = useState<{ success?: boolean; error?: string; alreadyRegistered?: boolean; memberNumber?: string; createdAt?: string } | null>(null);
+  const [result, setResult] = useState<{ success?: boolean; error?: string; alreadyRegistered?: boolean; memberNumber?: string; createdAt?: string; fullName?: string } | null>(null);
   const [isAlreadyRegistered, setIsAlreadyRegistered] = useState(false);
   const [memberNumber, setMemberNumber] = useState<string>("");
+  const [memberName, setMemberName] = useState<string>("");
   const [registrationDate, setRegistrationDate] = useState<string>("");
   const [memberCount, setMemberCount] = useState<number>(0);
   const [displayCount, setDisplayCount] = useState<number>(0);
@@ -84,8 +85,10 @@ export default function RegistrationForm() {
         setIsAlreadyRegistered(true);
         const localNum = localStorage.getItem(NUM_KEY);
         const localDate = localStorage.getItem("meridian_join_date_v1");
+        const localName = localStorage.getItem("meridian_member_name_v1");
         if (localNum) setMemberNumber(localNum);
         if (localDate) setRegistrationDate(localDate);
+        if (localName) setMemberName(localName);
       }
       setMounted(true);
     };
@@ -216,6 +219,10 @@ export default function RegistrationForm() {
             setRegistrationDate(status.createdAt);
             localStorage.setItem("meridian_join_date_v1", status.createdAt);
           }
+          if (status.fullName) {
+            setMemberName(status.fullName);
+            localStorage.setItem("meridian_member_name_v1", status.fullName);
+          }
         }
       } else {
         setEmailChecked(true);
@@ -237,13 +244,17 @@ export default function RegistrationForm() {
   };
 
   const downloadMemberCard = async () => {
-    // Final fallback: If still no date, try one last check
+    // Final fallback: If still no date/name, try one last check
     const identifier = email || memberNumber;
-    if (!registrationDate && identifier) {
+    if ((!registrationDate || !memberName) && identifier) {
       const status = await checkMemberStatus(identifier);
       if (status.createdAt) {
         setRegistrationDate(status.createdAt);
         localStorage.setItem("meridian_join_date_v1", status.createdAt);
+      }
+      if (status.fullName) {
+        setMemberName(status.fullName);
+        localStorage.setItem("meridian_member_name_v1", status.fullName);
       }
     }
 
@@ -300,19 +311,25 @@ export default function RegistrationForm() {
     ctx.fillText(label, canvas.width / 2, 240);
 
     // 4. Central Identity: Member Number
+    // Name Header
+    ctx.fillStyle = "rgba(26,26,26,0.8)";
+    ctx.font = `600 24px ${sansStack}`;
+    ctx.fillText((memberName || "SOCIETY MEMBER").toUpperCase(), canvas.width / 2, 330);
+
     // Decorative lines around number
     ctx.strokeStyle = "rgba(26,26,26,0.1)";
     ctx.beginPath();
-    ctx.moveTo(canvas.width / 2 - 150, 350);
-    ctx.lineTo(canvas.width / 2 + 150, 350);
+    ctx.moveTo(canvas.width / 2 - 150, 365);
+    ctx.lineTo(canvas.width / 2 + 150, 365);
     ctx.stroke();
 
+    ctx.fillStyle = "#1a1a1a";
     ctx.font = `700 140px serif`;
-    ctx.fillText(memberNumber || "M26-XXXX", canvas.width / 2, 460);
+    ctx.fillText(memberNumber || "M26-XXXX", canvas.width / 2, 470);
 
     ctx.beginPath();
-    ctx.moveTo(canvas.width / 2 - 150, 570);
-    ctx.lineTo(canvas.width / 2 + 150, 570);
+    ctx.moveTo(canvas.width / 2 - 150, 575);
+    ctx.lineTo(canvas.width / 2 + 150, 575);
     ctx.stroke();
 
     // 5. Footer Metadata
@@ -320,9 +337,6 @@ export default function RegistrationForm() {
     ctx.font = `600 24px ${sansStack}`;
     const formattedDate = dateToUse.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }).toUpperCase();
     ctx.fillText(`REGISTERED ${formattedDate}`, canvas.width / 2, 635);
-    
-    ctx.font = `italic 14px ${serifStack}`;
-    ctx.fillText("A dialogue built on shared curiosity.", canvas.width / 2, 675);
 
     // 6. Trigger Robust Download
     canvas.toBlob((blob) => {
@@ -380,6 +394,10 @@ export default function RegistrationForm() {
         if (res.createdAt) {
           setRegistrationDate(res.createdAt);
           localStorage.setItem("meridian_join_date_v1", res.createdAt);
+        }
+        if (res.fullName) {
+          setMemberName(res.fullName);
+          localStorage.setItem("meridian_member_name_v1", res.fullName);
         }
         localStorage.removeItem(DRAFT_KEY);
       }

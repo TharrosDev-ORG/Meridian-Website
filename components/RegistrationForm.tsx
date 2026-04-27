@@ -505,6 +505,16 @@ export default function RegistrationForm() {
                 value={email}
                 onChange={handleEmailChange}
               />
+              {emailChecked && !isPending && (
+                <button 
+                  type="button"
+                  onClick={() => setEmailChecked(false)}
+                  className="btn-ghost-link"
+                  style={{ border: 'none', fontSize: '10px', padding: '0 8px', height: '46px' }}
+                >
+                  Change
+                </button>
+              )}
               {!emailChecked && (
                 <button 
                   onClick={handleEmailCheck}
@@ -522,8 +532,15 @@ export default function RegistrationForm() {
               )}
             </div>
             {lookupError && (
-              <div className="reg-feedback reg-error" style={{ marginTop: '8px', fontSize: '12px' }}>
+              <div className="reg-feedback reg-error" style={{ marginTop: '12px', fontSize: '12px', textAlign: 'left' }}>
                 {lookupError}
+              </div>
+            )}
+            {!emailChecked && (
+              <div style={{ marginTop: '20px' }}>
+                <Link href="/membership" className="btn-ghost-link" style={{ fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.15em', display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
+                  <span>←</span> Return to Membership
+                </Link>
               </div>
             )}
           </div>
@@ -712,8 +729,16 @@ export default function RegistrationForm() {
               </div>
             )}
 
-            <div className="reg-submit-wrap">
-              <button type="submit" className="reg-submit" disabled={isPending}>
+            <div className="reg-submit-wrap" style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
+              <button 
+                type="button"
+                onClick={() => window.location.href = '/membership'}
+                className="reg-home-btn"
+                style={{ marginTop: 0, width: 'auto', padding: '15px 32px' }}
+              >
+                <span>Back</span>
+              </button>
+              <button type="submit" className="reg-submit" disabled={isPending} style={{ flex: 1 }}>
                 <span>{isPending ? "Recording Entry..." : "Complete Registration"}</span>
               </button>
             </div>

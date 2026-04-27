@@ -80,7 +80,7 @@ export const teamCss = `
     .member-bio { font-family: var(--serif); font-size: 18px; font-weight: 400; color: var(--ink-90); line-height: 1.75; flex: 1; margin-bottom: 24px; }
 
     .registry-footer { margin-top: auto; padding-top: 24px; border-top: 1px solid var(--ink-10); display: flex; align-items: flex-end; justify-content: space-between; }
-    .registry-id { font-family: var(--sans); font-size: 10px; font-weight: 700; letter-spacing: 0.3em; color: var(--ink-30); }
+
 
     .member-social { display: flex; gap: 10px; }
     .member-social a {

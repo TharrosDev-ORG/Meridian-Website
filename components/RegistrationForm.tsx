@@ -82,13 +82,14 @@ export default function RegistrationForm() {
       const cookieReg = document.cookie.split("; ").find((row) => row.startsWith(`${REG_KEY}=`));
       
       if (localReg === "true" || !!cookieReg) {
-        setIsAlreadyRegistered(true);
         const localNum = localStorage.getItem(NUM_KEY);
         const localDate = localStorage.getItem("meridian_join_date_v1");
         const localName = localStorage.getItem("meridian_member_name_v1");
+        
         if (localNum) setMemberNumber(localNum);
         if (localDate) setRegistrationDate(localDate);
         if (localName) setMemberName(localName);
+        setIsAlreadyRegistered(true);
       }
       setMounted(true);
     };

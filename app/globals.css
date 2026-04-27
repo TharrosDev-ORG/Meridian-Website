@@ -626,6 +626,27 @@ body {
   opacity: 0;
 }
 
+.success-overhaul {
+  position: relative;
+  z-index: 1;
+}
+
+.success-overhaul::before {
+  content: 'M';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: var(--serif);
+  font-size: 80vh;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--ink);
+  opacity: 0.02;
+  pointer-events: none;
+  z-index: -1;
+}
+
 /* ── SHARED PAGE UTILS ── */
 .wrap { max-width: 1440px; margin: 0 auto; padding: 0 64px; }
 

@@ -598,7 +598,13 @@ export default function RegistrationForm() {
           </div>
         </div>
 
-        <p className="success-lead rv-stagger-item" data-d="2">
+        <div className="success-social-proof rv-stagger-item" data-d="2" style={{ textAlign: 'center', marginBottom: '24px', opacity: 0.8 }}>
+          <span style={{ fontFamily: 'var(--sans)', fontSize: '11px', letterSpacing: '0.15em', textTransform: 'uppercase', color: 'var(--gold)' }}>
+            You join <span style={{ color: 'var(--ink)', fontWeight: 700 }}>{displayCount}</span> others in the pursuit of curiosity.
+          </span>
+        </div>
+
+        <p className="success-lead rv-stagger-item" data-d="3">
           Your presence in the dialogue is now official. The Meridian Society is built on the shared curiosity of its members.
         </p>
       </div>

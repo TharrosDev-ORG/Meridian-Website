@@ -276,11 +276,20 @@ export default function RegistrationForm() {
     ctx.font = `italic 14px ${serifStack}`;
     ctx.fillText("A dialogue built on shared curiosity.", canvas.width / 2, 675);
 
-    // 6. Trigger Download
-    const link = document.createElement("a");
-    link.download = `Meridian_Member_Card_${memberNumber}.jpg`;
-    link.href = canvas.toDataURL("image/jpeg", 0.95);
-    link.click();
+    // 6. Trigger Robust Download
+    canvas.toBlob((blob) => {
+      if (!blob) return;
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.download = `Meridian_Member_Card_${memberNumber || 'Society'}.png`;
+      link.href = url;
+      // Append to body is required for some mobile browsers
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      // Clean up memory
+      setTimeout(() => URL.revokeObjectURL(url), 100);
+    }, "image/png");
   };
 
   async function clientAction(formData: FormData) {

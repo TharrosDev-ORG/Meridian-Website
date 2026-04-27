@@ -31,8 +31,12 @@ Use this map to find the source code for any page on the site.
 | **Social Gatherings** | [/social](https://meridiansociety.ca/social) | [page.tsx](app/(site)/social/page.tsx) |
 | **The Team** | [/team](https://meridiansociety.ca/team) | [page.tsx](app/(site)/team/page.tsx) |
 | **Membership** | [/membership](https://meridiansociety.ca/membership) | [page.tsx](app/(site)/membership/page.tsx) |
-| **Speaker App** | [/speak](https://meridiansociety.ca/speak) | [page.tsx](app/(site)/speak/page.tsx) |
+| **Speaker Program** | [/speak](https://meridiansociety.ca/speak) | [page.tsx](app/(site)/speak/page.tsx) |
+| **Contact** | [/contact](https://meridiansociety.ca/contact) | [page.tsx](app/(site)/contact/page.tsx) |
+| **Privacy Notice** | [/privacy](https://meridiansociety.ca/privacy) | [page.tsx](app/(site)/privacy/page.tsx) |
+| **Terms of Use** | [/terms](https://meridiansociety.ca/terms) | [page.tsx](app/(site)/terms/page.tsx) |
 | **Registration** | [/register](https://meridiansociety.ca/register) | [page.tsx](app/register/page.tsx) |
+| **Speaker Application** | [/apply](https://meridiansociety.ca/apply) | [page.tsx](app/apply/page.tsx) |
 
 ---
 
@@ -118,20 +122,27 @@ Paste **ONE** of these blocks above the `{/* Placeholder */}` block.
 ## 👥 I want to manage the Member List
 
 1. Open the [Supabase Dashboard](https://database.new).
-2. Go to the **Table Editor** -> `members` table.
+2. Go to the **Table Editor** → `members` table.
 3. **Add**: Click "Insert Row".
 4. **Remove**: Right-click a row and select "Delete Row".
-5. **Sync**: The website footer counter updates automatically.
-6. **Digital Identity**: Members can now download their **Official Society ID Card** directly from the registration success screen. This card contains their unique member number and registration date.
+5. **Sync**: The website footer counter updates automatically via database trigger.
+6. **Member Numbers**: Every row has a unique `member_number` (format `M26-1001`). Numbers are auto-assigned on insert and can never be changed — do not attempt to edit this column.
 
 ---
 
 <a name="member-cards"></a>
 ## 💳 Member ID Cards
-The Society now issues digital **Official Member Cards** (PNG format) upon successful registration or verification.
-- **Auto-Sync**: If a member returns to the site, the system automatically retrieves their registry data to ensure the card is up-to-date.
-- **Universal IDs**: Cards are designed to be saved to mobile devices for quick identification at society forums.
-- **Security**: Member numbers are immutable; once assigned, they serve as the permanent identifier in the Sovereign Registry.
+
+The Society issues digital **Official Member Cards** (PNG format) upon successful registration or verification. Members download them directly from the registration success screen.
+
+- **What&apos;s on the card**: Member name, unique member number (large serif), registration date, society seal, and "The Meridian Society" header — all rendered client-side on a 1200×750 canvas.
+- **Card preview**: A live HTML/CSS preview of the card is shown on the success screen before download so members know what they&apos;re getting.
+- **Registration date**: The "Member Since" date is displayed directly on the success screen alongside the member number.
+- **Copy member number**: Members can copy their number to the clipboard with one click from the success screen.
+- **Auto-Sync**: If a member returns to the site, the system automatically retrieves their registry data (name, join date) to ensure the card is always accurate.
+- **Security**: Member numbers are immutable — once assigned at the database level, they serve as the permanent identifier in the Sovereign Registry and cannot be altered.
+
+---
 
 <a name="edit-text"></a>
 ## ✍️ I want to fix a typo or edit text
@@ -154,24 +165,22 @@ The Meridian Website is the society's entire identity and the base of everything
 
 ## 🏛️ Sovereign Registry (SQL Architecture)
 
-The Meridian Project utilizes a unified database architecture split into three "Sources of Truth." These must be applied in order to your Supabase instance:
+The Meridian Project utilizes a unified database architecture built up through eight sequential migrations in `supabase/migrations/`. Apply them in order to any new Supabase instance:
 
-1.  **`master_foundation.sql`**: Core member registry and identity essentials (**Primary for this site**).
-2.  **`master_event_os.sql`**: Hardened event orchestration and Porter check-in logic.
-3.  **`master_member_os.sql`**: Immutable security audit logs.
-
-### Sovereign Hardening
-To initialize the system settings vault and lock down permissions, run following in your SQL Editor:
-```sql
-SELECT initialize_system_vault('YOUR_SECRET_HERE');
--- Hardening: REVOKE public execute rights
-REVOKE EXECUTE ON ALL FUNCTIONS IN SCHEMA public FROM PUBLIC;
-```
+| File | What it does |
+|------|-------------|
+| `20260415000000_foundation_registry_and_stats.sql` | Core `members` and `site_stats` tables, count trigger, basic RLS |
+| `20260415000001_sovereign_rls_lockdown.sql` | Tightens RLS, hardens function search paths |
+| `20260415000002_vault_access_control.sql` | Blocks anonymous inserts, `site_stats` read-only for anon |
+| `20260416113000_advanced_member_schema_ext.sql` | ENUM types, `join_date_readable` generated column |
+| `20260417000000_archival_audit_logging_sys.sql` | Removes remaining back-doors, adds security functions |
+| `20260417120000_strict_privilege_revocation.sql` | Revokes EXECUTE from PUBLIC; service_role only |
+| `20260427152500_add_member_numbers.sql` | `member_number` column, sequence, auto-assign + immutability triggers |
+| `20260427154500_sovereign_hardening.sql` | Final function hardening, speaker tables RLS |
 
 ### Table Definitions
-- **`members`**: Registration records (Email PK, Full Name, Verification status). Linked to EventOS for ticketing.
-- **`site_stats`**: Global metadata (member counts), auto-maintained by database triggers.
-- **`security_audit_logs`**: Security ledger for tracking sensitive mutations.
+- **`members`**: Registration records. Email is the primary key. Includes ENUMs for role/institution/referral, an interests array, `member_number` (immutable, auto-assigned `M{YY}-{NNNN}`), and a generated `join_date_readable` column.
+- **`site_stats`**: Single-row global metadata (`id = 'meridian_global_stats'`). `member_count` is auto-maintained by a trigger on `members`.
 
 ---
 
@@ -179,7 +188,10 @@ REVOKE EXECUTE ON ALL FUNCTIONS IN SCHEMA public FROM PUBLIC;
 
 Push to `main` → Vercel auto-deploys. No manual build step.
 
-Vercel env vars required: `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY`.
+Vercel env vars required:
+- `NEXT_PUBLIC_SUPABASE_URL`
+- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+- `SUPABASE_SERVICE_ROLE_KEY`
 
 Favicons are in `public/assets/favicons/` — do not add `app/favicon.ico` (overrides the metadata-managed set).
 

@@ -38,6 +38,13 @@ The registration flow (`/register`) is the most mission-critical and hardened pa
     - **Duplicate Check**: Case-insensitive email lookup before insertion.
     - **Insertion**: High-privilege insert into the `members` table (Anonymous inserts are disabled via RLS).
 
+### 2.2 Member Identity & Identity Sync
+To support legacy members and multiple entry points, the registry implements a **Polymorphic Lookup** system:
+1. **Polymorphic Search**: `checkMemberStatus` accepts either an Email (case-insensitive) or a Member Number (e.g., `M26-1001`).
+2. **Background Sync**: The `RegistrationForm` triggers a background lookup if a member returns to the site but their local metadata (Name/Join Date) is missing. This ensures the "Member Card" is always accurate.
+3. **Canvas Generation**: The Society ID Card is drawn on a `1200x750` canvas using high-fidelity typography (Cormorant Garamond italic). The final output is exported as a PNG to ensure compatibility with mobile digital wallets.
+4. **Data Persistence**: Successful registration state is synchronized across `localStorage` (for persistence) and `Cookies` (for potential SSR logic).
+
 ---
 
 ## ⚡ 3. Telemetry & Live Member Counting

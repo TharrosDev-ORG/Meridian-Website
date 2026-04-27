@@ -122,8 +122,16 @@ Paste **ONE** of these blocks above the `{/* Placeholder */}` block.
 3. **Add**: Click "Insert Row".
 4. **Remove**: Right-click a row and select "Delete Row".
 5. **Sync**: The website footer counter updates automatically.
+6. **Digital Identity**: Members can now download their **Official Society ID Card** directly from the registration success screen. This card contains their unique member number and registration date.
 
 ---
+
+<a name="member-cards"></a>
+## 💳 Member ID Cards
+The Society now issues digital **Official Member Cards** (PNG format) upon successful registration or verification.
+- **Auto-Sync**: If a member returns to the site, the system automatically retrieves their registry data to ensure the card is up-to-date.
+- **Universal IDs**: Cards are designed to be saved to mobile devices for quick identification at society forums.
+- **Security**: Member numbers are immutable; once assigned, they serve as the permanent identifier in the Sovereign Registry.
 
 <a name="edit-text"></a>
 ## ✍️ I want to fix a typo or edit text

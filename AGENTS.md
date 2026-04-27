@@ -44,7 +44,13 @@ The **Meridian Website** is the core of The Meridian Society—it is the society
 - **Registration Flow**:
     - Includes a **Honeypot** check (`fax_number`).
     - Implements **IP-based Rate Limiting**.
-    - Utilizes **Name Shielding** (verified members' names cannot be changed by subsequent public registrations).
+    - **Polymorphic Lookup**: `checkMemberStatus` supports both Email and Member Number identifiers.
+    - **Name Shielding**: Verified members' names cannot be changed by subsequent public registrations.
+    - **Canvas Identity**: Member ID cards are generated client-side via Canvas API using `Cormorant Garamond` (italic 48px header) and `Barlow Condensed` (bold 24px metadata).
+
+- **Success Screen Design**:
+    - **Single-Viewport Constraint**: Success screens (specifically `.success-overhaul`) MUST fit entirely within a single viewport (`90vh` on desktop) to maintain a cinematic, gallery-style feel.
+    - **Interactive Elements**: All exit paths (Back/Home) must use Next.js `useRouter` for fluid SPA navigation.
 
 ---
 

@@ -517,12 +517,19 @@ export default function RegistrationForm() {
   }
 
   if ((isAlreadyRegistered && memberNumber) || result?.success) {
+    const firstName = memberName ? memberName.split(' ')[0] : (result?.fullName ? result.fullName.split(' ')[0] : "");
+    const welcomeTitle = firstName ? (
+      <>Welcome Home, <em>{firstName}.</em></>
+    ) : (
+      <>Welcome to the <em>Society.</em></>
+    );
+
     return (
       <div className="success-overhaul reveal on" role="status" aria-live="polite">
         <div className="success-header">
           <div className="success-eyebrow rv-stagger-item">Registration Confirmed</div>
           <h1 className="success-title rv-stagger-item">
-            Welcome to the <em>Society.</em>
+            {welcomeTitle}
           </h1>
           <div className="success-rule rv-stagger-item"></div>
         </div>
@@ -532,7 +539,7 @@ export default function RegistrationForm() {
             <div className="registry-label">Official Member Number</div>
             <div className="registry-id">
               <span className="registry-prefix">MEMBER NO.</span>
-              <span className="registry-val">
+              <span className="registry-val registry-val-animate">
                 {memberNumber || "---"}
               </span>
             </div>
@@ -541,24 +548,14 @@ export default function RegistrationForm() {
               <span className="status-text">Active Member Status</span>
             </div>
             <p className="registry-disclaimer">
-              This is your official Society ID. Please keep it private and save it for future event check-ins.
+              You are officially registered in the Society's registry. Your presence strengthens our collective dialogue.
             </p>
-            <button 
-              onClick={downloadMemberCard}
-              disabled={isDownloading}
-              className={`reg-download-btn ${isDownloading || downloadFinished ? 'is-active' : ''}`}
-            >
-              <span>
-                {isDownloading ? "Download Started" : 
-                 downloadFinished ? "Download Finished" : 
-                 "Download Member Card"}
-              </span>
-            </button>
             
-            <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <div style={{ display: 'flex', justifyContent: 'center', marginTop: '24px' }}>
               <button 
                 onClick={() => router.push("/")}
                 className="reg-home-btn"
+                style={{ margin: 0 }}
               >
                 <span>Return to Home</span>
               </button>
@@ -566,8 +563,56 @@ export default function RegistrationForm() {
           </div>
         </div>
 
-        <p className="success-lead rv-stagger-item" data-d="2">
-          Your presence in the dialogue is now official. The Meridian Society is built on the shared curiosity of its members.
+        <div className="success-next-steps rv-stagger-item" data-d="2">
+          <div className="step-card">
+            <div className="step-num">Step 01</div>
+            <h3 className="step-title">Save your Identity</h3>
+            <p className="step-desc">Download your official Society ID card for event check-ins and your digital wallet.</p>
+            <button 
+              onClick={downloadMemberCard}
+              disabled={isDownloading}
+              className={`reg-download-btn ${isDownloading || downloadFinished ? 'is-active' : ''}`}
+              style={{ width: '100%', marginTop: 'auto' }}
+            >
+              <span>
+                {isDownloading ? "Generating..." : 
+                 downloadFinished ? "Card Saved" : 
+                 "Download ID Card"}
+              </span>
+            </button>
+          </div>
+
+          <div className="step-card">
+            <div className="step-num">Step 02</div>
+            <h3 className="step-title">Join the Dialogue</h3>
+            <p className="step-desc">Connect with other members in our community space and stay updated on upcoming forums.</p>
+            <a 
+              href={INSTAGRAM_URL} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="reg-submit"
+              style={{ textDecoration: 'none', textAlign: 'center', marginTop: 'auto', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+            >
+              <span>Join Instagram Community</span>
+            </a>
+          </div>
+
+          <div className="step-card">
+            <div className="step-num">Step 03</div>
+            <h3 className="step-title">Attend a Forum</h3>
+            <p className="step-desc">Your membership grants you priority access to all Meridian Society events and lectures.</p>
+            <Link 
+              href="/events"
+              className="reg-home-btn"
+              style={{ width: '100%', margin: 0, marginTop: 'auto' }}
+            >
+              <span>View Upcoming Events</span>
+            </Link>
+          </div>
+        </div>
+
+        <p className="success-lead rv-stagger-item" data-d="3" style={{ marginTop: '64px', maxWidth: '600px', marginInline: 'auto' }}>
+          The Meridian Society is built on the shared curiosity of its members. We look forward to your contributions to the dialogue.
         </p>
       </div>
     );

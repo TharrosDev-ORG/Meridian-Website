@@ -454,6 +454,16 @@ export default function RegistrationForm() {
                  "Download Member Card"}
               </span>
             </button>
+            
+            <div style={{ marginTop: '24px', display: 'flex', justifyContent: 'center' }}>
+              <button 
+                onClick={() => window.location.href = '/'}
+                className="action-btn"
+                style={{ width: '100%', justifyContent: 'center', background: 'transparent', border: '1px solid var(--ink-10)', color: 'var(--ink-75)' }}
+              >
+                <span>Return to Home</span>
+              </button>
+            </div>
           </div>
         </div>
 

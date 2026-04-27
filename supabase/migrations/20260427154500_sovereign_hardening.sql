@@ -58,7 +58,13 @@ DO $$ BEGIN
     IF EXISTS (SELECT FROM pg_tables WHERE schemaname = 'public' AND tablename = 'speaker_applications') THEN
         DROP POLICY IF EXISTS "Allow public insertion for applications" ON public.speaker_applications;
         CREATE POLICY "Public can apply" ON public.speaker_applications
-            FOR INSERT TO public WITH CHECK (true);
+            FOR INSERT TO public 
+            WITH CHECK (
+                email IS NOT NULL AND 
+                length(email) > 5 AND 
+                full_name IS NOT NULL AND 
+                proposed_title IS NOT NULL
+            );
         
         CREATE POLICY "Admin can manage applications" ON public.speaker_applications
             FOR ALL TO authenticated

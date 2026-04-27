@@ -638,21 +638,6 @@ body {
   z-index: -1;
 }
 
-/* Corner Ornaments */
-.success-ornament {
-  position: absolute;
-  width: 120px;
-  height: 120px;
-  border: 1px solid var(--gold-lt);
-  opacity: 0.3;
-  pointer-events: none;
-  z-index: 0;
-}
-
-.success-ornament--tl { top: 40px; left: 40px; border-right: none; border-bottom: none; }
-.success-ornament--tr { top: 40px; right: 40px; border-left: none; border-bottom: none; }
-.success-ornament--bl { bottom: 40px; left: 40px; border-right: none; border-top: none; }
-.success-ornament--br { bottom: 40px; right: 40px; border-left: none; border-top: none; }
 
 /* ── SHARED PAGE UTILS ── */
 .wrap { max-width: 1440px; margin: 0 auto; padding: 0 64px; }

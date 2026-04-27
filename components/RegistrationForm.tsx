@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useTransition, useEffect } from "react";
-import { registerMember, RegistrationData } from "@/app/actions/register";
+import { registerMember, RegistrationData, checkMemberStatus } from "@/app/actions/register";
 import Link from "next/link";
 import { INSTAGRAM_URL } from "@/utils/social";
 
@@ -29,6 +29,9 @@ export default function RegistrationForm() {
   const [displayCount, setDisplayCount] = useState<number>(0);
   const [role, setRole] = useState("");
   const [institution, setInstitution] = useState("");
+  const [emailChecked, setEmailChecked] = useState(false);
+  const [isCheckingEmail, setIsCheckingEmail] = useState(false);
+  const [email, setEmail] = useState("");
 
   // Fetch count for the registry display
   useEffect(() => {
@@ -166,6 +169,30 @@ export default function RegistrationForm() {
     }
   };
 
+  const handleEmailCheck = async (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (!email || !email.includes("@")) return;
+
+    setIsCheckingEmail(true);
+    try {
+      const status = await checkMemberStatus(email);
+      if (status.registered) {
+        setIsAlreadyRegistered(true);
+        if (status.memberNumber) {
+          setMemberNumber(status.memberNumber);
+          localStorage.setItem(NUM_KEY, status.memberNumber);
+          localStorage.setItem(REG_KEY, "true");
+        }
+      } else {
+        setEmailChecked(true);
+      }
+    } catch (err) {
+      console.error("Email check failed", err);
+    } finally {
+      setIsCheckingEmail(false);
+    }
+  };
+
   async function clientAction(formData: FormData) {
     const selectedInterests = INTERESTS_LIST.filter(i => formData.get(`interest-${i}`) === "on");
 
@@ -299,202 +326,231 @@ export default function RegistrationForm() {
         onChange={handleFormChange}
       >
         <div className="reg-grid">
-          {/* ── Basic Info ── */}
-          <div className="reg-field">
-            <label htmlFor="fullName" className="reg-label">Full Name *</label>
-            <input
-              type="text"
-              id="fullName"
-              name="fullName"
-              required
-              className="reg-input"
-              placeholder="e.g. John Smith"
-              disabled={isPending}
-            />
-          </div>
-
-          <div className="reg-field">
+          {/* ── Email Field (Always visible phase 1) ── */}
+          <div className={`reg-field ${!emailChecked ? 'reg-field--full' : ''}`}>
             <label htmlFor="email" className="reg-label">Email Address *</label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              required
-              className="reg-input"
-              placeholder="e.g. john.smith@example.com"
-              disabled={isPending}
-            />
-          </div>
-
-          {/* Honeypot field - Visually hidden to humans, attractive to bots */}
-          <div style={{ display: 'none' }} aria-hidden="true">
-            <label htmlFor="fax_number">Fax Number</label>
-            <input
-              type="text"
-              id="fax_number"
-              name="fax_number"
-              tabIndex={-1}
-              autoComplete="off"
-            />
-          </div>
-
-          {/* ── Role ── */}
-          <fieldset className="reg-field reg-field--full reg-fieldset">
-            <legend className="reg-label">Your Role *</legend>
-            <div className="reg-options-grid">
-              {ROLES.map((r) => (
-                <label key={r} className="reg-choice reg-choice--radio">
-                  <input
-                    type="radio"
-                    name="role"
-                    value={r}
-                    required
-                    onChange={(e) => setRole(e.target.value)}
-                    onClick={handleRadioClick}
-                    disabled={isPending}
-                  />
-                  <span className="reg-choice-ui"></span>
-                  <span>{r}</span>
-                </label>
-              ))}
+            <div style={{ display: 'flex', gap: '12px', alignItems: 'flex-end' }}>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                required
+                className="reg-input"
+                style={{ flex: 1 }}
+                placeholder="e.g. john.smith@example.com"
+                disabled={isPending || isCheckingEmail || emailChecked}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              {!emailChecked && (
+                <button 
+                  onClick={handleEmailCheck}
+                  disabled={isCheckingEmail || !email || !email.includes('@')}
+                  className="reg-submit"
+                  style={{ 
+                    padding: '12px 32px', 
+                    marginTop: 0, 
+                    fontSize: '10px',
+                    height: '46px'
+                  }}
+                >
+                  <span>{isCheckingEmail ? "Checking..." : "Apply"}</span>
+                </button>
+              )}
             </div>
-            {role === "Other" && (
-              <div className="reg-conditional">
+          </div>
+
+          {emailChecked && (
+            <>
+              {/* ── Basic Info ── */}
+              <div className="reg-field">
+                <label htmlFor="fullName" className="reg-label">Full Name *</label>
                 <input
                   type="text"
-                  name="roleOther"
-                  className="reg-input"
-                  placeholder="Please specify your role"
-                  aria-label="Please specify your role"
+                  id="fullName"
+                  name="fullName"
                   required
+                  className="reg-input"
+                  placeholder="e.g. John Smith"
                   disabled={isPending}
                 />
               </div>
-            )}
-          </fieldset>
 
-          {/* ── Institution ── */}
-          <fieldset className="reg-field reg-field--full reg-fieldset">
-            <legend className="reg-label">Current or Most Recent Institution (If applicable)</legend>
-            <div className="reg-options-grid">
-              {INSTITUTIONS.map((inst) => (
-                <label key={inst} className="reg-choice reg-choice--radio">
-                  <input
-                    type="radio"
-                    name="institution"
-                    value={inst}
-                    onChange={(e) => setInstitution(e.target.value)}
-                    onClick={handleRadioClick}
-                    disabled={isPending}
-                  />
-                  <span className="reg-choice-ui"></span>
-                  <span>{inst}</span>
-                </label>
-              ))}
-            </div>
-            {institution === "Other" && (
-              <div className="reg-conditional">
+              {/* Honeypot field */}
+              <div style={{ display: 'none' }} aria-hidden="true">
+                <label htmlFor="fax_number">Fax Number</label>
                 <input
                   type="text"
-                  name="institutionOther"
-                  className="reg-input"
-                  placeholder="Please specify your institution"
-                  aria-label="Please specify your institution"
+                  id="fax_number"
+                  name="fax_number"
+                  tabIndex={-1}
+                  autoComplete="off"
+                />
+              </div>
+
+              {/* ── Role ── */}
+              <fieldset className="reg-field reg-field--full reg-fieldset">
+                <legend className="reg-label">Your Role *</legend>
+                <div className="reg-options-grid">
+                  {ROLES.map((r) => (
+                    <label key={r} className="reg-choice reg-choice--radio">
+                      <input
+                        type="radio"
+                        name="role"
+                        value={r}
+                        required
+                        onChange={(e) => setRole(e.target.value)}
+                        onClick={handleRadioClick}
+                        disabled={isPending}
+                      />
+                      <span className="reg-choice-ui"></span>
+                      <span>{r}</span>
+                    </label>
+                  ))}
+                </div>
+                {role === "Other" && (
+                  <div className="reg-conditional">
+                    <input
+                      type="text"
+                      name="roleOther"
+                      className="reg-input"
+                      placeholder="Please specify your role"
+                      aria-label="Please specify your role"
+                      required
+                      disabled={isPending}
+                    />
+                  </div>
+                )}
+              </fieldset>
+
+              {/* ── Institution ── */}
+              <fieldset className="reg-field reg-field--full reg-fieldset">
+                <legend className="reg-label">Current or Most Recent Institution</legend>
+                <div className="reg-options-grid">
+                  {INSTITUTIONS.map((inst) => (
+                    <label key={inst} className="reg-choice reg-choice--radio">
+                      <input
+                        type="radio"
+                        name="institution"
+                        value={inst}
+                        onChange={(e) => setInstitution(e.target.value)}
+                        onClick={handleRadioClick}
+                        disabled={isPending}
+                      />
+                      <span className="reg-choice-ui"></span>
+                      <span>{inst}</span>
+                    </label>
+                  ))}
+                </div>
+                {institution === "Other" && (
+                  <div className="reg-conditional">
+                    <input
+                      type="text"
+                      name="institutionOther"
+                      className="reg-input"
+                      placeholder="Please specify your institution"
+                      aria-label="Please specify your institution"
+                      required
+                      disabled={isPending}
+                    />
+                  </div>
+                )}
+              </fieldset>
+
+              {/* ── Interests ── */}
+              <fieldset className="reg-field reg-field--full reg-fieldset">
+                <legend className="reg-label">Areas of interest? *</legend>
+                <div className="reg-options-grid">
+                  {INTERESTS_LIST.map((interest) => (
+                    <label key={interest} className="reg-choice reg-choice--check">
+                      <input
+                        type="checkbox"
+                        name={`interest-${interest}`}
+                        disabled={isPending}
+                      />
+                      <span className="reg-choice-ui"></span>
+                      <span>{interest}</span>
+                    </label>
+                  ))}
+                </div>
+              </fieldset>
+
+              {/* ── Referral ── */}
+              <fieldset className="reg-field reg-field--full reg-fieldset">
+                <legend className="reg-label">How did you hear about us? *</legend>
+                <div className="reg-options-grid">
+                  {HEARD_SOURCES.map((source) => (
+                    <label key={source} className="reg-choice reg-choice--radio">
+                      <input
+                        type="radio"
+                        name="heardFrom"
+                        value={source}
+                        required
+                        onClick={handleRadioClick}
+                        disabled={isPending}
+                      />
+                      <span className="reg-choice-ui"></span>
+                      <span>{source}</span>
+                    </label>
+                  ))}
+                </div>
+              </fieldset>
+
+              {/* ── Volunteering ── */}
+              <fieldset className="reg-field reg-field--full reg-fieldset">
+                <legend className="reg-label">Interested in volunteering? *</legend>
+                <div className="reg-options-grid">
+                  {VOLUNTEER_OPTIONS.map((opt) => (
+                    <label key={opt} className="reg-choice reg-choice--radio">
+                      <input
+                        type="radio"
+                        name="volunteerInterest"
+                        value={opt}
+                        required
+                        onClick={handleRadioClick}
+                        disabled={isPending}
+                      />
+                      <span className="reg-choice-ui"></span>
+                      <span>{opt}</span>
+                    </label>
+                  ))}
+                </div>
+              </fieldset>
+            </>
+          )}
+        </div>
+
+        {emailChecked && (
+          <>
+            {/* ── Consent ── */}
+            <div className="reg-field reg-field--full" style={{ marginTop: '32px' }}>
+              <label className="reg-choice reg-choice--check">
+                <input
+                  type="checkbox"
+                  name="consent"
                   required
                   disabled={isPending}
                 />
+                <span className="reg-choice-ui"></span>
+                <span style={{ fontSize: '15px', lineHeight: '1.5' }}>
+                  I agree to the <Link href="/privacy" className="success-ig-link" style={{ borderBottom: '1px solid var(--gold)', textDecoration: 'none' }}>Privacy Notice</Link> and <Link href="/terms" className="success-ig-link" style={{ borderBottom: '1px solid var(--gold)', textDecoration: 'none' }}>Terms of Use</Link> of The Meridian Society. *
+                </span>
+              </label>
+            </div>
+
+            {result?.error && (
+              <div className="reg-feedback reg-error" role="alert">
+                {result.error}
               </div>
             )}
-          </fieldset>
 
-          {/* ── Interests ── */}
-          <fieldset className="reg-field reg-field--full reg-fieldset">
-            <legend className="reg-label">Areas of interest? (Select all that apply) *</legend>
-            <div className="reg-options-grid">
-              {INTERESTS_LIST.map((interest) => (
-                <label key={interest} className="reg-choice reg-choice--check">
-                  <input
-                    type="checkbox"
-                    name={`interest-${interest}`}
-                    disabled={isPending}
-                  />
-                  <span className="reg-choice-ui"></span>
-                  <span>{interest}</span>
-                </label>
-              ))}
+            <div className="reg-submit-wrap">
+              <button type="submit" className="reg-submit" disabled={isPending}>
+                <span>{isPending ? "Recording Entry..." : "Complete Registration"}</span>
+              </button>
             </div>
-          </fieldset>
-
-          {/* ── Referral ── */}
-          <fieldset className="reg-field reg-field--full reg-fieldset">
-            <legend className="reg-label">How did you hear about The Meridian Society? *</legend>
-            <div className="reg-options-grid">
-              {HEARD_SOURCES.map((source) => (
-                <label key={source} className="reg-choice reg-choice--radio">
-                  <input
-                    type="radio"
-                    name="heardFrom"
-                    value={source}
-                    required
-                    onClick={handleRadioClick}
-                    disabled={isPending}
-                  />
-                  <span className="reg-choice-ui"></span>
-                  <span>{source}</span>
-                </label>
-              ))}
-            </div>
-          </fieldset>
-
-          {/* ── Volunteering ── */}
-          <fieldset className="reg-field reg-field--full reg-fieldset">
-            <legend className="reg-label">Would you be interested in volunteering for The Meridian Society? *</legend>
-            <div className="reg-options-grid">
-              {VOLUNTEER_OPTIONS.map((opt) => (
-                <label key={opt} className="reg-choice reg-choice--radio">
-                  <input
-                    type="radio"
-                    name="volunteerInterest"
-                    value={opt}
-                    required
-                    onClick={handleRadioClick}
-                    disabled={isPending}
-                  />
-                  <span className="reg-choice-ui"></span>
-                  <span>{opt}</span>
-                </label>
-              ))}
-            </div>
-          </fieldset>
-        </div>
-
-        {/* ── Consent ── */}
-        <div className="reg-field reg-field--full" style={{ marginTop: '32px' }}>
-          <label className="reg-choice reg-choice--check">
-            <input
-              type="checkbox"
-              name="consent"
-              required
-              disabled={isPending}
-            />
-            <span className="reg-choice-ui"></span>
-            <span style={{ fontSize: '15px', lineHeight: '1.5' }}>
-              I agree to the <Link href="/privacy" className="success-ig-link" style={{ borderBottom: '1px solid var(--gold)', textDecoration: 'none' }}>Privacy Notice</Link> and <Link href="/terms" className="success-ig-link" style={{ borderBottom: '1px solid var(--gold)', textDecoration: 'none' }}>Terms of Use</Link> of The Meridian Society. *
-            </span>
-          </label>
-        </div>
-
-        {result?.error && (
-          <div className="reg-feedback reg-error" role="alert">
-            {result.error}
-          </div>
+          </>
         )}
-
-        <div className="reg-submit-wrap">
-          <button type="submit" className="reg-submit" disabled={isPending}>
-            <span>{isPending ? "Registering..." : "Complete Registration"}</span>
-          </button>
-        </div>
       </form>
     </>
   );

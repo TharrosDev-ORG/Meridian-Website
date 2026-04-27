@@ -4,6 +4,30 @@ import { z } from 'zod';
 import { createServiceClient } from '@/utils/supabase/service';
 import { headers } from 'next/headers';
 
+export type MemberStatus = {
+  registered: boolean;
+  memberNumber?: string;
+};
+
+export async function checkMemberStatus(email: string): Promise<MemberStatus> {
+  const supabase = createServiceClient();
+  const { data, error } = await supabase
+    .from("members")
+    .select("member_number")
+    .eq("email", email.toLowerCase())
+    .maybeSingle();
+
+  if (error) {
+    console.error("[MEMBER_CHECK_ERROR]", error);
+    return { registered: false };
+  }
+
+  return {
+    registered: !!data,
+    memberNumber: data?.member_number,
+  };
+}
+
 // Simple in-memory rate limit store (Note: In serverless environments, this is per-instance)
 const RATE_LIMIT_WINDOW = 5 * 60 * 1000; // 5 minutes
 const ipRecords = new Map<string, number>();

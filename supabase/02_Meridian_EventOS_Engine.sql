@@ -111,6 +111,13 @@ BEGIN
 END;
 $$;
 
+-- REVOKE PUBLIC EXECUTE (Sovereign Lockdown)
+REVOKE EXECUTE ON ALL FUNCTIONS IN SCHEMA public FROM PUBLIC;
+REVOKE EXECUTE ON ALL FUNCTIONS IN SCHEMA public FROM anon;
+REVOKE EXECUTE ON ALL FUNCTIONS IN SCHEMA public FROM authenticated;
+GRANT EXECUTE ON ALL FUNCTIONS IN SCHEMA public TO service_role;
+GRANT EXECUTE ON ALL FUNCTIONS IN SCHEMA public TO postgres;
+
 -- 3. EVENT TRIGGERS
 ---------------------------------------------
 DROP TRIGGER IF EXISTS tr_sync_rsvp_count_insert ON public.event_registrations;

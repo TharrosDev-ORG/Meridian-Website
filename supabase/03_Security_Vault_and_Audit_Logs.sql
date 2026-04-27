@@ -87,6 +87,13 @@ BEGIN
 END;
 $$;
 
+-- REVOKE PUBLIC EXECUTE (Sovereign Lockdown)
+REVOKE EXECUTE ON ALL FUNCTIONS IN SCHEMA public FROM PUBLIC;
+REVOKE EXECUTE ON ALL FUNCTIONS IN SCHEMA public FROM anon;
+REVOKE EXECUTE ON ALL FUNCTIONS IN SCHEMA public FROM authenticated;
+GRANT EXECUTE ON ALL FUNCTIONS IN SCHEMA public TO service_role;
+GRANT EXECUTE ON ALL FUNCTIONS IN SCHEMA public TO postgres;
+
 -- 5. AUTOMATION TRIGGERS
 ---------------------------------------------
 DROP TRIGGER IF EXISTS handle_updated_at_system_config ON public.system_config;

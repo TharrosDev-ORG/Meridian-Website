@@ -154,6 +154,13 @@ BEGIN
 END;
 $$;
 
+-- REVOKE PUBLIC EXECUTE (Sovereign Lockdown)
+REVOKE EXECUTE ON ALL FUNCTIONS IN SCHEMA public FROM PUBLIC;
+REVOKE EXECUTE ON ALL FUNCTIONS IN SCHEMA public FROM anon;
+REVOKE EXECUTE ON ALL FUNCTIONS IN SCHEMA public FROM authenticated;
+GRANT EXECUTE ON ALL FUNCTIONS IN SCHEMA public TO service_role;
+GRANT EXECUTE ON ALL FUNCTIONS IN SCHEMA public TO postgres;
+
 -- 6. REGISTRY TRIGGERS
 ---------------------------------------------
 DROP TRIGGER IF EXISTS on_member_change ON public.members;

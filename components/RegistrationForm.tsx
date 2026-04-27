@@ -107,14 +107,19 @@ export default function RegistrationForm() {
 
     // Background Sync: If registered but date is missing, fetch it
     const syncMemberDetails = async () => {
-      // Use email if available, otherwise fallback to memberNumber
-      const identifier = email || memberNumber;
+      const currentNum = localStorage.getItem(NUM_KEY);
+      const identifier = currentNum || email;
+      
       if (isAlreadyRegistered && !registrationDate && identifier) {
         try {
           const status = await checkMemberStatus(identifier);
           if (status.createdAt) {
             setRegistrationDate(status.createdAt);
             localStorage.setItem("meridian_join_date_v1", status.createdAt);
+          }
+          if (status.fullName && !memberName) {
+            setMemberName(status.fullName);
+            localStorage.setItem("meridian_member_name_v1", status.fullName);
           }
         } catch (e) {
           console.error("Failed to sync member details", e);

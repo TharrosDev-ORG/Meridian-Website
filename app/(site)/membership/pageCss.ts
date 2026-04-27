@@ -680,4 +680,4 @@ export const membershipCss = `
       .benefit-card { padding: 28px 20px; }
       .faq-item summary { font-size: 17px; }
     }
-  \`;
+  `;

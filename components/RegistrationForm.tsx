@@ -35,6 +35,7 @@ export default function RegistrationForm() {
   const [email, setEmail] = useState("");
   const [lookupError, setLookupError] = useState("");
   const [isDownloading, setIsDownloading] = useState(false);
+  const [downloadFinished, setDownloadFinished] = useState(false);
 
   // Fetch count for the registry display
   useEffect(() => {
@@ -217,6 +218,7 @@ export default function RegistrationForm() {
 
   const downloadMemberCard = async () => {
     setIsDownloading(true);
+    setDownloadFinished(false);
     // Ensure fonts are ready before drawing
     if (document.fonts) {
       await document.fonts.load('italic 48px Cormorant Garamond');
@@ -302,8 +304,12 @@ export default function RegistrationForm() {
       // Clean up memory
       setTimeout(() => URL.revokeObjectURL(url), 100);
       
-      // Reset state after a brief success message
-      setTimeout(() => setIsDownloading(false), 2000);
+      // Sequence the completion states
+      setIsDownloading(false);
+      setDownloadFinished(true);
+      
+      // Reset back to idle after 4 seconds
+      setTimeout(() => setDownloadFinished(false), 4000);
     }, "image/png");
   };
 
@@ -388,20 +394,13 @@ export default function RegistrationForm() {
             <button 
               onClick={downloadMemberCard}
               disabled={isDownloading}
-              className="action-btn"
-              style={{ 
-                marginTop: '24px', 
-                background: isDownloading ? '#2d8a4e' : 'var(--ink)', 
-                color: 'var(--cream)',
-                width: '100%',
-                justifyContent: 'center',
-                padding: '12px',
-                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-                transform: isDownloading ? 'scale(0.98)' : 'scale(1)',
-                opacity: isDownloading ? 0.9 : 1
-              }}
+              className={`reg-download-btn ${isDownloading || downloadFinished ? 'is-active' : ''}`}
             >
-              <span>{isDownloading ? "Download Started" : "Download Member Card"}</span>
+              <span>
+                {isDownloading ? "Download Started" : 
+                 downloadFinished ? "Download Finished" : 
+                 "Download Member Card"}
+              </span>
             </button>
           </div>
         </div>

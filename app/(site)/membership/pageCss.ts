@@ -304,6 +304,54 @@ export const membershipCss = `
       cursor: not-allowed;
     }
 
+    /* Download Button Specifics */
+    .reg-download-btn {
+      appearance: none;
+      border: none;
+      cursor: pointer;
+      font-family: var(--sans);
+      font-size: 11.5px;
+      font-weight: 700;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      color: var(--cream);
+      background: var(--ink);
+      width: 100%;
+      padding: 16px;
+      margin-top: 24px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      transition: background 0.4s, transform 0.3s;
+    }
+    .reg-download-btn span {
+      position: relative;
+      z-index: 1;
+    }
+    .reg-download-btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--gold);
+      transform: translateX(-101%);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reg-download-btn:not(.is-active):hover::before {
+      transform: translateX(0);
+    }
+    .reg-download-btn.is-active {
+      background: #2d8a4e !important;
+      transform: scale(0.98);
+    }
+    .reg-download-btn.is-active::before {
+      display: none;
+    }
+    .reg-submit:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
     .reg-feedback {
       margin-top: 24px;
       font-family: var(--serif);

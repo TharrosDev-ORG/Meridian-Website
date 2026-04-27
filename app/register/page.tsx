@@ -83,8 +83,7 @@ export default function RegisterPage() {
     <TransitionWrapper>
       <main className="register-page-minimal">
         <PageStyles css={membershipCss + registerPageCss} />
-        <div className="register-nav rv">
-          <BackButton className="return-link" />
+        <div className="register-header rv">
         </div>
         <div className="register-form-wrapper rv" data-d="1">
           <RegistrationForm />

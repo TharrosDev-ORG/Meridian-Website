@@ -412,6 +412,8 @@ export default function RegistrationForm() {
             Initializing <em>Registry...</em>
           </h1>
         </div>
+
+        </div>
       </div>
     );
   }
@@ -467,7 +469,9 @@ export default function RegistrationForm() {
           </div>
         </div>
 
-        </div>
+        <p className="success-lead rv-stagger-item" data-d="2" style={{ marginTop: '48px', maxWidth: '600px', marginInline: 'auto' }}>
+          Your presence in the dialogue is now official. The Meridian Society is built on the shared curiosity of its members.
+        </p>
       </div>
     );
   }

@@ -217,5 +217,10 @@ export async function registerMember(data: RegistrationData) {
   }
 
   console.log(`[SUCCESS] New member registered: ${redactEmail(normalizedEmail)}`);
-  return { success: true, memberNumber: inserted?.member_number };
+  return { 
+    success: true, 
+    memberNumber: inserted?.member_number,
+    createdAt: inserted?.created_at,
+    fullName: inserted?.full_name
+  };
 }

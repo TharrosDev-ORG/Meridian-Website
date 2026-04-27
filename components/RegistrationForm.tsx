@@ -2,6 +2,7 @@
 
 import { useState, useTransition, useEffect } from "react";
 import { registerMember, RegistrationData, checkMemberStatus } from "@/app/actions/register";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { INSTAGRAM_URL } from "@/utils/social";
 
@@ -20,6 +21,7 @@ const HEARD_SOURCES = ["Friend or Peer", "Professor", "Social Media", "Campus Ev
 const VOLUNTEER_OPTIONS = ["Yes", "Maybe", "Not at this time"];
 
 export default function RegistrationForm() {
+  const router = useRouter();
   const [mounted, setMounted] = useState(false);
   const [isPending, startTransition] = useTransition();
   const [result, setResult] = useState<{ success?: boolean; error?: string; alreadyRegistered?: boolean; memberNumber?: string; createdAt?: string; fullName?: string } | null>(null);
@@ -459,7 +461,7 @@ export default function RegistrationForm() {
             
             <div style={{ display: 'flex', justifyContent: 'center' }}>
               <button 
-                onClick={() => window.location.href = '/'}
+                onClick={() => router.push("/")}
                 className="reg-home-btn"
               >
                 <span>Return to Home</span>
@@ -468,7 +470,7 @@ export default function RegistrationForm() {
           </div>
         </div>
 
-        <p className="success-lead rv-stagger-item" data-d="2" style={{ marginTop: '48px', maxWidth: '600px', marginInline: 'auto' }}>
+        <p className="success-lead rv-stagger-item" data-d="2">
           Your presence in the dialogue is now official. The Meridian Society is built on the shared curiosity of its members.
         </p>
       </div>
@@ -732,7 +734,7 @@ export default function RegistrationForm() {
             <div className="reg-submit-wrap" style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
               <button 
                 type="button"
-                onClick={() => window.location.href = '/membership'}
+                onClick={() => router.push("/membership")}
                 className="reg-home-btn"
                 style={{ marginTop: 0, width: 'auto', padding: '15px 32px' }}
               >

@@ -505,7 +505,7 @@ export const membershipCss = `
       line-height: 1.7;
       color: var(--ink-75);
       max-width: 500px !important;
-      margin: 0 auto !important;
+      margin: 48px auto 0 !important;
       font-style: italic;
     }
 
@@ -673,6 +673,7 @@ export const membershipCss = `
       }
       .reg-submit-wrap { margin-top: 40px; }
       .reg-feedback { font-size: 15px; }
+      .success-lead { margin-top: 24px !important; }
     }
 
     @media (max-width: 380px) {

@@ -519,7 +519,7 @@ export default function RegistrationForm() {
   if ((isAlreadyRegistered && memberNumber) || result?.success) {
     const firstName = memberName ? memberName.split(' ')[0] : (result?.fullName ? result.fullName.split(' ')[0] : "");
     const welcomeTitle = firstName ? (
-      <>Welcome Home, <em>{firstName}.</em></>
+      <>Welcome, <em>{firstName}.</em></>
     ) : (
       <>Welcome to the <em>Society.</em></>
     );

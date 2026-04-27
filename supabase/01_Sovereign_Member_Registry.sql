@@ -43,9 +43,44 @@ CREATE TABLE IF NOT EXISTS public.members (
     heard_from public.referral_source,
     volunteer_interest public.volunteer_level,
     join_date_readable TEXT,
+    member_number TEXT UNIQUE,
     is_verified BOOLEAN DEFAULT false,
     accepted_terms BOOLEAN NOT NULL DEFAULT false
 );
+
+-- 3.1 MEMBER NUMBER GENERATION
+---------------------------------------------
+CREATE SEQUENCE IF NOT EXISTS public.member_number_seq START 1001;
+
+CREATE OR REPLACE FUNCTION public.generate_member_number()
+RETURNS TEXT 
+LANGUAGE plpgsql
+SECURITY DEFINER
+SET search_path = public
+AS $$
+DECLARE
+    v_seq_val BIGINT;
+    v_year TEXT;
+BEGIN
+    SELECT nextval('public.member_number_seq') INTO v_seq_val;
+    SELECT to_char(now(), 'YY') INTO v_year;
+    RETURN 'M' || v_year || '-' || lpad(v_seq_val::text, 4, '0');
+END;
+$$;
+
+CREATE OR REPLACE FUNCTION public.tr_assign_member_number()
+RETURNS trigger 
+LANGUAGE plpgsql
+SECURITY DEFINER
+SET search_path = public
+AS $$
+BEGIN
+    IF NEW.member_number IS NULL THEN
+        NEW.member_number := public.generate_member_number();
+    END IF;
+    RETURN NEW;
+END;
+$$;
 
 COMMENT ON TABLE public.members IS 'Archival member directory. Identity core for the Meridian Society.';
 COMMENT ON COLUMN public.members.email IS 'Case-insensitive primary contact email.';
@@ -118,6 +153,11 @@ DROP TRIGGER IF EXISTS tr_member_join_date ON public.members;
 CREATE TRIGGER tr_member_join_date
 BEFORE INSERT ON public.members
 FOR EACH ROW EXECUTE FUNCTION public.handle_member_join_date();
+
+DROP TRIGGER IF EXISTS tr_assign_member_number ON public.members;
+CREATE TRIGGER tr_assign_member_number
+BEFORE INSERT ON public.members
+FOR EACH ROW EXECUTE FUNCTION public.tr_assign_member_number();
 
 -- 7. FOUNDATION SECURITY POLICIES
 ---------------------------------------------

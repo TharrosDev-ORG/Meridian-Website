@@ -129,7 +129,7 @@ export async function registerMember(data: RegistrationData) {
   // Explicit duplicate check (Lowercased)
   const { data: existing, error: checkError } = await supabaseService
     .from('members')
-    .select('email')
+    .select('email, member_number')
     .eq('email', normalizedEmail)
     .maybeSingle();
 
@@ -144,11 +144,11 @@ export async function registerMember(data: RegistrationData) {
     // Instead of erroring, we allow the frontend to treat this as a success path
     // so the user is "redirected" to the completion state.
     console.warn(`[SECURITY] Registration attempt for existing email — Redirecting to completion.`);
-    return { success: true, alreadyRegistered: true };
+    return { success: true, alreadyRegistered: true, memberNumber: existing.member_number };
   }
 
   // Insert into Supabase
-  const { error: insertError } = await supabaseService
+  const { data: inserted, error: insertError } = await supabaseService
     .from('members')
     .insert([
       {
@@ -163,7 +163,9 @@ export async function registerMember(data: RegistrationData) {
         volunteer_interest: volunteerInterest,
         accepted_terms: acceptedTerms,
       },
-    ]);
+    ])
+    .select('member_number')
+    .single();
 
   if (insertError) {
     // Audit: Sanitized log — preventing raw leak of table metadata.
@@ -175,5 +177,5 @@ export async function registerMember(data: RegistrationData) {
   }
 
   console.log(`[SUCCESS] New member registered: ${redactEmail(normalizedEmail)}`);
-  return { success: true };
+  return { success: true, memberNumber: inserted?.member_number };
 }

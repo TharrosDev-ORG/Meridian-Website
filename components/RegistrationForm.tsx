@@ -6,6 +6,7 @@ import Link from "next/link";
 import { INSTAGRAM_URL } from "@/utils/social";
 
 const REG_KEY = "meridian_registered_v1";
+const NUM_KEY = "meridian_member_number_v1";
 const DRAFT_KEY = "meridian_registration_draft_v1";
 
 const ROLES = ["Student", "Alumni", "Professor / Faculty", "Professional", "Other"];
@@ -21,8 +22,9 @@ const VOLUNTEER_OPTIONS = ["Yes", "Maybe", "Not at this time"];
 export default function RegistrationForm() {
   const [mounted, setMounted] = useState(false);
   const [isPending, startTransition] = useTransition();
-  const [result, setResult] = useState<{ success?: boolean; error?: string; alreadyRegistered?: boolean } | null>(null);
+  const [result, setResult] = useState<{ success?: boolean; error?: string; alreadyRegistered?: boolean; memberNumber?: string } | null>(null);
   const [isAlreadyRegistered, setIsAlreadyRegistered] = useState(false);
+  const [memberNumber, setMemberNumber] = useState<string>("");
   const [memberCount, setMemberCount] = useState<number>(0);
   const [displayCount, setDisplayCount] = useState<number>(0);
   const [role, setRole] = useState("");
@@ -72,6 +74,8 @@ export default function RegistrationForm() {
       
       if (localReg === "true" || !!cookieReg) {
         setIsAlreadyRegistered(true);
+        const localNum = localStorage.getItem(NUM_KEY);
+        if (localNum) setMemberNumber(localNum);
       }
       setMounted(true);
     };
@@ -188,6 +192,10 @@ export default function RegistrationForm() {
         expiry.setFullYear(expiry.getFullYear() + 1);
         document.cookie = `${REG_KEY}=true; path=/; expires=${expiry.toUTCString()}; SameSite=Lax`;
         setIsAlreadyRegistered(true);
+        if (res.memberNumber) {
+          setMemberNumber(res.memberNumber);
+          localStorage.setItem(NUM_KEY, res.memberNumber);
+        }
         localStorage.removeItem(DRAFT_KEY);
       }
     });
@@ -222,7 +230,7 @@ export default function RegistrationForm() {
             <div className="registry-id">
               <span className="registry-prefix">MEMBER NO.</span>
               <span className={`registry-val ${displayCount > memberCount ? 'count-up' : ''}`}>
-                {displayCount || memberCount || "---"}
+                {memberNumber || displayCount || memberCount || "---"}
               </span>
             </div>
             <div className="registry-status">

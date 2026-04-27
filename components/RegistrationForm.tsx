@@ -413,7 +413,6 @@ export default function RegistrationForm() {
           </h1>
         </div>
 
-        </div>
       </div>
     );
   }

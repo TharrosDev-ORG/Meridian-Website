@@ -621,8 +621,8 @@ body {
 
 .registry-val-animate {
   display: inline-block;
-  animation: memberNoRoll 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  animation-delay: 0.8s;
+  animation: memberNoRoll 2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: 1.2s;
   opacity: 0;
 }
 

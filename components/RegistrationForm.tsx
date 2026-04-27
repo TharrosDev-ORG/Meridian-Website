@@ -36,8 +36,8 @@ function ScrambleTicker({ value }: { value: string }) {
         }).join("")
       );
       if (iteration >= value.length) clearInterval(interval);
-      iteration += 1/4;
-    }, 40);
+      iteration += 1/8;
+    }, 60);
     return () => clearInterval(interval);
   }, [value]);
 

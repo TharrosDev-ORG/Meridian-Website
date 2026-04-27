@@ -639,23 +639,6 @@ body {
   z-index: -1;
 }
 
-/* Central Watermark M */
-.success-overhaul::before {
-  content: 'M';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-family: var(--serif);
-  font-size: 80vh;
-  font-weight: 300;
-  font-style: italic;
-  color: var(--gold);
-  opacity: 0.03;
-  pointer-events: none;
-  z-index: -1;
-}
-
 /* Corner Ornaments */
 .success-ornament {
   position: absolute;
@@ -671,24 +654,6 @@ body {
 .success-ornament--tr { top: 40px; right: 40px; border-left: none; border-bottom: none; }
 .success-ornament--bl { bottom: 40px; left: 40px; border-right: none; border-top: none; }
 .success-ornament--br { bottom: 40px; right: 40px; border-left: none; border-top: none; }
-
-/* Subtle Atmospheric Floating Particles (CSS only) */
-@keyframes floatParticle {
-  0%, 100% { transform: translateY(0) translateX(0); opacity: 0; }
-  50% { opacity: 0.4; }
-  100% { transform: translateY(-100vh) translateX(20px); opacity: 0; }
-}
-
-.success-particle {
-  position: absolute;
-  width: 2px;
-  height: 2px;
-  background: var(--gold);
-  border-radius: 50%;
-  pointer-events: none;
-  opacity: 0;
-  animation: floatParticle 10s infinite linear;
-}
 
 /* ── SHARED PAGE UTILS ── */
 .wrap { max-width: 1440px; margin: 0 auto; padding: 0 64px; }
@@ -1367,6 +1332,13 @@ footer {
 
   /* ── Skip-link: friendlier on mobile ── */
   .skip-link { font-size: 11px; padding: 12px 18px; }
+
+  /* ── Success state: shrink corner ornaments on small screens ── */
+  .success-ornament { width: 56px; height: 56px; }
+  .success-ornament--tl { top: 16px; left: 16px; }
+  .success-ornament--tr { top: 16px; right: 16px; }
+  .success-ornament--bl { bottom: 16px; left: 16px; }
+  .success-ornament--br { bottom: 16px; right: 16px; }
 }
 
 /* Very small phones (≤380px) — extra tightening so nothing clips or crowds */

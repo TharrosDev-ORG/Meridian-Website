@@ -69,6 +69,7 @@ export default function RegistrationForm() {
   const [isDownloading, setIsDownloading] = useState(false);
   const [downloadFinished, setDownloadFinished] = useState(false);
   const [fontsLoaded, setFontsLoaded] = useState(false);
+  const [copied, setCopied] = useState(false);
 
   // Fetch count for the registry display
   useEffect(() => {
@@ -278,6 +279,24 @@ export default function RegistrationForm() {
     // Reset lookup state if they start editing again after a fail/check
     if (emailChecked) setEmailChecked(false);
     if (lookupError) setLookupError("");
+  };
+
+  const handleCopyNumber = () => {
+    if (!memberNumber) return;
+    navigator.clipboard.writeText(memberNumber).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    }).catch(() => {
+      const el = document.createElement("textarea");
+      el.value = memberNumber;
+      el.style.cssText = "position:fixed;opacity:0";
+      document.body.appendChild(el);
+      el.select();
+      document.execCommand("copy");
+      document.body.removeChild(el);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    });
   };
 
   const downloadMemberCard = async () => {
@@ -553,6 +572,10 @@ export default function RegistrationForm() {
       <>Welcome to the <em>Society.</em></>
     );
 
+    const formattedDate = registrationDate
+      ? new Date(registrationDate).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })
+      : new Date().toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
+
     return (
       <div className="success-overhaul reveal on" role="status" aria-live="polite">
         {/* Atmospheric Ornaments */}
@@ -560,20 +583,6 @@ export default function RegistrationForm() {
         <div className="success-ornament success-ornament--tr" />
         <div className="success-ornament success-ornament--bl" />
         <div className="success-ornament success-ornament--br" />
-
-        {/* Floating Particles */}
-        {[...Array(6)].map((_, i) => (
-          <div 
-            key={i} 
-            className="success-particle" 
-            style={{ 
-              left: `${Math.random() * 100}%`, 
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 10}s`,
-              animationDuration: `${10 + Math.random() * 10}s`
-            }} 
-          />
-        ))}
 
         <div className="success-header">
           <div className="success-eyebrow rv-stagger-item">Registration Confirmed</div>
@@ -588,32 +597,75 @@ export default function RegistrationForm() {
             <div className="registry-label">Official Member Number</div>
             <div className="registry-id">
               <span className="registry-prefix">MEMBER NO.</span>
-              <span className="registry-val">
-                {memberNumber ? <ScrambleTicker value={memberNumber} /> : "---"}
-              </span>
+              <div className="registry-val-row">
+                <span className="registry-val">
+                  {memberNumber ? <ScrambleTicker value={memberNumber} /> : "---"}
+                </span>
+                <button
+                  className={`registry-copy-btn${copied ? " is-copied" : ""}`}
+                  onClick={handleCopyNumber}
+                  aria-label={copied ? "Copied" : "Copy member number"}
+                  title={copied ? "Copied!" : "Copy member number"}
+                >
+                  {copied ? (
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                      <path d="M2 7l4 4 6-7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  ) : (
+                    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                      <rect x="5" y="1" width="10" height="11" rx="1.5" stroke="currentColor" strokeWidth="1.5"/>
+                      <path d="M3 5H2a1 1 0 00-1 1v9a1 1 0 001 1h9a1 1 0 001-1v-1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+                    </svg>
+                  )}
+                </button>
+              </div>
             </div>
             <div className="registry-status">
               <span className="status-dot"></span>
               <span className="status-text">Active Member Status</span>
             </div>
+
+            {/* Registration date (F) */}
+            <div className="registry-date">
+              <span className="registry-date-label">Member Since</span>
+              <span className="registry-date-val">{formattedDate}</span>
+            </div>
+
             <p className="registry-disclaimer">
               This is your official Society ID. Please keep it private and save it for future event check-ins.
             </p>
-            
-            <button 
+
+            {/* Card preview (L) */}
+            <div className="card-preview" aria-hidden="true">
+              <div className="card-preview-corner card-preview-corner--tl" />
+              <div className="card-preview-corner card-preview-corner--tr" />
+              <div className="card-preview-corner card-preview-corner--bl" />
+              <div className="card-preview-corner card-preview-corner--br" />
+              <div className="card-preview-inner">
+                <div className="card-preview-title">The Meridian Society</div>
+                <div className="card-preview-label">Official Member Registry</div>
+                <div className="card-preview-divider" />
+                <div className="card-preview-name">{(memberName || "Society Member").toUpperCase()}</div>
+                <div className="card-preview-num">{memberNumber || "---"}</div>
+                <div className="card-preview-divider" />
+                <div className="card-preview-date">{"Registered " + formattedDate.toUpperCase()}</div>
+              </div>
+            </div>
+
+            <button
               onClick={downloadMemberCard}
               disabled={isDownloading}
               className={`reg-download-btn ${isDownloading || downloadFinished ? 'is-active' : ''}`}
             >
               <span>
-                {isDownloading ? "Download Started" : 
-                 downloadFinished ? "Download Finished" : 
+                {isDownloading ? "Download Started" :
+                 downloadFinished ? "Download Finished" :
                  "Download Member Card"}
               </span>
             </button>
-            
+
             <div style={{ display: 'flex', justifyContent: 'center' }}>
-              <button 
+              <button
                 onClick={() => router.push("/")}
                 className="reg-home-btn"
               >
@@ -622,8 +674,6 @@ export default function RegistrationForm() {
             </div>
           </div>
         </div>
-
-
 
       </div>
     );

@@ -681,4 +681,178 @@ export const membershipCss = `
       .benefit-card { padding: 28px 20px; }
       .faq-item summary { font-size: 17px; }
     }
+
+    /* ── Registry date row (F) ── */
+    .registry-date {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      padding-top: 16px;
+      margin-top: 4px;
+      margin-bottom: 20px;
+      border-top: 1px solid var(--ink-08);
+    }
+    .registry-date-label {
+      font-family: var(--sans);
+      font-size: 8px;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--ink-30);
+    }
+    .registry-date-val {
+      font-family: var(--serif);
+      font-size: 15px;
+      font-style: italic;
+      color: var(--ink-75);
+    }
+
+    /* ── Copy-number affordance (H) ── */
+    .registry-val-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    .registry-copy-btn {
+      appearance: none;
+      background: transparent;
+      border: 1px solid var(--ink-15);
+      color: var(--ink-30);
+      padding: 7px 9px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: color 0.2s, border-color 0.2s, background 0.2s;
+      flex-shrink: 0;
+      align-self: flex-end;
+      margin-bottom: 4px;
+    }
+    .registry-copy-btn:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+    .registry-copy-btn.is-copied {
+      border-color: #2d8a4e;
+      color: #2d8a4e;
+      background: rgba(45,138,78,0.05);
+    }
+
+    /* ── Member card preview (L) ── */
+    .card-preview {
+      width: 100%;
+      border: 1.5px solid rgba(24,21,15,0.7);
+      background: #fffcf5;
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 20px;
+      aspect-ratio: 8 / 5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .card-preview::before {
+      content: '';
+      position: absolute;
+      inset: 7px;
+      border: 1px solid rgba(197,160,89,0.45);
+      pointer-events: none;
+      z-index: 1;
+    }
+    .card-preview-corner {
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      border-color: rgba(197,160,89,0.7);
+      border-style: solid;
+      pointer-events: none;
+      z-index: 2;
+    }
+    .card-preview-corner--tl { top: 14px; left: 14px; border-width: 1px 0 0 1px; }
+    .card-preview-corner--tr { top: 14px; right: 14px; border-width: 1px 1px 0 0; }
+    .card-preview-corner--bl { bottom: 14px; left: 14px; border-width: 0 0 1px 1px; }
+    .card-preview-corner--br { bottom: 14px; right: 14px; border-width: 0 1px 1px 0; }
+    .card-preview-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 16px 20px;
+      width: 100%;
+      height: 100%;
+      gap: 0;
+      position: relative;
+      z-index: 3;
+    }
+    .card-preview-title {
+      font-family: var(--serif);
+      font-size: clamp(10px, 2.2vw, 17px);
+      font-style: italic;
+      font-weight: 300;
+      color: var(--ink);
+      margin-bottom: 2px;
+      line-height: 1;
+    }
+    .card-preview-label {
+      font-family: var(--sans);
+      font-size: clamp(6px, 1.1vw, 8px);
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--ink-55);
+      margin-bottom: 6px;
+    }
+    .card-preview-divider {
+      width: 40%;
+      height: 1px;
+      background: rgba(24,21,15,0.12);
+      margin: 4px auto;
+    }
+    .card-preview-name {
+      font-family: var(--sans);
+      font-size: clamp(6.5px, 1.3vw, 10px);
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-55);
+      margin-top: 4px;
+    }
+    .card-preview-num {
+      font-family: var(--serif);
+      font-size: clamp(20px, 6.5vw, 52px);
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1;
+      margin: 4px 0;
+    }
+    .card-preview-date {
+      font-family: var(--sans);
+      font-size: clamp(6px, 1.1vw, 8px);
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-55);
+      margin-top: 4px;
+    }
+
+    /* ── Mobile success state improvements (M) ── */
+    @media (max-width: 768px) {
+      .registry-val { font-size: clamp(28px, 9vw, 44px); }
+      .reg-download-btn { padding: 14px; font-size: 11px; }
+      .reg-home-btn { padding: 12px; font-size: 10.5px; }
+      .success-header { margin-bottom: 16px; }
+      .success-rule { margin-top: 14px; }
+      .registry-date { padding-top: 12px; margin-bottom: 14px; }
+      .registry-date-val { font-size: 14px; }
+      .card-preview-num { font-size: clamp(18px, 7vw, 36px); }
+    }
+
+    @media (max-width: 480px) {
+      .registry-box { padding: 20px 16px; }
+      .registry-copy-btn { padding: 6px 8px; }
+      .card-preview { margin-bottom: 14px; }
+    }
   `;

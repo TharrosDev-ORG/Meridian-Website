@@ -213,7 +213,7 @@ export default function RegistrationForm() {
     );
   }
 
-  if (isAlreadyRegistered || result?.success) {
+  if ((isAlreadyRegistered && memberNumber) || result?.success) {
     return (
       <div className="success-overhaul reveal on" role="status" aria-live="polite">
         <div className="success-header">

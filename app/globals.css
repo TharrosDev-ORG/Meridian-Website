@@ -615,7 +615,7 @@ body {
 }
 
 @keyframes memberNoRoll {
-  0% { transform: translateY(20px); opacity: 0; filter: blur(4px); }
+  0% { transform: translateY(40px); opacity: 0; filter: blur(12px); }
   100% { transform: translateY(0); opacity: 1; filter: blur(0); }
 }
 

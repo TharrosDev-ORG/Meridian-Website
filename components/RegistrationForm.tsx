@@ -20,6 +20,30 @@ const INTERESTS_LIST = [
 const HEARD_SOURCES = ["Friend or Peer", "Professor", "Social Media", "Campus Event", "Current Member"];
 const VOLUNTEER_OPTIONS = ["Yes", "Maybe", "Not at this time"];
 
+function ScrambleTicker({ value }: { value: string }) {
+  const [display, setDisplay] = useState("");
+  const chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+  useEffect(() => {
+    if (!value) return;
+    let iteration = 0;
+    const interval = setInterval(() => {
+      setDisplay(
+        value.split("").map((char, index) => {
+          if (index < iteration) return value[index];
+          if (char === " " || char === "-") return char;
+          return chars[Math.floor(Math.random() * chars.length)];
+        }).join("")
+      );
+      if (iteration >= value.length) clearInterval(interval);
+      iteration += 1/4;
+    }, 40);
+    return () => clearInterval(interval);
+  }, [value]);
+
+  return <>{display}</>;
+}
+
 export default function RegistrationForm() {
   const router = useRouter();
   const [mounted, setMounted] = useState(false);
@@ -540,7 +564,7 @@ export default function RegistrationForm() {
             <div className="registry-id">
               <span className="registry-prefix">MEMBER NO.</span>
               <span className="registry-val registry-val-animate">
-                {memberNumber || "---"}
+                {memberNumber ? <ScrambleTicker value={memberNumber} /> : "---"}
               </span>
             </div>
             <div className="registry-status">

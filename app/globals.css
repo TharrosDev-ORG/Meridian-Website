@@ -619,8 +619,27 @@ body {
 .success-overhaul {
   position: relative;
   z-index: 1;
+  min-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: radial-gradient(circle at center, #fffdf8 0%, #f4ede3 100%);
 }
 
+/* Parchment Texture */
+.success-overhaul::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
+  opacity: 0.15;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Central Watermark M */
 .success-overhaul::before {
   content: 'M';
   position: absolute;
@@ -631,10 +650,44 @@ body {
   font-size: 80vh;
   font-weight: 300;
   font-style: italic;
-  color: var(--ink);
-  opacity: 0.02;
+  color: var(--gold);
+  opacity: 0.03;
   pointer-events: none;
   z-index: -1;
+}
+
+/* Corner Ornaments */
+.success-ornament {
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  border: 1px solid var(--gold-lt);
+  opacity: 0.3;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.success-ornament--tl { top: 40px; left: 40px; border-right: none; border-bottom: none; }
+.success-ornament--tr { top: 40px; right: 40px; border-left: none; border-bottom: none; }
+.success-ornament--bl { bottom: 40px; left: 40px; border-right: none; border-top: none; }
+.success-ornament--br { bottom: 40px; right: 40px; border-left: none; border-top: none; }
+
+/* Subtle Atmospheric Floating Particles (CSS only) */
+@keyframes floatParticle {
+  0%, 100% { transform: translateY(0) translateX(0); opacity: 0; }
+  50% { opacity: 0.4; }
+  100% { transform: translateY(-100vh) translateX(20px); opacity: 0; }
+}
+
+.success-particle {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: var(--gold);
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0;
+  animation: floatParticle 10s infinite linear;
 }
 
 /* ── SHARED PAGE UTILS ── */

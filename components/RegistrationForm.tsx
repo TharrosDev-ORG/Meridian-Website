@@ -555,6 +555,26 @@ export default function RegistrationForm() {
 
     return (
       <div className="success-overhaul reveal on" role="status" aria-live="polite">
+        {/* Atmospheric Ornaments */}
+        <div className="success-ornament success-ornament--tl" />
+        <div className="success-ornament success-ornament--tr" />
+        <div className="success-ornament success-ornament--bl" />
+        <div className="success-ornament success-ornament--br" />
+
+        {/* Floating Particles */}
+        {[...Array(6)].map((_, i) => (
+          <div 
+            key={i} 
+            className="success-particle" 
+            style={{ 
+              left: `${Math.random() * 100}%`, 
+              top: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 10}s`,
+              animationDuration: `${10 + Math.random() * 10}s`
+            }} 
+          />
+        ))}
+
         <div className="success-header">
           <div className="success-eyebrow rv-stagger-item">Registration Confirmed</div>
           <h1 className="success-title rv-stagger-item">

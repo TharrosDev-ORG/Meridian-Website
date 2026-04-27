@@ -563,7 +563,7 @@ export default function RegistrationForm() {
             <div className="registry-label">Official Member Number</div>
             <div className="registry-id">
               <span className="registry-prefix">MEMBER NO.</span>
-              <span className="registry-val registry-val-animate">
+              <span className="registry-val">
                 {memberNumber ? <ScrambleTicker value={memberNumber} /> : "---"}
               </span>
             </div>

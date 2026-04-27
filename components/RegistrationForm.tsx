@@ -316,10 +316,10 @@ export default function RegistrationForm() {
     ctx.stroke();
 
     // 5. Footer Metadata
-    ctx.fillStyle = "rgba(26,26,26,0.5)";
-    ctx.font = `500 16px ${sansStack}`;
+    ctx.fillStyle = "rgba(26,26,26,0.6)";
+    ctx.font = `600 24px ${sansStack}`;
     const formattedDate = dateToUse.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }).toUpperCase();
-    ctx.fillText(`REGISTERED ${formattedDate}`, canvas.width / 2, 640);
+    ctx.fillText(`REGISTERED ${formattedDate}`, canvas.width / 2, 635);
     
     ctx.font = `italic 14px ${serifStack}`;
     ctx.fillText("A dialogue built on shared curiosity.", canvas.width / 2, 675);

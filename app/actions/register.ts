@@ -7,13 +7,14 @@ import { headers } from 'next/headers';
 export type MemberStatus = {
   registered: boolean;
   memberNumber?: string;
+  createdAt?: string;
 };
 
 export async function checkMemberStatus(email: string): Promise<MemberStatus> {
   const supabase = createServiceClient();
   const { data, error } = await supabase
     .from("members")
-    .select("member_number")
+    .select("member_number, created_at")
     .eq("email", email.toLowerCase())
     .maybeSingle();
 
@@ -25,6 +26,7 @@ export async function checkMemberStatus(email: string): Promise<MemberStatus> {
   return {
     registered: !!data,
     memberNumber: data?.member_number,
+    createdAt: data?.created_at,
   };
 }
 
@@ -153,7 +155,7 @@ export async function registerMember(data: RegistrationData) {
   // Explicit duplicate check (Lowercased)
   const { data: existing, error: checkError } = await supabaseService
     .from('members')
-    .select('email, member_number')
+    .select('email, member_number, created_at')
     .eq('email', normalizedEmail)
     .maybeSingle();
 
@@ -168,7 +170,12 @@ export async function registerMember(data: RegistrationData) {
     // Instead of erroring, we allow the frontend to treat this as a success path
     // so the user is "redirected" to the completion state.
     console.warn(`[SECURITY] Registration attempt for existing email — Redirecting to completion.`);
-    return { success: true, alreadyRegistered: true, memberNumber: existing.member_number };
+    return { 
+      success: true, 
+      alreadyRegistered: true, 
+      memberNumber: existing.member_number,
+      createdAt: existing.created_at
+    };
   }
 
   // Insert into Supabase
@@ -188,7 +195,7 @@ export async function registerMember(data: RegistrationData) {
         accepted_terms: acceptedTerms,
       },
     ])
-    .select('member_number')
+    .select('member_number, created_at')
     .single();
 
   if (insertError) {

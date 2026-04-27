@@ -22,9 +22,10 @@ const VOLUNTEER_OPTIONS = ["Yes", "Maybe", "Not at this time"];
 export default function RegistrationForm() {
   const [mounted, setMounted] = useState(false);
   const [isPending, startTransition] = useTransition();
-  const [result, setResult] = useState<{ success?: boolean; error?: string; alreadyRegistered?: boolean; memberNumber?: string } | null>(null);
+  const [result, setResult] = useState<{ success?: boolean; error?: string; alreadyRegistered?: boolean; memberNumber?: string; createdAt?: string } | null>(null);
   const [isAlreadyRegistered, setIsAlreadyRegistered] = useState(false);
   const [memberNumber, setMemberNumber] = useState<string>("");
+  const [registrationDate, setRegistrationDate] = useState<string>("");
   const [memberCount, setMemberCount] = useState<number>(0);
   const [displayCount, setDisplayCount] = useState<number>(0);
   const [role, setRole] = useState("");
@@ -80,7 +81,9 @@ export default function RegistrationForm() {
       if (localReg === "true" || !!cookieReg) {
         setIsAlreadyRegistered(true);
         const localNum = localStorage.getItem(NUM_KEY);
+        const localDate = localStorage.getItem("meridian_join_date_v1");
         if (localNum) setMemberNumber(localNum);
+        if (localDate) setRegistrationDate(localDate);
       }
       setMounted(true);
     };
@@ -188,6 +191,10 @@ export default function RegistrationForm() {
           setMemberNumber(status.memberNumber);
           localStorage.setItem(NUM_KEY, status.memberNumber);
           localStorage.setItem(REG_KEY, "true");
+          if (status.createdAt) {
+            setRegistrationDate(status.createdAt);
+            localStorage.setItem("meridian_join_date_v1", status.createdAt);
+          }
         }
       } else {
         setEmailChecked(true);
@@ -215,6 +222,8 @@ export default function RegistrationForm() {
       await document.fonts.load('italic 48px Cormorant Garamond');
       await document.fonts.load('700 140px Cormorant Garamond');
     }
+
+    const dateToUse = registrationDate ? new Date(registrationDate) : new Date();
     
     const canvas = document.createElement("canvas");
     canvas.width = 1200;
@@ -273,8 +282,8 @@ export default function RegistrationForm() {
     // 5. Footer Metadata
     ctx.fillStyle = "rgba(26,26,26,0.5)";
     ctx.font = `500 16px ${sansStack}`;
-    const today = new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }).toUpperCase();
-    ctx.fillText(`REGISTERED ${today}`, canvas.width / 2, 640);
+    const formattedDate = dateToUse.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }).toUpperCase();
+    ctx.fillText(`REGISTERED ${formattedDate}`, canvas.width / 2, 640);
     
     ctx.font = `italic 14px ${serifStack}`;
     ctx.fillText("A dialogue built on shared curiosity.", canvas.width / 2, 675);
@@ -327,6 +336,10 @@ export default function RegistrationForm() {
         if (res.memberNumber) {
           setMemberNumber(res.memberNumber);
           localStorage.setItem(NUM_KEY, res.memberNumber);
+        }
+        if (res.createdAt) {
+          setRegistrationDate(res.createdAt);
+          localStorage.setItem("meridian_join_date_v1", res.createdAt);
         }
         localStorage.removeItem(DRAFT_KEY);
       }

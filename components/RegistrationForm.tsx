@@ -229,14 +229,17 @@ export default function RegistrationForm() {
             <div className="registry-label">Official Registry Entry</div>
             <div className="registry-id">
               <span className="registry-prefix">MEMBER NO.</span>
-              <span className={`registry-val ${displayCount > memberCount ? 'count-up' : ''}`}>
-                {memberNumber || displayCount || memberCount || "---"}
+              <span className="registry-val">
+                {memberNumber || "---"}
               </span>
             </div>
             <div className="registry-status">
               <span className="status-dot"></span>
               <span className="status-text">Active Member Status</span>
             </div>
+            <p className="registry-disclaimer">
+              This is your official Society ID. Please keep it private and save it for future event check-ins.
+            </p>
           </div>
         </div>
 

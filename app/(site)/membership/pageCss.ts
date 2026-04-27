@@ -340,6 +340,11 @@ export const membershipCss = `
     .registry-status { display: flex; align-items: center; gap: 10px; }
     .status-dot { width: 6px; height: 6px; background: #2d8a4e; border-radius: 50%; box-shadow: 0 0 12px rgba(45,138,78,0.5); }
     .status-text { font-family: var(--sans); font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: #2d8a4e; }
+    .registry-disclaimer {
+      font-family: var(--serif); font-size: 13px; color: var(--ink-40);
+      margin-top: 20px; font-style: italic; line-height: 1.5; max-width: 280px;
+      text-align: center;
+    }
 
     .success-lead { font-family: var(--serif); font-size: 22px; font-weight: 300; font-style: italic; color: var(--ink-75); line-height: 1.8; max-width: 680px; margin-bottom: 64px; }
 

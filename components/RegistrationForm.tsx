@@ -249,7 +249,7 @@ export default function RegistrationForm() {
 
     // Subheader: Registry Label
     ctx.font = `700 20px ${sansStack}`;
-    const label = "OFFICIAL REGISTRY ENTRY";
+    const label = "OFFICIAL MEMBER NUMBER";
     ctx.fillText(label, canvas.width / 2, 240);
 
     // 4. Central Identity: Member Number
@@ -353,7 +353,7 @@ export default function RegistrationForm() {
 
         <div className="success-registry rv-stagger-item" data-d="1">
           <div className="registry-box">
-            <div className="registry-label">Official Registry Entry</div>
+            <div className="registry-label">Official Member Number</div>
             <div className="registry-id">
               <span className="registry-prefix">MEMBER NO.</span>
               <span className="registry-val">

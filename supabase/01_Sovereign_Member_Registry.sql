@@ -111,7 +111,7 @@ CREATE OR REPLACE FUNCTION public.handle_member_count_change()
 RETURNS trigger
 LANGUAGE plpgsql
 SECURITY DEFINER
-SET search_path = ''
+SET search_path = public
 AS $$
 BEGIN
     IF (TG_OP = 'INSERT') THEN

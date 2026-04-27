@@ -501,21 +501,40 @@ export default function RegistrationForm() {
     ctx.restore();
 
     // 7. Trigger Robust Download
-    canvas.toBlob((blob) => {
-      if (!blob) return;
-      const url = URL.createObjectURL(blob);
+    try {
+      // Use toDataURL (synchronous) instead of toBlob (asynchronous) 
+      // to keep the action within the user-initiated event chain for mobile browsers.
+      const dataUrl = canvas.toDataURL("image/png");
+      
+      const fileName = `Meridian_Member_Card_${memberNumber || 'Society'}.png`;
       const link = document.createElement("a");
-      link.download = `Meridian_Member_Card_${memberNumber || 'Society'}.png`;
-      link.href = url;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      setTimeout(() => URL.revokeObjectURL(url), 100);
+      link.href = dataUrl;
+      link.download = fileName;
+      
+      // Detection for iOS devices
+      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || 
+                   (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+
+      if (isIOS) {
+        // On iOS Safari, the 'download' attribute is often ignored for Data URLs.
+        // Opening the image in the current window or a new tab allows the user 
+        // to long-press and "Save to Photos".
+        window.location.href = dataUrl;
+      } else {
+        // Standard programmatic download for Android and Desktop
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }
       
       setIsDownloading(false);
       setDownloadFinished(true);
       setTimeout(() => setDownloadFinished(false), 4000);
-    }, "image/png");
+    } catch (err) {
+      console.error("Member card download failed:", err);
+      setIsDownloading(false);
+      // Fallback: alert the user or show a message
+    }
   };
 
   async function clientAction(formData: FormData) {

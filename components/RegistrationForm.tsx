@@ -36,6 +36,7 @@ export default function RegistrationForm() {
   const [lookupError, setLookupError] = useState("");
   const [isDownloading, setIsDownloading] = useState(false);
   const [downloadFinished, setDownloadFinished] = useState(false);
+  const [fontsLoaded, setFontsLoaded] = useState(false);
 
   // Fetch count for the registry display
   useEffect(() => {
@@ -100,9 +101,11 @@ export default function RegistrationForm() {
 
     // Background Sync: If registered but date is missing, fetch it
     const syncMemberDetails = async () => {
-      if (isAlreadyRegistered && !registrationDate && email) {
+      // Use email if available, otherwise fallback to memberNumber
+      const identifier = email || memberNumber;
+      if (isAlreadyRegistered && !registrationDate && identifier) {
         try {
-          const status = await checkMemberStatus(email);
+          const status = await checkMemberStatus(identifier);
           if (status.createdAt) {
             setRegistrationDate(status.createdAt);
             localStorage.setItem("meridian_join_date_v1", status.createdAt);
@@ -235,8 +238,9 @@ export default function RegistrationForm() {
 
   const downloadMemberCard = async () => {
     // Final fallback: If still no date, try one last check
-    if (!registrationDate && email) {
-      const status = await checkMemberStatus(email);
+    const identifier = email || memberNumber;
+    if (!registrationDate && identifier) {
+      const status = await checkMemberStatus(identifier);
       if (status.createdAt) {
         setRegistrationDate(status.createdAt);
         localStorage.setItem("meridian_join_date_v1", status.createdAt);
@@ -245,10 +249,14 @@ export default function RegistrationForm() {
 
     setIsDownloading(true);
     setDownloadFinished(false);
-    // Ensure fonts are ready before drawing
-    if (document.fonts) {
-      await document.fonts.load('italic 48px Cormorant Garamond');
-      await document.fonts.load('700 140px Cormorant Garamond');
+
+    // Ensure fonts are ready before drawing (Optimized: only load once)
+    if (document.fonts && !fontsLoaded) {
+      await Promise.all([
+        document.fonts.load('italic 48px Cormorant Garamond'),
+        document.fonts.load('700 140px Cormorant Garamond')
+      ]);
+      setFontsLoaded(true);
     }
 
     const dateToUse = registrationDate ? new Date(registrationDate) : new Date();

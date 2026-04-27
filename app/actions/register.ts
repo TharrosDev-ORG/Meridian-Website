@@ -10,12 +10,18 @@ export type MemberStatus = {
   createdAt?: string;
 };
 
-export async function checkMemberStatus(email: string): Promise<MemberStatus> {
+export async function checkMemberStatus(identifier: string): Promise<MemberStatus> {
   const supabase = createServiceClient();
+  
+  // Polymorphic lookup: check if identifier is email or member number
+  const isEmail = identifier.includes("@");
+  const column = isEmail ? "email" : "member_number";
+  const value = isEmail ? identifier.toLowerCase() : identifier;
+
   const { data, error } = await supabase
     .from("members")
     .select("member_number, created_at")
-    .eq("email", email.toLowerCase())
+    .eq(column, value)
     .maybeSingle();
 
   if (error) {

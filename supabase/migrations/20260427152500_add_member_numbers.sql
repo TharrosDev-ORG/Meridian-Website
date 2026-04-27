@@ -24,7 +24,7 @@ BEGIN
 END;
 $$;
 
--- 4. Create Trigger Function
+-- 4. Create Trigger Functions
 CREATE OR REPLACE FUNCTION public.tr_assign_member_number()
 RETURNS trigger 
 LANGUAGE plpgsql
@@ -39,11 +39,30 @@ BEGIN
 END;
 $$;
 
--- 5. Attach Trigger
+CREATE OR REPLACE FUNCTION public.tr_lock_member_number()
+RETURNS trigger 
+LANGUAGE plpgsql
+SECURITY DEFINER
+SET search_path = public
+AS $$
+BEGIN
+    IF OLD.member_number IS NOT NULL AND NEW.member_number != OLD.member_number THEN
+        RAISE EXCEPTION 'Member number is immutable and cannot be changed.';
+    END IF;
+    RETURN NEW;
+END;
+$$;
+
+-- 5. Attach Triggers
 DROP TRIGGER IF EXISTS tr_assign_member_number ON public.members;
 CREATE TRIGGER tr_assign_member_number
 BEFORE INSERT ON public.members
 FOR EACH ROW EXECUTE FUNCTION public.tr_assign_member_number();
+
+DROP TRIGGER IF EXISTS tr_lock_member_number ON public.members;
+CREATE TRIGGER tr_lock_member_number
+BEFORE UPDATE ON public.members
+FOR EACH ROW EXECUTE FUNCTION public.tr_lock_member_number();
 
 -- 6. Backfill existing members (Optional, but recommended)
 UPDATE public.members 

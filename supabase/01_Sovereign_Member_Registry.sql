@@ -81,7 +81,19 @@ BEGIN
     RETURN NEW;
 END;
 $$;
-
+CREATE OR REPLACE FUNCTION public.tr_lock_member_number()
+RETURNS trigger 
+LANGUAGE plpgsql
+SECURITY DEFINER
+SET search_path = public
+AS $$
+BEGIN
+    IF OLD.member_number IS NOT NULL AND NEW.member_number != OLD.member_number THEN
+        RAISE EXCEPTION 'Member number is immutable and cannot be changed.';
+    END IF;
+    RETURN NEW;
+END;
+$$;
 COMMENT ON TABLE public.members IS 'Archival member directory. Identity core for the Meridian Society.';
 COMMENT ON COLUMN public.members.email IS 'Case-insensitive primary contact email.';
 
@@ -158,6 +170,11 @@ DROP TRIGGER IF EXISTS tr_assign_member_number ON public.members;
 CREATE TRIGGER tr_assign_member_number
 BEFORE INSERT ON public.members
 FOR EACH ROW EXECUTE FUNCTION public.tr_assign_member_number();
+
+DROP TRIGGER IF EXISTS tr_lock_member_number ON public.members;
+CREATE TRIGGER tr_lock_member_number
+BEFORE UPDATE ON public.members
+FOR EACH ROW EXECUTE FUNCTION public.tr_lock_member_number();
 
 -- 7. FOUNDATION SECURITY POLICIES
 ---------------------------------------------

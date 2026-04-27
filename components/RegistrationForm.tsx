@@ -600,7 +600,7 @@ export default function RegistrationForm() {
 
         <div className="success-social-proof rv-stagger-item" data-d="2" style={{ textAlign: 'center', marginBottom: '24px', opacity: 0.8 }}>
           <span style={{ fontFamily: 'var(--sans)', fontSize: '11px', letterSpacing: '0.15em', textTransform: 'uppercase', color: 'var(--gold)' }}>
-            You join <span style={{ color: 'var(--ink)', fontWeight: 700 }}>{displayCount}</span> others in the pursuit of curiosity.
+            You join <span style={{ color: 'var(--ink)', fontWeight: 700 }}><ScrambleTicker value={String(displayCount)} /></span> others in the pursuit of curiosity.
           </span>
         </div>
 

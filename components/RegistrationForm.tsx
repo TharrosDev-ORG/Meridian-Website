@@ -604,9 +604,6 @@ export default function RegistrationForm() {
           </span>
         </div>
 
-        <p className="success-lead rv-stagger-item" data-d="3">
-          Your presence in the dialogue is now official. The Meridian Society is built on the shared curiosity of its members.
-        </p>
       </div>
     );
   }

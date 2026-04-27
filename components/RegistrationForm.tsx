@@ -260,7 +260,7 @@ export default function RegistrationForm() {
     ctx.lineTo(canvas.width / 2 + 150, 350);
     ctx.stroke();
 
-    ctx.font = `700 140px ${serifStack}`;
+    ctx.font = `700 140px serif`;
     ctx.fillText(memberNumber || "M26-XXXX", canvas.width / 2, 460);
 
     ctx.beginPath();

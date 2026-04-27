@@ -269,11 +269,13 @@ export default function RegistrationForm() {
     setIsDownloading(true);
     setDownloadFinished(false);
 
-    // Ensure fonts are ready before drawing (Optimized: only load once)
+    // Ensure fonts are ready before drawing
     if (document.fonts && !fontsLoaded) {
       await Promise.all([
-        document.fonts.load('italic 48px Cormorant Garamond'),
-        document.fonts.load('700 140px Cormorant Garamond')
+        document.fonts.load('italic 48px "Cormorant Garamond"'),
+        document.fonts.load('700 140px "Cormorant Garamond"'),
+        document.fonts.load('700 20px "Barlow Condensed"'),
+        document.fonts.load('600 24px "Barlow Condensed"')
       ]);
       setFontsLoaded(true);
     }
@@ -290,24 +292,75 @@ export default function RegistrationForm() {
     ctx.fillStyle = "#fffcf5"; 
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
+    // 1.1 Subtle Paper Texture Overlay
+    const noiseCanvas = document.createElement("canvas");
+    noiseCanvas.width = 100;
+    noiseCanvas.height = 100;
+    const nCtx = noiseCanvas.getContext("2d");
+    if (nCtx) {
+      const nData = nCtx.createImageData(100, 100);
+      for (let i = 0; i < nData.data.length; i += 4) {
+        const val = 128 + Math.random() * 30;
+        nData.data[i] = nData.data[i+1] = nData.data[i+2] = val;
+        nData.data[i+3] = 10; // Very faint
+      }
+      nCtx.putImageData(nData, 0, 0);
+      const pattern = ctx.createPattern(noiseCanvas, "repeat");
+      if (pattern) {
+        ctx.fillStyle = pattern;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+      }
+    }
+
     // 2. Border System
     // Outer Ink Border
     ctx.strokeStyle = "#1a1a1a";
-    ctx.lineWidth = 2;
+    ctx.lineWidth = 3;
     ctx.strokeRect(40, 40, canvas.width - 80, canvas.height - 80);
 
-    // Inner Gold Frame
-    ctx.strokeStyle = "#c5a059";
-    ctx.lineWidth = 1;
+    // Inner Gold Frame with Gradient
+    const goldGrad = ctx.createLinearGradient(60, 60, canvas.width - 60, canvas.height - 60);
+    goldGrad.addColorStop(0, "#c5a059");
+    goldGrad.addColorStop(0.2, "#e8d0a0");
+    goldGrad.addColorStop(0.5, "#c5a059");
+    goldGrad.addColorStop(0.8, "#e8d0a0");
+    goldGrad.addColorStop(1, "#9e7e3e");
+
+    ctx.strokeStyle = goldGrad;
+    ctx.lineWidth = 2;
     ctx.strokeRect(60, 60, canvas.width - 120, canvas.height - 120);
+
+    // 2.1 Decorative Corners (Gold)
+    const drawCorner = (x: number, y: number, rot: number) => {
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.rotate(rot);
+      ctx.beginPath();
+      ctx.moveTo(0, 40);
+      ctx.lineTo(0, 0);
+      ctx.lineTo(40, 0);
+      ctx.stroke();
+      ctx.restore();
+    };
+    drawCorner(60, 60, 0); // Top Left
+    drawCorner(canvas.width - 60, 60, Math.PI / 2); // Top Right
+    drawCorner(canvas.width - 60, canvas.height - 60, Math.PI); // Bottom Right
+    drawCorner(60, canvas.height - 60, -Math.PI / 2); // Bottom Left
 
     // 3. Typography Setup
     ctx.fillStyle = "#1a1a1a";
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
 
-    const serifStack = "'Cormorant Garamond', 'Georgia', serif";
-    const sansStack = "'Barlow Condensed', 'Helvetica', sans-serif";
+    const serifStack = "'Cormorant Garamond', serif";
+    const sansStack = "'Barlow Condensed', sans-serif";
+
+    // Watermark "M" in center
+    ctx.save();
+    ctx.font = `italic 400px ${serifStack}`;
+    ctx.fillStyle = "rgba(197, 160, 89, 0.03)";
+    ctx.fillText("M", canvas.width / 2, canvas.height / 2 + 20);
+    ctx.restore();
 
     // Header: The Society Title
     ctx.font = `italic 48px ${serifStack}`;
@@ -315,8 +368,10 @@ export default function RegistrationForm() {
 
     // Subheader: Registry Label
     ctx.font = `700 20px ${sansStack}`;
-    const label = "OFFICIAL MEMBER NUMBER";
+    ctx.letterSpacing = "4px";
+    const label = "OFFICIAL MEMBER REGISTRY";
     ctx.fillText(label, canvas.width / 2, 240);
+    ctx.letterSpacing = "0px";
 
     // 4. Central Identity: Member Number
     // Name Header
@@ -325,46 +380,82 @@ export default function RegistrationForm() {
     ctx.fillText((memberName || "SOCIETY MEMBER").toUpperCase(), canvas.width / 2, 330);
 
     // Decorative lines around number
-    ctx.strokeStyle = "rgba(26,26,26,0.1)";
+    ctx.strokeStyle = "rgba(26,26,26,0.15)";
     ctx.beginPath();
-    ctx.moveTo(canvas.width / 2 - 150, 365);
-    ctx.lineTo(canvas.width / 2 + 150, 365);
+    ctx.moveTo(canvas.width / 2 - 200, 365);
+    ctx.lineTo(canvas.width / 2 + 200, 365);
     ctx.stroke();
 
     ctx.fillStyle = "#1a1a1a";
-    ctx.font = `700 140px serif`;
+    ctx.font = `700 140px ${serifStack}`;
+    // Shadow for depth
+    ctx.shadowColor = "rgba(0,0,0,0.1)";
+    ctx.shadowBlur = 10;
+    ctx.shadowOffsetY = 5;
     ctx.fillText(memberNumber || "M26-XXXX", canvas.width / 2, 470);
+    ctx.shadowBlur = 0;
+    ctx.shadowOffsetY = 0;
 
     ctx.beginPath();
-    ctx.moveTo(canvas.width / 2 - 150, 575);
-    ctx.lineTo(canvas.width / 2 + 150, 575);
+    ctx.moveTo(canvas.width / 2 - 200, 575);
+    ctx.lineTo(canvas.width / 2 + 200, 575);
     ctx.stroke();
 
     // 5. Footer Metadata
     ctx.fillStyle = "rgba(26,26,26,0.6)";
-    ctx.font = `600 24px ${sansStack}`;
+    ctx.font = `600 20px ${sansStack}`;
     const formattedDate = dateToUse.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }).toUpperCase();
     ctx.fillText(`REGISTERED ${formattedDate}`, canvas.width / 2, 635);
 
-    // 6. Trigger Robust Download
+    // 6. Society Seal (Bottom Right)
+    const sealX = canvas.width - 160;
+    const sealY = canvas.height - 160;
+    ctx.save();
+    ctx.translate(sealX, sealY);
+    
+    // Outer seal circle
+    ctx.strokeStyle = "rgba(197, 160, 89, 0.4)";
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.arc(0, 0, 60, 0, Math.PI * 2);
+    ctx.stroke();
+    
+    // Inner seal circle
+    ctx.beginPath();
+    ctx.arc(0, 0, 52, 0, Math.PI * 2);
+    ctx.stroke();
+    
+    // Seal text
+    ctx.fillStyle = "rgba(26,26,26,0.4)";
+    ctx.font = `800 8px ${sansStack}`;
+    const sealText = "THE MERIDIAN SOCIETY • EST. 2026 • OFFICIAL MEMBER • ";
+    for (let i = 0; i < sealText.length; i++) {
+      ctx.save();
+      ctx.rotate((i / sealText.length) * Math.PI * 2);
+      ctx.fillText(sealText[i], 0, -45);
+      ctx.restore();
+    }
+    
+    // Seal Center M
+    ctx.font = `italic 32px ${serifStack}`;
+    ctx.fillStyle = "rgba(197, 160, 89, 0.6)";
+    ctx.fillText("M", 0, 0);
+    ctx.restore();
+
+    // 7. Trigger Robust Download
     canvas.toBlob((blob) => {
       if (!blob) return;
       const url = URL.createObjectURL(blob);
       const link = document.createElement("a");
       link.download = `Meridian_Member_Card_${memberNumber || 'Society'}.png`;
       link.href = url;
-      // Append to body is required for some mobile browsers
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
-      // Clean up memory
       setTimeout(() => URL.revokeObjectURL(url), 100);
       
-      // Sequence the completion states
       setIsDownloading(false);
       setDownloadFinished(true);
-      
-      // Reset back to idle after 4 seconds
       setTimeout(() => setDownloadFinished(false), 4000);
     }, "image/png");
   };

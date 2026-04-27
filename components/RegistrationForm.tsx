@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useTransition, useEffect } from "react";
+import { useState, useTransition, useEffect, useRef } from "react";
 import { registerMember, RegistrationData, checkMemberStatus } from "@/app/actions/register";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -70,6 +70,13 @@ export default function RegistrationForm() {
   const [downloadFinished, setDownloadFinished] = useState(false);
   const [fontsLoaded, setFontsLoaded] = useState(false);
   const [copied, setCopied] = useState(false);
+  const copyTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (copyTimeoutRef.current) clearTimeout(copyTimeoutRef.current);
+    };
+  }, []);
 
   // Fetch count for the registry display
   useEffect(() => {
@@ -283,19 +290,22 @@ export default function RegistrationForm() {
 
   const handleCopyNumber = () => {
     if (!memberNumber) return;
-    navigator.clipboard.writeText(memberNumber).then(() => {
+
+    const flashCopied = () => {
       setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    }).catch(() => {
+      if (copyTimeoutRef.current) clearTimeout(copyTimeoutRef.current);
+      copyTimeoutRef.current = setTimeout(() => setCopied(false), 2000);
+    };
+
+    navigator.clipboard.writeText(memberNumber).then(flashCopied).catch(() => {
       const el = document.createElement("textarea");
       el.value = memberNumber;
-      el.style.cssText = "position:fixed;opacity:0";
+      el.style.cssText = "position:fixed;opacity:0;pointer-events:none";
       document.body.appendChild(el);
       el.select();
-      document.execCommand("copy");
+      const ok = document.execCommand("copy");
       document.body.removeChild(el);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
+      if (ok) flashCopied();
     });
   };
 
@@ -648,7 +658,7 @@ export default function RegistrationForm() {
                 <div className="card-preview-name">{(memberName || "Society Member").toUpperCase()}</div>
                 <div className="card-preview-num">{memberNumber || "---"}</div>
                 <div className="card-preview-divider" />
-                <div className="card-preview-date">{"Registered " + formattedDate.toUpperCase()}</div>
+                <div className="card-preview-date">{`Registered ${formattedDate.toUpperCase()}`}</div>
               </div>
             </div>
 

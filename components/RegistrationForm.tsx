@@ -479,15 +479,17 @@ export default function RegistrationForm() {
     ctx.letterSpacing = "0px";
 
     // Name Header
-    ctx.fillStyle = "rgba(26,26,26,0.8)";
-    ctx.font = `600 28px ${sansStack}`;
-    ctx.fillText((memberName || "SOCIETY MEMBER").toUpperCase(), canvas.width / 2, 530);
+    ctx.fillStyle = "#1a1a1a";
+    ctx.font = `800 48px ${sansStack}`;
+    ctx.letterSpacing = "2px";
+    ctx.fillText((memberName || "SOCIETY MEMBER").toUpperCase(), canvas.width / 2, 540);
+    ctx.letterSpacing = "0px";
 
     // Decorative lines around number
     ctx.strokeStyle = "rgba(26,26,26,0.15)";
     ctx.beginPath();
-    ctx.moveTo(canvas.width / 2 - 250, 580);
-    ctx.lineTo(canvas.width / 2 + 250, 580);
+    ctx.moveTo(canvas.width / 2 - 250, 600);
+    ctx.lineTo(canvas.width / 2 + 250, 600);
     ctx.stroke();
 
     ctx.fillStyle = "#1a1a1a";
@@ -496,20 +498,20 @@ export default function RegistrationForm() {
     ctx.shadowColor = "rgba(0,0,0,0.1)";
     ctx.shadowBlur = 10;
     ctx.shadowOffsetY = 5;
-    ctx.fillText(memberNumber || "M26-XXXX", canvas.width / 2, 720);
+    ctx.fillText(memberNumber || "M26-XXXX", canvas.width / 2, 740);
     ctx.shadowBlur = 0;
     ctx.shadowOffsetY = 0;
 
     ctx.beginPath();
-    ctx.moveTo(canvas.width / 2 - 250, 860);
-    ctx.lineTo(canvas.width / 2 + 250, 860);
+    ctx.moveTo(canvas.width / 2 - 250, 880);
+    ctx.lineTo(canvas.width / 2 + 250, 880);
     ctx.stroke();
 
     // Registration Date
     ctx.fillStyle = "rgba(26,26,26,0.6)";
     ctx.font = `600 24px ${sansStack}`;
     const formattedDate = dateToUse.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }).toUpperCase();
-    ctx.fillText(`MEMBER SINCE ${formattedDate}`, canvas.width / 2, 920);
+    ctx.fillText(`MEMBER SINCE ${formattedDate}`, canvas.width / 2, 940);
 
     // 5. Huge QR Code Section (Bottom Half)
     const qrSize = 620; // Massive QR code, slightly scaled for safety

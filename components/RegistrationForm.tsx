@@ -694,25 +694,6 @@ export default function RegistrationForm() {
               This is your official Society ID. Please keep it private and save it for future event check-ins.
             </p>
 
-            {/* Card preview (L) */}
-            <div className="card-preview" aria-hidden="true">
-              <div className="card-preview-corner card-preview-corner--tl" />
-              <div className="card-preview-corner card-preview-corner--tr" />
-              <div className="card-preview-corner card-preview-corner--bl" />
-              <div className="card-preview-corner card-preview-corner--br" />
-              <div className="card-preview-inner">
-                <div className="card-preview-seal" />
-                <div className="card-preview-title">The Meridian Society</div>
-                <div className="card-preview-label">Official Member Registry</div>
-                <div className="card-preview-divider" />
-                <div className="card-preview-name">{(memberName || "Society Member").toUpperCase()}</div>
-                <div className="card-preview-num">{memberNumber || "---"}</div>
-                <div className="card-preview-divider" />
-                <div className="card-preview-date">{`MEMBER SINCE ${formattedDate.toUpperCase()}`}</div>
-                <div className="card-preview-qr" />
-              </div>
-            </div>
-
             <button
               onClick={downloadMemberCard}
               disabled={isDownloading}

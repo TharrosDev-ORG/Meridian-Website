@@ -691,7 +691,7 @@ export default function RegistrationForm() {
             </div>
 
             <p className="registry-disclaimer">
-              This is your official Society ID. Please keep it private and save it for future event check-ins.
+              This is your official Society ID and QR access key. Please keep it private and save it for rapid check-ins at all future events.
             </p>
 
             <button

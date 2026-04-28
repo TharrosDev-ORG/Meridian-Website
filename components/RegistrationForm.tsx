@@ -4,6 +4,7 @@ import { useState, useTransition, useEffect, useRef } from "react";
 import { registerMember, RegistrationData, checkMemberStatus } from "@/app/actions/register";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import QRCode from "qrcode";
 import { INSTAGRAM_URL } from "@/utils/social";
 
 const REG_KEY = "meridian_registered_v1";
@@ -338,6 +339,23 @@ export default function RegistrationForm() {
       setFontsLoaded(true);
     }
 
+    // Generate QR Code Data URL
+    const qrDataUrl = await QRCode.toDataURL(memberNumber || "M26-XXXX", {
+      margin: 1,
+      width: 440, // High res for the 1200x750 canvas
+      color: {
+        dark: "#1a1a1a",
+        light: "#fffcf5" // Match cream background
+      },
+      errorCorrectionLevel: 'H' // High error correction for better scanning on low-res screens
+    });
+
+    const qrImage = new Image();
+    qrImage.src = qrDataUrl;
+    await new Promise((resolve) => {
+      qrImage.onload = resolve;
+    });
+
     const dateToUse = registrationDate ? new Date(registrationDate) : new Date();
     
     const canvas = document.createElement("canvas");
@@ -435,13 +453,13 @@ export default function RegistrationForm() {
     // Name Header
     ctx.fillStyle = "rgba(26,26,26,0.8)";
     ctx.font = `600 24px ${sansStack}`;
-    ctx.fillText((memberName || "SOCIETY MEMBER").toUpperCase(), canvas.width / 2, 330);
+    ctx.fillText((memberName || "SOCIETY MEMBER").toUpperCase(), canvas.width / 2, 320);
 
     // Decorative lines around number
     ctx.strokeStyle = "rgba(26,26,26,0.15)";
     ctx.beginPath();
-    ctx.moveTo(canvas.width / 2 - 200, 365);
-    ctx.lineTo(canvas.width / 2 + 200, 365);
+    ctx.moveTo(canvas.width / 2 - 200, 350);
+    ctx.lineTo(canvas.width / 2 + 200, 350);
     ctx.stroke();
 
     ctx.fillStyle = "#1a1a1a";
@@ -450,24 +468,39 @@ export default function RegistrationForm() {
     ctx.shadowColor = "rgba(0,0,0,0.1)";
     ctx.shadowBlur = 10;
     ctx.shadowOffsetY = 5;
-    ctx.fillText(memberNumber || "M26-XXXX", canvas.width / 2, 470);
+    ctx.fillText(memberNumber || "M26-XXXX", canvas.width / 2, 445);
     ctx.shadowBlur = 0;
     ctx.shadowOffsetY = 0;
 
     ctx.beginPath();
-    ctx.moveTo(canvas.width / 2 - 200, 575);
-    ctx.lineTo(canvas.width / 2 + 200, 575);
+    ctx.moveTo(canvas.width / 2 - 200, 535);
+    ctx.lineTo(canvas.width / 2 + 200, 535);
     ctx.stroke();
 
-    // 5. Footer Metadata
+    // 5. Footer Metadata (Relocated to bottom left)
     ctx.fillStyle = "rgba(26,26,26,0.6)";
     ctx.font = `600 20px ${sansStack}`;
+    ctx.textAlign = "left";
     const formattedDate = dateToUse.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }).toUpperCase();
-    ctx.fillText(`REGISTERED ${formattedDate}`, canvas.width / 2, 635);
+    ctx.fillText(`REGISTERED ${formattedDate}`, 100, 680);
 
-    // 6. Society Seal (Bottom Right)
-    const sealX = canvas.width - 160;
-    const sealY = canvas.height - 160;
+    // 6. Prominent QR Code (Bottom Right)
+    const qrSize = 220;
+    const qrPadding = 15;
+    const qrX = canvas.width - qrSize - 100;
+    const qrY = canvas.height - qrSize - 80;
+
+    // Draw a subtle gold frame for the QR code
+    ctx.strokeStyle = goldGrad;
+    ctx.lineWidth = 1;
+    ctx.strokeRect(qrX - qrPadding, qrY - qrPadding, qrSize + (qrPadding * 2), qrSize + (qrPadding * 2));
+    
+    // Draw the QR Code image
+    ctx.drawImage(qrImage, qrX, qrY, qrSize, qrSize);
+
+    // 7. Society Seal (Bottom Left)
+    const sealX = 160;
+    const sealY = 550;
     ctx.save();
     ctx.translate(sealX, sealY);
     
@@ -673,6 +706,8 @@ export default function RegistrationForm() {
                 <div className="card-preview-num">{memberNumber || "---"}</div>
                 <div className="card-preview-divider" />
                 <div className="card-preview-date">{`Registered ${formattedDate.toUpperCase()}`}</div>
+                <div className="card-preview-qr" />
+                <div className="card-preview-seal" />
               </div>
             </div>
 

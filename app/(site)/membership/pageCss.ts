@@ -826,13 +826,51 @@ export const membershipCss = `
       margin: 4px 0;
     }
     .card-preview-date {
-      font-family: var(--sans);
-      font-size: clamp(6px, 1.1vw, 8px);
-      font-weight: 600;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
       color: var(--ink-55);
       margin-top: 4px;
+    }
+
+    .card-preview-qr {
+      position: absolute;
+      bottom: 12px;
+      right: 12px;
+      width: clamp(40px, 10vw, 70px);
+      height: clamp(40px, 10vw, 70px);
+      border: 0.5px solid rgba(197,160,89,0.3);
+      padding: 2px;
+      background: #fffcf5;
+      z-index: 4;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .card-preview-qr::after {
+      content: 'QR';
+      font-family: var(--sans);
+      font-size: 8px;
+      font-weight: 700;
+      color: var(--ink-30);
+    }
+
+    .card-preview-seal {
+      position: absolute;
+      bottom: 12px;
+      left: 12px;
+      width: clamp(25px, 6vw, 40px);
+      height: clamp(25px, 6vw, 40px);
+      border: 1px solid rgba(197,160,89,0.25);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 4;
+    }
+    .card-preview-seal::after {
+      content: 'M';
+      font-family: var(--serif);
+      font-size: clamp(10px, 2.5vw, 16px);
+      font-style: italic;
+      color: rgba(197,160,89,0.4);
     }
 
     /* ── Mobile success state improvements (M) ── */
@@ -851,5 +889,7 @@ export const membershipCss = `
       .registry-box { padding: 20px 16px; }
       .registry-copy-btn { padding: 6px 8px; }
       .card-preview { margin-bottom: 14px; }
+      .card-preview-qr { bottom: 8px; right: 8px; }
+      .card-preview-seal { bottom: 8px; left: 8px; }
     }
   `;

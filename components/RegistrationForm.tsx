@@ -311,9 +311,9 @@ export default function RegistrationForm() {
   };
 
   const downloadMemberCard = async () => {
-    // Final fallback: If still no date/name, try one last check
-    const identifier = email || memberNumber;
-    if ((!registrationDate || !memberName) && identifier) {
+    // Final fallback: If still no date/name/number, try one last check
+    const identifier = email || memberNumber || localStorage.getItem(NUM_KEY);
+    if ((!registrationDate || !memberName || !memberNumber) && identifier) {
       const status = await checkMemberStatus(identifier);
       if (status.createdAt) {
         setRegistrationDate(status.createdAt);
@@ -323,6 +323,10 @@ export default function RegistrationForm() {
         setMemberName(status.fullName);
         localStorage.setItem("meridian_member_name_v1", status.fullName);
       }
+      if (status.memberNumber) {
+        setMemberNumber(status.memberNumber);
+        localStorage.setItem(NUM_KEY, status.memberNumber);
+      }
     }
 
     setIsDownloading(true);
@@ -331,10 +335,11 @@ export default function RegistrationForm() {
     // Ensure fonts are ready before drawing
     if (document.fonts && !fontsLoaded) {
       await Promise.all([
-        document.fonts.load('italic 48px "Cormorant Garamond"'),
-        document.fonts.load('700 140px "Cormorant Garamond"'),
-        document.fonts.load('700 20px "Barlow Condensed"'),
-        document.fonts.load('600 24px "Barlow Condensed"')
+        document.fonts.load('italic 56px "Cormorant Garamond"'),
+        document.fonts.load('700 160px "Cormorant Garamond"'),
+        document.fonts.load('800 48px "Barlow Condensed"'),
+        document.fonts.load('700 24px "Barlow Condensed"'),
+        document.fonts.load('600 28px "Barlow Condensed"')
       ]);
       setFontsLoaded(true);
     }

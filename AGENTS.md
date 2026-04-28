@@ -46,7 +46,10 @@ The **Meridian Website** is the core of The Meridian Society—it is the society
     - Implements **IP-based Rate Limiting**.
     - **Polymorphic Lookup**: `checkMemberStatus` supports both Email and Member Number identifiers.
     - **Name Shielding**: Verified members' names cannot be changed by subsequent public registrations.
-    - **Canvas Identity**: Member ID cards are generated client-side via Canvas API using `Cormorant Garamond` (italic 48px header) and `Barlow Condensed` (bold 24px metadata).
+    - **Canvas Identity (Vertical Portrait)**: Member ID cards are generated client-side via Canvas API (1200x1800 portrait). 
+        - **Branding**: Restored Society Seal at top-center.
+        - **QR Encoding**: Encodes the persistent `member_number` (M26-XXXX) with Level H Error Correction for PorterOS compatibility.
+        - **Typography**: Requires strict font loading parity: `Cormorant Garamond` (Italic 56px, Bold 160px) and `Barlow Condensed` (Bold 48px, Semi-Bold 24px).
 
 - **Success Screen Design**:
     - **Single-Viewport Constraint**: Success screens (specifically `.success-overhaul`) MUST fit entirely within a single viewport (`90vh` on desktop) to maintain a cinematic, gallery-style feel.
@@ -58,6 +61,12 @@ The **Meridian Website** is the core of The Meridian Society—it is the society
 - Always use `sans` (Barlow Condensed) for labels and metadata.
 - Borders should be subtle: `border-[var(--ink)]/10`.
 - Hover states should use `var(--gold)`.
+
+---
+
+## 🛰 PorterOS Synchronization
+- **ID Strategy**: Member IDs are persistent access keys. EventOS should verify scanned `memberNumber` payloads against the `meridian_members` registry.
+- **Verification Logic**: 1. Scanned `M26-XXXX` -> 2. Registry Check -> 3. Ticket Cross-Reference (Event ID) -> 4. Attendance Log Entry.
 
 ---
 

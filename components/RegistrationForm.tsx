@@ -360,7 +360,7 @@ export default function RegistrationForm() {
     
     const canvas = document.createElement("canvas");
     canvas.width = 1200;
-    canvas.height = 750;
+    canvas.height = 1800; // Much longer card
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
@@ -431,76 +431,9 @@ export default function RegistrationForm() {
     const serifStack = "'Cormorant Garamond', serif";
     const sansStack = "'Barlow Condensed', sans-serif";
 
-    // Watermark "M" in center
-    ctx.save();
-    ctx.font = `italic 400px ${serifStack}`;
-    ctx.fillStyle = "rgba(197, 160, 89, 0.03)";
-    ctx.fillText("M", canvas.width / 2, canvas.height / 2 + 20);
-    ctx.restore();
-
-    // Header: The Society Title
-    ctx.font = `italic 48px ${serifStack}`;
-    ctx.fillText("The Meridian Society", canvas.width / 2, 180);
-
-    // Subheader: Registry Label
-    ctx.font = `700 20px ${sansStack}`;
-    ctx.letterSpacing = "4px";
-    const label = "OFFICIAL MEMBER REGISTRY";
-    ctx.fillText(label, canvas.width / 2, 240);
-    ctx.letterSpacing = "0px";
-
-    // 4. Central Identity: Member Number
-    // Name Header
-    ctx.fillStyle = "rgba(26,26,26,0.8)";
-    ctx.font = `600 24px ${sansStack}`;
-    ctx.fillText((memberName || "SOCIETY MEMBER").toUpperCase(), canvas.width / 2, 320);
-
-    // Decorative lines around number
-    ctx.strokeStyle = "rgba(26,26,26,0.15)";
-    ctx.beginPath();
-    ctx.moveTo(canvas.width / 2 - 200, 350);
-    ctx.lineTo(canvas.width / 2 + 200, 350);
-    ctx.stroke();
-
-    ctx.fillStyle = "#1a1a1a";
-    ctx.font = `700 140px ${serifStack}`;
-    // Shadow for depth
-    ctx.shadowColor = "rgba(0,0,0,0.1)";
-    ctx.shadowBlur = 10;
-    ctx.shadowOffsetY = 5;
-    ctx.fillText(memberNumber || "M26-XXXX", canvas.width / 2, 445);
-    ctx.shadowBlur = 0;
-    ctx.shadowOffsetY = 0;
-
-    ctx.beginPath();
-    ctx.moveTo(canvas.width / 2 - 200, 535);
-    ctx.lineTo(canvas.width / 2 + 200, 535);
-    ctx.stroke();
-
-    // 5. Footer Metadata (Relocated to bottom left)
-    ctx.fillStyle = "rgba(26,26,26,0.6)";
-    ctx.font = `600 20px ${sansStack}`;
-    ctx.textAlign = "left";
-    const formattedDate = dateToUse.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }).toUpperCase();
-    ctx.fillText(`REGISTERED ${formattedDate}`, 100, 680);
-
-    // 6. Prominent QR Code (Bottom Right)
-    const qrSize = 220;
-    const qrPadding = 15;
-    const qrX = canvas.width - qrSize - 100;
-    const qrY = canvas.height - qrSize - 80;
-
-    // Draw a subtle gold frame for the QR code
-    ctx.strokeStyle = goldGrad;
-    ctx.lineWidth = 1;
-    ctx.strokeRect(qrX - qrPadding, qrY - qrPadding, qrSize + (qrPadding * 2), qrSize + (qrPadding * 2));
-    
-    // Draw the QR Code image
-    ctx.drawImage(qrImage, qrX, qrY, qrSize, qrSize);
-
-    // 7. Society Seal (Bottom Left)
-    const sealX = 160;
-    const sealY = 550;
+    // 3.1 Society Seal (RESTORED TO TOP CENTER)
+    const sealX = canvas.width / 2;
+    const sealY = 220;
     ctx.save();
     ctx.translate(sealX, sealY);
     
@@ -508,30 +441,99 @@ export default function RegistrationForm() {
     ctx.strokeStyle = "rgba(197, 160, 89, 0.4)";
     ctx.lineWidth = 1;
     ctx.beginPath();
-    ctx.arc(0, 0, 60, 0, Math.PI * 2);
+    ctx.arc(0, 0, 80, 0, Math.PI * 2);
     ctx.stroke();
     
     // Inner seal circle
     ctx.beginPath();
-    ctx.arc(0, 0, 52, 0, Math.PI * 2);
+    ctx.arc(0, 0, 72, 0, Math.PI * 2);
     ctx.stroke();
     
     // Seal text
     ctx.fillStyle = "rgba(26,26,26,0.4)";
-    ctx.font = `800 8px ${sansStack}`;
+    ctx.font = `800 10px ${sansStack}`;
     const sealText = "THE MERIDIAN SOCIETY • EST. 2026 • OFFICIAL MEMBER • ";
     for (let i = 0; i < sealText.length; i++) {
       ctx.save();
       ctx.rotate((i / sealText.length) * Math.PI * 2);
-      ctx.fillText(sealText[i], 0, -45);
+      ctx.fillText(sealText[i], 0, -62);
       ctx.restore();
     }
     
     // Seal Center M
-    ctx.font = `italic 32px ${serifStack}`;
+    ctx.font = `italic 44px ${serifStack}`;
     ctx.fillStyle = "rgba(197, 160, 89, 0.6)";
     ctx.fillText("M", 0, 0);
     ctx.restore();
+
+    // 4. Header & Identity Section (Top Half)
+    // Header: The Society Title
+    ctx.fillStyle = "#1a1a1a";
+    ctx.font = `italic 56px ${serifStack}`;
+    ctx.fillText("The Meridian Society", canvas.width / 2, 380);
+
+    // Subheader: Registry Label
+    ctx.font = `700 24px ${sansStack}`;
+    ctx.letterSpacing = "6px";
+    ctx.fillText("OFFICIAL MEMBER REGISTRY", canvas.width / 2, 450);
+    ctx.letterSpacing = "0px";
+
+    // Name Header
+    ctx.fillStyle = "rgba(26,26,26,0.8)";
+    ctx.font = `600 28px ${sansStack}`;
+    ctx.fillText((memberName || "SOCIETY MEMBER").toUpperCase(), canvas.width / 2, 560);
+
+    // Decorative lines around number
+    ctx.strokeStyle = "rgba(26,26,26,0.15)";
+    ctx.beginPath();
+    ctx.moveTo(canvas.width / 2 - 250, 600);
+    ctx.lineTo(canvas.width / 2 + 250, 600);
+    ctx.stroke();
+
+    ctx.fillStyle = "#1a1a1a";
+    ctx.font = `700 160px ${serifStack}`;
+    // Shadow for depth
+    ctx.shadowColor = "rgba(0,0,0,0.1)";
+    ctx.shadowBlur = 10;
+    ctx.shadowOffsetY = 5;
+    ctx.fillText(memberNumber || "M26-XXXX", canvas.width / 2, 710);
+    ctx.shadowBlur = 0;
+    ctx.shadowOffsetY = 0;
+
+    ctx.beginPath();
+    ctx.moveTo(canvas.width / 2 - 250, 820);
+    ctx.lineTo(canvas.width / 2 + 250, 820);
+    ctx.stroke();
+
+    // Registration Date
+    ctx.fillStyle = "rgba(26,26,26,0.6)";
+    ctx.font = `600 24px ${sansStack}`;
+    const formattedDate = dateToUse.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }).toUpperCase();
+    ctx.fillText(`MEMBER SINCE ${formattedDate}`, canvas.width / 2, 880);
+
+    // 5. Huge QR Code Section (Bottom Half)
+    const qrSize = 700; // Massive QR code
+    const qrX = (canvas.width - qrSize) / 2;
+    const qrY = 1000; // Positioned in the bottom half
+
+    // Draw a prominent gold frame for the QR code
+    ctx.strokeStyle = goldGrad;
+    ctx.lineWidth = 2;
+    ctx.strokeRect(qrX - 30, qrY - 30, qrSize + 60, qrSize + 60);
+    
+    // Background for QR to ensure contrast
+    ctx.fillStyle = "#fffcf5";
+    ctx.fillRect(qrX - 10, qrY - 10, qrSize + 20, qrSize + 20);
+
+    // Draw the QR Code image
+    ctx.drawImage(qrImage, qrX, qrY, qrSize, qrSize);
+
+    // Label under QR
+    ctx.fillStyle = "rgba(26,26,26,0.4)";
+    ctx.font = `700 20px ${sansStack}`;
+    ctx.letterSpacing = "8px";
+    ctx.fillText("SCAN FOR ACCESS", canvas.width / 2, qrY + qrSize + 60);
+    ctx.letterSpacing = "0px";
 
     // 7. Trigger Robust Download
     try {
@@ -699,15 +701,15 @@ export default function RegistrationForm() {
               <div className="card-preview-corner card-preview-corner--bl" />
               <div className="card-preview-corner card-preview-corner--br" />
               <div className="card-preview-inner">
+                <div className="card-preview-seal" />
                 <div className="card-preview-title">The Meridian Society</div>
                 <div className="card-preview-label">Official Member Registry</div>
                 <div className="card-preview-divider" />
                 <div className="card-preview-name">{(memberName || "Society Member").toUpperCase()}</div>
                 <div className="card-preview-num">{memberNumber || "---"}</div>
                 <div className="card-preview-divider" />
-                <div className="card-preview-date">{`Registered ${formattedDate.toUpperCase()}`}</div>
+                <div className="card-preview-date">{`MEMBER SINCE ${formattedDate.toUpperCase()}`}</div>
                 <div className="card-preview-qr" />
-                <div className="card-preview-seal" />
               </div>
             </div>
 

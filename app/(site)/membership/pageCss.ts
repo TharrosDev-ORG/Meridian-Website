@@ -733,144 +733,141 @@ export const membershipCss = `
       color: var(--gold);
     }
     .registry-copy-btn.is-copied {
-      border-color: #2d8a4e;
-      color: #2d8a4e;
-      background: rgba(45,138,78,0.05);
-    }
-
-    /* ── Member card preview (L) ── */
+     /* ── Member card preview (L) ── */
     .card-preview {
       width: 100%;
+      max-width: 400px;
+      margin: 0 auto 24px;
       border: 1.5px solid rgba(24,21,15,0.7);
       background: #fffcf5;
       position: relative;
       overflow: hidden;
-      margin-bottom: 20px;
-      aspect-ratio: 8 / 5;
+      aspect-ratio: 1 / 1.5;
       display: flex;
-      align-items: center;
-      justify-content: center;
+      flex-direction: column;
     }
     .card-preview::before {
       content: '';
       position: absolute;
-      inset: 7px;
+      inset: 8px;
       border: 1px solid rgba(197,160,89,0.45);
       pointer-events: none;
       z-index: 1;
     }
     .card-preview-corner {
       position: absolute;
-      width: 18px;
-      height: 18px;
+      width: 24px;
+      height: 24px;
       border-color: rgba(197,160,89,0.7);
       border-style: solid;
       pointer-events: none;
       z-index: 2;
     }
-    .card-preview-corner--tl { top: 14px; left: 14px; border-width: 1px 0 0 1px; }
-    .card-preview-corner--tr { top: 14px; right: 14px; border-width: 1px 1px 0 0; }
-    .card-preview-corner--bl { bottom: 14px; left: 14px; border-width: 0 0 1px 1px; }
-    .card-preview-corner--br { bottom: 14px; right: 14px; border-width: 0 1px 1px 0; }
+    .card-preview-corner--tl { top: 16px; left: 16px; border-width: 1px 0 0 1px; }
+    .card-preview-corner--tr { top: 16px; right: 16px; border-width: 1px 1px 0 0; }
+    .card-preview-corner--bl { bottom: 16px; left: 16px; border-width: 0 0 1px 1px; }
+    .card-preview-corner--br { bottom: 16px; right: 16px; border-width: 0 1px 1px 0; }
+    
     .card-preview-inner {
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 16px 20px;
+      padding: 48px 24px;
       width: 100%;
       height: 100%;
       position: relative;
       z-index: 3;
     }
-    .card-preview-title {
-      font-family: var(--serif);
-      font-size: clamp(10px, 2.2vw, 17px);
-      font-style: italic;
-      font-weight: 300;
-      color: var(--ink);
-      margin-bottom: 2px;
-      line-height: 1;
-    }
-    .card-preview-label {
-      font-family: var(--sans);
-      font-size: clamp(6px, 1.1vw, 8px);
-      font-weight: 700;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--ink-55);
-      margin-bottom: 6px;
-    }
-    .card-preview-divider {
-      width: 40%;
-      height: 1px;
-      background: rgba(24,21,15,0.12);
-      margin: 4px auto;
-    }
-    .card-preview-name {
-      font-family: var(--sans);
-      font-size: clamp(6.5px, 1.3vw, 10px);
-      font-weight: 600;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--ink-55);
-      margin-top: 4px;
-    }
-    .card-preview-num {
-      font-family: var(--serif);
-      font-size: clamp(20px, 6.5vw, 52px);
-      font-weight: 700;
-      color: var(--ink);
-      line-height: 1;
-      margin: 4px 0;
-    }
-    .card-preview-date {
-      color: var(--ink-55);
-      margin-top: 4px;
-    }
-
-    .card-preview-qr {
-      position: absolute;
-      bottom: 12px;
-      right: 12px;
-      width: clamp(40px, 10vw, 70px);
-      height: clamp(40px, 10vw, 70px);
-      border: 0.5px solid rgba(197,160,89,0.3);
-      padding: 2px;
-      background: #fffcf5;
-      z-index: 4;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .card-preview-qr::after {
-      content: 'QR';
-      font-family: var(--sans);
-      font-size: 8px;
-      font-weight: 700;
-      color: var(--ink-30);
-    }
-
+    
     .card-preview-seal {
-      position: absolute;
-      bottom: 12px;
-      left: 12px;
-      width: clamp(25px, 6vw, 40px);
-      height: clamp(25px, 6vw, 40px);
+      margin-bottom: 20px;
+      width: 60px;
+      height: 60px;
       border: 1px solid rgba(197,160,89,0.25);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      z-index: 4;
+      position: relative;
     }
     .card-preview-seal::after {
       content: 'M';
       font-family: var(--serif);
-      font-size: clamp(10px, 2.5vw, 16px);
+      font-size: 24px;
       font-style: italic;
       color: rgba(197,160,89,0.4);
+    }
+
+    .card-preview-title {
+      font-family: var(--serif);
+      font-size: 20px;
+      font-style: italic;
+      font-weight: 300;
+      color: var(--ink);
+      margin-bottom: 4px;
+      line-height: 1;
+    }
+    .card-preview-label {
+      font-family: var(--sans);
+      font-size: 8px;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--ink-55);
+      margin-bottom: 8px;
+    }
+    .card-preview-divider {
+      width: 60px;
+      height: 1px;
+      background: rgba(24,21,15,0.12);
+      margin: 8px auto;
+    }
+    .card-preview-name {
+      font-family: var(--sans);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-55);
+      margin-top: 12px;
+    }
+    .card-preview-num {
+      font-family: var(--serif);
+      font-size: 48px;
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1;
+      margin: 8px 0;
+    }
+    .card-preview-date {
+      font-family: var(--sans);
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      color: var(--ink-40);
+      margin-top: 8px;
+    }
+
+    .card-preview-qr {
+      margin-top: auto;
+      margin-bottom: 20px;
+      width: clamp(140px, 35vw, 180px);
+      height: clamp(140px, 35vw, 180px);
+      border: 1px solid rgba(197,160,89,0.3);
+      padding: 8px;
+      background: #fffcf5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    .card-preview-qr::after {
+      content: 'QR CODE';
+      font-family: var(--sans);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      color: var(--ink-20);
     }
 
     /* ── Mobile success state improvements (M) ── */
@@ -889,7 +886,5 @@ export const membershipCss = `
       .registry-box { padding: 20px 16px; }
       .registry-copy-btn { padding: 6px 8px; }
       .card-preview { margin-bottom: 14px; }
-      .card-preview-qr { bottom: 8px; right: 8px; }
-      .card-preview-seal { bottom: 8px; left: 8px; }
     }
   `;

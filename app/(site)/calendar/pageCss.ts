@@ -21,6 +21,21 @@ export const calendarCss = `
       overflow: hidden;
       position: relative;
       will-change: transform, border-color, box-shadow;
+      cursor: pointer;
+    }
+
+    /* Accordion States */
+    .event-card.is-compressed {
+      grid-template-columns: 180px 1fr;
+    }
+    
+    .event-card.is-expanded {
+      grid-template-columns: 180px 1fr 240px;
+    }
+
+    .event-card.is-compressed .event-action-col,
+    .event-card.is-compressed .event-details-reveal {
+      display: none;
     }
 
     .event-card:hover {
@@ -51,6 +66,25 @@ export const calendarCss = `
       display: flex;
       flex-direction: column;
       justify-content: center;
+      transition: padding 0.4s ease;
+    }
+
+    .event-card.is-compressed .event-info-col {
+      padding: 32px 40px;
+    }
+
+    .expand-indicator {
+      font-family: var(--serif);
+      font-size: 28px;
+      color: var(--gold);
+      line-height: 1;
+      font-weight: 300;
+      opacity: 0.5;
+      transition: all 0.3s ease;
+    }
+
+    .event-card:hover .expand-indicator {
+      opacity: 1;
     }
 
     .event-tag {
@@ -71,6 +105,11 @@ export const calendarCss = `
       line-height: 1.1;
       color: var(--ink);
       margin-bottom: 12px;
+      transition: margin 0.3s ease;
+    }
+
+    .event-card.is-compressed .event-title {
+      margin-bottom: 0;
     }
 
     .event-desc {

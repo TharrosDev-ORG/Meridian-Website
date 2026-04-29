@@ -49,6 +49,7 @@ interface CalendarClientProps {
 export default function CalendarClient({ initialEvents }: CalendarClientProps) {
   const [events, setEvents] = useState<Event[]>(initialEvents);
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
+  const [expandedId, setExpandedId] = useState<string | null>(initialEvents[0]?.id || null);
   const [mounted, setMounted] = useState(false);
 
   // Trigger reveal observer when events change (initial mount)
@@ -83,64 +84,77 @@ export default function CalendarClient({ initialEvents }: CalendarClientProps) {
     <>
       {events.length > 0 ? (
         <div className="calendar-grid rv rv-stagger">
-            {events.map((event) => (
-              <article
-                key={event.id}
-                className="event-card rv-stagger-item"
-              >
-                {/* Date Badge */}
-                <div className="event-date-col">
-                  <span className="date-day">{new Date(event.date).toLocaleDateString('en-US', { day: '2-digit' })}</span>
-                  <span className="date-month">{new Date(event.date).toLocaleDateString('en-US', { month: 'short' })}</span>
-                  <span className="date-year">{new Date(event.date).getFullYear()}</span>
-                </div>
+            {events.map((event) => {
+              const isExpanded = expandedId === event.id;
+              
+              return (
+                <article
+                  key={event.id}
+                  className={`event-card rv-stagger-item ${isExpanded ? 'is-expanded' : 'is-compressed'}`}
+                  onClick={() => setExpandedId(isExpanded ? null : event.id)}
+                >
+                  {/* Date Badge */}
+                  <div className="event-date-col">
+                    <span className="date-day">{new Date(event.date).toLocaleDateString('en-US', { day: '2-digit' })}</span>
+                    <span className="date-month">{new Date(event.date).toLocaleDateString('en-US', { month: 'short' })}</span>
+                    <span className="date-year">{new Date(event.date).getFullYear()}</span>
+                  </div>
 
-                {/* Event Info */}
-                <div className="event-info-col">
-                  <span className="event-tag">
-                    {event.is_members_only ? 'Member Exclusive' : 'Public Access'}
-                  </span>
-                  <h2 className="event-title">{event.name}</h2>
-                  <p className="event-desc">{event.description || 'No description available in archives.'}</p>
-                </div>
-
-                {/* Meta & Action */}
-                <div className="event-action-col">
-                  <div className="space-y-4">
-                    <div className="event-meta-item">
-                      <MapPinIcon className="text-[var(--gold)]/60" />
-                      <div>
-                        <p className="meta-lbl">Location</p>
-                        <p className="meta-val">{event.location}</p>
+                  {/* Event Info */}
+                  <div className="event-info-col">
+                    <div className="flex items-center justify-between">
+                      <span className="event-tag">
+                        {event.is_members_only ? 'Member Exclusive' : 'Public Access'}
+                      </span>
+                      <div className="expand-indicator">
+                        {isExpanded ? '−' : '+'}
                       </div>
                     </div>
-                    <div className="event-meta-item">
-                      <UsersIcon className="text-[var(--gold)]/60" />
-                      <div>
-                        <p className="meta-lbl">Availability</p>
-                        <p className="meta-val">
-                          {event.capacity - event.rsvp_count > 0 
-                            ? `${event.capacity - event.rsvp_count} Seats Remaining`
-                            : 'Full Capacity'}
-                        </p>
-                      </div>
+                    <h2 className="event-title">{event.name}</h2>
+                    <div className="event-details-reveal">
+                      <p className="event-desc">{event.description || 'No description available in archives.'}</p>
                     </div>
                   </div>
 
-                  <div className="btn-register">
-                    <Magnetic strength={0.2}>
+                  {/* Meta & Action */}
+                  <div className="event-action-col">
+                    <div className="space-y-4">
+                      <div className="event-meta-item">
+                        <MapPinIcon className="text-gold/60" />
+                        <div>
+                          <p className="meta-lbl">Location</p>
+                          <p className="meta-val">{event.location}</p>
+                        </div>
+                      </div>
+                      <div className="event-meta-item">
+                        <UsersIcon className="text-gold/60" />
+                        <div>
+                          <p className="meta-lbl">Availability</p>
+                          <p className="meta-val">
+                            {event.capacity - event.rsvp_count > 0 
+                              ? `${event.capacity - event.rsvp_count} Seats Remaining`
+                              : 'Full Capacity'}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="btn-register">
                       <button 
-                        onClick={() => setSelectedEvent(event)}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setSelectedEvent(event);
+                        }}
                         disabled={event.rsvp_count >= event.capacity}
                         className="btn-primary w-full"
                       >
                         <span>{event.rsvp_count >= event.capacity ? 'Registration Closed' : 'Secure Ticket'}</span>
                       </button>
-                    </Magnetic>
+                    </div>
                   </div>
-                </div>
-              </article>
-            ))}
+                </article>
+              );
+            })}
         </div>
       ) : (
         <div className="calendar-empty rv" data-d="2">

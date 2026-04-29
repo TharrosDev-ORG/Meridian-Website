@@ -26,8 +26,8 @@ function ScrambleTicker({ value }: { value: string }) {
   useEffect(() => {
     if (!value) return;
     let iteration = 0;
-    const duration = 2000; // 2 seconds
-    const intervalTime = 40;
+    const duration = 800; // 0.8 seconds
+    const intervalTime = 30;
     const totalSteps = duration / intervalTime;
     const increment = value.length / totalSteps;
 

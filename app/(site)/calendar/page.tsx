@@ -1,13 +1,19 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { cookies } from 'next/headers';
+import dynamic from 'next/dynamic';
 import { createClient } from '@/utils/supabase/server';
 import PageStyles from '@/components/PageStyles';
 import { calendarCss } from './pageCss';
-import CalendarClient, { Event } from './CalendarClient';
 import Marquee from '@/components/Marquee';
 import { getMetadata } from '@/utils/metadata-shared';
 import { generateBreadcrumbSchema, generateEventSchema } from '@/utils/jsonld';
+import type { Event } from './CalendarClient';
+
+// Defer interactive client logic for extreme performance
+const CalendarClient = dynamic(() => import('./CalendarClient'), {
+  ssr: true, // Keep SSR for initial event list visibility
+});
 
 export const metadata: Metadata = getMetadata({
   title: "Society Calendar",
@@ -16,13 +22,17 @@ export const metadata: Metadata = getMetadata({
   keywords: ['Meridian Calendar', 'Student Events Ottawa', 'Speaker Forum Schedule', 'Society Gatherings']
 });
 
+// Revalidate every 60 seconds (ISR)
+export const revalidate = 60;
+
 export default async function CalendarPage() {
   const cookieStore = await cookies();
   const supabase = createClient(cookieStore);
   
+  // High-performance query: select only required archival fields
   const { data: events, error } = await supabase
     .from('events')
-    .select('*')
+    .select('id, name, date, location, capacity, rsvp_count, description, is_members_only')
     .eq('status', 'active')
     .gte('date', new Date().toISOString())
     .order('date', { ascending: true });
@@ -58,7 +68,7 @@ export default async function CalendarPage() {
             __html: JSON.stringify(generateEventSchema({
               name: event.name,
               startDate: event.date,
-              description: event.description,
+              description: event.description || '',
               locationName: event.location,
             })),
           }}
@@ -85,9 +95,9 @@ export default async function CalendarPage() {
             </p>
             
             <div className="mt-12 rv" data-d="3">
-              <Link href="/events" className="btn-ghost-link">
+              <MagneticLink href="/events" className="btn-ghost-link">
                 <span>←</span> Return to Events About
-              </Link>
+              </MagneticLink>
             </div>
           </div>
         </section>
@@ -100,5 +110,14 @@ export default async function CalendarPage() {
         </div>
       </main>
     </>
+  );
+}
+
+// Internal helper to avoid Magnetic circular dependency if any
+function MagneticLink({ href, className, children }: { href: string, className?: string, children: React.ReactNode }) {
+  return (
+    <Link href={href} className={className}>
+      {children}
+    </Link>
   );
 }

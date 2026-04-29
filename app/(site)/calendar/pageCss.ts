@@ -20,6 +20,7 @@ export const calendarCss = `
       transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1), border-color 0.4s ease;
       overflow: hidden;
       position: relative;
+      will-change: transform, border-color, box-shadow;
     }
 
     .event-card:hover {
@@ -123,6 +124,7 @@ export const calendarCss = `
 
     .registration-panel-inner {
       animation: slideUp 0.5s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+      will-change: transform, opacity;
     }
 
     @keyframes fadeIn {

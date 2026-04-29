@@ -123,7 +123,7 @@ export const calendarCss = `
       place-items: center;
       padding: 20px;
       animation: fadeIn 0.25s ease-out forwards;
-      pointer-events: auto; /* Re-enabled for click-off-to-close */
+      pointer-events: auto;
       overflow: hidden;
     }
 
@@ -136,7 +136,7 @@ export const calendarCss = `
       z-index: 100000;
       pointer-events: auto;
       background: var(--cream);
-      padding: 6px; /* Elegant frame spacing */
+      padding: 8px; /* Internal frame spacing */
       border: 1px solid var(--ink);
       box-shadow: 0 40px 100px rgba(0,0,0,0.6);
     }
@@ -152,7 +152,7 @@ export const calendarCss = `
     }
 
 
-    /* ── SUCCESS MINIMAL (Registry Overhaul) ── */
+    /* ── SUCCESS MINIMAL (Ticket Overhaul) ── */
     .success-minimal {
       text-align: center;
       padding: 60px 40px;
@@ -237,13 +237,6 @@ export const calendarCss = `
     .ticket-title em {
       font-style: italic;
       color: var(--gold);
-    }
-
-    .registration-panel-inner {
-      background: var(--cream);
-      border: 1px solid var(--ink);
-      padding: 8px; /* Internal frame spacing */
-      box-shadow: 0 40px 100px rgba(0,0,0,0.5);
     }
 
     .ticket-box-outer {
@@ -343,4 +336,4 @@ export const calendarCss = `
       }
       .btn-register { width: 100%; }
     }
-\`;
+`;

@@ -108,25 +108,32 @@ export const calendarCss = `
       width: 100%;
     }
 
-    /* Registration Panel */
+    /* Registration Panel Overhaul */
     .reg-overlay {
       position: fixed;
-      inset: 0;
-      background: rgba(24,21,15,0.92);
-      z-index: 1000;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(18, 16, 14, 0.96); /* Deepest ink, no grey, no blur */
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+      z-index: 99999;
+      display: grid;
+      place-items: center;
       padding: 20px;
-      animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      animation: fadeIn 0.25s ease-out forwards;
+      pointer-events: auto;
+      overflow: hidden; /* Prevent overlay itself from scrolling */
     }
 
     .registration-panel-inner {
-      animation: popupScale 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      animation: portalPop 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
       will-change: transform, opacity;
-      max-width: 480px;
+      max-width: 460px;
       width: 100%;
       position: relative;
+      z-index: 100000;
     }
 
     @keyframes fadeIn {
@@ -134,8 +141,8 @@ export const calendarCss = `
       to { opacity: 1; }
     }
 
-    @keyframes popupScale {
-      from { opacity: 0; transform: scale(0.9) translateY(20px); }
+    @keyframes portalPop {
+      from { opacity: 0; transform: scale(0.95) translateY(10px); }
       to { opacity: 1; transform: scale(1) translateY(0); }
     }
 

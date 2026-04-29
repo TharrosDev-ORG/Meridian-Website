@@ -10,15 +10,6 @@ CREATE EXTENSION IF NOT EXISTS moddatetime WITH SCHEMA extensions;
 
 -- 2. AUDIT & MONITORING TABLES
 ---------------------------------------------
-CREATE TABLE IF NOT EXISTS public.archival_audit_logs (
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    created_at TIMESTAMPTZ DEFAULT now(),
-    actor_role TEXT,
-    action TEXT NOT NULL,
-    target_id TEXT,
-    details JSONB,
-    ip_address TEXT
-);
 
 CREATE TABLE IF NOT EXISTS public.security_intercepts (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -50,17 +41,6 @@ CREATE TABLE IF NOT EXISTS public.system_config (
 
 -- 4. AUDIT & VAULT FUNCTIONS
 ---------------------------------------------
-CREATE OR REPLACE FUNCTION public.log_archival_action(p_role text, p_action text, p_target_id text, p_details jsonb DEFAULT '{}'::jsonb)
-RETURNS void
-LANGUAGE plpgsql
-SECURITY DEFINER
-SET search_path = public
-AS $$
-BEGIN
-    INSERT INTO archival_audit_logs (actor_role, action, target_id, details)
-    VALUES (p_role, p_action, p_target_id, p_details);
-END;
-$$;
 
 CREATE OR REPLACE FUNCTION public.initialize_archival_vault(p_secret text)
 RETURNS text
@@ -108,14 +88,11 @@ FOR EACH ROW EXECUTE FUNCTION extensions.moddatetime(updated_at);
 
 -- 6. AUDIT SECURITY POLICIES
 ---------------------------------------------
-ALTER TABLE public.archival_audit_logs ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.security_intercepts ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.archival_settings ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.system_config ENABLE ROW LEVEL SECURITY;
 
 -- Strictly Private for all public roles
-DROP POLICY IF EXISTS "Audit logs are strictly private" ON public.archival_audit_logs;
-CREATE POLICY "Audit logs are strictly private" ON public.archival_audit_logs FOR ALL TO public USING (false);
 
 DROP POLICY IF EXISTS "Intercepts are strictly private" ON public.security_intercepts;
 CREATE POLICY "Intercepts are strictly private" ON public.security_intercepts FOR ALL TO public USING (false);

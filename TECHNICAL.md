@@ -12,6 +12,7 @@ The site implements a unified, mobile-first component tree. We avoid separate mo
 | Public URL | Route Directory | Source File Path | CSS Logic |
 | :--- | :--- | :--- | :--- |
 | `/` | `app/(site)/` | `page.tsx` | `pageCss.ts` |
+| `/calendar` | `app/(site)/calendar/` | `page.tsx` | `pageCss.ts` |
 | `/events` | `app/(site)/events/` | `page.tsx` | Shared Modules + `pageCss.ts` |
 | `/membership` | `app/(site)/membership/` | `page.tsx` | `pageCss.ts` |
 | `/social` | `app/(site)/social/` | `page.tsx` | Shared Modules + `pageCss.ts` |
@@ -82,8 +83,8 @@ Numbers are assigned automatically by the Postgres trigger `assign_member_number
 
 #### Canvas Card Generation
 The Society ID Card is generated client-side via Canvas 2D:
-- **Dimensions**: 1200×750 px (8:5 ratio)
-- **Layers**: cream background → paper noise texture → ink outer border (3 px) → gold gradient inner frame → decorative gold corner marks → typography (Cormorant Garamond + Barlow Condensed) → member number at 140 px serif → circular gold seal (bottom-right) with rotating "THE MERIDIAN SOCIETY · EST. 2026 · OFFICIAL MEMBER" text and centre "M" → "M" watermark (italic, ~3% opacity) → registration date footer
+- **Dimensions**: 1200×1800 px (2:3 Portrait ratio)
+- **Layers**: cream background → paper noise texture → ink outer border (3 px) → gold gradient inner frame → decorative gold corner marks → typography (Cormorant Garamond + Barlow Condensed) → Society Seal (top center) → member number at 160 px serif → Huge QR Code (bottom center) → "M" watermark (italic, ~3% opacity) → registration date footer
 - **Font loading**: `document.fonts.load()` awaited for all four weights before drawing; result cached in `fontsLoaded` state
 - **Output**: PNG blob → object URL → `<a download>` click → `URL.revokeObjectURL` after 100 ms
 
@@ -145,15 +146,22 @@ The site utilises a strict "Observer-Reveal" pattern managed through `Providers.
 ## 🔒 5. Permanent Information Policy
 
 **Static-First Intent**: The `/events` and `/social` pages are documented **event history guides**.
-- No dynamic event fetching is implemented.
-- JSON-LD Event schemas pointing to future dates are strictly prohibited to maintain static integrity.
+- `/calendar` serves as the dynamic portal for all upcoming forums and gatherings.
+- No dynamic event fetching is implemented for historical pages (`/events`, `/social`).
+- JSON-LD Event schemas pointing to future dates are strictly prohibited on historical pages to maintain static integrity.
 - All real-time updates are redirected to the Society's Instagram.
 
 ---
 
-## 🗄️ 6. Database Schema
+### 6.1 master_sql/ (Sequential Foundation)
 
-### 6.1 migrations/ (applied in order)
+| File | Purpose |
+|------|---------|
+| `01_Sovereign_Member_Registry.sql` | Core identity and member registry |
+| `02_Meridian_EventOS_Engine.sql` | Event orchestration and dynamic calendar |
+| `03_Security_Vault_and_System_Governance.sql` | Security vault and system configuration |
+
+### 6.2 migrations/ (applied in order)
 
 | File | Purpose |
 |------|---------|

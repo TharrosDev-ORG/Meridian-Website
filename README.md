@@ -27,6 +27,7 @@ Use this map to find the source code for any page on the site.
 | Goal Page | Website Link | Source File Path (Click in IDE) |
 | :--- | :--- | :--- |
 | **Homepage** | [/](https://meridiansociety.ca) | [page.tsx](app/(site)/page.tsx) |
+| **Event Calendar** | [/calendar](https://meridiansociety.ca/calendar) | [page.tsx](app/(site)/calendar/page.tsx) |
 | **Speaker Events** | [/events](https://meridiansociety.ca/events) | [page.tsx](app/(site)/events/page.tsx) |
 | **Social Gatherings** | [/social](https://meridiansociety.ca/social) | [page.tsx](app/(site)/social/page.tsx) |
 | **The Team** | [/team](https://meridiansociety.ca/team) | [page.tsx](app/(site)/team/page.tsx) |
@@ -135,7 +136,7 @@ Paste **ONE** of these blocks above the `{/* Placeholder */}` block.
 
 The Society issues digital **Official Member Cards** (PNG format) upon successful registration or verification. Members download them directly from the registration success screen.
 
-- **What&apos;s on the card**: Member name, unique member number (large serif), registration date, society seal, and "The Meridian Society" header — all rendered client-side on a 1200×750 canvas.
+- **What&apos;s on the card**: Member name, unique member number (large serif), registration date, society seal, and "The Meridian Society" header — all rendered client-side on a 1200×1800 portrait canvas.
 - **Card preview**: A live HTML/CSS preview of the card is shown on the success screen before download so members know what they&apos;re getting.
 - **Registration date**: The "Member Since" date is displayed directly on the success screen alongside the member number.
 - **Copy member number**: Members can copy their number to the clipboard with one click from the success screen.
@@ -163,11 +164,19 @@ The Meridian Website is the society's entire identity and the base of everything
 
 ---
 
-## 🏛️ Sovereign Registry (SQL Architecture)
+### 🏛️ Sovereign Registry (SQL Architecture)
 
-The Meridian Project utilizes a unified database architecture built up through eight sequential migrations in `supabase/migrations/`. Apply them in order to any new Supabase instance:
+The project utilizes a unified database architecture built up through three master files in `supabase/` and eight sequential migrations in `supabase/migrations/`.
 
 | File | What it does |
+|------|-------------|
+| **`01_Sovereign_Member_Registry.sql`** | Primary identity and member registry |
+| **`02_Meridian_EventOS_Engine.sql`** | Event orchestration and dynamic calendar |
+| **`03_Security_Vault_and_System_Governance.sql`** | Security vault and system configuration |
+
+---
+
+| Migration File | What it does |
 |------|-------------|
 | `20260415000000_foundation_registry_and_stats.sql` | Core `members` and `site_stats` tables, count trigger, basic RLS |
 | `20260415000001_sovereign_rls_lockdown.sql` | Tightens RLS, hardens function search paths |
@@ -181,6 +190,7 @@ The Meridian Project utilizes a unified database architecture built up through e
 ### Table Definitions
 - **`members`**: Registration records. Email is the primary key. Includes ENUMs for role/institution/referral, an interests array, `member_number` (immutable, auto-assigned `M{YY}-{NNNN}`), and a generated `join_date_readable` column.
 - **`site_stats`**: Single-row global metadata (`id = 'meridian_global_stats'`). `member_count` is auto-maintained by a trigger on `members`.
+- **`events`**: Dynamic event records for the `/calendar` portal.
 
 ---
 

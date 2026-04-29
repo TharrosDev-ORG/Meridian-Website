@@ -5,10 +5,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // Static lastModified bumped per content release. Avoids `new Date()` so the
   // sitemap doesn't churn on every build and signal false freshness to crawlers.
-  const lastModified = new Date('2026-04-19');
+  const lastModified = new Date('2026-04-29');
 
   return [
     { url: baseUrl, lastModified, changeFrequency: 'monthly', priority: 1 },
+    { url: `${baseUrl}/calendar`, lastModified, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${baseUrl}/events`, lastModified, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${baseUrl}/membership`, lastModified, changeFrequency: 'monthly', priority: 0.7 },
     { url: `${baseUrl}/social`, lastModified, changeFrequency: 'monthly', priority: 0.7 },

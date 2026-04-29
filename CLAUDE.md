@@ -36,7 +36,7 @@ app/
   (site)/                       Layout group — wraps children in TransitionWrapper,
     layout.tsx                    renders NavBar, Footer, MobileMenu, BackToTop
     page.tsx                    /        (home)
-    events/, social/, team/, membership/, speak/
+    events/, social/, team/, membership/, speak/, calendar/
     contact/                    /contact
     privacy/, terms/            /privacy, /terms
   register/page.tsx             /register  — OUTSIDE the (site) group;
@@ -86,7 +86,7 @@ app/globals.css                 **The Single Source of Truth for Styles.**
 2. **Never use pure white (#FFF) or pure black (#000)**. Use `--cream` (#F4EDE3) and `--ink` (#18150F). Opacity variants (`--ink-75`, `--cream-mid`, etc.) are defined in `:root`.
 3. **Escaped apostrophes**: write `&apos;` inside JSX text. `eslint-plugin-react` rule `react/no-unescaped-entities` will fail the build otherwise.
 4. **No anonymous DB writes.** RLS on `members` is fully locked down. All enrollment must go through the `registerMember` server action (which uses `utils/supabase/service.ts` — service role key, server-only). Never import `service.ts` from a `"use client"` file.
-5. **Static-first content policy**: `/events` and `/social` are permanent informational event history guides. Dynamic announcements happen on Instagram only. **Do not add dated upcoming events to the codebase.**
+5. **Static-first content policy**: `/events` and `/social` are permanent informational event history guides. `/calendar` is the dynamic portal for upcoming events. Dynamic announcements also happen on Instagram. **Do not add dated upcoming events to the /events or /social pages.**
 6. **Prefer class selectors over type selectors for structural components.** The header nav uses `.site-nav` (not bare `nav {}`) precisely because a bare type selector once hijacked every `<nav>` on the page — including the footer Index column, which got teleported into a fixed top bar. Follow the same pattern if you add other structural components (modals, drawers, etc.).
 7. **Mobile Isolation Strategy**: Desktop-specific optimizations (hovers, spacing, scaling) must be strictly encapsulated in `@media (min-width: 1101px)` to protect mobile stability.
 8. **`setState` inside `useEffect` must be deferred.** The ESLint rule `react-hooks/set-state-in-effect` treats a synchronous `setState` call in an effect body as an error. Use `setTimeout(() => setX(...), 0)` or set it inside an event handler / subscription callback. See `components/FaqAccordion.tsx` and `components/Footer.tsx` for the canonical pattern.
@@ -135,7 +135,7 @@ Condition: `isAlreadyRegistered && memberNumber`. The success screen (`Registrat
 - **Copy-to-clipboard** — button next to the number; uses `navigator.clipboard` with `document.execCommand` fallback; tracks pending timeout in `copyTimeoutRef` so rapid clicks don't cause early resets; only shows "Copied" if the copy actually succeeded; cleared on unmount
 - **Registration date** — "Member Since" row, formatted as `April 27, 2026`; sourced from `registrationDate` state (populated from localStorage on mount or background-synced from DB if missing)
 - **Card preview** — HTML/CSS miniature of the downloadable card (title, name, number, date) rendered above the download button
-- **Download Member Card** — Canvas 2D: 1200×750 px PNG with cream background, paper noise texture, ink outer border, gold gradient inner border, gold corner marks, Cormorant Garamond typography (number at 140 px), circular gold seal, "M" watermark, registration date footer
+- **Download Member Card** — Canvas 2D: 1200×1800 px PNG with cream background, paper noise texture, ink outer border, gold gradient inner border, gold corner marks, Cormorant Garamond typography (number at 160 px), society seal (top center), huge QR code (bottom center), "M" watermark, registration date footer
 - **Return to Home** button (`router.push("/")`)
 
 **localStorage keys**:

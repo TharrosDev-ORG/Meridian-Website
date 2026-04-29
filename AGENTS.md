@@ -32,9 +32,9 @@ The **Meridian Website** is the core of The Meridian Society—it is the society
 
 - **RPC-SOVEREIGN Pattern**: All sensitive mutations MUST use the hardened `SECURITY DEFINER` RPCs that verify credentials against the internal **Sovereign Vault** (`system_settings`).
 - **3-Master SQL Architecture**: The database is structured into three "Sources of Truth":
-    1. `master_foundation.sql`: Core identity and member registry (Primary for this site).
-    2. `master_event_os.sql`: Event orchestration.
-    3. `master_member_os.sql`: Security audit logs and governance.
+    1. `01_Sovereign_Member_Registry.sql`: Core identity and member registry (Primary for this site).
+    2. `02_Meridian_EventOS_Engine.sql`: Event orchestration and dynamic calendar.
+    3. `03_Security_Vault_and_System_Governance.sql`: Security vault and system governance.
 - **RPC Lockdown**: Public `EXECUTE` privileges are REVOKED for all sensitive RPCs. Mutations must occur via `service_role` actions.
 
 ---

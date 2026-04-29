@@ -15,7 +15,6 @@ ALTER FUNCTION public.resolve_member_identity(text, text) SET search_path = publ
 ALTER FUNCTION public.secure_create_event(text, timestamptz, text, integer, text, boolean, text) SET search_path = public;
 ALTER FUNCTION public.secure_register_for_event(uuid, text, text) SET search_path = public;
 ALTER FUNCTION public.update_event_rsvp_count() SET search_path = public;
-ALTER FUNCTION public.log_archival_action(text, text, text, jsonb) SET search_path = public;
 ALTER FUNCTION public.initialize_archival_vault(text) SET search_path = public;
 ALTER FUNCTION public.get_archival_setting(text) SET search_path = public;
 

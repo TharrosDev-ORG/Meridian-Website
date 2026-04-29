@@ -53,18 +53,10 @@ export default function PublicRegistration({ eventId, onSuccess }: PublicRegistr
   const [message, setMessage] = useState('');
   const [regData, setRegData] = useState<{ id: string; token: string; member_name: string } | null>(null);
 
-  // Mounted Guard & Scroll Lock
+  // Mounted Guard
   useEffect(() => {
     mountedRef.current = true;
-    
-    // Lock background scrolling when portal opens
-    const originalStyle = window.getComputedStyle(document.body).overflow;
-    document.body.style.overflow = 'hidden';
-    
-    return () => { 
-      mountedRef.current = false; 
-      document.body.style.overflow = originalStyle;
-    };
+    return () => { mountedRef.current = false; };
   }, []);
 
   const handleRegister = async (e: React.FormEvent) => {

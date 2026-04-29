@@ -156,17 +156,14 @@ export default function CalendarClient({ initialEvents }: CalendarClientProps) {
           className="reg-overlay"
           onClick={() => setSelectedEvent(null)}
         >
-          <button className="reg-panel-close">
-            <XIcon />
-          </button>
-          
           <div 
-            className="w-full max-w-md registration-panel-inner"
+            className="registration-panel-inner"
             onClick={(e: React.MouseEvent) => e.stopPropagation()}
           >
             <PublicRegistration 
               eventId={selectedEvent.id} 
               eventName={selectedEvent.name}
+              onClose={() => setSelectedEvent(null)}
               onSuccess={() => {
                 refreshEvents();
               }}

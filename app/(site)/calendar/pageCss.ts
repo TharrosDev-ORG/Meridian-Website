@@ -112,19 +112,21 @@ export const calendarCss = `
     .reg-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(24,21,15,0.8);
-      backdrop-filter: blur(8px);
+      background: rgba(24,21,15,0.92);
       z-index: 1000;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 24px;
+      padding: 20px;
       animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
 
     .registration-panel-inner {
-      animation: slideUp 0.5s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+      animation: popupScale 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
       will-change: transform, opacity;
+      max-width: 480px;
+      width: 100%;
+      position: relative;
     }
 
     @keyframes fadeIn {
@@ -132,9 +134,9 @@ export const calendarCss = `
       to { opacity: 1; }
     }
 
-    @keyframes slideUp {
-      from { opacity: 0; transform: translateY(20px) scale(0.95); }
-      to { opacity: 1; transform: translateY(0) scale(1); }
+    @keyframes popupScale {
+      from { opacity: 0; transform: scale(0.9) translateY(20px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
     }
 
     .reg-panel-close {
@@ -255,9 +257,48 @@ export const calendarCss = `
 
     .registration-panel-inner {
       background: var(--cream);
-      border: 1px solid var(--ink-10);
-      box-shadow: 0 50px 100px rgba(24,21,15,0.15);
+      border: 1px solid var(--ink);
+      padding: 8px; /* Internal frame spacing */
+      box-shadow: 0 40px 100px rgba(0,0,0,0.5);
+    }
+
+    .registry-box-outer {
+      border: 1px solid var(--gold-20);
+      background: var(--cream);
       position: relative;
+      padding: 48px 40px;
+    }
+    
+    .registry-input-wrap {
+      background: var(--cream-mid);
+      border: 1px solid var(--ink-08);
+      padding: 12px;
+      margin: 24px 0;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+    
+    .registry-input-wrap:focus-within {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 1px var(--gold);
+    }
+
+    .registry-input {
+      width: 100%;
+      background: transparent;
+      border: none;
+      font-family: var(--serif);
+      font-size: 28px;
+      text-align: center;
+      color: var(--ink);
+      outline: none;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+    }
+    
+    .registry-input::placeholder {
+      color: var(--ink-15);
+      font-size: 24px;
+      letter-spacing: 0.1em;
     }
 
     /* Empty state */

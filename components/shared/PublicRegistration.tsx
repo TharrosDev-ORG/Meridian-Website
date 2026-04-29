@@ -162,8 +162,8 @@ export default function PublicRegistration({ eventId, eventName, onSuccess, onCl
                   Thank you, {regData?.member_name.split(' ')[0]}.
                 </p>
                 <p className="success-minimal-blurb">
-                  Your Society Member Card is now active for this gathering. 
-                  Present your digital QR code at the entrance for seamless admission.
+                  Your Member Card is now active for this Event. 
+                  Present your digital QR code at the entrance for admission.
                 </p>
               </div>
 

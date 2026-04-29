@@ -245,7 +245,7 @@ export default function CalendarClient({ initialEvents, archivalEvents = [] }: C
           <div className="empty-eyebrow">Event Roster</div>
           <h3 className="empty-h">The Calendar is Currently Quiet.</h3>
           <div className="empty-divider"></div>
-          <p className="empty-p">The Society is preparing the next series of engagements.<br/>Members will be notified via standard dispatches.</p>
+          <p className="empty-p">Our next series of speaker forums is currently being drafted.<br/>Updates will be announced shortly.</p>
         </div>
       )}
 

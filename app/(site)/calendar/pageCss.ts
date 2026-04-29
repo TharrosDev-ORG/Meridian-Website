@@ -331,6 +331,8 @@ export const calendarCss = `
     /* Premium Empty State */
     .calendar-empty-premium {
       padding: 100px 40px;
+      margin: 60px auto 0;
+      max-width: 800px;
       text-align: center;
       border: 1px solid var(--ink-10);
       background: var(--cream-mid);
@@ -340,6 +342,7 @@ export const calendarCss = `
       justify-content: center;
       position: relative;
       overflow: hidden;
+      box-shadow: 0 20px 40px rgba(24, 21, 15, 0.03);
     }
 
     .calendar-empty-premium::before {

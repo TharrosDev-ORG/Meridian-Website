@@ -1,5 +1,4 @@
 import { Metadata } from 'next';
-import Link from 'next/link';
 import { cookies } from 'next/headers';
 import { Suspense } from 'react';
 import dynamic from 'next/dynamic';

@@ -12,15 +12,9 @@ export default function MemberCounter({ className }: MemberCounterProps) {
   const [prevCount, setPrevCount] = useState<number>(0);
   const [isAnimating, setIsAnimating] = useState(false);
 
-  // Handle animation sequence (includes initial set)
-  // eslint-disable-next-line react-hooks/set-state-in-effect -- Intentional: drives the number-reel animation
+  // Handle animation sequence (only for subsequent updates)
   useEffect(() => {
-    if (count > 0 && prevCount === 0) {
-      // Initial set — no animation needed
-      setPrevCount(count);
-      return;
-    }
-    if (count > 0 && prevCount !== count) {
+    if (count > 0 && prevCount !== 0 && prevCount !== count) {
       setIsAnimating(true);
       const timer = setTimeout(() => {
         setIsAnimating(false);
@@ -52,7 +46,10 @@ export default function MemberCounter({ className }: MemberCounterProps) {
         if (!response.ok) return;
         const data = await response.json();
         if (cancelled) return;
-        if (typeof data?.count === "number") setCount(data.count);
+        if (typeof data?.count === "number") {
+          setCount(data.count);
+          setPrevCount(data.count);
+        }
       } catch (err) {
         if ((err as Error)?.name === "AbortError") return;
         console.error("[MemberCounter] Stats API failed.");

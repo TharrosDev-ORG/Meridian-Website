@@ -184,7 +184,7 @@ export default function PublicRegistration({ eventId, eventName, onSuccess, onCl
 
               <form onSubmit={handleRegister} className="space-y-8">
                 <div className="relative">
-                  <label className="text-[9px] sans font-bold tracking-[0.3em] text-[var(--ink)]/40 uppercase block mb-1 text-center">
+                  <label className="text-[9px] sans font-bold tracking-[0.3em] text-[var(--gold)] uppercase block mb-1 text-center">
                     Member ID
                   </label>
                   

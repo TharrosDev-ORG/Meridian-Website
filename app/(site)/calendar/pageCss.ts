@@ -149,7 +149,116 @@ export const calendarCss = `
       transition: opacity 0.2s;
     }
 
-    .reg-panel-close:hover { opacity: 1; }
+    .reg-panel-close:hover { opacity: 1; transform: scale(1.1); }
+
+    /* ── SUCCESS OVERHAUL (Archival Receipt) ── */
+    .archival-receipt {
+      background: var(--ink);
+      color: var(--cream);
+      padding: 60px 40px;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--gold-20);
+      box-shadow: 0 40px 100px rgba(0,0,0,0.4);
+    }
+
+    .archival-receipt::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: var(--grain);
+      background-size: 200px 200px;
+      opacity: 0.15;
+      pointer-events: none;
+    }
+
+    .receipt-perforation {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background-image: radial-gradient(circle, var(--cream-mid) 1px, transparent 1px);
+      background-size: 8px 8px;
+      background-position: center;
+      opacity: 0.2;
+    }
+
+    .receipt-perforation--bottom {
+      top: auto;
+      bottom: 0;
+    }
+
+    .receipt-seal-watermark {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(1.5);
+      opacity: 0.03;
+      pointer-events: none;
+      color: var(--gold);
+    }
+
+    .ticket-id-box {
+      background: rgba(244,237,227,0.05);
+      border: 1px solid rgba(244,237,227,0.1);
+      padding: 20px;
+      margin-top: 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .ticket-id-label {
+      font-family: var(--sans);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 4px;
+      display: block;
+    }
+
+    .ticket-id-val {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 14px;
+      letter-spacing: 0.1em;
+      color: var(--cream-mid);
+    }
+
+    /* Admission Header */
+    .admission-header {
+      text-align: center;
+      margin-bottom: 40px;
+      position: relative;
+    }
+
+    .admission-eyebrow {
+      font-family: var(--sans);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    .admission-title {
+      font-family: var(--serif);
+      font-size: 38px;
+      font-weight: 300;
+      line-height: 1.1;
+      color: var(--ink);
+    }
+
+    .registration-panel-inner {
+      background: var(--cream);
+      border: 1px solid var(--ink-10);
+      box-shadow: 0 50px 100px rgba(24,21,15,0.15);
+      position: relative;
+    }
 
     /* Empty state */
     .calendar-empty {

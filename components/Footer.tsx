@@ -69,16 +69,22 @@ export default function Footer() {
             <div className="footer-est">Ottawa, ON · Est. 2025</div>
           </div>
 
-          <nav className="footer-col" aria-label="Footer navigation">
-            <h4 className="footer-col-h">Index</h4>
+          <nav className="footer-col" aria-label="Society navigation">
+            <h4 className="footer-col-h">Society</h4>
             <ul className="footer-list">
               <li><Link href="/">Home</Link></li>
+              <li><Link href="/team">Team</Link></li>
+              <li><Link href="/membership">Membership</Link></li>
+            </ul>
+          </nav>
+
+          <nav className="footer-col" aria-label="Engage navigation">
+            <h4 className="footer-col-h">Engage</h4>
+            <ul className="footer-list">
               <li><Link href="/events">Events</Link></li>
               <li><Link href="/calendar">Calendar</Link></li>
-              <li><Link href="/social">Social</Link></li>
-              <li><Link href="/membership">Membership</Link></li>
-              <li><Link href="/team">Team</Link></li>
               <li><Link href="/speak">Speak</Link></li>
+              <li><Link href="/social">Social</Link></li>
             </ul>
           </nav>
 

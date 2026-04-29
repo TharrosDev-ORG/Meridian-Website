@@ -52,13 +52,13 @@ export default function CalendarPage() {
               <span className="hero-eyebrow-text">The Meridian Society</span>
               <span className="hero-eyebrow-rule"></span>
             </div>
-            <p className="hero-pre rv">Society</p>
+            <p className="hero-pre rv">Upcoming</p>
             <h1 className="hero-title rv rv-stagger">
-              <span className="rv-stagger-item">Event <em>Calendar.</em></span>
+              <span className="rv-stagger-item"><em>EVENTS.</em></span>
             </h1>
             <div className="hero-hr rv" aria-hidden="true" data-d="1"></div>
             <p className="hero-sub rv" data-d="2">
-              Get tickets to upcoming forums, and events.
+              Secure your tickets for our upcoming speaker forums and exclusive society gatherings.
             </p>
             
             <div className="mt-12 rv" data-d="3">

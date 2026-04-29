@@ -1,4 +1,9 @@
-'use client';
+/**
+ * The Meridian Society — Public Registration Widget
+ * 
+ * A hardened registration gate that verifies persistent member identities (M26-XXXX)
+ * and performs atomic admission checks via the Sovereign RPC layer.
+ */
 
 import { useState, useEffect } from 'react';
 import { createClient } from '@/utils/supabase/client';

@@ -48,7 +48,7 @@ export default function EventsPage() {
             <p className="hero-sub rv" data-d="2">Connecting Ottawa students with the professionals, alumni, and scholars who can expand their mindset.</p>
             <div className="hero-actions rv" data-d="3">
               <Magnetic strength={0.25}>
-                <Link href={REGISTER_URL} className="btn-primary"><span>Register as a Member</span></Link>
+                <Link href="/calendar" className="btn-primary"><span>View Live Registry</span></Link>
               </Magnetic>
               <a href="#about" className="btn-ghost-link">Learn More <span>&#8595;</span></a>
             </div>

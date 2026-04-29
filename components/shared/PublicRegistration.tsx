@@ -136,10 +136,10 @@ export default function PublicRegistration({ eventId, eventName, onSuccess, onCl
         {/* Close button inside the frame */}
         <button 
           onClick={onClose}
-          className="absolute top-6 right-6 text-[var(--ink-30)] hover:text-[var(--ink)] transition-colors p-2"
+          className="absolute top-4 right-4 text-[var(--ink-30)] hover:text-[var(--gold)] transition-colors p-2 z-[100]"
           aria-label="Close portal"
         >
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
             <line x1="18" y1="6" x2="6" y2="18" />
             <line x1="6" y1="6" x2="18" y2="18" />
           </svg>
@@ -161,18 +161,18 @@ export default function PublicRegistration({ eventId, eventName, onSuccess, onCl
                 </div>
 
                 <span className="admission-eyebrow">Access Confirmed</span>
-                <h3 className="text-3xl serif italic text-[var(--cream)] mb-4">Admission Secured</h3>
+                <h3 className="text-[28px] serif italic text-[var(--cream)] mb-4">Admission <em>Secured.</em></h3>
                 
-                <div className="w-12 h-px bg-[var(--gold)]/40 mx-auto mb-6" />
+                <div className="w-8 h-px bg-[var(--gold)]/30 mx-auto mb-8" />
                 
-                <p className="text-[14px] serif italic text-[var(--cream)]/60 leading-relaxed mb-8">
+                <div className="space-y-1 mb-8">
+                  <span className="text-[8px] sans font-bold tracking-[0.25em] text-[var(--gold)] uppercase block opacity-60">Verified Member</span>
+                  <span className="text-2xl serif text-[var(--cream-mid)]">{regData?.member_name}</span>
+                </div>
+
+                <p className="text-[13px] serif italic text-[var(--cream)]/40 leading-relaxed mb-8 px-4">
                   {message}
                 </p>
-
-                <div className="space-y-1 mb-10">
-                  <span className="text-[9px] sans font-bold tracking-[0.3em] text-[var(--gold)] uppercase block">Member Name</span>
-                  <span className="text-xl serif text-[var(--cream-mid)]">{regData?.member_name}</span>
-                </div>
 
                 <div className="ticket-id-box">
                   <div className="text-left">
@@ -206,7 +206,7 @@ export default function PublicRegistration({ eventId, eventName, onSuccess, onCl
                 <div className="w-12 h-px bg-[var(--gold)]/40 mx-auto mt-6" />
               </div>
 
-              <p className="text-[15px] serif italic text-[var(--ink)]/50 text-center leading-relaxed mb-8">
+              <p className="text-[14px] serif italic text-[var(--ink)]/40 text-center leading-relaxed mb-10 px-6">
                 Authentication required. Enter your persistent member number to secure your place in the registry.
               </p>
 

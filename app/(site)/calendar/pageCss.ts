@@ -128,13 +128,17 @@ export const calendarCss = `
     }
 
     .registration-panel-inner {
-      animation: portalPop 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      animation: portalPop 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
       will-change: transform, opacity;
-      max-width: 460px;
+      max-width: 440px;
       width: 100%;
       position: relative;
       z-index: 100000;
       pointer-events: auto;
+      background: var(--cream);
+      padding: 6px; /* Elegant frame spacing */
+      border: 1px solid var(--ink);
+      box-shadow: 0 40px 100px rgba(0,0,0,0.6);
     }
 
     @keyframes fadeIn {
@@ -143,20 +147,20 @@ export const calendarCss = `
     }
 
     @keyframes portalPop {
-      from { opacity: 0; transform: scale(0.95) translateY(10px); }
+      from { opacity: 0; transform: scale(0.96) translateY(12px); }
       to { opacity: 1; transform: scale(1) translateY(0); }
     }
 
 
     /* ── ADMISSION RECEIPT (Registry Overhaul) ── */
     .admission-receipt {
-      background: var(--ink);
+      background: #110f0e; /* Deepest Society Ink */
       color: var(--cream);
-      padding: 60px 40px;
+      padding: 64px 44px 48px;
       position: relative;
       overflow: hidden;
       border: 1px solid var(--gold-20);
-      box-shadow: 0 40px 100px rgba(0,0,0,0.4);
+      text-align: center;
     }
 
     .admission-receipt::before {
@@ -171,14 +175,13 @@ export const calendarCss = `
 
     .receipt-perforation {
       position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 4px;
-      background-image: radial-gradient(circle, var(--cream-mid) 1px, transparent 1px);
-      background-size: 8px 8px;
+      top: 0; left: 0; right: 0;
+      height: 6px;
+      background-image: radial-gradient(circle, #110f0e 2px, transparent 2.5px);
+      background-size: 10px 10px;
       background-position: center;
-      opacity: 0.2;
+      background-color: var(--gold-20);
+      z-index: 20;
     }
 
     .receipt-perforation--bottom {
@@ -190,17 +193,17 @@ export const calendarCss = `
       position: absolute;
       top: 50%;
       left: 50%;
-      transform: translate(-50%, -50%) scale(1.5);
-      opacity: 0.03;
+      transform: translate(-50%, -50%) scale(1.2);
+      opacity: 0.04;
       pointer-events: none;
       color: var(--gold);
     }
 
     .ticket-id-box {
-      background: rgba(244,237,227,0.05);
-      border: 1px solid rgba(244,237,227,0.1);
-      padding: 20px;
-      margin-top: 40px;
+      background: rgba(244,237,227,0.03);
+      border: 1px solid rgba(244,237,227,0.08);
+      padding: 16px 20px;
+      margin-top: 32px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -208,20 +211,23 @@ export const calendarCss = `
 
     .ticket-id-label {
       font-family: var(--sans);
-      font-size: 9px;
+      font-size: 8px;
       font-weight: 700;
-      letter-spacing: 0.3em;
+      letter-spacing: 0.25em;
       text-transform: uppercase;
       color: var(--gold);
-      margin-bottom: 4px;
+      margin-bottom: 2px;
       display: block;
+      opacity: 0.6;
     }
 
     .ticket-id-val {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 14px;
-      letter-spacing: 0.1em;
+      font-family: var(--sans);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
       color: var(--cream-mid);
+      text-transform: uppercase;
     }
 
     /* Admission Header */
@@ -233,21 +239,26 @@ export const calendarCss = `
 
     .admission-eyebrow {
       font-family: var(--sans);
-      font-size: 10px;
+      font-size: 9px;
       font-weight: 700;
-      letter-spacing: 0.4em;
+      letter-spacing: 0.35em;
       text-transform: uppercase;
       color: var(--gold);
-      margin-bottom: 16px;
+      margin-bottom: 12px;
       display: block;
     }
 
     .admission-title {
       font-family: var(--serif);
-      font-size: 38px;
-      font-weight: 300;
-      line-height: 1.1;
+      font-size: 34px;
+      font-weight: 400;
+      line-height: 1.15;
       color: var(--ink);
+    }
+    
+    .admission-title em {
+      font-style: italic;
+      color: var(--gold);
     }
 
     .registration-panel-inner {

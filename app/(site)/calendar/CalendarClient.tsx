@@ -86,6 +86,22 @@ export default function CalendarClient({ initialEvents }: CalendarClientProps) {
     }
   }, []);
 
+  // Handle smooth auto-scroll when an event expands, ensuring it stays in view
+  useEffect(() => {
+    if (expandedId) {
+      // 50ms delay allows the browser to recalculate the flex wrap layout shift
+      const timer = setTimeout(() => {
+        const el = document.getElementById(`event-card-${expandedId}`);
+        if (el) {
+          const yOffset = -120; // Accounts for the fixed navbar
+          const y = el.getBoundingClientRect().top + window.pageYOffset + yOffset;
+          window.scrollTo({ top: y, behavior: 'smooth' });
+        }
+      }, 50);
+      return () => clearTimeout(timer);
+    }
+  }, [expandedId]);
+
   return (
     <>
       {events.length > 0 ? (
@@ -96,6 +112,8 @@ export default function CalendarClient({ initialEvents }: CalendarClientProps) {
               return (
                 <article
                   key={event.id}
+                  id={`event-card-${event.id}`}
+                  title={!isExpanded ? `Expand: ${event.name}` : undefined}
                   className={`event-card rv-stagger-item ${isExpanded ? 'is-expanded' : 'is-compressed'}`}
                   onClick={() => setExpandedId(isExpanded ? null : event.id)}
                 >

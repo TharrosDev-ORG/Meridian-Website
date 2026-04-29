@@ -82,9 +82,8 @@ export default function CalendarClient({ initialEvents }: CalendarClientProps) {
 
   return (
     <>
-      <div className="wrap">
-        {events.length > 0 ? (
-          <div className="calendar-grid rv-stagger">
+      {events.length > 0 ? (
+        <div className="calendar-grid rv rv-stagger">
             {events.map((event) => (
               <article
                 key={event.id}
@@ -143,14 +142,13 @@ export default function CalendarClient({ initialEvents }: CalendarClientProps) {
                 </div>
               </article>
             ))}
-          </div>
-        ) : (
-          <div className="calendar-empty rv" data-d="2">
-            <h3 className="empty-h">The archives are currently quiet.</h3>
-            <p className="empty-p">No upcoming events found. Please check back soon.</p>
-          </div>
-        )}
-      </div>
+        </div>
+      ) : (
+        <div className="calendar-empty rv" data-d="2">
+          <h3 className="empty-h">The archives are currently quiet.</h3>
+          <p className="empty-p">No upcoming events found. Please check back soon.</p>
+        </div>
+      )}
 
       {/* ═══════════ REGISTRATION OVERLAY ═══════════ */}
       {selectedEvent && (

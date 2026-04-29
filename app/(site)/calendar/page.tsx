@@ -65,31 +65,31 @@ export default async function CalendarPage() {
       ))}
 
       <main id="main-content" className="calendar-sec">
-        <div className="wrap">
-          {/* ═══════════ HERO ═══════════ */}
-          <section className="module-page-hero" aria-label="Calendar hero">
-            <div className="module-page-hero-content">
-              <div className="hero-eyebrow rv">
-                <span className="hero-eyebrow-rule"></span>
-                <span className="hero-eyebrow-text">The Meridian Society</span>
-                <span className="hero-eyebrow-rule"></span>
-              </div>
-              <h1 className="hero-title rv rv-stagger">
-                <span className="rv-stagger-item">Society <em>Calendar.</em></span>
-              </h1>
-              <p className="hero-sub rv" data-d="1">
-                Archival access to upcoming dialogues, forums, and scholarly gatherings. 
-                Admission is strictly prioritized for verified Society members.
-              </p>
-              
-              <div className="mt-12 rv" data-d="2">
-                <Link href="/events" className="btn-ghost-link">
-                  <span>←</span> Return to Events About
-                </Link>
-              </div>
+        {/* ═══════════ HERO ═══════════ */}
+        <section className="module-page-hero" aria-label="Calendar hero">
+          <div className="module-page-hero-content">
+            <div className="hero-eyebrow rv">
+              <span className="hero-eyebrow-rule"></span>
+              <span className="hero-eyebrow-text">The Meridian Society</span>
+              <span className="hero-eyebrow-rule"></span>
             </div>
-          </section>
+            <h1 className="hero-title rv rv-stagger">
+              <span className="rv-stagger-item">Society <em>Calendar.</em></span>
+            </h1>
+            <p className="hero-sub rv" data-d="1">
+              Archival access to upcoming dialogues, forums, and scholarly gatherings. 
+              Admission is strictly prioritized for verified Society members.
+            </p>
+            
+            <div className="mt-12 rv" data-d="2">
+              <Link href="/events" className="btn-ghost-link">
+                <span>←</span> Return to Events About
+              </Link>
+            </div>
+          </div>
+        </section>
 
+        <div className="wrap">
           {/* ═══════════ CLIENT COMPONENT ═══════════ */}
           <CalendarClient initialEvents={activeEvents} />
         </div>

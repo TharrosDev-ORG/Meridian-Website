@@ -102,11 +102,18 @@ export default function CalendarClient({ initialEvents }: CalendarClientProps) {
     }
   }, [expandedId]);
 
+  // Dynamically promote the expanded event to the top of the grid
+  const displayEvents = [...events].sort((a, b) => {
+    if (a.id === expandedId) return -1;
+    if (b.id === expandedId) return 1;
+    return new Date(a.date).getTime() - new Date(b.date).getTime();
+  });
+
   return (
     <>
       {events.length > 0 ? (
         <div className="calendar-grid rv rv-stagger">
-            {events.map((event) => {
+            {displayEvents.map((event) => {
               const isExpanded = expandedId === event.id;
               
               return (

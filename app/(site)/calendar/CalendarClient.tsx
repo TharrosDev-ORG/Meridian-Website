@@ -205,7 +205,7 @@ export default function CalendarClient({ initialEvents, archivalEvents = [] }: C
                         <CalendarIcon className="text-gold/60" />
                         <div>
                           <p className="meta-lbl">Schedule</p>
-                          <button onClick={(e) => { e.stopPropagation(); downloadICS(event); }} className="meta-val hover:text-gold transition-colors text-left">
+                          <button onClick={(e) => { e.stopPropagation(); downloadICS(event); }} className="meta-val appearance-none bg-transparent border-none p-0 cursor-pointer hover:text-gold transition-colors text-left">
                             Add to Calendar
                           </button>
                         </div>

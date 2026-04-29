@@ -152,82 +152,10 @@ export const calendarCss = `
     }
 
 
-    /* ── ADMISSION RECEIPT (Registry Overhaul) ── */
-    .admission-receipt {
-      background: #110f0e; /* Deepest Society Ink */
-      color: var(--cream);
-      padding: 64px 44px 48px;
-      position: relative;
-      overflow: hidden;
-      border: 1px solid var(--gold-20);
+    /* ── SUCCESS MINIMAL (Registry Overhaul) ── */
+    .success-minimal {
       text-align: center;
-    }
-
-    .admission-receipt::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background-image: var(--grain);
-      background-size: 200px 200px;
-      opacity: 0.15;
-      pointer-events: none;
-    }
-
-    .receipt-perforation {
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 6px;
-      background-image: radial-gradient(circle, #110f0e 2px, transparent 2.5px);
-      background-size: 10px 10px;
-      background-position: center;
-      background-color: var(--gold-20);
-      z-index: 20;
-    }
-
-    .receipt-perforation--bottom {
-      top: auto;
-      bottom: 0;
-    }
-
-    .receipt-seal-watermark {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%) scale(1.2);
-      opacity: 0.04;
-      pointer-events: none;
-      color: var(--gold);
-    }
-
-    .ticket-id-box {
-      background: rgba(244,237,227,0.03);
-      border: 1px solid rgba(244,237,227,0.08);
-      padding: 16px 20px;
-      margin-top: 32px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .ticket-id-label {
-      font-family: var(--sans);
-      font-size: 8px;
-      font-weight: 700;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 2px;
-      display: block;
-      opacity: 0.6;
-    }
-
-    .ticket-id-val {
-      font-family: var(--sans);
-      font-size: 13px;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      color: var(--cream-mid);
-      text-transform: uppercase;
+      padding: 40px 20px;
     }
 
     /* Admission Header */

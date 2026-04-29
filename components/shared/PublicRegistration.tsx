@@ -145,52 +145,38 @@ export default function PublicRegistration({ eventId, eventName, onSuccess, onCl
           </svg>
         </button>
 
-        {/* ── SUCCESS STATE (Midnight Ticket Overhaul) ── */}
+        {/* ── SUCCESS STATE (Minimal Archival) ── */}
         <div className={`transition-all duration-700 ease-elegant ${status === 'success' ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none absolute inset-0'}`}>
           {status === 'success' && (
-            <div className="admission-receipt">
-              <div className="receipt-perforation" />
-              <div className="receipt-perforation receipt-perforation--bottom" />
-              <SocietySeal className="receipt-seal-watermark" />
+            <div className="success-minimal">
+              <div className="flex justify-center mb-10">
+                <div className="w-20 h-20 border border-[var(--gold)]/20 rounded-full flex items-center justify-center text-[var(--gold)]">
+                  <CheckCircleIcon />
+                </div>
+              </div>
+
+              <h3 className="text-[32px] serif italic text-[var(--ink)] mb-4">Ticket Secured.</h3>
               
-              <div className="text-center relative z-10">
-                <div className="flex justify-center mb-8">
-                  <div className="w-16 h-16 border border-[var(--gold)]/30 rounded-full flex items-center justify-center text-[var(--gold)]">
-                    <CheckCircleIcon />
-                  </div>
-                </div>
-
-                <span className="admission-eyebrow">Access Confirmed</span>
-                <h3 className="text-[28px] serif italic text-[var(--cream)] mb-4">Admission <em>Secured.</em></h3>
-                
-                <div className="w-8 h-px bg-[var(--gold)]/30 mx-auto mb-8" />
-                
-                <div className="space-y-1 mb-8">
-                  <span className="text-[8px] sans font-bold tracking-[0.25em] text-[var(--gold)] uppercase block opacity-60">Verified Member</span>
-                  <span className="text-2xl serif text-[var(--cream-mid)]">{regData?.member_name}</span>
-                </div>
-
-                <p className="text-[13px] serif italic text-[var(--cream)]/40 leading-relaxed mb-8 px-4">
-                  {message}
+              <div className="w-10 h-px bg-[var(--gold)]/30 mx-auto mb-8" />
+              
+              <div className="space-y-4 mb-10">
+                <p className="text-xl serif text-[var(--ink-80)]">
+                  Thank you, {regData?.member_name.split(' ')[0]}.
                 </p>
+                <p className="text-[15px] serif italic text-[var(--ink)]/50 leading-relaxed px-4">
+                  Your Society Member Card is now active for this gathering. 
+                  Present your digital QR code at the entrance for seamless admission to the registry.
+                </p>
+              </div>
 
-                <div className="ticket-id-box">
-                  <div className="text-left">
-                    <span className="ticket-id-label">Registry Reference</span>
-                    <span className="ticket-id-val">{regData?.id.split('-')[0]}...{regData?.id.slice(-6)}</span>
-                  </div>
-                  <TicketIcon className="text-[var(--gold)]/40" />
-                </div>
-
-                <div className="mt-12">
-                  <button 
-                    onClick={() => { setStatus('idle'); setMemberNumber(''); }}
-                    className="text-[10px] sans font-bold tracking-[0.3em] text-[var(--gold)] uppercase hover:text-[var(--gold-lt)] transition-all flex items-center gap-2 mx-auto group"
-                  >
-                    <span className="w-4 h-px bg-[var(--gold)]/30 transition-all group-hover:w-8" />
-                    Register Another
-                  </button>
-                </div>
+              <div className="pt-8 border-t border-[var(--ink)]/05">
+                <button 
+                  onClick={() => { setStatus('idle'); setMemberNumber(''); }}
+                  className="text-[10px] sans font-bold tracking-[0.3em] text-[var(--gold)] uppercase hover:text-[var(--gold-lt)] transition-all flex items-center gap-2 mx-auto group"
+                >
+                  <span className="w-4 h-px bg-[var(--gold)]/30 transition-all group-hover:w-8" />
+                  Register Another
+                </button>
               </div>
             </div>
           )}
@@ -259,10 +245,9 @@ export default function PublicRegistration({ eventId, eventName, onSuccess, onCl
                   </button>
                 </div>
                 
-                <div className="pt-6 border-t border-[var(--ink)]/05">
+                <div className="pt-6">
                   <p className="text-center text-[9px] sans font-bold tracking-[0.2em] text-[var(--ink)]/25 uppercase leading-relaxed">
-                    Strictly for verified Society members.<br />
-                    Persistence level: Sovereign Gate.
+                    Authentication required.
                   </p>
                 </div>
               </form>

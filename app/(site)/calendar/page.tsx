@@ -139,15 +139,33 @@ async function TicketPortal() {
 function TicketSkeleton() {
   return (
     <div className="calendar-grid animate-pulse">
-      {[1, 2, 3].map((i) => (
-        <div key={i} className="event-card opacity-40">
-          <div className="event-date-col bg-ink/20 h-[180px]" />
-          <div className="event-info-col py-10 space-y-4">
-             <div className="h-4 bg-ink/10 w-24 rounded-full" />
-             <div className="h-10 bg-ink/10 w-3/4" />
-             <div className="h-6 bg-ink/10 w-1/2" />
-          </div>
-          <div className="event-action-col bg-ink/05" />
+      {/* 1. Expanded Lead Skeleton (Matches initialEvents[0] auto-expansion) */}
+      <div className="event-card is-expanded opacity-40">
+        <div className="event-date-col bg-ink/20 h-full min-h-[180px]" />
+        <div className="event-info-col py-10 space-y-4">
+           <div className="h-3 bg-ink/10 w-24 rounded-full" />
+           <div className="h-10 bg-ink/10 w-3/4" />
+           <div className="h-6 bg-ink/10 w-1/2" />
+        </div>
+        <div className="event-action-col bg-ink/05 p-10 space-y-6">
+           {/* The "3 Empty Icons" placeholders */}
+           {[1, 2, 3].map(i => (
+             <div key={i} className="flex items-center gap-3">
+                <div className="w-4 h-4 rounded-sm bg-ink/10" />
+                <div className="space-y-2">
+                  <div className="h-2 bg-ink/05 w-12" />
+                  <div className="h-3 bg-ink/10 w-24" />
+                </div>
+             </div>
+           ))}
+           <div className="mt-4 h-12 bg-ink/10 w-full" />
+        </div>
+      </div>
+      
+      {/* 2. Compressed Tiles Skeletons (Matching displayEvents logic) */}
+      {[1, 2].map((i) => (
+        <div key={i} className="event-card is-compressed opacity-40">
+          <div className="event-date-col bg-ink/20 h-full min-h-[240px]" />
         </div>
       ))}
     </div>

@@ -117,9 +117,17 @@ export default function CalendarClient({ initialEvents, archivalEvents = [] }: C
     }
   }, []);
 
+  const isInitialMount = useRef(true);
+
   // Handle smooth auto-scroll when an event expands, ensuring it stays in view
   useEffect(() => {
     if (expandedId) {
+      // Skip the auto-scroll on the initial mount so the user sees the Hero first.
+      if (isInitialMount.current) {
+        isInitialMount.current = false;
+        return;
+      }
+
       // 50ms delay allows the browser to recalculate the flex wrap layout shift
       const timer = setTimeout(() => {
         const el = document.getElementById(`event-card-${expandedId}`);

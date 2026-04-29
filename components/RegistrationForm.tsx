@@ -708,10 +708,10 @@ export default function RegistrationForm() {
 
             <div style={{ display: 'flex', justifyContent: 'center' }}>
               <button
-                onClick={() => router.push("/")}
+                onClick={() => router.back()}
                 className="reg-home-btn"
               >
-                <span>Return to Home</span>
+                <span>Go Back</span>
               </button>
             </div>
           </div>

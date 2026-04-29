@@ -11,6 +11,7 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { createClient } from '@/utils/supabase/client';
 import PublicRegistration from '@/components/shared/PublicRegistration';
+import { downloadICS } from '@/utils/ics';
 
 // ── Active SVG Icons ──
 
@@ -30,6 +31,15 @@ const UsersIcon = ({ size = 14, className = "" }: { size?: number; className?: s
   </svg>
 );
 
+const CalendarIcon = ({ size = 14, className = "" }: { size?: number; className?: string }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+    <line x1="16" y1="2" x2="16" y2="6" />
+    <line x1="8" y1="2" x2="8" y2="6" />
+    <line x1="3" y1="10" x2="21" y2="10" />
+  </svg>
+);
+
 export interface Event {
   id: string;
   name: string;
@@ -43,9 +53,10 @@ export interface Event {
 
 interface CalendarClientProps {
   initialEvents: Event[];
+  archivalEvents?: Event[];
 }
 
-export default function CalendarClient({ initialEvents }: CalendarClientProps) {
+export default function CalendarClient({ initialEvents, archivalEvents = [] }: CalendarClientProps) {
   const [events, setEvents] = useState<Event[]>(initialEvents);
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
   const [expandedId, setExpandedId] = useState<string | null>(initialEvents[0]?.id ?? null);
@@ -66,6 +77,26 @@ export default function CalendarClient({ initialEvents }: CalendarClientProps) {
         clearTimeout(observerTimerRef.current);
       }
     };
+  }, []);
+
+  // Handle Real-Time Seat Availability
+  useEffect(() => {
+    const supabase = createClient();
+    const channel = supabase.channel('calendar-live-seats')
+      .on(
+        'postgres_changes',
+        { event: 'UPDATE', schema: 'public', table: 'events' },
+        (payload) => {
+          if (payload.new && payload.new.id) {
+            setEvents((prev) => 
+              prev.map(e => e.id === payload.new.id ? { ...e, rsvp_count: payload.new.rsvp_count } : e)
+            );
+          }
+        }
+      )
+      .subscribe();
+
+    return () => { void supabase.removeChannel(channel); };
   }, []);
 
   // Memoized refresh to avoid re-creating the function on every render
@@ -168,6 +199,17 @@ export default function CalendarClient({ initialEvents }: CalendarClientProps) {
                           </p>
                         </div>
                       </div>
+                      
+                      {/* ICS Download Link */}
+                      <div className="event-meta-item">
+                        <CalendarIcon className="text-gold/60" />
+                        <div>
+                          <p className="meta-lbl">Schedule</p>
+                          <button onClick={(e) => { e.stopPropagation(); downloadICS(event); }} className="meta-val hover:text-gold transition-colors text-left">
+                            Add to Calendar
+                          </button>
+                        </div>
+                      </div>
                     </div>
 
                     <div className="btn-register">
@@ -189,8 +231,33 @@ export default function CalendarClient({ initialEvents }: CalendarClientProps) {
         </div>
       ) : (
         <div className="calendar-empty rv" data-d="2">
-          <h3 className="empty-h">The archives are currently quiet.</h3>
+          <h3 className="empty-h">The calendar is currently quiet.</h3>
           <p className="empty-p">No upcoming events found. Please check back soon.</p>
+        </div>
+      )}
+
+      {/* ═══════════ ARCHIVAL EVENTS ═══════════ */}
+      {archivalEvents.length > 0 && (
+        <div className="mt-32 border-t border-ink/10 pt-16 rv">
+          <h3 className="hero-eyebrow-text mb-8">Society Archives</h3>
+          <div className="calendar-grid">
+              {archivalEvents.map((event) => (
+                <article
+                  key={event.id}
+                  className={`event-card is-compressed opacity-60 grayscale-[50%]`}
+                >
+                  <div className="event-date-col">
+                    <span className="date-day">{new Date(event.date).toLocaleDateString('en-US', { day: '2-digit' })}</span>
+                    <span className="date-month">{new Date(event.date).toLocaleDateString('en-US', { month: 'short' })}</span>
+                    <span className="date-year">{new Date(event.date).getFullYear()}</span>
+                  </div>
+                  <div className="event-info-col p-8 flex flex-col justify-center">
+                    <h2 className="text-xl font-serif text-ink">{event.name}</h2>
+                    <p className="text-sm font-sans text-ink/60 uppercase tracking-widest mt-2">Archived Event</p>
+                  </div>
+                </article>
+              ))}
+          </div>
         </div>
       )}
 

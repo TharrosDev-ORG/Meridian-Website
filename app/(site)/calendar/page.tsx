@@ -89,18 +89,27 @@ async function TicketPortal() {
   const cookieStore = await cookies();
   const supabase = createClient(cookieStore);
   
-  const { data: events, error } = await supabase
-    .from('events')
-    .select('id, name, date, location, capacity, rsvp_count, description, is_members_only')
-    .eq('status', 'active')
-    .gte('date', new Date().toISOString())
-    .order('date', { ascending: true });
+  const [upcomingRes, pastRes] = await Promise.all([
+    supabase
+      .from('events')
+      .select('id, name, date, location, capacity, rsvp_count, description, is_members_only')
+      .eq('status', 'active')
+      .gte('date', new Date().toISOString())
+      .order('date', { ascending: true }),
+    supabase
+      .from('events')
+      .select('id, name, date, location, capacity, rsvp_count, description, is_members_only')
+      .eq('status', 'active')
+      .lt('date', new Date().toISOString())
+      .order('date', { ascending: false })
+      .limit(3)
+  ]);
 
-  if (error) {
-    console.error('[CALENDAR_SERVER_FETCH_ERROR]', error);
-  }
+  if (upcomingRes.error) console.error('[CALENDAR_FETCH_UPCOMING_ERROR]', upcomingRes.error);
+  if (pastRes.error) console.error('[CALENDAR_FETCH_PAST_ERROR]', pastRes.error);
 
-  const activeEvents = (events || []) as Event[];
+  const activeEvents = (upcomingRes.data || []) as Event[];
+  const pastEvents = (pastRes.data || []) as Event[];
 
   return (
     <>
@@ -119,7 +128,7 @@ async function TicketPortal() {
           }}
         />
       ))}
-      <CalendarClient initialEvents={activeEvents} />
+      <CalendarClient initialEvents={activeEvents} archivalEvents={pastEvents} />
     </>
   );
 }

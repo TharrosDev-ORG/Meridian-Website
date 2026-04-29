@@ -475,5 +475,23 @@ export const calendarCss = `
         align-items: center;
         min-height: 180px;
       }
+
+      /* Premium Empty State Mobile Overrides */
+      .calendar-empty-premium {
+        padding: 60px 24px;
+        margin: 32px auto 0;
+      }
+      .empty-icon-wrap {
+        width: 48px;
+        height: 48px;
+        margin-bottom: 16px;
+      }
+      .empty-h {
+        font-size: 32px;
+        margin-bottom: 16px;
+      }
+      .empty-p {
+        font-size: 15px;
+      }
     }
 `;

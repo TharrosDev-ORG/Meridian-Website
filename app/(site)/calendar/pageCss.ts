@@ -3,7 +3,7 @@ export const calendarCss = `
      * The Meridian Society — Calendar Page Styles
      */
 
-    .calendar-sec { padding: 80px 0; background: var(--cream); min-height: 100vh; }
+    .calendar-sec { background: var(--cream); min-height: 100vh; padding-bottom: 120px; }
     
     .calendar-grid {
       display: grid;
@@ -118,6 +118,21 @@ export const calendarCss = `
       align-items: center;
       justify-content: center;
       padding: 24px;
+      animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .registration-panel-inner {
+      animation: slideUp 0.5s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(20px) scale(0.95); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
     }
 
     .reg-panel-close {
@@ -147,7 +162,6 @@ export const calendarCss = `
 
     /* Desktop Grid layout */
     @media (min-width: 1101px) {
-      .calendar-sec { padding: 120px 0; }
       .calendar-grid { gap: 40px; }
     }
 

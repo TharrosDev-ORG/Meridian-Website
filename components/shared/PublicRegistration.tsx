@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { createClient } from '@/utils/supabase/client';
 import { PublicRegisterResultSchema, parseOrFail } from '@/utils/rpcSchemas';
 
@@ -118,23 +117,12 @@ export default function PublicRegistration({ eventId, eventName, onSuccess }: Pu
     <div className="w-full max-w-md mx-auto bg-[var(--cream-mid)] border border-[var(--ink)]/10 p-8 md:p-10 shadow-[0_30px_60px_-15px_rgba(24,21,15,0.1)] relative overflow-hidden">
       <div className="absolute top-0 right-0 w-32 h-32 bg-[var(--gold)]/05 -mr-16 -mt-16 rounded-full blur-2xl pointer-events-none" />
       
-      <AnimatePresence mode="wait">
-        {status === 'success' ? (
-          <motion.div
-            key="success"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95 }}
-            className="flex flex-col items-center text-center py-4"
-          >
-            <motion.div
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              transition={{ type: 'spring', damping: 12, stiffness: 200, delay: 0.2 }}
-              className="w-16 h-16 bg-[var(--gold)]/10 rounded-full flex items-center justify-center mb-6"
-            >
+      <div className={`transition-all duration-500 ${status === 'success' ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none hidden'}`}>
+        {status === 'success' && (
+          <div className="flex flex-col items-center text-center py-4">
+            <div className="w-16 h-16 bg-[var(--gold)]/10 rounded-full flex items-center justify-center mb-6">
               <CheckCircleIcon />
-            </motion.div>
+            </div>
             
             <h3 className="text-2xl md:text-3xl serif mb-3 text-[var(--ink)]">Admission Secured</h3>
             <p className="text-[13px] serif italic text-[var(--ink)]/60 mb-10 leading-relaxed max-w-[280px]">
@@ -162,15 +150,13 @@ export default function PublicRegistration({ eventId, eventName, onSuccess }: Pu
                  Register Another
                </button>
             </div>
-          </motion.div>
-        ) : (
-          <motion.div
-            key="form"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0, y: -10 }}
-            className="flex flex-col relative z-10"
-          >
+          </div>
+        )}
+      </div>
+
+      <div className={`transition-all duration-500 ${status !== 'success' ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4 pointer-events-none hidden'}`}>
+        {status !== 'success' && (
+          <div className="flex flex-col relative z-10">
             <div className="mb-10">
               <span className="text-[9px] sans font-bold tracking-[0.3em] text-[var(--gold)] uppercase mb-4 block">
                 Archival Event Entrance
@@ -203,19 +189,12 @@ export default function PublicRegistration({ eventId, eventName, onSuccess }: Pu
                 </div>
               </div>
 
-              <AnimatePresence>
-                {status === 'error' && (
-                  <motion.div 
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: 'auto' }}
-                    exit={{ opacity: 0, height: 0 }}
-                    className="flex items-start gap-3 text-red-700/80 bg-red-50/50 p-4 border-l-2 border-red-500/50"
-                  >
-                    <XCircleIcon className="mt-0.5 shrink-0" />
-                    <span className="text-[12px] serif italic leading-snug">{message}</span>
-                  </motion.div>
-                )}
-              </AnimatePresence>
+              {status === 'error' && (
+                <div className="flex items-start gap-3 text-red-700/80 bg-red-50/50 p-4 border-l-2 border-red-500/50 animate-in fade-in slide-in-from-top-1 duration-300">
+                  <XCircleIcon className="mt-0.5 shrink-0" />
+                  <span className="text-[12px] serif italic leading-snug">{message}</span>
+                </div>
+              )}
 
               <button
                 type="submit"
@@ -241,9 +220,9 @@ export default function PublicRegistration({ eventId, eventName, onSuccess }: Pu
                 Strictly for verified Society members only.
               </p>
             </form>
-          </motion.div>
+          </div>
         )}
-      </AnimatePresence>
+      </div>
     </div>
   );
 }

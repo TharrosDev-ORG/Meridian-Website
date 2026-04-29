@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { createClient } from '@/utils/supabase/client';
 import PageStyles from '@/components/PageStyles';
 import { calendarCss } from './pageCss';
@@ -67,6 +66,16 @@ export default function CalendarPage() {
     fetchEvents();
   }, []);
 
+  // Trigger reveal observer when events change
+  useEffect(() => {
+    if (!loading && typeof window !== "undefined") {
+      const win = window as any;
+      if (win.__observeReveal) {
+        setTimeout(() => win.__observeReveal(), 100);
+      }
+    }
+  }, [loading, events]);
+
   async function fetchEvents() {
     const supabase = createClient();
     try {
@@ -95,20 +104,22 @@ export default function CalendarPage() {
       <main id="main-content" className="calendar-sec">
         <div className="wrap">
           {/* ═══════════ HERO ═══════════ */}
-          <header className="mb-16 md:mb-24">
-            <div className="hero-eyebrow rv">
-              <span className="hero-eyebrow-rule"></span>
-              <span className="hero-eyebrow-text">The Meridian Society</span>
-              <span className="hero-eyebrow-rule"></span>
+          <section className="module-page-hero" aria-label="Calendar hero">
+            <div className="module-page-hero-content">
+              <div className="hero-eyebrow rv">
+                <span className="hero-eyebrow-rule"></span>
+                <span className="hero-eyebrow-text">The Meridian Society</span>
+                <span className="hero-eyebrow-rule"></span>
+              </div>
+              <h1 className="hero-title rv rv-stagger">
+                <span className="rv-stagger-item">Society <em>Calendar.</em></span>
+              </h1>
+              <p className="hero-sub rv" data-d="1">
+                Archival access to upcoming dialogues, forums, and scholarly gatherings. 
+                Admission is strictly prioritized for verified Society members.
+              </p>
             </div>
-            <h1 className="text-4xl md:text-7xl serif italic text-[var(--ink)] mt-6 mb-8 rv rv-stagger">
-              Society <em>Calendar.</em>
-            </h1>
-            <p className="text-lg md:text-xl serif italic text-[var(--ink)]/50 max-w-2xl rv" data-d="1">
-              Archival access to upcoming dialogues, forums, and scholarly gatherings. 
-              Admission is strictly prioritized for verified Society members.
-            </p>
-          </header>
+          </section>
 
           {/* ═══════════ EVENT LIST ═══════════ */}
           {loading ? (
@@ -117,15 +128,11 @@ export default function CalendarPage() {
               <span className="text-[10px] sans font-bold tracking-[0.3em] text-[var(--ink)]/30 uppercase">Consulting Archives...</span>
             </div>
           ) : events.length > 0 ? (
-            <div className="calendar-grid">
-              {events.map((event, idx) => (
-                <motion.article
+            <div className="calendar-grid rv-stagger">
+              {events.map((event) => (
+                <article
                   key={event.id}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: idx * 0.1, duration: 0.8, ease: [0.23, 1, 0.32, 1] }}
-                  className="event-card"
+                  className="event-card rv-stagger-item"
                 >
                   {/* Date Badge */}
                   <div className="event-date-col">
@@ -178,7 +185,7 @@ export default function CalendarPage() {
                       </Magnetic>
                     </div>
                   </div>
-                </motion.article>
+                </article>
               ))}
             </div>
           ) : (
@@ -190,38 +197,29 @@ export default function CalendarPage() {
         </div>
 
         {/* ═══════════ REGISTRATION OVERLAY ═══════════ */}
-        <AnimatePresence>
-          {selectedEvent && (
-            <motion.div 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="reg-overlay"
-              onClick={() => setSelectedEvent(null)}
+        {selectedEvent && (
+          <div 
+            className="reg-overlay"
+            onClick={() => setSelectedEvent(null)}
+          >
+            <button className="reg-panel-close">
+              <XIcon />
+            </button>
+            
+            <div 
+              className="w-full max-w-md registration-panel-inner"
+              onClick={(e: React.MouseEvent) => e.stopPropagation()}
             >
-              <button className="reg-panel-close">
-                <XIcon />
-              </button>
-              
-              <motion.div 
-                initial={{ scale: 0.9, y: 20, opacity: 0 }}
-                animate={{ scale: 1, y: 0, opacity: 1 }}
-                exit={{ scale: 0.9, y: 20, opacity: 0 }}
-                transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-                className="w-full max-w-md"
-                onClick={(e) => e.stopPropagation()}
-              >
-                <PublicRegistration 
-                  eventId={selectedEvent.id} 
-                  eventName={selectedEvent.name}
-                  onSuccess={() => {
-                    fetchEvents();
-                  }}
-                />
-              </motion.div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+              <PublicRegistration 
+                eventId={selectedEvent.id} 
+                eventName={selectedEvent.name}
+                onSuccess={() => {
+                  fetchEvents();
+                }}
+              />
+            </div>
+          </div>
+        )}
       </main>
     </>
   );

@@ -188,10 +188,10 @@ export default function PublicRegistration({ eventId, eventName, onSuccess, onCl
                     Member ID
                   </label>
                   
-                  <div className="registry-input-wrap">
+                  <div className="ticket-input-wrap">
                     <input
                       type="text"
-                      className="registry-input"
+                      className="ticket-input"
                       value={memberNumber}
                       onChange={(e) => setMemberNumber(e.target.value.toUpperCase())}
                       placeholder="M26-XXXX"

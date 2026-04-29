@@ -253,7 +253,7 @@ export const calendarCss = `
       padding: 48px 40px;
     }
     
-    .registry-input-wrap {
+    .ticket-input-wrap {
       background: var(--cream-mid);
       border: 1px solid var(--ink-08);
       padding: 12px;
@@ -261,12 +261,12 @@ export const calendarCss = `
       transition: border-color 0.3s, box-shadow 0.3s;
     }
     
-    .registry-input-wrap:focus-within {
+    .ticket-input-wrap:focus-within {
       border-color: var(--gold);
       box-shadow: 0 0 0 1px var(--gold);
     }
 
-    .registry-input {
+    .ticket-input {
       width: 100%;
       background: transparent;
       border: none;
@@ -279,7 +279,7 @@ export const calendarCss = `
       letter-spacing: 0.15em;
     }
     
-    .registry-input::placeholder {
+    .ticket-input::placeholder {
       color: var(--ink-15);
       font-size: 24px;
       letter-spacing: 0.1em;
@@ -343,4 +343,3 @@ export const calendarCss = `
       }
       .btn-register { width: 100%; }
     }
-`;

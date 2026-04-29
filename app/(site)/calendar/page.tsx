@@ -5,6 +5,7 @@ import { createClient } from '@/utils/supabase/server';
 import PageStyles from '@/components/PageStyles';
 import { calendarCss } from './pageCss';
 import CalendarClient, { Event } from './CalendarClient';
+import Marquee from '@/components/Marquee';
 import { getMetadata } from '@/utils/metadata-shared';
 import { generateBreadcrumbSchema, generateEventSchema } from '@/utils/jsonld';
 
@@ -73,21 +74,25 @@ export default async function CalendarPage() {
               <span className="hero-eyebrow-text">The Meridian Society</span>
               <span className="hero-eyebrow-rule"></span>
             </div>
+            <p className="hero-pre rv">The Archive</p>
             <h1 className="hero-title rv rv-stagger">
               <span className="rv-stagger-item">Society <em>Calendar.</em></span>
             </h1>
-            <p className="hero-sub rv" data-d="1">
+            <div className="hero-hr rv" aria-hidden="true" data-d="1"></div>
+            <p className="hero-sub rv" data-d="2">
               Archival access to upcoming dialogues, forums, and scholarly gatherings. 
               Admission is strictly prioritized for verified Society members.
             </p>
             
-            <div className="mt-12 rv" data-d="2">
+            <div className="mt-12 rv" data-d="3">
               <Link href="/events" className="btn-ghost-link">
                 <span>←</span> Return to Events About
               </Link>
             </div>
           </div>
         </section>
+
+        <Marquee />
 
         <div className="wrap">
           {/* ═══════════ CLIENT COMPONENT ═══════════ */}

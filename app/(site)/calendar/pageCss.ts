@@ -115,7 +115,7 @@ export const calendarCss = `
       left: 0;
       width: 100vw;
       height: 100vh;
-      background: rgba(18, 16, 14, 0.92); /* Slightly more transparent for context */
+      background: rgba(18, 16, 14, 0.92); 
       backdrop-filter: none !important;
       -webkit-backdrop-filter: none !important;
       z-index: 99999;
@@ -123,7 +123,8 @@ export const calendarCss = `
       place-items: center;
       padding: 20px;
       animation: fadeIn 0.25s ease-out forwards;
-      pointer-events: none; /* Allow scrolling and clicking behind the dim */
+      pointer-events: auto; /* Re-enabled for click-off-to-close */
+      overflow: hidden;
     }
 
     .registration-panel-inner {
@@ -133,7 +134,7 @@ export const calendarCss = `
       width: 100%;
       position: relative;
       z-index: 100000;
-      pointer-events: auto; /* Re-enable for the actual form */
+      pointer-events: auto;
     }
 
     @keyframes fadeIn {

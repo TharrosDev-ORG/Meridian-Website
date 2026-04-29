@@ -4,7 +4,6 @@ import { useState, useTransition, useEffect, useRef } from "react";
 import { registerMember, RegistrationData, checkMemberStatus } from "@/app/actions/register";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import QRCode from "qrcode";
 
 const REG_KEY = "meridian_registered_v1";
 const NUM_KEY = "meridian_member_number_v1";
@@ -337,7 +336,8 @@ export default function RegistrationForm() {
       setFontsLoaded(true);
     }
 
-    // Generate QR Code Data URL
+    // Generate QR Code Data URL dynamically to save bundle size
+    const QRCode = (await import('qrcode')).default;
     const qrDataUrl = await QRCode.toDataURL(memberNumber || "M26-XXXX", {
       margin: 1,
       width: 440, // High res for the 1200x750 canvas

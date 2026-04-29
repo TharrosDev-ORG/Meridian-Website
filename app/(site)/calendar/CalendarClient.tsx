@@ -234,9 +234,18 @@ export default function CalendarClient({ initialEvents, archivalEvents = [] }: C
             })}
         </div>
       ) : (
-        <div className="calendar-empty rv" data-d="2">
-          <h3 className="empty-h">The calendar is currently quiet.</h3>
-          <p className="empty-p">No upcoming events found. Please check back soon.</p>
+        <div className="calendar-empty-premium rv" data-d="2">
+          <div className="empty-icon-wrap">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="empty-icon">
+              <circle cx="12" cy="12" r="10" />
+              <line x1="12" y1="6" x2="12" y2="12" />
+              <line x1="12" y1="12" x2="16" y2="14" />
+            </svg>
+          </div>
+          <div className="empty-eyebrow">Event Roster</div>
+          <h3 className="empty-h">The Calendar is Currently Quiet.</h3>
+          <div className="empty-divider"></div>
+          <p className="empty-p">The Society is preparing the next series of engagements.<br/>Members will be notified via standard dispatches.</p>
         </div>
       )}
 

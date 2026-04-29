@@ -328,16 +328,79 @@ export const calendarCss = `
       letter-spacing: 0.1em;
     }
 
-    /* Empty state */
-    .calendar-empty {
-      padding: 120px 0;
+    /* Premium Empty State */
+    .calendar-empty-premium {
+      padding: 100px 40px;
       text-align: center;
-      border: 1px dashed var(--ink-20);
+      border: 1px solid var(--ink-10);
       background: var(--cream-mid);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
     }
 
-    .empty-h { font-family: var(--serif); font-size: 28px; font-weight: 300; color: var(--ink-40); margin-bottom: 16px; }
-    .empty-p { font-family: var(--serif); font-size: 16px; font-style: italic; color: var(--ink-30); }
+    .calendar-empty-premium::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, transparent, var(--gold-40), transparent);
+      opacity: 0.8;
+    }
+
+    .empty-icon-wrap {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      border: 1px solid var(--gold-40);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 24px;
+      background: var(--cream);
+      box-shadow: 0 10px 30px rgba(197, 160, 89, 0.1);
+    }
+    
+    .empty-icon {
+      color: var(--gold);
+    }
+
+    .empty-eyebrow {
+      font-family: var(--sans);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--ink-40);
+      margin-bottom: 16px;
+    }
+
+    .empty-h { 
+      font-family: var(--serif); 
+      font-size: 42px; 
+      font-weight: 300; 
+      color: var(--ink); 
+      line-height: 1.1;
+      margin-bottom: 24px; 
+    }
+
+    .empty-divider {
+      width: 40px;
+      height: 1px;
+      background: var(--ink-20);
+      margin: 0 auto 24px;
+    }
+
+    .empty-p { 
+      font-family: var(--serif); 
+      font-size: 18px; 
+      font-style: italic; 
+      color: var(--ink-60); 
+      line-height: 1.6;
+      max-width: 400px;
+    }
 
     /* Desktop Grid layout */
     @media (min-width: 1101px) {

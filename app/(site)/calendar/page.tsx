@@ -49,10 +49,10 @@ export default function CalendarPage() {
           <div className="module-page-hero-content">
             <div className="hero-eyebrow rv">
               <span className="hero-eyebrow-rule"></span>
-              <span className="hero-eyebrow-text">Society</span>
+              <span className="hero-eyebrow-text">The Meridian Society</span>
               <span className="hero-eyebrow-rule"></span>
             </div>
-            <p className="hero-pre rv">The Ticket Gate</p>
+            <p className="hero-pre rv">Society</p>
             <h1 className="hero-title rv rv-stagger">
               <span className="rv-stagger-item">Event <em>Calendar.</em></span>
             </h1>

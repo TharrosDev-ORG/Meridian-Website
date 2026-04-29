@@ -61,17 +61,6 @@ export default function CalendarClient({ initialEvents }: CalendarClientProps) {
     }
   }, []);
 
-  // Body Scroll Lock when portal is open
-  useEffect(() => {
-    if (selectedEvent) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
-    return () => {
-      document.body.style.overflow = '';
-    };
-  }, [selectedEvent]);
 
   async function refreshEvents() {
     const supabase = createClient();

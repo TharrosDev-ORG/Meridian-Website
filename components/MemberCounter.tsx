@@ -12,29 +12,31 @@ export default function MemberCounter({ className }: MemberCounterProps) {
   const [prevCount, setPrevCount] = useState<number>(0);
   const [isAnimating, setIsAnimating] = useState(false);
 
-  // Handle animation sequence
+  // Handle animation sequence (includes initial set)
+  // eslint-disable-next-line react-hooks/set-state-in-effect -- Intentional: drives the number-reel animation
   useEffect(() => {
+    if (count > 0 && prevCount === 0) {
+      // Initial set — no animation needed
+      setPrevCount(count);
+      return;
+    }
     if (count > 0 && prevCount !== count) {
       setIsAnimating(true);
       const timer = setTimeout(() => {
         setIsAnimating(false);
         setPrevCount(count);
-      }, 1000); // Animation duration
+      }, 1000);
       return () => clearTimeout(timer);
     }
-  }, [count]);
-
-  // Initial set
-  useEffect(() => {
-    if (count > 0 && prevCount === 0) setPrevCount(count);
-  }, [count]);
+  }, [count, prevCount]);
 
   // Trigger reveal when count becomes available
   useEffect(() => {
     if (count > 0 && typeof window !== "undefined") {
-      const win = window as any;
+      const win = window as unknown as { __observeReveal?: () => void };
       if (win.__observeReveal) {
-        setTimeout(() => win.__observeReveal(), 100);
+        const t = setTimeout(() => win.__observeReveal?.(), 100);
+        return () => clearTimeout(t);
       }
     }
   }, [count]);

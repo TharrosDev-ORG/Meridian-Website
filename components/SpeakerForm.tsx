@@ -35,7 +35,7 @@ export default function SpeakerForm() {
       
       // Trigger animations for dynamically rendered success content
       const timer = setTimeout(() => {
-        const win = window as any;
+        const win = window as unknown as { __observeReveal?: () => void };
         if (win.__observeReveal) win.__observeReveal();
         
         // Fallback: manually add 'on' class to success container if observer is slow

@@ -5,7 +5,6 @@ import { registerMember, RegistrationData, checkMemberStatus } from "@/app/actio
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import QRCode from "qrcode";
-import { INSTAGRAM_URL } from "@/utils/social";
 
 const REG_KEY = "meridian_registered_v1";
 const NUM_KEY = "meridian_member_number_v1";
@@ -59,8 +58,6 @@ export default function RegistrationForm() {
   const [memberNumber, setMemberNumber] = useState<string>("");
   const [memberName, setMemberName] = useState<string>("");
   const [registrationDate, setRegistrationDate] = useState<string>("");
-  const [memberCount, setMemberCount] = useState<number>(0);
-  const [displayCount, setDisplayCount] = useState<number>(0);
   const [role, setRole] = useState("");
   const [institution, setInstitution] = useState("");
   const [emailChecked, setEmailChecked] = useState(false);
@@ -85,13 +82,10 @@ export default function RegistrationForm() {
       try {
         const res = await fetch("/api/stats/count");
         if (res.ok) {
-          const data = await res.json();
-          if (typeof data.count === "number") {
-            setMemberCount(data.count);
-            setDisplayCount(data.count);
-          }
+          // Pre-warm the stats endpoint for cache
+          await res.json();
         }
-      } catch (e) {}
+      } catch { /* stats pre-warm is non-critical */ }
     }
     loadInitialCount();
   }, []);
@@ -101,10 +95,8 @@ export default function RegistrationForm() {
     if (result?.success && !result.alreadyRegistered && !isAlreadyRegistered) {
       // Small delay before starting the "joining" animation
       const timer = setTimeout(() => {
-        setDisplayCount(prev => prev + 1);
-        
         // Trigger animations for dynamically rendered success content
-        const win = window as any;
+        const win = window as unknown as { __observeReveal?: () => void };
         if (win.__observeReveal) win.__observeReveal();
         
         // Fallback: manually add 'on' class to success container
@@ -178,6 +170,7 @@ export default function RegistrationForm() {
         console.error("Failed to load initial draft", e);
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- Mount-only backfill; deps excluded to prevent re-sync loops
   }, [mounted]);
 
   // Load draft on mount (DOM Population)

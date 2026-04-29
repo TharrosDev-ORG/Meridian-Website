@@ -2,14 +2,15 @@
  * The Meridian Society — Public Registration Widget
  * 
  * A hardened registration gate that verifies persistent member identities (M26-XXXX)
- * and performs atomic admission checks via the Sovereign RPC layer.
+ * and performs atomic ticket checks via the Sovereign RPC layer.
  */
 
-import { useState, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { createClient } from '@/utils/supabase/client';
 import { PublicRegisterResultSchema, parseOrFail } from '@/utils/rpcSchemas';
 
-// Raw SVGs for Icons
+// ── Active SVG Icons (used in render) ──
+
 const CheckCircleIcon = () => (
   <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
     <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
@@ -17,7 +18,7 @@ const CheckCircleIcon = () => (
   </svg>
 );
 
-const XCircleIcon = ({ size = 14, className = "" }: { size?: number, className?: string }) => (
+const XCircleIcon = ({ size = 14, className = "" }: { size?: number; className?: string }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
     <circle cx="12" cy="12" r="10" />
     <line x1="15" y1="9" x2="9" y2="15" />
@@ -25,7 +26,7 @@ const XCircleIcon = ({ size = 14, className = "" }: { size?: number, className?:
   </svg>
 );
 
-const LoaderIcon = ({ size = 24, className = "" }: { size?: number, className?: string }) => (
+const LoaderIcon = ({ size = 24, className = "" }: { size?: number; className?: string }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
     <line x1="12" y1="2" x2="12" y2="6" />
     <line x1="12" y1="18" x2="12" y2="22" />
@@ -38,31 +39,6 @@ const LoaderIcon = ({ size = 24, className = "" }: { size?: number, className?: 
   </svg>
 );
 
-const ArrowRightIcon = ({ size = 14, className = "" }: { size?: number, className?: string }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
-    <line x1="5" y1="12" x2="19" y2="12" />
-    <polyline points="12 5 19 12 12 19" />
-  </svg>
-);
-
-const TicketIcon = ({ size = 24, className = "" }: { size?: number, className?: string }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className={className}>
-    <path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z" />
-    <path d="M13 5v2" />
-    <path d="M13 17v2" />
-    <path d="M13 11v2" />
-  </svg>
-);
-
-const SocietySeal = ({ className = "" }: { className?: string }) => (
-  <svg width="200" height="200" viewBox="0 0 200 200" className={className} fill="none" stroke="currentColor">
-    <circle cx="100" cy="100" r="80" strokeWidth="1" strokeDasharray="4 4" />
-    <circle cx="100" cy="100" r="72" strokeWidth="0.5" />
-    <path d="M60 100 L140 100" strokeWidth="0.5" opacity="0.3" />
-    <path d="M100 60 L100 140" strokeWidth="0.5" opacity="0.3" />
-  </svg>
-);
-
 interface PublicRegistrationProps {
   eventId: string;
   eventName?: string;
@@ -70,15 +46,25 @@ interface PublicRegistrationProps {
   onClose?: () => void;
 }
 
-export default function PublicRegistration({ eventId, eventName, onSuccess, onClose }: PublicRegistrationProps) {
-  const [mounted, setMounted] = useState(false);
+export default function PublicRegistration({ eventId, onSuccess }: PublicRegistrationProps) {
+  const mountedRef = useRef(false);
   const [memberNumber, setMemberNumber] = useState('');
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
   const [message, setMessage] = useState('');
   const [regData, setRegData] = useState<{ id: string; token: string; member_name: string } | null>(null);
 
+  // Mounted Guard & Scroll Lock
   useEffect(() => {
-    setMounted(true);
+    mountedRef.current = true;
+    
+    // Lock background scrolling when portal opens
+    const originalStyle = window.getComputedStyle(document.body).overflow;
+    document.body.style.overflow = 'hidden';
+    
+    return () => { 
+      mountedRef.current = false; 
+      document.body.style.overflow = originalStyle;
+    };
   }, []);
 
   const handleRegister = async (e: React.FormEvent) => {
@@ -121,8 +107,6 @@ export default function PublicRegistration({ eventId, eventName, onSuccess, onCl
       setMessage('An unexpected error occurred. Please try again.');
     }
   };
-
-  if (!mounted) return null;
 
   return (
     <div 

@@ -3,25 +3,25 @@
 /**
  * The Meridian Society — Calendar Client
  * 
- * Handles interactive event registry logic, including real-time refresh 
- * and registration gate orchestration.
+ * Handles interactive event ticket logic, including real-time refresh,
+ * accordion expansion, and registration gate orchestration.
  */
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { createClient } from '@/utils/supabase/client';
 import PublicRegistration from '@/components/shared/PublicRegistration';
-import Magnetic from '@/components/Magnetic';
 
-// Raw SVGs for Icons
-const MapPinIcon = ({ size = 14, className = "" }: { size?: number, className?: string }) => (
+// ── Active SVG Icons ──
+
+const MapPinIcon = ({ size = 14, className = "" }: { size?: number; className?: string }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
     <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
     <circle cx="12" cy="10" r="3" />
   </svg>
 );
 
-const UsersIcon = ({ size = 14, className = "" }: { size?: number, className?: string }) => (
+const UsersIcon = ({ size = 14, className = "" }: { size?: number; className?: string }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
     <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
     <circle cx="9" cy="7" r="4" />
@@ -29,7 +29,6 @@ const UsersIcon = ({ size = 14, className = "" }: { size?: number, className?: s
     <path d="M16 3.13a4 4 0 0 1 0 7.75" />
   </svg>
 );
-
 
 export interface Event {
   id: string;
@@ -49,36 +48,43 @@ interface CalendarClientProps {
 export default function CalendarClient({ initialEvents }: CalendarClientProps) {
   const [events, setEvents] = useState<Event[]>(initialEvents);
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
-  const [expandedId, setExpandedId] = useState<string | null>(initialEvents[0]?.id || null);
+  const [expandedId, setExpandedId] = useState<string | null>(initialEvents[0]?.id ?? null);
   const [mounted, setMounted] = useState(false);
+  const observerTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Trigger reveal observer when events change (initial mount)
+  // Mounted Guard with cleanup for the reveal observer timer
   useEffect(() => {
     setMounted(true);
-    // Safe access to global observer
+
     const globalObserve = (window as unknown as { __observeReveal?: () => void }).__observeReveal;
     if (globalObserve) {
-      setTimeout(() => globalObserve(), 100);
+      observerTimerRef.current = setTimeout(() => globalObserve(), 100);
     }
+
+    return () => {
+      if (observerTimerRef.current) {
+        clearTimeout(observerTimerRef.current);
+      }
+    };
   }, []);
 
-
-  async function refreshEvents() {
+  // Memoized refresh to avoid re-creating the function on every render
+  const refreshEvents = useCallback(async () => {
     const supabase = createClient();
     try {
       const { data, error } = await supabase
         .from('events')
-        .select('*')
+        .select('id, name, date, location, capacity, rsvp_count, description, is_members_only')
         .eq('status', 'active')
         .gte('date', new Date().toISOString())
         .order('date', { ascending: true });
 
       if (error) throw error;
-      setEvents(data || []);
+      setEvents(data ?? []);
     } catch (err) {
       console.error('[CALENDAR_REFRESH_ERROR]', err);
     }
-  }
+  }, []);
 
   return (
     <>

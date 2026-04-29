@@ -2,7 +2,6 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import PageStyles from '@/components/PageStyles';
 import { eventsCss } from './pageCss';
-import { REGISTER_URL } from '@/components/NavBar';
 import Magnetic from '@/components/Magnetic';
 import Marquee from '@/components/Marquee';
 import { getMetadata } from '@/utils/metadata-shared';

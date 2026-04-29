@@ -6,7 +6,7 @@ import { createClient } from "@/utils/supabase/client";
 import { INSTAGRAM_URL, CONTACT_MAILTO } from "@/utils/social";
 
 export default function Footer() {
-  const [count, setCount] = useState<number>(0);
+  const [_count, setCount] = useState<number>(0);
   const [currentYear, setCurrentYear] = useState<number>(2025);
 
   useEffect(() => {

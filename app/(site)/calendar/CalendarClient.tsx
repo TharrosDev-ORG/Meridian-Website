@@ -8,6 +8,7 @@
  */
 
 import { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { createClient } from '@/utils/supabase/client';
 import PublicRegistration from '@/components/shared/PublicRegistration';
 import Magnetic from '@/components/Magnetic';
@@ -54,9 +55,11 @@ interface CalendarClientProps {
 export default function CalendarClient({ initialEvents }: CalendarClientProps) {
   const [events, setEvents] = useState<Event[]>(initialEvents);
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
+  const [mounted, setMounted] = useState(false);
 
   // Trigger reveal observer when events change (initial mount)
   useEffect(() => {
+    setMounted(true);
     const win = window as any;
     if (win.__observeReveal) {
       setTimeout(() => win.__observeReveal(), 100);
@@ -162,8 +165,8 @@ export default function CalendarClient({ initialEvents }: CalendarClientProps) {
         </div>
       )}
 
-      {/* ═══════════ REGISTRATION OVERLAY ═══════════ */}
-      {selectedEvent && (
+      {/* ═══════════ REGISTRATION OVERLAY (PORTAL) ═══════════ */}
+      {selectedEvent && mounted && createPortal(
         <div 
           className="reg-overlay"
           onClick={() => setSelectedEvent(null)}
@@ -181,7 +184,8 @@ export default function CalendarClient({ initialEvents }: CalendarClientProps) {
               }}
             />
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </>
   );

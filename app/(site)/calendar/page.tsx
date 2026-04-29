@@ -95,16 +95,16 @@ export default async function CalendarPage() {
             </p>
             
             <div className="mt-12 rv" data-d="3">
-              <MagneticLink href="/events" className="btn-ghost-link">
-                <span>←</span> Return to Events About
-              </MagneticLink>
+              <a href="#events" className="btn-ghost-link">
+                See Events <span>↓</span>
+              </a>
             </div>
           </div>
         </section>
 
         <Marquee />
 
-        <div className="wrap">
+        <div className="wrap" id="events">
           {/* ═══════════ CLIENT COMPONENT ═══════════ */}
           <CalendarClient initialEvents={activeEvents} />
         </div>

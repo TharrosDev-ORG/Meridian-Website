@@ -125,7 +125,12 @@ export default function PublicRegistration({ eventId, eventName, onSuccess, onCl
   if (!mounted) return null;
 
   return (
-    <div className="registration-panel-inner">
+    <div 
+      className="registration-panel-inner"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="admission-title"
+    >
       <div className="registry-box-outer">
         
         {/* Close button inside the frame */}
@@ -197,7 +202,7 @@ export default function PublicRegistration({ eventId, eventName, onSuccess, onCl
             <div className="flex flex-col relative z-10">
               <div className="admission-header">
                 <span className="admission-eyebrow">Member Entrance</span>
-                <h3 className="admission-title">Secure <em>Admission.</em></h3>
+                <h3 id="admission-title" className="admission-title">Secure <em>Admission.</em></h3>
                 <div className="w-12 h-px bg-[var(--gold)]/40 mx-auto mt-6" />
               </div>
 

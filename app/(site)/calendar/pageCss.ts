@@ -146,19 +146,6 @@ export const calendarCss = `
       to { opacity: 1; transform: scale(1) translateY(0); }
     }
 
-    .reg-panel-close {
-      position: absolute;
-      top: 32px;
-      right: 32px;
-      color: var(--cream);
-      background: none;
-      border: none;
-      cursor: pointer;
-      opacity: 0.6;
-      transition: opacity 0.2s;
-    }
-
-    .reg-panel-close:hover { opacity: 1; transform: scale(1.1); }
 
     /* ── ADMISSION RECEIPT (Registry Overhaul) ── */
     .admission-receipt {

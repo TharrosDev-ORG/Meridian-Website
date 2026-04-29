@@ -129,9 +129,9 @@ export default function PublicRegistration({ eventId, eventName, onSuccess, onCl
       className="registration-panel-inner"
       role="dialog"
       aria-modal="true"
-      aria-labelledby="admission-title"
+      aria-labelledby="ticket-title"
     >
-      <div className="registry-box-outer">
+      <div className="ticket-box-outer">
         
 
         {/* ── SUCCESS STATE (Minimal Archival) ── */}
@@ -152,7 +152,7 @@ export default function PublicRegistration({ eventId, eventName, onSuccess, onCl
                 </p>
                 <p className="success-minimal-blurb">
                   Your Member Card is now active for this Event. 
-                  Present your digital QR code at the entrance for admission.
+                  Present your digital QR code at the entrance for entry.
                 </p>
               </div>
 
@@ -172,14 +172,14 @@ export default function PublicRegistration({ eventId, eventName, onSuccess, onCl
         <div className={`transition-all duration-700 ease-elegant ${status !== 'success' ? 'opacity-100 scale-100' : 'opacity-0 scale-105 pointer-events-none absolute inset-0'}`}>
           {status !== 'success' && (
             <div className="flex flex-col relative z-10">
-              <div className="admission-header">
-                <span className="admission-eyebrow">Member Entrance</span>
-                <h3 id="admission-title" className="admission-title">Secure <em>Admission.</em></h3>
+              <div className="ticket-header">
+                <span className="ticket-eyebrow">Ticket Entrance</span>
+                <h3 id="ticket-title" className="ticket-title">Secure <em>Ticket.</em></h3>
                 <div className="w-12 h-px bg-[var(--gold)]/40 mx-auto mt-6" />
               </div>
 
               <p className="text-[14px] serif italic text-[var(--ink)]/40 text-center leading-relaxed mb-10 px-6">
-                Enter your member number below to secure your ticket. Admission is strictly reserved for verified Society members.
+                Enter your member number below to secure your ticket. Ticket access is strictly reserved for verified Society members.
               </p>
 
               <form onSubmit={handleRegister} className="space-y-8">

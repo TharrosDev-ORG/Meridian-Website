@@ -18,7 +18,7 @@ const CalendarClient = dynamic(() => import('./CalendarClient'), {
 
 export const metadata: Metadata = getMetadata({
   title: "Society Calendar",
-  description: "Secure admission to upcoming dialogues, forums, and scholarly gatherings. Priority access is strictly maintained for verified Society members.",
+  description: "Secure tickets to upcoming dialogues, forums, and scholarly gatherings. Priority access is strictly maintained for verified Society members.",
   urlPath: "/calendar",
   keywords: ['Meridian Calendar', 'Student Events Ottawa', 'Speaker Forum Schedule', 'Society Gatherings']
 });
@@ -52,13 +52,13 @@ export default function CalendarPage() {
               <span className="hero-eyebrow-text">The Meridian Society</span>
               <span className="hero-eyebrow-rule"></span>
             </div>
-            <p className="hero-pre rv">The Registry</p>
+            <p className="hero-pre rv">The Ticket Gate</p>
             <h1 className="hero-title rv rv-stagger">
               <span className="rv-stagger-item">Society <em>Calendar.</em></span>
             </h1>
             <div className="hero-hr rv" aria-hidden="true" data-d="1"></div>
             <p className="hero-sub rv" data-d="2">
-              Secure admission to upcoming dialogues, forums, and scholarly gatherings. 
+              Secure tickets to upcoming dialogues, forums, and scholarly gatherings. 
               Priority access is strictly maintained for verified Society members.
             </p>
             
@@ -73,8 +73,8 @@ export default function CalendarPage() {
         <Marquee />
 
         <div className="wrap" id="events">
-          <Suspense fallback={<RegistrySkeleton />}>
-            <RegistryRegistry />
+          <Suspense fallback={<TicketSkeleton />}>
+            <TicketPortal />
           </Suspense>
         </div>
       </main>
@@ -86,7 +86,7 @@ export default function CalendarPage() {
  * RegistryRegistry — Server component that handles the live data fetch
  * and renders the interactive client registry.
  */
-async function RegistryRegistry() {
+async function TicketPortal() {
   const cookieStore = await cookies();
   const supabase = createClient(cookieStore);
   
@@ -128,7 +128,7 @@ async function RegistryRegistry() {
 /**
  * RegistrySkeleton — High-fidelity skeleton for the live registry grid
  */
-function RegistrySkeleton() {
+function TicketSkeleton() {
   return (
     <div className="calendar-grid animate-pulse">
       {[1, 2, 3].map((i) => (

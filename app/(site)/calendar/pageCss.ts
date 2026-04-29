@@ -208,14 +208,14 @@ export const calendarCss = `
       border-color: var(--gold);
     }
 
-    /* Admission Header */
-    .admission-header {
+    /* Ticket Header */
+    .ticket-header {
       text-align: center;
       margin-bottom: 40px;
       position: relative;
     }
 
-    .admission-eyebrow {
+    .ticket-eyebrow {
       font-family: var(--sans);
       font-size: 9px;
       font-weight: 700;
@@ -226,7 +226,7 @@ export const calendarCss = `
       display: block;
     }
 
-    .admission-title {
+    .ticket-title {
       font-family: var(--serif);
       font-size: 34px;
       font-weight: 400;
@@ -246,7 +246,7 @@ export const calendarCss = `
       box-shadow: 0 40px 100px rgba(0,0,0,0.5);
     }
 
-    .registry-box-outer {
+    .ticket-box-outer {
       border: 1px solid var(--gold-20);
       background: var(--cream);
       position: relative;

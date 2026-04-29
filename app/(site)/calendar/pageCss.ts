@@ -257,7 +257,7 @@ export const calendarCss = `
       background: var(--cream-mid);
       border: 1px solid var(--ink-08);
       padding: 12px;
-      margin: 24px 0;
+      margin: 12px 0 24px;
       transition: border-color 0.3s, box-shadow 0.3s;
     }
     

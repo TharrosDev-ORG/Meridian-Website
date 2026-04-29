@@ -133,17 +133,6 @@ export default function PublicRegistration({ eventId, eventName, onSuccess, onCl
     >
       <div className="registry-box-outer">
         
-        {/* Close button inside the frame */}
-        <button 
-          onClick={onClose}
-          className="absolute top-5 right-5 text-[var(--ink-20)] hover:text-[var(--gold)] transition-all duration-300 p-2 z-[100] group/close"
-          aria-label="Close portal"
-        >
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="group-hover/close:rotate-90 transition-transform duration-500">
-            <line x1="18" y1="6" x2="6" y2="18" />
-            <line x1="6" y1="6" x2="18" y2="18" />
-          </svg>
-        </button>
 
         {/* ── SUCCESS STATE (Minimal Archival) ── */}
         <div className={`transition-all duration-700 ease-elegant ${status === 'success' ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none absolute inset-0'}`}>
@@ -195,7 +184,7 @@ export default function PublicRegistration({ eventId, eventName, onSuccess, onCl
 
               <form onSubmit={handleRegister} className="space-y-8">
                 <div className="relative">
-                  <label className="text-[9px] sans font-bold tracking-[0.3em] text-[var(--ink)]/40 uppercase block mb-3 text-center">
+                  <label className="text-[9px] sans font-bold tracking-[0.3em] text-[var(--ink)]/40 uppercase block mb-1 text-center">
                     Member ID
                   </label>
                   
@@ -234,7 +223,7 @@ export default function PublicRegistration({ eventId, eventName, onSuccess, onCl
                         </>
                       ) : (
                         <>
-                          <span className="text-[10px] sans font-bold tracking-[0.3em] uppercase">Secure Admission</span>
+                          <span className="text-[10px] sans font-bold tracking-[0.3em] uppercase">Secure Ticket</span>
                           <ArrowRightIcon className="transition-transform group-hover/btn:translate-x-2" />
                         </>
                       )}
@@ -242,11 +231,6 @@ export default function PublicRegistration({ eventId, eventName, onSuccess, onCl
                   </button>
                 </div>
                 
-                <div className="pt-6">
-                  <p className="text-center text-[9px] sans font-bold tracking-[0.2em] text-[var(--ink)]/25 uppercase leading-relaxed">
-                    Authentication required.
-                  </p>
-                </div>
               </form>
             </div>
           )}

@@ -224,7 +224,6 @@ export default function PublicRegistration({ eventId, eventName, onSuccess, onCl
                       ) : (
                         <>
                           <span className="text-[10px] sans font-bold tracking-[0.3em] uppercase">Secure Ticket</span>
-                          <ArrowRightIcon className="transition-transform group-hover/btn:translate-x-2" />
                         </>
                       )}
                     </span>

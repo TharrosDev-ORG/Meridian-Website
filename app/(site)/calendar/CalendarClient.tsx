@@ -134,7 +134,7 @@ export default function CalendarClient({ initialEvents }: CalendarClientProps) {
                         disabled={event.rsvp_count >= event.capacity}
                         className="btn-primary w-full"
                       >
-                        <span>{event.rsvp_count >= event.capacity ? 'Registration Closed' : 'Secure Admission'}</span>
+                        <span>{event.rsvp_count >= event.capacity ? 'Registration Closed' : 'Secure Ticket'}</span>
                       </button>
                     </Magnetic>
                   </div>

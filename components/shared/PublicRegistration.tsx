@@ -136,10 +136,10 @@ export default function PublicRegistration({ eventId, eventName, onSuccess, onCl
         {/* Close button inside the frame */}
         <button 
           onClick={onClose}
-          className="absolute top-4 right-4 text-[var(--ink-30)] hover:text-[var(--gold)] transition-colors p-2 z-[100]"
+          className="absolute top-5 right-5 text-[var(--ink-20)] hover:text-[var(--gold)] transition-all duration-300 p-2 z-[100] group/close"
           aria-label="Close portal"
         >
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="group-hover/close:rotate-90 transition-transform duration-500">
             <line x1="18" y1="6" x2="6" y2="18" />
             <line x1="6" y1="6" x2="18" y2="18" />
           </svg>
@@ -149,32 +149,29 @@ export default function PublicRegistration({ eventId, eventName, onSuccess, onCl
         <div className={`transition-all duration-700 ease-elegant ${status === 'success' ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none absolute inset-0'}`}>
           {status === 'success' && (
             <div className="success-minimal">
-              <div className="flex justify-center mb-10">
-                <div className="w-20 h-20 border border-[var(--gold)]/20 rounded-full flex items-center justify-center text-[var(--gold)]">
+              <div className="flex justify-center mb-4">
+                <div className="w-16 h-16 border border-[var(--gold)]/20 rounded-full flex items-center justify-center text-[var(--gold)]">
                   <CheckCircleIcon />
                 </div>
               </div>
 
-              <h3 className="text-[32px] serif italic text-[var(--ink)] mb-4">Ticket Secured.</h3>
-              
-              <div className="w-10 h-px bg-[var(--gold)]/30 mx-auto mb-8" />
-              
-              <div className="space-y-4 mb-10">
-                <p className="text-xl serif text-[var(--ink-80)]">
+              <div className="space-y-4">
+                <h3 className="success-minimal-title">Ticket Secured.</h3>
+                <div className="w-8 h-px bg-[var(--gold)]/30 mx-auto" />
+                <p className="success-minimal-greeting">
                   Thank you, {regData?.member_name.split(' ')[0]}.
                 </p>
-                <p className="text-[15px] serif italic text-[var(--ink)]/50 leading-relaxed px-4">
+                <p className="success-minimal-blurb">
                   Your Society Member Card is now active for this gathering. 
-                  Present your digital QR code at the entrance for seamless admission to the registry.
+                  Present your digital QR code at the entrance for seamless admission.
                 </p>
               </div>
 
-              <div className="pt-8 border-t border-[var(--ink)]/05">
+              <div className="pt-8">
                 <button 
                   onClick={() => { setStatus('idle'); setMemberNumber(''); }}
-                  className="text-[10px] sans font-bold tracking-[0.3em] text-[var(--gold)] uppercase hover:text-[var(--gold-lt)] transition-all flex items-center gap-2 mx-auto group"
+                  className="btn-secondary-ghost"
                 >
-                  <span className="w-4 h-px bg-[var(--gold)]/30 transition-all group-hover:w-8" />
                   Register Another
                 </button>
               </div>

@@ -155,7 +155,57 @@ export const calendarCss = `
     /* ── SUCCESS MINIMAL (Registry Overhaul) ── */
     .success-minimal {
       text-align: center;
-      padding: 40px 20px;
+      padding: 60px 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 32px;
+    }
+    
+    .success-minimal-title {
+      font-family: var(--serif);
+      font-size: 38px;
+      font-weight: 400;
+      line-height: 1.1;
+      color: var(--ink);
+      margin-bottom: 8px;
+    }
+
+    .success-minimal-greeting {
+      font-family: var(--serif);
+      font-size: 22px;
+      font-style: italic;
+      color: var(--ink-80);
+    }
+
+    .success-minimal-blurb {
+      font-family: var(--serif);
+      font-size: 16px;
+      font-style: italic;
+      line-height: 1.7;
+      color: var(--ink-40);
+      max-width: 36ch;
+      margin: 0 auto;
+    }
+
+    .btn-secondary-ghost {
+      font-family: var(--sans);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      background: transparent;
+      border: 1px solid var(--gold-20);
+      padding: 14px 28px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .btn-secondary-ghost:hover {
+      background: var(--gold);
+      color: var(--cream);
+      border-color: var(--gold);
     }
 
     /* Admission Header */

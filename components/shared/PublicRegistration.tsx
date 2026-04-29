@@ -193,13 +193,13 @@ export default function PublicRegistration({ eventId, eventName, onSuccess, onCl
               </div>
 
               <p className="text-[14px] serif italic text-[var(--ink)]/40 text-center leading-relaxed mb-10 px-6">
-                Authentication required. Enter your persistent member number to secure your place in the registry.
+                Enter your member number below to secure your ticket. Admission is strictly reserved for verified Society members.
               </p>
 
               <form onSubmit={handleRegister} className="space-y-8">
                 <div className="relative">
                   <label className="text-[9px] sans font-bold tracking-[0.3em] text-[var(--ink)]/40 uppercase block mb-3 text-center">
-                    Registry Identifier
+                    Member ID
                   </label>
                   
                   <div className="registry-input-wrap">

@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { cookies } from 'next/headers';
+import { Suspense } from 'react';
 import dynamic from 'next/dynamic';
 import { createClient } from '@/utils/supabase/server';
 import PageStyles from '@/components/PageStyles';
@@ -12,7 +13,7 @@ import type { Event } from './CalendarClient';
 
 // Defer interactive client logic for extreme performance
 const CalendarClient = dynamic(() => import('./CalendarClient'), {
-  ssr: true, // Keep SSR for initial event list visibility
+  ssr: true,
 });
 
 export const metadata: Metadata = getMetadata({
@@ -25,24 +26,7 @@ export const metadata: Metadata = getMetadata({
 // Revalidate every 60 seconds (ISR)
 export const revalidate = 60;
 
-export default async function CalendarPage() {
-  const cookieStore = await cookies();
-  const supabase = createClient(cookieStore);
-  
-  // High-performance query: select only required registry fields
-  const { data: events, error } = await supabase
-    .from('events')
-    .select('id, name, date, location, capacity, rsvp_count, description, is_members_only')
-    .eq('status', 'active')
-    .gte('date', new Date().toISOString())
-    .order('date', { ascending: true });
-
-  if (error) {
-    console.error('[CALENDAR_SERVER_FETCH_ERROR]', error);
-  }
-
-  const activeEvents = (events || []) as Event[];
-
+export default function CalendarPage() {
   return (
     <>
       <PageStyles css={calendarCss} />
@@ -58,22 +42,6 @@ export default async function CalendarPage() {
           ])),
         }}
       />
-
-      {/* JSON-LD Event Schemas */}
-      {activeEvents.map((event) => (
-        <script
-          key={`schema-${event.id}`}
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(generateEventSchema({
-              name: event.name,
-              startDate: event.date,
-              description: event.description || '',
-              locationName: event.location,
-            })),
-          }}
-        />
-      ))}
 
       <main id="main-content" className="calendar-sec">
         {/* ═══════════ HERO ═══════════ */}
@@ -105,11 +73,76 @@ export default async function CalendarPage() {
         <Marquee />
 
         <div className="wrap" id="events">
-          {/* ═══════════ CLIENT COMPONENT ═══════════ */}
-          <CalendarClient initialEvents={activeEvents} />
+          <Suspense fallback={<RegistrySkeleton />}>
+            <RegistryRegistry />
+          </Suspense>
         </div>
       </main>
     </>
+  );
+}
+
+/**
+ * RegistryRegistry — Server component that handles the live data fetch
+ * and renders the interactive client registry.
+ */
+async function RegistryRegistry() {
+  const cookieStore = await cookies();
+  const supabase = createClient(cookieStore);
+  
+  const { data: events, error } = await supabase
+    .from('events')
+    .select('id, name, date, location, capacity, rsvp_count, description, is_members_only')
+    .eq('status', 'active')
+    .gte('date', new Date().toISOString())
+    .order('date', { ascending: true });
+
+  if (error) {
+    console.error('[CALENDAR_SERVER_FETCH_ERROR]', error);
+  }
+
+  const activeEvents = (events || []) as Event[];
+
+  return (
+    <>
+      {/* JSON-LD Event Schemas */}
+      {activeEvents.map((event) => (
+        <script
+          key={`schema-${event.id}`}
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(generateEventSchema({
+              name: event.name,
+              startDate: event.date,
+              description: event.description || '',
+              locationName: event.location,
+            })),
+          }}
+        />
+      ))}
+      <CalendarClient initialEvents={activeEvents} />
+    </>
+  );
+}
+
+/**
+ * RegistrySkeleton — High-fidelity skeleton for the live registry grid
+ */
+function RegistrySkeleton() {
+  return (
+    <div className="calendar-grid animate-pulse">
+      {[1, 2, 3].map((i) => (
+        <div key={i} className="event-card opacity-40">
+          <div className="event-date-col bg-ink/20 h-[180px]" />
+          <div className="event-info-col py-10 space-y-4">
+             <div className="h-4 bg-ink/10 w-24 rounded-full" />
+             <div className="h-10 bg-ink/10 w-3/4" />
+             <div className="h-6 bg-ink/10 w-1/2" />
+          </div>
+          <div className="event-action-col bg-ink/05" />
+        </div>
+      ))}
+    </div>
   );
 }
 

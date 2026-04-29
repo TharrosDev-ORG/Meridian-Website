@@ -234,7 +234,7 @@ export const calendarCss = `
       color: var(--ink);
     }
     
-    .admission-title em {
+    .ticket-title em {
       font-style: italic;
       color: var(--gold);
     }
@@ -343,3 +343,4 @@ export const calendarCss = `
       }
       .btn-register { width: 100%; }
     }
+\`;

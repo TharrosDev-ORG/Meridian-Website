@@ -133,7 +133,7 @@ export default function PublicRegistration({ eventId, eventName, onSuccess }: Pu
       {/* ── SUCCESS STATE (Midnight Ticket Overhaul) ── */}
       <div className={`transition-all duration-700 ease-elegant ${status === 'success' ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none absolute inset-0'}`}>
         {status === 'success' && (
-          <div className="archival-receipt">
+          <div className="admission-receipt">
             <div className="receipt-perforation" />
             <div className="receipt-perforation receipt-perforation--bottom" />
             <SocietySeal className="receipt-seal-watermark" />
@@ -145,7 +145,7 @@ export default function PublicRegistration({ eventId, eventName, onSuccess }: Pu
                 </div>
               </div>
 
-              <span className="admission-eyebrow">Archival Access Confirmed</span>
+              <span className="admission-eyebrow">Access Confirmed</span>
               <h3 className="text-3xl serif italic text-[var(--cream)] mb-4">Admission Secured</h3>
               
               <div className="w-12 h-px bg-[var(--gold)]/40 mx-auto mb-6" />
@@ -161,7 +161,7 @@ export default function PublicRegistration({ eventId, eventName, onSuccess }: Pu
 
               <div className="ticket-id-box">
                 <div className="text-left">
-                  <span className="ticket-id-label">Archive Reference</span>
+                  <span className="ticket-id-label">Registry Reference</span>
                   <span className="ticket-id-val">{regData?.id.split('-')[0]}...{regData?.id.slice(-6)}</span>
                 </div>
                 <TicketIcon className="text-[var(--gold)]/40" />
@@ -186,7 +186,7 @@ export default function PublicRegistration({ eventId, eventName, onSuccess }: Pu
         {status !== 'success' && (
           <div className="flex flex-col relative z-10">
             <div className="admission-header">
-              <span className="admission-eyebrow">The Meridian Society</span>
+              <span className="admission-eyebrow">Member Entrance</span>
               <h3 className="admission-title">Secure <em>Admission.</em></h3>
               <div className="w-12 h-px bg-[var(--gold)]/40 mx-auto mt-6" />
             </div>

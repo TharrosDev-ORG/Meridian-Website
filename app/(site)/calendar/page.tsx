@@ -17,7 +17,7 @@ const CalendarClient = dynamic(() => import('./CalendarClient'), {
 
 export const metadata: Metadata = getMetadata({
   title: "Society Calendar",
-  description: "Archival access to upcoming dialogues, forums, and scholarly gatherings. Admission is strictly prioritized for verified Society members.",
+  description: "Secure admission to upcoming dialogues, forums, and scholarly gatherings. Priority access is strictly maintained for verified Society members.",
   urlPath: "/calendar",
   keywords: ['Meridian Calendar', 'Student Events Ottawa', 'Speaker Forum Schedule', 'Society Gatherings']
 });
@@ -29,7 +29,7 @@ export default async function CalendarPage() {
   const cookieStore = await cookies();
   const supabase = createClient(cookieStore);
   
-  // High-performance query: select only required archival fields
+  // High-performance query: select only required registry fields
   const { data: events, error } = await supabase
     .from('events')
     .select('id, name, date, location, capacity, rsvp_count, description, is_members_only')
@@ -84,14 +84,14 @@ export default async function CalendarPage() {
               <span className="hero-eyebrow-text">The Meridian Society</span>
               <span className="hero-eyebrow-rule"></span>
             </div>
-            <p className="hero-pre rv">The Archive</p>
+            <p className="hero-pre rv">The Registry</p>
             <h1 className="hero-title rv rv-stagger">
               <span className="rv-stagger-item">Society <em>Calendar.</em></span>
             </h1>
             <div className="hero-hr rv" aria-hidden="true" data-d="1"></div>
             <p className="hero-sub rv" data-d="2">
-              Archival access to upcoming dialogues, forums, and scholarly gatherings. 
-              Admission is strictly prioritized for verified Society members.
+              Secure admission to upcoming dialogues, forums, and scholarly gatherings. 
+              Priority access is strictly maintained for verified Society members.
             </p>
             
             <div className="mt-12 rv" data-d="3">

@@ -151,8 +151,8 @@ export const calendarCss = `
 
     .reg-panel-close:hover { opacity: 1; transform: scale(1.1); }
 
-    /* ── SUCCESS OVERHAUL (Archival Receipt) ── */
-    .archival-receipt {
+    /* ── ADMISSION RECEIPT (Registry Overhaul) ── */
+    .admission-receipt {
       background: var(--ink);
       color: var(--cream);
       padding: 60px 40px;
@@ -162,7 +162,7 @@ export const calendarCss = `
       box-shadow: 0 40px 100px rgba(0,0,0,0.4);
     }
 
-    .archival-receipt::before {
+    .admission-receipt::before {
       content: '';
       position: absolute;
       inset: 0;

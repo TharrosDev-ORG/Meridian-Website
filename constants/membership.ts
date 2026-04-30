@@ -20,4 +20,8 @@ export const FAQ_ITEMS: FaqItem[] = [
     question: "Do I have to attend every event?",
     answer: "No. Our programming is modular. You are welcome to attend only the events that align with your interests. Membership is a persistent credential meant to be used as it suits you.",
   },
+  {
+    question: "What is my Member ID, and why is it important?",
+    answer: "Your Member ID is your unique identifier within The Meridian Society's registry. It grants you access to our private events, allows for rapid check-ins at venues via PorterOS scanning, and maintains your attendance history. You can download your digital ID card immediately after registration."
+  }
 ];

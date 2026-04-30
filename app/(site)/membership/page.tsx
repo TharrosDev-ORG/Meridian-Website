@@ -8,6 +8,8 @@ import Marquee from '@/components/Marquee';
 import RegisterSection from '@/components/sections/RegisterSection';
 import { getMetadata } from '@/utils/metadata-shared';
 import { generateFaqSchema, generateBreadcrumbSchema } from '@/utils/jsonld';
+import { FAQ_ITEMS } from '@/constants/membership';
+
 
 export const metadata: Metadata = getMetadata({
   title: "Membership",
@@ -15,24 +17,7 @@ export const metadata: Metadata = getMetadata({
   urlPath: "/membership"
 });
 
-const FAQS = [
-  {
-    question: "Is membership free?",
-    answer: "Yes. Membership is completely free. There is no cost to join The Meridian Society."
-  },
-  {
-    question: "Who can join?",
-    answer: "Any motivated, curious student in the Ottawa area is welcome to register. You don't need to be from a specific school or program."
-  },
-  {
-    question: "What happens after I register?",
-    answer: "You'll receive event announcements and invitations as they go out. No spam, no commitments. You can also follow us on Instagram for updates."
-  },
-  {
-    question: "Do I have to attend every event?",
-    answer: "No. Register once, come to what interests you. There is no attendance requirement. Membership is yours to use how it suits you."
-  }
-];
+
 
 export default function Page() { 
   return (
@@ -52,7 +37,7 @@ export default function Page() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(generateFaqSchema(FAQS)),
+          __html: JSON.stringify(generateFaqSchema(FAQ_ITEMS)),
         }}
       />
       <main id="main-content">

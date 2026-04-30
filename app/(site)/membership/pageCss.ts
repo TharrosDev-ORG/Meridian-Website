@@ -60,6 +60,7 @@ export const membershipCss = `
       overflow: hidden;
       position: relative;
       padding-left: 14px;
+      transition: background 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .faq-item::before {
       content: ''; position: absolute; left: 0; top: 0; bottom: 0;
@@ -68,39 +69,49 @@ export const membershipCss = `
       transition: transform 0.65s cubic-bezier(0.16,1,0.3,1);
     }
     .faq-item[open]::before { transform: scaleY(1); }
-    .faq-item[data-closing]::before { transform: scaleY(0); }
+    
     .faq-item summary {
       list-style: none; display: flex; align-items: center; justify-content: space-between;
       padding: 32px 0; cursor: pointer;
       font-family: var(--serif); font-size: clamp(19px, 2vw, 26px); font-weight: 300; color: var(--ink);
-      transition: color 0.2s;
+      transition: color 0.2s, padding 0.4s cubic-bezier(0.16, 1, 0.3, 1);
       gap: 24px;
     }
     .faq-item summary::-webkit-details-marker { display: none; }
-    .faq-item summary:hover { color: var(--gold); }
+    
     @media (min-width: 1101px) {
-      .faq-item summary { transition: color 0.2s, background 0.3s; padding: 32px 24px; margin: 0 -24px; }
-      .faq-item summary:hover { background: rgba(184, 147, 42, 0.03); }
+      .faq-item { padding-left: 0; }
+      .faq-item summary { padding: 36px 32px; }
+      .faq-item:hover { background: rgba(184, 147, 42, 0.04); }
+      .faq-item:hover summary { color: var(--gold); }
     }
 
-    .faq-icon {
-      font-family: var(--sans); font-size: 20px; font-weight: 300; color: var(--ink-30);
-      flex-shrink: 0; transition: transform 0.65s cubic-bezier(0.16,1,0.3,1), color 0.2s;
-      line-height: 1;
+    .faq-icon-wrap {
+      width: 40px; height: 40px; 
+      display: flex; align-items: center; justify-content: center;
+      border: 1px solid var(--ink-10);
+      border-radius: 50%;
+      flex-shrink: 0;
+      transition: border-color 0.4s, background 0.4s, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      color: var(--ink-30);
     }
-    .faq-item[open] > summary .faq-icon { transform: rotate(45deg); color: var(--gold); }
-    .faq-item[data-closing] > summary .faq-icon { transform: rotate(0deg); color: var(--ink-30); }
-    .faq-item[open] > summary { color: var(--ink); }
+    .faq-item[open] .faq-icon-wrap {
+      border-color: var(--gold-40);
+      background: var(--gold-05);
+      color: var(--gold);
+    }
+    .faq-chevron {
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
     .faq-body {
       max-height: 0;
       overflow: hidden;
-      /* Duration and easing controlled here; JS sets the exact pixel value to avoid snap-lag */
-      transition: max-height 0.65s cubic-bezier(0.16,1,0.3,1);
+      transition: max-height 0.65s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    /* Note: max-height open state is set by JS to exact content height — no CSS override here */
     .faq-answer {
       font-family: var(--serif); font-size: 19px; font-weight: 300; line-height: 1.85;
-      color: var(--ink-75); padding: 0 0 32px; max-width: 640px;
+      color: var(--ink-75); padding: 0 32px 36px; max-width: 680px;
     }
     .faq-answer a {
       color: var(--gold); text-decoration: none;
@@ -108,6 +119,16 @@ export const membershipCss = `
       transition: color 0.2s, border-color 0.2s;
     }
     .faq-answer a:hover { color: var(--gold-lt); border-color: var(--gold-lt); }
+
+    /* Staggered reveal overrides for FAQ */
+    .faq-item[open] .rv-stagger-item {
+      opacity: 1; transform: none;
+    }
+    .faq-answer.rv-stagger-item {
+      opacity: 0; transform: translateY(10px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
 
     /* ── Register section ── */
     .register { padding: 64px 0; background: var(--cream-mid); position: relative; overflow: hidden; }
@@ -637,11 +658,11 @@ export const membershipCss = `
         gap: 14px;
         min-height: 56px;
       }
-      .faq-icon { font-size: 22px; }
+      .faq-icon-wrap { width: 36px; height: 36px; }
       .faq-answer {
         font-size: 16.5px;
         line-height: 1.75;
-        padding: 0 0 26px !important;
+        padding: 0 0 26px 14px !important;
       }
 
       /* Register form container padding already adjusted at 700px above */

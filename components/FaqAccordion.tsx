@@ -1,37 +1,38 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { FAQ_ITEMS } from "@/constants/membership";
 
-interface FaqItem {
-  question: string;
-  answer: string;
+function ChevronIcon({ className, style }: { className?: string, style?: React.CSSProperties }) {
+  return (
+    <svg 
+      className={className} 
+      width="16" 
+      height="16" 
+      viewBox="0 0 24 24" 
+      fill="none" 
+      stroke="currentColor" 
+      strokeWidth="2.5" 
+      strokeLinecap="round" 
+      strokeLinejoin="round"
+      style={{ 
+        transition: 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)',
+        ...style 
+      }}
+    >
+      <polyline points="6 9 12 15 18 9" />
+    </svg>
+  );
 }
-
-const FAQ_DATA: FaqItem[] = [
-  {
-    question: "Is membership free?",
-    answer: "Yes. Membership is completely free. There is no cost to join The Meridian Society.",
-  },
-  {
-    question: "Who can join?",
-    answer: "Any motivated, curious student in the Ottawa area is welcome to register. You don&apos;t need to be from a specific school or program.",
-  },
-  {
-    question: "What happens after I register?",
-    answer: 'You&apos;ll receive event announcements and invitations as they go out. No spam, no commitments. You can also follow us on <a href="https://www.instagram.com/Meridian.Society" target="_blank" rel="noopener noreferrer">Instagram</a> for updates.',
-  },
-  {
-    question: "Do I have to attend every event?",
-    answer: "No. Register once, come to what interests you. There is no attendance requirement. Membership is yours to use how it suits you.",
-  },
-];
 
 export default function FaqAccordion() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   const [isHoverEnabled, setIsHoverEnabled] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    // Defer state update to avoid 'cascading renders' lint error
+    setMounted(true);
+    // Defer hover detection to avoid hydration mismatch
     const timer = setTimeout(() => {
       if (window.matchMedia("(hover: hover)").matches) {
         setIsHoverEnabled(true);
@@ -39,6 +40,8 @@ export default function FaqAccordion() {
     }, 0);
     return () => clearTimeout(timer);
   }, []);
+
+  if (!mounted) return <div className="faq-list-skeleton" style={{ minHeight: '400px' }} />;
 
   const toggleItem = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
@@ -58,7 +61,7 @@ export default function FaqAccordion() {
 
   return (
     <div className="faq-list rv" data-d="2">
-      {FAQ_DATA.map((item, i) => {
+      {FAQ_ITEMS.map((item, i) => {
         const isOpen = openIndex === i;
         return (
           <details
@@ -67,6 +70,7 @@ export default function FaqAccordion() {
             open={isOpen}
             onMouseEnter={() => handleMouseEnter(i)}
             onMouseLeave={handleMouseLeave}
+            aria-expanded={isOpen}
           >
             <summary 
               onClick={(e) => {
@@ -74,21 +78,25 @@ export default function FaqAccordion() {
                 toggleItem(i);
               }}
             >
-              {item.question} <span className="faq-icon">{isOpen ? "−" : "+"}</span>
+              <span className="faq-q-text">{item.question}</span>
+              <div className="faq-icon-wrap">
+                <ChevronIcon className="faq-chevron" style={{ transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)' }} />
+              </div>
             </summary>
             <div 
               className="faq-body" 
               style={{
-                maxHeight: isOpen ? "200px" : "0px", // Approximate height; transitioned in CSS
+                maxHeight: isOpen ? "300px" : "0px", 
                 overflow: "hidden",
-                transition: "max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1)"
+                transition: "max-height 0.6s cubic-bezier(0.16, 1, 0.3, 1)"
               }}
             >
-              <p
-                className="faq-answer"
-                dangerouslySetInnerHTML={{ __html: item.answer }}
-                style={{ paddingBottom: '24px' }}
-              />
+              <div className={`faq-answer-inner ${isOpen ? 'rv-stagger on' : ''}`}>
+                <p
+                  className="faq-answer rv-stagger-item"
+                  dangerouslySetInnerHTML={{ __html: item.answer }}
+                />
+              </div>
             </div>
           </details>
         );

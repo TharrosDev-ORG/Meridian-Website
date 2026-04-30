@@ -6,6 +6,7 @@ import { useSiteContext } from "./Providers";
 import { usePathname } from "next/navigation";
 
 const SWIPE_CLOSE_THRESHOLD = 64;
+const SWIPE_INTENT_PX = 8;
 const NAV_LINKS = [
   { name: "Team", href: "/team" },
   { name: "Events", href: "/events" },
@@ -21,19 +22,16 @@ export default function MobileMenu() {
   const drawerRef = useRef<HTMLDivElement>(null);
   const startX = useRef(0);
   const startY = useRef(0);
+  const touching = useRef(false);
   const dragging = useRef(false);
 
-  // Body scroll lock + Escape + simple focus containment
+  // Body scroll lock + Escape + simple Tab loop
   useEffect(() => {
-    if (!menuOpen) {
-      document.body.style.overflow = "";
-      return;
-    }
+    if (!menuOpen) return;
 
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
 
-    // Defer focus so it doesn't fight the open transition
     const focusTimer = window.setTimeout(() => drawerRef.current?.focus(), 0);
 
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -42,7 +40,6 @@ export default function MobileMenu() {
         return;
       }
       if (e.key !== "Tab") return;
-      // Keep focus within the drawer (basic trap)
       const drawer = drawerRef.current;
       if (!drawer) return;
       const focusables = drawer.querySelectorAll<HTMLElement>(
@@ -69,44 +66,68 @@ export default function MobileMenu() {
     };
   }, [menuOpen, setMenuOpen]);
 
-  // Close on route change (covers programmatic / browser-history navigation)
+  // Auto-close on route change. Blur the active element first so we never
+  // hide the drawer (via inert) while a descendant link still holds focus —
+  // that triggers Chromium's aria-hidden / inert focus-retention warning.
   useEffect(() => {
-    if (menuOpen) setMenuOpen(false);
+    if (!menuOpen) return;
+    if (document.activeElement instanceof HTMLElement) {
+      document.activeElement.blur();
+    }
+    setMenuOpen(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]);
 
-  // Swipe-to-close
+  // Swipe-to-close (only horizontal, only after intent threshold is crossed)
   useEffect(() => {
     const el = drawerRef.current;
     if (!el || !menuOpen) return;
 
     const reset = () => {
+      touching.current = false;
       dragging.current = false;
       el.style.transition = "";
       el.style.transform = "";
     };
 
     const onStart = (e: TouchEvent) => {
+      if (e.touches.length !== 1) return;
       startX.current = e.touches[0].clientX;
       startY.current = e.touches[0].clientY;
-      dragging.current = true;
-      el.style.transition = "none";
+      touching.current = true;
+      dragging.current = false;
     };
 
     const onMove = (e: TouchEvent) => {
-      if (!dragging.current) return;
+      if (!touching.current) return;
       const dx = e.touches[0].clientX - startX.current;
       const dy = Math.abs(e.touches[0].clientY - startY.current);
-      if (dx > 0 && dx > dy) {
-        el.style.transform = `translateX(${dx}px)`;
+      if (!dragging.current) {
+        // Wait until we know intent: horizontal swipe vs vertical scroll vs tap
+        if (dy > SWIPE_INTENT_PX && dy > Math.abs(dx)) {
+          // Vertical scroll — let the drawer scroll naturally
+          touching.current = false;
+          return;
+        }
+        if (dx > SWIPE_INTENT_PX && dx > dy) {
+          dragging.current = true;
+          el.style.transition = "none";
+        } else {
+          return;
+        }
       }
+      if (dx > 0) el.style.transform = `translateX(${dx}px)`;
     };
 
     const onEnd = (e: TouchEvent) => {
-      if (!dragging.current) return;
+      if (!touching.current) {
+        reset();
+        return;
+      }
+      const wasDragging = dragging.current;
       const dx = e.changedTouches[0].clientX - startX.current;
       reset();
-      if (dx > SWIPE_CLOSE_THRESHOLD) setMenuOpen(false);
+      if (wasDragging && dx > SWIPE_CLOSE_THRESHOLD) setMenuOpen(false);
     };
 
     el.addEventListener("touchstart", onStart, { passive: true });
@@ -123,6 +144,14 @@ export default function MobileMenu() {
     };
   }, [menuOpen, setMenuOpen]);
 
+  const handleLinkClick = () => {
+    // Blur immediately so the impending inert flip doesn't fight focus
+    if (document.activeElement instanceof HTMLElement) {
+      document.activeElement.blur();
+    }
+    setMenuOpen(false);
+  };
+
   return (
     <>
       <div
@@ -136,9 +165,9 @@ export default function MobileMenu() {
         role="dialog"
         aria-label="Navigation Menu"
         aria-modal="true"
-        aria-hidden={!menuOpen}
         tabIndex={-1}
         ref={drawerRef}
+        inert={!menuOpen}
       >
         <div className="mob-wordmark">THE MERIDIAN SOCIETY</div>
 
@@ -155,8 +184,7 @@ export default function MobileMenu() {
               key={link.name}
               href={link.href}
               className={pathname === link.href ? "active" : ""}
-              onClick={() => setMenuOpen(false)}
-              tabIndex={menuOpen ? 0 : -1}
+              onClick={handleLinkClick}
               style={menuOpen ? { transitionDelay: `${0.1 + i * 0.06}s` } : undefined}
             >
               {link.name}

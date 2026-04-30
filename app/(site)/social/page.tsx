@@ -9,10 +9,10 @@ import { INSTAGRAM_URL } from '@/utils/social';
 import SocialInstagramSection from '@/components/sections/SocialInstagramSection';
 
 export const metadata: Metadata = getMetadata({
-  title: "Social Gatherings",
-  description: "The social side of the Society. From coffee meetups to social nights, we create relaxed, authentic spaces for Ottawa students to meet like-minded peers.",
+  title: "Social Gatherings & Mixers",
+  description: "Beyond the forum: we create authentic spaces for Ottawa students to connect. From relaxed coffee meetups to high-impact social mixers and fundraisers.",
   urlPath: "/social",
-  keywords: ['Ottawa Student Socials', 'Student Networking Socials', 'Community Events Ottawa', 'Peer Networking']
+  keywords: ['Ottawa Student Socials', 'Student Networking Socials', 'Community Events Ottawa', 'Peer Networking', 'Student Mixers']
 });
 
 export default function SocialPage() {

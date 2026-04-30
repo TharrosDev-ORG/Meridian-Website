@@ -12,9 +12,10 @@ import { FAQ_ITEMS } from '@/constants/membership';
 
 
 export const metadata: Metadata = getMetadata({
-  title: "Membership",
-  description: "Membership puts you in the room. Register for free priority access to speaker events and social gatherings, and join a community built around curiosity and conversation.",
-  urlPath: "/membership"
+  title: "Membership | Priority Access & Community",
+  description: "Join The Meridian Society for priority access to our flagship speaker events, exclusive social mixers, and a digital ID for rapid venue check-in. Build your network in Ottawa.",
+  urlPath: "/membership",
+  keywords: ['Student Membership Ottawa', 'Vetted Student Community', 'Priority Event Access']
 });
 
 

@@ -75,6 +75,34 @@ export function generatePersonSchema(person: {
     }
   };
 }
+export function generateWebSiteSchema() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "The Meridian Society",
+    "url": "https://meridiansociety.ca",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://meridiansociety.ca/search?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  };
+}
+
+export function generateSiteNavigationElementSchema() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "itemListElement": [
+      { "@type": "SiteNavigationElement", "position": 1, "name": "Events", "url": "https://meridiansociety.ca/events" },
+      { "@type": "SiteNavigationElement", "position": 2, "name": "Calendar", "url": "https://meridiansociety.ca/calendar" },
+      { "@type": "SiteNavigationElement", "position": 3, "name": "Team", "url": "https://meridiansociety.ca/team" },
+      { "@type": "SiteNavigationElement", "position": 4, "name": "Speak", "url": "https://meridiansociety.ca/speak" },
+      { "@type": "SiteNavigationElement", "position": 5, "name": "Membership", "url": "https://meridiansociety.ca/membership" }
+    ]
+  };
+}
+
 export function generateEventSchema(event: {
   name: string;
   startDate: string;

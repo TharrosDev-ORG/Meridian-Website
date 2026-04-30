@@ -8,10 +8,10 @@ import { getMetadata } from '@/utils/metadata-shared';
 import { generateBreadcrumbSchema, generatePersonSchema } from '@/utils/jsonld';
 
 export const metadata: Metadata = getMetadata({
-  title: "The Team",
-  description: "Meet the student leadership behind The Meridian Society. Dedicated to building an Ottawa campus institution for open dialogue.",
+  title: "The Team | Student Leadership",
+  description: "Meet the student team building The Meridian Society. We are dedicated to creating a permanent Ottawa campus institution for intellectual dialogue and professional growth.",
   urlPath: "/team",
-  keywords: ['Magnus Abdelnour', 'Colin Sherwood', 'Meridian Society Founder', 'The Meridian Society Team', 'Student Leadership Ottawa']
+  keywords: ['Magnus Abdelnour', 'Colin Sherwood', 'Student Leadership Ottawa', 'Meridian Society Founders', 'Campus Organization Ottawa']
 });
 
 

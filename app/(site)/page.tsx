@@ -14,8 +14,9 @@ import MemberCounter from '@/components/MemberCounter';
 
 export const metadata: Metadata = getMetadata({
   title: "Ottawa Student Speaker Forum & Social Community",
-  description: "An independent, student-run community in Ottawa. The Meridian Society connects motivated students with professionals through our curated speaker forum and vibrant social events. Built by students, for students.",
-  urlPath: "/"
+  description: "The Meridian Society is Ottawa's premier student-run forum, connecting curious minds with industry professionals, scholars, and innovators through curated speaker events and authentic social gatherings.",
+  urlPath: "/",
+  keywords: ['Ottawa Student Leadership', 'Speaker Series Ottawa', 'Professional Development Students']
 });
 
 export default function Home() { 

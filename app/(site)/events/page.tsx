@@ -9,10 +9,10 @@ import { generateBreadcrumbSchema } from '@/utils/jsonld';
 import SocialInstagramSection from '@/components/sections/SocialInstagramSection';
 
 export const metadata: Metadata = getMetadata({
-  title: "Speaker Events",
-  description: "The Speaker Forum is our flagship event. We work to provide a platform for professionals and academics to share their experience with students.",
+  title: "Speaker Forum Events",
+  description: "Our signature Speaker Forum events bring world-class perspectives to Ottawa. View our upcoming schedule of dialogues, presentations, and networking mixers.",
   urlPath: "/events",
-  keywords: ['Ottawa Speaker Forum', 'Student Dialogue', 'Academic Presentations Ottawa', 'Student Networking Events']
+  keywords: ['Ottawa Speaker Forum', 'Student Intellectual Events', 'Campus Speaker Series', 'Professional Networking Ottawa']
 });
 
 export default function EventsPage() {

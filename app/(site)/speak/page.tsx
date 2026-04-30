@@ -7,10 +7,10 @@ import { getMetadata } from '@/utils/metadata-shared';
 import { generateBreadcrumbSchema } from '@/utils/jsonld';
 
 export const metadata: Metadata = getMetadata({
-  title: "Speak at The Meridian",
-  description: "Share your professional experience with motivated students. We provide a platform for experts to engage with the next generation in Ottawa.",
+  title: "Speak at The Meridian | Guest Speaker Opportunities",
+  description: "Engage with a curated audience of motivated Ottawa students. We provide a platform for experts, founders, and scholars to share knowledge and inspire the next generation.",
   urlPath: "/speak",
-  keywords: ['Speak at Meridian', 'Student Guest Speaker', 'Mentor Ottawa', 'Professional Networking', 'Thought Leadership Ottawa']
+  keywords: ['Guest Speaker Opportunities Ottawa', 'Student Mentorship', 'Thought Leadership Ottawa', 'University Guest Lectures']
 });
 
 

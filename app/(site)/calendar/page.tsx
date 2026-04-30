@@ -16,10 +16,10 @@ const CalendarClient = dynamic(() => import('./CalendarClient'), {
 });
 
 export const metadata: Metadata = getMetadata({
-  title: "Event Calendar",
-  description: "Get tickets to upcoming forums, and events.",
+  title: "Live Event Registry & Calendar",
+  description: "The live registry for all Meridian Society programming. Secure your tickets, view venue details, and track upcoming speaker forums in Ottawa.",
   urlPath: "/calendar",
-  keywords: ['Meridian Calendar', 'Student Events Ottawa', 'Speaker Forum Schedule', 'Society Gatherings']
+  keywords: ['Student Event Calendar Ottawa', 'Meridian Registry', 'Speaker Series Schedule']
 });
 
 // Revalidate every 60 seconds (ISR)

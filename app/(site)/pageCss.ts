@@ -546,7 +546,6 @@ export const indexCss = `
       }
       .portal-eyebrow { font-size: 9.5px; margin-bottom: 18px; letter-spacing: 0.24em; }
       .portal-h3 { font-size: 28px; line-height: 1.08; margin-bottom: 16px; }
-      .portal-h3 em { font-style: italic; }
       .portal-p { font-size: 16.5px; line-height: 1.7; margin-bottom: 28px; }
       .portal-cta { font-size: 11px; letter-spacing: 0.18em; }
 

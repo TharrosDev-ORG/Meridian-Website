@@ -1,11 +1,19 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { useSiteContext } from "./Providers";
 import { usePathname } from "next/navigation";
 
 const SWIPE_CLOSE_THRESHOLD = 64;
+const NAV_LINKS = [
+  { name: "Team", href: "/team" },
+  { name: "Events", href: "/events" },
+  { name: "Calendar", href: "/calendar" },
+  { name: "Social", href: "/social" },
+  { name: "Speak", href: "/speak" },
+  { name: "Membership", href: "/membership" },
+];
 
 export default function MobileMenu() {
   const { menuOpen, setMenuOpen } = useSiteContext();
@@ -14,33 +22,71 @@ export default function MobileMenu() {
   const startX = useRef(0);
   const startY = useRef(0);
   const dragging = useRef(false);
-  // 1. Body Scroll Lock & Escape Key
+
+  // Body scroll lock + Escape + simple focus containment
   useEffect(() => {
-    if (menuOpen) {
-      document.body.style.overflow = "hidden";
-      drawerRef.current?.focus();
-    } else {
+    if (!menuOpen) {
       document.body.style.overflow = "";
+      return;
     }
 
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    // Defer focus so it doesn't fight the open transition
+    const focusTimer = window.setTimeout(() => drawerRef.current?.focus(), 0);
+
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape" && menuOpen) setMenuOpen(false);
+      if (e.key === "Escape") {
+        setMenuOpen(false);
+        return;
+      }
+      if (e.key !== "Tab") return;
+      // Keep focus within the drawer (basic trap)
+      const drawer = drawerRef.current;
+      if (!drawer) return;
+      const focusables = drawer.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+      );
+      if (!focusables.length) return;
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+      const active = document.activeElement as HTMLElement | null;
+      if (e.shiftKey && active === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && active === last) {
+        e.preventDefault();
+        first.focus();
+      }
     };
 
     document.addEventListener("keydown", handleKeyDown);
     return () => {
-      document.body.style.overflow = "";
+      window.clearTimeout(focusTimer);
       document.removeEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = previousOverflow;
     };
   }, [menuOpen, setMenuOpen]);
 
-  // 3. Swipe to Close
+  // Close on route change (covers programmatic / browser-history navigation)
+  useEffect(() => {
+    if (menuOpen) setMenuOpen(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pathname]);
+
+  // Swipe-to-close
   useEffect(() => {
     const el = drawerRef.current;
-    if (!el) return;
+    if (!el || !menuOpen) return;
+
+    const reset = () => {
+      dragging.current = false;
+      el.style.transition = "";
+      el.style.transform = "";
+    };
 
     const onStart = (e: TouchEvent) => {
-      if (!menuOpen) return;
       startX.current = e.touches[0].clientX;
       startY.current = e.touches[0].clientY;
       dragging.current = true;
@@ -58,52 +104,44 @@ export default function MobileMenu() {
 
     const onEnd = (e: TouchEvent) => {
       if (!dragging.current) return;
-      dragging.current = false;
       const dx = e.changedTouches[0].clientX - startX.current;
-      el.style.transition = "";
-      el.style.transform = "";
+      reset();
       if (dx > SWIPE_CLOSE_THRESHOLD) setMenuOpen(false);
     };
 
     el.addEventListener("touchstart", onStart, { passive: true });
     el.addEventListener("touchmove", onMove, { passive: true });
     el.addEventListener("touchend", onEnd, { passive: true });
+    el.addEventListener("touchcancel", reset, { passive: true });
 
     return () => {
       el.removeEventListener("touchstart", onStart);
       el.removeEventListener("touchmove", onMove);
       el.removeEventListener("touchend", onEnd);
+      el.removeEventListener("touchcancel", reset);
+      reset();
     };
   }, [menuOpen, setMenuOpen]);
 
-  const navLinks = [
-    { name: "Team", href: "/team" },
-    { name: "Events", href: "/events" },
-    { name: "Calendar", href: "/calendar" },
-    { name: "Social", href: "/social" },
-    { name: "Speak", href: "/speak" },
-    { name: "Membership", href: "/membership" },
-  ];
-
   return (
     <>
-      <div 
-        className={`mob-backdrop ${menuOpen ? "open" : ""}`} 
+      <div
+        className={`mob-backdrop ${menuOpen ? "open" : ""}`}
         onClick={() => setMenuOpen(false)}
         aria-hidden="true"
       />
-      <div 
-        className={`mob-drawer ${menuOpen ? "open" : ""}`} 
-        id="mobileMenu" 
-        role="dialog" 
-        aria-label="Navigation Menu" 
+      <div
+        className={`mob-drawer ${menuOpen ? "open" : ""}`}
+        id="mobileMenu"
+        role="dialog"
+        aria-label="Navigation Menu"
         aria-modal="true"
+        aria-hidden={!menuOpen}
         tabIndex={-1}
         ref={drawerRef}
       >
         <div className="mob-wordmark">THE MERIDIAN SOCIETY</div>
-        
-        {/* Cinematic Seal Background */}
+
         <div className="mob-seal" aria-hidden="true">
           <svg viewBox="0 0 100 100" fill="currentColor">
             <path d="M50 0 L93.3 25 L93.3 75 L50 100 L6.7 75 L6.7 25 Z" fill="none" stroke="currentColor" strokeWidth="0.5" />
@@ -112,13 +150,14 @@ export default function MobileMenu() {
         </div>
 
         <nav className="mob-links">
-          {navLinks.map((link, i) => (
-            <Link 
-              key={link.name} 
-              href={link.href} 
+          {NAV_LINKS.map((link, i) => (
+            <Link
+              key={link.name}
+              href={link.href}
               className={pathname === link.href ? "active" : ""}
               onClick={() => setMenuOpen(false)}
-              style={{ transitionDelay: `${0.1 + i * 0.06}s` }}
+              tabIndex={menuOpen ? 0 : -1}
+              style={menuOpen ? { transitionDelay: `${0.1 + i * 0.06}s` } : undefined}
             >
               {link.name}
             </Link>

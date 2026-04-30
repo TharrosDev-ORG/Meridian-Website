@@ -81,7 +81,11 @@
 
 
 /* ── BASE ── */
-html { scroll-behavior: smooth; scroll-padding-top: 68px; }
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+  position: relative;
+}
 
 body {
   background: var(--cream);
@@ -89,7 +93,6 @@ body {
   font-family: var(--serif);
   font-weight: 400;
   line-height: 1.7;
-  overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
@@ -1252,46 +1255,40 @@ footer {
   
   .mob-links {
     width: 100%; padding: 0 40px; text-align: center;
-    display: flex; flex-direction: column; gap: 4px;
+    display: flex; flex-direction: column; gap: 0;
     justify-content: center; align-items: center; flex: none;
   }
   .mob-links a {
-    font-family: var(--serif); font-size: clamp(32px, 9vw, 44px); font-style: italic;
-    border-bottom: none; padding: 12px 0; width: auto;
-    color: var(--ink-55); letter-spacing: -0.02em; text-transform: none;
+    font-family: var(--serif); font-size: clamp(26px, 8vw, 34px); font-style: italic;
+    border-bottom: none; padding: 8px 0; width: auto;
+    color: var(--ink-55); letter-spacing: -0.01em; text-transform: none;
     transition: color 0.4s, opacity 0.6s, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
     opacity: 0; transform: translateY(30px);
   }
   .mob-drawer.open .mob-links a { opacity: 1; transform: translateY(0); }
   
-  .mob-links a:hover, .mob-links a.active { color: var(--ink); transform: scale(1.04); }
+  .mob-links a:hover, .mob-links a.active { color: var(--ink); transform: scale(1.02); }
   .mob-links a .mob-arrow { display: none; }
   
   .mob-wordmark {
-    padding: 0; position: absolute; top: clamp(40px, 10vh, 80px); left: 50%;
-    transform: translateX(-50%); font-size: 10px; color: var(--gold);
-    letter-spacing: 0.45em; opacity: 0.9;
+    padding: 20px 0; font-size: 9.5px; color: var(--gold);
+    letter-spacing: 0.4em; opacity: 0.8;
+    margin-bottom: 2vh;
   }
   
-  .mob-bottom {
-    border-top: none; position: absolute; bottom: calc(110px + env(safe-area-inset-bottom, 0px)); 
-    left: 0; right: 0; align-items: center; flex: none;
-    display: flex; flex-direction: column; gap: 12px;
-  }
-  .mob-status { opacity: 0; transform: translateY(10px); transition: 0.6s 0.4s; }
-  .mob-drawer.open .mob-status { opacity: 1; transform: none; }
-  .mob-cta { display: none !important; }
+  .mob-bottom { display: none; }
+  .mob-status { display: none; }
 
-  /* ── Horizontal Scroll Utility ── */
+  /* ── Horizontal Scroll Utility: Synced with .wrap padding ── */
   .h-scroll {
     display: flex; overflow-x: auto; overflow-y: hidden;
     scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;
-    gap: 16px; padding: 20px 22px; margin: 0 -22px;
+    gap: 16px; padding: 20px 40px; margin: 0 -40px;
     scrollbar-width: none;
   }
   .h-scroll::-webkit-scrollbar { display: none; }
   .h-scroll-item {
-    flex: 0 0 82%; scroll-snap-align: center;
+    flex: 0 0 85%; scroll-snap-align: center;
   }
 
   /* Society Seal Watermark */
@@ -1314,6 +1311,7 @@ footer {
 
 @media (max-width: 700px) {
   .wrap { padding: 0 22px; }
+  .h-scroll { padding: 20px 22px; margin: 0 -22px; }
   .page-hero, .module-page-hero {
     padding: 104px 22px 56px;
     min-height: 56vh;
@@ -1351,7 +1349,7 @@ footer {
 }
 
 /* Responsive Footer */
-@media (max-width: 900px) {
+@media (max-width: 1100px) {
   .footer-main {
     grid-template-columns: 1fr 1fr;
     gap: 36px 32px;
@@ -1489,5 +1487,6 @@ footer {
   .module-card { padding: 26px 20px; }
   .module-intro-right { padding: 30px 20px; }
   .module-intro-copy { padding-left: 16px; font-size: 16.5px; }
-  .mob-drawer { width: 92vw; }
+  .mob-drawer { width: 100vw; }
+  .h-scroll { padding: 20px 18px; margin: 0 -18px; }
 }

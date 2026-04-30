@@ -14,25 +14,7 @@ export default function MobileMenu() {
   const startX = useRef(0);
   const startY = useRef(0);
   const dragging = useRef(false);
-  const [time, setTime] = useState("");
-
-  // 1. Clock Implementation
-  useEffect(() => {
-    const updateTime = () => {
-      const now = new Date();
-      setTime(now.toLocaleTimeString("en-US", { 
-        hour: "2-digit", 
-        minute: "2-digit", 
-        hour12: true,
-        timeZone: "America/Toronto" 
-      }));
-    };
-    updateTime();
-    const interval = setInterval(updateTime, 1000);
-    return () => clearInterval(interval);
-  }, []);
-
-  // 2. Body Scroll Lock & Escape Key
+  // 1. Body Scroll Lock & Escape Key
   useEffect(() => {
     if (menuOpen) {
       document.body.style.overflow = "hidden";
@@ -142,13 +124,6 @@ export default function MobileMenu() {
             </Link>
           ))}
         </nav>
-
-        <div className="mob-bottom">
-          <div className="mob-status rv on" style={{ transitionDelay: "0.5s" }}>
-            <span className="mob-meta" style={{ display: "block", marginBottom: "4px" }}>Ottawa · {time}</span>
-            <span className="mob-meta" style={{ color: "var(--gold)", opacity: 1 }}>Society Active</span>
-          </div>
-        </div>
       </div>
     </>
   );

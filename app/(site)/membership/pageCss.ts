@@ -112,6 +112,7 @@ export const membershipCss = `
     .faq-answer {
       font-family: var(--serif); font-size: 19px; font-weight: 300; line-height: 1.85;
       color: var(--ink-75); padding: 0 32px 36px; max-width: 680px;
+      opacity: 1; transform: none;
     }
     .faq-answer a {
       color: var(--gold); text-decoration: none;
@@ -119,15 +120,6 @@ export const membershipCss = `
       transition: color 0.2s, border-color 0.2s;
     }
     .faq-answer a:hover { color: var(--gold-lt); border-color: var(--gold-lt); }
-
-    /* Staggered reveal overrides for FAQ */
-    .faq-item[open] .rv-stagger-item {
-      opacity: 1; transform: none;
-    }
-    .faq-answer.rv-stagger-item {
-      opacity: 0; transform: translateY(10px);
-      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-    }
 
 
     /* ── Register section ── */

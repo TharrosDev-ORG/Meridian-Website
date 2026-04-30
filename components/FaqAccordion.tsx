@@ -35,51 +35,41 @@ export default function FaqAccordion() {
     // Trigger global reveal observer for dynamically mounted content
     const win = window as unknown as { __observeReveal?: () => void };
     if (win.__observeReveal) {
-      const timer = setTimeout(() => win.__observeReveal?.(), 100);
-      return () => clearTimeout(timer);
+      setTimeout(() => win.__observeReveal?.(), 200);
+    }
+
+    if (window.matchMedia("(hover: hover)").matches) {
+      setIsHoverEnabled(true);
     }
   }, []);
-
-  useEffect(() => {
-    // Defer hover detection to avoid hydration mismatch
-    const timer = setTimeout(() => {
-      if (window.matchMedia("(hover: hover)").matches) {
-        setIsHoverEnabled(true);
-      }
-    }, 0);
-    return () => clearTimeout(timer);
-  }, []);
-
-  if (!mounted) return <div className="faq-list-skeleton" style={{ minHeight: '400px' }} />;
 
   const toggleItem = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
   };
 
   const handleMouseEnter = (index: number) => {
-    if (isHoverEnabled && window.innerWidth > 1100) {
+    if (mounted && isHoverEnabled && window.innerWidth > 1100) {
       setOpenIndex(index);
     }
   };
 
   const handleMouseLeave = () => {
-    if (isHoverEnabled && window.innerWidth > 1100) {
+    if (mounted && isHoverEnabled && window.innerWidth > 1100) {
       setOpenIndex(null);
     }
   };
 
   return (
-    <div className="faq-list" data-d="2">
+    <div className="faq-list">
       {FAQ_ITEMS.map((item, i) => {
         const isOpen = openIndex === i;
         return (
           <details
-            className="faq-item rv"
+            className={`faq-item ${mounted ? 'is-mounted' : ''}`}
             key={item.question}
             open={isOpen}
             onMouseEnter={() => handleMouseEnter(i)}
             onMouseLeave={handleMouseLeave}
-            aria-expanded={isOpen}
           >
             <summary 
               onClick={(e) => {
@@ -95,14 +85,14 @@ export default function FaqAccordion() {
             <div 
               className="faq-body" 
               style={{
-                maxHeight: isOpen ? "300px" : "0px", 
+                maxHeight: isOpen ? "400px" : "0px", 
                 overflow: "hidden",
                 transition: "max-height 0.6s cubic-bezier(0.16, 1, 0.3, 1)"
               }}
             >
-              <div className={`faq-answer-inner ${isOpen ? 'rv-stagger on' : ''}`}>
+              <div className={`faq-answer-inner ${isOpen ? 'on' : ''}`}>
                 <p
-                  className="faq-answer rv-stagger-item"
+                  className="faq-answer"
                   dangerouslySetInnerHTML={{ __html: item.answer }}
                 />
               </div>

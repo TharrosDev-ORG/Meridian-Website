@@ -128,6 +128,7 @@ export default function MobileMenu() {
         <nav className="mob-links">
           <Link href="/team" onClick={() => setMenuOpen(false)}>Team <span className="mob-arrow">→</span></Link>
           <Link href="/events" onClick={() => setMenuOpen(false)}>Events <span className="mob-arrow">→</span></Link>
+          <Link href="/calendar" onClick={() => setMenuOpen(false)}>Calendar <span className="mob-arrow">→</span></Link>
           <Link href="/social" onClick={() => setMenuOpen(false)}>Social <span className="mob-arrow">→</span></Link>
           <Link href="/speak" onClick={() => setMenuOpen(false)}>Speak <span className="mob-arrow">→</span></Link>
           <Link href="/membership" onClick={() => setMenuOpen(false)}>Membership <span className="mob-arrow">→</span></Link>

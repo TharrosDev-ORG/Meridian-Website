@@ -348,6 +348,8 @@ body {
   transform: translateX(100%);
   transition: transform 0.38s cubic-bezier(0.4,0,0.2,1);
   box-shadow: -12px 0 48px rgba(24,21,15,0.08);
+  display: flex;
+  flex-direction: column;
 }
 .mob-drawer::after {
   content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
@@ -356,21 +358,14 @@ body {
 .mob-drawer.open { transform: translateX(0); }
 
 .mob-wordmark {
-  position: absolute; top: 72px; left: 0; right: 0; padding: 0 28px;
+  padding: 80px 28px 20px;
   font-family: var(--sans); font-size: 9px; font-weight: 600;
   letter-spacing: 0.32em; text-transform: uppercase;
   color: rgba(24,21,15,0.45);
 }
 .mob-links {
-  position: absolute; top: 116px; left: 0; right: 0;
   padding: 0 28px; display: flex; flex-direction: column;
-  /* Reset nav{} type-selector overrides (height, background, etc.) */
-  background: transparent;
-  height: auto;
-  border-bottom: none;
-  box-shadow: none;
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
+  flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch;
 }
 .mob-links a {
   display: flex; align-items: center; justify-content: space-between;
@@ -389,11 +384,12 @@ body {
 }
 /* Stagger the inner links when open */
 .mob-drawer.open .mob-links a:nth-child(1) { transition-delay: 0.1s; }
-.mob-drawer.open .mob-links a:nth-child(2) { transition-delay: 0.15s; }
-.mob-drawer.open .mob-links a:nth-child(3) { transition-delay: 0.2s; }
-.mob-drawer.open .mob-links a:nth-child(4) { transition-delay: 0.25s; }
-.mob-drawer.open .mob-links a:nth-child(5) { transition-delay: 0.3s; }
-.mob-drawer.open .mob-links a:nth-child(6) { transition-delay: 0.35s; }
+.mob-drawer.open .mob-links a:nth-child(2) { transition-delay: 0.14s; }
+.mob-drawer.open .mob-links a:nth-child(3) { transition-delay: 0.18s; }
+.mob-drawer.open .mob-links a:nth-child(4) { transition-delay: 0.22s; }
+.mob-drawer.open .mob-links a:nth-child(5) { transition-delay: 0.26s; }
+.mob-drawer.open .mob-links a:nth-child(6) { transition-delay: 0.3s; }
+.mob-drawer.open .mob-links a:nth-child(7) { transition-delay: 0.34s; }
 
 .mob-links a:last-child { border-bottom: none; }
 .mob-links a:hover { color: #18150F; }
@@ -406,7 +402,6 @@ body {
 .mob-links a:hover .mob-arrow { opacity: 1; transform: translateX(0); }
 
 .mob-bottom {
-  position: absolute; bottom: 0; left: 0; right: 0;
   padding: 20px 28px;
   padding-bottom: calc(20px + env(safe-area-inset-bottom, 0px));
   border-top: 1px solid rgba(24,21,15,0.08);
@@ -433,68 +428,31 @@ body {
 .mob-cta:hover { background: #B8932A; color: #F4EDE3; box-shadow: 0 4px 16px rgba(184,147,42,0.3); }
 
 /* ── MOBILE RESPONSIVE ── */
-@media (max-width: 700px) {
+@media (max-width: 1100px) {
   .nav-links, .nav-cta { display: none; }
   .hamburger { display: flex; }
-  .nav-inner { padding: 0 22px; }
-  .nav-wordmark { font-size: 11.5px; letter-spacing: 0.24em; }
-  /* Reduce blur cost on mobile */
+  .nav-inner { padding: 0 24px; }
+  .nav-wordmark { font-size: 11px; letter-spacing: 0.24em; }
+  
   .site-nav { -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); }
-  .mob-drawer { -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
-
-  /* ── Mobile Drawer Refinements ── */
+  
   .mob-drawer {
-    width: min(88vw, 340px);
+    width: min(85vw, 360px);
     padding-top: env(safe-area-inset-top, 0px);
+    -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px);
   }
+  
   .mob-wordmark {
-    top: calc(72px + env(safe-area-inset-top, 0px));
-    font-size: 10px;
+    padding-top: 32px;
+    opacity: 0.6;
     letter-spacing: 0.36em;
-    color: rgba(24,21,15,0.55);
   }
-  .mob-links {
-    top: calc(120px + env(safe-area-inset-top, 0px));
-    padding: 0 28px;
-  }
-  .mob-links a {
-    padding: 20px 0;
-    font-size: 22px;
-    letter-spacing: 0.08em;
-    color: rgba(24,21,15,0.78);
-    min-height: 48px;
-  }
-  .mob-links a:active { color: var(--gold); }
-  .mob-arrow {
-    font-size: 15px;
-    opacity: 0.4;
-    transform: none;
-  }
-  .mob-bottom {
-    padding: 22px 28px;
-    padding-bottom: calc(22px + env(safe-area-inset-bottom, 0px));
-    gap: 14px;
-  }
-  .mob-meta {
-    font-size: 10px;
-    letter-spacing: 0.3em;
-    color: rgba(24,21,15,0.5);
-  }
-  .mob-cta {
-    padding: 18px 20px;
-    font-size: 12px;
-    letter-spacing: 0.24em;
-    border-width: 1.5px;
-    min-height: 52px;
-    display: flex; align-items: center; justify-content: center;
-  }
-  .mob-cta:active { background: var(--gold); color: var(--cream); }
+}
 
-  /* Ensure hamburger has a comfortable tap area */
-  .hamburger {
-    width: 48px; height: 48px;
-    margin-right: -10px; /* optically align with edge of container */
-  }
+@media (max-width: 480px) {
+  .nav-inner { padding: 0 18px; }
+  .nav-wordmark { font-size: 10.5px; letter-spacing: 0.22em; }
+  .mob-drawer { width: 90vw; }
 }
 
 /* ── PAGE TRANSITIONS ── */

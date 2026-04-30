@@ -45,13 +45,13 @@ export default function FaqAccordion() {
   };
 
   const handleMouseEnter = (index: number) => {
-    if (isHoverEnabled && window.innerWidth > 700) {
+    if (isHoverEnabled && window.innerWidth > 1100) {
       setOpenIndex(index);
     }
   };
 
   const handleMouseLeave = () => {
-    if (isHoverEnabled && window.innerWidth > 700) {
+    if (isHoverEnabled && window.innerWidth > 1100) {
       setOpenIndex(null);
     }
   };

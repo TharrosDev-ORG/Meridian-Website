@@ -250,8 +250,8 @@ export const indexCss = `
     .who-item {
       background: var(--cream-mid); padding: 40px 36px;
       position: relative; overflow: hidden; cursor: default;
-      transition: background 0.25s, transform 0.25s cubic-bezier(0.16,1,0.3,1), box-shadow 0.25s;
-      will-change: transform, opacity;
+      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), background 0.25s, box-shadow 0.25s;
+      will-change: transform;
     }
 
     .who-item::before {
@@ -324,9 +324,9 @@ export const indexCss = `
       background: var(--cream); border: 1px solid var(--ink-15);
       padding: 52px; display: flex; flex-direction: column; align-items: flex-start;
       box-shadow: 0 2px 12px rgba(24,21,15,0.04), 0 8px 40px rgba(24,21,15,0.06);
-      transition: transform 0.3s cubic-bezier(0.16,1,0.3,1), border-color 0.3s, box-shadow 0.3s ease;
+      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s, box-shadow 0.3s ease;
       position: relative; overflow: hidden; cursor: pointer; text-decoration: none;
-      will-change: transform, opacity;
+      will-change: transform;
     }
 
     .portal-card:hover { transform: translateY(-6px); border-color: var(--gold-lt); box-shadow: 0 16px 60px rgba(24,21,15,0.12); }

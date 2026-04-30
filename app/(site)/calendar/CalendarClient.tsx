@@ -99,6 +99,57 @@ export default function CalendarClient({ initialEvents, archivalEvents = [] }: C
     return () => { void supabase.removeChannel(channel); };
   }, []);
 
+  // Handle 3D Tilt for Event Cards
+  useEffect(() => {
+    if (!mounted) return;
+    const isTouch = window.matchMedia("(pointer: coarse)").matches;
+    if (isTouch) return;
+
+    const cards = document.querySelectorAll("[data-tilt]");
+    const cardRafs = new Map<HTMLElement, number>();
+
+    const handleCardMove = (e: MouseEvent) => {
+      const card = e.currentTarget as HTMLElement;
+      if (cardRafs.has(card)) cancelAnimationFrame(cardRafs.get(card)!);
+
+      const id = requestAnimationFrame(() => {
+        const r = card.getBoundingClientRect();
+        const x = (e.clientX - r.left) / r.width;
+        const y = (e.clientY - r.top) / r.height;
+        const rotX = (y - 0.5) * 10;
+        const rotY = (x - 0.5) * -10;
+        card.style.transform = `perspective(1000px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale3d(1.02, 1.02, 1.02)`;
+      });
+
+      cardRafs.set(card, id);
+    };
+
+    const handleCardLeave = (e: MouseEvent) => {
+      const card = e.currentTarget as HTMLElement;
+      if (cardRafs.has(card)) {
+        cancelAnimationFrame(cardRafs.get(card)!);
+        cardRafs.delete(card);
+      }
+      card.style.transform = "perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)";
+    };
+
+    cards.forEach(card => {
+      if (!(card instanceof HTMLElement)) return;
+      card.style.transition = "transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)";
+      card.style.willChange = "transform";
+      card.addEventListener("mousemove", handleCardMove as EventListener);
+      card.addEventListener("mouseleave", handleCardLeave as EventListener);
+    });
+
+    return () => {
+      cardRafs.forEach(id => cancelAnimationFrame(id));
+      cards.forEach(card => {
+        card.removeEventListener("mousemove", handleCardMove as EventListener);
+        card.removeEventListener("mouseleave", handleCardLeave as EventListener);
+      });
+    };
+  }, [mounted, events, expandedId]); // Re-run when events or expansion change to bind new elements
+
   // Memoized refresh to avoid re-creating the function on every render
   const refreshEvents = useCallback(async () => {
     const supabase = createClient();
@@ -162,6 +213,7 @@ export default function CalendarClient({ initialEvents, archivalEvents = [] }: C
                   title={!isExpanded ? `Expand: ${event.name}` : undefined}
                   className={`event-card rv-stagger-item ${isExpanded ? 'is-expanded' : 'is-compressed'}`}
                   onClick={() => setExpandedId(isExpanded ? null : event.id)}
+                  data-tilt={!isExpanded ? "" : undefined}
                 >
                   {/* Date Badge */}
                   <div className="event-date-col">

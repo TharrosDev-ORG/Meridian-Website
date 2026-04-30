@@ -170,14 +170,14 @@ export default function Home() {
     </div>
 
     <div className="portal-grid">
-      <Link href="/events" className="portal-card rv" data-d="1">
+      <Link href="/events" className="portal-card rv" data-d="1" data-tilt>
         <div className="portal-eyebrow">Signature Program</div>
         <h3 className="portal-h3">The Speaker<br/><em>Forum.</em></h3>
         <p className="portal-p">Established professionals and academics sharing lived experience with a motivated students.</p>
         <span className="portal-cta">View Program &#8594;</span>
       </Link>
 
-      <Link href="/social" className="portal-card rv" data-d="2">
+      <Link href="/social" className="portal-card rv" data-d="2" data-tilt>
         <div className="portal-eyebrow">Community</div>
         <h3 className="portal-h3">Social<br/><em>Events.</em></h3>
         <p className="portal-p">Events that build community, from quiet coffee meetups to high-energy nights out.</p>

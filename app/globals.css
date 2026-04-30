@@ -1301,6 +1301,20 @@ footer {
 
 /* ── SHARED RESPONSIVE OVERRIDES ── */
 @media (max-width: 1100px) {
+  .site-nav { height: 60px; }
+  .nav-inner { justify-content: center; padding: 0 20px; position: relative; }
+  .nav-logo { 
+    position: absolute; left: 50%; top: 50%; 
+    transform: translate(-50%, -50%) !important; 
+    margin: 0;
+  }
+  .nav-wordmark { 
+    font-size: 11px; letter-spacing: 0.28em; 
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .nav-links, .nav-cta, .hamburger { display: none !important; }
+
   .wrap { padding: 0 40px; }
   .page-hero { padding: 100px 40px 60px; }
   .hero-title { font-size: clamp(44px, 11.7vw, 64px); }

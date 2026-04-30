@@ -81,13 +81,21 @@
 
 
 /* ── BASE ── */
-html { scroll-behavior: smooth; scroll-padding-top: 68px; }
-html, body {
-  overflow-x: hidden;
-  width: 100%;
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 68px;
+  /* Paint the canvas cream so iOS Safari's address-bar collapse and
+     rubber-band overscroll don't expose a white strip behind the
+     translucent fixed mobile dock at the bottom of the viewport. */
+  background: var(--cream);
 }
-
 body {
+  /* `clip` (Safari 16+) doesn't establish a containing block, so
+     bottom-anchored `position: fixed` elements like the mobile dock
+     remain glued to the visual viewport. `hidden` is the fallback. */
+  overflow-x: hidden;
+  overflow-x: clip;
+  width: 100%;
   background: var(--cream);
   color: var(--ink);
   font-family: var(--serif);

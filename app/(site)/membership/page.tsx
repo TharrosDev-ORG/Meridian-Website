@@ -114,8 +114,8 @@ export default function Page() {
   <section className="faq-sec" id="faq" aria-labelledby="faq-heading">
     <div className="wrap">
       <div className="faq-header">
-        <div className="sec-label rv">Common Questions</div>
-        <h2 className="faq-title rv" data-d="1" id="faq-heading">Good to <em>Know.</em></h2>
+        <div className="sec-label">Common Questions</div>
+        <h2 className="faq-title" id="faq-heading">Good to <em>Know.</em></h2>
       </div>
       <FaqAccordion />
     </div>

@@ -32,6 +32,15 @@ export default function FaqAccordion() {
 
   useEffect(() => {
     setMounted(true);
+    // Trigger global reveal observer for dynamically mounted content
+    const win = window as unknown as { __observeReveal?: () => void };
+    if (win.__observeReveal) {
+      const timer = setTimeout(() => win.__observeReveal?.(), 100);
+      return () => clearTimeout(timer);
+    }
+  }, []);
+
+  useEffect(() => {
     // Defer hover detection to avoid hydration mismatch
     const timer = setTimeout(() => {
       if (window.matchMedia("(hover: hover)").matches) {
@@ -60,12 +69,12 @@ export default function FaqAccordion() {
   };
 
   return (
-    <div className="faq-list rv" data-d="2">
+    <div className="faq-list" data-d="2">
       {FAQ_ITEMS.map((item, i) => {
         const isOpen = openIndex === i;
         return (
           <details
-            className="faq-item"
+            className="faq-item rv"
             key={item.question}
             open={isOpen}
             onMouseEnter={() => handleMouseEnter(i)}

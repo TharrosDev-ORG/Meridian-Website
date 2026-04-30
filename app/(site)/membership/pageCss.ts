@@ -20,7 +20,9 @@ export const membershipCss = `
       transition: color 0.2s, border-color 0.2s;
       white-space: nowrap;
     }
-    .benefits-register-link:hover { color: var(--gold-lt); border-color: var(--gold-lt); }
+    @media (min-width: 1101px) {
+      .benefits-register-link:hover { color: var(--gold-lt); border-color: var(--gold-lt); }
+    }
 
     /* ── Benefits section ── */
     .benefits-sec {
@@ -43,7 +45,9 @@ export const membershipCss = `
       box-shadow: 0 2px 12px rgba(24,21,15,0.04), 0 8px 40px rgba(24,21,15,0.06);
       transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), box-shadow 0.4s;
     }
-    .benefit-card:hover { transform: translateY(-4px); box-shadow: 0 4px 24px rgba(24,21,15,0.06), 0 16px 60px rgba(24,21,15,0.10); }
+    @media (min-width: 1101px) {
+      .benefit-card:hover { transform: translateY(-4px); box-shadow: 0 4px 24px rgba(24,21,15,0.06), 0 16px 60px rgba(24,21,15,0.10); }
+    }
     .benefit-num { font-family: var(--sans); font-size: 10.5px; font-weight: 700; letter-spacing: 0.28em; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; }
     .benefit-heading { font-family: var(--serif); font-size: clamp(22px, 2vw, 32px); font-weight: 300; line-height: 1.15; color: var(--ink); margin-bottom: 16px; }
     .benefit-body { font-family: var(--serif); font-size: 19px; line-height: 1.85; color: var(--ink-75); }
@@ -161,6 +165,10 @@ export const membershipCss = `
       border: 1px solid var(--ink-08);
       padding: 64px;
       box-shadow: 0 12px 48px rgba(24, 21, 15, 0.05);
+    }
+    @media (max-width: 750px) {
+      .reg-grid { grid-template-columns: 1fr; gap: 24px; }
+      .reg-field--full { grid-column: span 1; }
     }
     .reg-grid {
       display: grid;

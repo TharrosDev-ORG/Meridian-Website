@@ -33,19 +33,23 @@ export const teamCss = `
       opacity: 0.04; pointer-events: none; z-index: 0;
       transition: opacity 0.4s ease;
     }
-    .member-card:hover {
-      transform: translateY(-8px);
-      border-color: var(--gold-20);
-      box-shadow: 0 12px 32px rgba(24,21,15,0.08), 0 24px 80px rgba(24,21,15,0.12);
+    @media (min-width: 1101px) {
+      .member-card:hover {
+        transform: translateY(-8px);
+        border-color: var(--gold-20);
+        box-shadow: 0 12px 32px rgba(24,21,15,0.08), 0 24px 80px rgba(24,21,15,0.12);
+      }
+      .member-card:hover::before { opacity: 0.07; }
     }
-    .member-card:hover::before { opacity: 0.07; }
     
     .member-card::after {
       content: ''; position: absolute; inset: 0;
       border: 1px solid var(--gold); opacity: 0;
       pointer-events: none; transition: opacity 0.4s ease; z-index: 5;
     }
-    .member-card:hover::after { opacity: 0.1; }
+    @media (min-width: 1101px) {
+      .member-card:hover::after { opacity: 0.1; }
+    }
 
     .member-photo-wrap {
       position: relative; width: 100px; height: 120px; flex-shrink: 0;
@@ -89,11 +93,13 @@ export const teamCss = `
       border: 1px solid var(--ink-15); color: var(--ink-55);
       transition: background 0.3s, color 0.3s, transform 0.3s;
     }
-    .member-social a:hover {
-      background: var(--ink); color: var(--cream);
-      border-color: var(--ink);
-      transform: translateY(-3px);
-      box-shadow: 0 8px 20px rgba(24,21,15,0.12);
+    @media (min-width: 1101px) {
+      .member-social a:hover {
+        background: var(--ink); color: var(--cream);
+        border-color: var(--ink);
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(24,21,15,0.12);
+      }
     }
     @media (min-width: 1101px) {
       .member-social a:hover {
@@ -120,18 +126,20 @@ export const teamCss = `
       background-image: var(--grain); background-size: 180px 180px;
       opacity: 0.03; pointer-events: none;
     }
-    .member-card--placeholder:hover { 
-      transform: translateY(-4px); 
-      border-color: var(--gold); 
-      border-style: solid;
-      background: var(--cream);
-    }
     .placeholder-icon { 
       font-size: 28px; color: var(--gold); opacity: 0.4; 
       margin-bottom: 24px; line-height: 1; 
       transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s;
     }
-    .member-card--placeholder:hover .placeholder-icon { transform: scale(1.2) rotate(15deg); opacity: 1; }
+    @media (min-width: 1101px) {
+      .member-card--placeholder:hover { 
+        transform: translateY(-4px); 
+        border-color: var(--gold); 
+        border-style: solid;
+        background: var(--cream);
+      }
+      .member-card--placeholder:hover .placeholder-icon { transform: scale(1.2) rotate(15deg); opacity: 1; }
+    }
     .placeholder-text { font-family: var(--serif); font-size: 22px; font-style: italic; font-weight: 300; color: var(--ink-75); line-height: 1.4; }
     .placeholder-sub { font-family: var(--sans); font-size: 10px; font-weight: 700; letter-spacing: 0.32em; text-transform: uppercase; color: var(--gold); opacity: 0.60; margin-top: 16px; }
 
@@ -148,11 +156,6 @@ export const teamCss = `
       .member-name { font-size: 32px; }
       .member-photo-wrap { width: 120px; height: 144px; }
 
-      .member-social a:hover {
-        background: var(--ink); color: var(--cream);
-        border-color: var(--ink);
-        transform: translateY(-3px);
-      }
 
       /* Placeholder card feels more balanced on desktop */
       .member-card--placeholder { min-height: 480px; }

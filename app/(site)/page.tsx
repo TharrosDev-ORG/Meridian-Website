@@ -120,18 +120,18 @@ export default function Home() {
       </h2>
       <p className="who-intro-body rv" data-d="1">We bring together people at every stage, from students to seasoned professionals.</p>
     </div>
-    <div className="who-grid">
-      <div className="who-item rv" data-num="01" data-tilt>
+    <div className="who-grid h-scroll">
+      <div className="who-item rv h-scroll-item" data-num="01" data-tilt>
         <div className="who-num">01</div>
         <div className="who-item-title">Students &amp; Alumni</div>
         <p className="who-item-desc">Motivated, individuals from Carleton University, uOttawa, and Algonquin College, and anyone drawn to the work we do.</p>
       </div>
-      <div className="who-item rv" data-d="1" data-num="02" data-tilt>
+      <div className="who-item rv h-scroll-item" data-d="1" data-num="02" data-tilt>
         <div className="who-num">02</div>
         <div className="who-item-title">Speakers &amp; Professionals</div>
         <p className="who-item-desc">People across law, business, policy, media, and beyond, with lived experience.</p>
       </div>
-      <div className="who-item rv" data-d="2" data-num="03" data-tilt>
+      <div className="who-item rv h-scroll-item" data-d="2" data-num="03" data-tilt>
         <div className="who-num">03</div>
         <div className="who-item-title">Scholars &amp; Thinkers</div>
         <p className="who-item-desc">Academics and researchers whose work challenges assumptions, opens new territory, and gives students something to think about.</p>
@@ -169,15 +169,15 @@ export default function Home() {
       <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="text-link rv" data-d="1">Instagram  &#8594;</a>
     </div>
 
-    <div className="portal-grid">
-      <Link href="/events" className="portal-card rv" data-d="1" data-tilt>
+    <div className="portal-grid h-scroll">
+      <Link href="/events" className="portal-card rv h-scroll-item" data-d="1" data-tilt>
         <div className="portal-eyebrow">Signature Program</div>
         <h3 className="portal-h3">The Speaker<br/><em>Forum.</em></h3>
         <p className="portal-p">Established professionals and academics sharing lived experience with a motivated students.</p>
         <span className="portal-cta">View Program &#8594;</span>
       </Link>
 
-      <Link href="/social" className="portal-card rv" data-d="2" data-tilt>
+      <Link href="/social" className="portal-card rv h-scroll-item" data-d="2" data-tilt>
         <div className="portal-eyebrow">Community</div>
         <h3 className="portal-h3">Social<br/><em>Events.</em></h3>
         <p className="portal-p">Events that build community, from quiet coffee meetups to high-energy nights out.</p>

@@ -3,6 +3,7 @@ import Footer from "@/components/Footer";
 import MobileMenu from "@/components/MobileMenu";
 import BackToTop from "@/components/BackToTop";
 import TransitionWrapper from "@/components/TransitionWrapper";
+import MobileDock from "@/components/MobileDock";
 
 export default function SiteLayout({
   children,
@@ -17,6 +18,7 @@ export default function SiteLayout({
       </TransitionWrapper>
       <Footer />
       <MobileMenu />
+      <MobileDock />
       <BackToTop />
     </>
   );

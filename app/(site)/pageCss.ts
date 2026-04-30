@@ -530,6 +530,15 @@ export const indexCss = `
       .stat-val { font-size: 23px; line-height: 1.1; margin-bottom: 6px; }
       .stat-lbl { font-size: 10px; letter-spacing: 0.18em; line-height: 1.4; }
 
+      /* Horizontal Scroll Support */
+      .who-grid.h-scroll, .portal-grid.h-scroll {
+        display: flex; gap: 16px; border: none; background: transparent; padding: 10px 22px;
+      }
+      .who-item.h-scroll-item {
+        background: var(--cream); border: 1px solid var(--ink-15);
+        flex: 0 0 280px; box-shadow: 0 4px 20px rgba(24,21,15,0.06);
+      }
+
       .portal-grid { grid-template-columns: 1fr; gap: 20px; }
       .portal-card {
         padding: 36px 26px;
@@ -537,6 +546,7 @@ export const indexCss = `
       }
       .portal-eyebrow { font-size: 9.5px; margin-bottom: 18px; letter-spacing: 0.24em; }
       .portal-h3 { font-size: 28px; line-height: 1.08; margin-bottom: 16px; }
+      .portal-h3 em { font-style: italic; }
       .portal-p { font-size: 16.5px; line-height: 1.7; margin-bottom: 28px; }
       .portal-cta { font-size: 11px; letter-spacing: 0.18em; }
 
@@ -619,14 +629,7 @@ export const indexCss = `
       .member-count-lbl { font-size: 9.5px; letter-spacing: 0.22em; }
 
       .footer-top { flex-direction: column; gap: 20px; }
-      .sticky-join {
-        display: block;
-        bottom: calc(1.2rem + env(safe-area-inset-bottom, 0px));
-        padding: 0.9rem 2.4rem;
-        font-size: 11px;
-        letter-spacing: 0.22em;
-        min-height: 44px;
-      }
+      .sticky-join { display: none !important; }
       .rv { transform: none; transition: opacity 0.4s ease; }
       .rv[data-d="1"], .rv[data-d="2"], .rv[data-d="3"], .rv[data-d="4"] { transition-delay: 0s; }
     }

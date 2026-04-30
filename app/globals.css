@@ -1247,11 +1247,14 @@ footer {
   /* ── Cinematic Menu Overrides ── */
   .mob-drawer {
     width: 100vw; max-width: 100vw; border-left: none;
-    background: rgba(244, 237, 227, 0.98);
+    background: rgba(244, 237, 227, 0.99);
     display: flex; flex-direction: column;
-    padding: 0; position: relative;
+    padding: 0; position: relative; z-index: 250;
+    will-change: transform;
   }
   .mob-drawer.open { backdrop-filter: blur(32px); -webkit-backdrop-filter: blur(32px); }
+  
+  .mob-backdrop { z-index: 240; }
   
   .mob-links {
     width: 100%; padding: 0 40px; text-align: center;
@@ -1282,14 +1285,16 @@ footer {
 
   /* ── Horizontal Scroll Utility: Synced with .wrap padding ── */
   .h-scroll {
-    display: flex; overflow-x: auto; overflow-y: hidden;
+    display: flex !important; flex-wrap: nowrap !important; overflow-x: auto; overflow-y: hidden;
     scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;
     gap: 16px; padding: 20px 40px; margin: 0 -40px;
     scrollbar-width: none;
+    width: auto !important;
   }
   .h-scroll::-webkit-scrollbar { display: none; }
   .h-scroll-item {
     flex: 0 0 85%; scroll-snap-align: center;
+    max-width: 85vw; will-change: transform;
   }
 
   /* Society Seal Watermark */
@@ -1326,7 +1331,8 @@ footer {
 
 @media (max-width: 700px) {
   .wrap { padding: 0 22px; }
-  .h-scroll { padding: 20px 22px; margin: 0 -22px; }
+  .h-scroll { display: flex !important; flex-wrap: nowrap !important; width: auto !important; padding: 20px 22px; margin: 0 -22px; }
+  .h-scroll-item { flex: 0 0 85%; max-width: 85vw; }
   .page-hero, .module-page-hero {
     padding: 104px 22px 56px;
     min-height: 56vh;
@@ -1372,7 +1378,7 @@ footer {
   .footer-brand { grid-column: span 2; }
 }
 @media (max-width: 500px) {
-  footer { padding: 52px 0 calc(88px + env(safe-area-inset-bottom, 0px)); }
+  footer { padding: 52px 0 calc(96px + env(safe-area-inset-bottom, 0px)); }
   .footer-main {
     gap: 32px 24px;
     padding-bottom: 32px;

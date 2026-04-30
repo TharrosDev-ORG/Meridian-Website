@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { useSiteContext } from "./Providers";
 import { usePathname } from "next/navigation";
 
-const SWIPE_CLOSE_THRESHOLD = 72;
+const SWIPE_CLOSE_THRESHOLD = 64;
 
 export default function MobileMenu() {
   const { menuOpen, setMenuOpen } = useSiteContext();

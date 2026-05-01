@@ -17,7 +17,7 @@ export const speakCss = `
     .nominate-card:hover { border-color: var(--gold-45); }
     .nominate-content { flex: 1; }
     .nominate-h { font-family: var(--serif); font-size: 28px; font-weight: 300; color: var(--ink); margin-bottom: 8px; }
-    .nominate-p { font-family: var(--serif); font-size: 17px; font-style: italic; color: var(--ink-75); line-height: 1.5; }
+    .nominate-p { font-family: var(--serif); font-size: 19px; font-style: italic; color: var(--ink-75); line-height: 1.6; }
     .btn-nominate {
       padding: 14px 28px; border: 1px solid var(--ink-15); background: transparent;
       font-family: var(--sans); font-size: 11px; font-weight: 700; letter-spacing: 0.2em;
@@ -45,7 +45,7 @@ export const speakCss = `
     .speak-why-card:hover { transform: translateY(-4px); box-shadow: 0 4px 24px rgba(24,21,15,0.06), 0 16px 60px rgba(24,21,15,0.10); }
     .speak-why-num { font-family: var(--sans); font-size: 10.5px; font-weight: 700; letter-spacing: 0.28em; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; }
     .speak-why-heading { font-family: var(--serif); font-size: clamp(22px, 2vw, 32px); font-weight: 300; line-height: 1.15; color: var(--ink); margin-bottom: 16px; }
-    .speak-why-body { font-family: var(--serif); font-size: 17px; line-height: 1.85; color: var(--ink-75); }
+    .speak-why-body { font-family: var(--serif); font-size: 20px; line-height: 1.85; color: var(--ink-75); }
 
     /* ── Format section ── */
     .speak-format-sec { padding: 80px 0; background: var(--cream); }
@@ -67,7 +67,7 @@ export const speakCss = `
     .speak-apply-sec::after  { content: ''; position: absolute; bottom: 40px; left: 40px; width: 80px; height: 80px; border-bottom: 1px solid var(--ink-15); border-left: 1px solid var(--ink-15); pointer-events: none; }
     .speak-apply-inner { position: relative; z-index: 1; max-width: 640px; margin: 0 auto; text-align: center; }
     .speak-apply-title { font-family: var(--serif); font-size: clamp(40px, 5vw, 76px); font-weight: 300; line-height: 1.0; color: var(--ink); margin-bottom: 20px; }
-    .speak-apply-body { font-family: var(--serif); font-size: clamp(19px, 2vw, 24px); font-style: italic; font-weight: 300; color: var(--ink-75); line-height: 1.85; margin-bottom: 44px; }
+    .speak-apply-body { font-family: var(--serif); font-size: clamp(20px, 2vw, 24px); font-style: italic; font-weight: 300; color: var(--ink-75); line-height: 1.85; margin-bottom: 44px; }
     .speak-apply-ctas { display: flex; align-items: center; justify-content: center; gap: 36px; margin-bottom: 28px; }
     .speak-apply-trust { font-family: var(--sans); font-size: 10.5px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink-55); }
 
@@ -86,7 +86,7 @@ export const speakCss = `
       .speak-why-header { margin-bottom: 64px; }
       .speak-why-grid { gap: 40px; }
       .speak-why-card { padding: 48px 42px; }
-      .speak-why-body { font-size: 19px; line-height: 1.85; }
+      .speak-why-body { font-size: 21px; line-height: 1.9; }
       .speak-why-card:hover {
         transform: translateY(-6px);
         box-shadow: 0 18px 56px rgba(24,21,15,0.10), 0 2px 8px rgba(184,147,42,0.05);
@@ -114,7 +114,7 @@ export const speakCss = `
     @media (max-width: 1100px) {
       /* Optimize text heavy blocks on mobile */
       .speak-why-title, .speak-format-title, .speak-apply-title { font-size: 32px; line-height: 1.1; }
-      .speak-why-body, .speak-apply-body { font-size: 16px; line-height: 1.7; }
+      .speak-why-body, .speak-apply-body { font-size: 19px; line-height: 1.8; }
       .speak-why-heading { font-size: 20px; }
       .speak-why-card { padding: 32px 24px; }
       .speak-meta-val { font-size: 18px; }
@@ -152,13 +152,13 @@ export const speakCss = `
       }
       .speak-why-num { font-size: 9.5px; letter-spacing: 0.22em; margin-bottom: 14px; }
       .speak-why-heading { font-size: 22px; line-height: 1.15; margin-bottom: 12px; }
-      .speak-why-body { font-size: 16.5px; line-height: 1.75; }
+      .speak-why-body { font-size: 18px; line-height: 1.8; }
       .speak-why-card { padding: 30px 22px; }
 
       .speak-meta-val { font-size: 17px; line-height: 1.45; }
 
       .speak-apply-title { font-size: clamp(34px, 9.5vw, 48px); line-height: 1.02; margin-bottom: 16px; }
-      .speak-apply-body { font-size: 17px; line-height: 1.72; margin-bottom: 32px; }
+      .speak-apply-body { font-size: 18.5px; line-height: 1.8; margin-bottom: 32px; }
       .speak-apply-trust { font-size: 10px; letter-spacing: 0.2em; }
     }
 

@@ -69,8 +69,8 @@ export const infoPageCss = `
   /* ── Opening lede ── */
   .info-lede {
     font-family: var(--serif);
-    font-size: 20px;
-    line-height: 1.78;
+    font-size: 22px;
+    line-height: 1.82;
     color: var(--ink-90);
     margin-bottom: 32px;
   }
@@ -155,8 +155,8 @@ export const infoPageCss = `
 
   .info-body p {
     font-family: var(--serif);
-    font-size: 18px;
-    line-height: 1.8;
+    font-size: 20px;
+    line-height: 1.85;
     color: var(--ink-90);
     margin-bottom: 18px;
   }
@@ -168,8 +168,8 @@ export const infoPageCss = `
   }
   .info-body li {
     font-family: var(--serif);
-    font-size: 18px;
-    line-height: 1.8;
+    font-size: 20px;
+    line-height: 1.85;
     color: var(--ink-90);
     padding-left: 24px;
     position: relative;
@@ -216,7 +216,7 @@ export const infoPageCss = `
   }
   .info-contact-val {
     font-family: var(--serif);
-    font-size: 18px;
+    font-size: 20px;
     color: var(--ink);
     line-height: 1.5;
   }
@@ -239,9 +239,9 @@ export const infoPageCss = `
     .info-hero { padding: 168px 72px 72px; }
     .info-hero::after { width: 56px; }
     .info-body { padding: 128px 0 176px; max-width: 740px; }
-    .info-lede { font-size: 21px; line-height: 1.82; }
+    .info-lede { font-size: 24px; line-height: 1.85; }
     .info-body h2 { margin: 64px 0 22px; }
-    .info-body p, .info-body li { font-size: 19px; line-height: 1.85; }
+    .info-body p, .info-body li { font-size: 21px; line-height: 1.9; }
     .info-body a { transition: color 0.25s ease, text-decoration-color 0.25s ease; }
     .info-body a:hover { text-decoration-color: var(--ink); }
     .info-contact-grid { gap: 32px; margin: 40px 0 56px; }
@@ -254,7 +254,7 @@ export const infoPageCss = `
       border-color: var(--gold-lt);
       box-shadow: 0 8px 28px rgba(24,21,15,0.06);
     }
-    .info-contact-val { font-size: 19px; }
+    .info-contact-val { font-size: 21px; }
     .info-contact-desc { font-size: 12px; }
     .info-notice { padding: 22px 28px; }
     .info-notice p { font-size: 18px; }
@@ -273,7 +273,7 @@ export const infoPageCss = `
     .info-meta { font-size: 10px; letter-spacing: 0.2em; }
 
     .info-body { padding: 48px 22px 72px; }
-    .info-lede { font-size: 17.5px; line-height: 1.75; margin-bottom: 24px; }
+    .info-lede { font-size: 19.5px; line-height: 1.75; margin-bottom: 24px; }
     .info-datestamp { font-size: 9.5px; letter-spacing: 0.22em; padding: 6px 14px; margin-bottom: 40px; }
     .info-body h2 {
       font-size: 22px;
@@ -283,8 +283,8 @@ export const infoPageCss = `
     }
     .info-body h2:first-child { margin-top: 0; }
     .info-body p, .info-body li {
-      font-size: 16.5px;
-      line-height: 1.75;
+      font-size: 18.5px;
+      line-height: 1.8;
       margin-bottom: 14px;
     }
     .info-body li { padding-left: 20px; }

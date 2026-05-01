@@ -43,6 +43,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en-CA" className={`${cormorant.variable} ${barlow.variable}`}>
+      <head>
+        {/* Performance: Preconnect to critical third-party domains to shave off handshake latency */}
+        <link rel="preconnect" href="https://dsyiuztquzkcikehkigv.supabase.co" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://va.vercel-scripts.com" crossOrigin="anonymous" />
+      </head>
       <body>
         <a href="#main-content" className="skip-link">Skip to main content</a>
         <Providers>

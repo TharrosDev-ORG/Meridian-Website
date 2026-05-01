@@ -88,6 +88,7 @@ html {
      rubber-band overscroll don't expose a white strip behind the
      translucent fixed mobile dock at the bottom of the viewport. */
   background: var(--cream);
+  min-height: 100%;
 }
 body {
   /* `clip` (Safari 16+) doesn't establish a containing block, so
@@ -96,6 +97,7 @@ body {
   overflow-x: hidden;
   overflow-x: clip;
   width: 100%;
+  min-height: 100%;
   background: var(--cream);
   color: var(--ink);
   font-family: var(--serif);
@@ -104,6 +106,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+  position: relative;
 }
 @media (min-width: 1101px) {
   body { line-height: 1.85; }
@@ -1205,13 +1208,30 @@ footer {
   .mob-dock {
     display: flex; position: fixed; bottom: 0; left: 0; right: 0;
     height: calc(68px + env(safe-area-inset-bottom, 0px));
-    background: rgba(244, 237, 227, 0.88);
+    /* Increased opacity slightly (0.88 -> 0.92) for Safari rendering stability */
+    background: rgba(244, 237, 227, 0.92);
     backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
     border-top: 1px solid rgba(184, 147, 42, 0.15);
     z-index: 210; align-items: center; justify-content: space-around;
     padding: 0 12px env(safe-area-inset-bottom, 0px);
     box-shadow: 0 -4px 30px rgba(24, 21, 15, 0.08);
     transition: z-index 0s linear 0.4s;
+    /* Safari Hardening: Force hardware acceleration and prepare for viewport shifts */
+    transform: translate3d(0, 0, 0);
+    will-change: transform, bottom;
+  }
+
+  /* Safety Skirt: Extends below the viewport to hide the white background 
+     if Safari's address bar collapses/expands with a lag. */
+  .mob-dock::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    height: 100vh;
+    background: inherit;
+    pointer-events: none;
   }
   /* Keep dock tappable above the drawer so users can tap "Close" to dismiss */
   .mob-dock.menu-open { z-index: 260; transition: z-index 0s; }

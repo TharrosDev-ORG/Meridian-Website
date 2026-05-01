@@ -14,7 +14,7 @@ import MemberCounter from '@/components/MemberCounter';
 
 export const metadata: Metadata = getMetadata({
   title: "Ottawa Student Speaker Forum & Social Community",
-  description: "The Meridian Society is Ottawa's premier student-run forum, connecting curious minds with industry professionals, scholars, and innovators through curated speaker events and authentic social gatherings.",
+  description: "The Meridian Society is an independent, student-run organization based in Ottawa, connecting motivated students with professionals to broaden perspectives and build a strong community.",
   urlPath: "/",
   keywords: ['Ottawa Student Leadership', 'Speaker Series Ottawa', 'Professional Development Students']
 });
@@ -100,8 +100,8 @@ export default function Home() {
       <MemberCounter className="about-counter-wrap rv" />
     </div>
     <div className="about-right">
-      <p className="about-body rv" id="about-speakable">The Meridian Society is an independent, student-run organization based in ottawa. Founded with the goal of connecting motivated students with the professionals who can expand their mindset, and to build a community of students and young professionals in Ottawa.</p>
-      <p className="about-body rv" data-d="1">Through events, open conversations, and gatherings of all kinds, we aim to build a place where members can orient themselves in an increasingly complex and competitive world. Not an extension of any institution. Something built, owned, and run entirely by students.</p>
+      <p className="about-body rv" id="about-speakable">The Meridian Society is an independent, student-run organization based in Ottawa. It was founded to connect motivated students with professionals who can broaden their perspective, while building a strong community of students and young professionals.</p>
+      <p className="about-body rv" data-d="1">Through events, discussions, and gatherings, we aim to create a space where members can better navigate an increasingly complex and competitive world. It is entirely student-built, owned, and operated, without institutional affiliation.</p>
       <div className="pull-quote rv" data-d="2">
         <p>&quot;Shaped by the effort you put in, your input defines your outcome by building knowledge, connections, and opportunity.&quot;</p>
       </div>

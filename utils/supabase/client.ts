@@ -11,12 +11,19 @@ export const createClient = () => {
     throw new Error("Missing Supabase public environment variables");
   }
 
-  // Always create a new client on the server
-  if (typeof window === "undefined") {
-    return createBrowserClient(supabaseUrl, supabaseKey);
+  const isBrowser = typeof window !== "undefined";
+
+  if (!isBrowser) {
+    // Return a Proxy that throws on any access to prevent accidental SSR leaks
+    return new Proxy({} as SupabaseClient, {
+      get() {
+        throw new Error(
+          "Supabase browser client accessed on server. Use createServiceClient or createMiddlewareClient instead."
+        );
+      },
+    });
   }
 
-  // Use singleton on the client
   if (!client) {
     client = createBrowserClient(supabaseUrl, supabaseKey);
   }

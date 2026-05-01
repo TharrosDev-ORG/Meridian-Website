@@ -17,7 +17,7 @@ export async function checkMemberStatus(identifier: string): Promise<MemberStatu
   // Polymorphic lookup: check if identifier is email or member number
   const isEmail = identifier.includes("@");
   const column = isEmail ? "email" : "member_number";
-  const value = isEmail ? identifier.toLowerCase() : identifier;
+  const value = isEmail ? identifier.trim().toLowerCase() : identifier.trim().toUpperCase();
 
   const { data, error } = await supabase
     .from("members")

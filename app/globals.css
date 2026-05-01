@@ -702,7 +702,8 @@ body {
 /* Shimmers */
 .member-count-shimmer { 
   display: inline-block; width: 60px; height: 48px; 
-  background: linear-gradient(90deg, var(--ink-08) 25%, var(--ink-15) 50%, var(--ink-08) 75%); 
+  /* Premium branded shimmer using gold and cream-mid */
+  background: linear-gradient(90deg, var(--cream-mid) 25%, var(--gold-20) 50%, var(--cream-mid) 75%); 
   background-size: 200% 100%; animation: shimmer 2s infinite linear; 
   border-radius: 4px; vertical-align: middle; 
 }

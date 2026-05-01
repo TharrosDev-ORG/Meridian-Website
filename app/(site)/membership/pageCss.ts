@@ -489,6 +489,7 @@ export const membershipCss = `
       font-weight: 700;
       color: var(--ink);
       line-height: 1;
+      word-break: break-word;
     }
     .registry-status {
       display: flex;

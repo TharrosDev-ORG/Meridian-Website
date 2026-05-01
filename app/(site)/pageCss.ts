@@ -504,6 +504,11 @@ export const indexCss = `
       .speaking { padding: 60px 0; }
       .register { padding: 72px 0; }
       .hero-ghost { display: none; }
+      .about { border-bottom: 1px solid var(--ink-10); }
+      .who { border-bottom: 1px solid var(--ink-10); }
+      .not-sec { border-bottom: 1px solid var(--ink-10); }
+      .events { border-bottom: 1px solid var(--ink-10); }
+      .speaking { border-bottom: 1px solid var(--ink-10); }
       .hero-content { width: 100%; flex: none; justify-content: flex-start; padding: 24px 0 48px; }
       .hero-sub {
         width: 100%; max-width: 100%;
@@ -532,10 +537,13 @@ export const indexCss = `
 
       /* Horizontal Scroll Support */
       .who-grid.h-scroll, .portal-grid.h-scroll {
-        display: flex; gap: 16px; border: none; background: transparent; padding: 10px 22px;
+        display: flex !important; flex-wrap: nowrap !important;
+        gap: 16px; border: none; background: transparent; 
+        padding: 10px 22px; margin: 0 -22px;
+        width: auto !important;
       }
       .who-item.h-scroll-item {
-        background: var(--cream); border: 1px solid var(--ink-15);
+        background: var(--cream); border: 1px solid var(--ink-10);
         flex: 0 0 280px; box-shadow: 0 4px 20px rgba(24,21,15,0.06);
       }
 
@@ -611,10 +619,16 @@ export const indexCss = `
       .register-title { font-size: clamp(36px, 10vw, 52px); margin-bottom: 20px; line-height: 1.0; }
       .register-body { font-size: 16.5px; line-height: 1.75; margin-bottom: 32px; max-width: 42ch; }
       .register-ghost {
-        font-size: clamp(54px, 24vw, 120px) !important;
-        letter-spacing: 0.22em !important;
-        bottom: -18px !important;
-        -webkit-text-stroke-width: 1px !important;
+        display: none;
+      }
+      @media (min-width: 480px) {
+        .register-ghost {
+          display: block;
+          font-size: clamp(54px, 20vw, 100px) !important;
+          letter-spacing: 0.22em !important;
+          bottom: -18px !important;
+          -webkit-text-stroke-width: 1px !important;
+        }
       }
       .register-btn {
         width: 100%; text-align: center;

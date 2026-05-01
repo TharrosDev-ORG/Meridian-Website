@@ -1317,9 +1317,14 @@ footer {
   .h-scroll {
     display: flex !important; flex-wrap: nowrap !important; overflow-x: auto; overflow-y: hidden;
     scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;
-    gap: 16px; padding: 20px 22px; margin: 0 -22px;
+    gap: 16px; padding: 20px 0 20px 22px; margin: 0 -22px;
     scrollbar-width: none;
     width: auto !important;
+  }
+  .h-scroll::after {
+    content: '';
+    flex: 0 0 22px;
+    pointer-events: none;
   }
   .h-scroll::-webkit-scrollbar { display: none; }
   .h-scroll-item {

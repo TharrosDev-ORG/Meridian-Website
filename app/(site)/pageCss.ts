@@ -235,7 +235,7 @@ export const indexCss = `
     /* ══════════════════════════════
        WHO WE GATHER
     ══════════════════════════════ */
-    .who { padding: 80px 0; background: var(--cream-mid); position: relative; overflow: visible; }
+    .who { padding: 80px 0; background: var(--cream-mid); position: relative; overflow: hidden; }
     .who::before {
       content: ''; position: absolute; inset: 0; z-index: 0;
       background-image: repeating-linear-gradient(-45deg, transparent, transparent 24px, rgba(24,21,15,0.025) 24px, rgba(24,21,15,0.025) 25px);
@@ -538,8 +538,10 @@ export const indexCss = `
       /* Horizontal Scroll Support */
       .who-grid.h-scroll, .portal-grid.h-scroll {
         display: flex !important; flex-wrap: nowrap !important;
+        overflow-x: auto !important; overflow-y: hidden !important;
+        -webkit-overflow-scrolling: touch;
         gap: 16px; border: none; background: transparent; 
-        padding: 10px 22px; margin: 0 -22px;
+        padding: 10px 0 10px 22px; margin: 0 -22px;
         width: auto !important;
       }
       .who-item.h-scroll-item {

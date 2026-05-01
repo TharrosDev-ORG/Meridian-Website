@@ -65,7 +65,9 @@ export default function SocialPage() {
             </div>
             <div className="module-intro-right">
               <p className="module-intro-copy rv" data-d="2">
-                The Meridian Society is more than a speaker series. It is a community of students who value dialogue, debate, and discovery. Our social gatherings are designed to facilitate these connections in a casual, high-impact environment.
+                The Meridian Society goes beyond a speaker series. It&rsquo;s a space to meet driven people, have real conversations, and discover new perspectives without the pressure.
+                <br /><br />
+                Our social events keep it simple. Relaxed settings, good energy, and the kind of environment where connections happen naturally.
               </p>
             </div>
           </div>

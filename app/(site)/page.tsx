@@ -152,7 +152,7 @@ export default function Home() {
     <div className="not-left">
       <div className="sec-label rv">What We Are Not</div>
       <h2 className="not-title rv" data-d="1" id="not-heading">Intentionally<br/>Not for Everyone.</h2>
-      <p className="not-body rv" data-d="2">We are not a resume workshop, a pitch competition, or a networking event. We have no political agenda and no exclusive membership criteria. We are student-run and independent. What we offer is simple: a room with the right people, and the willingness to listen.</p>
+      <p className="not-body rv" data-d="2">We are not a resume workshop, a pitch competition, or a networking event. We have no political agenda or exclusive membership criteria, and we are fully student-run and independent. What we offer is simple: a room with the right people and the willingness to listen.</p>
     </div>
     <div className="not-right">
       <div className="not-list-header rv">Not</div>

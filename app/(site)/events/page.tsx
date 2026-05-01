@@ -66,9 +66,9 @@ export default function EventsPage() {
               </div>
               <div className="module-intro-right">
                 <p className="module-intro-copy rv" data-d="2">
-                  The Speaker Forum is our flagship event. We work to provide a platform for professionals and academics to share their experience with students.
+                  The Speaker Forum is our flagship event, providing a platform for professionals and academics to share their experience with students.
                   <br /><br />
-                  These aren&apos;t just lectures. They are open dialogues designed to provide students with tangible knowledge in their respective fields - exposure to ideas and networks that aren&apos;t found in a classroom.
+                  These are not just lectures. They are open dialogues designed to give students practical insight into their fields, along with exposure to ideas and networks not found in the classroom.
                 </p>
               </div>
             </div>

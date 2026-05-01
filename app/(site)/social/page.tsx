@@ -58,12 +58,13 @@ export default function SocialPage() {
       {/* SOCIAL ABOUT / INTRO */}
       <section className="social-about-sec" id="details">
         <div className="wrap">
-          <div className="social-about-layout">
-            <div className="social-about-left rv" data-d="1">
-              <h2 className="social-about-title">Why We <em>Gather</em></h2>
+          <div className="module-intro-grid">
+            <div className="module-intro-left">
+              <div className="sec-label rv">Society</div>
+              <h2 className="social-h2 rv" data-d="1">Why We <em>Gather.</em></h2>
             </div>
-            <div className="social-about-right rv" data-d="2">
-              <p className="social-about-body">
+            <div className="module-intro-right">
+              <p className="module-intro-copy rv" data-d="2">
                 The Meridian Society is more than a speaker series. It is a community of students who value dialogue, debate, and discovery. Our social gatherings are designed to facilitate these connections in a casual, high-impact environment.
               </p>
             </div>

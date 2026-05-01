@@ -161,7 +161,6 @@ export default function Home() {
         <li className="rv" data-d="1">A political advocacy or activism group</li>
         <li className="rv" data-d="2">A startup incubator or pitch competition</li>
         <li className="rv" data-d="3">A closed, elite, invitation-only circle</li>
-        <li className="rv" data-d="4">A networking event with business cards</li>
       </ul>
     </div>
   </div>

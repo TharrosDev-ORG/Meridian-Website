@@ -86,6 +86,15 @@ export function getMetadata(options: {
       images: [imageUrl],
       creator: SITE_CONFIG.twitter,
     },
+    icons: {
+      icon: [
+        { url: '/assets/favicons/favicon-16x16.png', type: 'image/png', sizes: '16x16' },
+        { url: '/assets/favicons/favicon-32x32.png', type: 'image/png', sizes: '32x32' },
+        { url: '/assets/favicons/favicon.png', type: 'image/png', sizes: '512x512' }
+      ],
+      shortcut: '/assets/favicons/favicon.ico',
+      apple: '/assets/favicons/apple-touch-icon.png'
+    },
     other: {
       'apple-mobile-web-app-title': SITE_CONFIG.name,
     }

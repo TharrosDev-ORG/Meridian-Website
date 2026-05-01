@@ -1320,6 +1320,8 @@ footer {
     gap: 16px; padding: 20px 0 20px 22px; margin: 0 -22px;
     scrollbar-width: none;
     width: auto !important;
+    mask-image: linear-gradient(to right, black 85%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, black 85%, transparent 100%);
   }
   .h-scroll::after {
     content: '';
@@ -1328,8 +1330,21 @@ footer {
   }
   .h-scroll::-webkit-scrollbar { display: none; }
   .h-scroll-item {
-    flex: 0 0 85%; scroll-snap-align: center;
-    max-width: 85vw; will-change: transform, opacity;
+    flex: 0 0 82%; scroll-snap-align: center;
+    max-width: 82vw; will-change: transform, opacity;
+  }
+
+  /* Swipe Hint Component */
+  .swipe-hint {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: var(--sans); font-size: 9px; font-weight: 700;
+    letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold);
+    opacity: 0.8; margin-top: 4px;
+  }
+  .swipe-hint svg { width: 14px; height: 14px; fill: currentColor; animation: swipeMove 1.5s infinite ease-in-out; }
+  @keyframes swipeMove {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(6px); }
   }
 
   /* Society Seal Watermark */

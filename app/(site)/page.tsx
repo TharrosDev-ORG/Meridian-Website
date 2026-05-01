@@ -114,10 +114,16 @@ export default function Home() {
 <section className="who" id="who" aria-labelledby="who-heading">
   <div className="wrap">
     <div className="who-top">
-      <h2 className="who-title rv rv-stagger" id="who-heading">
-        <span className="rv-stagger-item">Who We</span>
-        <span className="rv-stagger-item"><em>Gather.</em></span>
-      </h2>
+      <div className="who-title-wrap">
+        <h2 className="who-title rv rv-stagger" id="who-heading">
+          <span className="rv-stagger-item">Who We</span>
+          <span className="rv-stagger-item"><em>Gather.</em></span>
+        </h2>
+        <div className="swipe-hint rv" data-d="2" aria-hidden="true">
+          <span>Swipe to explore</span>
+          <svg viewBox="0 0 24 24"><path d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"/></svg>
+        </div>
+      </div>
       <p className="who-intro-body rv" data-d="1">We bring together people at every stage, from students to seasoned professionals.</p>
     </div>
     <div className="who-grid h-scroll">
@@ -165,7 +171,13 @@ export default function Home() {
 <section className="events" id="events" aria-labelledby="events-heading">
   <div className="wrap">
     <div className="events-header">
-      <h2 className="events-title rv" id="events-heading">Our<br/><em>Events.</em></h2>
+      <div className="events-title-wrap">
+        <h2 className="events-title rv" id="events-heading">Our<br/><em>Events.</em></h2>
+        <div className="swipe-hint rv" data-d="1" aria-hidden="true">
+          <span>Swipe to explore</span>
+          <svg viewBox="0 0 24 24"><path d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"/></svg>
+        </div>
+      </div>
       <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="text-link rv" data-d="1">Instagram  &#8594;</a>
     </div>
 

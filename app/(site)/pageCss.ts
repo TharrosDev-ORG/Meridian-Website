@@ -245,6 +245,7 @@ export const indexCss = `
     .who-top { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: end; margin-bottom: 60px; }
     .who-title { font-family: var(--serif); font-size: clamp(36px, 3.5vw, 56px); font-weight: 300; line-height: 1.05; color: var(--ink); }
     .who-title em { font-style: italic; }
+    .swipe-hint { display: none; }
     .who-intro-body { font-family: var(--serif); font-size: 20px; font-weight: 400; line-height: 1.9; color: var(--ink-90); }
     .who-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--ink-15); border: 1px solid var(--ink-15); overflow: visible; }
     .who-item {
@@ -582,6 +583,8 @@ export const indexCss = `
       /* WHO section */
       .who-top { gap: 20px; margin-bottom: 32px; }
       .who-title { font-size: clamp(30px, 8vw, 40px); line-height: 1.08; }
+      .who-title-wrap { display: flex; align-items: flex-end; justify-content: space-between; width: 100%; margin-bottom: 8px; }
+      .swipe-hint { display: inline-flex; }
       .who-intro-body { font-size: 17px; line-height: 1.75; }
       .who-grid { grid-template-columns: 1fr; gap: 1px; }
       .who-item { padding: 28px 22px; overflow: hidden; }
@@ -604,6 +607,7 @@ export const indexCss = `
 
       /* EVENTS portal header */
       .events-header { flex-direction: column; align-items: flex-start; gap: 16px; margin-bottom: 28px; }
+      .events-title-wrap { display: flex; align-items: flex-end; justify-content: space-between; width: 100%; }
       .events-title { font-size: clamp(30px, 8vw, 40px); line-height: 1.08; }
 
       /* SPEAKING section */

@@ -78,7 +78,7 @@ export const membershipCss = `
       list-style: none; display: flex; align-items: center; justify-content: space-between;
       padding: 32px 0; cursor: pointer;
       font-family: var(--serif); font-size: clamp(19px, 2vw, 26px); font-weight: 300; color: var(--ink);
-      transition: color 0.2s, padding 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: color 0.2s, padding 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
       gap: 24px;
     }
     .faq-item summary::-webkit-details-marker { display: none; }

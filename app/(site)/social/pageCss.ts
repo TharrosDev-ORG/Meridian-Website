@@ -23,9 +23,6 @@ export const socialCss = `
     .gathering-sec { padding: 80px 0; background: var(--cream-mid); }
     .gathering-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 32px; }
     .gathering-card { background: var(--cream); padding: 48px; border: 1px solid var(--ink-08); box-shadow: 0 4px 20px rgba(24,21,15,0.04); transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), box-shadow 0.4s ease; position: relative; overflow: hidden; will-change: transform, opacity; }
-    @media (min-width: 1101px) {
-      .gathering-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(24,21,15,0.06); }
-    }
     .gathering-type { font-family: var(--sans); font-size: 10px; font-weight: 700; color: var(--gold); margin-bottom: 20px; letter-spacing: 0.2em; text-transform: uppercase; }
     .gathering-h3 { font-family: var(--serif); font-size: 24px; font-weight: 300; color: var(--ink); margin-bottom: 16px; }
     .gathering-p { font-family: var(--serif); font-size: 17px; line-height: 1.7; color: var(--ink-75); }

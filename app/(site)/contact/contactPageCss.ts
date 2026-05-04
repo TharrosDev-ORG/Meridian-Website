@@ -39,14 +39,18 @@ export const contactPageCss = infoPageCss + `
     justify-content: space-between;
     min-height: 280px;
     box-shadow: 0 4px 20px rgba(24, 21, 15, 0.03), 0 20px 80px rgba(24, 21, 15, 0.06);
-    transition: border-color 0.4s ease, box-shadow 0.4s ease;
+    transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.4s cubic-bezier(0.16,1,0.3,1);
     cursor: pointer;
     position: relative;
     overflow: hidden;
+    will-change: transform;
   }
   .contact-card-v2:hover {
     border-color: var(--gold-lt);
     box-shadow: 0 8px 30px rgba(24, 21, 15, 0.05), 0 30px 100px rgba(24, 21, 15, 0.1);
+  }
+  @media (min-width: 1101px) {
+    .contact-card-v2:hover { transform: perspective(var(--perspective-card)) translateY(-8px) rotateX(2deg) rotateY(-1deg) translateZ(12px); box-shadow: 0 12px 40px rgba(24,21,15,0.08), 0 36px 112px rgba(24,21,15,0.12); }
   }
 
   .contact-card-v2::after {

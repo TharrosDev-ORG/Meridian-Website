@@ -71,6 +71,10 @@
   --gold-20: var(--color-gold-20);
   --gold-bw: var(--border-gold-bw);
   --grain: var(--image-grain);
+  /* ── 3D DEPTH TOKENS ── */
+  --perspective-hero:  1600px;
+  --perspective-scene: 1200px;
+  --perspective-card:   900px;
 }
 
 @media (min-width: 1101px) {
@@ -211,6 +215,18 @@ body {
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
   }
+  .site-nav, .nav-wordmark, .nav-cta,
+  .btn-primary, .module-card, .module-intro-right,
+  .step-card, .arc-btn, .portal-card, .who-item,
+  .stat, .benefit-card, .member-card, .gathering-card,
+  .contact-card-v2, .speak-why-card, .footer-list a,
+  .register-btn, .about-num, .pull-quote,
+  .not-list li, .formats-item, .registry-box,
+  .reg-form-container, .reg-input, .expect-row,
+  .speak-meta-row, .nominate-card, .info-contact-card {
+    transform: none !important;
+    perspective: none !important;
+  }
 }
 
 /* ── MOBILE BASE ── */
@@ -260,6 +276,8 @@ body {
   .site-nav.scrolled {
     backdrop-filter: blur(32px);
     -webkit-backdrop-filter: blur(32px);
+    transform: translateZ(0);
+    box-shadow: 0 4px 30px rgba(24,21,15,0.06), 0 1px 0 rgba(184,147,42,0.08);
   }
 }
 
@@ -275,11 +293,11 @@ body {
 .nav-wordmark {
   font-family: var(--sans); font-size: 13px; font-weight: 600;
   letter-spacing: 0.26em; text-transform: uppercase; color: var(--ink);
-  transition: transform 0.3s ease;
+  transition: transform 0.4s cubic-bezier(0.16,1,0.3,1);
   transform-style: preserve-3d;
 }
 .nav-logo:hover .nav-wordmark {
-  transform: perspective(1000px) rotateX(2deg) rotateY(-3deg);
+  transform: perspective(var(--perspective-card)) rotateX(3deg) rotateY(-4deg) translateZ(4px);
 }
 .nav-links { display: flex; align-items: center; list-style: none; gap: 2px; }
 .nav-links a {
@@ -321,7 +339,8 @@ body {
 .nav-cta span { position: relative; z-index: 1; }
 .nav-cta:hover {
   color: var(--cream); border-color: var(--gold);
-  transform: perspective(1000px) translateY(-3px) rotateX(1deg);
+  transform: perspective(var(--perspective-card)) translateY(-4px) rotateX(2deg) translateZ(6px);
+  box-shadow: 0 12px 28px rgba(184,147,42,0.18);
 }
 .nav-cta:hover::before { transform: translateX(0); }
 
@@ -549,9 +568,17 @@ body {
   gap: 12px;
 }
 
+.step-card { will-change: transform; backface-visibility: hidden; }
 .step-card:hover {
   transform: translateY(-4px);
   border-color: var(--gold-lt);
+}
+@media (min-width: 1101px) {
+  .step-card:hover {
+    transform: perspective(var(--perspective-card)) translateY(-6px) rotateX(1deg) translateZ(8px);
+    box-shadow: 0 16px 40px rgba(24,21,15,0.10);
+    border-color: var(--gold-lt);
+  }
 }
 
 .step-num {
@@ -837,11 +864,12 @@ footer {
 
 .module-intro-grid { display: flex; flex-direction: column; gap: 48px; align-items: stretch; }
 .module-intro-left { max-width: 800px; }
-.module-intro-right { 
-  background: var(--cream); padding: 56px; border: 1px solid var(--gold-lt); 
-  box-shadow: 0 4px 24px rgba(24,21,15,0.04); 
-  transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), box-shadow 0.4s ease; 
+.module-intro-right {
+  background: var(--cream); padding: 56px; border: 1px solid var(--gold-lt);
+  box-shadow: 0 4px 24px rgba(24,21,15,0.04);
+  transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), box-shadow 0.4s ease;
   position: relative; overflow: hidden;
+  will-change: transform; backface-visibility: hidden;
 }
 .module-intro-right::after {
   content: ''; position: absolute; inset: 12px;
@@ -909,11 +937,11 @@ footer {
   .nav-links a { padding: 9px 18px; font-size: 13px; letter-spacing: 0.18em; }
   .nav-cta { padding: 10px 24px; font-size: 11px; }
 
-  /* ── Primary button: refined lift on desktop ── */
-  .btn-primary { padding: 14px 36px 13px; }
+  /* ── Primary button: 3D lift ── */
+  .btn-primary { padding: 14px 36px 13px; will-change: transform; backface-visibility: hidden; }
   .btn-primary:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 14px 44px rgba(24,21,15,0.16);
+    transform: perspective(var(--perspective-card)) translateY(-4px) rotateX(1.5deg) translateZ(8px);
+    box-shadow: 0 16px 44px rgba(24,21,15,0.18), 0 4px 12px rgba(24,21,15,0.10);
   }
 
   /* ── Ghost link: subtle letter-tracking on hover ── */
@@ -923,23 +951,29 @@ footer {
   .text-link::after { transition: background 0.3s ease, height 0.25s ease; }
   .text-link:hover::after { height: 1.5px; }
 
-  /* ── Module cards: richer padding & layered hover ── */
-  .module-card { padding: 48px 42px; }
+  /* ── Module cards: 3D tilt + depth ── */
+  .module-card { padding: 48px 42px; transform-style: preserve-3d; will-change: transform; backface-visibility: hidden; overflow: clip; }
   .module-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 18px 56px rgba(24,21,15,0.10), 0 2px 8px rgba(184,147,42,0.05);
+    transform: perspective(var(--perspective-card)) translateY(-8px) rotateX(1.5deg) translateZ(12px);
+    box-shadow: 0 20px 56px rgba(24,21,15,0.12), 0 4px 12px rgba(184,147,42,0.06);
+    border-color: var(--gold-lt);
   }
 
-  /* ── Module intro block: breathing room on wide screens ── */
+  /* ── Module intro block: 3D hover tilt ── */
   .module-intro-grid { gap: 56px; }
   .module-intro-right { padding: 64px; }
+  .module-intro-right:hover {
+    transform: perspective(var(--perspective-scene)) rotateX(1deg) rotateY(-1.5deg) translateZ(8px);
+    box-shadow: 0 20px 60px rgba(24,21,15,0.10), 0 4px 16px rgba(184,147,42,0.07);
+  }
   .module-intro-copy {
     font-size: 21px;
     line-height: 1.9;
     padding-left: 40px;
   }
 
-  /* ── Footer: denser, more interactive ── */
+  /* ── Footer: compositor layer + denser layout ── */
+  footer { transform: translateZ(0); }
   .footer-main {
     gap: 64px;
     padding-bottom: 44px;
@@ -953,13 +987,18 @@ footer {
     display: inline-block;
     transition: color 0.25s ease, transform 0.3s cubic-bezier(0.16,1,0.3,1);
   }
-  .footer-list a:hover { transform: translateX(4px); color: var(--gold-lt); }
+  .footer-list a:hover { transform: translateX(6px) translateZ(0); color: var(--gold-lt); }
   .footer-live-val { font-size: 18px; }
 
-  /* ── Back-to-top: slightly larger, more inviting on desktop ── */
+  /* ── Back-to-top: 3D spring on desktop ── */
   .arc-btn {
     width: 56px; height: 56px;
     bottom: 2.4rem; right: 2.4rem;
+    transition: opacity 0.3s, transform 0.35s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.35s ease;
+  }
+  .arc-btn.visible:hover {
+    transform: perspective(var(--perspective-card)) translateY(-4px) rotateX(2deg) scale(1.06);
+    box-shadow: 0 12px 28px rgba(24,21,15,0.14), 0 4px 8px rgba(184,147,42,0.10);
   }
 
   /* ── Skip link: larger & crisper on desktop ── */
@@ -968,16 +1007,43 @@ footer {
   /* ── Marquee: a touch more presence on wide screens ── */
   .m-item { font-size: 10px; padding: 0 48px; }
 
-  /* ── Page-transition: finer blur/translate for smoother desktop entries ── */
-  @keyframes pageSweep {
-    0% { opacity: 0; transform: translateY(12px); filter: blur(6px); }
-    100% { opacity: 1; transform: translateY(0); filter: blur(0); }
+  /* ── Page-transition: 3D rise on desktop ── */
+  .page-transition-wrapper { animation: pageSweepDt 0.6s cubic-bezier(0.16,1,0.3,1) forwards; }
+  @keyframes pageSweepDt {
+    0%   { opacity: 0; transform: perspective(var(--perspective-hero)) translateY(16px) rotateX(1.5deg) scale(0.99); filter: blur(6px); }
+    100% { opacity: 1; transform: perspective(var(--perspective-hero)) translateY(0)    rotateX(0deg)   scale(1);    filter: blur(0); }
   }
 
   /* ── Reveal: slightly longer easing for large hero typography ── */
   .rv {
     transition: opacity 0.75s cubic-bezier(0.16,1,0.3,1),
                 transform 0.75s cubic-bezier(0.16,1,0.3,1);
+  }
+
+  /* ── Marquee 3D hover micro-tilt ── */
+  .marquee-wrap { perspective: var(--perspective-scene); transform-style: preserve-3d; }
+  .marquee-wrap:hover .marquee-track {
+    transform: rotateX(1deg) translateZ(4px);
+    transition: transform 0.4s cubic-bezier(0.16,1,0.3,1);
+  }
+
+  /* ── Register ghost recession depth ── */
+  .register-ghost { transform: translateX(-50%) translateZ(-40px); }
+
+  /* ── Register button 3D lift ── */
+  .register-btn { will-change: transform; backface-visibility: hidden; }
+  .register-btn:hover {
+    transform: perspective(var(--perspective-card)) translateY(-4px) rotateX(2deg) translateZ(10px);
+    box-shadow: 0 16px 44px rgba(24,21,15,0.16), 0 4px 12px rgba(184,147,42,0.10);
+  }
+
+  /* ── Inner-page hero title 3D lift on reveal ── */
+  .page-hero .hero-title, .module-page-hero .hero-title {
+    will-change: transform, opacity; backface-visibility: hidden;
+  }
+  .page-hero .hero-title.on, .module-page-hero .hero-title.on {
+    transform: perspective(var(--perspective-hero)) translateZ(12px);
+    transition: opacity 0.75s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1);
   }
 
   /* ── Shared decorative corners (events/team/speak/membership): larger at desktop ── */

@@ -64,6 +64,7 @@ export const indexCss = `
       position: relative; z-index: 2;
       display: flex; flex-direction: column; align-items: center;
       flex: 1; justify-content: center;
+      transform-style: preserve-3d; will-change: transform;
     }
     .hero-eyebrow {
       display: flex; align-items: center; gap: 16px; margin-bottom: 40px;
@@ -141,9 +142,9 @@ export const indexCss = `
     }
     .stat:hover { background: rgba(184,147,42,0.04); }
     @media (min-width: 1101px) {
-      .stat:hover { 
-        transform: translateY(-4px); 
-        box-shadow: 0 12px 32px rgba(184,147,42,0.08); 
+      .stat:hover {
+        transform: perspective(var(--perspective-card)) translateY(-6px) rotateX(2deg) translateZ(10px);
+        box-shadow: 0 16px 40px rgba(184,147,42,0.12);
       }
       .stat::after { transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1); }
     }
@@ -182,6 +183,9 @@ export const indexCss = `
       display: block; margin-bottom: 8px; transition: -webkit-text-stroke-color 0.4s, letter-spacing 0.4s cubic-bezier(0.16,1,0.3,1);
     }
     .about-left:hover .about-num { -webkit-text-stroke-color: rgba(184,147,42,0.45); letter-spacing: -0.06em; }
+    @media (min-width: 1101px) {
+      .about-left:hover .about-num { transform: translateZ(12px) rotateX(-2deg); }
+    }
     .about-section-label { font-family: var(--sans); font-size: 10.5px; font-weight: 700; letter-spacing: 0.32em; text-transform: uppercase; color: var(--ink-55); margin-bottom: 20px; }
     .about-title { font-family: var(--serif); font-size: clamp(36px, 3.5vw, 56px); font-weight: 300; line-height: 1.05; color: var(--ink); }
     .about-counter-wrap { margin-top: 40px; }
@@ -227,7 +231,7 @@ export const indexCss = `
     }
     .pull-quote:hover { box-shadow: inset 0 0 0 1px var(--ink-08), 0 8px 32px rgba(24,21,15,0.10); transform: translateX(4px); }
     @media (min-width: 1101px) {
-      .pull-quote:hover { transform: translateX(8px) translateY(-2px); }
+      .pull-quote:hover { transform: perspective(var(--perspective-scene)) translateX(8px) translateY(-2px) rotateY(-1deg) translateZ(6px); }
     }
     .pull-quote:hover::before { transform: scaleY(1); }
 
@@ -269,7 +273,7 @@ export const indexCss = `
     }
     .who-item:hover { background: var(--cream); transform: translateY(-3px); box-shadow: 0 12px 48px rgba(24,21,15,0.11); transition: background 0.25s, transform 0.25s cubic-bezier(0.16,1,0.3,1), box-shadow 0.2s 0s; }
     @media (min-width: 1101px) {
-      .who-item:hover { transform: translateY(-8px) scale(1.02); box-shadow: 0 20px 64px rgba(24,21,15,0.14); }
+      .who-item:hover:not([data-tilt]) { transform: perspective(var(--perspective-card)) translateY(-10px) rotateX(2deg) rotateY(-1deg) translateZ(12px); box-shadow: 0 24px 72px rgba(24,21,15,0.16); }
     }
     .who-item:hover::after { transform: scaleX(1); }
 
@@ -333,7 +337,7 @@ export const indexCss = `
 
     .portal-card:hover { transform: translateY(-6px); border-color: var(--gold-lt); box-shadow: 0 16px 60px rgba(24,21,15,0.12); }
     @media (min-width: 1101px) {
-      .portal-card:hover { transform: translateY(-12px) scale(1.02); box-shadow: 0 24px 80px rgba(24,21,15,0.16); }
+      .portal-card:hover:not([data-tilt]) { transform: perspective(var(--perspective-card)) translateY(-14px) rotateX(2deg) rotateY(-1.5deg) translateZ(16px); box-shadow: 0 28px 88px rgba(24,21,15,0.18); }
     }
 
     .portal-eyebrow { font-family: var(--sans); font-size: 10px; font-weight: 700; color: var(--gold); margin-bottom: 24px; letter-spacing: 0.28em; text-transform: uppercase; }
@@ -434,7 +438,7 @@ export const indexCss = `
       .not-right { padding-left: 88px; }
       .not-body { max-width: 46ch; font-size: 19px; line-height: 1.9; }
       .not-list li { padding: 22px 0; font-size: 20px; }
-      .not-list li:hover { transform: translateX(12px); }
+      .not-list li:hover { transform: translateX(12px) translateZ(4px); }
 
       /* Events portal: portal cards get richer space on desktop */
       .events { padding: 112px 0; }
@@ -450,6 +454,7 @@ export const indexCss = `
       .speaking-body { max-width: 48ch; font-size: 20px; line-height: 1.95; }
       .speaking-sub { font-size: 20px; margin-bottom: 36px; }
       .formats-item { padding: 20px 0; }
+      .formats-item:hover { transform: translateX(16px) translateZ(4px); }
       .formats-text { font-size: 20px; }
 
       /* Register section: airier hero-like presence */

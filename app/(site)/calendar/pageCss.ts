@@ -67,6 +67,9 @@ export const calendarCss = `
       transform: translateY(-4px);
       box-shadow: 0 20px 40px rgba(24,21,15,0.05);
     }
+    @media (min-width: 1101px) {
+      .event-card:hover { transform: perspective(var(--perspective-card)) translateY(-8px) rotateX(1.5deg) translateZ(10px); box-shadow: 0 24px 60px rgba(24,21,15,0.10); }
+    }
 
     /* Date column */
     .event-date-col {

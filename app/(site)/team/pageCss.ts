@@ -35,9 +35,9 @@ export const teamCss = `
     }
     @media (min-width: 1101px) {
       .member-card:hover {
-        transform: translateY(-8px);
+        transform: perspective(var(--perspective-card)) translateY(-10px) rotateX(2deg) rotateY(-1deg) translateZ(14px);
         border-color: var(--gold-20);
-        box-shadow: 0 12px 32px rgba(24,21,15,0.08), 0 24px 80px rgba(24,21,15,0.12);
+        box-shadow: 0 16px 40px rgba(24,21,15,0.10), 0 28px 88px rgba(24,21,15,0.14);
       }
       .member-card:hover::before { opacity: 0.07; }
     }
@@ -103,7 +103,7 @@ export const teamCss = `
     }
     @media (min-width: 1101px) {
       .member-social a:hover {
-        transform: translateY(-5px) scale(1.1);
+        transform: perspective(var(--perspective-card)) translateY(-6px) scale(1.1) rotateX(4deg) translateZ(6px);
         transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.3s, color 0.3s;
       }
     }
@@ -132,13 +132,13 @@ export const teamCss = `
       transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s;
     }
     @media (min-width: 1101px) {
-      .member-card--placeholder:hover { 
-        transform: translateY(-4px); 
-        border-color: var(--gold); 
+      .member-card--placeholder:hover {
+        transform: perspective(var(--perspective-card)) translateY(-6px) rotateX(1.5deg) translateZ(8px);
+        border-color: var(--gold);
         border-style: solid;
         background: var(--cream);
       }
-      .member-card--placeholder:hover .placeholder-icon { transform: scale(1.2) rotate(15deg); opacity: 1; }
+      .member-card--placeholder:hover .placeholder-icon { transform: scale(1.2) rotate(15deg) translateZ(8px); opacity: 1; }
     }
     .placeholder-text { font-family: var(--serif); font-size: 22px; font-style: italic; font-weight: 300; color: var(--ink-75); line-height: 1.4; }
     .placeholder-sub { font-family: var(--sans); font-size: 10px; font-weight: 700; letter-spacing: 0.32em; text-transform: uppercase; color: var(--gold); opacity: 0.60; margin-top: 16px; }

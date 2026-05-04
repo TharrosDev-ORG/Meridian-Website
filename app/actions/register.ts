@@ -2,7 +2,7 @@
 
 import { z } from 'zod';
 import { createServiceClient } from '@/utils/supabase/service';
-import { headers } from 'next/headers';
+import { securityDelay, redactEmail, runSecurityChecks } from '@/utils/serverActionSecurity';
 
 export type MemberStatus = {
   registered: boolean;
@@ -13,7 +13,7 @@ export type MemberStatus = {
 
 export async function checkMemberStatus(identifier: string): Promise<MemberStatus> {
   const supabase = createServiceClient();
-  
+
   // Polymorphic lookup: check if identifier is email or member number
   const isEmail = identifier.includes("@");
   const column = isEmail ? "email" : "member_number";
@@ -38,20 +38,9 @@ export async function checkMemberStatus(identifier: string): Promise<MemberStatu
   };
 }
 
-// Simple in-memory rate limit store (Note: In serverless environments, this is per-instance)
+// NOTE: Per-instance in-memory store — see utils/serverActionSecurity.ts for details.
 const RATE_LIMIT_WINDOW = 5 * 60 * 1000; // 5 minutes
 const ipRecords = new Map<string, number>();
-
-async function securityDelay() {
-  await new Promise((resolve) => setTimeout(resolve, Math.random() * 500 + 300));
-}
-
-function redactEmail(email: string) {
-  const [local, domain] = email.split('@');
-  if (!domain) return '***';
-  const head = local.slice(0, 1);
-  return `${head}***@${domain}`;
-}
 
 const registrationSchema = z.object({
   fullName: z
@@ -100,35 +89,11 @@ export async function registerMember(data: RegistrationData) {
     return { success: false, error: 'Registration failed. (Security Code: HP)' };
   }
 
-  // 2. IP-based Rate Limiting
-  const headerList = await headers();
-  const ip = headerList.get('x-forwarded-for')?.split(',')[0] || 'unknown';
-  const userAgent = headerList.get('user-agent') || 'unknown';
+  // 2. IP-based Rate Limiting + bot detection
+  const secCheck = await runSecurityChecks(ipRecords, RATE_LIMIT_WINDOW);
+  if (secCheck.blocked) return secCheck.response;
 
-  // Basic bot detection: check for common non-browser user agents or missing UA
-  const isSuspicious = userAgent === 'unknown' || /bot|spider|crawler|curl|python|wget|postman/i.test(userAgent);
-  if (isSuspicious) {
-    await securityDelay();
-    console.warn(`[SECURITY] Suspicious User-Agent blocked: ${userAgent} (IP: ${ip})`);
-    return { success: false, error: 'Access denied. (Security Code: UA)' };
-  }
-
-  const now = Date.now();
-  const lastSubmission = ipRecords.get(ip);
-
-  if (lastSubmission && now - lastSubmission < RATE_LIMIT_WINDOW) {
-    const waitTime = Math.ceil((RATE_LIMIT_WINDOW - (now - lastSubmission)) / 60000);
-    return {
-      success: false,
-      error: `Too many attempts from this connection. Please wait ${waitTime} minute(s).`,
-    };
-  }
-
-  // Record the attempt BEFORE any slow work so concurrent requests from the
-  // same IP can't race past the rate-limit check.
-  ipRecords.set(ip, now);
-
-  // 3. Security Delay (Prevents timing attacks)
+  // 3. Security Delay (prevents timing attacks)
   await securityDelay();
 
   // Validate data

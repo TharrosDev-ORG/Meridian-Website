@@ -10,9 +10,10 @@ export default function ScrollProgress() {
 
       const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
       const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      const scrolled = height > 0 ? (winScroll / height) * 100 : 0;
+      const scrolled = height > 0 ? Math.round((winScroll / height) * 100) : 0;
 
       progressBar.style.width = scrolled + "%";
+      progressBar.setAttribute("aria-valuenow", String(scrolled));
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });

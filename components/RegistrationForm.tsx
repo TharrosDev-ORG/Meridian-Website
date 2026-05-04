@@ -698,10 +698,11 @@ export default function RegistrationForm() {
               onClick={downloadMemberCard}
               disabled={isDownloading}
               className={`reg-download-btn ${isDownloading || downloadFinished ? 'is-active' : ''}`}
+              aria-busy={isDownloading}
             >
               <span>
-                {isDownloading ? "Download Started" :
-                 downloadFinished ? "Download Finished" :
+                {isDownloading ? "Preparing your card…" :
+                 downloadFinished ? "Download Complete" :
                  "Download Member Card"}
               </span>
             </button>
@@ -778,7 +779,7 @@ export default function RegistrationForm() {
               )}
             </div>
             {lookupError && (
-              <div className="reg-feedback reg-error" style={{ marginTop: '12px', fontSize: '12px', textAlign: 'left' }}>
+              <div className="reg-feedback reg-error" role="alert" style={{ marginTop: '12px', fontSize: '12px', textAlign: 'left' }}>
                 {lookupError}
               </div>
             )}

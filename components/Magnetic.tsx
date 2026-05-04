@@ -3,8 +3,7 @@
 import React, { useRef, useEffect, ReactElement, useCallback } from 'react';
 
 interface Props {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  children: ReactElement<any>;
+  children: ReactElement<React.HTMLAttributes<HTMLElement>>;
   strength?: number;
 }
 

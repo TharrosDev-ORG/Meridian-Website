@@ -15,15 +15,13 @@ const RegisterSection: React.FC<RegisterSectionProps> = ({
   btnText = "Register for Updates",
   id = "register"
 }) => {
-  // Extracting the emphasis part for the title if it contains a dot or specific pattern
   const renderTitle = () => {
+    const lastWord = title.split(' ').pop() ?? '';
+    const prefix = title.slice(0, title.length - lastWord.length);
     if (title.endsWith('.')) {
-      // The current implementation uses "Become a <em>Member.</em>" per AGENTS.md
-      return (
-        <span dangerouslySetInnerHTML={{ __html: title.replace('Member.', '<em>Member.</em>') }} />
-      );
+      return <><span>{prefix}</span><em>{lastWord}</em></>;
     }
-    return title;
+    return <>{title}</>;
   };
 
   return (

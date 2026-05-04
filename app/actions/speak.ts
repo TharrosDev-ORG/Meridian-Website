@@ -2,22 +2,11 @@
 
 import { z } from 'zod';
 import { createServiceClient } from '@/utils/supabase/service';
-import { headers } from 'next/headers';
+import { securityDelay, redactEmail, runSecurityChecks } from '@/utils/serverActionSecurity';
 
-// Simple in-memory rate limit store
-const RATE_LIMIT_WINDOW = 10 * 60 * 1000; // 10 minutes for speaker apps (more restrictive)
+// NOTE: Per-instance in-memory store — see utils/serverActionSecurity.ts for details.
+const RATE_LIMIT_WINDOW = 10 * 60 * 1000; // 10 minutes (more restrictive than registration)
 const ipRecords = new Map<string, number>();
-
-async function securityDelay() {
-  await new Promise((resolve) => setTimeout(resolve, Math.random() * 500 + 400));
-}
-
-function redactEmail(email: string) {
-  const [local, domain] = email.split('@');
-  if (!domain) return '***';
-  const head = local.slice(0, 1);
-  return `${head}***@${domain}`;
-}
 
 const speakerSchema = z.object({
   fullName: z.string().trim().min(2, 'Full name is required').max(120),
@@ -55,26 +44,11 @@ export async function submitSpeakerApplication(data: SpeakerApplicationData) {
     return { success: false, error: 'Submission failed. (Security Code: S-HP)' };
   }
 
-  // 2. IP-based Rate Limiting
-  const headerList = await headers();
-  const ip = headerList.get('x-forwarded-for')?.split(',')[0] || 'unknown';
-  const userAgent = headerList.get('user-agent') || 'unknown';
+  // 2. IP-based Rate Limiting + bot detection
+  const secCheck = await runSecurityChecks(ipRecords, RATE_LIMIT_WINDOW);
+  if (secCheck.blocked) return secCheck.response;
 
-  const isSuspicious = userAgent === 'unknown' || /bot|spider|crawler|curl|python|wget|postman/i.test(userAgent);
-  if (isSuspicious) {
-    await securityDelay();
-    return { success: false, error: 'Access denied. (Security Code: S-UA)' };
-  }
-
-  const now = Date.now();
-  const lastSubmission = ipRecords.get(ip);
-  if (lastSubmission && now - lastSubmission < RATE_LIMIT_WINDOW) {
-    const waitTime = Math.ceil((RATE_LIMIT_WINDOW - (now - lastSubmission)) / 60000);
-    return { success: false, error: `Rate limit exceeded. Please wait ${waitTime} minute(s).` };
-  }
-  ipRecords.set(ip, now);
-
-  // 3. Security Delay
+  // 3. Security Delay (prevents timing attacks)
   await securityDelay();
 
   // Validate data
@@ -124,6 +98,13 @@ export async function submitSpeakerApplication(data: SpeakerApplicationData) {
 
   if (insertError) {
     console.error(`[SECURITY] Speaker application failed. Code: ${insertError.code}`);
+    // Unique constraint on email — surface a clear, actionable message to the user.
+    if (insertError.code === '23505') {
+      return {
+        success: false,
+        error: 'An application already exists for this email address. Please contact us at contact@meridiansociety.ca if you need to update your submission.',
+      };
+    }
     return { success: false, error: 'Failed to submit application. Please try again later.' };
   }
 

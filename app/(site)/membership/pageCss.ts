@@ -46,7 +46,7 @@ export const membershipCss = `
       transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), box-shadow 0.4s;
     }
     @media (min-width: 1101px) {
-      .benefit-card:hover { transform: translateY(-4px); box-shadow: 0 4px 24px rgba(24,21,15,0.06), 0 16px 60px rgba(24,21,15,0.10); }
+      .benefit-card:hover { transform: perspective(var(--perspective-card)) translateY(-8px) rotateX(2deg) rotateY(-1deg) translateZ(12px); box-shadow: 0 4px 24px rgba(24,21,15,0.06), 0 20px 64px rgba(24,21,15,0.12); }
     }
     .benefit-num { font-family: var(--sans); font-size: 10.5px; font-weight: 700; letter-spacing: 0.28em; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; }
     .benefit-heading { font-family: var(--serif); font-size: clamp(22px, 2vw, 32px); font-weight: 300; line-height: 1.15; color: var(--ink); margin-bottom: 16px; }
@@ -87,7 +87,9 @@ export const membershipCss = `
       .faq-item { padding-left: 0; }
       .faq-item summary { padding: 36px 32px; }
       .faq-item:hover { background: rgba(184, 147, 42, 0.04); }
-      .faq-item:hover summary { color: var(--gold); }
+      .faq-item:hover summary { color: var(--gold); transform: perspective(var(--perspective-scene)) translateZ(2px); }
+      .faq-icon-wrap { transition: border-color 0.4s, background 0.4s, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+      .faq-item:hover .faq-icon-wrap { transform: perspective(var(--perspective-card)) rotateY(8deg) translateZ(4px); }
     }
 
     .faq-icon-wrap {
@@ -317,6 +319,9 @@ export const membershipCss = `
       transform: translateY(-2px);
       box-shadow: 0 8px 32px rgba(24, 21, 15, 0.12);
     }
+    @media (min-width: 1101px) {
+      .reg-submit:not(:disabled):hover { transform: perspective(var(--perspective-card)) translateY(-4px) rotateX(1.5deg) translateZ(8px); box-shadow: 0 12px 40px rgba(24, 21, 15, 0.16); }
+    }
     .reg-submit:not(:disabled):hover::before {
       transform: translateX(0);
     }
@@ -392,6 +397,9 @@ export const membershipCss = `
       color: var(--gold);
       transform: translateY(-2px);
       box-shadow: 0 4px 20px rgba(197, 160, 89, 0.1);
+    }
+    @media (min-width: 1101px) {
+      .reg-home-btn:hover { transform: perspective(var(--perspective-card)) translateY(-4px) rotateX(1deg) translateZ(6px); }
     }
 
     .reg-feedback {
@@ -606,6 +614,9 @@ export const membershipCss = `
     }
     .sticky-join.visible { opacity: 1; pointer-events: all; transform: translateX(-50%) translateY(0) scale(1); }
     .sticky-join:hover { background: var(--gold); color: var(--ink); }
+    @media (min-width: 1101px) {
+      .sticky-join.visible:hover { transform: translateX(-50%) translateY(-3px) scale(1.02) translateZ(6px); box-shadow: 0 16px 48px rgba(24,21,15,0.22); }
+    }
 
 
     /* ── Responsive ── */

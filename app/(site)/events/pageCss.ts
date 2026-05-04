@@ -67,9 +67,10 @@ export const eventsCss = `
         padding: 32px 40px;
         transition: background 0.3s ease, padding 0.3s ease;
       }
-      .expect-row:hover { 
+      .expect-row:hover {
         background: rgba(24,21,15,0.02);
-        padding-left: 48px; 
+        padding-left: 48px;
+        transform: perspective(var(--perspective-scene)) translateX(4px) translateZ(4px);
       }
       .expect-lbl { font-size: 11px; letter-spacing: 0.32em; }
       .expect-val { font-size: 23px; line-height: 1.45; }

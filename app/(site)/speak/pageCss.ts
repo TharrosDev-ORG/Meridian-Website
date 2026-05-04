@@ -88,8 +88,8 @@ export const speakCss = `
       .speak-why-card { padding: 48px 42px; }
       .speak-why-body { font-size: 21px; line-height: 1.9; }
       .speak-why-card:hover {
-        transform: translateY(-6px);
-        box-shadow: 0 18px 56px rgba(24,21,15,0.10), 0 2px 8px rgba(184,147,42,0.05);
+        transform: perspective(var(--perspective-card)) translateY(-8px) rotateX(2deg) rotateY(-1deg) translateZ(12px);
+        box-shadow: 0 20px 64px rgba(24,21,15,0.12), 0 2px 8px rgba(184,147,42,0.06);
       }
 
       /* Format rows: consistent with events expectations */
@@ -99,7 +99,7 @@ export const speakCss = `
         padding: 32px 40px;
         transition: background 0.3s ease, padding 0.3s ease;
       }
-      .speak-meta-row:hover { padding-left: 48px; }
+      .speak-meta-row:hover { padding-left: 48px; transform: perspective(var(--perspective-scene)) translateX(4px) translateZ(4px); }
       .speak-meta-lbl { font-size: 11px; letter-spacing: 0.32em; }
       .speak-meta-val { font-size: 23px; line-height: 1.45; }
 
@@ -322,6 +322,9 @@ export const speakCss = `
     }
     .reg-submit:not(:disabled):hover::before {
       transform: translateX(0);
+    }
+    @media (min-width: 1101px) {
+      .reg-submit:not(:disabled):hover { transform: perspective(var(--perspective-card)) translateY(-4px) rotateX(1.5deg) translateZ(8px); box-shadow: 0 12px 40px rgba(24, 21, 15, 0.16); }
     }
     .reg-submit:disabled {
       opacity: 0.5;

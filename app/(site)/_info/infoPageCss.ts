@@ -250,9 +250,9 @@ export const infoPageCss = `
       transition: transform 0.3s cubic-bezier(0.16,1,0.3,1), border-color 0.3s ease, box-shadow 0.3s ease;
     }
     .info-contact-card:hover {
-      transform: translateY(-3px);
+      transform: perspective(var(--perspective-card)) translateY(-6px) rotateX(2deg) translateZ(8px);
       border-color: var(--gold-lt);
-      box-shadow: 0 8px 28px rgba(24,21,15,0.06);
+      box-shadow: 0 12px 36px rgba(24,21,15,0.08);
     }
     .info-contact-val { font-size: 21px; }
     .info-contact-desc { font-size: 12px; }

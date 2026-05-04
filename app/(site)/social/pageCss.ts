@@ -52,8 +52,8 @@ export const socialCss = `
       .gathering-h3 { font-size: 26px; margin-bottom: 18px; }
       .gathering-p { font-size: 18px; line-height: 1.8; max-width: 42ch; }
       .gathering-card:hover {
-        transform: translateY(-6px);
-        box-shadow: 0 18px 56px rgba(24,21,15,0.10), 0 2px 8px rgba(184,147,42,0.05);
+        transform: perspective(var(--perspective-card)) translateY(-8px) rotateX(2deg) rotateY(-1deg) translateZ(12px);
+        box-shadow: 0 20px 64px rgba(24,21,15,0.12), 0 2px 8px rgba(184,147,42,0.06);
       }
     }
 

@@ -1,8 +1,9 @@
 import { Metadata } from 'next';
+import { SITE_URL } from '@/utils/jsonld';
 
 const SITE_CONFIG = {
   name: 'The Meridian Society',
-  url: 'https://meridiansociety.ca',
+  url: SITE_URL,
   description: 'An independent, student-run community in Ottawa. The Meridian Society connects motivated students with professionals through our curated speaker forum and vibrant social events. Built by students, for students.',
   locale: 'en_CA',
   twitter: '@MeridianSociety',

@@ -48,7 +48,9 @@ export default function Footer() {
           }
         }
       )
-      .subscribe();
+      .subscribe((_status: string, err?: Error) => {
+        if (err) console.warn("[Footer] Realtime channel error:", err.message);
+      });
 
     return () => {
       cancelled = true;

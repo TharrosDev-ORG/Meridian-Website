@@ -4,7 +4,20 @@ export const calendarCss = `
      */
 
     .calendar-sec { background: var(--cream); min-height: 100vh; padding-bottom: 120px; }
-    
+
+    .calendar-error {
+      margin-top: 60px; padding: 48px 40px; border: 1px solid var(--ink-08);
+      text-align: center;
+    }
+    .calendar-error-title {
+      font-family: var(--serif); font-size: 28px; font-weight: 300;
+      color: var(--ink); margin-bottom: 12px;
+    }
+    .calendar-error-body {
+      font-family: var(--sans); font-size: 15px; letter-spacing: 0.04em;
+      color: var(--ink-75);
+    }
+
     .calendar-grid {
       display: flex;
       flex-direction: row;

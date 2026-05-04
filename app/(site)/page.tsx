@@ -64,24 +64,24 @@ export default function Home() {
   </div>
 
   {/* Stats bar — pinned to hero bottom by flex margin-top: auto */}
-  <div className="hero-stats rv" data-d="5" role="list" aria-label="Key facts">
-    <div className="stat" role="listitem">
+  <ul className="hero-stats rv" data-d="5" aria-label="Key facts">
+    <li className="stat">
       <div className="stat-val">3</div>
       <div className="stat-lbl">Universities &amp; Colleges</div>
-    </div>
-    <div className="stat" role="listitem">
+    </li>
+    <li className="stat">
       <div className="stat-val">Ottawa</div>
       <div className="stat-lbl">Canada</div>
-    </div>
-    <div className="stat" role="listitem">
+    </li>
+    <li className="stat">
       <div className="stat-val">{INAUGURAL_EVENT_LABEL}</div>
       <div className="stat-lbl">Inaugural Event</div>
-    </div>
-    <div className="stat" role="listitem">
+    </li>
+    <li className="stat">
       <div className="stat-val">Est. 2025</div>
       <div className="stat-lbl">Independent Organization</div>
-    </div>
-  </div>
+    </li>
+  </ul>
 </section>
 
 {/* MARQUEE */}

@@ -122,6 +122,7 @@ export const indexCss = `
       position: relative; z-index: 2; width: 100%; margin-top: auto;
       display: grid; grid-template-columns: repeat(4, 1fr);
       border-top: 1px solid var(--ink-15);
+      list-style: none; margin: 0; padding: 0;
     }
     .stat {
       padding: 26px 40px; border-right: 1px solid var(--ink-08);

@@ -104,8 +104,20 @@ async function TicketPortal() {
       .limit(3)
   ]);
 
-  if (upcomingRes.error) console.error('[CALENDAR_FETCH_UPCOMING_ERROR]', upcomingRes.error);
-  if (pastRes.error) console.error('[CALENDAR_FETCH_PAST_ERROR]', pastRes.error);
+  if (upcomingRes.error) console.error('[CALENDAR_FETCH_UPCOMING_ERROR]', upcomingRes.error.message);
+  if (pastRes.error) console.error('[CALENDAR_FETCH_PAST_ERROR]', pastRes.error.message);
+
+  // If the primary events query failed, show an error state rather than a hung skeleton.
+  if (upcomingRes.error && !upcomingRes.data) {
+    return (
+      <div className="calendar-error" role="alert">
+        <p className="calendar-error-title">Unable to load events</p>
+        <p className="calendar-error-body">
+          The event registry is temporarily unreachable. Please refresh the page or check back shortly.
+        </p>
+      </div>
+    );
+  }
 
   const activeEvents = (upcomingRes.data || []) as Event[];
   const pastEvents = (pastRes.data || []) as Event[];

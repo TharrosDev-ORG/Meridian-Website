@@ -65,7 +65,7 @@ export const eventsCss = `
       .expect-row {
         grid-template-columns: 240px 1fr;
         padding: 32px 40px;
-        transition: background 0.3s ease, padding 0.3s ease;
+        transition: background 0.3s ease, padding 0.3s ease, transform 0.3s ease;
       }
       .expect-row:hover {
         background: rgba(24,21,15,0.02);

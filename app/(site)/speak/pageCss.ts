@@ -97,7 +97,7 @@ export const speakCss = `
       .speak-meta-row {
         grid-template-columns: 240px 1fr;
         padding: 32px 40px;
-        transition: background 0.3s ease, padding 0.3s ease;
+        transition: background 0.3s ease, padding 0.3s ease, transform 0.3s ease;
       }
       .speak-meta-row:hover { padding-left: 48px; transform: perspective(var(--perspective-scene)) translateX(4px) translateZ(4px); }
       .speak-meta-lbl { font-size: 11px; letter-spacing: 0.32em; }

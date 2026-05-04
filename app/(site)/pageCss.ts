@@ -180,7 +180,7 @@ export const indexCss = `
     .about-num {
       font-family: var(--serif); font-size: 96px; font-weight: 300; line-height: 1;
       letter-spacing: -0.04em; color: transparent; -webkit-text-stroke: 1px var(--ink-15);
-      display: block; margin-bottom: 8px; transition: -webkit-text-stroke-color 0.4s, letter-spacing 0.4s cubic-bezier(0.16,1,0.3,1);
+      display: block; margin-bottom: 8px; transition: -webkit-text-stroke-color 0.4s, letter-spacing 0.4s cubic-bezier(0.16,1,0.3,1), transform 0.4s cubic-bezier(0.16,1,0.3,1);
     }
     .about-left:hover .about-num { -webkit-text-stroke-color: rgba(184,147,42,0.45); letter-spacing: -0.06em; }
     @media (min-width: 1101px) {

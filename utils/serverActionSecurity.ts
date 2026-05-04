@@ -1,5 +1,3 @@
-'use server';
-
 import { headers } from 'next/headers';
 
 // NOTE: In-memory rate limiting is per-serverless-instance. On Vercel this means

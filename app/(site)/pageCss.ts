@@ -64,7 +64,9 @@ export const indexCss = `
       position: relative; z-index: 2;
       display: flex; flex-direction: column; align-items: center;
       flex: 1; justify-content: center;
-      transform-style: preserve-3d; will-change: transform;
+    }
+    @media (min-width: 1101px) {
+      .hero-content { transform-style: preserve-3d; will-change: transform; }
     }
     .hero-eyebrow {
       display: flex; align-items: center; gap: 16px; margin-bottom: 40px;

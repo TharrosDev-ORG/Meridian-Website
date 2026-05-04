@@ -155,7 +155,7 @@ export const speakCss = `
       .speak-why-body { font-size: 18px; line-height: 1.8; }
       .speak-why-card { padding: 30px 22px; }
 
-      .speak-meta-val { font-size: 17px; line-height: 1.45; }
+      .speak-meta-val { font-size: 18px; line-height: 1.45; }
 
       .speak-apply-title { font-size: clamp(34px, 9.5vw, 48px); line-height: 1.02; margin-bottom: 16px; }
       .speak-apply-body { font-size: 18.5px; line-height: 1.8; margin-bottom: 32px; }

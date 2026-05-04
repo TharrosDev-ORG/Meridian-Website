@@ -93,7 +93,7 @@ export const membershipCss = `
     }
 
     .faq-icon-wrap {
-      width: 40px; height: 40px; 
+      width: 44px; height: 44px;
       display: flex; align-items: center; justify-content: center;
       border: 1px solid var(--ink-10);
       border-radius: 50%;
@@ -670,7 +670,7 @@ export const membershipCss = `
         gap: 14px;
         min-height: 56px;
       }
-      .faq-icon-wrap { width: 36px; height: 36px; }
+      .faq-icon-wrap { width: 44px; height: 44px; }
       .faq-answer {
         font-size: 16.5px;
         line-height: 1.75;

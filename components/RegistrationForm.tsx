@@ -523,38 +523,49 @@ export default function RegistrationForm() {
 
     // 7. Trigger Robust Download
     try {
-      // Use toDataURL (synchronous) instead of toBlob (asynchronous) 
-      // to keep the action within the user-initiated event chain for mobile browsers.
-      const dataUrl = canvas.toDataURL("image/png");
-      
       const fileName = `Meridian_Member_Card_${memberNumber || 'Society'}.png`;
-      const link = document.createElement("a");
-      link.href = dataUrl;
-      link.download = fileName;
-      
-      // Detection for iOS devices
-      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || 
+
+      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
                    (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 
       if (isIOS) {
-        // On iOS Safari, the 'download' attribute is often ignored for Data URLs.
-        // Opening the image in the current window or a new tab allows the user 
-        // to long-press and "Save to Photos".
-        window.location.href = dataUrl;
+        // iOS Safari blocks data URL navigation and ignores the download attribute.
+        // Preferred path: Web Share API (iOS 15+) lets the user save to Photos or Files.
+        const blob: Blob = await new Promise((resolve, reject) =>
+          canvas.toBlob(b => b ? resolve(b) : reject(new Error("toBlob failed")), "image/png")
+        );
+
+        const file = new File([blob], fileName, { type: "image/png" });
+
+        if (navigator.canShare && navigator.canShare({ files: [file] })) {
+          await navigator.share({ files: [file], title: "Meridian Member Card" });
+        } else {
+          // Fallback: open blob URL in new tab — user can long-press → Save to Photos
+          const blobUrl = URL.createObjectURL(blob);
+          const newTab = window.open(blobUrl, "_blank");
+          if (!newTab) {
+            // If popup was blocked, try current tab as last resort
+            window.location.href = blobUrl;
+          }
+          setTimeout(() => URL.revokeObjectURL(blobUrl), 60000);
+        }
       } else {
         // Standard programmatic download for Android and Desktop
+        const dataUrl = canvas.toDataURL("image/png");
+        const link = document.createElement("a");
+        link.href = dataUrl;
+        link.download = fileName;
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
       }
-      
+
       setIsDownloading(false);
       setDownloadFinished(true);
       setTimeout(() => setDownloadFinished(false), 4000);
     } catch (err) {
       console.error("Member card download failed:", err);
       setIsDownloading(false);
-      // Fallback: alert the user or show a message
     }
   };
 

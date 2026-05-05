@@ -837,8 +837,10 @@ footer {
   color: rgba(244, 237, 227, 0.75);
   text-decoration: none;
   transition: color 0.2s;
+  display: inline-flex; align-items: center; min-height: 40px;
 }
 .footer-list a:hover { color: var(--cream); }
+.footer-list a:active { color: var(--gold); opacity: 0.9; }
 
 .footer-bottom {
   display: flex; align-items: center; justify-content: space-between;
@@ -1130,6 +1132,7 @@ footer {
     letter-spacing: 0.22em;
     min-height: 52px;
   }
+  .btn-primary:active { transform: scale(0.97); opacity: 0.9; }
   .btn-ghost-link {
     display: inline-flex; justify-content: center;
     width: 100%; margin-top: 10px;
@@ -1337,8 +1340,8 @@ footer {
   .mob-dock-item.prominent .mob-dock-label { margin-top: 2px; }
 
   .mob-dock-label {
-    font-family: var(--sans); font-size: 8px; font-weight: 700;
-    letter-spacing: 0.18em; text-transform: uppercase;
+    font-family: var(--sans); font-size: 10px; font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase;
   }
 
   /* ── Cinematic Menu Overrides ── */
@@ -1380,8 +1383,8 @@ footer {
   
   .mob-wordmark {
     padding: 0; position: absolute; top: clamp(32px, 6vh, 48px); left: 50%;
-    transform: translateX(-50%); font-size: 9px; color: var(--gold);
-    letter-spacing: 0.4em; opacity: 0.8; z-index: 10;
+    transform: translateX(-50%); font-size: 10px; color: var(--gold);
+    letter-spacing: 0.35em; opacity: 0.8; z-index: 10;
   }
   
   .mob-bottom { display: none; }
@@ -1411,8 +1414,8 @@ footer {
   /* Swipe Hint Component */
   .swipe-hint {
     display: inline-flex; align-items: center; gap: 8px;
-    font-family: var(--sans); font-size: 9px; font-weight: 700;
-    letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold);
+    font-family: var(--sans); font-size: 11px; font-weight: 700;
+    letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold);
     opacity: 0.8; margin-top: 4px;
   }
   .swipe-hint svg { width: 14px; height: 14px; fill: currentColor; animation: swipeMove 1.5s infinite ease-in-out; }

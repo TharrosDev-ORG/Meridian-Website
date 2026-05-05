@@ -82,7 +82,11 @@ export const membershipCss = `
       gap: 24px;
     }
     .faq-item summary::-webkit-details-marker { display: none; }
-    
+    .faq-item summary:active {
+      color: var(--gold);
+      background: rgba(184, 147, 42, 0.04);
+    }
+
     @media (min-width: 1101px) {
       .faq-item { padding-left: 0; }
       .faq-item summary { padding: 36px 32px; }
@@ -246,8 +250,8 @@ export const membershipCss = `
     }
     .reg-choice input { display: none; }
     .reg-choice-ui {
-      width: 18px;
-      height: 18px;
+      width: 20px;
+      height: 20px;
       border: 1.5px solid var(--ink-30);
       position: relative;
       transition: border-color 0.3s, background 0.3s;
@@ -319,6 +323,10 @@ export const membershipCss = `
       transform: translateY(-2px);
       box-shadow: 0 8px 32px rgba(24, 21, 15, 0.12);
     }
+    .reg-submit:not(:disabled):active {
+      transform: scale(0.97);
+      opacity: 0.9;
+    }
     @media (min-width: 1101px) {
       .reg-submit:not(:disabled):hover { transform: perspective(var(--perspective-card)) translateY(-4px) rotateX(1.5deg) translateZ(8px); box-shadow: 0 12px 40px rgba(24, 21, 15, 0.16); }
     }
@@ -366,6 +374,10 @@ export const membershipCss = `
     .reg-download-btn:not(.is-active):hover::before {
       transform: translateX(0);
     }
+    .reg-download-btn:not(.is-active):active {
+      transform: scale(0.97);
+      opacity: 0.9;
+    }
     .reg-download-btn.is-active {
       background: #2d8a4e !important;
       transform: scale(0.98);
@@ -391,6 +403,10 @@ export const membershipCss = `
       display: flex;
       justify-content: center;
       transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reg-home-btn:active {
+      transform: scale(0.97);
+      opacity: 0.85;
     }
     .reg-home-btn:hover {
       border-color: var(--gold);
@@ -696,7 +712,7 @@ export const membershipCss = `
         gap: 14px;
         min-height: 48px;
       }
-      .reg-choice-ui { width: 20px; height: 20px; }
+      .reg-choice-ui { width: 24px; height: 24px; flex-shrink: 0; }
       .reg-submit {
         width: 100%;
         padding: 18px 24px 17px;
@@ -754,6 +770,8 @@ export const membershipCss = `
       border: 1px solid var(--ink-15);
       color: var(--ink-30);
       padding: 7px 9px;
+      min-width: 44px;
+      min-height: 44px;
       cursor: pointer;
       display: flex;
       align-items: center;
@@ -764,6 +782,10 @@ export const membershipCss = `
     .registry-copy-btn:hover {
       border-color: var(--gold);
       color: var(--gold);
+    }
+    .registry-copy-btn:active {
+      transform: scale(0.93);
+      opacity: 0.8;
     }
     .registry-copy-btn.is-copied {
       border-color: #2d8a4e;
@@ -784,6 +806,6 @@ export const membershipCss = `
 
     @media (max-width: 480px) {
       .registry-box { padding: 20px 16px; }
-      .registry-copy-btn { padding: 6px 8px; }
+      .registry-copy-btn { padding: 7px 9px; }
     }
   `;

@@ -103,7 +103,7 @@ export const eventsCss = `
       .events-copy-body, .notify-sub { font-size: 16.5px; line-height: 1.75; }
 
       /* Signature series cards: tighter + clearer */
-      .sig-num { font-size: 9.5px; letter-spacing: 0.22em; margin-bottom: 14px; }
+      .sig-num { font-size: 11px; letter-spacing: 0.2em; margin-bottom: 14px; }
       .sig-h { font-size: 20px; margin-bottom: 12px; line-height: 1.2; }
       .sig-p { font-size: 16px; line-height: 1.7; }
       .sig-card { padding: 30px 22px; }
@@ -118,8 +118,8 @@ export const eventsCss = `
       }
       .expect-lbl {
         padding-top: 0;
-        font-size: 10px;
-        letter-spacing: 0.26em;
+        font-size: 11px;
+        letter-spacing: 0.22em;
         color: var(--gold);
       }
       .expect-val { font-size: 18px; line-height: 1.5; }

@@ -88,6 +88,7 @@ export default function MobileMenu() {
       dragging.current = false;
       el.style.transition = "";
       el.style.transform = "";
+      el.style.opacity = "";
     };
 
     const onStart = (e: TouchEvent) => {
@@ -116,7 +117,10 @@ export default function MobileMenu() {
           return;
         }
       }
-      if (dx > 0) el.style.transform = `translateX(${dx}px)`;
+      if (dx > 0) {
+        el.style.transform = `translateX(${dx}px)`;
+        el.style.opacity = String(Math.max(0.55, 1 - dx / 280));
+      }
     };
 
     const onEnd = (e: TouchEvent) => {

@@ -1,65 +1,8 @@
-"use client";
-
-import { useEffect, useState } from "react";
 import Link from "next/link";
-import { createClient } from "@/utils/supabase/client";
 import { INSTAGRAM_URL, CONTACT_MAILTO } from "@/utils/social";
 
 export default function Footer() {
-  const [_count, setCount] = useState<number>(0);
-  const [currentYear, setCurrentYear] = useState<number>(2025);
-
-  useEffect(() => {
-    const supabase = createClient();
-    const controller = new AbortController();
-    let cancelled = false;
-
-    async function loadCount() {
-      try {
-        const response = await fetch("/api/stats/count", { signal: controller.signal });
-        if (!response.ok) return;
-        const data = await response.json();
-        if (cancelled) return;
-        if (typeof data?.count === "number") setCount(data.count);
-      } catch (err) {
-        if ((err as Error)?.name === "AbortError") return;
-        console.error("[Footer] Stats API failed. Realtime channel will populate count.");
-      }
-    }
-    loadCount();
-
-    const yearTimer = setTimeout(() => {
-      setCurrentYear(new Date().getFullYear());
-    }, 0);
-
-    const channel = supabase
-      .channel("footer_stats_updates")
-      .on(
-        "postgres_changes",
-        {
-          event: "UPDATE",
-          schema: "public",
-          table: "site_stats",
-          filter: `id=eq.meridian_global_stats`,
-        },
-        (payload) => {
-          if (payload.new && typeof payload.new.member_count === "number") {
-            setCount(payload.new.member_count);
-          }
-        }
-      )
-      .subscribe((_status: string, err?: Error) => {
-        if (err) console.warn("[Footer] Realtime channel error:", err.message);
-      });
-
-    return () => {
-      cancelled = true;
-      controller.abort();
-      clearTimeout(yearTimer);
-      // Best-effort cleanup; failures here are expected during hot-reload teardown.
-      void supabase.removeChannel(channel);
-    };
-  }, []);
+  const currentYear = new Date().getFullYear();
 
   return (
     <footer>
@@ -116,7 +59,6 @@ export default function Footer() {
             <ul className="footer-list">
               <li><Link href="/privacy">Privacy</Link></li>
               <li><Link href="/terms">Terms</Link></li>
-
             </ul>
           </nav>
         </div>

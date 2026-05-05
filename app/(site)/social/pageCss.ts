@@ -73,7 +73,7 @@ export const socialCss = `
 
     @media (max-width: 700px) {
       .social-about-sec, .gathering-sec { padding: 60px 0; }
-      .gathering-type { font-size: 9.5px; letter-spacing: 0.22em; margin-bottom: 14px; }
+      .gathering-type { font-size: 11px; letter-spacing: 0.2em; margin-bottom: 14px; }
       .gathering-h3 { font-size: 20px; margin-bottom: 12px; line-height: 1.2; }
       .gathering-p { font-size: 16.5px; line-height: 1.72; }
       .gathering-card { padding: 30px 22px; }

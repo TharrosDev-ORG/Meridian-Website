@@ -260,12 +260,13 @@ export default function SpeakerForm() {
         <div className={`reg-field ${currentStep === 2 ? 'reg-field--full' : ''}`} style={currentStep === 2 ? { borderBottom: '1px solid var(--ink-10)', paddingBottom: '24px', marginBottom: '8px' } : {}}>
           <label htmlFor="fullName" className="reg-label">Full Name *</label>
           <input 
-            type="text" 
-            id="fullName" 
-            name="fullName" 
-            required 
-            className="reg-input" 
-            placeholder="e.g. Dr. Helena Vance" 
+            type="text"
+            id="fullName"
+            name="fullName"
+            required
+            autoComplete="name"
+            className="reg-input"
+            placeholder="e.g. Dr. Helena Vance"
             disabled={isPending}
             value={nameValue}
             onChange={(e) => setNameValue(e.target.value)}
@@ -276,13 +277,14 @@ export default function SpeakerForm() {
         <div className={`reg-field ${currentStep === 2 ? 'reg-field--full' : ''}`} style={currentStep === 2 ? { borderBottom: '1px solid var(--ink-10)', paddingBottom: '20px', marginBottom: '20px' } : {}}>
           <label htmlFor="email" className="reg-label">Email Address *</label>
           <input 
-            type="email" 
-            id="email" 
-            name="email" 
-            required 
-            className="reg-input" 
-            placeholder="e.g. helena@meridian.org" 
-            disabled={isPending} 
+            type="email"
+            id="email"
+            name="email"
+            required
+            autoComplete="email"
+            className="reg-input"
+            placeholder="e.g. helena@meridian.org"
+            disabled={isPending}
             value={emailValue}
             onChange={(e) => setEmailValue(e.target.value)}
             readOnly={currentStep === 2}
@@ -308,11 +310,11 @@ export default function SpeakerForm() {
           <>
             <div className="reg-field">
               <label htmlFor="roleTitle" className="reg-label">Current Role / Title *</label>
-              <input type="text" id="roleTitle" name="roleTitle" required className="reg-input" placeholder="e.g. Senior Fellow / VP Research" disabled={isPending} />
+              <input type="text" id="roleTitle" name="roleTitle" required autoComplete="organization-title" className="reg-input" placeholder="e.g. Senior Fellow / VP Research" disabled={isPending} />
             </div>
             <div className="reg-field">
               <label htmlFor="organization" className="reg-label">Organization / Institution</label>
-              <input type="text" id="organization" name="organization" className="reg-input" placeholder="e.g. Global Policy Institute" disabled={isPending} />
+              <input type="text" id="organization" name="organization" autoComplete="organization" className="reg-input" placeholder="e.g. Global Policy Institute" disabled={isPending} />
             </div>
 
             {/* Classification */}
@@ -410,7 +412,7 @@ export default function SpeakerForm() {
 
               {selectedAvail === "Specific date/window" && (
                 <div className="date-picker-sub" style={{ marginTop: '20px', padding: '20px', border: '1px solid var(--ink-10)', borderRadius: '4px', background: 'rgba(255,255,255,0.3)' }}>
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+                  <div className="date-picker-grid">
                     <div className="reg-field" style={{ marginBottom: 0 }}>
                       <label htmlFor="availStart" className="reg-label" style={{ fontSize: '10px' }}>Start Date</label>
                       <input type="date" id="availStart" name="availStart" required className="reg-input" style={{ fontSize: '12px' }} disabled={isPending} />
@@ -447,13 +449,13 @@ export default function SpeakerForm() {
             </fieldset>
             <div className="reg-field">
               <label htmlFor="portfolioLink" className="reg-label">Portfolio / Past Talk Link</label>
-              <input type="url" id="portfolioLink" name="portfolioLink" className="reg-input" placeholder="YouTube, Website, etc." disabled={isPending} />
+              <input type="url" id="portfolioLink" name="portfolioLink" autoComplete="url" className="reg-input" placeholder="YouTube, Website, etc." disabled={isPending} />
             </div>
 
             {/* Social */}
             <div className="reg-field">
               <label htmlFor="linkedinUrl" className="reg-label">LinkedIn URL</label>
-              <input type="url" id="linkedinUrl" name="linkedinUrl" className="reg-input" placeholder="linkedin.com/in/..." disabled={isPending} />
+              <input type="url" id="linkedinUrl" name="linkedinUrl" autoComplete="url" className="reg-input" placeholder="linkedin.com/in/..." disabled={isPending} />
             </div>
             <div className="reg-field">
               <label htmlFor="socialMedia" className="reg-label">Other Social Media</label>

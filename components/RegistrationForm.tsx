@@ -731,6 +731,7 @@ export default function RegistrationForm() {
                 id="email"
                 name="email"
                 required
+                autoComplete="email"
                 className="reg-input"
                 style={{ flex: 1 }}
                 placeholder="e.g. john.smith@example.com"
@@ -788,6 +789,7 @@ export default function RegistrationForm() {
                   id="fullName"
                   name="fullName"
                   required
+                  autoComplete="name"
                   className="reg-input"
                   placeholder="e.g. John Smith"
                   disabled={isPending}

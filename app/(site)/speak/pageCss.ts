@@ -167,6 +167,18 @@ export const speakCss = `
       .speak-meta-row { padding: 20px 18px; }
     }
   
+    /* ── Date Picker Grid (responsive) ── */
+    .date-picker-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    @media (max-width: 480px) {
+      .date-picker-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
     /* ── Integrated Form Styling (Shared with Membership) ── */
     .reg-form-container {
       max-width: 1000px;

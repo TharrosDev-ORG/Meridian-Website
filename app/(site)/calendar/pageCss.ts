@@ -114,6 +114,11 @@ export const calendarCss = `
       opacity: 1;
     }
 
+    /* On touch devices, always show expand indicator at full opacity */
+    @media (hover: none) {
+      .expand-indicator { opacity: 0.8; }
+    }
+
     .event-tag {
       font-family: var(--sans);
       font-size: 9px;
@@ -177,6 +182,7 @@ export const calendarCss = `
       width: 100%;
       margin-top: 20px;
       padding: 11px 20px;
+      min-height: 44px;
       font-family: var(--sans);
       font-size: 9px;
       font-weight: 700;
@@ -212,10 +218,10 @@ export const calendarCss = `
       left: 0;
       width: 100vw;
       height: 100vh;
-      background: rgba(18, 16, 14, 0.92); 
+      background: rgba(18, 16, 14, 0.92);
       backdrop-filter: none !important;
       -webkit-backdrop-filter: none !important;
-      z-index: 99999;
+      z-index: 400;
       display: grid;
       place-items: center;
       padding: 20px;
@@ -230,10 +236,10 @@ export const calendarCss = `
       max-width: 440px;
       width: 100%;
       position: relative;
-      z-index: 100000;
+      z-index: 401;
       pointer-events: auto;
       background: var(--cream);
-      padding: 8px; /* Internal frame spacing */
+      padding: 8px;
       border: 1px solid var(--ink);
       box-shadow: 0 40px 100px rgba(0,0,0,0.6);
     }
@@ -303,6 +309,11 @@ export const calendarCss = `
       background: var(--gold);
       color: var(--cream);
       border-color: var(--gold);
+    }
+
+    .btn-secondary-ghost:active {
+      transform: scale(0.97);
+      opacity: 0.85;
     }
 
     /* Ticket Header */
@@ -455,6 +466,27 @@ export const calendarCss = `
     /* Desktop Grid layout */
     @media (min-width: 1101px) {
       .calendar-grid { gap: 40px; }
+    }
+
+    /* Touch expand affordance — shows + on compressed cards where info col is hidden */
+    @media (max-width: 1100px) {
+      .event-card.is-compressed .event-date-col {
+        position: relative;
+      }
+      .event-card.is-compressed .event-date-col::after {
+        content: '+';
+        position: absolute;
+        bottom: 14px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-family: var(--serif);
+        font-size: 20px;
+        font-weight: 300;
+        color: var(--gold);
+        opacity: 0.7;
+        line-height: 1;
+        pointer-events: none;
+      }
     }
 
     /* Mobile adjustments */

@@ -750,15 +750,17 @@ export default function RegistrationForm() {
                 </button>
               )}
               {!emailChecked && (
-                <button 
+                <button
                   onClick={handleEmailCheck}
                   disabled={isCheckingEmail || !email || !email.includes('@')}
                   className="reg-submit"
-                  style={{ 
-                    padding: '12px 32px', 
-                    marginTop: 0, 
+                  style={{
+                    padding: '12px 32px',
+                    marginTop: 0,
                     fontSize: '10px',
-                    height: '46px'
+                    height: '46px',
+                    width: 'auto',
+                    flexShrink: 0,
                   }}
                 >
                   <span>{isCheckingEmail ? "Checking..." : "Apply"}</span>

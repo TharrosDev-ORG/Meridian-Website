@@ -190,6 +190,9 @@ export const speakCss = `
       border: 1px solid var(--ink-08);
       padding: 64px;
       box-shadow: 0 12px 48px rgba(24, 21, 15, 0.05);
+      box-sizing: border-box;
+      min-width: 0;
+      overflow: hidden;
     }
     .reg-grid {
       display: grid;
@@ -200,6 +203,7 @@ export const speakCss = `
       display: flex;
       flex-direction: column;
       gap: 12px;
+      min-width: 0;
     }
     .reg-fieldset {
       border: 0;
@@ -234,6 +238,9 @@ export const speakCss = `
       transition: border-color 0.3s ease, background 0.3s ease;
       outline: none;
       border-radius: 0;
+      width: 100%;
+      min-width: 0;
+      box-sizing: border-box;
     }
     .reg-input:focus {
       border-color: var(--gold);
@@ -262,6 +269,9 @@ export const speakCss = `
       color: var(--ink-75);
       padding: 8px 0;
       user-select: none;
+      min-width: 0;
+      overflow-wrap: break-word;
+      word-break: break-word;
     }
     .reg-choice input { display: none; }
     .reg-choice-ui {

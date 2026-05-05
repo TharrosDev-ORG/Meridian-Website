@@ -171,6 +171,9 @@ export const membershipCss = `
       border: 1px solid var(--ink-08);
       padding: 64px;
       box-shadow: 0 12px 48px rgba(24, 21, 15, 0.05);
+      box-sizing: border-box;
+      min-width: 0;
+      overflow: hidden;
     }
     @media (max-width: 750px) {
       .reg-grid { grid-template-columns: 1fr; gap: 24px; }
@@ -185,6 +188,7 @@ export const membershipCss = `
       display: flex;
       flex-direction: column;
       gap: 12px;
+      min-width: 0;
     }
     .reg-field--full {
       grid-column: span 2;
@@ -219,6 +223,9 @@ export const membershipCss = `
       transition: border-color 0.3s ease, background 0.3s ease;
       outline: none;
       border-radius: 0;
+      width: 100%;
+      min-width: 0;
+      box-sizing: border-box;
     }
     .reg-input:focus {
       border-color: var(--gold);
@@ -247,6 +254,9 @@ export const membershipCss = `
       color: var(--ink-75);
       padding: 8px 0;
       user-select: none;
+      min-width: 0;
+      overflow-wrap: break-word;
+      word-break: break-word;
     }
     .reg-choice input { display: none; }
     .reg-choice-ui {
@@ -705,7 +715,7 @@ export const membershipCss = `
         padding: 14px 0;
       }
       .reg-input::placeholder { font-size: 15px; }
-      .reg-options-grid { gap: 6px 20px; }
+      .reg-options-grid { grid-template-columns: 1fr; gap: 4px 0; }
       .reg-choice {
         padding: 14px 0;
         font-size: 16.5px;

@@ -169,8 +169,39 @@ export const calendarCss = `
     .meta-lbl { font-family: var(--sans); font-size: 9px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--ink-30); }
     .meta-val { font-family: var(--serif); font-size: 15px; color: var(--ink-80); }
 
+    .btn-add-calendar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      margin-top: 20px;
+      padding: 11px 20px;
+      font-family: var(--sans);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      background: transparent;
+      border: 1px solid var(--gold-20);
+      cursor: pointer;
+      transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+    }
+
+    .btn-add-calendar:hover {
+      background: var(--gold);
+      color: var(--cream);
+      border-color: var(--gold);
+      transform: translateY(-1px);
+    }
+
+    .btn-add-calendar:active {
+      transform: translateY(0);
+    }
+
     .btn-register {
-      margin-top: 24px;
+      margin-top: 12px;
       width: 100%;
     }
 

@@ -758,6 +758,37 @@ body {
 .rv[data-d="9"] { transition-delay: 0.72s; }
 .rv[data-d="10"] { transition-delay: 0.80s; }
 
+/* Mobile simplification: kill staggered reveal delays site-wide on small
+   screens. Combined with Providers.tsx immediately adding `.on` to every
+   `.rv` element on touch, this means content appears together with a
+   single short fade — no waterfall delays, no translateY shift per element.
+   Drastically reduces the "bogged down" feel across home, team, speak,
+   events, social, membership, calendar, contact. */
+@media (max-width: 900px) {
+  .rv {
+    transform: none;
+    transition: opacity 0.25s ease-out;
+  }
+  .rv[data-d="1"],
+  .rv[data-d="2"],
+  .rv[data-d="3"],
+  .rv[data-d="4"],
+  .rv[data-d="5"],
+  .rv[data-d="6"],
+  .rv[data-d="7"],
+  .rv[data-d="8"],
+  .rv[data-d="9"],
+  .rv[data-d="10"] { transition-delay: 0s; }
+  .rv-stagger-item:nth-child(1),
+  .rv-stagger-item:nth-child(2),
+  .rv-stagger-item:nth-child(3),
+  .rv-stagger-item:nth-child(4),
+  .rv-stagger-item:nth-child(5),
+  .rv-stagger-item:nth-child(6),
+  .rv-stagger-item:nth-child(7),
+  .rv-stagger-item:nth-child(8) { transition-delay: 0s; }
+}
+
 /* ── FOOTER ── */
 footer {
   padding: 64px 0 28px;
@@ -1122,6 +1153,17 @@ footer {
   .hero-eyebrow-text { font-size: 10px; letter-spacing: 0.26em; }
   .sec-label { font-size: 10px; letter-spacing: 0.28em; margin-bottom: 16px; gap: 12px; }
   .text-link { font-size: 11px; letter-spacing: 0.2em; padding: 6px 0; min-height: 36px; align-items: center; }
+
+  /* Mobile perf: hide parallax ghost letterforms on small screens. They are
+     a desktop scroll effect — on mobile they only inflate paint area and add
+     visual noise without payoff. */
+  .register-ghost,
+  .hero-ghost,
+  #heroGhost { display: none !important; }
+
+  /* Mobile perf: collapse marquee into single-pass static row. Removing the
+     constant 32s animation reduces battery + compositor load. */
+  .marquee-track { animation: none !important; }
 }
 
 
@@ -1328,12 +1370,12 @@ footer {
     font-family: var(--serif); font-size: clamp(26px, 8vw, 34px); font-style: italic;
     border-bottom: none; padding: 10px 0; width: auto;
     color: var(--ink-55); letter-spacing: -0.01em; text-transform: none;
-    transition: color 0.4s, opacity 0.6s, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-    opacity: 0; transform: translateY(30px);
+    transition: color 0.3s, opacity 0.2s ease-out;
+    opacity: 0;
   }
-  .mob-drawer.open .mob-links a { opacity: 1; transform: translateY(0); }
-  
-  .mob-links a:hover, .mob-links a.active { color: var(--ink); transform: scale(1.02); }
+  .mob-drawer.open .mob-links a { opacity: 1; }
+
+  .mob-links a:hover, .mob-links a.active { color: var(--ink); }
   .mob-links a .mob-arrow { display: none; }
   
   .mob-wordmark {

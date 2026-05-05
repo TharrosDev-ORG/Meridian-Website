@@ -1,4 +1,6 @@
-import React from 'react';
+'use client';
+
+import React, { useEffect, useState } from 'react';
 
 interface MarqueeProps {
   items?: string[];
@@ -19,6 +21,14 @@ const DEFAULT_ITEMS = [
 ];
 
 const Marquee: React.FC<MarqueeProps> = ({ items = DEFAULT_ITEMS, className = "" }) => {
+  // Skip the marquee on touch devices: 20 always-animating DOM nodes drain
+  // battery and add visual noise on small screens with little payoff.
+  const [hide, setHide] = useState(false);
+  useEffect(() => {
+    setHide(window.matchMedia("(pointer: coarse)").matches);
+  }, []);
+  if (hide) return null;
+
   return (
     <div className={`marquee-wrap ${className}`} aria-hidden="true">
       <div className="marquee-track">

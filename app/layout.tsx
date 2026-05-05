@@ -16,9 +16,12 @@ const cormorant = Cormorant_Garamond({
   display: "swap",
 });
 
+// Barlow Condensed: drop the rarely-used 500 weight; the four remaining
+// weights cover everything the site actually styles. Each dropped weight
+// shaves a font file from the initial payload.
 const barlow = Barlow_Condensed({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["300", "400", "600", "700"],
   variable: "--sans",
   display: "swap",
 });

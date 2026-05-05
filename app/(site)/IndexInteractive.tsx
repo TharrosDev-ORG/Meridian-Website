@@ -15,6 +15,14 @@ export default function IndexInteractive() {
     const isTouch = window.matchMedia("(pointer: coarse)").matches;
     const isReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+    // Touch devices get none of these effects (mouse-tilt, parallax ghosts,
+    // 3D card tilt). Bail before any DOM queries to avoid the hydration cost.
+    if (isTouch) {
+      const win = window as unknown as { __observeReveal?: () => void };
+      if (win.__observeReveal) setTimeout(() => win.__observeReveal!(), 50);
+      return;
+    }
+
     // ── 1. Hero Mouse-Tilt ──
     const hero = document.querySelector(".hero") as HTMLElement;
     const title = document.getElementById("heroTitle") as HTMLElement;

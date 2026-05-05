@@ -22,7 +22,25 @@ export default function Providers({ children }: { children: React.ReactNode }) {
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
-    // Intersection Observer for .rv elements (Scroll Reveal)
+    const win = window as unknown as MeridianWindow;
+
+    // On touch devices (mobile/tablet) skip the IntersectionObserver entirely:
+    // immediately mark every reveal element as "on" so content renders without
+    // scroll-driven animations. This avoids per-scroll work and cognitive load
+    // on small screens where the staggered reveals add little value.
+    const isTouch = window.matchMedia("(pointer: coarse)").matches;
+    if (isTouch) {
+      const reveal = () => {
+        document.querySelectorAll(".rv:not(.on)").forEach((el) => el.classList.add("on"));
+      };
+      reveal();
+      win.__observeReveal = reveal;
+      return () => {
+        if (win.__observeReveal) delete win.__observeReveal;
+      };
+    }
+
+    // Intersection Observer for .rv elements (Scroll Reveal) — desktop only
     const obs = new IntersectionObserver((entries) => {
       entries.forEach((e) => {
         if (e.isIntersecting) {
@@ -36,7 +54,6 @@ export default function Providers({ children }: { children: React.ReactNode }) {
     document.querySelectorAll(".rv").forEach((el) => obs.observe(el));
 
     // Expose a global hook for dynamically added elements (like pages)
-    const win = window as unknown as MeridianWindow;
     win.__observeReveal = () => {
       const candidates = document.querySelectorAll(".rv:not(.on)");
       if (candidates.length > 0) {

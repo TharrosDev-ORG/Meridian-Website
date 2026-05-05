@@ -82,7 +82,6 @@ export default function MemberCounter({ className }: MemberCounterProps) {
           table: "site_stats",
         },
         (payload) => {
-          console.log("[Realtime] Received update:", payload);
           if (payload.new && payload.new.member_count !== undefined) {
             const newCount = Number(payload.new.member_count);
             if (!isNaN(newCount)) {

@@ -84,6 +84,7 @@ export default function IndexInteractive() {
 
     const handleCardMove = (e: MouseEvent) => {
       const card = e.currentTarget as HTMLElement;
+      if (!cardRafs.has(card)) card.style.willChange = "transform";
       if (cardRafs.has(card)) cancelAnimationFrame(cardRafs.get(card)!);
 
       const id = requestAnimationFrame(() => {
@@ -105,13 +106,13 @@ export default function IndexInteractive() {
         cardRafs.delete(card);
       }
       card.style.transform = "perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)";
+      card.style.willChange = "auto";
     };
 
     if (!isTouch) {
       cards.forEach(card => {
         if (!(card instanceof HTMLElement)) return;
         card.style.transition = "transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)";
-        card.style.willChange = "transform";
         card.addEventListener("mousemove", handleCardMove as EventListener);
         card.addEventListener("mouseleave", handleCardLeave as EventListener);
       });

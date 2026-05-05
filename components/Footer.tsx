@@ -10,54 +10,78 @@ export default function Footer() {
   const [currentYear, setCurrentYear] = useState<number>(2025);
 
   useEffect(() => {
-    const supabase = createClient();
     const controller = new AbortController();
     let cancelled = false;
-
-    async function loadCount() {
-      try {
-        const response = await fetch("/api/stats/count", { signal: controller.signal });
-        if (!response.ok) return;
-        const data = await response.json();
-        if (cancelled) return;
-        if (typeof data?.count === "number") setCount(data.count);
-      } catch (err) {
-        if ((err as Error)?.name === "AbortError") return;
-        console.error("[Footer] Stats API failed. Realtime channel will populate count.");
-      }
-    }
-    loadCount();
+    let channel: ReturnType<ReturnType<typeof createClient>["channel"]> | null = null;
+    let supabase: ReturnType<typeof createClient> | null = null;
 
     const yearTimer = setTimeout(() => {
       setCurrentYear(new Date().getFullYear());
     }, 0);
 
-    const channel = supabase
-      .channel("footer_stats_updates")
-      .on(
-        "postgres_changes",
-        {
-          event: "UPDATE",
-          schema: "public",
-          table: "site_stats",
-          filter: `id=eq.meridian_global_stats`,
-        },
-        (payload) => {
-          if (payload.new && typeof payload.new.member_count === "number") {
-            setCount(payload.new.member_count);
-          }
+    // Defer Supabase client creation, count fetch, and realtime subscription
+    // until the browser is idle. This keeps the footer off the critical path
+    // on mobile, where the realtime channel is the most expensive thing here.
+    const win = window as Window & {
+      requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => number;
+      cancelIdleCallback?: (id: number) => void;
+    };
+    let idleId: number | null = null;
+    let fallbackTimer: ReturnType<typeof setTimeout> | null = null;
+
+    const boot = async () => {
+      if (cancelled) return;
+      supabase = createClient();
+
+      try {
+        const response = await fetch("/api/stats/count", { signal: controller.signal });
+        if (response.ok) {
+          const data = await response.json();
+          if (!cancelled && typeof data?.count === "number") setCount(data.count);
         }
-      )
-      .subscribe((_status: string, err?: Error) => {
-        if (err) console.warn("[Footer] Realtime channel error:", err.message);
-      });
+      } catch (err) {
+        if ((err as Error)?.name !== "AbortError") {
+          console.error("[Footer] Stats API failed. Realtime channel will populate count.");
+        }
+      }
+
+      if (cancelled) return;
+      channel = supabase
+        .channel("footer_stats_updates")
+        .on(
+          "postgres_changes",
+          {
+            event: "UPDATE",
+            schema: "public",
+            table: "site_stats",
+            filter: `id=eq.meridian_global_stats`,
+          },
+          (payload) => {
+            if (payload.new && typeof payload.new.member_count === "number") {
+              setCount(payload.new.member_count);
+            }
+          }
+        )
+        .subscribe((_status: string, err?: Error) => {
+          if (err) console.warn("[Footer] Realtime channel error:", err.message);
+        });
+    };
+
+    if (typeof win.requestIdleCallback === "function") {
+      idleId = win.requestIdleCallback(() => { void boot(); }, { timeout: 2500 });
+    } else {
+      fallbackTimer = setTimeout(() => { void boot(); }, 1500);
+    }
 
     return () => {
       cancelled = true;
       controller.abort();
       clearTimeout(yearTimer);
-      // Best-effort cleanup; failures here are expected during hot-reload teardown.
-      void supabase.removeChannel(channel);
+      if (idleId !== null && typeof win.cancelIdleCallback === "function") {
+        win.cancelIdleCallback(idleId);
+      }
+      if (fallbackTimer) clearTimeout(fallbackTimer);
+      if (channel && supabase) void supabase.removeChannel(channel);
     };
   }, []);
 

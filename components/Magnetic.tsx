@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useEffect, ReactElement, useCallback } from 'react';
+import React, { useRef, useEffect, useState, ReactElement, useCallback } from 'react';
 
 interface Props {
   children: ReactElement<React.HTMLAttributes<HTMLElement>>;
@@ -14,17 +14,21 @@ interface Props {
  */
 export default function Magnetic({ children, strength = 0.3 }: Props) {
   const wrapperRef = useRef<HTMLSpanElement>(null);
+  const [isTouch, setIsTouch] = useState(false);
 
   const handleRef = useCallback((node: HTMLSpanElement | null) => {
     wrapperRef.current = node;
   }, []);
 
   useEffect(() => {
+    const touch = window.matchMedia("(pointer: coarse)").matches;
+    if (touch) {
+      setIsTouch(true);
+      return;
+    }
+
     const el = wrapperRef.current;
     if (!el) return;
-
-    const isTouch = window.matchMedia("(pointer: coarse)").matches;
-    if (isTouch) return;
 
     let bounds: DOMRect | null = null;
 
@@ -60,6 +64,11 @@ export default function Magnetic({ children, strength = 0.3 }: Props) {
       el.removeEventListener('mouseleave', handleMouseLeave);
     };
   }, [strength]);
+
+  // On touch, render a passthrough span — no transform/transition cost.
+  if (isTouch) {
+    return <span style={{ display: 'inline-block' }}>{children}</span>;
+  }
 
   return (
     <span

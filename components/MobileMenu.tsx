@@ -179,13 +179,12 @@ export default function MobileMenu() {
         </div>
 
         <nav className="mob-links">
-          {NAV_LINKS.map((link, i) => (
+          {NAV_LINKS.map((link) => (
             <Link
               key={link.name}
               href={link.href}
               className={pathname === link.href ? "active" : ""}
               onClick={handleLinkClick}
-              style={menuOpen ? { transitionDelay: `${0.1 + i * 0.06}s` } : undefined}
             >
               {link.name}
             </Link>

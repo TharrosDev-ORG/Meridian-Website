@@ -59,7 +59,7 @@ export default function Home() {
         </Magnetic>
       </div>
       <div className="hero-actions-divider rv" data-d="4"></div>
-      <Link href="/events" className="btn-ghost-link rv" data-d="4">Explore Events  &#8594;</Link>
+      <Link href="/calendar" className="btn-ghost-link rv" data-d="4">Explore Calendar  &#8594;</Link>
     </div>
   </div>
 

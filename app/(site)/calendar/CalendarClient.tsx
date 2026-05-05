@@ -260,21 +260,16 @@ export default function CalendarClient({ initialEvents, archivalEvents = [] }: C
                         </div>
                       </div>
                       
-                      {/* ICS Download Link */}
-                      <div className="event-meta-item">
-                        <CalendarIcon className="text-gold/60" />
-                        <div>
-                          <p className="meta-lbl">Schedule</p>
-                          <button 
-                            onClick={(e) => { e.stopPropagation(); downloadICS(event); }} 
-                            className="meta-val hover:text-gold transition-colors text-left"
-                            style={{ background: 'transparent', border: 'none', padding: 0, cursor: 'pointer', outline: 'none' }}
-                          >
-                            Add to Calendar
-                          </button>
-                        </div>
-                      </div>
                     </div>
+
+                    <button
+                      onClick={(e) => { e.stopPropagation(); downloadICS(event); }}
+                      className="btn-add-calendar"
+                      aria-label={`Add ${event.name} to calendar`}
+                    >
+                      <CalendarIcon size={13} />
+                      <span>Add to Calendar</span>
+                    </button>
 
                     <div className="btn-register">
                       <button 

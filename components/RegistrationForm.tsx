@@ -75,20 +75,6 @@ export default function RegistrationForm() {
     };
   }, []);
 
-  // Fetch count for the registry display
-  useEffect(() => {
-    async function loadInitialCount() {
-      try {
-        const res = await fetch("/api/stats/count");
-        if (res.ok) {
-          // Pre-warm the stats endpoint for cache
-          await res.json();
-        }
-      } catch { /* stats pre-warm is non-critical */ }
-    }
-    loadInitialCount();
-  }, []);
-
   // Animate count on success and trigger reveal
   useEffect(() => {
     if (result?.success && !result.alreadyRegistered && !isAlreadyRegistered) {

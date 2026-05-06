@@ -456,7 +456,7 @@ export const membershipCss = `
     }
     .success-eyebrow {
       font-family: var(--sans);
-      font-size: 10px;
+      font-size: 12px;
       font-weight: 700;
       letter-spacing: 0.3em;
       text-transform: uppercase;
@@ -499,7 +499,7 @@ export const membershipCss = `
     }
     .registry-label {
       font-family: var(--sans);
-      font-size: 9px;
+      font-size: 11.5px;
       font-weight: 700;
       letter-spacing: 0.25em;
       text-transform: uppercase;
@@ -512,7 +512,7 @@ export const membershipCss = `
     .registry-prefix {
       display: block;
       font-family: var(--serif);
-      font-size: 12px;
+      font-size: 15px;
       font-style: italic;
       color: var(--ink-40);
       margin-bottom: 4px;
@@ -540,7 +540,7 @@ export const membershipCss = `
     }
     .status-text {
       font-family: var(--sans);
-      font-size: 9px;
+      font-size: 11.5px;
       font-weight: 700;
       letter-spacing: 0.15em;
       text-transform: uppercase;
@@ -548,7 +548,7 @@ export const membershipCss = `
     }
     .registry-disclaimer {
       font-family: var(--serif);
-      font-size: 13px;
+      font-size: 15px;
       font-style: italic;
       color: var(--ink-50);
       max-width: 280px;
@@ -557,7 +557,7 @@ export const membershipCss = `
     }
     .success-lead {
       font-family: var(--serif);
-      font-size: clamp(16px, 2vw, 19px);
+      font-size: clamp(19px, 2.5vw, 23px);
       line-height: 1.7;
       color: var(--ink-75);
       max-width: 500px !important;
@@ -578,7 +578,7 @@ export const membershipCss = `
         margin: 16px 0;
       }
       .registry-disclaimer {
-        font-size: 12px;
+        font-size: 14px;
         margin-bottom: 16px;
       }
       .success-title {
@@ -754,7 +754,7 @@ export const membershipCss = `
     }
     .registry-date-label {
       font-family: var(--sans);
-      font-size: 8px;
+      font-size: 10.5px;
       font-weight: 700;
       letter-spacing: 0.22em;
       text-transform: uppercase;
@@ -762,7 +762,7 @@ export const membershipCss = `
     }
     .registry-date-val {
       font-family: var(--serif);
-      font-size: 15px;
+      font-size: 18px;
       font-style: italic;
       color: var(--ink-75);
     }
@@ -811,7 +811,7 @@ export const membershipCss = `
       .success-header { margin-bottom: 16px; }
       .success-rule { margin-top: 14px; }
       .registry-date { padding-top: 12px; margin-bottom: 14px; }
-      .registry-date-val { font-size: 14px; }
+      .registry-date-val { font-size: 16px; }
     }
 
     @media (max-width: 480px) {

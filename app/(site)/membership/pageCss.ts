@@ -548,10 +548,10 @@ export const membershipCss = `
     }
     .registry-disclaimer {
       font-family: var(--serif);
-      font-size: 15px;
+      font-size: 18px;
       font-style: italic;
-      color: var(--ink-50);
-      max-width: 280px;
+      color: var(--ink-75);
+      max-width: 380px;
       margin: 0 auto 24px;
       line-height: 1.5;
     }
@@ -578,7 +578,7 @@ export const membershipCss = `
         margin: 16px 0;
       }
       .registry-disclaimer {
-        font-size: 14px;
+        font-size: 16.5px;
         margin-bottom: 16px;
       }
       .success-title {

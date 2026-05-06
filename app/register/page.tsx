@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import RegistrationForm from "@/components/RegistrationForm";
 import PageStyles from "@/components/PageStyles";
 import TransitionWrapper from "@/components/TransitionWrapper";
-import { membershipCss } from "../(site)/membership/pageCss";
+import { membershipCss, registrationCss } from "../(site)/membership/pageCss";
 import { getMetadata } from "@/utils/metadata-shared";
 
 export const metadata: Metadata = getMetadata({
@@ -81,7 +81,7 @@ export default function RegisterPage() {
   return (
     <TransitionWrapper>
       <main className="register-page-minimal">
-        <PageStyles css={membershipCss + registerPageCss} />
+        <PageStyles css={membershipCss + registrationCss + registerPageCss} />
         <div className="register-header rv">
         </div>
         <div className="register-form-wrapper rv" data-d="1">

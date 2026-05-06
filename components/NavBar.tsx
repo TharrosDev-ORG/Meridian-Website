@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { useSiteContext } from "./Providers";
 
 export const REGISTER_URL = "/register";
 export const SPEAK_URL = "/speak";
@@ -12,7 +13,7 @@ import Magnetic from "./Magnetic";
 export default function NavBar() {
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
-
+  const { menuOpen, setMenuOpen } = useSiteContext();
 
   const isHome = pathname === "/" || pathname === "";
 
@@ -77,7 +78,17 @@ export default function NavBar() {
           </Link>
         </Magnetic>
 
-
+        <button 
+          type="button" 
+          className={`hamburger ${menuOpen ? "open" : ""}`} 
+          id="burgerBtn"
+          aria-label="Open navigation" 
+          aria-expanded={menuOpen} 
+          aria-controls="mobileMenu"
+          onClick={() => setMenuOpen(!menuOpen)}
+        >
+          <span></span><span></span>
+        </button>
       </div>
     </nav>
   );

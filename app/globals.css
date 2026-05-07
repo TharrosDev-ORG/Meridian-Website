@@ -758,35 +758,37 @@ body {
 .rv[data-d="9"] { transition-delay: 0.72s; }
 .rv[data-d="10"] { transition-delay: 0.80s; }
 
-/* Mobile simplification: kill staggered reveal delays site-wide on small
-   screens. Combined with Providers.tsx immediately adding `.on` to every
-   `.rv` element on touch, this means content appears together with a
-   single short fade — no waterfall delays, no translateY shift per element.
-   Drastically reduces the "bogged down" feel across home, team, speak,
-   events, social, membership, calendar, contact. */
+/* Mobile: content is visible immediately — no JS needed for initial paint.
+   The .on class is still added by Providers.tsx but has no visual effect
+   since opacity/transform are already at their final values. This eliminates
+   the JS-gated FCP delay on mobile where the entire page was opacity:0 until
+   React hydrated (3-5s on slow connections). */
 @media (max-width: 900px) {
   .rv {
+    opacity: 1;
     transform: none;
-    transition: opacity 0.25s ease-out;
+    transition: none;
   }
-  .rv[data-d="1"],
-  .rv[data-d="2"],
-  .rv[data-d="3"],
-  .rv[data-d="4"],
-  .rv[data-d="5"],
-  .rv[data-d="6"],
-  .rv[data-d="7"],
-  .rv[data-d="8"],
-  .rv[data-d="9"],
-  .rv[data-d="10"] { transition-delay: 0s; }
-  .rv-stagger-item:nth-child(1),
-  .rv-stagger-item:nth-child(2),
-  .rv-stagger-item:nth-child(3),
-  .rv-stagger-item:nth-child(4),
-  .rv-stagger-item:nth-child(5),
-  .rv-stagger-item:nth-child(6),
-  .rv-stagger-item:nth-child(7),
-  .rv-stagger-item:nth-child(8) { transition-delay: 0s; }
+  .rv-stagger-item {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* Touch devices (pointer: coarse) regardless of screen width — same fix.
+   Providers.tsx detects touch via this same media query. */
+@media (pointer: coarse) {
+  .rv {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .rv-stagger-item {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }
 
 /* ── FOOTER ── */

@@ -50,8 +50,8 @@ export default function Providers({ children }: { children: React.ReactNode }) {
       });
     }, { threshold: 0.01, rootMargin: "0px 0px 100px 0px" });
 
-    // Initial query
-    document.querySelectorAll(".rv").forEach((el) => obs.observe(el));
+    // Only observe elements not already revealed by the DOMContentLoaded script
+    document.querySelectorAll(".rv:not(.on)").forEach((el) => obs.observe(el));
 
     // Expose a global hook for dynamically added elements (like pages)
     win.__observeReveal = () => {

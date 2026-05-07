@@ -48,6 +48,154 @@ function ScrambleTicker({ value }: { value: string }) {
   return <>{display}</>;
 }
 
+async function buildCardCanvas(name: string, number: string, date: string): Promise<HTMLCanvasElement> {
+  if (document.fonts) {
+    await Promise.all([
+      document.fonts.load('italic 56px "Cormorant Garamond"'),
+      document.fonts.load('700 160px "Cormorant Garamond"'),
+      document.fonts.load('800 48px "Barlow Condensed"'),
+      document.fonts.load('700 24px "Barlow Condensed"'),
+      document.fonts.load('600 28px "Barlow Condensed"')
+    ]);
+  }
+
+  const QRCode = (await import('qrcode')).default;
+  const qrDataUrl = await QRCode.toDataURL(number || "M26-XXXX", {
+    margin: 1,
+    width: 440,
+    color: { dark: "#1a1a1a", light: "#fffcf5" },
+    errorCorrectionLevel: 'H'
+  });
+
+  const qrImage = new Image();
+  qrImage.src = qrDataUrl;
+  await new Promise((resolve) => { qrImage.onload = resolve; });
+
+  const dateToUse = date ? new Date(date) : new Date();
+  const canvas = document.createElement("canvas");
+  canvas.width = 1200;
+  canvas.height = 1800;
+  const ctx = canvas.getContext("2d");
+  if (!ctx) throw new Error("Canvas 2D context unavailable");
+
+  ctx.fillStyle = "#fffcf5";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  const noiseCanvas = document.createElement("canvas");
+  noiseCanvas.width = 100;
+  noiseCanvas.height = 100;
+  const nCtx = noiseCanvas.getContext("2d");
+  if (nCtx) {
+    const nData = nCtx.createImageData(100, 100);
+    for (let i = 0; i < nData.data.length; i += 4) {
+      const val = 128 + Math.random() * 30;
+      nData.data[i] = nData.data[i+1] = nData.data[i+2] = val;
+      nData.data[i+3] = 10;
+    }
+    nCtx.putImageData(nData, 0, 0);
+    const pattern = ctx.createPattern(noiseCanvas, "repeat");
+    if (pattern) { ctx.fillStyle = pattern; ctx.fillRect(0, 0, canvas.width, canvas.height); }
+  }
+
+  ctx.strokeStyle = "#1a1a1a";
+  ctx.lineWidth = 3;
+  ctx.strokeRect(40, 40, canvas.width - 80, canvas.height - 80);
+
+  const goldGrad = ctx.createLinearGradient(60, 60, canvas.width - 60, canvas.height - 60);
+  goldGrad.addColorStop(0, "#c5a059");
+  goldGrad.addColorStop(0.2, "#e8d0a0");
+  goldGrad.addColorStop(0.5, "#c5a059");
+  goldGrad.addColorStop(0.8, "#e8d0a0");
+  goldGrad.addColorStop(1, "#9e7e3e");
+  ctx.strokeStyle = goldGrad;
+  ctx.lineWidth = 2;
+  ctx.strokeRect(60, 60, canvas.width - 120, canvas.height - 120);
+
+  const drawCorner = (x: number, y: number, rot: number) => {
+    ctx.save(); ctx.translate(x, y); ctx.rotate(rot);
+    ctx.beginPath(); ctx.moveTo(0, 40); ctx.lineTo(0, 0); ctx.lineTo(40, 0); ctx.stroke();
+    ctx.restore();
+  };
+  drawCorner(60, 60, 0);
+  drawCorner(canvas.width - 60, 60, Math.PI / 2);
+  drawCorner(canvas.width - 60, canvas.height - 60, Math.PI);
+  drawCorner(60, canvas.height - 60, -Math.PI / 2);
+
+  ctx.fillStyle = "#1a1a1a";
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  const serifStack = "'Cormorant Garamond', serif";
+  const sansStack = "'Barlow Condensed', sans-serif";
+
+  const sealX = canvas.width / 2;
+  const sealY = 200;
+  ctx.save();
+  ctx.translate(sealX, sealY);
+  ctx.strokeStyle = "rgba(197, 160, 89, 0.4)";
+  ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.arc(0, 0, 80, 0, Math.PI * 2); ctx.stroke();
+  ctx.beginPath(); ctx.arc(0, 0, 72, 0, Math.PI * 2); ctx.stroke();
+  ctx.fillStyle = "rgba(26,26,26,0.4)";
+  ctx.font = `800 10px ${sansStack}`;
+  const sealText = "THE MERIDIAN SOCIETY • EST. 2026 • OFFICIAL MEMBER • ";
+  for (let i = 0; i < sealText.length; i++) {
+    ctx.save(); ctx.rotate((i / sealText.length) * Math.PI * 2);
+    ctx.fillText(sealText[i], 0, -62); ctx.restore();
+  }
+  ctx.font = `italic 44px ${serifStack}`;
+  ctx.fillStyle = "rgba(197, 160, 89, 0.6)";
+  ctx.fillText("M", 0, 0);
+  ctx.restore();
+
+  ctx.fillStyle = "#1a1a1a";
+  ctx.font = `italic 56px ${serifStack}`;
+  ctx.fillText("The Meridian Society", canvas.width / 2, 360);
+  ctx.font = `700 24px ${sansStack}`;
+  ctx.letterSpacing = "6px";
+  ctx.fillText("OFFICIAL MEMBER REGISTRY", canvas.width / 2, 410);
+  ctx.letterSpacing = "0px";
+  ctx.font = `800 48px ${sansStack}`;
+  ctx.letterSpacing = "2px";
+  ctx.fillText((name || "SOCIETY MEMBER").toUpperCase(), canvas.width / 2, 540);
+  ctx.letterSpacing = "0px";
+
+  ctx.strokeStyle = "rgba(26,26,26,0.15)";
+  ctx.beginPath(); ctx.moveTo(canvas.width / 2 - 250, 600); ctx.lineTo(canvas.width / 2 + 250, 600); ctx.stroke();
+
+  ctx.fillStyle = "#1a1a1a";
+  ctx.font = `700 160px ${serifStack}`;
+  ctx.shadowColor = "rgba(0,0,0,0.1)";
+  ctx.shadowBlur = 10;
+  ctx.shadowOffsetY = 5;
+  ctx.fillText(number || "M26-XXXX", canvas.width / 2, 740);
+  ctx.shadowBlur = 0;
+  ctx.shadowOffsetY = 0;
+
+  ctx.beginPath(); ctx.moveTo(canvas.width / 2 - 250, 880); ctx.lineTo(canvas.width / 2 + 250, 880); ctx.stroke();
+
+  ctx.fillStyle = "rgba(26,26,26,0.6)";
+  ctx.font = `600 24px ${sansStack}`;
+  const formattedCardDate = dateToUse.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }).toUpperCase();
+  ctx.fillText(`MEMBER SINCE ${formattedCardDate}`, canvas.width / 2, 940);
+
+  const qrSize = 620;
+  const qrX = (canvas.width - qrSize) / 2;
+  const qrY = 1020;
+  ctx.strokeStyle = goldGrad;
+  ctx.lineWidth = 2;
+  ctx.strokeRect(qrX - 30, qrY - 30, qrSize + 60, qrSize + 60);
+  ctx.fillStyle = "#fffcf5";
+  ctx.fillRect(qrX - 10, qrY - 10, qrSize + 20, qrSize + 20);
+  ctx.drawImage(qrImage, qrX, qrY, qrSize, qrSize);
+  ctx.fillStyle = "rgba(26,26,26,0.4)";
+  ctx.font = `700 20px ${sansStack}`;
+  ctx.letterSpacing = "8px";
+  ctx.fillText("SCAN FOR ACCESS", canvas.width / 2, qrY + qrSize + 50);
+  ctx.letterSpacing = "0px";
+
+  return canvas;
+}
+
 export default function RegistrationForm() {
   const router = useRouter();
   const [mounted, setMounted] = useState(false);
@@ -67,6 +215,7 @@ export default function RegistrationForm() {
   const [downloadFinished, setDownloadFinished] = useState(false);
   const [fontsLoaded, setFontsLoaded] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [cardPreviewUrl, setCardPreviewUrl] = useState<string | null>(null);
   const copyTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
@@ -157,6 +306,25 @@ export default function RegistrationForm() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps -- Mount-only backfill; deps excluded to prevent re-sync loops
   }, [mounted]);
+
+  // Generate card preview image when success state is visible
+  useEffect(() => {
+    const showingSuccess = isAlreadyRegistered || !!result?.success;
+    if (!showingSuccess || !memberNumber) return;
+    let cancelled = false;
+    const timer = setTimeout(async () => {
+      try {
+        const canvas = await buildCardCanvas(memberName, memberNumber, registrationDate);
+        if (!cancelled) {
+          setTimeout(() => setCardPreviewUrl(canvas.toDataURL("image/png")), 0);
+        }
+      } catch {
+        // preview is non-critical — silently skip
+      }
+    }, 600);
+    return () => { cancelled = true; clearTimeout(timer); };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isAlreadyRegistered, result?.success, memberNumber, memberName, registrationDate]);
 
   // Load draft on mount (DOM Population)
   useEffect(() => {
@@ -293,264 +461,35 @@ export default function RegistrationForm() {
     const identifier = email || memberNumber || localStorage.getItem(NUM_KEY);
     if ((!registrationDate || !memberName || !memberNumber) && identifier) {
       const status = await checkMemberStatus(identifier);
-      if (status.createdAt) {
-        setRegistrationDate(status.createdAt);
-        localStorage.setItem("meridian_join_date_v1", status.createdAt);
-      }
-      if (status.fullName) {
-        setMemberName(status.fullName);
-        localStorage.setItem("meridian_member_name_v1", status.fullName);
-      }
-      if (status.memberNumber) {
-        setMemberNumber(status.memberNumber);
-        localStorage.setItem(NUM_KEY, status.memberNumber);
-      }
+      if (status.createdAt) { setRegistrationDate(status.createdAt); localStorage.setItem("meridian_join_date_v1", status.createdAt); }
+      if (status.fullName) { setMemberName(status.fullName); localStorage.setItem("meridian_member_name_v1", status.fullName); }
+      if (status.memberNumber) { setMemberNumber(status.memberNumber); localStorage.setItem(NUM_KEY, status.memberNumber); }
     }
 
     setIsDownloading(true);
     setDownloadFinished(false);
 
-    // Ensure fonts are ready before drawing
-    if (document.fonts && !fontsLoaded) {
-      await Promise.all([
-        document.fonts.load('italic 56px "Cormorant Garamond"'),
-        document.fonts.load('700 160px "Cormorant Garamond"'),
-        document.fonts.load('800 48px "Barlow Condensed"'),
-        document.fonts.load('700 24px "Barlow Condensed"'),
-        document.fonts.load('600 28px "Barlow Condensed"')
-      ]);
-      setFontsLoaded(true);
-    }
-
-    // Generate QR Code Data URL dynamically to save bundle size
-    const QRCode = (await import('qrcode')).default;
-    const qrDataUrl = await QRCode.toDataURL(memberNumber || "M26-XXXX", {
-      margin: 1,
-      width: 440, // High res for the 1200x750 canvas
-      color: {
-        dark: "#1a1a1a",
-        light: "#fffcf5" // Match cream background
-      },
-      errorCorrectionLevel: 'H' // High error correction for better scanning on low-res screens
-    });
-
-    const qrImage = new Image();
-    qrImage.src = qrDataUrl;
-    await new Promise((resolve) => {
-      qrImage.onload = resolve;
-    });
-
-    const dateToUse = registrationDate ? new Date(registrationDate) : new Date();
-    
-    const canvas = document.createElement("canvas");
-    canvas.width = 1200;
-    canvas.height = 1800; // Much longer card
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    // 1. Background (Cream)
-    ctx.fillStyle = "#fffcf5"; 
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-    // 1.1 Subtle Paper Texture Overlay
-    const noiseCanvas = document.createElement("canvas");
-    noiseCanvas.width = 100;
-    noiseCanvas.height = 100;
-    const nCtx = noiseCanvas.getContext("2d");
-    if (nCtx) {
-      const nData = nCtx.createImageData(100, 100);
-      for (let i = 0; i < nData.data.length; i += 4) {
-        const val = 128 + Math.random() * 30;
-        nData.data[i] = nData.data[i+1] = nData.data[i+2] = val;
-        nData.data[i+3] = 10; // Very faint
-      }
-      nCtx.putImageData(nData, 0, 0);
-      const pattern = ctx.createPattern(noiseCanvas, "repeat");
-      if (pattern) {
-        ctx.fillStyle = pattern;
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-      }
-    }
-
-    // 2. Border System
-    // Outer Ink Border
-    ctx.strokeStyle = "#1a1a1a";
-    ctx.lineWidth = 3;
-    ctx.strokeRect(40, 40, canvas.width - 80, canvas.height - 80);
-
-    // Inner Gold Frame with Gradient
-    const goldGrad = ctx.createLinearGradient(60, 60, canvas.width - 60, canvas.height - 60);
-    goldGrad.addColorStop(0, "#c5a059");
-    goldGrad.addColorStop(0.2, "#e8d0a0");
-    goldGrad.addColorStop(0.5, "#c5a059");
-    goldGrad.addColorStop(0.8, "#e8d0a0");
-    goldGrad.addColorStop(1, "#9e7e3e");
-
-    ctx.strokeStyle = goldGrad;
-    ctx.lineWidth = 2;
-    ctx.strokeRect(60, 60, canvas.width - 120, canvas.height - 120);
-
-    // 2.1 Decorative Corners (Gold)
-    const drawCorner = (x: number, y: number, rot: number) => {
-      ctx.save();
-      ctx.translate(x, y);
-      ctx.rotate(rot);
-      ctx.beginPath();
-      ctx.moveTo(0, 40);
-      ctx.lineTo(0, 0);
-      ctx.lineTo(40, 0);
-      ctx.stroke();
-      ctx.restore();
-    };
-    drawCorner(60, 60, 0); // Top Left
-    drawCorner(canvas.width - 60, 60, Math.PI / 2); // Top Right
-    drawCorner(canvas.width - 60, canvas.height - 60, Math.PI); // Bottom Right
-    drawCorner(60, canvas.height - 60, -Math.PI / 2); // Bottom Left
-
-    // 3. Typography Setup
-    ctx.fillStyle = "#1a1a1a";
-    ctx.textAlign = "center";
-    ctx.textBaseline = "middle";
-
-    const serifStack = "'Cormorant Garamond', serif";
-    const sansStack = "'Barlow Condensed', sans-serif";
-
-    // 3.1 Society Seal (RESTORED TO TOP CENTER)
-    const sealX = canvas.width / 2;
-    const sealY = 200;
-    ctx.save();
-    ctx.translate(sealX, sealY);
-    
-    // Outer seal circle
-    ctx.strokeStyle = "rgba(197, 160, 89, 0.4)";
-    ctx.lineWidth = 1;
-    ctx.beginPath();
-    ctx.arc(0, 0, 80, 0, Math.PI * 2);
-    ctx.stroke();
-    
-    // Inner seal circle
-    ctx.beginPath();
-    ctx.arc(0, 0, 72, 0, Math.PI * 2);
-    ctx.stroke();
-    
-    // Seal text
-    ctx.fillStyle = "rgba(26,26,26,0.4)";
-    ctx.font = `800 10px ${sansStack}`;
-    const sealText = "THE MERIDIAN SOCIETY • EST. 2026 • OFFICIAL MEMBER • ";
-    for (let i = 0; i < sealText.length; i++) {
-      ctx.save();
-      ctx.rotate((i / sealText.length) * Math.PI * 2);
-      ctx.fillText(sealText[i], 0, -62);
-      ctx.restore();
-    }
-    
-    // Seal Center M
-    ctx.font = `italic 44px ${serifStack}`;
-    ctx.fillStyle = "rgba(197, 160, 89, 0.6)";
-    ctx.fillText("M", 0, 0);
-    ctx.restore();
-
-    // 4. Header & Identity Section (Top Half)
-    // Header: The Society Title
-    ctx.fillStyle = "#1a1a1a";
-    ctx.font = `italic 56px ${serifStack}`;
-    ctx.fillText("The Meridian Society", canvas.width / 2, 360);
-
-    // Subheader: Registry Label
-    ctx.font = `700 24px ${sansStack}`;
-    ctx.letterSpacing = "6px";
-    ctx.fillText("OFFICIAL MEMBER REGISTRY", canvas.width / 2, 410);
-    ctx.letterSpacing = "0px";
-
-    // Name Header
-    ctx.fillStyle = "#1a1a1a";
-    ctx.font = `800 48px ${sansStack}`;
-    ctx.letterSpacing = "2px";
-    ctx.fillText((memberName || "SOCIETY MEMBER").toUpperCase(), canvas.width / 2, 540);
-    ctx.letterSpacing = "0px";
-
-    // Decorative lines around number
-    ctx.strokeStyle = "rgba(26,26,26,0.15)";
-    ctx.beginPath();
-    ctx.moveTo(canvas.width / 2 - 250, 600);
-    ctx.lineTo(canvas.width / 2 + 250, 600);
-    ctx.stroke();
-
-    ctx.fillStyle = "#1a1a1a";
-    ctx.font = `700 160px ${serifStack}`;
-    // Shadow for depth
-    ctx.shadowColor = "rgba(0,0,0,0.1)";
-    ctx.shadowBlur = 10;
-    ctx.shadowOffsetY = 5;
-    ctx.fillText(memberNumber || "M26-XXXX", canvas.width / 2, 740);
-    ctx.shadowBlur = 0;
-    ctx.shadowOffsetY = 0;
-
-    ctx.beginPath();
-    ctx.moveTo(canvas.width / 2 - 250, 880);
-    ctx.lineTo(canvas.width / 2 + 250, 880);
-    ctx.stroke();
-
-    // Registration Date
-    ctx.fillStyle = "rgba(26,26,26,0.6)";
-    ctx.font = `600 24px ${sansStack}`;
-    const formattedDate = dateToUse.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }).toUpperCase();
-    ctx.fillText(`MEMBER SINCE ${formattedDate}`, canvas.width / 2, 940);
-
-    // 5. Huge QR Code Section (Bottom Half)
-    const qrSize = 620; // Massive QR code, slightly scaled for safety
-    const qrX = (canvas.width - qrSize) / 2;
-    const qrY = 1020; // Positioned with breathing room
-
-    // Draw a prominent gold frame for the QR code
-    ctx.strokeStyle = goldGrad;
-    ctx.lineWidth = 2;
-    ctx.strokeRect(qrX - 30, qrY - 30, qrSize + 60, qrSize + 60);
-    
-    // Background for QR to ensure contrast
-    ctx.fillStyle = "#fffcf5";
-    ctx.fillRect(qrX - 10, qrY - 10, qrSize + 20, qrSize + 20);
-
-    // Draw the QR Code image
-    ctx.drawImage(qrImage, qrX, qrY, qrSize, qrSize);
-
-    // Label under QR
-    ctx.fillStyle = "rgba(26,26,26,0.4)";
-    ctx.font = `700 20px ${sansStack}`;
-    ctx.letterSpacing = "8px";
-    ctx.fillText("SCAN FOR ACCESS", canvas.width / 2, qrY + qrSize + 50);
-    ctx.letterSpacing = "0px";
-
-    // 7. Trigger Robust Download
     try {
+      const canvas = await buildCardCanvas(memberName, memberNumber, registrationDate);
       const fileName = `Meridian_Member_Card_${memberNumber || 'Society'}.png`;
 
       const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
                    (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 
       if (isIOS) {
-        // iOS Safari blocks data URL navigation and ignores the download attribute.
-        // Preferred path: Web Share API (iOS 15+) lets the user save to Photos or Files.
         const blob: Blob = await new Promise((resolve, reject) =>
           canvas.toBlob(b => b ? resolve(b) : reject(new Error("toBlob failed")), "image/png")
         );
-
         const file = new File([blob], fileName, { type: "image/png" });
-
         if (navigator.canShare && navigator.canShare({ files: [file] })) {
           await navigator.share({ files: [file], title: "Meridian Member Card" });
         } else {
-          // Fallback: open blob URL in new tab — user can long-press → Save to Photos
           const blobUrl = URL.createObjectURL(blob);
           const newTab = window.open(blobUrl, "_blank");
-          if (!newTab) {
-            // If popup was blocked, try current tab as last resort
-            window.location.href = blobUrl;
-          }
+          if (!newTab) window.location.href = blobUrl;
           setTimeout(() => URL.revokeObjectURL(blobUrl), 60000);
         }
       } else {
-        // Standard programmatic download for Android and Desktop
         const dataUrl = canvas.toDataURL("image/png");
         const link = document.createElement("a");
         link.href = dataUrl;
@@ -690,6 +629,19 @@ export default function RegistrationForm() {
             <p className="registry-disclaimer">
               This is your official Society ID and QR access key. Please keep it private and save it for rapid check-ins at all future events.
             </p>
+
+            {cardPreviewUrl ? (
+              <div className="card-preview-wrap">
+                <img
+                  src={cardPreviewUrl}
+                  alt="Your Meridian Member Card preview"
+                  className="card-preview-img"
+                />
+                <p className="card-preview-label">Your member card — tap below to save</p>
+              </div>
+            ) : (
+              <div className="card-preview-skeleton" aria-hidden="true" />
+            )}
 
             <button
               onClick={downloadMemberCard}

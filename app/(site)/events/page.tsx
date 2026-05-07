@@ -7,6 +7,7 @@ import Marquee from '@/components/Marquee';
 import { getMetadata } from '@/utils/metadata-shared';
 import { generateBreadcrumbSchema } from '@/utils/jsonld';
 import SocialInstagramSection from '@/components/sections/SocialInstagramSection';
+import ScrollToTopOnMount from '@/components/ScrollToTopOnMount';
 
 export const metadata: Metadata = getMetadata({
   title: "Speaker Forum Events",
@@ -19,6 +20,7 @@ export default function EventsPage() {
   return (
     <>
       <PageStyles css={eventsCss} />
+      <ScrollToTopOnMount />
       {/* JSON-LD Breadcrumb Schema */}
       <script
         type="application/ld+json"

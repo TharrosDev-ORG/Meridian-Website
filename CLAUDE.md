@@ -117,6 +117,16 @@ app/globals.css                 **The Single Source of Truth for Styles.**
 
 ---
 
+## 🗄️ Supabase Project
+- **Project ID**: `dsyiuztquzkcikehkigv`
+- **Project Name**: meridian society Member Database
+- **Region**: us-west-2
+- **Status**: ACTIVE_HEALTHY
+
+For any database work (schema changes, migrations, queries, table inspection), use the **Supabase MCP** tools (prefixed `mcp__4f8fced6-40b5-482d-bc7f-0d5ae7671829__`) with project ID `dsyiuztquzkcikehkigv`. Do not guess or hardcode values — always query the MCP directly.
+
+---
+
 ## 🧪 Supabase Architecture
 Four clients, each with a narrow purpose. All validate their env vars at creation time.
 

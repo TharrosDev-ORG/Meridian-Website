@@ -7,6 +7,7 @@ import { getMetadata } from '@/utils/metadata-shared';
 import { generateBreadcrumbSchema } from '@/utils/jsonld';
 import { INSTAGRAM_URL } from '@/utils/social';
 import SocialInstagramSection from '@/components/sections/SocialInstagramSection';
+import ScrollToTopOnMount from '@/components/ScrollToTopOnMount';
 
 export const metadata: Metadata = getMetadata({
   title: "Social Gatherings & Mixers",
@@ -19,6 +20,7 @@ export default function SocialPage() {
   return (
     <main id="main-content">
       <PageStyles css={socialCss} />
+      <ScrollToTopOnMount />
       {/* JSON-LD Breadcrumb Schema */}
       <script
         type="application/ld+json"

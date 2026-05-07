@@ -2,15 +2,13 @@ import { Metadata } from 'next';
 import PageStyles from '@/components/PageStyles';
 import { indexCss } from './pageCss';
 import { REGISTER_URL } from '@/components/NavBar';
-import IndexInteractive from './IndexInteractive';
 import Magnetic from '@/components/Magnetic';
 import Link from 'next/link';
-import Marquee from '@/components/Marquee';
 import RegisterSection from '@/components/sections/RegisterSection';
 import { getMetadata } from '@/utils/metadata-shared';
 import { INSTAGRAM_URL } from '@/utils/social';
 import { INAUGURAL_EVENT_LABEL } from '@/utils/copy';
-import MemberCounter from '@/components/MemberCounter';
+import { MemberCounter, Marquee, IndexInteractive } from './HomeClientSide';
 
 export const metadata: Metadata = getMetadata({
   title: "Ottawa Student Speaker Forum & Social Community",

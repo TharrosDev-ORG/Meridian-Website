@@ -31,15 +31,16 @@ export default function FaqAccordion() {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
+    setTimeout(() => {
+      setMounted(true);
+      if (window.matchMedia("(hover: hover)").matches) {
+        setIsHoverEnabled(true);
+      }
+    }, 0);
     // Trigger global reveal observer for dynamically mounted content
     const win = window as unknown as { __observeReveal?: () => void };
     if (win.__observeReveal) {
       setTimeout(() => win.__observeReveal?.(), 200);
-    }
-
-    if (window.matchMedia("(hover: hover)").matches) {
-      setIsHoverEnabled(true);
     }
   }, []);
 

@@ -25,7 +25,7 @@ const Marquee: React.FC<MarqueeProps> = ({ items = DEFAULT_ITEMS, className = ""
   // battery and add visual noise on small screens with little payoff.
   const [hide, setHide] = useState(false);
   useEffect(() => {
-    setHide(window.matchMedia("(pointer: coarse)").matches);
+    setTimeout(() => setHide(window.matchMedia("(pointer: coarse)").matches), 0);
   }, []);
   if (hide) return null;
 

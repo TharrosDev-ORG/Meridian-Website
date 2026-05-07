@@ -21,7 +21,7 @@ const cormorant = Cormorant_Garamond({
 // shaves a font file from the initial payload.
 const barlow = Barlow_Condensed({
   subsets: ["latin"],
-  weight: ["300", "400", "600", "700"],
+  weight: ["400", "600", "700"],
   variable: "--sans",
   display: "swap",
 });
@@ -50,6 +50,10 @@ export default function RootLayout({
         {/* Performance: Preconnect to critical third-party domains to shave off handshake latency */}
         <link rel="preconnect" href="https://dsyiuztquzkcikehkigv.supabase.co" crossOrigin="anonymous" />
         <link rel="preconnect" href="https://va.vercel-scripts.com" crossOrigin="anonymous" />
+        {/* Early reveal: add .on to above-fold .rv elements at DOMContentLoaded,
+            well before React hydrates. Eliminates JS-gated FCP on desktop where
+            all content was opacity:0 until the JS bundle finished executing. */}
+        <script dangerouslySetInnerHTML={{ __html: `(function(){function r(){var h=window.innerHeight||800;document.querySelectorAll('.rv').forEach(function(e){var b=e.getBoundingClientRect();if(b.top<h+400)e.classList.add('on');});}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',r);}else{r();}})();` }} />
       </head>
       <body>
         <a href="#main-content" className="skip-link">Skip to main content</a>

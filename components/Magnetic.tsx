@@ -23,7 +23,7 @@ export default function Magnetic({ children, strength = 0.3 }: Props) {
   useEffect(() => {
     const touch = window.matchMedia("(pointer: coarse)").matches;
     if (touch) {
-      setIsTouch(true);
+      setTimeout(() => setIsTouch(true), 0);
       return;
     }
 

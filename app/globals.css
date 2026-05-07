@@ -489,7 +489,7 @@ body {
 
 @keyframes pageSweep {
   0% { 
-    opacity: 0; 
+    opacity: 1; 
     transform: scale(0.99) translateY(4px);
     filter: blur(8px);
   }
@@ -517,8 +517,8 @@ body {
 
 .rv-stagger-item {
   display: block;
-  transform: translateY(100%);
-  opacity: 0;
+  transform: none;
+  opacity: 1;
   transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.8s ease;
 }
 
@@ -738,8 +738,8 @@ body {
 }
 
 .rv { 
-  opacity: 0; 
-  transform: translateY(20px); 
+  opacity: 1; 
+  transform: none; 
   transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1); 
 }
 .rv.on, .reveal .rv { 

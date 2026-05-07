@@ -555,6 +555,39 @@ export const membershipCss = `
       margin: 0 auto 24px;
       line-height: 1.5;
     }
+    .card-preview-wrap {
+      margin: 0 auto 20px;
+      text-align: center;
+    }
+    .card-preview-img {
+      width: 160px;
+      height: auto;
+      border-radius: 6px;
+      box-shadow: 0 4px 20px rgba(24,21,15,0.14);
+      display: block;
+      margin: 0 auto 8px;
+    }
+    .card-preview-label {
+      font-family: var(--sans);
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-50);
+      margin: 0;
+    }
+    .card-preview-skeleton {
+      width: 160px;
+      height: 240px;
+      margin: 0 auto 20px;
+      border-radius: 6px;
+      background: linear-gradient(90deg, var(--cream) 25%, rgba(184,147,42,0.08) 50%, var(--cream) 75%);
+      background-size: 200% 100%;
+      animation: skeleton-shimmer 1.4s ease infinite;
+    }
+    @keyframes skeleton-shimmer {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
     .success-lead {
       font-family: var(--serif);
       font-size: clamp(19px, 2.5vw, 23px);

@@ -1,8 +1,7 @@
 import { Metadata } from 'next';
-import { cookies } from 'next/headers';
 import { Suspense } from 'react';
 import dynamic from 'next/dynamic';
-import { createClient } from '@/utils/supabase/server';
+import { createPublicClient } from '@/utils/supabase/server';
 import PageStyles from '@/components/PageStyles';
 import { calendarCss } from './pageCss';
 import Marquee from '@/components/Marquee';
@@ -85,8 +84,7 @@ export default function CalendarPage() {
  * and renders the interactive client registry.
  */
 async function TicketPortal() {
-  const cookieStore = await cookies();
-  const supabase = createClient(cookieStore);
+  const supabase = createPublicClient();
   
   const [upcomingRes, pastRes] = await Promise.all([
     supabase

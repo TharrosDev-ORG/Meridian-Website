@@ -126,8 +126,9 @@ Paste **ONE** of these blocks above the `{/* Placeholder */}` block.
 2. Go to the **Table Editor** → `members` table.
 3. **Add**: Click "Insert Row".
 4. **Remove**: Right-click a row and select "Delete Row".
-5. **Sync**: The website footer counter updates automatically via database trigger.
+5. **Sync**: The live counter on the **homepage** (About section) updates automatically via a database trigger + Supabase Realtime channel (`member-stats-global`). No deploy needed.
 6. **Member Numbers**: Every row has a unique `member_number` (format `M26-1001`). Numbers are auto-assigned on insert and can never be changed — do not attempt to edit this column.
+7. **Events**: The `events` table powers `/calendar`. Members RSVP through the in-app widget (which calls a hardened RPC); do not insert into `event_registrations` directly from the dashboard.
 
 ---
 
@@ -171,8 +172,8 @@ The project utilizes a unified database architecture built up through three mast
 | File | What it does |
 |------|-------------|
 | **`01_Sovereign_Member_Registry.sql`** | Primary identity and member registry |
-| **`02_Meridian_EventOS_Engine.sql`** | Event orchestration and dynamic calendar |
-| **`03_Security_Vault_and_System_Governance.sql`** | Security vault and system configuration |
+| **`02_Meridian_EventOS_Engine.sql`** | Event orchestration: `events`, `event_registrations`, `secure_register_for_event` RPC |
+| **`03_Security_Vault_and_Audit_Logs.sql`** | Security vault, master-signature verification, audit logging |
 
 ---
 
@@ -188,9 +189,11 @@ The project utilizes a unified database architecture built up through three mast
 | `20260427154500_sovereign_hardening.sql` | Final function hardening, speaker tables RLS |
 
 ### Table Definitions
-- **`members`**: Registration records. Email is the primary key. Includes ENUMs for role/institution/referral, an interests array, `member_number` (immutable, auto-assigned `M{YY}-{NNNN}`), and a generated `join_date_readable` column.
-- **`site_stats`**: Single-row global metadata (`id = 'meridian_global_stats'`). `member_count` is auto-maintained by a trigger on `members`.
-- **`events`**: Dynamic event records for the `/calendar` portal.
+- **`members`**: Registration records (UUID `id` PK, `email` `citext` UNIQUE). Includes ENUMs for role/institution/referral, an `interests` array, `member_number` (immutable, auto-assigned `M{YY}-{NNNN}`), `is_verified` flag, and a generated `join_date_readable` column.
+- **`site_stats`**: Single-row global metadata (`id = 'meridian_global_stats'`). `member_count` is auto-maintained by a trigger on `members`. The homepage `MemberCounter` reads it via the `/api/stats/count` Edge route + Realtime.
+- **`events`**: Dynamic event records for the `/calendar` portal (`status`, `is_members_only`, `rsvp_count`).
+- **`event_registrations`**: RSVP records linked to `events` and (optionally) `members`. Each row gets a unique `qr_code_token` for venue check-in. Inserted only via the `secure_register_for_event` RPC.
+- **`speaker_applications`**: Backing store for `/apply`. RLS allows public INSERT but no public SELECT/UPDATE.
 
 ---
 
@@ -204,6 +207,20 @@ Vercel env vars required:
 - `SUPABASE_SERVICE_ROLE_KEY`
 
 Favicons are in `public/assets/favicons/` — do not add `app/favicon.ico` (overrides the metadata-managed set).
+
+---
+
+## 🧭 Site Navigation (for editors)
+
+The site's chrome is composed of:
+
+- **NavBar** (desktop) — `components/NavBar.tsx`.
+- **MobileMenu** — full-screen slide-out drawer.
+- **MobileDock** — bottom-anchored mobile dock (Home / Calendar / Register / Menu) in `components/MobileDock.tsx`. Both mobile components share an open/close state via `Providers.tsx`.
+- **Footer** — `components/Footer.tsx` (server component, brand + nav columns; the live member counter lives on the homepage, not here).
+- **BackToTop / ScrollProgress** — visual chrome for desktop.
+
+To change the contents of the FAQ block on `/membership`, edit `constants/membership.ts` (`FAQ_ITEMS`). The change updates both the on-page accordion and the FAQ JSON-LD schema automatically.
 
 ---
 

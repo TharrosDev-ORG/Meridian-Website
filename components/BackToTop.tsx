@@ -10,17 +10,18 @@ export default function BackToTop() {
   const visibleRef = useRef(false);
 
   useEffect(() => {
-    const onScroll = () => {
+    let rafId = 0;
+
+    const compute = () => {
+      rafId = 0;
       const winScroll = document.documentElement.scrollTop;
       const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
 
-      // Direct DOM update — avoids React re-render on every scroll tick
       if (arcFillRef.current && height > 0) {
         const progress = Math.min(Math.max(winScroll / height, 0), 1);
         arcFillRef.current.style.strokeDashoffset = String(CIRC * (1 - progress));
       }
 
-      // setState only when crossing the visibility threshold
       const nowVisible = winScroll > 300;
       if (nowVisible !== visibleRef.current) {
         visibleRef.current = nowVisible;
@@ -28,10 +29,18 @@ export default function BackToTop() {
       }
     };
 
-    window.addEventListener("scroll", onScroll, { passive: true });
-    onScroll();
+    const onScroll = () => {
+      if (rafId) return;
+      rafId = requestAnimationFrame(compute);
+    };
 
-    return () => window.removeEventListener("scroll", onScroll);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    compute();
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (rafId) cancelAnimationFrame(rafId);
+    };
   }, []);
 
   const scrollToTop = () => {

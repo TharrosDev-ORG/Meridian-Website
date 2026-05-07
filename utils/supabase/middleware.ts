@@ -1,6 +1,12 @@
 import { createServerClient } from "@supabase/ssr";
 import { type NextRequest, NextResponse } from "next/server";
 
+// Detection: auth-related Supabase cookies start with "sb-" and end with
+// "-auth-token" (or its chunked variants). Only when one is present do we
+// pay the round-trip to refresh the session. Public pages — which are 100%
+// of this site today — short-circuit and skip the Supabase call entirely.
+const SB_AUTH_COOKIE = /^sb-.*-auth-token(\.\d+)?$/;
+
 export const createClient = async (request: NextRequest) => {
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
@@ -9,12 +15,18 @@ export const createClient = async (request: NextRequest) => {
     throw new Error("Missing Supabase public environment variables");
   }
 
-  // Create an unmodified response
   let supabaseResponse = NextResponse.next({
     request: {
       headers: request.headers,
     },
   });
+
+  const hasAuthCookie = request.cookies
+    .getAll()
+    .some((c) => SB_AUTH_COOKIE.test(c.name));
+  if (!hasAuthCookie) {
+    return supabaseResponse;
+  }
 
   const supabase = createServerClient(
     supabaseUrl,
@@ -37,8 +49,6 @@ export const createClient = async (request: NextRequest) => {
     },
   );
 
-  // IMPORTANT: You *must* call supabase.auth.getUser() to dynamically refresh
-  // the user's session securely before returning the response.
   await supabase.auth.getUser();
 
   return supabaseResponse;

@@ -18,12 +18,29 @@ export default function NavBar() {
   const isHome = pathname === "/" || pathname === "";
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 40);
+    let rafId = 0;
+    let lastValue = window.scrollY > 40;
+
+    const compute = () => {
+      rafId = 0;
+      const next = window.scrollY > 40;
+      if (next !== lastValue) {
+        lastValue = next;
+        setScrolled(next);
+      }
     };
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
+    const onScroll = () => {
+      if (rafId) return;
+      rafId = requestAnimationFrame(compute);
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    // Sync once after mount via rAF — avoids setState-in-effect-body lint.
+    const initialId = requestAnimationFrame(() => setScrolled(window.scrollY > 40));
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      cancelAnimationFrame(initialId);
+      if (rafId) cancelAnimationFrame(rafId);
+    };
   }, []);
 
   const navLinks = [

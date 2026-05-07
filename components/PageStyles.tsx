@@ -1,25 +1,8 @@
-"use client";
-
-import { useEffect } from "react";
-
-interface ExtendedWindow extends Window {
-  __observeReveal?: () => void;
-}
-
+// Server component: emits an inline <style> tag from a per-page CSS string.
+// No "use client" — page-scoped CSS ships in the SSR HTML and is parsed
+// before hydration, eliminating a client-side hydration boundary on every
+// route that uses page-local styles. The reveal observer in Providers.tsx
+// already picks up SSR'd .rv elements on mount, so no JS hook is needed.
 export default function PageStyles({ css }: { css: string }) {
-  useEffect(() => {
-    let rafId: number;
-    const win = window as unknown as ExtendedWindow;
-    if (typeof window !== "undefined" && win.__observeReveal) {
-      // Use requestAnimationFrame to ensure styles are applied before reveal
-      rafId = requestAnimationFrame(() => {
-        if (win.__observeReveal) win.__observeReveal();
-      });
-    }
-    return () => {
-      if (rafId) cancelAnimationFrame(rafId);
-    };
-  }, [css]);
-
   return <style dangerouslySetInnerHTML={{ __html: css }} />;
 }

@@ -621,13 +621,14 @@ body {
   padding-bottom: calc(80px + env(safe-area-inset-bottom, 0px));
 }
 
-/* Parchment Texture */
+/* Parchment Texture — local SVG noise via --grain (CSP-safe, no third-party fetch). */
 .success-overhaul::after {
   content: '';
   position: absolute;
   inset: 0;
-  background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
-  opacity: 0.15;
+  background-image: var(--grain);
+  background-size: 220px 220px;
+  opacity: 0.05;
   pointer-events: none;
   z-index: -1;
 }

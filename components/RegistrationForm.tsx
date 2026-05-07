@@ -307,23 +307,37 @@ export default function RegistrationForm() {
     // eslint-disable-next-line react-hooks/exhaustive-deps -- Mount-only backfill; deps excluded to prevent re-sync loops
   }, [mounted]);
 
-  // Generate card preview image when success state is visible
+  // Generate card preview image when success state is visible.
+  // Deferred to browser idle so the success-state paint and the QR code
+  // canvas import don't fight for the main thread immediately on success.
   useEffect(() => {
     const showingSuccess = isAlreadyRegistered || !!result?.success;
     if (!showingSuccess || !memberNumber) return;
     let cancelled = false;
-    const timer = setTimeout(async () => {
+
+    const run = async () => {
       try {
         const canvas = await buildCardCanvas(memberName, memberNumber, registrationDate);
-        if (!cancelled) {
-          setTimeout(() => setCardPreviewUrl(canvas.toDataURL("image/png")), 0);
-        }
+        if (!cancelled) setCardPreviewUrl(canvas.toDataURL("image/png"));
       } catch {
         // preview is non-critical — silently skip
       }
-    }, 600);
-    return () => { cancelled = true; clearTimeout(timer); };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    };
+
+    type IdleHandle = { kind: "idle"; id: number } | { kind: "timeout"; id: ReturnType<typeof setTimeout> };
+    const ric = (window as Window & { requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => number }).requestIdleCallback;
+    const handle: IdleHandle = ric
+      ? { kind: "idle", id: ric(run, { timeout: 1500 }) }
+      : { kind: "timeout", id: setTimeout(run, 600) };
+
+    return () => {
+      cancelled = true;
+      if (handle.kind === "idle") {
+        (window as Window & { cancelIdleCallback?: (h: number) => void }).cancelIdleCallback?.(handle.id);
+      } else {
+        clearTimeout(handle.id);
+      }
+    };
   }, [isAlreadyRegistered, result?.success, memberNumber, memberName, registrationDate]);
 
   // Load draft on mount (DOM Population)

@@ -4,20 +4,33 @@ import { useEffect } from "react";
 
 export default function ScrollProgress() {
   useEffect(() => {
-    const handleScroll = () => {
-      const progressBar = document.getElementById("progressBar");
-      if (!progressBar) return;
+    const progressBar = document.getElementById("progressBar");
+    if (!progressBar) return;
 
-      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+    let rafId = 0;
+    let lastWidth = -1;
+
+    const compute = () => {
+      rafId = 0;
+      const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
       const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
       const scrolled = height > 0 ? Math.round((winScroll / height) * 100) : 0;
-
+      if (scrolled === lastWidth) return;
+      lastWidth = scrolled;
       progressBar.style.width = scrolled + "%";
       progressBar.setAttribute("aria-valuenow", String(scrolled));
     };
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+    const onScroll = () => {
+      if (rafId) return;
+      rafId = requestAnimationFrame(compute);
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (rafId) cancelAnimationFrame(rafId);
+    };
   }, []);
 
   return null;

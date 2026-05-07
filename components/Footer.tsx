@@ -49,7 +49,7 @@ export default function Footer() {
                 <a href={CONTACT_MAILTO}>Email Inquiries</a>
               </li>
               <li>
-                <Link href="/contact">Contact</Link>
+                <Link href="/contact" prefetch={false}>Contact</Link>
               </li>
             </ul>
           </div>
@@ -57,8 +57,10 @@ export default function Footer() {
           <nav className="footer-col" aria-label="Footer legal">
             <h4 className="footer-col-h">Info</h4>
             <ul className="footer-list">
-              <li><Link href="/privacy">Privacy</Link></li>
-              <li><Link href="/terms">Terms</Link></li>
+              {/* Legal pages: skip prefetch — visitors rarely click these and
+                  every page would otherwise eagerly fetch their RSC payload. */}
+              <li><Link href="/privacy" prefetch={false}>Privacy</Link></li>
+              <li><Link href="/terms" prefetch={false}>Terms</Link></li>
             </ul>
           </nav>
         </div>

@@ -47,9 +47,11 @@ export default function RootLayout({
   return (
     <html lang="en-CA" className={`${cormorant.variable} ${barlow.variable}`}>
       <head>
-        {/* Performance: Preconnect to critical third-party domains to shave off handshake latency */}
-        <link rel="preconnect" href="https://dsyiuztquzkcikehkigv.supabase.co" crossOrigin="anonymous" />
+        {/* Preconnect: shave handshake latency for Supabase Realtime + Vercel
+            telemetry. dns-prefetch is a cheaper hint for Supabase since the
+            WebSocket only opens on the homepage. */}
         <link rel="preconnect" href="https://va.vercel-scripts.com" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://dsyiuztquzkcikehkigv.supabase.co" />
         {/* Early reveal: add .on to above-fold .rv elements at DOMContentLoaded,
             well before React hydrates. Eliminates JS-gated FCP on desktop where
             all content was opacity:0 until the JS bundle finished executing. */}
@@ -63,23 +65,18 @@ export default function RootLayout({
           <ScrollProgress />
           <Analytics />
           <SpeedInsights />
-          {/* JSON-LD Schemas */}
+          {/* Single JSON-LD @graph: one parse pass instead of three. */}
           <script
             type="application/ld+json"
             dangerouslySetInnerHTML={{
-              __html: JSON.stringify(generateOrganizationSchema()),
-            }}
-          />
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{
-              __html: JSON.stringify(generateWebSiteSchema()),
-            }}
-          />
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{
-              __html: JSON.stringify(generateSiteNavigationElementSchema()),
+              __html: JSON.stringify({
+                "@context": "https://schema.org",
+                "@graph": [
+                  generateOrganizationSchema(),
+                  generateWebSiteSchema(),
+                  generateSiteNavigationElementSchema(),
+                ],
+              }),
             }}
           />
         </Providers>

@@ -48,6 +48,7 @@ export default function MemberCounter({ className }: MemberCounterProps) {
     const supabase = createClient();
     const controller = new AbortController();
     let cancelled = false;
+    let channel: ReturnType<typeof supabase.channel> | null = null;
 
     async function loadCount() {
       try {
@@ -72,37 +73,51 @@ export default function MemberCounter({ className }: MemberCounterProps) {
     }
     loadCount();
 
-    const channel = supabase
-      .channel("member-stats-global")
-      .on(
-        "postgres_changes",
-        {
-          event: "UPDATE",
-          schema: "public",
-          table: "site_stats",
-        },
-        (payload) => {
-          if (payload.new && payload.new.member_count !== undefined) {
-            const newCount = Number(payload.new.member_count);
-            if (!isNaN(newCount)) {
-              setCount(Math.max(0, newCount));
+    // Defer the Supabase Realtime WebSocket handshake until the browser is
+    // idle. The bootstrap fetch above already populates the count for FCP;
+    // the live channel only matters for subsequent updates, which can wait.
+    const subscribe = () => {
+      if (cancelled) return;
+      channel = supabase
+        .channel("member-stats-global")
+        .on(
+          "postgres_changes",
+          {
+            event: "UPDATE",
+            schema: "public",
+            table: "site_stats",
+          },
+          (payload) => {
+            if (payload.new && payload.new.member_count !== undefined) {
+              const newCount = Number(payload.new.member_count);
+              if (!isNaN(newCount)) {
+                setCount(Math.max(0, newCount));
+              }
             }
           }
-        }
-      )
-      .subscribe((status, err) => {
-        if (status === "SUBSCRIBED") {
-          console.log("[Realtime] Connected to Member Registry.");
-        }
-        if (status === "CHANNEL_ERROR") {
-          console.error("[Realtime] Connection failed:", err);
-        }
-      });
+        )
+        .subscribe((status, err) => {
+          if (status === "CHANNEL_ERROR") {
+            console.error("[Realtime] Connection failed:", err);
+          }
+        });
+    };
+
+    type IdleHandle = { kind: "idle"; id: number } | { kind: "timeout"; id: ReturnType<typeof setTimeout> };
+    const ric = (window as Window & { requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => number }).requestIdleCallback;
+    const subscribeHandle: IdleHandle = ric
+      ? { kind: "idle", id: ric(subscribe, { timeout: 2500 }) }
+      : { kind: "timeout", id: setTimeout(subscribe, 1500) };
 
     return () => {
       cancelled = true;
       controller.abort();
-      void supabase.removeChannel(channel);
+      if (subscribeHandle.kind === "idle") {
+        (window as Window & { cancelIdleCallback?: (h: number) => void }).cancelIdleCallback?.(subscribeHandle.id);
+      } else {
+        clearTimeout(subscribeHandle.id);
+      }
+      if (channel) void supabase.removeChannel(channel);
     };
   }, [mounted]);
 

@@ -171,15 +171,20 @@ export const teamCss = `
       .rv[data-d="1"], .rv[data-d="2"], .rv[data-d="3"] { transition-delay: 0s; }
     }
 
+    @media (max-width: 900px) {
+      .wrap { padding: 0 32px; }
+    }
+
     @media (max-width: 750px) {
       .member-grid { grid-template-columns: 1fr; gap: 24px; }
-      .registry-header { padding: 24px; gap: 20px; }
-      .member-body { padding: 0 24px 24px; }
+      .registry-header { padding: 28px; gap: 20px; }
+      .member-body { padding: 0 28px 28px; }
       .member-photo-wrap { width: 110px; height: 132px; margin-left: 12px; }
-      .member-name { font-size: 24px; }
+      .member-name { font-size: 26px; }
     }
 
     @media (max-width: 700px) {
+      .wrap { padding: 0 24px; }
       .team-sec { padding: 60px 0; }
       .team-sec::before, .team-sec::after { width: 48px; height: 48px; top: 22px; right: 22px; }
       .team-sec::after { top: auto; right: auto; bottom: 22px; left: 22px; }
@@ -199,10 +204,18 @@ export const teamCss = `
       .registry-info { gap: 16px; }
     }
 
-    @media (max-width: 380px) {
-      .registry-header { padding: 20px; flex-direction: column-reverse; align-items: flex-start; gap: 20px; }
-      .member-photo-wrap { margin-left: 0; width: 100%; height: 180px; }
+    @media (max-width: 480px) {
+      .registry-header { padding: 24px; flex-direction: column-reverse; align-items: flex-start; gap: 20px; }
+      .member-photo-wrap { margin-left: 0; width: 100%; height: 220px; }
       .member-photo { object-position: center 20%; }
+      .member-body { padding: 0 24px 28px; }
+      .member-name { font-size: 24px; }
+    }
+
+    @media (max-width: 380px) {
+      .wrap { padding: 0 20px; }
+      .registry-header { padding: 20px; }
+      .member-photo-wrap { height: 180px; }
       .member-body { padding: 0 20px 24px; }
       .member-name { font-size: 22px; }
     }

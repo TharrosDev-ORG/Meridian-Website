@@ -706,6 +706,19 @@ body {
 }
 .page-hero-content { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; }
 
+/* ── ASYMMETRIC PAGE HERO VARIANT ──
+   Adds a two-column layout (text left, decorative panel right) at desktop.
+   Mobile/tablet falls back to the existing centered single-column layout. */
+.page-hero-left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+.page-hero-right { display: none; }
+.page-hero-asym-quote { margin: 0; }
+.page-hero-asym-label { margin: 0; }
+
 .hero-actions {
   display: flex;
   flex-direction: column;
@@ -966,6 +979,82 @@ footer {
   }
   .hero-eyebrow { margin-bottom: 48px; }
   .hero-eyebrow-rule { width: 48px; }
+
+  /* ── Asymmetric hero variant (desktop only) ── */
+  .page-hero-asym {
+    text-align: left;
+    align-items: stretch;
+    justify-content: stretch;
+    padding: 148px 96px 96px;
+  }
+  .page-hero-asym .page-hero-content,
+  .page-hero-asym .module-page-hero-content {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 320px;
+    gap: 80px;
+    align-items: end;
+    width: 100%;
+    max-width: 1320px;
+    margin: 0 auto;
+  }
+  .page-hero-asym .page-hero-left {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    min-width: 0;
+  }
+  .page-hero-asym .page-hero-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding-left: 56px;
+    border-left: 1px solid rgba(184, 147, 42, 0.22);
+    gap: 28px;
+    padding-bottom: 12px;
+    position: relative;
+  }
+  .page-hero-asym .page-hero-right::before {
+    content: '';
+    position: absolute;
+    left: -1px; top: 0; width: 1px; height: 30%;
+    background: linear-gradient(to bottom, transparent, var(--cream));
+    pointer-events: none;
+  }
+  .page-hero-asym .hero-eyebrow { margin-bottom: 36px; }
+  .page-hero-asym .hero-eyebrow .hero-eyebrow-rule:last-child { display: none; }
+  .page-hero-asym .hero-hr { margin: 28px 0; }
+  .page-hero-asym .hero-pre { text-align: left; }
+  .page-hero-asym .hero-title { max-width: none; text-align: left; }
+  .page-hero-asym .hero-sub {
+    margin: 16px 0 0;
+    max-width: 560px;
+    text-align: left;
+  }
+  .page-hero-asym .hero-actions {
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 28px;
+  }
+  .page-hero-asym-quote {
+    font-family: var(--serif);
+    font-size: clamp(16px, 1.35vw, 20px);
+    font-style: italic;
+    font-weight: 300;
+    color: var(--ink-75);
+    line-height: 1.55;
+    max-width: 240px;
+  }
+  .page-hero-asym-label {
+    font-family: var(--sans);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--gold);
+    opacity: 0.8;
+  }
 
   /* ── Section label: a touch more presence on wide screens ── */
   .sec-label { font-size: 11px; gap: 16px; margin-bottom: 24px; }

@@ -43,24 +43,30 @@ export default function Page() {
       />
       <main id="main-content">
   {/* ═══════════ HERO ═══════════ */}
-  <section className="page-hero" aria-label="Membership hero">
+  <section className="page-hero page-hero-asym" aria-label="Membership hero">
     <div className="page-hero-content">
-      <div className="hero-eyebrow rv">
-        <span className="hero-eyebrow-rule"></span>
-        <span className="hero-eyebrow-text">The Meridian Society</span>
-        <span className="hero-eyebrow-rule"></span>
+      <div className="page-hero-left">
+        <div className="hero-eyebrow rv">
+          <span className="hero-eyebrow-rule"></span>
+          <span className="hero-eyebrow-text">The Meridian Society</span>
+          <span className="hero-eyebrow-rule"></span>
+        </div>
+        <p className="hero-pre rv">Student Speaker Forum</p>
+        <h1 className="hero-title rv rv-stagger">
+          <span className="rv-stagger-item">Membership.</span>
+        </h1>
+        <p className="hero-sub rv" data-d="2">Built for students. Free to join, no commitment required.</p>
+        <div className="hero-actions rv" data-d="3">
+          <Link href={REGISTER_URL} className="register-btn">
+            <span>Register Now</span>
+          </Link>
+          <a href="#benefits" className="btn-ghost-link">Learn More <span>&#8595;</span></a>
+        </div>
       </div>
-      <p className="hero-pre rv">Student Speaker Forum</p>
-      <h1 className="hero-title rv rv-stagger">
-        <span className="rv-stagger-item">Membership.</span>
-      </h1>
-      <p className="hero-sub rv" data-d="2">Built for students. Free to join, no commitment required.</p>
-      <div className="hero-actions rv" data-d="3">
-        <Link href={REGISTER_URL} className="register-btn">
-          <span>Register Now</span>
-        </Link>
-        <a href="#benefits" className="btn-ghost-link">Learn More <span>&#8595;</span></a>
-      </div>
+      <aside className="page-hero-right" aria-hidden="true">
+        <p className="page-hero-asym-quote rv" data-d="2">Not a major, not a club, but a sensibility.</p>
+        <div className="page-hero-asym-label rv" data-d="3">Open Enrollment</div>
+      </aside>
     </div>
   </section>
 

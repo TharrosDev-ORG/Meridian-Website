@@ -44,27 +44,33 @@ export default function CalendarPage() {
 
       <main id="main-content" className="calendar-sec">
         {/* ═══════════ HERO ═══════════ */}
-        <section className="module-page-hero" aria-label="Calendar hero">
+        <section className="module-page-hero page-hero-asym" aria-label="Calendar hero">
           <div className="module-page-hero-content">
-            <div className="hero-eyebrow rv">
-              <span className="hero-eyebrow-rule"></span>
-              <span className="hero-eyebrow-text">The Meridian Society</span>
-              <span className="hero-eyebrow-rule"></span>
+            <div className="page-hero-left">
+              <div className="hero-eyebrow rv">
+                <span className="hero-eyebrow-rule"></span>
+                <span className="hero-eyebrow-text">The Meridian Society</span>
+                <span className="hero-eyebrow-rule"></span>
+              </div>
+              <p className="hero-pre rv">Upcoming</p>
+              <h1 className="hero-title rv rv-stagger">
+                <span className="rv-stagger-item"><em>EVENTS.</em></span>
+              </h1>
+              <div className="hero-hr rv" aria-hidden="true" data-d="1"></div>
+              <p className="hero-sub rv" data-d="2">
+                Secure your tickets for our upcoming speaker forums and exclusive society gatherings.
+              </p>
+
+              <div className="mt-12 rv" data-d="3">
+                <a href="#events" className="btn-ghost-link">
+                  See Events <span>↓</span>
+                </a>
+              </div>
             </div>
-            <p className="hero-pre rv">Upcoming</p>
-            <h1 className="hero-title rv rv-stagger">
-              <span className="rv-stagger-item"><em>EVENTS.</em></span>
-            </h1>
-            <div className="hero-hr rv" aria-hidden="true" data-d="1"></div>
-            <p className="hero-sub rv" data-d="2">
-              Secure your tickets for our upcoming speaker forums and exclusive society gatherings.
-            </p>
-            
-            <div className="mt-12 rv" data-d="3">
-              <a href="#events" className="btn-ghost-link">
-                See Events <span>↓</span>
-              </a>
-            </div>
+            <aside className="page-hero-right" aria-hidden="true">
+              <p className="page-hero-asym-quote rv" data-d="2">Secure your tickets.</p>
+              <div className="page-hero-asym-label rv" data-d="3">Live Registry</div>
+            </aside>
           </div>
         </section>
 

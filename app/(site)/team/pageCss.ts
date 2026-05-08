@@ -179,7 +179,7 @@ export const teamCss = `
       .member-grid { grid-template-columns: 1fr; gap: 24px; }
       .registry-header { padding: 24px; gap: 20px; }
       .member-body { padding: 0 24px 24px; }
-      .member-photo-wrap { width: 100px; height: 120px; margin-left: 12px; }
+      .member-photo-wrap { width: 110px; height: 132px; margin-left: 12px; }
       .member-name { font-size: 24px; }
     }
 
@@ -206,7 +206,7 @@ export const teamCss = `
 
     @media (max-width: 480px) {
       .registry-header { padding: 20px; gap: 12px; }
-      .member-photo-wrap { width: 90px; height: 108px; margin-left: 8px; }
+      .member-photo-wrap { width: 100px; height: 120px; margin-left: 8px; }
       .member-body { padding: 0 20px 24px; }
       .member-name { font-size: 22px; }
       .member-role { font-size: 10px; }
@@ -215,7 +215,7 @@ export const teamCss = `
     @media (max-width: 380px) {
       .wrap { padding: 0 20px; }
       .registry-header { padding: 18px; }
-      .member-photo-wrap { width: 80px; height: 96px; }
+      .member-photo-wrap { width: 90px; height: 108px; }
       .member-body { padding: 0 18px 20px; }
       .member-name { font-size: 20px; }
     }

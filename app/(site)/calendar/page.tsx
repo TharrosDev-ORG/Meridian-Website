@@ -68,8 +68,9 @@ export default function CalendarPage() {
               </div>
             </div>
             <aside className="page-hero-right" aria-hidden="true">
-              <p className="page-hero-asym-quote rv" data-d="2">Secure your tickets.</p>
-              <div className="page-hero-asym-label rv" data-d="3">Live Registry</div>
+              <div className="page-hero-asym-numeral">III</div>
+              <div className="page-hero-asym-label rv" data-d="2">Live Registry</div>
+              <p className="page-hero-asym-quote rv" data-d="3">Secure your tickets.</p>
             </aside>
           </div>
         </section>

@@ -41,7 +41,7 @@ export default function Page() {
         </div>
         <p className="hero-pre rv">Speaker Applications</p>
         <h1 className="hero-title rv rv-stagger">
-          <span className="rv-stagger-item">Make an Impact.</span>
+          <span className="rv-stagger-item">Make an<br aria-hidden="true" />Impact.</span>
         </h1>
         <div className="hero-hr rv" aria-hidden="true" data-d="1"></div>
         <p className="hero-sub rv" data-d="2">Motivated students. Genuine curiosity. A room built for real conversation.</p>
@@ -51,8 +51,9 @@ export default function Page() {
         </div>
       </div>
       <aside className="page-hero-right" aria-hidden="true">
-        <p className="page-hero-asym-quote rv" data-d="2">Your experience becomes someone&apos;s turning point.</p>
-        <div className="page-hero-asym-label rv" data-d="3">Open Applications</div>
+        <div className="page-hero-asym-numeral">IV</div>
+        <div className="page-hero-asym-label rv" data-d="2">Open Applications</div>
+        <p className="page-hero-asym-quote rv" data-d="3">Your experience becomes someone&apos;s turning point.</p>
       </aside>
     </div>
   </section>

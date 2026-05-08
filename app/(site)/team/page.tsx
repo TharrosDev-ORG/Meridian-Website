@@ -78,8 +78,9 @@ export default function Page() {
         </div>
       </div>
       <aside className="page-hero-right" aria-hidden="true">
-        <p className="page-hero-asym-quote rv" data-d="2">The team is growing.</p>
-        <div className="page-hero-asym-label rv" data-d="3">Leadership &amp; Operations</div>
+        <div className="page-hero-asym-numeral">VI</div>
+        <div className="page-hero-asym-label rv" data-d="2">Leadership &amp; Operations</div>
+        <p className="page-hero-asym-quote rv" data-d="3">The team is growing.</p>
       </aside>
     </div>
   </section>

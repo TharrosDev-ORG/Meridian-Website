@@ -42,7 +42,7 @@ export default function Page() {
           })),
         }}
       />
-      {/* JSON-LD Person Schema (Colin)
+      {/* JSON-LD Person Schema (Colin) */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -50,12 +50,12 @@ export default function Page() {
             name: "Colin Sherwood",
             jobTitle: "Event Coordinator",
             description: "Dedicated student leader coordinating the logistics and execution of Meridian Society speaker forums.",
-            image: "/assets/images/team/colin.webp",
+            image: "/assets/images/team/colin.png",
             sameAs: ["https://www.instagram.com/colinsherwood34"]
           })),
         }}
       />
-      */}
+
       <main id="main-content">
 
   {/* PAGE HERO */}
@@ -135,7 +135,7 @@ export default function Page() {
           </div>
         </article>
 
-        {/* Colin 
+        {/* Colin */}
         <article className="member-card member-card--registry rv" id="colin" aria-labelledby="name-colin" data-tilt>
           <div className="registry-header">
             <div className="registry-info">
@@ -150,7 +150,7 @@ export default function Page() {
             </div>
             <div className="member-photo-wrap">
               <Image
-                src="/assets/images/team/colin.webp"
+                src="/assets/images/team/colin.png"
                 className="member-photo"
                 alt="Colin Sherwood, Event Coordinator of The Meridian Society"
                 priority
@@ -176,7 +176,7 @@ export default function Page() {
             </div>
           </div>
         </article>
-        */}
+
 
         {/* Placeholder — third slot */}
         <div className="member-card member-card--placeholder rv" aria-label="Future team member" data-tilt>

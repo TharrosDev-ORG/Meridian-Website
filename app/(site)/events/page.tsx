@@ -44,7 +44,7 @@ export default function EventsPage() {
               </div>
               <p className="hero-pre rv">Society</p>
               <h1 className="hero-title rv rv-stagger">
-                <span className="rv-stagger-item">Speaker <em>Events.</em></span>
+                <span className="rv-stagger-item">Speaker<br aria-hidden="true" /><em>Events.</em></span>
               </h1>
               <div className="hero-hr rv" aria-hidden="true" data-d="1"></div>
               <p className="hero-sub rv" data-d="2">Connecting Ottawa students with the professionals, alumni, and scholars who can expand their mindset.</p>
@@ -56,8 +56,9 @@ export default function EventsPage() {
               </div>
             </div>
             <aside className="page-hero-right" aria-hidden="true">
-              <p className="page-hero-asym-quote rv" data-d="2">A room you&apos;ll want to be a part of.</p>
-              <div className="page-hero-asym-label rv" data-d="3">The Program</div>
+              <div className="page-hero-asym-numeral">II</div>
+              <div className="page-hero-asym-label rv" data-d="2">The Program</div>
+              <p className="page-hero-asym-quote rv" data-d="3">A room you&apos;ll want to be a part of.</p>
             </aside>
           </div>
         </section>

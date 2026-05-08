@@ -177,10 +177,10 @@ export const teamCss = `
 
     @media (max-width: 750px) {
       .member-grid { grid-template-columns: 1fr; gap: 24px; }
-      .registry-header { padding: 28px; gap: 20px; }
-      .member-body { padding: 0 28px 28px; }
-      .member-photo-wrap { width: 110px; height: 132px; margin-left: 12px; }
-      .member-name { font-size: 26px; }
+      .registry-header { padding: 24px; gap: 20px; }
+      .member-body { padding: 0 24px 24px; }
+      .member-photo-wrap { width: 100px; height: 120px; margin-left: 12px; }
+      .member-name { font-size: 24px; }
     }
 
     @media (max-width: 700px) {
@@ -205,18 +205,18 @@ export const teamCss = `
     }
 
     @media (max-width: 480px) {
-      .registry-header { padding: 24px; flex-direction: column-reverse; align-items: flex-start; gap: 20px; }
-      .member-photo-wrap { margin-left: 0; width: 100%; height: 220px; }
-      .member-photo { object-position: center 20%; }
-      .member-body { padding: 0 24px 28px; }
-      .member-name { font-size: 24px; }
+      .registry-header { padding: 20px; gap: 12px; }
+      .member-photo-wrap { width: 90px; height: 108px; margin-left: 8px; }
+      .member-body { padding: 0 20px 24px; }
+      .member-name { font-size: 22px; }
+      .member-role { font-size: 10px; }
     }
 
     @media (max-width: 380px) {
       .wrap { padding: 0 20px; }
-      .registry-header { padding: 20px; }
-      .member-photo-wrap { height: 180px; }
-      .member-body { padding: 0 20px 24px; }
-      .member-name { font-size: 22px; }
+      .registry-header { padding: 18px; }
+      .member-photo-wrap { width: 80px; height: 96px; }
+      .member-body { padding: 0 18px 20px; }
+      .member-name { font-size: 20px; }
     }
 `;

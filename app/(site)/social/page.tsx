@@ -33,25 +33,31 @@ export default function SocialPage() {
       />
 
       {/* PAGE HERO */}
-      <section className="page-hero" aria-label="Social events hero">
+      <section className="page-hero page-hero-asym" aria-label="Social events hero">
         <div className="page-hero-content">
-          <div className="hero-eyebrow rv">
-            <span className="hero-eyebrow-rule"></span>
-            <span className="hero-eyebrow-text">The Meridian Society</span>
-            <span className="hero-eyebrow-rule"></span>
+          <div className="page-hero-left">
+            <div className="hero-eyebrow rv">
+              <span className="hero-eyebrow-rule"></span>
+              <span className="hero-eyebrow-text">The Meridian Society</span>
+              <span className="hero-eyebrow-rule"></span>
+            </div>
+            <p className="hero-pre rv">Society</p>
+            <h1 className="hero-title rv rv-stagger">
+              <span className="rv-stagger-item">Social <em>Events.</em></span>
+            </h1>
+            <div className="hero-hr rv" aria-hidden="true" data-d="1"></div>
+            <p className="hero-sub rv" data-d="2">A space for students to connect.</p>
+            <div className="hero-actions rv" data-d="3">
+              <Magnetic strength={0.25}>
+                <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="btn-primary"><span>Join the Community</span></a>
+              </Magnetic>
+              <a href="#details" className="btn-ghost-link">Learn More <span>&#8595;</span></a>
+            </div>
           </div>
-          <p className="hero-pre rv">Society</p>
-          <h1 className="hero-title rv rv-stagger">
-            <span className="rv-stagger-item">Social <em>Events.</em></span>
-          </h1>
-          <div className="hero-hr rv" aria-hidden="true" data-d="1"></div>
-          <p className="hero-sub rv" data-d="2">A space for students to connect.</p>
-          <div className="hero-actions rv" data-d="3">
-            <Magnetic strength={0.25}>
-              <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="btn-primary"><span>Join the Community</span></a>
-            </Magnetic>
-            <a href="#details" className="btn-ghost-link">Learn More <span>&#8595;</span></a>
-          </div>
+          <aside className="page-hero-right" aria-hidden="true">
+            <p className="page-hero-asym-quote rv" data-d="2">Where connections happen naturally.</p>
+            <div className="page-hero-asym-label rv" data-d="3">The Gathering</div>
+          </aside>
         </div>
       </section>
 

@@ -31,23 +31,29 @@ export default function Page() {
       <main id="main-content">
 
   {/* ═══════════ HERO ═══════════ */}
-  <section className="page-hero" aria-label="Speak hero">
+  <section className="page-hero page-hero-asym" aria-label="Speak hero">
     <div className="page-hero-content">
-      <div className="hero-eyebrow rv">
-        <span className="hero-eyebrow-rule"></span>
-        <span className="hero-eyebrow-text">The Meridian Society</span>
-        <span className="hero-eyebrow-rule"></span>
+      <div className="page-hero-left">
+        <div className="hero-eyebrow rv">
+          <span className="hero-eyebrow-rule"></span>
+          <span className="hero-eyebrow-text">The Meridian Society</span>
+          <span className="hero-eyebrow-rule"></span>
+        </div>
+        <p className="hero-pre rv">Speaker Applications</p>
+        <h1 className="hero-title rv rv-stagger">
+          <span className="rv-stagger-item">Make an Impact.</span>
+        </h1>
+        <div className="hero-hr rv" aria-hidden="true" data-d="1"></div>
+        <p className="hero-sub rv" data-d="2">Motivated students. Genuine curiosity. A room built for real conversation.</p>
+        <div className="hero-actions rv" data-d="3">
+          <Link href="/apply" className="btn-primary"><span>Apply to Speak</span></Link>
+          <a href="#why" className="btn-ghost-link">Learn More <span>&#8595;</span></a>
+        </div>
       </div>
-      <p className="hero-pre rv">Speaker Applications</p>
-      <h1 className="hero-title rv rv-stagger">
-        <span className="rv-stagger-item">Make an Impact.</span>
-      </h1>
-      <div className="hero-hr rv" aria-hidden="true" data-d="1"></div>
-      <p className="hero-sub rv" data-d="2">Motivated students. Genuine curiosity. A room built for real conversation.</p>
-      <div className="hero-actions rv" data-d="3">
-        <Link href="/apply" className="btn-primary"><span>Apply to Speak</span></Link>
-        <a href="#why" className="btn-ghost-link">Learn More <span>&#8595;</span></a>
-      </div>
+      <aside className="page-hero-right" aria-hidden="true">
+        <p className="page-hero-asym-quote rv" data-d="2">Your experience becomes someone&apos;s turning point.</p>
+        <div className="page-hero-asym-label rv" data-d="3">Open Applications</div>
+      </aside>
     </div>
   </section>
   

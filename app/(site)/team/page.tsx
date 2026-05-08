@@ -59,22 +59,28 @@ export default function Page() {
       <main id="main-content">
 
   {/* PAGE HERO */}
-  <section className="page-hero" aria-label="Team hero">
+  <section className="page-hero page-hero-asym" aria-label="Team hero">
     <div className="page-hero-content">
-      <div className="hero-eyebrow rv">
-        <span className="hero-eyebrow-rule"></span>
-        <span className="hero-eyebrow-text">The Meridian Society</span>
-        <span className="hero-eyebrow-rule"></span>
+      <div className="page-hero-left">
+        <div className="hero-eyebrow rv">
+          <span className="hero-eyebrow-rule"></span>
+          <span className="hero-eyebrow-text">The Meridian Society</span>
+          <span className="hero-eyebrow-rule"></span>
+        </div>
+        <p className="hero-pre rv">Student Speaker Forum</p>
+        <h1 className="hero-title rv rv-stagger">
+          <span className="rv-stagger-item">The Team.</span>
+        </h1>
+        <div className="hero-hr rv" aria-hidden="true" data-d="1"></div>
+        <p className="hero-sub rv" data-d="2">The student team behind the Meridian Society.</p>
+        <div className="hero-actions rv" data-d="3">
+          <a href="#team" className="btn-ghost-link">Meet the Team <span>&#8595;</span></a>
+        </div>
       </div>
-      <p className="hero-pre rv">Student Speaker Forum</p>
-      <h1 className="hero-title rv rv-stagger">
-        <span className="rv-stagger-item">The Team.</span>
-      </h1>
-      <div className="hero-hr rv" aria-hidden="true" data-d="1"></div>
-      <p className="hero-sub rv" data-d="2">The student team behind the Meridian Society.</p>
-      <div className="hero-actions rv" data-d="3">
-        <a href="#team" className="btn-ghost-link">Meet the Team <span>&#8595;</span></a>
-      </div>
+      <aside className="page-hero-right" aria-hidden="true">
+        <p className="page-hero-asym-quote rv" data-d="2">The team is growing.</p>
+        <div className="page-hero-asym-label rv" data-d="3">Leadership &amp; Operations</div>
+      </aside>
     </div>
   </section>
   <Marquee />

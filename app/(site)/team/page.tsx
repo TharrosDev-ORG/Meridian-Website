@@ -63,7 +63,7 @@ export default function Page() {
     <div className="page-hero-content">
       <div className="page-hero-asym-masthead" aria-hidden="true">
         <span className="page-hero-asym-masthead-counter">
-          <span className="page-hero-asym-masthead-current">VI</span>
+          <span className="page-hero-asym-masthead-current">I</span>
           <span className="page-hero-asym-masthead-total">/ VI</span>
         </span>
         <span className="page-hero-asym-masthead-rule"></span>
@@ -86,7 +86,7 @@ export default function Page() {
         </div>
       </div>
       <aside className="page-hero-right" aria-hidden="true">
-        <div className="page-hero-asym-numeral">VI</div>
+        <div className="page-hero-asym-numeral">I</div>
         <div className="page-hero-asym-label rv" data-d="2">Leadership &amp; Operations</div>
         <p className="page-hero-asym-quote rv" data-d="3">The team is growing.</p>
       </aside>

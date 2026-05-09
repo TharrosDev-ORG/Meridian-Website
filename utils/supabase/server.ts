@@ -1,6 +1,7 @@
 import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
-import type { Database } from "./database.types";
+// Database types are available from "./database.types" for opt-in typing
+// at individual call sites.
 
 export const createClient = (cookieStore: Awaited<ReturnType<typeof cookies>>) => {
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -10,7 +11,7 @@ export const createClient = (cookieStore: Awaited<ReturnType<typeof cookies>>) =
     throw new Error("Missing Supabase public environment variables");
   }
 
-  return createServerClient<Database>(
+  return createServerClient(
     supabaseUrl,
     supabaseKey,
     {

@@ -1,8 +1,9 @@
 import { createBrowserClient } from "@supabase/ssr";
 import { type SupabaseClient } from "@supabase/supabase-js";
-import type { Database } from "./database.types";
+// Database types are available from "./database.types" for opt-in typing
+// at individual call sites.
 
-let client: SupabaseClient<Database> | undefined;
+let client: SupabaseClient | undefined;
 
 export const createClient = () => {
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -16,7 +17,7 @@ export const createClient = () => {
 
   if (!isBrowser) {
     // Return a Proxy that throws on any access to prevent accidental SSR leaks
-    return new Proxy({} as SupabaseClient<Database>, {
+    return new Proxy({} as SupabaseClient, {
       get() {
         throw new Error(
           "Supabase browser client accessed on server. Use createServiceClient or createMiddlewareClient instead."
@@ -26,7 +27,7 @@ export const createClient = () => {
   }
 
   if (!client) {
-    client = createBrowserClient<Database>(supabaseUrl, supabaseKey);
+    client = createBrowserClient(supabaseUrl, supabaseKey);
   }
 
   return client;

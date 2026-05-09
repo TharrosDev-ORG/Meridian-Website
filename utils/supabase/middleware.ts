@@ -1,6 +1,7 @@
 import { createServerClient } from "@supabase/ssr";
 import { type NextRequest, NextResponse } from "next/server";
-import type { Database } from "./database.types";
+// Database types are available from "./database.types" for opt-in typing
+// at individual call sites.
 
 // Detection: auth-related Supabase cookies start with "sb-" and end with
 // "-auth-token" (or its chunked variants). Only when one is present do we
@@ -29,7 +30,7 @@ export const createClient = async (request: NextRequest) => {
     return supabaseResponse;
   }
 
-  const supabase = createServerClient<Database>(
+  const supabase = createServerClient(
     supabaseUrl,
     supabaseKey,
     {

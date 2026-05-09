@@ -33,6 +33,14 @@ export default function Page() {
   {/* ═══════════ HERO ═══════════ */}
   <section className="page-hero page-hero-asym" aria-label="Speak hero">
     <div className="page-hero-content">
+      <div className="page-hero-asym-masthead" aria-hidden="true">
+        <span className="page-hero-asym-masthead-counter">
+          <span className="page-hero-asym-masthead-current">IV</span>
+          <span className="page-hero-asym-masthead-total">/ VI</span>
+        </span>
+        <span className="page-hero-asym-masthead-rule"></span>
+        <span className="page-hero-asym-masthead-volume">Vol. I &middot; MMXXV&ndash;MMXXVI &middot; Ottawa</span>
+      </div>
       <div className="page-hero-left">
         <div className="hero-eyebrow rv">
           <span className="hero-eyebrow-rule"></span>
@@ -55,6 +63,10 @@ export default function Page() {
         <div className="page-hero-asym-label rv" data-d="2">Open Applications</div>
         <p className="page-hero-asym-quote rv" data-d="3">Your experience becomes someone&apos;s turning point.</p>
       </aside>
+    </div>
+    <div className="page-hero-asym-scroll" aria-hidden="true">
+      <span className="page-hero-asym-scroll-label">Scroll</span>
+      <span className="page-hero-asym-scroll-line"></span>
     </div>
   </section>
   

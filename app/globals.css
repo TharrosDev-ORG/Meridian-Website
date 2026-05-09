@@ -461,7 +461,7 @@ body {
   .nav-inner { padding: 0 24px; }
   .nav-wordmark { font-size: 11px; letter-spacing: 0.24em; }
   
-  .site-nav { -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); }
+  .site-nav { -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
   
   .mob-drawer {
     width: min(85vw, 360px);
@@ -484,20 +484,12 @@ body {
 
 /* ── PAGE TRANSITIONS ── */
 .page-transition-wrapper {
-  animation: pageSweep 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: pageSweep 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 @keyframes pageSweep {
-  0% { 
-    opacity: 1; 
-    transform: scale(0.99) translateY(4px);
-    filter: blur(8px);
-  }
-  100% { 
-    opacity: 1; 
-    transform: scale(1) translateY(0);
-    filter: blur(0);
-  }
+  0%   { opacity: 0; transform: translateY(8px); }
+  100% { opacity: 1; transform: translateY(0); }
 }
 
 /* ── STAGGERED REVEALS ── */
@@ -571,7 +563,8 @@ body {
   gap: 12px;
 }
 
-.step-card { will-change: transform; backface-visibility: hidden; }
+.step-card { backface-visibility: hidden; }
+.step-card:hover { will-change: transform; }
 .step-card:hover {
   transform: translateY(-4px);
   border-color: var(--gold-lt);
@@ -675,7 +668,7 @@ body {
   letter-spacing: 0.06em; text-shadow: 0 2px 40px rgba(24,21,15,0.04); 
 }
 @media (min-width: 1101px) {
-  .hero-title { font-size: clamp(80px, 11vw, 220px); will-change: transform, opacity; }
+  .hero-title { font-size: clamp(80px, 11vw, 220px); }
 }
 
 
@@ -812,6 +805,8 @@ footer {
   padding: 64px 0 28px;
   background: var(--ink);
   border-top: 1px solid rgba(244, 237, 227, 0.1);
+  content-visibility: auto;
+  contain-intrinsic-size: auto 320px;
 }
 
 .footer-main {
@@ -1213,7 +1208,8 @@ footer {
   .nav-cta { padding: 10px 24px; font-size: 11px; }
 
   /* ── Primary button: 3D lift ── */
-  .btn-primary { padding: 14px 36px 13px; will-change: transform; backface-visibility: hidden; }
+  .btn-primary { padding: 14px 36px 13px; backface-visibility: hidden; }
+  .btn-primary:hover { will-change: transform; }
   .btn-primary:hover {
     transform: perspective(var(--perspective-card)) translateY(-4px) rotateX(1.5deg) translateZ(8px);
     box-shadow: 0 16px 44px rgba(24,21,15,0.18), 0 4px 12px rgba(24,21,15,0.10);
@@ -1227,7 +1223,8 @@ footer {
   .text-link:hover::after { height: 1.5px; }
 
   /* ── Module cards: 3D tilt + depth ── */
-  .module-card { padding: 48px 42px; transform-style: preserve-3d; will-change: transform; backface-visibility: hidden; overflow: clip; }
+  .module-card { padding: 48px 42px; transform-style: preserve-3d; backface-visibility: hidden; overflow: clip; }
+  .module-card:hover { will-change: transform; }
   .module-card:hover {
     transform: perspective(var(--perspective-card)) translateY(-8px) rotateX(1.5deg) translateZ(12px);
     box-shadow: 0 20px 56px rgba(24,21,15,0.12), 0 4px 12px rgba(184,147,42,0.06);
@@ -1283,10 +1280,10 @@ footer {
   .m-item { font-size: 10px; padding: 0 48px; }
 
   /* ── Page-transition: 3D rise on desktop ── */
-  .page-transition-wrapper { animation: pageSweepDt 0.6s cubic-bezier(0.16,1,0.3,1) forwards; }
+  .page-transition-wrapper { animation: pageSweepDt 0.45s cubic-bezier(0.16,1,0.3,1) forwards; }
   @keyframes pageSweepDt {
-    0%   { opacity: 0; transform: perspective(var(--perspective-hero)) translateY(16px) rotateX(1.5deg) scale(0.99); filter: blur(6px); }
-    100% { opacity: 1; transform: perspective(var(--perspective-hero)) translateY(0)    rotateX(0deg)   scale(1);    filter: blur(0); }
+    0%   { opacity: 0; transform: translateY(12px); }
+    100% { opacity: 1; transform: translateY(0); }
   }
 
   /* ── Reveal: slightly longer easing for large hero typography ── */
@@ -1306,7 +1303,8 @@ footer {
   .register-ghost { transform: translateX(-50%) translateZ(-40px); }
 
   /* ── Register button 3D lift ── */
-  .register-btn { will-change: transform; backface-visibility: hidden; }
+  .register-btn { backface-visibility: hidden; }
+  .register-btn:hover { will-change: transform; }
   .register-btn:hover {
     transform: perspective(var(--perspective-card)) translateY(-4px) rotateX(2deg) translateZ(10px);
     box-shadow: 0 16px 44px rgba(24,21,15,0.16), 0 4px 12px rgba(184,147,42,0.10);
@@ -1314,7 +1312,7 @@ footer {
 
   /* ── Inner-page hero title 3D lift on reveal ── */
   .page-hero .hero-title, .module-page-hero .hero-title {
-    will-change: transform, opacity; backface-visibility: hidden;
+    backface-visibility: hidden;
   }
   .page-hero .hero-title.on, .module-page-hero .hero-title.on {
     transform: perspective(var(--perspective-hero)) translateZ(12px);
@@ -1410,7 +1408,7 @@ footer {
 
 
 /* ── REGISTER SECTION (Shared) ── */
-.register { padding: 64px 0; background: var(--cream-mid); position: relative; overflow: hidden; }
+.register { padding: 64px 0; background: var(--cream-mid); position: relative; overflow: hidden; content-visibility: auto; contain-intrinsic-size: auto 400px; }
 .register::before {
   content: ''; position: absolute; inset: 0; z-index: 0;
   background: radial-gradient(ellipse 65% 60% at 50% 50%, rgba(184,147,42,0.06) 0%, transparent 70%),

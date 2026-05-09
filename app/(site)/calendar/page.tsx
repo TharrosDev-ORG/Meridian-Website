@@ -22,8 +22,8 @@ export const metadata: Metadata = getMetadata({
   keywords: ['Student Event Calendar Ottawa', 'Meridian Registry', 'Speaker Series Schedule']
 });
 
-// Revalidate every 60 seconds (ISR)
-export const revalidate = 60;
+// Revalidate every 5 minutes (ISR) — events don't change minute-to-minute
+export const revalidate = 300;
 
 export default function CalendarPage() {
   return (

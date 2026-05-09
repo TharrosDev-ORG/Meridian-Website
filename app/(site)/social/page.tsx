@@ -37,7 +37,7 @@ export default function SocialPage() {
         <div className="page-hero-content">
           <div className="page-hero-asym-masthead" aria-hidden="true">
             <span className="page-hero-asym-masthead-counter">
-              <span className="page-hero-asym-masthead-current">V</span>
+              <span className="page-hero-asym-masthead-current">IV</span>
               <span className="page-hero-asym-masthead-total">/ VI</span>
             </span>
             <span className="page-hero-asym-masthead-rule"></span>
@@ -63,7 +63,7 @@ export default function SocialPage() {
             </div>
           </div>
           <aside className="page-hero-right" aria-hidden="true">
-            <div className="page-hero-asym-numeral">V</div>
+            <div className="page-hero-asym-numeral">IV</div>
             <div className="page-hero-asym-label rv" data-d="2">The Gathering</div>
             <p className="page-hero-asym-quote rv" data-d="3">Where connections happen naturally.</p>
           </aside>

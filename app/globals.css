@@ -718,6 +718,8 @@ body {
 .page-hero-right { display: none; }
 .page-hero-asym-quote { margin: 0; }
 .page-hero-asym-label { margin: 0; }
+.page-hero-asym-masthead { display: none; }
+.page-hero-asym-scroll { display: none; }
 
 .hero-actions {
   display: flex;
@@ -1110,6 +1112,89 @@ footer {
     color: var(--ink-75);
     line-height: 1.55;
     max-width: 220px;
+  }
+
+  /* ── Editorial masthead at the top of the asymmetric hero ── */
+  .page-hero-asym-masthead {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    position: absolute;
+    top: -64px;
+    left: 0; right: 0;
+    z-index: 2;
+  }
+  .page-hero-asym-masthead-counter {
+    font-family: var(--sans);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.34em;
+    text-transform: uppercase;
+    color: var(--gold);
+    flex-shrink: 0;
+  }
+  .page-hero-asym-masthead-counter .page-hero-asym-masthead-current {
+    color: var(--gold);
+  }
+  .page-hero-asym-masthead-counter .page-hero-asym-masthead-total {
+    color: var(--ink-55);
+    margin-left: 4px;
+  }
+  .page-hero-asym-masthead-rule {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(
+      to right,
+      rgba(184, 147, 42, 0.45) 0%,
+      rgba(184, 147, 42, 0.18) 50%,
+      rgba(24, 21, 15, 0.08) 100%
+    );
+  }
+  .page-hero-asym-masthead-volume {
+    font-family: var(--sans);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--ink-55);
+    flex-shrink: 0;
+  }
+
+  /* ── Animated scroll cue at the bottom-center of the asymmetric hero ── */
+  .page-hero-asym-scroll {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    position: absolute;
+    bottom: 26px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    pointer-events: none;
+  }
+  .page-hero-asym-scroll-label {
+    font-family: var(--sans);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.36em;
+    text-transform: uppercase;
+    color: var(--ink-55);
+    opacity: 0.7;
+  }
+  .page-hero-asym-scroll-line {
+    width: 1px;
+    height: 28px;
+    background: linear-gradient(to bottom, transparent, var(--gold) 40%, var(--gold));
+    transform-origin: top;
+    animation: scroll-cue-pulse 2.4s cubic-bezier(0.55, 0, 0.45, 1) infinite;
+  }
+  @keyframes scroll-cue-pulse {
+    0%, 100% { transform: translateY(-6px) scaleY(0.6); opacity: 0.35; }
+    50%      { transform: translateY(4px)  scaleY(1);   opacity: 1; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .page-hero-asym-scroll-line { animation: none; opacity: 0.6; }
   }
 
   /* ── Section label: a touch more presence on wide screens ── */

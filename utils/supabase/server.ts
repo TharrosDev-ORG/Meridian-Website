@@ -1,5 +1,7 @@
 import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
+// Database types are available from "./database.types" for opt-in typing
+// at individual call sites.
 
 export const createClient = (cookieStore: Awaited<ReturnType<typeof cookies>>) => {
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;

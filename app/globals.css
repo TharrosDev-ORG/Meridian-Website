@@ -1045,7 +1045,7 @@ footer {
   .page-hero-asym .hero-pre { text-align: left; margin-bottom: 4px; }
   .page-hero-asym .hero-title {
     text-align: left;
-    max-width: 14ch;
+    max-width: 18ch;
     font-size: clamp(64px, 7.5vw, 128px);
     line-height: 0.98;
     text-wrap: balance;

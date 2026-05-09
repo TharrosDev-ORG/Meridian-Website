@@ -130,6 +130,7 @@ export default function Page() {
                 className="member-photo"
                 alt="Magnus Abdelnour, Founder and President of The Meridian Society"
                 priority
+                sizes="(max-width: 768px) 80px, 120px"
                 width={100}
                 height={120}
               />
@@ -173,6 +174,7 @@ export default function Page() {
                 className="member-photo"
                 alt="Colin Sherwood, Event Coordinator of The Meridian Society"
                 priority
+                sizes="(max-width: 768px) 80px, 120px"
                 width={100}
                 height={120}
               />

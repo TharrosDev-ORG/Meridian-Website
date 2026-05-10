@@ -10,10 +10,10 @@ import SocialInstagramSection from '@/components/sections/SocialInstagramSection
 import ScrollToTopOnMount from '@/components/ScrollToTopOnMount';
 
 export const metadata: Metadata = getMetadata({
-  title: "Speaker Forum Events",
-  description: "Our signature Speaker Forum events bring world-class perspectives to Ottawa. View our upcoming schedule of dialogues, presentations, and networking mixers.",
+  title: "Speaker Forum & Social Events",
+  description: "Our signature Speaker Forum brings world-class perspectives to Ottawa, alongside relaxed social gatherings, mixers, and fundraisers that build community.",
   urlPath: "/events",
-  keywords: ['Ottawa Speaker Forum', 'Student Intellectual Events', 'Campus Speaker Series', 'Professional Networking Ottawa']
+  keywords: ['Ottawa Speaker Forum', 'Student Intellectual Events', 'Campus Speaker Series', 'Professional Networking Ottawa', 'Ottawa Student Socials', 'Student Mixers']
 });
 
 export default function EventsPage() {
@@ -140,6 +140,55 @@ export default function EventsPage() {
                   <div className="expect-val" role="cell">{val}</div>
                 </div>
               ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ═══════════ SOCIAL GATHERINGS ═══════════ */}
+        <section className="social-about-sec" id="social" aria-labelledby="social-heading">
+          <div className="wrap">
+            <div className="module-intro-grid">
+              <div className="module-intro-left">
+                <div className="sec-label rv">Beyond the Forum</div>
+                <h2 className="social-h2 rv" data-d="1" id="social-heading">Why We <em>Gather.</em></h2>
+              </div>
+              <div className="module-intro-right">
+                <p className="module-intro-copy rv" data-d="2">
+                  The Meridian Society goes beyond a speaker series. It&apos;s a space to meet driven people, have real conversations, and discover new perspectives without the pressure.
+                  <br /><br />
+                  Our social events keep it simple. Relaxed settings, good energy, and the kind of environment where connections happen naturally.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="gathering-sec" aria-label="Social event types">
+          <div className="wrap">
+            <div className="gathering-grid">
+              <div className="gathering-card rv" data-d="1">
+                <div className="gathering-type">Themed Gatherings</div>
+                <h3 className="gathering-h3">Bar Nights &amp; Lounges</h3>
+                <p className="gathering-p">High-impact social environments where students can socialize and expand their circles.</p>
+              </div>
+
+              <div className="gathering-card rv" data-d="2">
+                <div className="gathering-type">Small Format</div>
+                <h3 className="gathering-h3">Coffee &amp; Conversation</h3>
+                <p className="gathering-p">Low-pressure meetups designed for smaller groups. Perfect for deeper dialogue and getting to know the community.</p>
+              </div>
+
+              <div className="gathering-card rv" data-d="3">
+                <div className="gathering-type">Impact Driven</div>
+                <h3 className="gathering-h3">Fundraisers &amp; Galas</h3>
+                <p className="gathering-p">Specialized events dedicated to raising support for society missions while bringing the community together for a cause.</p>
+              </div>
+
+              <div className="gathering-card rv" data-d="4">
+                <div className="gathering-type">Academic Plus</div>
+                <h3 className="gathering-h3">Social Mixers</h3>
+                <p className="gathering-p">Post-Speaker Forum gatherings where students and guest speakers can continue the conversation in a casual setting.</p>
+              </div>
             </div>
           </div>
         </section>

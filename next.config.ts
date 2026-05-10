@@ -73,11 +73,15 @@ const nextConfig: NextConfig = {
       { source: "/index.html", destination: "/", permanent: true },
       { source: "/Index.html", destination: "/", permanent: true },
       { source: "/events.html", destination: "/events", permanent: true },
-      { source: "/Team.html", destination: "/team", permanent: true },
-      { source: "/team.html", destination: "/team", permanent: true },
       { source: "/membership.html", destination: "/membership", permanent: true },
-      { source: "/social.html", destination: "/social", permanent: true },
-      { source: "/speak.html", destination: "/speak", permanent: true },
+      // Consolidated routes — old standalone pages now live as homepage / events sections
+      { source: "/team", destination: "/#team", permanent: true },
+      { source: "/Team.html", destination: "/#team", permanent: true },
+      { source: "/team.html", destination: "/#team", permanent: true },
+      { source: "/social", destination: "/events#social", permanent: true },
+      { source: "/social.html", destination: "/events#social", permanent: true },
+      { source: "/speak", destination: "/apply", permanent: true },
+      { source: "/speak.html", destination: "/apply", permanent: true },
     ];
   },
 };

@@ -6,7 +6,6 @@ import { useEffect, useState } from "react";
 import { useSiteContext } from "./Providers";
 
 export const REGISTER_URL = "/register";
-export const SPEAK_URL = "/speak";
 
 import Magnetic from "./Magnetic";
 
@@ -44,12 +43,10 @@ export default function NavBar() {
   }, []);
 
   const navLinks = [
-    { name: "Team", href: "/team" },
     { name: "Events", href: "/events" },
     { name: "Calendar", href: "/calendar" },
-    { name: "Social", href: "/social" },
-    { name: "Speak", href: "/speak" },
     { name: "Membership", href: "/membership" },
+    { name: "Apply", href: "/apply" },
   ];
 
   return (

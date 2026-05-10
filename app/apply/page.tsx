@@ -3,7 +3,7 @@ import SpeakerForm from "@/components/SpeakerForm";
 import PageStyles from "@/components/PageStyles";
 import BackButton from "@/components/BackButton";
 import TransitionWrapper from "@/components/TransitionWrapper";
-import { speakCss } from "../(site)/speak/pageCss";
+import { applyCss } from "./pageCss";
 import { getMetadata } from "@/utils/metadata-shared";
 
 export const metadata: Metadata = getMetadata({
@@ -82,7 +82,7 @@ export default function ApplyPage() {
   return (
     <TransitionWrapper>
       <main className="apply-page-minimal">
-        <PageStyles css={speakCss + applyPageCss} />
+        <PageStyles css={applyCss + applyPageCss} />
         <div className="apply-nav rv">
           <BackButton className="return-link" />
         </div>

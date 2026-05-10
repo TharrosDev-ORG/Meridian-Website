@@ -18,7 +18,7 @@ export default function Footer() {
             <h4 className="footer-col-h">Society</h4>
             <ul className="footer-list">
               <li><Link href="/">Home</Link></li>
-              <li><Link href="/team">Team</Link></li>
+              <li><Link href="/#team">Team</Link></li>
               <li><Link href="/membership">Membership</Link></li>
             </ul>
           </nav>
@@ -28,8 +28,7 @@ export default function Footer() {
             <ul className="footer-list">
               <li><Link href="/events">Events</Link></li>
               <li><Link href="/calendar">Calendar</Link></li>
-              <li><Link href="/speak">Speak</Link></li>
-              <li><Link href="/social">Social</Link></li>
+              <li><Link href="/apply">Apply to Speak</Link></li>
             </ul>
           </nav>
 

@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import Image from 'next/image';
 import PageStyles from '@/components/PageStyles';
 import { indexCss } from './pageCss';
 import { REGISTER_URL } from '@/components/NavBar';
@@ -8,6 +9,7 @@ import RegisterSection from '@/components/sections/RegisterSection';
 import { getMetadata } from '@/utils/metadata-shared';
 import { INSTAGRAM_URL } from '@/utils/social';
 import { INAUGURAL_EVENT_LABEL } from '@/utils/copy';
+import { generatePersonSchema } from '@/utils/jsonld';
 import { MemberCounter, Marquee, IndexInteractive } from './HomeClientSide';
 
 export const metadata: Metadata = getMetadata({
@@ -22,6 +24,30 @@ export default function Home() {
     <main>
       <PageStyles css={indexCss} />
       {/* Organization JSON-LD lives in app/layout.tsx so it ships site-wide. */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(generatePersonSchema({
+            name: "Magnus Abdelnour",
+            jobTitle: "Founder & President",
+            description: "Started The Meridian Society to bring journalists, founders, scholars, and accomplished professionals to the room to share knowledge with students.",
+            image: "/assets/images/team/magnus.png",
+            sameAs: ["https://www.linkedin.com/in/magnus-a-9b5b50378"]
+          })),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(generatePersonSchema({
+            name: "Colin Sherwood",
+            jobTitle: "Event Coordinator",
+            description: "Dedicated student leader coordinating the logistics and execution of Meridian Society speaker forums.",
+            image: "/assets/images/team/colin.jpg",
+            sameAs: ["https://www.instagram.com/colinsherwood34"]
+          })),
+        }}
+      />
       <a href="#main-content" className="skip-link">Skip to content</a>
       <Link href={REGISTER_URL} className="sticky-join" id="stickyJoin">Register</Link>
       <section className="hero" id="main-content" aria-label="Hero">
@@ -103,7 +129,116 @@ export default function Home() {
       <div className="pull-quote rv" data-d="2">
         <p>&quot;Shaped by the effort you put in, your input defines your outcome by building knowledge, connections, and opportunity.&quot;</p>
       </div>
-      <Link href="/team" className="text-link rv" data-d="3">The Team  &#8594;</Link>
+      <a href="#team" className="text-link rv" data-d="3">Meet the Team  &#8595;</a>
+    </div>
+  </div>
+</section>
+
+{/* THE TEAM */}
+<section className="team-home-sec" id="team" aria-labelledby="team-home-heading">
+  <div className="wrap">
+    <div className="team-home-header">
+      <div className="team-home-title-wrap">
+        <div className="sec-label rv">The Team</div>
+        <h2 className="team-home-title rv rv-stagger" id="team-home-heading">
+          <span className="rv-stagger-item">Leadership &amp;</span>
+          <span className="rv-stagger-item"><em>Operations.</em></span>
+        </h2>
+        <div className="swipe-hint rv" data-d="2" aria-hidden="true">
+          <span>Swipe to explore</span>
+          <svg viewBox="0 0 24 24"><path d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"/></svg>
+        </div>
+      </div>
+      <p className="team-home-intro rv" data-d="1">The student team behind The Meridian Society. The team is growing.</p>
+    </div>
+
+    <div className="member-grid h-scroll">
+
+      {/* Magnus */}
+      <article className="member-card member-card--registry rv h-scroll-item" id="magnus" aria-labelledby="name-magnus" data-tilt>
+        <div className="registry-header">
+          <div className="registry-info">
+            <div className="registry-field">
+              <span className="field-label">NAME</span>
+              <h3 className="member-name field-value" id="name-magnus">Magnus Abdelnour</h3>
+            </div>
+            <div className="registry-field">
+              <span className="field-label">ROLE</span>
+              <div className="member-role field-value">Founder &amp; President</div>
+            </div>
+          </div>
+          <div className="member-photo-wrap">
+            <Image
+              src="/assets/images/team/magnus.png"
+              className="member-photo"
+              alt="Magnus Abdelnour, Founder and President of The Meridian Society"
+              sizes="(max-width: 768px) 80px, 120px"
+              width={100}
+              height={120}
+            />
+          </div>
+        </div>
+        <div className="member-body">
+          <div className="registry-field">
+            <span className="field-label">PROGRAM/SCHOOL</span>
+            <p className="member-studies field-value">Bachelor&apos;s of Global and International Studies — European and Russian Studies, Carleton University</p>
+          </div>
+          <div className="registry-footer">
+            <div className="member-social">
+              <a href="https://www.linkedin.com/in/magnus-a-9b5b50378" target="_blank" rel="noopener noreferrer" aria-label="Magnus Abdelnour on LinkedIn">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      {/* Colin */}
+      <article className="member-card member-card--registry rv h-scroll-item" id="colin" aria-labelledby="name-colin" data-tilt>
+        <div className="registry-header">
+          <div className="registry-info">
+            <div className="registry-field">
+              <span className="field-label">NAME</span>
+              <h3 className="member-name field-value" id="name-colin">Colin Sherwood</h3>
+            </div>
+            <div className="registry-field">
+              <span className="field-label">ROLE</span>
+              <div className="member-role field-value">Event Coordinator</div>
+            </div>
+          </div>
+          <div className="member-photo-wrap">
+            <Image
+              src="/assets/images/team/colin.jpg"
+              className="member-photo"
+              alt="Colin Sherwood, Event Coordinator of The Meridian Society"
+              sizes="(max-width: 768px) 80px, 120px"
+              width={100}
+              height={120}
+            />
+          </div>
+        </div>
+        <div className="member-body">
+          <div className="registry-field">
+            <span className="field-label">PROGRAM/SCHOOL</span>
+            <p className="member-studies field-value">Bachelor&apos;s of Criminology and Criminal Justice — Concentration in Law, Minor in French, Carleton University</p>
+          </div>
+          <div className="registry-footer">
+            <div className="member-social">
+              <a href="https://www.instagram.com/colinsherwood34" target="_blank" rel="noopener noreferrer" aria-label="Colin Sherwood on Instagram">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      {/* Placeholder */}
+      <div className="member-card member-card--placeholder rv h-scroll-item" aria-label="Future team member" data-tilt>
+        <div className="placeholder-icon" aria-hidden="true">&#9671;</div>
+        <p className="placeholder-text">The team is growing.</p>
+        <p className="placeholder-sub">More to come</p>
+      </div>
+
     </div>
   </div>
 </section>
@@ -186,7 +321,7 @@ export default function Home() {
         <span className="portal-cta">View Program &#8594;</span>
       </Link>
 
-      <Link href="/social" className="portal-card rv h-scroll-item" data-d="2" data-tilt>
+      <Link href="/events#social" className="portal-card rv h-scroll-item" data-d="2" data-tilt>
         <div className="portal-eyebrow">Community</div>
         <h3 className="portal-h3">Social<br/><em>Events.</em></h3>
         <p className="portal-p">Events that build community, from quiet coffee meetups to high-energy nights out.</p>
@@ -196,24 +331,29 @@ export default function Home() {
   </div>
 </section>
 
-{/* GET INVOLVED */}
-<section className="speaking" id="speaking" aria-labelledby="speaking-heading">
+{/* APPLY TO SPEAK */}
+<section className="speaking" id="speak" aria-labelledby="speaking-heading">
   <div className="wrap speaking-layout">
     <div className="speaking-left">
-      <div className="sec-label rv">Get Involved</div>
+      <div className="sec-label rv">Apply to Speak</div>
       <h2 className="speaking-title rv" data-d="1" id="speaking-heading">Have a Story<br/> or Idea Worth <em>Sharing?</em></h2>
-      <p className="speaking-sub rv" data-d="2">We’d love to hear from you.</p>
-      <p className="speaking-body rv" data-d="2">Whether you want to speak, collaborate, or simply get involved, The Meridian Society is always looking to grow its community and team.</p>
-      <Link href="/speak" className="text-link rv" data-d="3">Speak at The Meridian  &#8594;</Link>
+      <p className="speaking-sub rv" data-d="2">We&apos;d love to hear from you.</p>
+      <p className="speaking-body rv" data-d="2">Direct access to an engaged, vetted student audience. Professionals, founders, alumni, and scholars share lived experience with motivated Ottawa students in a room built for real conversation.</p>
+      <div className="speak-home-ctas rv" data-d="3">
+        <Magnetic strength={0.2}>
+          <Link href="/apply" className="btn-primary"><span>Apply to Speak</span></Link>
+        </Magnetic>
+        <a href="mailto:meridiansocietycanada@gmail.com?subject=Speaker%20Nomination" className="btn-ghost-link">Nominate a Speaker  &#8594;</a>
+      </div>
     </div>
     <div className="speaking-right">
-      <div className="sec-label rv" style={{"marginBottom":"20px"}}>What We Host</div>
-      <ul className="formats-list" aria-label="Event formats we host">
-        <li className="formats-item rv"><span className="formats-num">01</span><span className="formats-text">Formal presentations &amp; keynotes</span></li>
-        <li className="formats-item rv" data-d="1"><span className="formats-num">02</span><span className="formats-text">Open conversations &amp; Q&amp;A</span></li>
-        <li className="formats-item rv" data-d="2"><span className="formats-num">03</span><span className="formats-text">Career pathway talks</span></li>
-        <li className="formats-item rv" data-d="3"><span className="formats-num">04</span><span className="formats-text">Panel discussions</span></li>
-        <li className="formats-item rv" data-d="4"><span className="formats-num">05</span><span className="formats-text">Social gatherings &amp; community events</span></li>
+      <div className="sec-label rv" style={{"marginBottom":"20px"}}>The Format</div>
+      <ul className="formats-list" aria-label="Speaker forum format">
+        <li className="formats-item rv"><span className="formats-num">01</span><span className="formats-text">30–45 minute presentation</span></li>
+        <li className="formats-item rv" data-d="1"><span className="formats-num">02</span><span className="formats-text">Followed by an open Q&amp;A</span></li>
+        <li className="formats-item rv" data-d="2"><span className="formats-num">03</span><span className="formats-text">Curated audience of 20–30 students</span></li>
+        <li className="formats-item rv" data-d="3"><span className="formats-num">04</span><span className="formats-text">Policy, business, law, academia &amp; beyond</span></li>
+        <li className="formats-item rv" data-d="4"><span className="formats-num">05</span><span className="formats-text">Ottawa, Canada</span></li>
       </ul>
     </div>
   </div>

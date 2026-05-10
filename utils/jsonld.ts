@@ -92,9 +92,8 @@ export function generateSiteNavigationElementSchema() {
     "itemListElement": [
       { "@type": "SiteNavigationElement", "position": 1, "name": "Events", "url": `${SITE_URL}/events` },
       { "@type": "SiteNavigationElement", "position": 2, "name": "Calendar", "url": `${SITE_URL}/calendar` },
-      { "@type": "SiteNavigationElement", "position": 3, "name": "Team", "url": `${SITE_URL}/team` },
-      { "@type": "SiteNavigationElement", "position": 4, "name": "Speak", "url": `${SITE_URL}/speak` },
-      { "@type": "SiteNavigationElement", "position": 5, "name": "Membership", "url": `${SITE_URL}/membership` }
+      { "@type": "SiteNavigationElement", "position": 3, "name": "Membership", "url": `${SITE_URL}/membership` },
+      { "@type": "SiteNavigationElement", "position": 4, "name": "Apply to Speak", "url": `${SITE_URL}/apply` }
     ]
   };
 }

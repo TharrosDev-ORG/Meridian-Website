@@ -8,12 +8,10 @@ import { usePathname } from "next/navigation";
 const SWIPE_CLOSE_THRESHOLD = 64;
 const SWIPE_INTENT_PX = 8;
 const NAV_LINKS = [
-  { name: "Team", href: "/team" },
   { name: "Events", href: "/events" },
   { name: "Calendar", href: "/calendar" },
-  { name: "Social", href: "/social" },
-  { name: "Speak", href: "/speak" },
   { name: "Membership", href: "/membership" },
+  { name: "Apply", href: "/apply" },
 ];
 
 export default function MobileMenu() {

@@ -79,7 +79,7 @@ export default function ContactPage() {
               <h2>Speaking at an event</h2>
               <p>
                 If you&apos;re a professional, academic, or alum who would like to speak at a Meridian
-                event, begin with the application on the <Link href="/speak">Speak</Link> page.
+                event, begin with the <Link href="/apply">speaker application</Link>.
                 It captures what we need to assess fit — we follow up within two weeks.
               </p>
             </div>

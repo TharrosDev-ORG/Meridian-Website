@@ -1,6 +1,6 @@
-export const speakCss = `
+export const applyCss = `
     /*
-     * The Meridian Society — Speak Page Styles
+     * The Meridian Society — Apply (Speaker Form) Page Styles
      * Page-specific overrides only. Tokens and nav live in globals.css.
      */
 

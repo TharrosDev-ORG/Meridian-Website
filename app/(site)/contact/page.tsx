@@ -4,7 +4,7 @@ import PageStyles from '@/components/PageStyles';
 import { contactPageCss } from './contactPageCss';
 import { getMetadata } from '@/utils/metadata-shared';
 import { generateBreadcrumbSchema } from '@/utils/jsonld';
-import { INSTAGRAM_URL } from '@/utils/social';
+import { INSTAGRAM_URL, CONTACT_EMAIL, CONTACT_MAILTO } from '@/utils/social';
 import Magnetic from '@/components/Magnetic';
 
 export const metadata: Metadata = getMetadata({
@@ -38,11 +38,11 @@ export default function ContactPage() {
         <section className="info-body" style={{ paddingTop: 0 }}>
           <div className="contact-grid-premium">
             <Magnetic strength={0.08}>
-              <a href="mailto:meridiansocietycanada@gmail.com" className="contact-card-v2 rv" data-d="2" style={{ textDecoration: 'none' }}>
+              <a href={CONTACT_MAILTO} className="contact-card-v2 rv" data-d="2" style={{ textDecoration: 'none' }}>
                 <div>
                   <div className="contact-card-lbl">General Inquiry</div>
                   <div className="contact-card-val">
-                    meridiansocietycanada@gmail.com
+                    {CONTACT_EMAIL}
                   </div>
                 </div>
                 <div className="contact-card-desc">

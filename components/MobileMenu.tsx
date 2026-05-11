@@ -11,7 +11,7 @@ const NAV_LINKS = [
   { name: "Events", href: "/events" },
   { name: "Calendar", href: "/calendar" },
   { name: "Membership", href: "/membership" },
-  { name: "Apply", href: "/apply" },
+  { name: "Speak", href: "/apply" },
 ];
 
 export default function MobileMenu() {

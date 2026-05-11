@@ -4,6 +4,7 @@ import PageStyles from '@/components/PageStyles';
 import { privacyPageCss } from './privacyPageCss';
 import { getMetadata } from '@/utils/metadata-shared';
 import { generateBreadcrumbSchema } from '@/utils/jsonld';
+import { CONTACT_EMAIL, CONTACT_MAILTO } from '@/utils/social';
 
 export const metadata: Metadata = getMetadata({
   title: "Privacy",
@@ -100,7 +101,7 @@ export default function PrivacyPage() {
             </ul>
             <p>
               To exercise any of these rights, email{' '}
-              <a href="mailto:meridiansocietycanada@gmail.com">meridiansocietycanada@gmail.com</a>.
+              <a href={CONTACT_MAILTO}>{CONTACT_EMAIL}</a>.
             </p>
           </div>
 
@@ -108,7 +109,7 @@ export default function PrivacyPage() {
             <h2>Removing your record</h2>
             <p>
               If you&apos;d like your information removed, email{' '}
-              <a href="mailto:meridiansocietycanada@gmail.com">meridiansocietycanada@gmail.com</a>{' '}
+              <a href={CONTACT_MAILTO}>{CONTACT_EMAIL}</a>{' '}
               from the address you registered with. We will confirm deletion within five business days.
             </p>
           </div>

@@ -6,6 +6,7 @@ export const infoPageCss = `
   main {
     background: var(--cream);
     min-height: 100vh;
+    min-height: 100dvh;
   }
 
   .info-hero {

@@ -59,22 +59,10 @@ async function buildCardCanvas(name: string, number: string, date: string): Prom
     ]);
   }
 
-  const QRCode = (await import('qrcode')).default;
-  const qrDataUrl = await QRCode.toDataURL(number || "M26-XXXX", {
-    margin: 1,
-    width: 440,
-    color: { dark: "#1a1a1a", light: "#fffcf5" },
-    errorCorrectionLevel: 'H'
-  });
-
-  const qrImage = new Image();
-  qrImage.src = qrDataUrl;
-  await new Promise((resolve) => { qrImage.onload = resolve; });
-
   const dateToUse = date ? new Date(date) : new Date();
   const canvas = document.createElement("canvas");
   canvas.width = 1200;
-  canvas.height = 1800;
+  canvas.height = 1200;
   const ctx = canvas.getContext("2d");
   if (!ctx) throw new Error("Canvas 2D context unavailable");
 
@@ -178,19 +166,16 @@ async function buildCardCanvas(name: string, number: string, date: string): Prom
   const formattedCardDate = dateToUse.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }).toUpperCase();
   ctx.fillText(`MEMBER SINCE ${formattedCardDate}`, canvas.width / 2, 940);
 
-  const qrSize = 620;
-  const qrX = (canvas.width - qrSize) / 2;
-  const qrY = 1020;
-  ctx.strokeStyle = goldGrad;
-  ctx.lineWidth = 2;
-  ctx.strokeRect(qrX - 30, qrY - 30, qrSize + 60, qrSize + 60);
-  ctx.fillStyle = "#fffcf5";
-  ctx.fillRect(qrX - 10, qrY - 10, qrSize + 20, qrSize + 20);
-  ctx.drawImage(qrImage, qrX, qrY, qrSize, qrSize);
-  ctx.fillStyle = "rgba(26,26,26,0.4)";
-  ctx.font = `700 20px ${sansStack}`;
-  ctx.letterSpacing = "8px";
-  ctx.fillText("SCAN FOR ACCESS", canvas.width / 2, qrY + qrSize + 50);
+  ctx.strokeStyle = "rgba(26,26,26,0.15)";
+  ctx.beginPath(); ctx.moveTo(canvas.width / 2 - 180, 1020); ctx.lineTo(canvas.width / 2 + 180, 1020); ctx.stroke();
+
+  ctx.fillStyle = "rgba(26,26,26,0.45)";
+  ctx.font = `700 18px ${sansStack}`;
+  ctx.letterSpacing = "6px";
+  ctx.fillText("INDEPENDENT STUDENT ORGANIZATION", canvas.width / 2, 1070);
+  ctx.font = `600 14px ${sansStack}`;
+  ctx.letterSpacing = "4px";
+  ctx.fillText("OTTAWA  ·  EST. 2025", canvas.width / 2, 1110);
   ctx.letterSpacing = "0px";
 
   return canvas;
@@ -308,8 +293,8 @@ export default function RegistrationForm() {
   }, [mounted]);
 
   // Generate card preview image when success state is visible.
-  // Deferred to browser idle so the success-state paint and the QR code
-  // canvas import don't fight for the main thread immediately on success.
+  // Deferred to browser idle so the success-state paint and the card
+  // canvas render don't fight for the main thread immediately on success.
   useEffect(() => {
     const showingSuccess = isAlreadyRegistered || !!result?.success;
     if (!showingSuccess || !memberNumber) return;
@@ -641,7 +626,7 @@ export default function RegistrationForm() {
             </div>
 
             <p className="registry-disclaimer">
-              This is your official Society ID and QR access key. Please keep it private and save it for rapid check-ins at all future events.
+              This is your official Society ID. Keep it on hand for check-in at future events.
             </p>
 
             {cardPreviewUrl ? (

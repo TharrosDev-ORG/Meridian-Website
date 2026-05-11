@@ -12,18 +12,12 @@ const HomeIcon = (
   </svg>
 );
 
-const CalendarIcon = (
+const EventsIcon = (
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-    <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
-    <line x1="16" y1="2" x2="16" y2="6" />
-    <line x1="8" y1="2" x2="8" y2="6" />
-    <line x1="3" y1="10" x2="21" y2="10" />
-    <path d="M8 14h.01" />
-    <path d="M12 14h.01" />
-    <path d="M16 14h.01" />
-    <path d="M8 18h.01" />
-    <path d="M12 18h.01" />
-    <path d="M16 18h.01" />
+    <rect x="2" y="7" width="20" height="13" rx="2" ry="2" />
+    <path d="M2 11h20" />
+    <path d="M7 7V4" />
+    <path d="M17 7V4" />
   </svg>
 );
 
@@ -53,7 +47,7 @@ const CloseIcon = (
 
 const NAV_ITEMS = [
   { name: "Home", href: "/", icon: HomeIcon },
-  { name: "Calendar", href: "/calendar", icon: CalendarIcon },
+  { name: "Events", href: "/events", icon: EventsIcon },
   { name: "Register", href: REGISTER_URL, icon: RegisterIcon, isProminent: true },
 ];
 

@@ -27,7 +27,6 @@ export default function Footer() {
             <h4 className="footer-col-h">Engage</h4>
             <ul className="footer-list">
               <li><Link href="/events">Events</Link></li>
-              <li><Link href="/calendar">Calendar</Link></li>
               <li><Link href="/apply">Apply to Speak</Link></li>
             </ul>
           </nav>

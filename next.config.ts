@@ -82,6 +82,8 @@ const nextConfig: NextConfig = {
       { source: "/social.html", destination: "/events#social", permanent: true },
       { source: "/speak", destination: "/apply", permanent: true },
       { source: "/speak.html", destination: "/apply", permanent: true },
+      { source: "/calendar", destination: "/events", permanent: true },
+      { source: "/calendar.html", destination: "/events", permanent: true },
     ];
   },
 };

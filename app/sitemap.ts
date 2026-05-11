@@ -7,7 +7,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const routes = [
     '',
     '/events',
-    '/calendar',
     '/membership',
     '/apply',
     '/register',
@@ -19,7 +18,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return routes.map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified,
-    changeFrequency: route === '/calendar' || route === '/events' ? 'daily' : 'weekly',
+    changeFrequency: route === '/events' ? 'daily' : 'weekly',
     priority: route === '' ? 1 : 0.8,
   }));
 }

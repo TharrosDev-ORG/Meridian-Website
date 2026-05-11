@@ -9,9 +9,8 @@ const SWIPE_CLOSE_THRESHOLD = 64;
 const SWIPE_INTENT_PX = 8;
 const NAV_LINKS = [
   { name: "Events", href: "/events" },
-  { name: "Calendar", href: "/calendar" },
   { name: "Membership", href: "/membership" },
-  { name: "Speak", href: "/apply" },
+  { name: "Apply to Speak", href: "/apply" },
 ];
 
 export default function MobileMenu() {

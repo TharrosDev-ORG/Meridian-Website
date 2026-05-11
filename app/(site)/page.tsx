@@ -31,7 +31,7 @@ export default function Home() {
             name: "Magnus Abdelnour",
             jobTitle: "Founder & President",
             description: "Started The Meridian Society to bring journalists, founders, scholars, and accomplished professionals to the room to share knowledge with students.",
-            image: "/assets/images/team/magnus.png",
+            image: "/assets/images/team/magnus.webp",
             sameAs: ["https://www.linkedin.com/in/magnus-a-9b5b50378"]
           })),
         }}
@@ -43,7 +43,7 @@ export default function Home() {
             name: "Colin Sherwood",
             jobTitle: "Event Coordinator",
             description: "Dedicated student leader coordinating the logistics and execution of Meridian Society speaker forums.",
-            image: "/assets/images/team/colin.jpg",
+            image: "/assets/images/team/colin.webp",
             sameAs: ["https://www.instagram.com/colinsherwood34"]
           })),
         }}
@@ -169,7 +169,7 @@ export default function Home() {
           </div>
           <div className="member-photo-wrap">
             <Image
-              src="/assets/images/team/magnus.png"
+              src="/assets/images/team/magnus.webp"
               className="member-photo"
               alt="Magnus Abdelnour, Founder and President of The Meridian Society"
               sizes="(max-width: 768px) 80px, 120px"
@@ -208,7 +208,7 @@ export default function Home() {
           </div>
           <div className="member-photo-wrap">
             <Image
-              src="/assets/images/team/colin.jpg"
+              src="/assets/images/team/colin.webp"
               className="member-photo"
               alt="Colin Sherwood, Event Coordinator of The Meridian Society"
               sizes="(max-width: 768px) 80px, 120px"

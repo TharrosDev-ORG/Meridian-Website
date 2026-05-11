@@ -1,7 +1,5 @@
 import { createBrowserClient } from "@supabase/ssr";
 import { type SupabaseClient } from "@supabase/supabase-js";
-// Database types are available from "./database.types" for opt-in typing
-// at individual call sites.
 
 let client: SupabaseClient | undefined;
 

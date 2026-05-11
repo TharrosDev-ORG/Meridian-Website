@@ -22,6 +22,6 @@ export const FAQ_ITEMS: FaqItem[] = [
   },
   {
     question: "What is my Member ID, and why is it important?",
-    answer: "Your Member ID is your unique identifier within The Meridian Society's registry. It grants you access to our private events, allows for rapid check-ins at venues via PorterOS scanning, and maintains your attendance history. You can download your digital ID card immediately after registration."
+    answer: "Your Member ID is your unique identifier within The Meridian Society's registry. It grants you access to our private events and is your record of membership. You can download your digital ID card immediately after registration and present it at venue check-in."
   }
 ];

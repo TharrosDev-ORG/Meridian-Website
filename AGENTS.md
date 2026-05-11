@@ -4,82 +4,105 @@ Instructions and context for AI agents working on the Meridian Society flagship 
 
 ---
 
-## 🏛 Organizational Context
-The **Meridian Website** is the core of The Meridian Society—it is the society's entire identity and the foundational base for all its operations. All designs must adhere to the high-contrast, cream-and-ink aesthetic.
+## 🏛️ Organizational Context
 
+The **Meridian Website** is the core of The Meridian Society — the society's entire identity and foundational base for all its operations. All designs must adhere to the high-contrast, cream-and-ink aesthetic.
 
 ---
 
 ## 🚦 Strategic Rules
-1.  **Strict Typing**: Maintain TypeScript integrity. Avoid `any` for registration, member, event, or RPC-response objects. Validate Supabase RPC payloads through the Zod schemas in `utils/rpcSchemas.ts`.
-2.  **No Dynamic Overrides**: Do not modify `globals.css` design tokens without explicit authorization. Tailwind v4 is present only for the `@theme {}` block; structural CSS lives in `globals.css` and per-page `pageCss.ts` strings.
-3.  **Pathing & Network Proxy**:
-    - **Sovereign Gate**: all public registrations and data ingestion must follow the "Sovereign Gate" protocol defined in the root `proxy.ts` (Next.js 16 rename of `middleware.ts`).
-    - Do **not** create a root `middleware.ts` — Next.js 16 will fail with "Both middleware file and proxy file are detected."
-4.  **Supabase Client**:
-    - Front-facing work MUST use the singleton in `utils/supabase/client.ts`.
-    - BEWARE: the client is wrapped in a **Proxy** for SSR safety — server access throws. Initialization only happens in the browser.
-    - Service-role writes must stay in server actions / route handlers; never import `utils/supabase/service.ts` from a `'use client'` file.
-5.  **Hardened SSR Pattern**:
-    - To prevent `ReferenceError: document/window is not defined`, use the **Mounted Guard** pattern on all `'use client'` components that touch browser-only APIs (`MemberCounter`, `CalendarClient`, `PublicRegistration`, `RegistrationForm`).
-    - Check a `mounted` boolean (set in `useEffect`) before invoking Supabase realtime, `localStorage`, or `document`.
-6.  **CSS Module Policy**:
-    - Centralized layout patterns (Heros, Intro Grids, Cards) MUST use the shared `.module-` classes in `app/globals.css`. Do not duplicate structural CSS in `pageCss.ts`.
-7.  **Mobile Isolation Strategy**:
-    - All desktop-only visual and interactive enhancements (increased spacing, high-fidelity hovers, desktop-specific typography) MUST be strictly encapsulated within `@media (min-width: 1101px)` blocks.
-    - This protects recent mobile optimizations (iOS input zoom fixes, safe-area insets, MobileDock placement) from regression on high-resolution displays.
-8.  **Shared Security Primitives**:
-    - All public-write server actions MUST run through `utils/serverActionSecurity.ts` (`runSecurityChecks` + `securityDelay` + `redactEmail`). Don't re-implement the honeypot / UA / rate-limit pipeline ad-hoc.
+
+1. **Strict Typing**: Maintain TypeScript integrity. Avoid `any` for registration, member, or Supabase response objects. Validate Supabase RPC payloads at the call site — `utils/rpcSchemas.ts` no longer exists; validate inline or add a new schema file if needed.
+
+2. **No Dynamic Overrides**: Do not modify `globals.css` design tokens without explicit authorization. Tailwind v4 is present only for the `@theme {}` block — structural CSS lives in `globals.css` and per-page `pageCss.ts` strings.
+
+3. **Pathing & Network Proxy**:
+   - All session refresh logic lives in `proxy.ts` (Next.js 16 rename of `middleware.ts`). Do **not** create a root `middleware.ts` — Next.js 16 will error with "Both middleware file and proxy file are detected."
+   - The public site has no auth flows; the proxy short-circuits when no `sb-*-auth-token` cookie is present.
+
+4. **Supabase Client Rules**:
+   - Browser client: use the singleton in `utils/supabase/client.ts` (anon key, Proxy-guarded for SSR).
+   - Service-role writes must stay in server actions / route handlers; **never import `utils/supabase/service.ts` from a `'use client'` file**.
+   - `utils/supabase/server.ts` no longer exists — it was removed with the `/calendar` route. Use `service.ts` for privileged server writes.
+
+5. **Mounted Guard**: All `'use client'` components that access browser-only APIs (`MemberCounter`, `RegistrationForm`, `SpeakerForm`, `EventsTabs`) must gate those calls behind a `mounted` boolean set in `useEffect`. The Supabase browser client throws on SSR access.
+
+6. **CSS Module Policy**: Centralized layout patterns (Heroes, Intro Grids, Cards) use shared `.module-*` classes in `app/globals.css`. Do not duplicate structural CSS in `pageCss.ts`.
+
+7. **Mobile Isolation Strategy**: All desktop-only enhancements (increased spacing, hover states, desktop-specific typography) must be strictly inside `@media (min-width: 1101px)`. This protects iOS input-zoom fixes, safe-area insets, and MobileDock placement.
+
+8. **Shared Security Primitives**: All public-write server actions must run through `utils/serverActionSecurity.ts` (`runSecurityChecks` + `securityDelay` + `redactEmail`). Never re-implement the honeypot / UA / rate-limit pipeline ad-hoc.
+
+9. **setState Deferral**: `setState` inside `useEffect` must use `setTimeout(..., 0)` or be fired from an event handler / subscription callback. ESLint enforces `react-hooks/set-state-in-effect`. See `FaqAccordion`, `MemberCounter`, `EventsTabs`.
+
+10. **Static Events Policy**: `/events` is a static, tabbed informational page (Speaker Forum + Social Gatherings). **Do not reintroduce a dynamic event calendar** — the `/calendar` route was deliberately removed. Real-time announcements belong on Instagram.
 
 ---
 
-- **RPC-SOVEREIGN Pattern**: All sensitive mutations MUST use the hardened `SECURITY DEFINER` RPCs that verify credentials against the internal **Sovereign Vault** (`system_settings`).
-- **3-Master SQL Architecture**: The database is structured into three "Sources of Truth":
-    1. `01_Sovereign_Member_Registry.sql`: Core identity and member registry (primary for this site).
-    2. `02_Meridian_EventOS_Engine.sql`: Event orchestration, `event_registrations`, and the `secure_register_for_event` RPC.
-    3. `03_Security_Vault_and_Audit_Logs.sql`: Security vault, master-signature verification, audit logs.
-- **RPC Lockdown**: Public `EXECUTE` privileges are REVOKED for all sensitive RPCs. Mutations must occur via `service_role` actions.
+## 🛠️ Feature-Specific Logic
+
+### Real-Time Member Count
+- Hybrid approach: initial fetch via `/api/stats/count` (Edge runtime, `no-store`) followed by a Supabase Realtime subscription on channel `member-stats-global` listening for `UPDATE`s on `site_stats`.
+- Renders in the **homepage About section** via `<MemberCounter>`, NOT in the footer.
+- The footer is a server component with no realtime. Do not move the counter there.
+
+### Registration Flow
+- **Honeypot** (`fax_number`) → **bot UA rejection** + **IP rate limit** (5-min for `/register`, 10-min for `/apply`) → **security delay** → **Zod validation** → **duplicate check** → **INSERT**.
+- **Polymorphic Lookup**: `checkMemberStatus(identifier)` accepts email (lower-cased) or member number (upper-cased).
+- **Background Sync**: missing localStorage fields (join date / full name) are back-filled transparently on mount.
+- **Canvas ID Card** (1200×1200 px square):
+  - Layers: cream bg → noise texture → ink border → gold inner frame → corner marks → seal → name → member number (160 px serif) → member-since date → signature line.
+  - Font loading: awaited via `document.fonts.load()` before drawing.
+  - **No QR code.** The card is a clean visual credential.
+  - Output: PNG blob → `<a download>` → `URL.revokeObjectURL`.
+
+### Events Page (`/events`)
+- `EventsTabs.tsx` is a client island that manages `activeTab` (`'forum' | 'social'`).
+- Initializes from `window.location.hash` on mount; listens for `hashchange` for in-session switching.
+- Hash deep-links (`/events#forum`, `/events#social`) activate the tab and `scrollIntoView` on `#programs`.
+- Uses ARIA `role="tablist"` / `role="tab"` / `role="tabpanel"`.
+
+### Speaker Application (`/apply`)
+- `<SpeakerForm>` → `submitSpeakerApplication` → service role INSERT into `speaker_applications`.
+- Same security pipeline as registration (10-minute rate limit).
+
+### Success Screen
+- **Single-Viewport Constraint**: `.success-overhaul` must fit within `90vh` on desktop.
+- All exit paths use Next.js `useRouter` for fluid SPA navigation.
 
 ---
 
-## 🛠 Feature specific logic
-- **Real-Time Member Count**: hybrid approach — initial fetch via `/api/stats/count` (Edge, no-store) followed by a Supabase Realtime subscription on channel `member-stats-global` listening for `UPDATE`s on `site_stats`. **Renders on the homepage About section** via `<MemberCounter>`, NOT in the footer (the footer is a server component with no realtime).
-- **Registration Flow**:
-    - Includes a **Honeypot** check (`fax_number`).
-    - Implements **bot User-Agent rejection** + **IP-based rate limiting** (5-min window for `/register`, 10-min for `/apply`).
-    - **Polymorphic Lookup**: `checkMemberStatus(identifier)` supports both email (lower-cased) and member-number (upper-cased) identifiers.
-    - **Background Sync**: missing `localStorage` data (join date / full name) is back-filled transparently via `checkMemberStatus` on mount.
-    - **Canvas Identity (Vertical Portrait)**: Member ID cards are generated client-side via Canvas API (1200×1800 portrait).
-        - **Branding**: Society Seal at top-center.
-        - **QR Encoding**: Encodes the persistent `member_number` (M26-XXXX) with Level H error correction for PorterOS compatibility.
-        - **Typography**: Requires font loading parity for `Cormorant Garamond` and `Barlow Condensed` (awaited via `document.fonts.load()` before drawing).
-- **Calendar / Event RSVPs (`/calendar`)**:
-    - ISR with `revalidate = 60` on the server side; renders upcoming + 3 most-recent past events.
-    - Members RSVP via `<PublicRegistration>` which calls the `secure_register_for_event` RPC. Responses are validated against `PublicRegisterResultSchema` before use.
-    - ICS downloads come from `utils/ics.ts`.
+## 🎨 Aesthetic Rules
 
-- **Success Screen Design**:
-    - **Single-Viewport Constraint**: Success screens (specifically `.success-overhaul`) MUST fit entirely within a single viewport (`90vh` on desktop) to maintain a cinematic, gallery-style feel.
-    - **Interactive Elements**: All exit paths (Back/Home) must use Next.js `useRouter` for fluid SPA navigation.
+- **Typography**: always `--serif` (Cormorant Garamond) for primary headings; always `--sans` (Barlow Condensed) for labels and metadata.
+- **Color**: background `--cream` (#F4EDE3); text `--ink` (#18150F); accent `--gold` (#B8932A). Never use pure `#FFF` or `#000`.
+- **Borders**: subtle — `1px solid var(--ink-15)` or similar opacity variants.
+- **Hover states**: use `var(--gold)`.
+- **Apostrophes in JSX**: write `&apos;` — the `react/no-unescaped-entities` lint rule will fail the build.
 
 ---
 
-- Always use `serif` (Cormorant Garamond) for primary headings.
-- Always use `sans` (Barlow Condensed) for labels and metadata.
-- Borders should be subtle: `border-[var(--ink)]/10`.
-- Hover states should use `var(--gold)`.
+## 🗄️ Database Surface (Public App)
+
+| Table / RPC | Status |
+|-------------|--------|
+| `members` | ✅ Active — register + dup check |
+| `site_stats` | ✅ Active — live counter |
+| `speaker_applications` | ✅ Active — speaker pipeline |
+| `check_member_status` | ✅ Active — polymorphic lookup |
+| `events`, `event_registrations` | ⚠️ Dormant — retained for external admin tooling; do not drop without explicit instruction |
+| `secure_register_for_event`, `secure_create_event` | ⚠️ Dormant — not called from the public site |
+| Admin/system tables | 🔒 Not touched by the public site |
+
+All sensitive functions are `SECURITY DEFINER` with explicit `SET search_path`. `EXECUTE` is revoked from `PUBLIC`, `anon`, and `authenticated`; granted only to `service_role` + `postgres`.
 
 ---
 
-## 🛰 PorterOS Synchronization
-- **ID Strategy**: Member IDs are persistent access keys. EventOS should verify scanned `memberNumber` payloads against the `meridian_members` registry.
-- **Verification Logic**: 1. Scanned `M26-XXXX` -> 2. Registry Check -> 3. Ticket Cross-Reference (Event ID) -> 4. Attendance Log Entry.
+## 📋 Navigation (Current State)
 
----
-
-## 🏛 Registry Foundation (SQL)
-The project utilizes a Unified Database architecture. To initialize the system settings vault, run this in the Supabase SQL Editor:
-
-```sql
-SELECT initialize_system_vault('YOUR_SECRET_HERE');
-```
+| Surface | Links |
+|---------|-------|
+| NavBar (desktop) | About (`/#about`) · Team (`/#team`) · Events · Membership + Register CTA |
+| MobileMenu | About · Team · Events · Membership · Apply to Speak |
+| MobileDock | Home · Events · Register · Menu |
+| Footer | Society (Home / Team / Membership) · Engage (Events / Apply to Speak) · Connect (Instagram) · Info (Contact / Privacy / Terms) |

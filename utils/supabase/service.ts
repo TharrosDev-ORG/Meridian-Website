@@ -1,6 +1,4 @@
 import { createClient } from "@supabase/supabase-js";
-// Database types are available from "./database.types" for opt-in typing
-// at individual call sites.
 
 /**
  * Service client using the SUPABASE_SERVICE_ROLE_KEY.

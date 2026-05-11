@@ -630,6 +630,7 @@ export default function RegistrationForm() {
 
             {cardPreviewUrl ? (
               <div className="card-preview-wrap">
+                {/* eslint-disable-next-line @next/next/no-img-element -- client-generated blob URL from the canvas; next/image can't load blob: sources without a custom loader */}
                 <img
                   src={cardPreviewUrl}
                   alt="Your Meridian Member Card preview"

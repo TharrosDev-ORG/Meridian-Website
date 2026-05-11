@@ -7,7 +7,7 @@ import Magnetic from '@/components/Magnetic';
 import Link from 'next/link';
 import RegisterSection from '@/components/sections/RegisterSection';
 import { getMetadata } from '@/utils/metadata-shared';
-import { INSTAGRAM_URL } from '@/utils/social';
+import { INSTAGRAM_URL, CONTACT_EMAIL } from '@/utils/social';
 import { INAUGURAL_EVENT_LABEL } from '@/utils/copy';
 import { generatePersonSchema } from '@/utils/jsonld';
 import { MemberCounter, Marquee, IndexInteractive } from './HomeClientSide';
@@ -138,8 +138,8 @@ export default function Home() {
 <section className="team-home-sec" id="team" aria-labelledby="team-home-heading">
   <div className="wrap">
     <div className="team-home-header">
+      <div className="sec-label rv">The Team</div>
       <div className="team-home-title-wrap">
-        <div className="sec-label rv">The Team</div>
         <h2 className="team-home-title rv rv-stagger" id="team-home-heading">
           <span className="rv-stagger-item">Leadership &amp;</span>
           <span className="rv-stagger-item"><em>Operations.</em></span>
@@ -343,7 +343,7 @@ export default function Home() {
         <Magnetic strength={0.2}>
           <Link href="/apply" className="btn-primary"><span>Apply to Speak</span></Link>
         </Magnetic>
-        <a href="mailto:meridiansocietycanada@gmail.com?subject=Speaker%20Nomination" className="btn-ghost-link">Nominate a Speaker  &#8594;</a>
+        <a href={`mailto:${CONTACT_EMAIL}?subject=Speaker%20Nomination`} className="btn-ghost-link">Nominate a Speaker  &#8594;</a>
       </div>
     </div>
     <div className="speaking-right">

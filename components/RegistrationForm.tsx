@@ -511,7 +511,7 @@ export default function RegistrationForm() {
 
     const data: RegistrationData = {
       fullName: formData.get("fullName") as string,
-      email: formData.get("email") as string,
+      email: email || (formData.get("email") as string),
       role: formData.get("role") as "Student" | "Alumni" | "Professor / Faculty" | "Professional" | "Other",
       roleOther: (formData.get("roleOther") as string) || undefined,
       institution: formData.get("institution") as "Carleton University" | "University of Ottawa" | "Algonquin College" | "Other",

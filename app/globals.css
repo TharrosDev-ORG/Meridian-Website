@@ -235,6 +235,7 @@ body {
     -webkit-text-size-adjust: 100%;
     text-size-adjust: 100%;
     scroll-padding-top: 80px;
+    scroll-padding-bottom: calc(80px + env(safe-area-inset-bottom, 0px));
   }
   body {
     line-height: 1.65;
@@ -1534,7 +1535,7 @@ footer {
     will-change: transform, bottom;
   }
 
-  /* Safety Skirt: Extends below the viewport to hide the white background 
+  /* Safety Skirt: Extends below the viewport to hide the white background
      if Safari's address bar collapses/expands with a lag. */
   .mob-dock::after {
     content: '';
@@ -1543,6 +1544,7 @@ footer {
     left: 0;
     right: 0;
     height: 100vh;
+    height: 100dvh;
     background: inherit;
     pointer-events: none;
   }
@@ -1596,6 +1598,7 @@ footer {
     will-change: transform;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
   }
 
   .mob-backdrop { z-index: 240; }
@@ -1631,6 +1634,7 @@ footer {
   .h-scroll {
     display: flex !important; flex-wrap: nowrap !important; overflow-x: auto; overflow-y: hidden;
     scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
     gap: 16px; padding: 20px 0 20px 22px; margin: 0 -22px;
     scrollbar-width: none;
     width: auto !important;

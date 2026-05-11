@@ -16,6 +16,7 @@ const applyPageCss = `
   .apply-page-minimal {
     background: var(--cream);
     min-height: 100vh;
+    min-height: 100dvh;
     padding: 60px 20px;
     display: flex;
     flex-direction: column;

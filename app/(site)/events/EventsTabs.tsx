@@ -106,11 +106,12 @@ export default function EventsTabs() {
         >
           <div className="events-tab-grid">
             <div className="events-tab-intro">
+              <div className="events-tab-intro-eyebrow">The Speaker Forum</div>
               <p className="events-tab-lede">
-                The Speaker Forum is our flagship event: a platform for professionals
-                and academics to share lived experience with students. Not lectures —
-                open dialogues with the practical insight, ideas, and networks not
-                found in the classroom.
+                Our flagship event: a platform for professionals and academics to
+                share lived experience with students. Not lectures &mdash; open
+                dialogues with the practical insight, ideas, and networks not found
+                in the classroom.
               </p>
             </div>
             <ul className="events-pillars">
@@ -146,11 +147,12 @@ export default function EventsTabs() {
         >
           <div className="events-tab-grid">
             <div className="events-tab-intro">
+              <div className="events-tab-intro-eyebrow">Social Gatherings</div>
               <p className="events-tab-lede">
-                The Meridian Society goes beyond a speaker series. Our socials keep it
-                simple: relaxed settings, good energy, and the kind of room where
-                connections happen naturally — meeting driven people, real
-                conversations, fresh perspectives, no pressure.
+                Beyond the speaker series. Our socials keep it simple: relaxed
+                settings, good energy, and the kind of room where connections
+                happen naturally &mdash; driven people, real conversations, fresh
+                perspectives, no pressure.
               </p>
             </div>
             <ul className="events-pillars">

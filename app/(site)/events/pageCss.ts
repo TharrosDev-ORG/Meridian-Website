@@ -37,15 +37,15 @@ export const eventsCss = `
     }
     .events-tabs-title em { font-style: italic; }
 
-    /* ── Tab switch (segmented) ── */
+    /* ── Tab switch (segmented, top half of the merged card) ── */
     .events-tab-switch {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 0;
       border: 1px solid var(--ink-15);
-      background: var(--cream);
-      box-shadow: 0 2px 12px rgba(24,21,15,0.04);
-      margin-bottom: 40px;
+      border-bottom: none;
+      background: var(--cream-mid);
+      box-shadow: 0 -2px 12px rgba(24,21,15,0.03);
     }
     .events-tab-btn {
       appearance: none;
@@ -62,16 +62,24 @@ export const eventsCss = `
       position: relative;
       transition: background 0.3s ease, color 0.3s ease;
       border-right: 1px solid var(--ink-15);
+      border-bottom: 1px solid var(--ink-15);
     }
     .events-tab-btn:last-child { border-right: none; }
     .events-tab-btn:hover { color: var(--ink); background: rgba(24,21,15,0.02); }
     .events-tab-btn:focus-visible { outline: 2px solid var(--gold); outline-offset: -2px; }
-    .events-tab-btn.is-active { color: var(--ink); background: var(--cream); }
-    .events-tab-btn.is-active::after {
+
+    /* Active tab merges visually with the panel below: same cream bg,
+       no bottom border (panel border continues), gold accent on top. */
+    .events-tab-btn.is-active {
+      color: var(--ink);
+      background: var(--cream);
+      border-bottom-color: transparent;
+    }
+    .events-tab-btn.is-active::before {
       content: '';
       position: absolute;
-      left: 0; right: 0; bottom: -1px;
-      height: 2px;
+      left: 0; right: 0; top: 0;
+      height: 3px;
       background: var(--gold);
     }
     .events-tab-num {
@@ -90,8 +98,28 @@ export const eventsCss = `
       text-transform: uppercase;
     }
 
-    /* ── Tab panel ── */
-    .events-tab-panel { animation: tabFade 0.45s cubic-bezier(0.16, 1, 0.3, 1); }
+    /* ── Tab panel (bottom half of the merged card) ── */
+    .events-tab-panel {
+      background: var(--cream);
+      border: 1px solid var(--ink-15);
+      border-top: none;
+      box-shadow: 0 8px 32px rgba(24,21,15,0.06);
+      padding: 48px;
+      animation: tabFade 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+    }
+    .events-tab-panel::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 24px; right: 24px;
+      height: 1px;
+      background: linear-gradient(90deg,
+        transparent 0%,
+        var(--ink-10) 12%,
+        var(--ink-10) 88%,
+        transparent 100%);
+      pointer-events: none;
+    }
     .events-tab-panel[hidden] { display: none; }
     @keyframes tabFade {
       from { opacity: 0; transform: translateY(8px); }
@@ -101,19 +129,33 @@ export const eventsCss = `
     /* ── Tab content grid (lede + pillars) ── */
     .events-tab-grid {
       display: grid;
-      grid-template-columns: 0.85fr 1.15fr;
+      grid-template-columns: 0.8fr 1.2fr;
       gap: 56px;
       align-items: start;
-      padding: 8px 0 36px;
     }
-    .events-tab-intro { position: sticky; top: 92px; }
+    .events-tab-intro {
+      position: sticky;
+      top: 92px;
+      padding-left: 20px;
+      border-left: 2px solid var(--gold);
+    }
+    .events-tab-intro-eyebrow {
+      font-family: var(--sans);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 14px;
+    }
     .events-tab-lede {
       font-family: var(--serif);
-      font-size: 19px;
+      font-size: 20px;
       font-style: italic;
       font-weight: 300;
       line-height: 1.7;
       color: var(--ink-75);
+      margin: 0;
     }
 
     .events-pillars {
@@ -126,19 +168,34 @@ export const eventsCss = `
     }
     .events-pillar {
       display: grid;
-      grid-template-columns: 80px 1fr;
-      gap: 24px;
+      grid-template-columns: 72px 1fr;
+      gap: 22px;
       align-items: start;
-      padding: 26px 0;
-      border-top: 1px solid var(--ink-10);
-      transition: padding-left 0.3s ease, background 0.3s ease;
+      padding: 22px 22px 22px 18px;
+      border-top: 1px solid var(--ink-08);
+      position: relative;
+      transition: background 0.3s ease, padding-left 0.3s ease;
     }
-    .events-pillar:first-child { border-top: none; padding-top: 4px; }
-    .events-pillar:hover { padding-left: 12px; background: rgba(184,147,42,0.02); }
+    .events-pillar:first-child { border-top: none; padding-top: 0; }
+    .events-pillar::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 22px; bottom: 22px;
+      width: 2px;
+      background: var(--gold);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .events-pillar:first-child::before { top: 0; }
+    .events-pillar:hover {
+      background: rgba(184,147,42,0.04);
+      padding-left: 28px;
+    }
+    .events-pillar:hover::before { opacity: 0.7; }
 
     .events-pillar-num {
       font-family: var(--serif);
-      font-size: 44px;
+      font-size: 42px;
       font-weight: 300;
       font-style: italic;
       color: var(--gold);
@@ -169,13 +226,14 @@ export const eventsCss = `
       max-width: 56ch;
     }
 
-    /* ── Forum format strip (replaces tall expectations table) ── */
+    /* ── Forum format strip — inset on cream panel ── */
     .events-format-strip {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
+      background: var(--cream-deep);
       border: 1px solid var(--ink-10);
-      background: var(--cream);
-      margin-top: 8px;
+      margin-top: 40px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.4);
     }
     .events-format-cell {
       padding: 20px 24px;
@@ -184,6 +242,7 @@ export const eventsCss = `
       display: flex;
       flex-direction: column;
       gap: 6px;
+      background: transparent;
     }
     .events-format-cell:nth-child(3n) { border-right: none; }
     .events-format-cell:nth-last-child(-n+3) { border-bottom: none; }
@@ -207,11 +266,12 @@ export const eventsCss = `
     @media (min-width: 1101px) {
       .events-tabs-sec { padding: 112px 0; }
       .events-tabs-header { margin-bottom: 48px; }
-      .events-tab-btn { padding: 26px 36px; }
+      .events-tab-btn { padding: 28px 40px; }
       .events-tab-label { font-size: 13.5px; }
-      .events-tab-grid { gap: 72px; padding-bottom: 48px; }
-      .events-tab-lede { font-size: 20px; line-height: 1.8; }
-      .events-pillar { padding: 30px 0; }
+      .events-tab-panel { padding: 64px 64px 56px; }
+      .events-tab-grid { gap: 72px; }
+      .events-tab-lede { font-size: 21px; line-height: 1.8; }
+      .events-pillar { padding: 26px 22px 26px 22px; }
       .events-pillar-h { font-size: 26px; }
       .events-pillar-p { font-size: 18px; line-height: 1.75; }
       .events-format-cell { padding: 24px 28px; }
@@ -247,7 +307,6 @@ export const eventsCss = `
       .events-tabs-header { margin-bottom: 22px; }
       .events-tabs-title { font-size: clamp(30px, 8vw, 40px); line-height: 1.1; }
 
-      .events-tab-switch { margin-bottom: 28px; }
       .events-tab-btn {
         padding: 16px 14px;
         gap: 10px;
@@ -257,6 +316,11 @@ export const eventsCss = `
       }
       .events-tab-num { font-size: 22px; }
       .events-tab-label { font-size: 11px; letter-spacing: 0.18em; }
+      .events-tab-panel { padding: 28px 22px 32px; }
+      .events-tab-intro { padding-left: 16px; }
+      .events-tab-lede { font-size: 17px; line-height: 1.7; }
+      .events-pillar { padding: 18px 0 18px 12px; }
+      .events-pillar:hover { padding-left: 18px; }
 
       .events-pillar {
         grid-template-columns: 56px 1fr;

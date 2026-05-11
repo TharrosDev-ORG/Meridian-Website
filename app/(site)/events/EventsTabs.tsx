@@ -127,13 +127,23 @@ export default function EventsTabs() {
             </ul>
           </div>
 
-          <div className="events-format-strip" role="table" aria-label="Speaker forum format">
-            {FORUM_FORMAT.map(([lbl, val]) => (
-              <div key={lbl} className="events-format-cell" role="row">
-                <div className="events-format-lbl" role="rowheader">{lbl}</div>
-                <div className="events-format-val" role="cell">{val}</div>
-              </div>
-            ))}
+          <div className="events-format-card" aria-label="Speaker forum specifications">
+            <div className="events-format-cardhead">
+              <span className="events-format-cardhead-rule" aria-hidden="true" />
+              <span className="events-format-cardhead-mark" aria-hidden="true">✦</span>
+              <span className="events-format-cardhead-h">Forum Specifications</span>
+              <span className="events-format-cardhead-mark" aria-hidden="true">✦</span>
+              <span className="events-format-cardhead-rule" aria-hidden="true" />
+            </div>
+            <dl className="events-format-list">
+              {FORUM_FORMAT.map(([lbl, val]) => (
+                <div key={lbl} className="events-format-line">
+                  <dt className="events-format-line-lbl">{lbl}</dt>
+                  <span className="events-format-line-dots" aria-hidden="true" />
+                  <dd className="events-format-line-val">{val}</dd>
+                </div>
+              ))}
+            </dl>
           </div>
         </div>
 

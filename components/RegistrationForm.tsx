@@ -198,7 +198,6 @@ export default function RegistrationForm() {
   const [lookupError, setLookupError] = useState("");
   const [isDownloading, setIsDownloading] = useState(false);
   const [downloadFinished, setDownloadFinished] = useState(false);
-  const [fontsLoaded, setFontsLoaded] = useState(false);
   const [copied, setCopied] = useState(false);
   const [cardPreviewUrl, setCardPreviewUrl] = useState<string | null>(null);
   const copyTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);

@@ -1,30 +1,69 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
+
+type AgentStatus = {
+  initStatus: 'idle' | 'loading' | 'ready' | 'failed';
+  isTyping: boolean;
+  hasMessages: boolean;
+};
+
+const SUGGESTIONS: { label: string; prompt: string }[] = [
+  { label: 'How do I become a member?', prompt: 'How do I become a member?' },
+  { label: 'Why should I join?', prompt: 'Why should I join the society?' },
+  { label: 'What does the Society host?', prompt: 'What kind of events does The Meridian Society host?' },
+];
 
 export default function QaBriefing() {
   const [mounted, setMounted] = useState(false);
+  const [status, setStatus] = useState<AgentStatus>({
+    initStatus: 'loading',
+    isTyping: false,
+    hasMessages: false,
+  });
 
   useEffect(() => {
     const t = setTimeout(() => setMounted(true), 0);
     return () => clearTimeout(t);
   }, []);
 
-  const handlePrompt = (prompt: string) => {
+  useEffect(() => {
+    const onStatus = (e: Event) => {
+      const detail = (e as CustomEvent<AgentStatus>).detail;
+      if (detail) setStatus(detail);
+    };
+    window.addEventListener('qa-status', onStatus);
+    return () => window.removeEventListener('qa-status', onStatus);
+  }, []);
+
+  const handlePrompt = useCallback((prompt: string) => {
     if (typeof window === 'undefined' || !mounted) return;
     window.dispatchEvent(new CustomEvent('qa-prompt', { detail: prompt }));
-    // Scroll the console viewport into view on mobile, where the briefing
-    // sits above the chat.
     if (window.matchMedia('(max-width: 1100px)').matches) {
       document.querySelector('.qa-console')?.scrollIntoView({
         behavior: 'smooth',
         block: 'start',
       });
     }
-  };
+  }, [mounted]);
+
+  const statusLabel =
+    status.initStatus === 'ready'
+      ? status.isTyping
+        ? 'Composing Response'
+        : 'Operational'
+      : status.initStatus === 'failed'
+      ? 'Offline'
+      : 'Synchronizing';
+
+  const statusKey =
+    status.initStatus === 'ready' ? 'ready' : status.initStatus === 'failed' ? 'failed' : 'loading';
+
+  const suggestionsDisabled = !mounted || status.initStatus !== 'ready' || status.isTyping;
+  const compact = status.hasMessages;
 
   return (
-    <aside className="qa-briefing" suppressHydrationWarning>
+    <aside className={`qa-briefing ${compact ? 'is-compact' : ''}`} suppressHydrationWarning>
       <div className="sec-label">Intelligence</div>
       <h1 className="qa-title">Questions & <em>Answers.</em></h1>
       <p className="qa-intro">
@@ -38,38 +77,30 @@ export default function QaBriefing() {
         </div>
         <div className="meta-item">
           <span className="meta-label">Knowledge Base</span>
-          <span className="meta-value">Meridian Archive v2.4</span>
+          <span className="meta-value">The Meridian Society Archive</span>
         </div>
         <div className="meta-item">
           <span className="meta-label">Status</span>
-          <span className="meta-value" style={{ color: 'var(--gold)' }}>Operational</span>
+          <span className="meta-value live-status" data-status={statusKey}>
+            {statusLabel}
+          </span>
         </div>
       </div>
 
       <div className="suggested-questions">
         <p className="suggested-title">Common Questions</p>
         <div className="suggested-list">
-          <button 
-            className="suggested-btn" 
-            onClick={() => handlePrompt('How do I become a member?')}
-            disabled={!mounted}
-          >
-            How do I become a member?
-          </button>
-          <button 
-            className="suggested-btn" 
-            onClick={() => handlePrompt('Why should I join the society?')}
-            disabled={!mounted}
-          >
-            Why should I join?
-          </button>
-          <button 
-            className="suggested-btn" 
-            onClick={() => handlePrompt('What kind of events does The Meridian Society host?')}
-            disabled={!mounted}
-          >
-            What does the Society host?
-          </button>
+          {SUGGESTIONS.map((s) => (
+            <button
+              key={s.prompt}
+              type="button"
+              className="suggested-btn"
+              onClick={() => handlePrompt(s.prompt)}
+              disabled={suggestionsDisabled}
+            >
+              {s.label}
+            </button>
+          ))}
         </div>
       </div>
     </aside>

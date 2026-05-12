@@ -81,7 +81,7 @@ const MessageBlock = memo(function MessageBlock({ m }: { m: DisplayMessage }) {
   const klass = m.role === "user" ? "user" : "agent";
 
   return (
-    <div className={`msg-block ${klass}`} role="log" aria-live="polite">
+    <div className={`msg-block ${klass}`}>
       <div className="msg-content-wrap">
         <div className="msg-header">
           <span className="sender-name">{label}</span>
@@ -106,9 +106,27 @@ export default function FaqAgent() {
   const [isTyping, setIsTyping] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [initStatus, setInitStatus] = useState<"idle" | "loading" | "ready" | "failed">("loading");
-  const inputRef = useRef<HTMLInputElement>(null);
+  const [hasUnread, setHasUnread] = useState(false);
+  const inputRef = useRef<HTMLTextAreaElement>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const viewportRef = useRef<HTMLDivElement>(null);
+  const atBottomRef = useRef(true);
   const pendingUserIdRef = useRef<string | null>(null);
+
+  const autoGrow = useCallback((el: HTMLTextAreaElement | null) => {
+    if (!el) return;
+    el.style.height = "auto";
+    const next = Math.min(el.scrollHeight, 160);
+    el.style.height = `${next}px`;
+  }, []);
+
+  const scrollToEnd = useCallback((smooth = true) => {
+    messagesEndRef.current?.scrollIntoView({
+      behavior: smooth ? "smooth" : "auto",
+      block: "end",
+    });
+    setHasUnread(false);
+  }, []);
 
   useEffect(() => {
     const mountTimer = setTimeout(() => setMounted(true), 0);
@@ -235,14 +253,31 @@ export default function FaqAgent() {
     };
   }, [task]);
 
-  // Smooth auto-scroll on new content.
+  // Track whether the user is parked near the bottom of the viewport. Only
+  // auto-follow new content if they are; otherwise surface a "Jump to latest"
+  // affordance so we don't yank them away from prior context.
+  useEffect(() => {
+    const v = viewportRef.current;
+    if (!v) return;
+    const onScroll = () => {
+      const slack = 64; // px tolerance
+      atBottomRef.current = v.scrollHeight - v.scrollTop - v.clientHeight < slack;
+      if (atBottomRef.current) setHasUnread(false);
+    };
+    v.addEventListener("scroll", onScroll, { passive: true });
+    return () => v.removeEventListener("scroll", onScroll);
+  }, []);
+
   useEffect(() => {
     if (messages.length === 0 && !isTyping) return;
-    const id = requestAnimationFrame(() => {
-      messagesEndRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
-    });
-    return () => cancelAnimationFrame(id);
-  }, [messages, isTyping]);
+    if (atBottomRef.current) {
+      const id = requestAnimationFrame(() => scrollToEnd(true));
+      return () => cancelAnimationFrame(id);
+    }
+    // New content arrived while the user was scrolled up.
+    const t = setTimeout(() => setHasUnread(true), 0);
+    return () => clearTimeout(t);
+  }, [messages, isTyping, scrollToEnd]);
 
   const sendMessage = useCallback(
     async (raw: string) => {
@@ -273,13 +308,55 @@ export default function FaqAgent() {
     [agent, isTyping, task],
   );
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  const submit = useCallback(() => {
     if (initStatus !== "ready" || isTyping || !inputValue.trim()) return;
     const text = inputValue.trim();
     setInputValue("");
+    if (inputRef.current) {
+      inputRef.current.style.height = "auto";
+    }
     sendMessage(text);
+  }, [initStatus, isTyping, inputValue, sendMessage]);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    submit();
   };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    // Enter submits; Shift+Enter inserts a newline.
+    if (e.key === "Enter" && !e.shiftKey && !e.nativeEvent.isComposing) {
+      e.preventDefault();
+      submit();
+    }
+  };
+
+  const resetConversation = useCallback(() => {
+    if (isTyping) return;
+    if (task) task.unsubscribe();
+    setTask(null);
+    setMessages([]);
+    setError(null);
+    setHasUnread(false);
+    pendingUserIdRef.current = null;
+    atBottomRef.current = true;
+    setTimeout(() => inputRef.current?.focus(), 0);
+  }, [isTyping, task]);
+
+  // Publish status to sibling islands (briefing) so they can reflect the
+  // real init state and whether the conversation has begun.
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    window.dispatchEvent(
+      new CustomEvent("qa-status", {
+        detail: {
+          initStatus,
+          isTyping,
+          hasMessages: messages.length > 0,
+        },
+      }),
+    );
+  }, [initStatus, isTyping, messages.length]);
 
   // Suggested-prompt bridge from QaBriefing.
   useEffect(() => {
@@ -297,9 +374,37 @@ export default function FaqAgent() {
   const showReady = initStatus === "ready" && messages.length === 0;
   const inputDisabled = initStatus !== "ready" || isTyping;
 
+  const statusLabel =
+    initStatus === "ready"
+      ? isTyping
+        ? "Composing Response"
+        : "Operational"
+      : initStatus === "failed"
+      ? "Offline"
+      : "Synchronizing";
+  const statusClass = initStatus === "failed" ? "offline" : "";
+
   return (
-    <div className="qa-console">
-      <div className="chat-viewport">
+    <div className="qa-console" data-d="2">
+      <div className="console-toolbar">
+        <span className={`toolbar-status ${statusClass}`}>
+          <span className="dot" aria-hidden="true" />
+          {statusLabel}
+        </span>
+        <button
+          type="button"
+          className="new-chat-btn"
+          onClick={resetConversation}
+          disabled={isTyping || messages.length === 0}
+          aria-label="Start a new conversation"
+        >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+            <path d="M12 5v14M5 12h14" />
+          </svg>
+          <span>New</span>
+        </button>
+      </div>
+      <div className="chat-viewport" ref={viewportRef} role="log" aria-live="polite" aria-relevant="additions">
         {showInitLoader && (
           <div className="msg-block agent initializing">
             <div className="msg-content-wrap">
@@ -334,7 +439,14 @@ export default function FaqAgent() {
 
         {showReady && (
           <div className="terminal-ready-indicator">
-            <p className="sans-label">Dossier Active. Awaiting Inquiry.</p>
+            <p className="sans-label">Dossier Active</p>
+            <p className="ready-greeting">
+              Ask me about the society — <em>events, membership, application, or anything in the archive.</em>
+            </p>
+            <p className="ready-hint">
+              I&apos;m trained on the public Meridian Society materials. Try a prompt from the
+              briefing on the left, or type your own question below.
+            </p>
           </div>
         )}
 
@@ -363,19 +475,35 @@ export default function FaqAgent() {
       </div>
 
       <div className="input-area-wrap">
+        <button
+          type="button"
+          className={`jump-latest ${hasUnread ? "visible" : ""}`}
+          onClick={() => scrollToEnd(true)}
+          aria-hidden={!hasUnread}
+          tabIndex={hasUnread ? 0 : -1}
+        >
+          <span>Jump to latest</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+            <path d="M6 9l6 6 6-6" />
+          </svg>
+        </button>
         <form className="input-form" onSubmit={handleSubmit}>
-          <input
+          <textarea
             ref={inputRef}
-            type="text"
+            rows={1}
             placeholder={
               initStatus === "ready" ? "Inquire the archive..." : "Awaiting archive sync..."
             }
             value={inputValue}
-            onChange={(e) => setInputValue(e.target.value)}
-            disabled={inputDisabled}
+            onChange={(e) => {
+              setInputValue(e.target.value);
+              autoGrow(e.currentTarget);
+            }}
+            onKeyDown={handleKeyDown}
+            disabled={initStatus !== "ready"}
             aria-label="Your question"
             autoComplete="off"
-            spellCheck="true"
+            spellCheck
           />
           <button
             type="submit"
@@ -389,7 +517,12 @@ export default function FaqAgent() {
             </svg>
           </button>
         </form>
-        {error && initStatus === "ready" && <p className="inline-error">{error}</p>}
+        <div className="input-hint">
+          <span>
+            <kbd>Enter</kbd> to send · <kbd>Shift</kbd>+<kbd>Enter</kbd> for new line
+          </span>
+          {error && initStatus === "ready" && <span className="inline-error">{error}</span>}
+        </div>
       </div>
     </div>
   );

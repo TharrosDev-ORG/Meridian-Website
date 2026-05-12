@@ -199,7 +199,7 @@ export default function FaqAgent() {
 
       <div className="agent-footer">
         <form className="agent-input-container" onSubmit={handleSendMessage}>
-          <div className="input-prefix">CMD></div>
+          <div className="input-prefix">CMD &gt;</div>
           <input 
             type="text" 
             placeholder="TYPE INQUIRY HERE..."

@@ -12,7 +12,7 @@ export default function FaqAgent() {
   const [mounted, setMounted] = useState(false);
   const [client, setClient] = useState<Client | null>(null);
   const [agent, setAgent] = useState<Agent | null>(null);
-  const [task, setTask] = useState<Task | null>(null);
+  const [task, setTask] = useState<Task<Agent> | null>(null);
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputValue, setInputValue] = useState("");
   const [isTyping, setIsTyping] = useState(false);
@@ -135,12 +135,10 @@ export default function FaqAgent() {
     setIsTyping(true);
 
     try {
-      let currentTask = task;
-      if (!currentTask) {
-        currentTask = await agent.createTask();
-        setTask(currentTask);
+      const updatedTask = await agent.sendMessage(userText, task || undefined);
+      if (!task) {
+        setTask(updatedTask);
       }
-      await currentTask.send(userText);
     } catch (error) {
       console.error("Send message error:", error);
       setIsTyping(false);

@@ -370,14 +370,16 @@ export default function FaqAgent() {
         .user .sender-name { margin-right: 12px; }
 
         .msg-text {
-          font-family: var(--serif);
-          font-size: 18px;
-          line-height: 1.5;
-          padding: 16px 24px;
-          border-radius: 20px;
+          font-family: var(--sans);
+          font-size: 16px;
+          font-weight: 500;
+          line-height: 1.4;
+          padding: 14px 20px;
+          border-radius: 18px;
           position: relative;
           scroll-margin-bottom: 150px;
           transition: transform 0.3s ease;
+          letter-spacing: 0.01em;
         }
 
         .agent .msg-text {

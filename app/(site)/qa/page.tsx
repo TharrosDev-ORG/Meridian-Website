@@ -23,9 +23,7 @@ export default function QAPage() {
             <QaBriefing />
 
             {/* Right: The Console (Client Island) */}
-            <div className="qa-console" data-d="2">
-              <FaqAgent />
-            </div>
+            <FaqAgent />
           </div>
         </div>
       </section>

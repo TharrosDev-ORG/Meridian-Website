@@ -15,22 +15,16 @@ export default function QAPage() {
     <main>
       <PageStyles css={qaCss} />
       
-      <section className="page-hero" aria-labelledby="qa-title">
-        <div className="page-hero-content">
-          <div className="sec-label rv">Intelligence</div>
-          <h1 className="hero-title rv rv-stagger" id="qa-title">
-            <span className="rv-stagger-item">Questions &</span>
-            <span className="rv-stagger-item"><em>Answers.</em></span>
-          </h1>
-          <p className="hero-sub rv" data-d="1">
-            Our intelligent assistant is here to help you navigate the society, 
-            understand our programs, and find the information you need.
-          </p>
-        </div>
-      </section>
-
-      <section className="qa-container">
+      <section className="qa-section">
         <div className="wrap">
+          <header className="qa-header rv">
+            <div className="sec-label">Intelligence</div>
+            <h1 className="qa-title">Questions & <em>Answers.</em></h1>
+            <p className="qa-intro">
+              Our assistant is here to help you navigate the society and find information.
+            </p>
+          </header>
+
           <FaqAgent />
         </div>
       </section>

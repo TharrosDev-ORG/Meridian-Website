@@ -1,75 +1,50 @@
 export const qaCss = `
-  .qa-container {
-    padding: 80px 0;
+  .qa-section {
+    padding: 160px 0 100px;
     background: var(--cream);
-    min-height: 60vh;
+    min-height: 100vh;
   }
 
-  .qa-agent-placeholder {
-    width: 100%;
+  .qa-header {
     max-width: 900px;
-    margin: 0 auto;
-    aspect-ratio: 16/9;
-    background: var(--ink);
-    color: var(--cream);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    border-radius: 4px;
-    border: 1px solid rgba(0,0,0,0.1);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+    margin: 0 auto 64px;
     text-align: center;
-    padding: 2rem;
-    position: relative;
-    overflow: hidden;
   }
 
-  .qa-agent-placeholder::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image: var(--grain);
-    background-size: 220px 220px;
-    opacity: 0.05;
-    pointer-events: none;
-  }
-
-  .qa-agent-placeholder h3 {
+  .qa-title {
     font-family: var(--serif);
-    font-size: 2rem;
-    margin-bottom: 1rem;
-    position: relative;
-    z-index: 1;
+    font-size: clamp(40px, 5vw, 72px);
+    font-weight: 300;
+    line-height: 1.1;
+    color: var(--ink);
+    margin-top: 16px;
+    margin-bottom: 24px;
   }
 
-  .qa-agent-placeholder p {
+  .qa-title em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .qa-intro {
     font-family: var(--sans);
-    opacity: 0.7;
-    max-width: 400px;
-    position: relative;
-    z-index: 1;
-  }
-
-  .qa-agent-placeholder .spinner {
-    width: 40px;
-    height: 40px;
-    border: 2px solid rgba(255,255,255,0.1);
-    border-top-color: var(--gold);
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-    margin-bottom: 2rem;
-    position: relative;
-    z-index: 1;
-  }
-
-  @keyframes spin {
-    to { transform: rotate(360deg); }
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    color: var(--ink-75);
+    max-width: 500px;
+    margin: 0 auto;
+    line-height: 1.6;
+    opacity: 0.8;
   }
 
   @media (max-width: 1100px) {
-    .qa-agent-placeholder {
-      aspect-ratio: 4/5;
+    .qa-section {
+      padding: 120px 0 60px;
+    }
+    .qa-header {
+      margin-bottom: 40px;
+      padding: 0 20px;
     }
   }
 `;

@@ -212,7 +212,7 @@ export default function FaqAgent() {
           max-width: 1100px;
           margin: 0 auto;
           background: var(--cream);
-          height: 800px;
+          height: 650px;
           display: flex;
           flex-direction: column;
           position: relative;
@@ -222,10 +222,10 @@ export default function FaqAgent() {
         .chat-viewport {
           flex: 1;
           overflow-y: auto;
-          padding: 60px 40px;
+          padding: 40px;
           display: flex;
           flex-direction: column;
-          gap: 48px;
+          gap: 32px;
           scrollbar-width: none;
         }
         .chat-viewport::-webkit-scrollbar { display: none; }

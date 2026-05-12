@@ -1,15 +1,15 @@
 export const qaCss = `
   .qa-section {
-    padding: 100px 0 0;
+    padding: 80px 0 60px;
     background: var(--cream);
-    min-height: 100vh;
+    min-height: auto;
     display: flex;
     flex-direction: column;
   }
 
   .qa-header {
     max-width: 800px;
-    margin: 0 auto 40px;
+    margin: 0 auto 32px;
     text-align: center;
     padding: 0 24px;
   }

@@ -6,12 +6,20 @@ export default function QaBriefing() {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
+    const t = setTimeout(() => setMounted(true), 0);
+    return () => clearTimeout(t);
   }, []);
 
   const handlePrompt = (prompt: string) => {
-    if (typeof window !== 'undefined') {
-      window.dispatchEvent(new CustomEvent('qa-prompt', { detail: prompt }));
+    if (typeof window === 'undefined' || !mounted) return;
+    window.dispatchEvent(new CustomEvent('qa-prompt', { detail: prompt }));
+    // Scroll the console viewport into view on mobile, where the briefing
+    // sits above the chat.
+    if (window.matchMedia('(max-width: 1100px)').matches) {
+      document.querySelector('.qa-console')?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      });
     }
   };
 

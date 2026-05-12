@@ -495,6 +495,38 @@ export const qaCss = `
     font-weight: 600;
   }
 
+  .msg-block.agent.error .msg-text {
+    border-left-color: #d32f2f;
+    background: rgba(211, 47, 47, 0.06);
+  }
+
+  .msg-block.agent.error .sender-name {
+    color: #d32f2f;
+    opacity: 1;
+  }
+
+  .msg-text .inline-code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 0.92em;
+    padding: 2px 6px;
+    background: var(--ink-08);
+    border-radius: 3px;
+  }
+
+  .agent .msg-text .inline-code {
+    background: rgba(24, 21, 15, 0.08);
+  }
+
+  .user .msg-text .inline-code {
+    background: rgba(244, 237, 227, 0.16);
+    color: var(--cream);
+  }
+
+  .input-form input:disabled {
+    color: var(--ink-30);
+    cursor: not-allowed;
+  }
+
   .chat-viewport::-webkit-scrollbar { width: 4px; }
   .chat-viewport::-webkit-scrollbar-track { background: transparent; }
   .chat-viewport::-webkit-scrollbar-thumb { background: var(--ink-20); border-radius: 10px; }

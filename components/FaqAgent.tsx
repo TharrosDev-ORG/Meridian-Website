@@ -1,204 +1,306 @@
 "use client";
 
-import React, { useState, useEffect, useRef, useCallback, memo } from 'react';
-import { Client, Key, Agent, REGION_US, type Task, type AnyTaskMessage as Message } from "@relevanceai/sdk";
+import React, { useState, useEffect, useRef, useCallback, memo } from "react";
+import {
+  Client,
+  Key,
+  Agent,
+  REGION_US,
+  REGION_EU,
+  REGION_AU,
+  type Region,
+  type Task,
+  type AnyTaskMessage,
+} from "@relevanceai/sdk";
 
-const REGION = process.env.NEXT_PUBLIC_RELEVANCE_REGION?.trim();
+const REGION_RAW = process.env.NEXT_PUBLIC_RELEVANCE_REGION?.trim();
 const PROJECT = process.env.NEXT_PUBLIC_RELEVANCE_PROJECT?.trim();
 const AGENT_ID = process.env.NEXT_PUBLIC_RELEVANCE_AGENT_ID?.trim();
 
-/**
- * Optimized Message Component
- * Prevents unnecessary re-renders and handles industrial message styling.
- */
-const MessageBlock = memo(({ m, isAgent }: { m: Message, isAgent: boolean }) => {
-  const content = (m as any).text || (m as any).content || (m as any).body || (m as any).message?.text || "";
-  const displayContent = typeof content === 'object' ? (content.text || JSON.stringify(content)) : content;
+// Accept either a region alias ("US"/"EU"/"AU") or the raw region hash.
+function resolveRegion(raw: string | undefined): Region | null {
+  if (!raw) return REGION_US; // default to US — Meridian's deployed agent.
+  const upper = raw.toUpperCase();
+  if (upper === "US") return REGION_US;
+  if (upper === "EU") return REGION_EU;
+  if (upper === "AU") return REGION_AU;
+  if (raw === REGION_US || raw === REGION_EU || raw === REGION_AU) {
+    return raw as Region;
+  }
+  return null;
+}
 
-  // Stable timestamp
-  const timestamp = useRef(new Date((m as any).insert_date_ || Date.now()).toLocaleTimeString([], { 
-    hour: '2-digit', 
-    minute: '2-digit',
-    hour12: true 
-  }).toLowerCase());
+// Stable text extraction from any SDK message subclass.
+function getMessageText(m: AnyTaskMessage): string {
+  const anyMsg = m as { text?: unknown; errors?: unknown };
+  if (typeof anyMsg.text === "string") return anyMsg.text;
+  // agent-error surfaces an `errors` array of strings.
+  if (Array.isArray(anyMsg.errors) && anyMsg.errors.length > 0) {
+    const last = anyMsg.errors[anyMsg.errors.length - 1];
+    if (typeof last === "string") return last;
+  }
+  return "";
+}
 
-  const renderContent = (text: string) => {
-    const rawText = text || "";
-    let processed = rawText.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-    processed = processed.replace(/\*(.*?)\*/g, '<em>$1</em>');
-    processed = processed.replace(/`(.*?)`/g, '<code class="inline-code">$1</code>');
-    processed = processed.replace(/\n/g, '<br />');
-    return <div dangerouslySetInnerHTML={{ __html: processed }} />;
-  };
+function escapeHtml(s: string): string {
+  return s
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+function renderMarkdown(raw: string): string {
+  // Escape first, THEN apply a tiny markdown subset so we can't be XSS'd.
+  let out = escapeHtml(raw);
+  out = out.replace(/`([^`\n]+)`/g, '<code class="inline-code">$1</code>');
+  out = out.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
+  out = out.replace(/(^|[\s(])\*([^*\n]+)\*(?=[\s).,!?:;]|$)/g, "$1<em>$2</em>");
+  out = out.replace(/\n/g, "<br />");
+  return out;
+}
+
+type DisplayMessage = {
+  id: string;
+  role: "user" | "agent" | "error";
+  text: string;
+  createdAt: Date;
+};
+
+const MessageBlock = memo(function MessageBlock({ m }: { m: DisplayMessage }) {
+  const time = m.createdAt
+    .toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", hour12: true })
+    .toLowerCase();
+  const label =
+    m.role === "user"
+      ? "Member Request"
+      : m.role === "error"
+      ? "Transmission Error"
+      : "Tharros Intelligence";
+  const klass = m.role === "user" ? "user" : "agent";
 
   return (
-    <div className={`msg-block ${isAgent ? 'agent' : 'user'}`} role="log" aria-live="polite">
+    <div className={`msg-block ${klass}`} role="log" aria-live="polite">
       <div className="msg-content-wrap">
         <div className="msg-header">
-          <span className="sender-name">{isAgent ? 'Tharros Intelligence' : 'Member Request'}</span>
+          <span className="sender-name">{label}</span>
           <span className="header-sep">:</span>
-          <span className="msg-time">{timestamp.current}</span>
+          <span className="msg-time">{time}</span>
         </div>
-        <div className="msg-text">
-          {renderContent(displayContent)}
-        </div>
+        <div
+          className="msg-text"
+          dangerouslySetInnerHTML={{ __html: renderMarkdown(m.text) }}
+        />
       </div>
     </div>
   );
 });
 
-MessageBlock.displayName = "MessageBlock";
-
 export default function FaqAgent() {
   const [mounted, setMounted] = useState(false);
   const [agent, setAgent] = useState<Agent | null>(null);
   const [task, setTask] = useState<Task<Agent> | null>(null);
-  const [messages, setMessages] = useState<Message[]>([]);
+  const [messages, setMessages] = useState<DisplayMessage[]>([]);
   const [inputValue, setInputValue] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [isInitializing, setIsInitializing] = useState(true);
+  const [initStatus, setInitStatus] = useState<"idle" | "loading" | "ready" | "failed">("loading");
   const inputRef = useRef<HTMLInputElement>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const pendingUserIdRef = useRef<string | null>(null);
 
-  // Initialize
   useEffect(() => {
-    setMounted(true);
-    let isSubscribed = true;
-    const init = async () => {
+    const mountTimer = setTimeout(() => setMounted(true), 0);
+    let alive = true;
+
+    (async () => {
+      if (!PROJECT || !AGENT_ID) {
+        if (alive) {
+          setInitStatus("failed");
+          setError(
+            "Agent is not configured. Missing NEXT_PUBLIC_RELEVANCE_PROJECT / NEXT_PUBLIC_RELEVANCE_AGENT_ID."
+          );
+        }
+        return;
+      }
+      const region = resolveRegion(REGION_RAW);
+      if (!region) {
+        if (alive) {
+          setInitStatus("failed");
+          setError(`Invalid NEXT_PUBLIC_RELEVANCE_REGION "${REGION_RAW}". Use US, EU, or AU.`);
+        }
+        return;
+      }
+
       try {
-        if (!REGION || !PROJECT || !AGENT_ID) return;
-        
-        // Use SDK constant if matching, otherwise fallback to trimmed string
-        const region = REGION === 'bcbe5a' ? REGION_US : (REGION as any);
-        
-        // Generate an ephemeral embed key for public access (v3 pattern)
         const key = await Key.generateEmbedKey({
           region,
           project: PROJECT,
-          agentId: AGENT_ID
+          agentId: AGENT_ID,
         });
-        
         const client = new Client(key);
-        
-        // Use static get() for robust agent retrieval
-        const newAgent = await Agent.get(AGENT_ID, client);
-        
-        if (isSubscribed) {
-          setAgent(newAgent);
-          setIsInitializing(false);
-        }
+        const a = await Agent.get(AGENT_ID, client);
+        if (!alive) return;
+        setAgent(a);
+        setInitStatus("ready");
+        // Focus the input once we're live.
+        setTimeout(() => inputRef.current?.focus(), 0);
       } catch (err) {
-        console.error("Init Error:", err);
-        if (isSubscribed) setIsInitializing(false);
+        console.error("[FaqAgent] init failed:", err);
+        if (!alive) return;
+        setInitStatus("failed");
+        setError("Unable to reach the intelligence archive. Please try again shortly.");
       }
+    })();
+
+    return () => {
+      alive = false;
+      clearTimeout(mountTimer);
     };
-    init();
-    return () => { isSubscribed = false; };
   }, []);
 
-  // Message Listener
+  // Subscribe to the active task — emits a `message` event for every new or
+  // updated message (user + agent + tool + error).
   useEffect(() => {
     if (!task) return;
-    const onMessage = ({ detail }: any) => {
-      const { message } = detail;
-      
-      // Aggressively filter out any message that has no displayable text and isn't from the user
-      const content = (message as any).text || (message as any).content || (message as any).body || (message as any).message?.text || "";
-      const isUser = message.type === 'user-message' || (message as any).role === 'user';
-      
-      if (!content && !isUser) return;
 
-      setMessages((prev) => {
-        // Simple optimistic replacement to prevent duplication for user messages
-        const optIdx = prev.findIndex(m => (m as any).id === 'optimistic');
-        if (optIdx !== -1 && isUser) {
-          const next = [...prev];
-          next[optIdx] = message;
-          return next;
-        }
-        return [...prev, message];
-      });
-      
-      if (message.type === "agent-message" || (message as any).role === 'assistant') {
-        setIsTyping(false);
+    const onMessage = (ev: CustomEvent<{ message: AnyTaskMessage }>) => {
+      const m = ev.detail.message;
+      const id = m.id;
+      const createdAt = m.createdAt ?? new Date();
+
+      // Surface real user messages — replacing the optimistic placeholder.
+      if (m.type === "user-message") {
+        const text = getMessageText(m);
+        if (!text) return;
+        setMessages((prev) => {
+          const optId = pendingUserIdRef.current;
+          if (optId) {
+            const idx = prev.findIndex((x) => x.id === optId);
+            if (idx !== -1) {
+              const next = [...prev];
+              next[idx] = { id, role: "user", text, createdAt };
+              pendingUserIdRef.current = null;
+              return next;
+            }
+          }
+          if (prev.some((x) => x.id === id)) return prev;
+          return [...prev, { id, role: "user", text, createdAt }];
+        });
+        return;
       }
+
+      if (m.type === "agent-message") {
+        const text = getMessageText(m);
+        const generatingFn = (m as unknown as { isGenerating?: () => boolean }).isGenerating;
+        const stillGenerating =
+          typeof generatingFn === "function" ? generatingFn.call(m) : false;
+        if (!text) return;
+        setMessages((prev) => {
+          const idx = prev.findIndex((x) => x.id === id);
+          if (idx === -1) return [...prev, { id, role: "agent", text, createdAt }];
+          const next = [...prev];
+          next[idx] = { ...next[idx], text, createdAt };
+          return next;
+        });
+        if (!stillGenerating) setIsTyping(false);
+        return;
+      }
+
+      if (m.type === "agent-error") {
+        const text = getMessageText(m) || "The agent encountered an error processing your inquiry.";
+        setMessages((prev) => {
+          if (prev.some((x) => x.id === id)) return prev;
+          return [...prev, { id, role: "error", text, createdAt }];
+        });
+        setIsTyping(false);
+        return;
+      }
+      // tool-run / agent-thinking / agent-typing / workforce events are ignored
+      // for this public Q&A surface.
     };
-    task.addEventListener("message" as any, onMessage);
+
+    const onError = () => {
+      setIsTyping(false);
+    };
+
+    task.addEventListener("message", onMessage as EventListener);
+    task.addEventListener("error", onError as EventListener);
+
     return () => {
-      task.removeEventListener("message" as any, onMessage);
+      task.removeEventListener("message", onMessage as EventListener);
+      task.removeEventListener("error", onError as EventListener);
       task.unsubscribe();
     };
   }, [task]);
 
-  // Optimized Auto-Scroll with debouncing to prevent layout thrashing
+  // Smooth auto-scroll on new content.
   useEffect(() => {
     if (messages.length === 0 && !isTyping) return;
-    
-    let frameId: number;
-    const scroll = () => {
+    const id = requestAnimationFrame(() => {
       messagesEndRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
-    };
+    });
+    return () => cancelAnimationFrame(id);
+  }, [messages, isTyping]);
 
-    // Use rAF to ensure scroll happens after layout paint
-    frameId = requestAnimationFrame(scroll);
-    return () => cancelAnimationFrame(frameId);
-  }, [messages.length, isTyping]);
+  const sendMessage = useCallback(
+    async (raw: string) => {
+      const text = raw.trim();
+      if (!text || !agent || isTyping) return;
 
-  const sendMessage = useCallback(async (text: string) => {
-    if (!text.trim() || !agent || isTyping) return;
+      const optimisticId = `optimistic-${Date.now()}`;
+      pendingUserIdRef.current = optimisticId;
+      setMessages((prev) => [
+        ...prev,
+        { id: optimisticId, role: "user", text, createdAt: new Date() },
+      ]);
+      setIsTyping(true);
+      setError(null);
 
-    const optimisticMsg: Message = {
-      type: 'user-message',
-      content: text,
-      id: 'optimistic',
-      clientId: `msg-opt-${Date.now()}`
-    } as any;
-    
-    setMessages((prev) => [...prev, optimisticMsg]);
-    setIsTyping(true);
-    setError(null);
+      try {
+        const updated = task ? await agent.sendMessage(text, task) : await agent.sendMessage(text);
+        setTask(updated);
+        setTimeout(() => inputRef.current?.focus(), 0);
+      } catch (err) {
+        console.error("[FaqAgent] send failed:", err);
+        setIsTyping(false);
+        setError("Failed to transmit inquiry. Please retry.");
+        setMessages((prev) => prev.filter((m) => m.id !== optimisticId));
+        pendingUserIdRef.current = null;
+      }
+    },
+    [agent, isTyping, task],
+  );
 
-    try {
-      // In v3, sendMessage handles task creation or continuation
-      const updatedTask = task 
-        ? await agent.sendMessage(text, task) 
-        : await agent.sendMessage(text);
-      
-      setTask(updatedTask);
-      setTimeout(() => inputRef.current?.focus(), 10);
-    } catch (err) {
-      console.error("Send error:", err);
-      setError("Failed to transmit inquiry.");
-      setIsTyping(false);
-      // Remove optimistic message on error
-      setMessages((prev) => prev.filter(m => (m as any).id !== 'optimistic'));
-    }
-  }, [agent, isTyping, task]);
-
-  const handleSendMessage = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!inputValue.trim() || isTyping || isInitializing) return;
+    if (initStatus !== "ready" || isTyping || !inputValue.trim()) return;
     const text = inputValue.trim();
-    sendMessage(text);
     setInputValue("");
+    sendMessage(text);
   };
 
-  // Listen for suggested prompts
+  // Suggested-prompt bridge from QaBriefing.
   useEffect(() => {
-    const handlePrompt = (e: any) => {
-      if (e.detail) sendMessage(e.detail);
+    const handler = (e: Event) => {
+      const detail = (e as CustomEvent<string>).detail;
+      if (typeof detail === "string" && detail.trim()) sendMessage(detail);
     };
-    window.addEventListener('qa-prompt', handlePrompt);
-    return () => window.removeEventListener('qa-prompt', handlePrompt);
+    window.addEventListener("qa-prompt", handler);
+    return () => window.removeEventListener("qa-prompt", handler);
   }, [sendMessage]);
 
   if (!mounted) return null;
 
+  const showInitLoader = initStatus === "loading" && messages.length === 0;
+  const showReady = initStatus === "ready" && messages.length === 0;
+  const inputDisabled = initStatus !== "ready" || isTyping;
+
   return (
     <div className="qa-console">
       <div className="chat-viewport">
-        {isInitializing && messages.length === 0 && (
+        {showInitLoader && (
           <div className="msg-block agent initializing">
             <div className="msg-content-wrap">
               <div className="msg-header">
@@ -208,7 +310,7 @@ export default function FaqAgent() {
               </div>
               <div className="msg-text">
                 <div className="init-loading">
-                  <div className="init-spinner"></div>
+                  <div className="init-spinner" aria-hidden="true"></div>
                   <span>Synchronizing Society Archive...</span>
                 </div>
               </div>
@@ -216,21 +318,31 @@ export default function FaqAgent() {
           </div>
         )}
 
-        {!isInitializing && messages.length === 0 && (
+        {initStatus === "failed" && (
+          <div className="msg-block agent error" role="alert">
+            <div className="msg-content-wrap">
+              <div className="msg-header">
+                <span className="sender-name">Archive Offline</span>
+                <span className="header-sep">:</span>
+              </div>
+              <div className="msg-text">
+                <p>{error ?? "The intelligence agent is currently unavailable."}</p>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {showReady && (
           <div className="terminal-ready-indicator">
             <p className="sans-label">Dossier Active. Awaiting Inquiry.</p>
           </div>
         )}
 
-        {messages.map((m, i) => (
-          <MessageBlock 
-            key={i} 
-            m={m} 
-            isAgent={m.type !== 'user-message' && (m as any).role !== 'user'} 
-          />
+        {messages.map((m) => (
+          <MessageBlock key={m.id} m={m} />
         ))}
 
-        {isTyping && !isInitializing && (
+        {isTyping && initStatus === "ready" && (
           <div className="msg-block agent typing" aria-label="Assistant is thinking">
             <div className="msg-content-wrap">
               <div className="msg-header">
@@ -239,34 +351,45 @@ export default function FaqAgent() {
               </div>
               <div className="msg-text">
                 <div className="typing-indicator">
-                  <span></span><span></span><span></span>
+                  <span></span>
+                  <span></span>
+                  <span></span>
                 </div>
               </div>
             </div>
           </div>
         )}
-        <div ref={messagesEndRef} style={{ height: '1px' }} />
+        <div ref={messagesEndRef} style={{ height: 1 }} />
       </div>
 
       <div className="input-area-wrap">
-        <form className="input-form" onSubmit={handleSendMessage}>
-          <input 
+        <form className="input-form" onSubmit={handleSubmit}>
+          <input
             ref={inputRef}
-            type="text" 
-            placeholder="Inquire the archive..."
+            type="text"
+            placeholder={
+              initStatus === "ready" ? "Inquire the archive..." : "Awaiting archive sync..."
+            }
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
-            disabled={isTyping}
+            disabled={inputDisabled}
             aria-label="Your question"
+            autoComplete="off"
+            spellCheck="true"
           />
-          <button type="submit" className="submit-btn" disabled={isTyping || !inputValue.trim()} aria-label="Send message">
+          <button
+            type="submit"
+            className="submit-btn"
+            disabled={inputDisabled || !inputValue.trim()}
+            aria-label="Send message"
+          >
             <span>Transmit</span>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
               <path d="M5 12h14M12 5l7 7-7 7" />
             </svg>
           </button>
         </form>
-        {error && <p className="inline-error">{error}</p>}
+        {error && initStatus === "ready" && <p className="inline-error">{error}</p>}
       </div>
     </div>
   );

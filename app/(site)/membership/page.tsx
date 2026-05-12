@@ -138,6 +138,10 @@ export default function Page() {
         <h2 className="faq-title" id="faq-heading">Good to <em>Know.</em></h2>
       </div>
       <FaqAccordion />
+      <div className="faq-cta rv" data-d="1">
+        <p className="sans-label">Still have questions?</p>
+        <Link href="/qa" className="btn-ghost-link">Ask our Intelligent Assistant &#8594;</Link>
+      </div>
     </div>
   </section>
 

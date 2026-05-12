@@ -58,6 +58,21 @@ export const membershipCss = `
     .faq-header { margin-bottom: 52px; }
     .faq-title { font-family: var(--serif); font-size: clamp(36px, 3.5vw, 56px); font-weight: 300; line-height: 1.05; color: var(--ink); }
     .faq-title em { font-style: italic; color: var(--gold); }
+    .faq-cta {
+      margin-top: 52px;
+      padding-top: 40px;
+      border-top: 1px solid var(--ink-15);
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+    .faq-cta .sans-label {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      color: var(--ink-30);
+    }
     .faq-list { border-top: 1px solid var(--ink-15); }
     .faq-item {
       border-bottom: 1px solid var(--ink-15);

@@ -135,7 +135,9 @@ export default function FaqAgent() {
     setIsTyping(true);
 
     try {
-      const updatedTask = await agent.sendMessage(userText, task || undefined);
+      const updatedTask = task 
+        ? await agent.sendMessage(userText, task) 
+        : await agent.sendMessage(userText);
       if (!task) {
         setTask(updatedTask);
       }

@@ -340,56 +340,58 @@ export default function FaqAgent() {
           width: 100%;
           animation: elegantFade 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
           will-change: transform, opacity;
+          margin-bottom: 8px;
         }
 
         .msg-block.user { justify-content: flex-end; }
+        .msg-block.agent { justify-content: flex-start; }
 
         .msg-content-wrap {
-          max-width: 85%;
+          max-width: 80%;
           display: flex;
           flex-direction: column;
-          gap: 12px;
+          gap: 6px;
         }
 
-        .user .msg-content-wrap { align-items: flex-end; text-align: right; }
+        .user .msg-content-wrap { align-items: flex-end; }
+        .agent .msg-content-wrap { align-items: flex-start; }
 
         .sender-name {
-          font-size: 9px;
-          letter-spacing: 0.2em;
-          color: var(--ink-55);
+          font-size: 10px;
+          letter-spacing: 0.15em;
+          color: var(--ink-30);
           text-transform: uppercase;
           font-weight: 700;
+          font-family: var(--sans);
+          margin-bottom: 2px;
         }
 
-        .agent .sender-name { color: var(--gold); }
+        .agent .sender-name { color: var(--gold); margin-left: 12px; }
+        .user .sender-name { margin-right: 12px; }
 
         .msg-text {
           font-family: var(--serif);
-          font-size: 21px;
-          line-height: 1.6;
-          color: var(--ink);
+          font-size: 18px;
+          line-height: 1.5;
+          padding: 16px 24px;
+          border-radius: 20px;
           position: relative;
           scroll-margin-bottom: 150px;
-          opacity: 1 !important;
+          transition: transform 0.3s ease;
         }
 
         .agent .msg-text {
-          font-style: italic;
-          font-weight: 300;
-          color: var(--ink-85);
+          background: var(--ink-05);
+          color: var(--ink);
+          border-bottom-left-radius: 4px;
+          border: 1px solid var(--ink-10);
         }
 
         .user .msg-text {
-          font-family: var(--sans);
-          font-size: 15px;
-          font-weight: 600;
-          text-transform: uppercase;
-          letter-spacing: 0.02em;
           background: var(--ink);
           color: var(--cream);
-          padding: 12px 24px;
-          border-radius: 2px;
-          box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+          border-bottom-right-radius: 4px;
+          box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
         /* ── Input ── */
@@ -397,6 +399,7 @@ export default function FaqAgent() {
           padding: 40px 0 100px;
           background: var(--cream);
           z-index: 100;
+          margin-top: 40px;
         }
 
         .inline-error {

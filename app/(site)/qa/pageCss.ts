@@ -30,16 +30,27 @@ export const qaCss = `
 
   .qa-title {
     font-family: var(--serif);
-    font-size: clamp(40px, 5vw, 64px);
+    font-size: clamp(40px, 5vw, 72px);
     font-weight: 300;
-    line-height: 1;
+    line-height: 0.95;
     color: var(--ink);
-    margin: 0;
+    margin-bottom: 20px;
   }
 
   .qa-title em {
     font-style: italic;
     color: var(--gold);
+  }
+
+  .qa-intro {
+    font-family: var(--serif);
+    font-size: clamp(18px, 1.8vw, 24px);
+    font-style: italic;
+    font-weight: 300;
+    color: var(--ink-55);
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
   }
 
   .qa-container {

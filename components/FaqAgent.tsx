@@ -1,11 +1,32 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback, memo } from 'react';
 import { Client, Key, Agent, type Task, type AnyTaskMessage as Message } from "@relevanceai/sdk";
 
 const REGION = process.env.NEXT_PUBLIC_RELEVANCE_REGION || "bcbe5a";
 const PROJECT = process.env.NEXT_PUBLIC_RELEVANCE_PROJECT || "";
 const AGENT_ID = process.env.NEXT_PUBLIC_RELEVANCE_AGENT_ID || "";
+
+/**
+ * Optimized Message Component
+ * Prevents unnecessary re-renders of the entire message list.
+ */
+const MessageBlock = memo(({ m, isAgent }: { m: Message, isAgent: boolean }) => {
+  return (
+    <div className={`msg-block ${isAgent ? 'agent' : 'user'}`} role="log" aria-live="polite">
+      <div className="msg-content-wrap">
+        <div className="msg-header">
+          <span className="sender-name sans-label">{isAgent ? 'The Assistant' : 'Member'}</span>
+        </div>
+        <div className="msg-text">
+          {(m as any).content}
+        </div>
+      </div>
+    </div>
+  );
+});
+
+MessageBlock.displayName = "MessageBlock";
 
 export default function FaqAgent() {
   const [mounted, setMounted] = useState(false);
@@ -16,19 +37,26 @@ export default function FaqAgent() {
   const [inputValue, setInputValue] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const [isInitializing, setIsInitializing] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
+  // Set mounted state
   useEffect(() => {
     setMounted(true);
   }, []);
 
+  // Initialization Logic
   useEffect(() => {
     if (!mounted) return;
+
+    let isSubscribed = true;
 
     const init = async () => {
       try {
         if (!PROJECT || !AGENT_ID) {
-          setIsInitializing(false);
+          if (isSubscribed) setIsInitializing(false);
           return;
         }
 
@@ -58,21 +86,28 @@ export default function FaqAgent() {
           }));
         }
 
+        if (!isSubscribed) return;
+
         const newClient = new Client(key);
         setClient(newClient);
 
         const newAgent = await Agent.get(AGENT_ID, newClient);
         setAgent(newAgent);
         setIsInitializing(false);
-      } catch (error) {
-        console.error("Relevance AI Initialization Error:", error);
-        setIsInitializing(false);
+      } catch (err) {
+        console.error("Relevance AI Initialization Error:", err);
+        if (isSubscribed) {
+          setError("Failed to initialize the intelligence session. Please refresh.");
+          setIsInitializing(false);
+        }
       }
     };
 
     init();
+    return () => { isSubscribed = false; };
   }, [mounted]);
 
+  // Message Listener
   useEffect(() => {
     if (!task) return;
 
@@ -100,13 +135,20 @@ export default function FaqAgent() {
     };
   }, [task]);
 
+  // Smooth Auto-Scroll with RAF for performance
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    if (messages.length > 0 || isTyping) {
+      const scroll = () => {
+        messagesEndRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
+      };
+      const raf = requestAnimationFrame(scroll);
+      return () => cancelAnimationFrame(raf);
+    }
   }, [messages, isTyping]);
 
-  const handleSendMessage = async (e: React.FormEvent) => {
+  const handleSendMessage = useCallback(async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!inputValue.trim() || !client || !agent) return;
+    if (!inputValue.trim() || !client || !agent || isTyping) return;
 
     const userText = inputValue.trim();
     setInputValue("");
@@ -125,23 +167,37 @@ export default function FaqAgent() {
         ? await agent.sendMessage(userText, task) 
         : await agent.sendMessage(userText);
       if (!task) setTask(updatedTask);
-    } catch (error) {
-      console.error("Send message error:", error);
+      
+      // Keep focus on input for seamless interaction
+      setTimeout(() => inputRef.current?.focus(), 10);
+    } catch (err) {
+      console.error("Send message error:", err);
       setIsTyping(false);
+      setError("Connectivity issue detected. Your last message may not have been received.");
     }
-  };
+  }, [inputValue, client, agent, task, isTyping]);
 
   if (!mounted) return null;
 
   if (isInitializing) {
     return (
-      <div className="agent-elegant-loading">
+      <div className="agent-elegant-loading" aria-busy="true">
         <div className="seal-shimmer">
           <svg viewBox="0 0 100 100">
             <path d="M50 0 L93.3 25 L93.3 75 L50 100 L6.7 75 L6.7 25 Z" fill="none" stroke="currentColor" strokeWidth="0.5" />
           </svg>
         </div>
         <p className="sans-label">Initializing Intelligence</p>
+      </div>
+    );
+  }
+
+  if (error && messages.length === 0) {
+    return (
+      <div className="agent-error-state">
+        <span className="error-icon">!</span>
+        <p className="sans-label">{error}</p>
+        <button onClick={() => window.location.reload()} className="text-link">Retry Session</button>
       </div>
     );
   }
@@ -156,24 +212,12 @@ export default function FaqAgent() {
           </div>
         )}
 
-        {messages.map((m, i) => {
-          const isAgent = m.type !== 'user-message';
-          return (
-            <div key={m.id || i} className={`msg-block ${isAgent ? 'agent' : 'user'}`}>
-              <div className="msg-content-wrap">
-                <div className="msg-header">
-                  <span className="sender-name sans-label">{isAgent ? 'The Assistant' : 'Member'}</span>
-                </div>
-                <div className="msg-text">
-                  {(m as any).content}
-                </div>
-              </div>
-            </div>
-          );
-        })}
+        {messages.map((m, i) => (
+          <MessageBlock key={m.id || i} m={m} isAgent={m.type !== 'user-message'} />
+        ))}
 
         {isTyping && (
-          <div className="msg-block agent typing">
+          <div className="msg-block agent typing" aria-label="Assistant is thinking">
             <div className="msg-content-wrap">
               <div className="msg-text">
                 <div className="typing-dots-gold">
@@ -183,22 +227,25 @@ export default function FaqAgent() {
             </div>
           </div>
         )}
-        <div ref={messagesEndRef} />
+        <div ref={messagesEndRef} style={{ height: '1px' }} />
       </div>
 
       <div className="input-area-wrap">
+        {error && messages.length > 0 && <p className="inline-error">{error}</p>}
         <form className="input-form" onSubmit={handleSendMessage}>
           <input 
+            ref={inputRef}
             type="text" 
             placeholder="Describe your question..."
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
             disabled={isTyping}
             autoFocus
+            aria-label="Your question"
           />
-          <button type="submit" className="submit-btn" disabled={isTyping || !inputValue.trim()}>
+          <button type="submit" className="submit-btn" disabled={isTyping || !inputValue.trim()} aria-label="Send message">
             <span>Submit</span>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
               <path d="M5 12h14M12 5l7 7-7 7" />
             </svg>
           </button>
@@ -215,6 +262,7 @@ export default function FaqAgent() {
           display: flex;
           flex-direction: column;
           position: relative;
+          will-change: transform, opacity;
         }
 
         .chat-viewport {
@@ -223,7 +271,6 @@ export default function FaqAgent() {
           flex-direction: column;
           gap: 32px;
         }
-        .chat-viewport::-webkit-scrollbar { display: none; }
 
         .empty-state {
           height: 100%;
@@ -233,12 +280,13 @@ export default function FaqAgent() {
           justify-content: center;
           text-align: center;
           position: relative;
+          padding: 80px 0;
         }
 
         .meridian-seal-bg {
           position: absolute;
           font-family: var(--sans);
-          font-size: 30vw;
+          font-size: clamp(200px, 30vw, 400px);
           font-weight: 900;
           color: var(--ink);
           opacity: 0.02;
@@ -247,24 +295,16 @@ export default function FaqAgent() {
           top: 50%;
           left: 50%;
           transform: translate(-50%, -50%);
+          user-select: none;
         }
-
-        .serif-title {
-          font-family: var(--serif);
-          font-size: clamp(32px, 4vw, 52px);
-          color: var(--ink);
-          margin-bottom: 20px;
-          position: relative;
-          z-index: 1;
-        }
-        .serif-title em { font-style: italic; color: var(--gold); }
 
         .empty-state .sans-label {
           font-size: 10px;
-          letter-spacing: 0.3em;
+          letter-spacing: 0.35em;
           color: var(--ink-30);
           position: relative;
           z-index: 1;
+          text-transform: uppercase;
         }
 
         /* ── Messages ── */
@@ -272,12 +312,13 @@ export default function FaqAgent() {
           display: flex;
           width: 100%;
           animation: elegantFade 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+          will-change: transform, opacity;
         }
 
         .msg-block.user { justify-content: flex-end; }
 
         .msg-content-wrap {
-          max-width: 700px;
+          max-width: 85%;
           display: flex;
           flex-direction: column;
           gap: 12px;
@@ -289,6 +330,7 @@ export default function FaqAgent() {
           font-size: 9px;
           letter-spacing: 0.2em;
           color: var(--ink-30);
+          text-transform: uppercase;
         }
 
         .agent .sender-name { color: var(--gold); }
@@ -325,6 +367,14 @@ export default function FaqAgent() {
           padding: 40px 0 100px;
           background: var(--cream);
           z-index: 100;
+        }
+
+        .inline-error {
+          font-family: var(--sans);
+          font-size: 11px;
+          color: #d32f2f;
+          margin-bottom: 12px;
+          letter-spacing: 0.05em;
         }
 
         .input-form {
@@ -378,7 +428,7 @@ export default function FaqAgent() {
 
         .submit-btn:hover:not(:disabled) { color: var(--ink); }
         .submit-btn:hover:not(:disabled) svg { transform: translateX(4px); }
-        .submit-btn:disabled { opacity: 0.1; cursor: not-allowed; }
+        .submit-btn:disabled { opacity: 0.15; cursor: not-allowed; }
 
         /* ── Typing ── */
         .typing-dots-gold { display: flex; gap: 6px; padding: 10px 0; }
@@ -388,46 +438,55 @@ export default function FaqAgent() {
           background: var(--gold);
           border-radius: 50%;
           animation: dotFloat 1.8s infinite ease-in-out;
+          will-change: transform, opacity;
         }
         .typing-dots-gold span:nth-child(2) { animation-delay: 0.2s; }
         .typing-dots-gold span:nth-child(3) { animation-delay: 0.4s; }
 
         @keyframes dotFloat {
-          0%, 80%, 100% { transform: translateY(0); opacity: 0.3; }
-          40% { transform: translateY(-6px); opacity: 1; }
+          0%, 80%, 100% { transform: translate3d(0,0,0); opacity: 0.3; }
+          40% { transform: translate3d(0,-6px,0); opacity: 1; }
         }
 
         @keyframes elegantFade {
-          from { opacity: 0; transform: translateY(30px); }
-          to { opacity: 1; transform: none; }
+          from { opacity: 0; transform: translate3d(0, 20px, 0); }
+          to { opacity: 1; transform: translate3d(0, 0, 0); }
         }
 
-        /* ── Loading ── */
-        .agent-elegant-loading {
-          height: 600px;
+        /* ── Loading / Error ── */
+        .agent-elegant-loading, .agent-error-state {
+          height: 400px;
           display: flex;
           flex-direction: column;
           align-items: center;
           justify-content: center;
           gap: 24px;
-          color: var(--gold);
+        }
+        
+        .agent-error-state { color: var(--ink-55); }
+        .error-icon { 
+          width: 40px; height: 40px; border: 1px solid var(--ink-15); 
+          border-radius: 50%; display: flex; align-items: center; 
+          justify-content: center; font-family: var(--serif); font-size: 20px;
         }
 
         .seal-shimmer {
           width: 60px;
           height: 60px;
           animation: sealRotate 20s linear infinite;
+          color: var(--gold);
         }
 
         @keyframes sealRotate { from { transform: rotate(0); } to { transform: rotate(360deg); } }
 
         /* ── Mobile ── */
         @media (max-width: 768px) {
-          .agent-minimal { height: 85vh; }
-          .chat-viewport { padding: 32px 20px; gap: 32px; }
+          .chat-viewport { padding: 32px 16px; gap: 24px; }
           .msg-text { font-size: 18px; }
+          .msg-content-wrap { max-width: 92%; }
           .input-form input { font-size: 18px; }
           .submit-btn span { display: none; }
+          .input-area-wrap { padding-bottom: 60px; }
         }
       `}</style>
     </div>

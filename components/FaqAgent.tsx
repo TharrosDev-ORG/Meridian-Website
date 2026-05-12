@@ -12,6 +12,14 @@ const AGENT_ID = process.env.NEXT_PUBLIC_RELEVANCE_AGENT_ID;
  * Prevents unnecessary re-renders of the entire message list.
  */
 const MessageBlock = memo(({ m, isAgent }: { m: Message, isAgent: boolean }) => {
+  // Robustly extract content from various SDK message formats
+  const content = (m as any).content;
+  const displayContent = typeof content === 'string' 
+    ? content 
+    : content && typeof content === 'object'
+      ? JSON.stringify(content)
+      : (m as any).text || "";
+
   return (
     <div className={`msg-block ${isAgent ? 'agent' : 'user'}`} role="log" aria-live="polite">
       <div className="msg-content-wrap">
@@ -19,7 +27,7 @@ const MessageBlock = memo(({ m, isAgent }: { m: Message, isAgent: boolean }) => 
           <span className="sender-name sans-label">{isAgent ? 'The Assistant' : 'Member'}</span>
         </div>
         <div className="msg-text">
-          {(m as any).content}
+          {displayContent}
         </div>
       </div>
     </div>
@@ -348,8 +356,9 @@ export default function FaqAgent() {
         .sender-name {
           font-size: 9px;
           letter-spacing: 0.2em;
-          color: var(--ink-30);
+          color: var(--ink-55);
           text-transform: uppercase;
+          font-weight: 700;
         }
 
         .agent .sender-name { color: var(--gold); }
@@ -361,6 +370,7 @@ export default function FaqAgent() {
           color: var(--ink);
           position: relative;
           scroll-margin-bottom: 150px;
+          opacity: 1 !important;
         }
 
         .agent .msg-text {

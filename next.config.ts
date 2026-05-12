@@ -2,9 +2,9 @@ import type { NextConfig } from "next";
 
 const cspHeader = `
     default-src 'self';
-    script-src 'self' 'unsafe-inline' va.vercel-scripts.com;
+    script-src 'self' 'unsafe-inline' 'unsafe-eval' va.vercel-scripts.com;
     style-src 'self' 'unsafe-inline';
-    img-src 'self' blob: data:;
+    img-src 'self' blob: data: *.tryrelevance.com;
     font-src 'self';
     object-src 'none';
     base-uri 'self';
@@ -12,7 +12,7 @@ const cspHeader = `
     frame-ancestors 'none';
     block-all-mixed-content;
     upgrade-insecure-requests;
-    connect-src 'self' va.vercel-scripts.com va.vercel-speed-insights.com dsyiuztquzkcikehkigv.supabase.co wss://dsyiuztquzkcikehkigv.supabase.co;
+    connect-src 'self' va.vercel-scripts.com va.vercel-speed-insights.com dsyiuztquzkcikehkigv.supabase.co wss://dsyiuztquzkcikehkigv.supabase.co *.tryrelevance.com;
 `.replace(/\n/g, '').replace(/\s{2,}/g, ' ').trim();
 
 const nextConfig: NextConfig = {

@@ -17,7 +17,7 @@ export default function QAPage() {
       
       <section className="qa-section">
         <div className="wrap">
-          <header className="qa-header rv">
+          <header className="qa-header rv" suppressHydrationWarning>
             <div className="sec-label">Intelligence</div>
             <h1 className="qa-title">Questions & <em>Answers.</em></h1>
             <p className="qa-intro">

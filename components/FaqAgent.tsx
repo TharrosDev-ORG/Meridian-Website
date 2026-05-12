@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from 'react';
-import { Client, Key, Agent, Task, AgentMessage, UserMessage } from "@relevanceai/sdk";
+import { Client, Key, Agent, type Task, type AnyTaskMessage as Message } from "@relevanceai/sdk";
 
 // Constants - these should ideally be in .env.local
 const REGION = process.env.NEXT_PUBLIC_RELEVANCE_REGION || "us-east-1";
@@ -13,7 +13,7 @@ export default function FaqAgent() {
   const [client, setClient] = useState<Client | null>(null);
   const [agent, setAgent] = useState<Agent | null>(null);
   const [task, setTask] = useState<Task | null>(null);
-  const [messages, setMessages] = useState<(AgentMessage | UserMessage)[]>([]);
+  const [messages, setMessages] = useState<Message[]>([]);
   const [inputValue, setInputValue] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const [isInitializing, setIsInitializing] = useState(true);
@@ -176,14 +176,17 @@ export default function FaqAgent() {
           </div>
         )}
         
-        {messages.map((m, i) => (
-          <div key={m.id || i} className={`message-row ${m.type}`}>
-            <div className="message-bubble">
-              <div className="message-sender sans-label">{m.type === 'agent-message' ? 'Assistant' : 'Member'}</div>
-              <div className="message-content">{(m as any).content}</div>
+        {messages.map((m, i) => {
+          const isAgent = m.type !== 'user-message';
+          return (
+            <div key={m.id || i} className={`message-row ${m.type}`}>
+              <div className="message-bubble">
+                <div className="message-sender sans-label">{isAgent ? 'Assistant' : 'Member'}</div>
+                <div className="message-content">{(m as any).content}</div>
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
 
         {isTyping && (
           <div className="message-row agent-message typing">

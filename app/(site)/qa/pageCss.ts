@@ -1,76 +1,55 @@
 export const qaCss = `
   .qa-section {
-    padding: 120px 0 100px;
+    padding: 100px 0 0;
     background: var(--cream);
     min-height: 100vh;
-    position: relative;
-    overflow: hidden;
-  }
-
-  /* Background grid for that industrial feel */
-  .qa-section::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image: 
-      linear-gradient(to right, var(--ink-05) 1px, transparent 1px),
-      linear-gradient(to bottom, var(--ink-05) 1px, transparent 1px);
-    background-size: 60px 60px;
-    pointer-events: none;
+    display: flex;
+    flex-direction: column;
   }
 
   .qa-header {
-    max-width: 1000px;
-    margin: 0 auto 64px;
+    max-width: 800px;
+    margin: 0 auto 40px;
     text-align: center;
-    position: relative;
-    z-index: 10;
+    padding: 0 24px;
+  }
+
+  .sec-label {
+    font-family: var(--sans);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 16px;
   }
 
   .qa-title {
     font-family: var(--serif);
-    font-size: clamp(48px, 6vw, 84px);
+    font-size: clamp(40px, 5vw, 64px);
     font-weight: 300;
-    line-height: 0.95;
+    line-height: 1;
     color: var(--ink);
-    margin-top: 16px;
-    margin-bottom: 24px;
-    letter-spacing: -0.02em;
+    margin: 0;
   }
 
   .qa-title em {
     font-style: italic;
-    font-weight: 400;
     color: var(--gold);
   }
 
-  .qa-intro {
-    font-family: var(--sans);
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: var(--ink-40);
-    max-width: 600px;
-    margin: 0 auto;
-    line-height: 1.8;
-  }
-
   .qa-container {
-    position: relative;
-    z-index: 10;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
   }
 
   @media (max-width: 1100px) {
     .qa-section {
-      padding: 100px 0 60px;
+      padding-top: 80px;
     }
     .qa-header {
-      margin-bottom: 40px;
-      padding: 0 24px;
-    }
-    .qa-title {
-      font-size: clamp(36px, 10vw, 56px);
+      margin-bottom: 32px;
     }
   }
 `;

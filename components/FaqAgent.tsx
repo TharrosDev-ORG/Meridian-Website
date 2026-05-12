@@ -3,9 +3,9 @@
 import React, { useState, useEffect, useRef, useCallback, memo } from 'react';
 import { Client, Key, Agent, type Task, type AnyTaskMessage as Message } from "@relevanceai/sdk";
 
-const REGION = process.env.NEXT_PUBLIC_RELEVANCE_REGION || "bcbe5a";
-const PROJECT = process.env.NEXT_PUBLIC_RELEVANCE_PROJECT || "";
-const AGENT_ID = process.env.NEXT_PUBLIC_RELEVANCE_AGENT_ID || "";
+const REGION = process.env.NEXT_PUBLIC_RELEVANCE_REGION;
+const PROJECT = process.env.NEXT_PUBLIC_RELEVANCE_PROJECT;
+const AGENT_ID = process.env.NEXT_PUBLIC_RELEVANCE_AGENT_ID;
 
 /**
  * Optimized Message Component
@@ -44,6 +44,14 @@ export default function FaqAgent() {
 
   // Set mounted state
   useEffect(() => {
+    // Debug audit
+    if (typeof window !== 'undefined') {
+      console.log("FaqAgent Debug:", { 
+        region: REGION ? "FOUND" : "MISSING",
+        project: PROJECT ? "FOUND" : "MISSING",
+        agent: AGENT_ID ? "FOUND" : "MISSING"
+      });
+    }
     setMounted(true);
   }, []);
 
@@ -56,6 +64,7 @@ export default function FaqAgent() {
     const init = async () => {
       try {
         if (!PROJECT || !AGENT_ID) {
+          console.warn("FaqAgent: Missing Project or Agent ID in environment.");
           if (isSubscribed) setIsInitializing(false);
           return;
         }
@@ -64,15 +73,21 @@ export default function FaqAgent() {
         let key: Key;
 
         const stored = JSON.parse(localStorage.getItem(storageKey) ?? "null");
-        if (stored?.embedKey && stored?.conversationPrefix) {
-          key = new Key({
-            key: stored.embedKey,
-            region: REGION as any,
-            project: PROJECT,
-            agentId: AGENT_ID,
-            taskPrefix: stored.conversationPrefix,
-          });
-        } else {
+        
+        try {
+          if (stored?.embedKey && stored?.conversationPrefix) {
+            key = new Key({
+              key: stored.embedKey,
+              region: REGION as any,
+              project: PROJECT,
+              agentId: AGENT_ID,
+              taskPrefix: stored.conversationPrefix,
+            });
+          } else {
+            throw new Error("No stored session");
+          }
+        } catch (storageErr) {
+          // Stale or missing session, generate a new one
           key = await Key.generateEmbedKey({
             region: REGION as any,
             project: PROJECT,
@@ -97,6 +112,8 @@ export default function FaqAgent() {
       } catch (err) {
         console.error("Relevance AI Initialization Error:", err);
         if (isSubscribed) {
+          // Clear storage on hard failure to prevent loops
+          localStorage.removeItem(`r-${AGENT_ID}`);
           setError("Failed to initialize the intelligence session. Please refresh.");
           setIsInitializing(false);
         }

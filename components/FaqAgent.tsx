@@ -166,7 +166,9 @@ export default function FaqAgent() {
       const updatedTask = task 
         ? await agent.sendMessage(userText, task) 
         : await agent.sendMessage(userText);
-      if (!task) setTask(updatedTask);
+      
+      // Always sync the task state to ensure persistence and latest SDK state
+      setTask(updatedTask);
       
       // Keep focus on input for seamless interaction
       setTimeout(() => inputRef.current?.focus(), 10);
@@ -341,6 +343,7 @@ export default function FaqAgent() {
           line-height: 1.6;
           color: var(--ink);
           position: relative;
+          scroll-margin-bottom: 150px;
         }
 
         .agent .msg-text {

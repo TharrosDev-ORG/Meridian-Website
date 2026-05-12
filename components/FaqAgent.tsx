@@ -152,8 +152,7 @@ export default function FaqAgent() {
         {messages.length === 0 && (
           <div className="empty-state">
             <div className="meridian-seal-bg">M</div>
-            <h2 className="serif-title">How can we assist your <em>journey?</em></h2>
-            <p className="sans-label">Awaiting your inquiry</p>
+            <p className="sans-label">Awaiting your question</p>
           </div>
         )}
 
@@ -191,7 +190,7 @@ export default function FaqAgent() {
         <form className="input-form" onSubmit={handleSendMessage}>
           <input 
             type="text" 
-            placeholder="Describe your inquiry..."
+            placeholder="Describe your question..."
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
             disabled={isTyping}

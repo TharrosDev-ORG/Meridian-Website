@@ -209,24 +209,20 @@ export default function FaqAgent() {
       <style jsx>{`
         .agent-minimal {
           width: 100%;
-          max-width: 1100px;
+          max-width: 800px;
           margin: 0 auto;
           background: var(--cream);
-          height: 650px;
+          height: auto;
           display: flex;
           flex-direction: column;
           position: relative;
-          border-top: 1px solid var(--ink-10);
         }
 
         .chat-viewport {
-          flex: 1;
-          overflow-y: auto;
-          padding: 40px;
+          padding: 40px 0;
           display: flex;
           flex-direction: column;
           gap: 32px;
-          scrollbar-width: none;
         }
         .chat-viewport::-webkit-scrollbar { display: none; }
 
@@ -327,9 +323,9 @@ export default function FaqAgent() {
 
         /* ── Input ── */
         .input-area-wrap {
-          padding: 40px;
+          padding: 40px 0 100px;
           background: var(--cream);
-          border-top: 1px solid var(--ink-05);
+          z-index: 100;
         }
 
         .input-form {

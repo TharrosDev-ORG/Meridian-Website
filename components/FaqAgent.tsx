@@ -165,7 +165,7 @@ export default function FaqAgent() {
   }
 
   return (
-    <div className="faq-agent-shell">
+    <div className="faq-agent-shell rv" data-d="2">
       <div className="agent-messages-viewport">
         {messages.length === 0 && (
           <div className="agent-empty">

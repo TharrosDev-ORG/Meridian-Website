@@ -20,6 +20,7 @@ export default function Footer() {
               <li><Link href="/">Home</Link></li>
               <li><Link href="/#team">Team</Link></li>
               <li><Link href="/membership">Membership</Link></li>
+              <li><Link href="/qa">Q&A</Link></li>
             </ul>
           </nav>
 

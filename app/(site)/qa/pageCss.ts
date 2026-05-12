@@ -1,8 +1,14 @@
 export const qaCss = `
   .qa-section {
-    padding: 60px 0 0;
+    padding: 110px 0 60px;
     background: var(--cream);
     min-height: auto;
+  }
+
+  @media (max-width: 1100px) {
+    .qa-section {
+      padding: 90px 0 40px;
+    }
   }
 
   .qa-header {

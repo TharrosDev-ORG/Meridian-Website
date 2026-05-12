@@ -3,6 +3,7 @@ import PageStyles from '@/components/PageStyles';
 import { qaCss } from './pageCss';
 import { getMetadata } from '@/utils/metadata-shared';
 import FaqAgent from '@/components/FaqAgent';
+import QaBriefing from '@/components/QaBriefing';
 
 export const metadata: Metadata = getMetadata({
   title: "Q&A — Tharros FAQ Agent",
@@ -12,20 +13,20 @@ export const metadata: Metadata = getMetadata({
 
 export default function QAPage() {
   return (
-    <main>
+    <main id="main-content">
       <PageStyles css={qaCss} />
       
       <section className="qa-section">
         <div className="wrap">
-          <header className="qa-header rv" suppressHydrationWarning>
-            <div className="sec-label">Intelligence</div>
-            <h1 className="qa-title">Questions & <em>Answers.</em></h1>
-            <p className="qa-intro">
-              Our assistant is here to help you navigate the society and find information.
-            </p>
-          </header>
+          <div className="qa-grid">
+            {/* Left: Strategic Briefing (Client Island) */}
+            <QaBriefing />
 
-          <FaqAgent />
+            {/* Right: The Console (Client Island) */}
+            <div className="qa-console" data-d="2">
+              <FaqAgent />
+            </div>
+          </div>
         </div>
       </section>
     </main>

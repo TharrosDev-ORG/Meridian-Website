@@ -24,8 +24,8 @@ export default function QAPage() {
             Our Q&amp;A agent is a <em>desktop experience.</em>
           </h1>
           <p className="qa-mobile-copy">
-            The Tharros intelligence console is tuned for a high-fidelity command environment. 
-            Please revisit this page on a laptop or desktop to speak with the agent.
+            Tharros is tuned for a desktop environment. Please revisit this
+            page on a computer to speak with the agent.
           </p>
           <Link href="/" className="qa-mobile-cta">Return to Society Home</Link>
         </div>

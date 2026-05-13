@@ -30,7 +30,7 @@ export default function QAPage() {
             Our Q&amp;A agent is a <em>desktop experience.</em>
           </h1>
           <p className="qa-mobile-copy">
-            Tharros is tuned for a desktop environment. Please revisit this
+            <a href="https://tharros.ca" target="_blank" rel="noopener noreferrer" className="tharros-link">Tharros</a> is tuned for a desktop environment. Please revisit this
             page on a computer to speak with the agent.
           </p>
           <Link href="/" className="qa-mobile-cta">Return to Society Home</Link>

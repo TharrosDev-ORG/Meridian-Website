@@ -12,7 +12,7 @@ const NAV_LINKS = [
   { name: "Team", href: "/#team" },
   { name: "Events", href: "/events" },
   { name: "Membership", href: "/membership" },
-  { name: "Apply to Speak", href: "/apply" },
+  { name: "Q&A", href: "/qa" },
 ];
 
 export default function MobileMenu() {
@@ -182,17 +182,28 @@ export default function MobileMenu() {
         </div>
 
         <nav className="mob-links">
-          {NAV_LINKS.map((link) => (
+          {NAV_LINKS.map((link, i) => (
             <Link
               key={link.name}
               href={link.href}
               className={pathname === link.href ? "active" : ""}
               onClick={handleLinkClick}
+              style={{ transitionDelay: `${0.1 + i * 0.05}s` }}
             >
-              {link.name}
+              <span>{link.name}</span>
+              <span className="mob-arrow" aria-hidden="true">→</span>
             </Link>
           ))}
         </nav>
+
+        <div className="mob-bottom">
+          <Link href="/register" className="mob-cta" onClick={handleLinkClick}>
+            Register for Updates
+          </Link>
+          <div className="mob-meta">
+            Independent Student Organization · Est. 2025
+          </div>
+        </div>
       </div>
     </>
   );

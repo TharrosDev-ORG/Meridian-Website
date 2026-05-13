@@ -82,7 +82,9 @@ export default function QaBriefing() {
       <div className="briefing-meta">
         <div className="meta-item">
           <span className="meta-label">Agent Class</span>
-          <span className="meta-value">Tharros FAQ Assistant</span>
+          <span className="meta-value">
+            <a href="https://tharros.ca" target="_blank" rel="noopener noreferrer" className="tharros-link">Tharros</a> FAQ Assistant
+          </span>
         </div>
         <div className="meta-item">
           <span className="meta-label">Knowledge Base</span>

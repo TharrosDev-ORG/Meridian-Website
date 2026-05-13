@@ -243,6 +243,19 @@ export const qaCss = `
     line-height: 1.4;
   }
 
+  .tharros-link {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-color: rgba(184, 147, 42, 0.3);
+    transition: all 0.3s ease;
+  }
+
+  .tharros-link:hover {
+    color: var(--gold);
+    text-decoration-color: var(--gold);
+  }
+
   .suggested-questions {
     margin-top: auto;
     padding-top: 16px;

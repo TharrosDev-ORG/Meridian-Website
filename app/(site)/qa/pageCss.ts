@@ -18,13 +18,14 @@ export const qaCss = `
       display: flex;
       align-items: center;
       justify-content: center;
-      height: 100vh;
-      width: 100vw;
+      height: 100dvh;
+      width: 100%;
       position: fixed;
       top: 0;
       left: 0;
-      z-index: 9999;
+      z-index: 10000;
       padding: 24px;
+      margin: 0;
       background: var(--cream);
       overflow: hidden;
     }

@@ -92,9 +92,9 @@ export const qaCss = `
 
   .sec-label {
     font-family: var(--sans);
-    font-size: 8px;
+    font-size: 10px;
     font-weight: 700;
-    letter-spacing: 0.4em;
+    letter-spacing: 0.3em;
     text-transform: uppercase;
     color: var(--gold);
     margin-bottom: 16px;
@@ -127,11 +127,11 @@ export const qaCss = `
 
   .qa-intro {
     font-family: var(--serif);
-    font-size: 15px;
+    font-size: 17px;
     font-style: italic;
-    font-weight: 300;
-    color: var(--ink-55);
-    line-height: 1.5;
+    font-weight: 400;
+    color: var(--ink-75);
+    line-height: 1.55;
     margin-bottom: 32px;
   }
 
@@ -154,18 +154,19 @@ export const qaCss = `
 
   .meta-label {
     font-family: var(--sans);
-    font-size: 8px;
+    font-size: 10px;
     font-weight: 700;
-    letter-spacing: 0.2em;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: var(--ink-30);
+    color: var(--ink-55);
   }
 
   .meta-value {
     font-family: var(--sans);
-    font-size: 11px;
+    font-size: 13px;
     font-weight: 500;
-    color: var(--ink-75);
+    color: var(--ink);
+    line-height: 1.4;
   }
 
   .suggested-questions {
@@ -179,9 +180,9 @@ export const qaCss = `
 
   .suggested-title {
     font-family: var(--sans);
-    font-size: 9px;
+    font-size: 11px;
     font-weight: 700;
-    letter-spacing: 0.25em;
+    letter-spacing: 0.2em;
     text-transform: uppercase;
     color: var(--gold);
     margin-bottom: 12px;
@@ -196,15 +197,16 @@ export const qaCss = `
   .suggested-btn {
     background: transparent;
     border: 1px solid rgba(24, 21, 15, 0.05);
-    padding: 10px 14px;
+    padding: 12px 16px;
     text-align: left;
     font-family: var(--sans);
-    font-size: 12px;
-    color: var(--ink-55);
+    font-size: 14px;
+    color: var(--ink-75);
     cursor: pointer;
     transition: all 0.3s;
     border-radius: 2px;
     outline: none;
+    line-height: 1.4;
   }
 
   .suggested-btn:hover {
@@ -238,15 +240,15 @@ export const qaCss = `
 
   .qa-note {
     font-family: var(--sans);
-    font-size: 10px;
+    font-size: 12px;
     font-weight: 600;
-    letter-spacing: 0.18em;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: var(--ink-30);
+    color: var(--ink-55);
     margin: -16px 0 32px;
-    padding: 10px 14px;
+    padding: 12px 14px;
     border-left: 2px solid var(--gold-20);
-    background: rgba(184, 147, 42, 0.04);
+    background: rgba(184, 147, 42, 0.05);
     line-height: 1.5;
   }
 
@@ -353,8 +355,9 @@ export const qaCss = `
   @keyframes fadeIn { to { opacity: 1; } }
 
   .terminal-ready-indicator .sans-label {
-    font-size: 8px;
-    letter-spacing: 0.5em;
+    font-family: var(--sans);
+    font-size: 11px;
+    letter-spacing: 0.35em;
     color: var(--gold);
     text-transform: uppercase;
     font-weight: 700;
@@ -378,11 +381,11 @@ export const qaCss = `
 
   .ready-hint {
     font-family: var(--sans);
-    font-size: 11px;
-    color: var(--ink-55);
-    letter-spacing: 0.04em;
+    font-size: 14px;
+    color: var(--ink-75);
+    letter-spacing: 0.01em;
     line-height: 1.6;
-    max-width: 44ch;
+    max-width: 52ch;
     margin: 0;
   }
 
@@ -400,12 +403,12 @@ export const qaCss = `
     background: var(--ink);
     color: var(--cream);
     border: none;
-    padding: 8px 14px 8px 12px;
+    padding: 10px 16px 10px 14px;
     border-radius: 999px;
     font-family: var(--sans);
-    font-size: 9px;
+    font-size: 11px;
     font-weight: 700;
-    letter-spacing: 0.18em;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
     cursor: pointer;
     box-shadow: 0 6px 18px rgba(24,21,15,0.16);
@@ -476,42 +479,41 @@ export const qaCss = `
 
   .header-sep {
     font-family: var(--sans);
-    font-size: 10px;
-    color: var(--ink-15);
+    font-size: 11px;
+    color: var(--ink-20);
     line-height: 1;
     margin-right: 4px;
   }
 
   .sender-name {
     font-family: var(--sans);
-    font-size: 8px;
+    font-size: 10px;
     font-weight: 700;
-    letter-spacing: 0.15em;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--ink-30);
+    color: var(--ink-55);
   }
 
-  .agent .sender-name { color: var(--gold); opacity: 0.8; }
+  .agent .sender-name { color: var(--gold); opacity: 1; }
 
   .msg-time {
     font-family: var(--sans);
-    font-size: 8px;
+    font-size: 10px;
     font-weight: 500;
-    letter-spacing: 0.05em;
-    color: var(--ink-20);
+    letter-spacing: 0.04em;
+    color: var(--ink-55);
     text-transform: lowercase;
   }
 
   .msg-text {
     font-family: var(--sans);
-    font-size: 15px;
+    font-size: 16px;
     font-weight: 400;
-    line-height: 1.7;
+    line-height: 1.65;
     padding: 16px 22px;
-    letter-spacing: 0.01em;
+    letter-spacing: 0.005em;
     position: relative;
     word-break: break-word;
-    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .agent .msg-text {
@@ -535,8 +537,8 @@ export const qaCss = `
     align-items: center;
     gap: 12px;
     font-family: var(--sans);
-    font-size: 13px;
-    color: var(--ink-55);
+    font-size: 14px;
+    color: var(--ink-75);
   }
 
   .init-spinner {
@@ -615,28 +617,28 @@ export const qaCss = `
     gap: 12px;
     margin-top: 10px;
     font-family: var(--sans);
-    font-size: 9px;
-    letter-spacing: 0.15em;
+    font-size: 11px;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: var(--ink-30);
+    color: var(--ink-55);
     font-weight: 600;
   }
 
   .input-hint kbd {
     font-family: var(--sans);
-    font-size: 9px;
+    font-size: 11px;
     background: var(--ink-05);
     border: 1px solid var(--ink-08);
     border-radius: 2px;
-    padding: 1px 5px;
-    color: var(--ink-55);
-    letter-spacing: 0.05em;
+    padding: 2px 6px;
+    color: var(--ink);
+    letter-spacing: 0.04em;
   }
 
   .inquiries-left {
     font-family: var(--sans);
-    font-size: 9px;
-    letter-spacing: 0.18em;
+    font-size: 11px;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
     color: var(--gold);
     font-weight: 700;
@@ -672,9 +674,9 @@ export const qaCss = `
 
   .submit-btn span {
     font-family: var(--sans);
-    font-size: 9px;
+    font-size: 11px;
     font-weight: 700;
-    letter-spacing: 0.15em;
+    letter-spacing: 0.13em;
     text-transform: uppercase;
   }
 
@@ -699,11 +701,10 @@ export const qaCss = `
 
   .inline-error {
     font-family: var(--sans);
-    font-size: 9px;
+    font-size: 12px;
     color: #d32f2f;
-    margin-top: 8px;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
+    margin-top: 10px;
+    letter-spacing: 0.03em;
     font-weight: 600;
   }
 
@@ -734,10 +735,6 @@ export const qaCss = `
     color: var(--cream);
   }
 
-  .input-form input:disabled {
-    color: var(--ink-30);
-    cursor: not-allowed;
-  }
 
   .chat-viewport::-webkit-scrollbar { width: 4px; }
   .chat-viewport::-webkit-scrollbar-track { background: transparent; }

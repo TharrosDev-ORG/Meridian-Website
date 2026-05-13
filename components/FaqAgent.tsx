@@ -72,6 +72,7 @@ type DisplayMessage = {
 // truth for the conversation, so refreshing the page can't reset the usage
 // cap — we rehydrate the same task on mount.
 const TASK_COOKIE = "meridian_qa_task_v1";
+const COUNT_COOKIE = "meridian_qa_count_v1";
 const TASK_COOKIE_TTL_DAYS = 30;
 
 // Cap inquiries per conversation. The cookie-rehydrated message list is the
@@ -96,6 +97,22 @@ function writeTaskCookie(taskId: string): void {
 function clearTaskCookie(): void {
   if (typeof document === "undefined") return;
   document.cookie = `${TASK_COOKIE}=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=Lax`;
+  document.cookie = `${COUNT_COOKIE}=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=Lax`;
+}
+
+function readCountCookie(): number {
+  if (typeof document === "undefined") return 0;
+  const row = document.cookie.split("; ").find((r) => r.startsWith(`${COUNT_COOKIE}=`));
+  if (!row) return 0;
+  const val = parseInt(decodeURIComponent(row.slice(COUNT_COOKIE.length + 1)), 10);
+  return isNaN(val) ? 0 : val;
+}
+
+function writeCountCookie(count: number): void {
+  if (typeof document === "undefined") return;
+  const expiry = new Date(Date.now() + TASK_COOKIE_TTL_DAYS * 86400 * 1000);
+  document.cookie =
+    `${COUNT_COOKIE}=${count}; path=/; expires=${expiry.toUTCString()}; SameSite=Lax`;
 }
 
 function messageToDisplay(m: AnyTaskMessage): DisplayMessage | null {
@@ -149,6 +166,7 @@ export default function FaqAgent() {
   const [messages, setMessages] = useState<DisplayMessage[]>([]);
   const [inputValue, setInputValue] = useState("");
   const [isTyping, setIsTyping] = useState(false);
+  const [persistedCount, setPersistedCount] = useState(0);
   const [error, setError] = useState<string | null>(null);
   const [initStatus, setInitStatus] = useState<"idle" | "loading" | "ready" | "failed">("loading");
   const [hasUnread, setHasUnread] = useState(false);
@@ -177,8 +195,10 @@ export default function FaqAgent() {
     () => messages.filter((m) => m.role === "user").length,
     [messages],
   );
-  const remaining = Math.max(0, MAX_PROMPTS - userMsgCount);
-  const atLimit = userMsgCount >= MAX_PROMPTS;
+  // Use the higher of the rehydrated history or the persistent counter.
+  const effectiveCount = Math.max(userMsgCount, persistedCount);
+  const remaining = Math.max(0, MAX_PROMPTS - effectiveCount);
+  const atLimit = effectiveCount >= MAX_PROMPTS;
 
   useEffect(() => {
     const mountTimer = setTimeout(() => setMounted(true), 0);
@@ -233,6 +253,9 @@ export default function FaqAgent() {
             clearTaskCookie();
           }
         }
+
+        // Initialize persisted count from cookie.
+        setPersistedCount(readCountCookie());
 
         if (!alive) return;
         setInitStatus("ready");
@@ -380,6 +403,13 @@ export default function FaqAgent() {
       try {
         const updated = task ? await agent.sendMessage(text, task) : await agent.sendMessage(text);
         setTask(updated);
+        
+        // Persist progress immediately.
+        if (updated.id) writeTaskCookie(updated.id);
+        const nextCount = effectiveCount + 1;
+        setPersistedCount(nextCount);
+        writeCountCookie(nextCount);
+
         setTimeout(() => inputRef.current?.focus(), 0);
       } catch (err) {
         console.error("[FaqAgent] send failed:", err);

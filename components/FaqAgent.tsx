@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef, useCallback, memo } from "react";
+import React, { useState, useEffect, useRef, useCallback, useMemo, memo } from "react";
 import {
   Client,
   Key,
@@ -73,6 +73,10 @@ type DisplayMessage = {
 // cap — we rehydrate the same task on mount.
 const TASK_COOKIE = "meridian_qa_task_v1";
 const TASK_COOKIE_TTL_DAYS = 30;
+
+// Cap inquiries per conversation. The cookie-rehydrated message list is the
+// source of truth, so reloads can't bypass this.
+const MAX_PROMPTS = 3;
 
 function readTaskCookie(): string | null {
   if (typeof document === "undefined") return null;
@@ -168,6 +172,13 @@ export default function FaqAgent() {
     });
     setHasUnread(false);
   }, []);
+
+  const userMsgCount = useMemo(
+    () => messages.filter((m) => m.role === "user").length,
+    [messages],
+  );
+  const remaining = Math.max(0, MAX_PROMPTS - userMsgCount);
+  const atLimit = userMsgCount >= MAX_PROMPTS;
 
   useEffect(() => {
     const mountTimer = setTimeout(() => setMounted(true), 0);
@@ -352,6 +363,10 @@ export default function FaqAgent() {
     async (raw: string) => {
       const text = raw.trim();
       if (!text || !agent || isTyping) return;
+      if (atLimit) {
+        setError(`Inquiry limit reached. Only ${MAX_PROMPTS} questions per conversation.`);
+        return;
+      }
 
       const optimisticId = `optimistic-${Date.now()}`;
       pendingUserIdRef.current = optimisticId;
@@ -374,7 +389,7 @@ export default function FaqAgent() {
         pendingUserIdRef.current = null;
       }
     },
-    [agent, isTyping, task],
+    [agent, isTyping, task, atLimit],
   );
 
   const submit = useCallback(() => {
@@ -410,10 +425,13 @@ export default function FaqAgent() {
           initStatus,
           isTyping,
           hasMessages: messages.length > 0,
+          remaining,
+          maxPrompts: MAX_PROMPTS,
+          atLimit,
         },
       }),
     );
-  }, [initStatus, isTyping, messages.length]);
+  }, [initStatus, isTyping, messages.length, remaining, atLimit]);
 
   // Suggested-prompt bridge from QaBriefing.
   useEffect(() => {
@@ -521,7 +539,11 @@ export default function FaqAgent() {
             ref={inputRef}
             rows={1}
             placeholder={
-              initStatus === "ready" ? "Inquire the archive..." : "Awaiting archive sync..."
+              atLimit
+                ? "Inquiry limit reached for this conversation."
+                : initStatus === "ready"
+                ? "Inquire the archive..."
+                : "Awaiting archive sync..."
             }
             value={inputValue}
             onChange={(e) => {
@@ -529,7 +551,7 @@ export default function FaqAgent() {
               autoGrow(e.currentTarget);
             }}
             onKeyDown={handleKeyDown}
-            disabled={initStatus !== "ready"}
+            disabled={initStatus !== "ready" || atLimit}
             aria-label="Your question"
             autoComplete="off"
             spellCheck
@@ -537,7 +559,7 @@ export default function FaqAgent() {
           <button
             type="submit"
             className="submit-btn"
-            disabled={inputDisabled || !inputValue.trim()}
+            disabled={inputDisabled || atLimit || !inputValue.trim()}
             aria-label="Send message"
           >
             <span>Transmit</span>
@@ -548,10 +570,22 @@ export default function FaqAgent() {
         </form>
         <div className="input-hint">
           <span>
-            <kbd>Enter</kbd> to send · <kbd>Shift</kbd>+<kbd>Enter</kbd> for new line
+            {atLimit ? (
+              <>Conversation closed — {MAX_PROMPTS}-inquiry limit reached.</>
+            ) : (
+              <>
+                <kbd>Enter</kbd> to send · <kbd>Shift</kbd>+<kbd>Enter</kbd> for new line
+              </>
+            )}
           </span>
-          {error && initStatus === "ready" && <span className="inline-error">{error}</span>}
+          <span
+            className={`inquiries-left ${atLimit ? "depleted" : ""}`}
+            aria-live="polite"
+          >
+            {remaining} of {MAX_PROMPTS} inquiries remaining
+          </span>
         </div>
+        {error && initStatus === "ready" && <p className="inline-error">{error}</p>}
       </div>
     </div>
   );

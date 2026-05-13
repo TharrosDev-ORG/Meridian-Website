@@ -6,7 +6,12 @@ type AgentStatus = {
   initStatus: 'idle' | 'loading' | 'ready' | 'failed';
   isTyping: boolean;
   hasMessages: boolean;
+  remaining: number;
+  maxPrompts: number;
+  atLimit: boolean;
 };
+
+const DEFAULT_MAX = 3;
 
 const SUGGESTIONS: { label: string; prompt: string }[] = [
   { label: 'How do I become a member?', prompt: 'How do I become a member?' },
@@ -20,6 +25,9 @@ export default function QaBriefing() {
     initStatus: 'loading',
     isTyping: false,
     hasMessages: false,
+    remaining: DEFAULT_MAX,
+    maxPrompts: DEFAULT_MAX,
+    atLimit: false,
   });
 
   useEffect(() => {
@@ -59,7 +67,8 @@ export default function QaBriefing() {
   const statusKey =
     status.initStatus === 'ready' ? 'ready' : status.initStatus === 'failed' ? 'failed' : 'loading';
 
-  const suggestionsDisabled = !mounted || status.initStatus !== 'ready' || status.isTyping;
+  const suggestionsDisabled =
+    !mounted || status.initStatus !== 'ready' || status.isTyping || status.atLimit;
   const compact = status.hasMessages;
 
   return (
@@ -85,7 +94,20 @@ export default function QaBriefing() {
             {statusLabel}
           </span>
         </div>
+        <div className="meta-item">
+          <span className="meta-label">Inquiries</span>
+          <span
+            className={`meta-value inquiries-meta ${status.atLimit ? 'depleted' : ''}`}
+            aria-live="polite"
+          >
+            {status.remaining} of {status.maxPrompts} remaining
+          </span>
+        </div>
       </div>
+
+      <p className="qa-note">
+        Conversations are limited to {status.maxPrompts} inquiries each.
+      </p>
 
       <div className="suggested-questions">
         <p className="suggested-title">Common Questions</p>

@@ -4,8 +4,21 @@ export const qaCss = `
     display: none !important;
   }
 
-  /* ── Mobile block removed — Q&A now enabled on all viewports ── */
+  /* ── Mobile block: the chat is desktop-only. ── */
   .qa-mobile-block { display: none; }
+
+  @media (max-width: 1100px) {
+    .qa-mobile-block {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: calc(100vh - 60px);
+      margin-top: 60px;
+      padding: 40px 24px;
+      background: var(--cream);
+    }
+    .qa-section { display: none !important; }
+  }
 
   .qa-mobile-block-inner {
     max-width: 480px;
@@ -100,11 +113,10 @@ export const qaCss = `
 
   @media (max-width: 1100px) {
     .qa-section .wrap {
-      padding: 0 16px;
+      padding: 0 20px;
     }
     .qa-section {
-      height: calc(100vh - 68px);
-      margin-top: 68px;
+      height: calc(100vh - 68px); /* Reclaim space from hidden MobileDock */
     }
   }
 
@@ -133,7 +145,6 @@ export const qaCss = `
     display: flex;
     flex-direction: column;
     min-height: 0;
-    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   @media (min-width: 1101px) {
@@ -146,10 +157,10 @@ export const qaCss = `
 
   @media (max-width: 1100px) {
     .qa-briefing {
-      padding: 12px 0 12px;
+      padding: 18px 0 14px;
       height: auto;
       flex-shrink: 0;
-      border-bottom: 1px solid rgba(24, 21, 15, 0.05);
+      border-bottom: 1px solid rgba(24, 21, 15, 0.03);
     }
   }
 
@@ -370,35 +381,15 @@ export const qaCss = `
       display: none;
     }
     .qa-briefing .qa-title {
-      font-size: 20px;
-      margin-bottom: 0;
-      text-align: left;
+      font-size: 22px;
+      margin-bottom: 8px;
     }
-    .qa-briefing.is-compact {
-      padding: 10px 0;
-    }
+    .qa-briefing.is-compact .suggested-questions,
     .qa-briefing.is-compact .qa-title {
       display: none;
     }
-    .suggested-questions {
-      padding-top: 8px;
-    }
-    .suggested-list {
-      flex-direction: row;
-      overflow-x: auto;
-      padding: 4px 0 8px;
-      gap: 10px;
-      scrollbar-width: none;
-      -webkit-overflow-scrolling: touch;
-    }
-    .suggested-list::-webkit-scrollbar { display: none; }
-    .suggested-btn {
-      white-space: nowrap;
-      font-size: 13px;
-      padding: 8px 14px;
-      background: var(--ink-03);
-      border-color: var(--ink-08);
-      flex-shrink: 0;
+    .qa-briefing.is-compact {
+      padding: 10px 0;
     }
   }
 
@@ -610,8 +601,8 @@ export const qaCss = `
     font-family: var(--sans);
     font-size: 16px;
     font-weight: 400;
-    line-height: 1.6;
-    padding: 14px 18px;
+    line-height: 1.65;
+    padding: 16px 22px;
     letter-spacing: 0.005em;
     position: relative;
     word-break: break-word;
@@ -629,7 +620,7 @@ export const qaCss = `
     background: var(--ink);
     color: var(--cream);
     border-radius: 16px 2px 16px 16px;
-    box-shadow: 0 8px 24px rgba(24,21,15,0.1);
+    box-shadow: 0 12px 32px rgba(24,21,15,0.12);
   }
 
   /* ── Initialization ── */
@@ -842,37 +833,10 @@ export const qaCss = `
   .chat-viewport::-webkit-scrollbar-thumb { background: var(--ink-20); border-radius: 10px; }
 
   @media (max-width: 1100px) {
-    .chat-viewport { 
-      padding: 24px 0; 
-      gap: 24px; 
-      overscroll-behavior-y: contain;
-    }
-    .msg-content-wrap { max-width: 90%; }
-    .msg-text { font-size: 15px; padding: 12px 16px; line-height: 1.5; }
-    .input-area-wrap { 
-      padding-bottom: calc(20px + env(safe-area-inset-bottom, 0px));
-      padding-top: 12px; 
-      border-top: 1px solid var(--ink-08);
-      background: var(--cream);
-    }
-    .input-form { 
-      padding: 4px 4px 4px 14px; 
-      border-radius: 24px;
-      background: var(--ink-05);
-    }
-    .input-form:focus-within {
-      background: var(--cream);
-      border-color: var(--gold);
-    }
-    .input-form textarea { font-size: 16px; padding: 10px 0; }
+    .chat-viewport { padding: 16px 0; gap: 16px; }
+    .msg-content-wrap { max-width: 95%; }
+    .input-area-wrap { padding-bottom: 24px; padding-top: 16px; }
     .submit-btn span { display: none; }
-    .submit-btn { 
-      padding: 10px; 
-      border-radius: 50%;
-      width: 40px;
-      height: 40px;
-      justify-content: center;
-    }
-    .input-hint { font-size: 10px; margin-top: 10px; padding: 0 8px; }
+    .submit-btn { padding: 12px; }
   }
 `;

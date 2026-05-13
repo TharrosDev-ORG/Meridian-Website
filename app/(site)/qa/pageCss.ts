@@ -12,10 +12,21 @@ export const qaCss = `
       display: flex;
       align-items: center;
       justify-content: center;
-      min-height: calc(100vh - 60px);
-      margin-top: 60px;
+      min-height: calc(100vh - 68px);
+      margin-top: 68px;
       padding: 40px 24px;
       background: var(--cream);
+      position: relative;
+      overflow: hidden;
+    }
+    .qa-mobile-block::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: var(--grain);
+      background-size: 220px 220px;
+      opacity: 0.04;
+      pointer-events: none;
     }
     .qa-section { display: none !important; }
   }
@@ -26,7 +37,14 @@ export const qaCss = `
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 14px;
+    gap: 20px;
+    z-index: 2;
+    animation: lockFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  @keyframes lockFadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
   }
 
   .qa-mobile-block .sec-label {
@@ -56,11 +74,12 @@ export const qaCss = `
 
   .qa-mobile-copy {
     font-family: var(--serif);
-    font-size: 16px;
+    font-size: 18px;
     font-style: italic;
     color: var(--ink-75);
-    line-height: 1.55;
+    line-height: 1.6;
     margin: 0;
+    max-width: 32ch;
   }
 
   .qa-mobile-cta {

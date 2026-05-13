@@ -19,15 +19,15 @@ export default function QAPage() {
 
       <section className="qa-mobile-block" aria-label="Q&A unavailable on mobile">
         <div className="qa-mobile-block-inner">
-          <p className="sec-label">Desktop Only</p>
+          <p className="sec-label">Desktop Required</p>
           <h1 className="qa-mobile-title">
-            Q&amp;A is a <em>desktop experience.</em>
+            Our Q&amp;A agent is a <em>desktop experience.</em>
           </h1>
           <p className="qa-mobile-copy">
-            The Tharros intelligence console is tuned for a wider screen. Please revisit this
-            page on a laptop or desktop to speak with the agent.
+            The Tharros intelligence console is tuned for a high-fidelity command environment. 
+            Please revisit this page on a laptop or desktop to speak with the agent.
           </p>
-          <Link href="/" className="qa-mobile-cta">Return Home</Link>
+          <Link href="/" className="qa-mobile-cta">Return to Society Home</Link>
         </div>
       </section>
 

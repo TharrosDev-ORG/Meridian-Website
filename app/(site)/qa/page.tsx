@@ -20,9 +20,10 @@ export default function QAPage() {
       <section className="qa-mobile-block" aria-label="Q&A unavailable on mobile">
         <div className="qa-mobile-block-inner">
           <div className="mob-lock-seal" aria-hidden="true">
-            <svg viewBox="0 0 100 100" fill="currentColor">
-              <path d="M50 0 L93.3 25 L93.3 75 L50 100 L6.7 75 L6.7 25 Z" fill="none" stroke="currentColor" strokeWidth="1" />
-              <text x="50" y="58" fontSize="18" textAnchor="middle" fontFamily="var(--sans)" letterSpacing="0.2em">M</text>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <circle cx="12" cy="12" r="10" />
+              <line x1="2" y1="12" x2="22" y2="12" />
+              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
             </svg>
           </div>
           <p className="sec-label">Desktop Required</p>

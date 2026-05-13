@@ -358,83 +358,9 @@ export const qaCss = `
     margin: 0;
   }
 
-  /* ── Console Toolbar (new-chat) ── */
-  .console-toolbar {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    padding: 12px 0 8px;
-    flex-shrink: 0;
-    border-bottom: 1px solid var(--ink-05);
-    margin-bottom: 8px;
-    gap: 12px;
-  }
-
-  .toolbar-status {
-    font-family: var(--sans);
-    font-size: 8px;
-    font-weight: 700;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: var(--ink-30);
-    margin-right: auto;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .toolbar-status .dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--gold);
-    box-shadow: 0 0 0 0 rgba(184,147,42,0.6);
-    animation: dotPulse 2.2s ease-in-out infinite;
-  }
-
-  .toolbar-status.offline .dot {
-    background: #d32f2f;
-    animation: none;
-    box-shadow: none;
-  }
-
   @keyframes dotPulse {
     0%, 100% { box-shadow: 0 0 0 0 rgba(184,147,42,0.4); }
     50% { box-shadow: 0 0 0 5px rgba(184,147,42,0); }
-  }
-
-  .new-chat-btn {
-    background: transparent;
-    border: 1px solid var(--ink-08);
-    color: var(--ink-55);
-    font-family: var(--sans);
-    font-size: 9px;
-    font-weight: 700;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    padding: 8px 14px;
-    border-radius: 2px;
-    cursor: pointer;
-    transition: all 0.25s ease;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-  }
-
-  .new-chat-btn:hover:not(:disabled) {
-    border-color: var(--gold-20);
-    color: var(--ink);
-    background: rgba(184,147,42,0.04);
-  }
-
-  .new-chat-btn:disabled {
-    opacity: 0.35;
-    cursor: not-allowed;
-  }
-
-  .new-chat-btn svg {
-    width: 11px;
-    height: 11px;
   }
 
   /* ── Jump-to-latest pill ── */

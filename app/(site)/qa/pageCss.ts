@@ -3,10 +3,88 @@ export const qaCss = `
   footer, .footer, .progress, .skip-link, .arc-btn, .mobile-dock, .back-to-top-btn {
     display: none !important;
   }
+
+  /* ── Mobile block: the chat is desktop-only. ── */
+  .qa-mobile-block { display: none; }
+
+  @media (max-width: 1100px) {
+    .qa-mobile-block {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: calc(100vh - 60px);
+      margin-top: 60px;
+      padding: 40px 24px;
+      background: var(--cream);
+    }
+    .qa-section { display: none !important; }
+  }
+
+  .qa-mobile-block-inner {
+    max-width: 480px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .qa-mobile-block .sec-label {
+    justify-content: center;
+    margin-bottom: 0;
+  }
+
+  .qa-mobile-block .sec-label::after,
+  .qa-mobile-block .sec-label::before {
+    display: none;
+  }
+
+  .qa-mobile-title {
+    font-family: var(--serif);
+    font-size: clamp(28px, 7vw, 36px);
+    font-weight: 300;
+    line-height: 1.15;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+    margin: 0;
+  }
+
+  .qa-mobile-title em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .qa-mobile-copy {
+    font-family: var(--serif);
+    font-size: 16px;
+    font-style: italic;
+    color: var(--ink-75);
+    line-height: 1.55;
+    margin: 0;
+  }
+
+  .qa-mobile-cta {
+    margin-top: 18px;
+    font-family: var(--sans);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--cream);
+    background: var(--ink);
+    padding: 14px 26px;
+    border-radius: 2px;
+    text-decoration: none;
+    transition: background 0.25s ease;
+  }
+
+  .qa-mobile-cta:hover { background: var(--gold); }
   
-  html, body {
-    overflow: hidden !important;
-    height: 100% !important;
+  @media (min-width: 1101px) {
+    html, body {
+      overflow: hidden !important;
+      height: 100% !important;
+    }
   }
 
   .qa-section {

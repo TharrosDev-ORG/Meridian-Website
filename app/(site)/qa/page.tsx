@@ -22,7 +22,7 @@ export default function QAPage() {
           <div className="mob-lock-seal" aria-hidden="true">
             <svg viewBox="0 0 100 100" fill="currentColor">
               <path d="M50 0 L93.3 25 L93.3 75 L50 100 L6.7 75 L6.7 25 Z" fill="none" stroke="currentColor" strokeWidth="1" />
-              <text x="50" y="58" fontSize="12" textAnchor="middle" fontFamily="var(--sans)" letterSpacing="0.2em">M</text>
+              <text x="50" y="58" fontSize="18" textAnchor="middle" fontFamily="var(--sans)" letterSpacing="0.2em">M</text>
             </svg>
           </div>
           <p className="sec-label">Desktop Required</p>

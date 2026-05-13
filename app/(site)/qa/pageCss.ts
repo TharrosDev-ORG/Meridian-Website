@@ -69,8 +69,8 @@ export const qaCss = `
   }
 
   .mob-lock-seal {
-    width: 60px;
-    height: 60px;
+    width: 80px;
+    height: 80px;
     color: var(--gold);
     margin-bottom: 10px;
     opacity: 0;

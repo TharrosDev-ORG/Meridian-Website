@@ -226,6 +226,34 @@ export const qaCss = `
     background: transparent;
   }
 
+  .meta-value.inquiries-meta {
+    color: var(--gold);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+  }
+
+  .meta-value.inquiries-meta.depleted {
+    color: #d32f2f;
+  }
+
+  .qa-note {
+    font-family: var(--sans);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-30);
+    margin: -16px 0 32px;
+    padding: 10px 14px;
+    border-left: 2px solid var(--gold-20);
+    background: rgba(184, 147, 42, 0.04);
+    line-height: 1.5;
+  }
+
+  @media (max-width: 1100px) {
+    .qa-briefing.is-compact .qa-note { display: none; }
+  }
+
   /* Live status dot inside the briefing meta row */
   .meta-value.live-status {
     display: inline-flex;
@@ -605,8 +633,27 @@ export const qaCss = `
     letter-spacing: 0.05em;
   }
 
+  .inquiries-left {
+    font-family: var(--sans);
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .inquiries-left.depleted {
+    color: #d32f2f;
+  }
+
   @media (max-width: 1100px) {
-    .input-hint { display: none; }
+    .input-hint {
+      display: flex;
+      justify-content: center;
+      padding-top: 4px;
+    }
+    .input-hint > span:first-child { display: none; }
   }
 
   .submit-btn {

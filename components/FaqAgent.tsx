@@ -486,7 +486,7 @@ export default function FaqAgent() {
 
         {showReady && (
           <div className="terminal-ready-indicator">
-            <p className="sans-label">Dossier Active</p>
+            <p className="sans-label">Agent Active</p>
             <p className="ready-greeting">
               Ask me about the society — <em>events, membership, application, or anything in the archive.</em>
             </p>

@@ -131,7 +131,7 @@ export const qaCss = `
 
   @media (min-width: 1101px) {
     .qa-grid {
-      grid-template-columns: 350px 1fr;
+      grid-template-columns: 420px 1fr;
       gap: 80px;
     }
   }
@@ -166,7 +166,7 @@ export const qaCss = `
 
   .sec-label {
     font-family: var(--sans);
-    font-size: 10px;
+    font-size: 12px;
     font-weight: 700;
     letter-spacing: 0.3em;
     text-transform: uppercase;
@@ -201,7 +201,7 @@ export const qaCss = `
 
   .qa-intro {
     font-family: var(--serif);
-    font-size: 16px;
+    font-size: 18px;
     font-style: italic;
     font-weight: 400;
     color: var(--ink-75);
@@ -228,7 +228,7 @@ export const qaCss = `
 
   .meta-label {
     font-family: var(--sans);
-    font-size: 10px;
+    font-size: 12px;
     font-weight: 700;
     letter-spacing: 0.18em;
     text-transform: uppercase;
@@ -237,7 +237,7 @@ export const qaCss = `
 
   .meta-value {
     font-family: var(--sans);
-    font-size: 13px;
+    font-size: 15px;
     font-weight: 500;
     color: var(--ink);
     line-height: 1.4;
@@ -255,7 +255,7 @@ export const qaCss = `
 
   .suggested-title {
     font-family: var(--sans);
-    font-size: 11px;
+    font-size: 13px;
     font-weight: 700;
     letter-spacing: 0.2em;
     text-transform: uppercase;
@@ -275,7 +275,7 @@ export const qaCss = `
     padding: 9px 14px;
     text-align: left;
     font-family: var(--sans);
-    font-size: 13px;
+    font-size: 15px;
     color: var(--ink-75);
     cursor: pointer;
     transition: all 0.3s;
@@ -315,7 +315,7 @@ export const qaCss = `
 
   .qa-note {
     font-family: var(--sans);
-    font-size: 11px;
+    font-size: 14px;
     font-weight: 600;
     letter-spacing: 0.1em;
     text-transform: uppercase;

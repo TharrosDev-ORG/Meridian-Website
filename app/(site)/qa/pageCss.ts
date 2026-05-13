@@ -37,18 +37,43 @@ export const qaCss = `
       opacity: 0.04;
       pointer-events: none;
     }
+    .qa-mobile-block::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: 
+        linear-gradient(to right, var(--ink-03) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--ink-03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      opacity: 0.5;
+      pointer-events: none;
+    }
     .qa-section { display: none !important; }
   }
 
   .qa-mobile-block-inner {
     max-width: 480px;
+    width: 100%;
     text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 20px;
+    gap: 24px;
     z-index: 2;
+    padding: 40px 28px;
+    border: 1px solid var(--ink-08);
+    background: rgba(244, 237, 227, 0.6);
+    backdrop-filter: blur(8px);
     animation: lockFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .mob-lock-seal {
+    width: 60px;
+    height: 60px;
+    color: var(--gold);
+    margin-bottom: 10px;
+    opacity: 0;
+    animation: lockFadeIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.2s;
   }
 
   @keyframes lockFadeIn {

@@ -13,7 +13,6 @@ const NAV_LINKS = [
   { name: "Events", href: "/events" },
   { name: "Membership", href: "/membership" },
   { name: "Apply to Speak", href: "/apply" },
-  { name: "Q&A", href: "/qa" },
 ];
 
 export default function MobileMenu() {

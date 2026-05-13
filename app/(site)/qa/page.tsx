@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import Link from 'next/link';
 import PageStyles from '@/components/PageStyles';
 import { qaCss } from './pageCss';
 import { getMetadata } from '@/utils/metadata-shared';
@@ -15,7 +16,21 @@ export default function QAPage() {
   return (
     <main id="main-content">
       <PageStyles css={qaCss} />
-      
+
+      <section className="qa-mobile-block" aria-label="Q&A unavailable on mobile">
+        <div className="qa-mobile-block-inner">
+          <p className="sec-label">Desktop Only</p>
+          <h1 className="qa-mobile-title">
+            Q&amp;A is a <em>desktop experience.</em>
+          </h1>
+          <p className="qa-mobile-copy">
+            The Tharros intelligence console is tuned for a wider screen. Please revisit this
+            page on a laptop or desktop to speak with the agent.
+          </p>
+          <Link href="/" className="qa-mobile-cta">Return Home</Link>
+        </div>
+      </section>
+
       <section className="qa-section">
         <div className="wrap">
           <div className="qa-grid">

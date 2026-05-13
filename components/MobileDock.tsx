@@ -30,14 +30,6 @@ const RegisterIcon = (
   </svg>
 );
 
-const QAIcon = (
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-    <path d="M9 10h.01" />
-    <path d="M15 10h.01" />
-  </svg>
-);
-
 const MenuIcon = (
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
     <line x1="3" y1="12" x2="21" y2="12" />
@@ -56,7 +48,6 @@ const CloseIcon = (
 const NAV_ITEMS = [
   { name: "Home", href: "/", icon: HomeIcon },
   { name: "Events", href: "/events", icon: EventsIcon },
-  { name: "Q&A", href: "/qa", icon: QAIcon },
   { name: "Register", href: REGISTER_URL, icon: RegisterIcon, isProminent: true },
 ];
 

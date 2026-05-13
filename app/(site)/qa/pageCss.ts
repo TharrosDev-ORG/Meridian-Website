@@ -60,17 +60,14 @@ export const qaCss = `
 
   /* ── Left Column: Briefing ── */
   .qa-briefing {
-    padding-top: 40px;
-    padding-bottom: 40px;
+    padding-top: 24px;
+    padding-bottom: 24px;
     z-index: 10;
-    overflow-y: auto;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
     min-height: 0;
   }
-  .qa-briefing::-webkit-scrollbar { display: none; }
 
   @media (min-width: 1101px) {
     .qa-briefing {
@@ -82,11 +79,10 @@ export const qaCss = `
 
   @media (max-width: 1100px) {
     .qa-briefing {
-      padding: 24px 0 16px;
+      padding: 18px 0 14px;
       height: auto;
-      max-height: 35vh;
-      border-bottom: 1px solid rgba(24, 21, 15, 0.03);
       flex-shrink: 0;
+      border-bottom: 1px solid rgba(24, 21, 15, 0.03);
     }
   }
 
@@ -97,7 +93,7 @@ export const qaCss = `
     letter-spacing: 0.3em;
     text-transform: uppercase;
     color: var(--gold);
-    margin-bottom: 16px;
+    margin-bottom: 10px;
     display: flex;
     align-items: center;
     gap: 12px;
@@ -112,11 +108,11 @@ export const qaCss = `
 
   .qa-title {
     font-family: var(--serif);
-    font-size: clamp(28px, 3.2vw, 40px);
+    font-size: clamp(26px, 2.8vw, 34px);
     font-weight: 300;
     line-height: 1.1;
     color: var(--ink);
-    margin-bottom: 12px;
+    margin-bottom: 6px;
     letter-spacing: -0.01em;
   }
 
@@ -127,29 +123,29 @@ export const qaCss = `
 
   .qa-intro {
     font-family: var(--serif);
-    font-size: 17px;
+    font-size: 16px;
     font-style: italic;
     font-weight: 400;
     color: var(--ink-75);
-    line-height: 1.55;
-    margin-bottom: 32px;
+    line-height: 1.5;
+    margin-bottom: 14px;
   }
 
   .briefing-meta {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    padding: 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px 16px;
+    padding: 12px 14px;
     background: rgba(24, 21, 15, 0.03);
     border: 1px solid rgba(24, 21, 15, 0.05);
     border-radius: 2px;
-    margin-bottom: 32px;
+    margin-bottom: 12px;
   }
 
   .meta-item {
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 3px;
   }
 
   .meta-label {
@@ -171,11 +167,12 @@ export const qaCss = `
 
   .suggested-questions {
     margin-top: auto;
-    padding-top: 40px;
+    padding-top: 16px;
+    flex-shrink: 0;
   }
 
   @media (max-width: 1100px) {
-    .suggested-questions { padding-top: 24px; }
+    .suggested-questions { padding-top: 8px; margin-top: 0; }
   }
 
   .suggested-title {
@@ -185,28 +182,28 @@ export const qaCss = `
     letter-spacing: 0.2em;
     text-transform: uppercase;
     color: var(--gold);
-    margin-bottom: 12px;
+    margin-bottom: 8px;
   }
 
   .suggested-list {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 6px;
   }
 
   .suggested-btn {
     background: transparent;
     border: 1px solid rgba(24, 21, 15, 0.05);
-    padding: 12px 16px;
+    padding: 9px 14px;
     text-align: left;
     font-family: var(--sans);
-    font-size: 14px;
+    font-size: 13px;
     color: var(--ink-75);
     cursor: pointer;
     transition: all 0.3s;
     border-radius: 2px;
     outline: none;
-    line-height: 1.4;
+    line-height: 1.35;
   }
 
   .suggested-btn:hover {
@@ -240,16 +237,16 @@ export const qaCss = `
 
   .qa-note {
     font-family: var(--sans);
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 600;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
     color: var(--ink-55);
-    margin: -16px 0 32px;
-    padding: 12px 14px;
+    margin: 0 0 14px;
+    padding: 8px 12px;
     border-left: 2px solid var(--gold-20);
     background: rgba(184, 147, 42, 0.05);
-    line-height: 1.5;
+    line-height: 1.4;
   }
 
   @media (max-width: 1100px) {
@@ -284,20 +281,24 @@ export const qaCss = `
     box-shadow: none;
   }
 
-  /* Mobile: collapse briefing bulk once the conversation begins */
+  /* Mobile: keep the briefing within its slot — no internal scroll. */
   @media (max-width: 1100px) {
-    .qa-briefing.is-compact .briefing-meta,
-    .qa-briefing.is-compact .suggested-questions,
-    .qa-briefing.is-compact .qa-intro {
+    .qa-briefing .sec-label,
+    .qa-briefing .qa-intro,
+    .qa-briefing .briefing-meta,
+    .qa-briefing .qa-note {
       display: none;
     }
-    .qa-briefing.is-compact .qa-title {
+    .qa-briefing .qa-title {
       font-size: 22px;
-      margin-bottom: 4px;
+      margin-bottom: 8px;
+    }
+    .qa-briefing.is-compact .suggested-questions,
+    .qa-briefing.is-compact .qa-title {
+      display: none;
     }
     .qa-briefing.is-compact {
-      padding: 16px 0 12px;
-      max-height: none;
+      padding: 10px 0;
     }
   }
 

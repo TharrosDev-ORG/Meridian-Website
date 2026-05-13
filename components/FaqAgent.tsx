@@ -68,6 +68,47 @@ type DisplayMessage = {
   createdAt: Date;
 };
 
+// Cookie persists ONLY the Relevance task id. Relevance remains the source of
+// truth for the conversation, so refreshing the page can't reset the usage
+// cap — we rehydrate the same task on mount.
+const TASK_COOKIE = "meridian_qa_task_v1";
+const TASK_COOKIE_TTL_DAYS = 30;
+
+function readTaskCookie(): string | null {
+  if (typeof document === "undefined") return null;
+  const row = document.cookie.split("; ").find((r) => r.startsWith(`${TASK_COOKIE}=`));
+  if (!row) return null;
+  const value = decodeURIComponent(row.slice(TASK_COOKIE.length + 1));
+  return value || null;
+}
+
+function writeTaskCookie(taskId: string): void {
+  if (typeof document === "undefined") return;
+  const expiry = new Date(Date.now() + TASK_COOKIE_TTL_DAYS * 86400 * 1000);
+  document.cookie =
+    `${TASK_COOKIE}=${encodeURIComponent(taskId)}; path=/; expires=${expiry.toUTCString()}; SameSite=Lax`;
+}
+
+function clearTaskCookie(): void {
+  if (typeof document === "undefined") return;
+  document.cookie = `${TASK_COOKIE}=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=Lax`;
+}
+
+function messageToDisplay(m: AnyTaskMessage): DisplayMessage | null {
+  const id = m.id;
+  const createdAt = m.createdAt ?? new Date();
+  const anyMsg = m as { text?: unknown; errors?: unknown };
+  const errText = Array.isArray(anyMsg.errors) && anyMsg.errors.length > 0
+    ? String(anyMsg.errors[anyMsg.errors.length - 1] ?? "")
+    : "";
+  const text = typeof anyMsg.text === "string" ? anyMsg.text : errText;
+  if (!text) return null;
+  if (m.type === "user-message") return { id, role: "user", text, createdAt };
+  if (m.type === "agent-message") return { id, role: "agent", text, createdAt };
+  if (m.type === "agent-error") return { id, role: "error", text, createdAt };
+  return null;
+}
+
 const MessageBlock = memo(function MessageBlock({ m }: { m: DisplayMessage }) {
   const time = m.createdAt
     .toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", hour12: true })
@@ -161,6 +202,28 @@ export default function FaqAgent() {
         const a = await Agent.get(AGENT_ID, client);
         if (!alive) return;
         setAgent(a);
+
+        // Rehydrate any prior conversation persisted in the task-id cookie so
+        // the usage cap can't be circumvented by reloading the page.
+        const storedTaskId = readTaskCookie();
+        if (storedTaskId) {
+          try {
+            const prior = await a.getTask(storedTaskId);
+            const history = await prior.getMessages();
+            if (!alive) return;
+            const hydrated = history
+              .map(messageToDisplay)
+              .filter((x): x is DisplayMessage => x !== null);
+            if (hydrated.length > 0) setMessages(hydrated);
+            setTask(prior);
+          } catch (hydrateErr) {
+            // Task is gone or invalid — clear the cookie and start clean.
+            console.warn("[FaqAgent] could not rehydrate prior task:", hydrateErr);
+            clearTaskCookie();
+          }
+        }
+
+        if (!alive) return;
         setInitStatus("ready");
         // Focus the input once we're live.
         setTimeout(() => inputRef.current?.focus(), 0);
@@ -177,6 +240,12 @@ export default function FaqAgent() {
       clearTimeout(mountTimer);
     };
   }, []);
+
+  // Persist the active task id so reloads pick up where they left off and
+  // can't be used to bypass usage caps.
+  useEffect(() => {
+    if (task?.id) writeTaskCookie(task.id);
+  }, [task]);
 
   // Subscribe to the active task — emits a `message` event for every new or
   // updated message (user + agent + tool + error).
@@ -331,18 +400,6 @@ export default function FaqAgent() {
     }
   };
 
-  const resetConversation = useCallback(() => {
-    if (isTyping) return;
-    if (task) task.unsubscribe();
-    setTask(null);
-    setMessages([]);
-    setError(null);
-    setHasUnread(false);
-    pendingUserIdRef.current = null;
-    atBottomRef.current = true;
-    setTimeout(() => inputRef.current?.focus(), 0);
-  }, [isTyping, task]);
-
   // Publish status to sibling islands (briefing) so they can reflect the
   // real init state and whether the conversation has begun.
   useEffect(() => {
@@ -374,36 +431,8 @@ export default function FaqAgent() {
   const showReady = initStatus === "ready" && messages.length === 0;
   const inputDisabled = initStatus !== "ready" || isTyping;
 
-  const statusLabel =
-    initStatus === "ready"
-      ? isTyping
-        ? "Composing Response"
-        : "Operational"
-      : initStatus === "failed"
-      ? "Offline"
-      : "Synchronizing";
-  const statusClass = initStatus === "failed" ? "offline" : "";
-
   return (
     <div className="qa-console" data-d="2">
-      <div className="console-toolbar">
-        <span className={`toolbar-status ${statusClass}`}>
-          <span className="dot" aria-hidden="true" />
-          {statusLabel}
-        </span>
-        <button
-          type="button"
-          className="new-chat-btn"
-          onClick={resetConversation}
-          disabled={isTyping || messages.length === 0}
-          aria-label="Start a new conversation"
-        >
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
-            <path d="M12 5v14M5 12h14" />
-          </svg>
-          <span>New</span>
-        </button>
-      </div>
       <div className="chat-viewport" ref={viewportRef} role="log" aria-live="polite" aria-relevant="additions">
         {showInitLoader && (
           <div className="msg-block agent initializing">

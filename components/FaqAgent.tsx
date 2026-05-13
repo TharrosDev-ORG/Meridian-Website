@@ -490,10 +490,7 @@ export default function FaqAgent() {
             <p className="ready-greeting">
               Ask me about the society — <em>events, membership, application, or anything in the archive.</em>
             </p>
-            <p className="ready-hint">
-              I&apos;m trained on the public Meridian Society materials. Try a prompt from the
-              briefing on the left, or type your own question below.
-            </p>
+
           </div>
         )}
 

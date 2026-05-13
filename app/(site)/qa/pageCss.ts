@@ -8,15 +8,24 @@ export const qaCss = `
   .qa-mobile-block { display: none; }
 
   @media (max-width: 1100px) {
+    html, body {
+      overflow: hidden !important;
+      height: 100% !important;
+      position: fixed;
+      width: 100%;
+    }
     .qa-mobile-block {
       display: flex;
       align-items: center;
       justify-content: center;
-      min-height: calc(100vh - 68px);
-      margin-top: 68px;
-      padding: 40px 24px;
+      height: 100vh;
+      width: 100vw;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 9999;
+      padding: 24px;
       background: var(--cream);
-      position: relative;
       overflow: hidden;
     }
     .qa-mobile-block::after {

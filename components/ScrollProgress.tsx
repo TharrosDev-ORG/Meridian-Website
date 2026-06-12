@@ -17,7 +17,8 @@ export default function ScrollProgress() {
       const scrolled = height > 0 ? Math.round((winScroll / height) * 100) : 0;
       if (scrolled === lastWidth) return;
       lastWidth = scrolled;
-      progressBar.style.width = scrolled + "%";
+      // scaleX composites on the GPU; animating width would relayout every frame.
+      progressBar.style.transform = `scaleX(${scrolled / 100})`;
       progressBar.setAttribute("aria-valuenow", String(scrolled));
     };
 

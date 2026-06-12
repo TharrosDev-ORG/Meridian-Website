@@ -1,7 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { createClient } from "@/utils/supabase/client";
+import type { createClient } from "@/utils/supabase/client";
+
+type SupabaseClient = ReturnType<typeof createClient>;
+type RealtimeChannel = ReturnType<SupabaseClient["channel"]>;
 
 interface MemberCounterProps {
   className?: string;
@@ -45,10 +48,10 @@ export default function MemberCounter({ className }: MemberCounterProps) {
   useEffect(() => {
     if (!mounted) return;
 
-    const supabase = createClient();
     const controller = new AbortController();
     let cancelled = false;
-    let channel: ReturnType<typeof supabase.channel> | null = null;
+    let supabase: SupabaseClient | null = null;
+    let channel: RealtimeChannel | null = null;
 
     async function loadCount() {
       try {
@@ -76,8 +79,18 @@ export default function MemberCounter({ className }: MemberCounterProps) {
     // Defer the Supabase Realtime WebSocket handshake until the browser is
     // idle. The bootstrap fetch above already populates the count for FCP;
     // the live channel only matters for subsequent updates, which can wait.
-    const subscribe = () => {
+    // supabase-js itself is dynamically imported here so its ~225KB chunk
+    // never blocks the homepage's initial load.
+    const subscribe = async () => {
       if (cancelled) return;
+      try {
+        const { createClient } = await import("@/utils/supabase/client");
+        if (cancelled) return;
+        supabase = createClient();
+      } catch {
+        // Missing env / failed chunk: the bootstrap count still shows.
+        return;
+      }
       channel = supabase
         .channel("member-stats-global")
         .on(
@@ -117,7 +130,7 @@ export default function MemberCounter({ className }: MemberCounterProps) {
       } else {
         clearTimeout(subscribeHandle.id);
       }
-      if (channel) void supabase.removeChannel(channel);
+      if (channel && supabase) void supabase.removeChannel(channel);
     };
   }, [mounted]);
 
@@ -129,7 +142,7 @@ export default function MemberCounter({ className }: MemberCounterProps) {
       <div className="count-box">
         {showShimmer ? (
           <div className="count-num-overflow">
-            <div className="member-count-shimmer" style={{ width: "60px", height: "34px", borderRadius: "4px" }} />
+            <div className="member-count-shimmer" style={{ width: "110px", height: "52px", borderRadius: "4px" }} />
           </div>
         ) : (
           <div className="count-num-overflow">

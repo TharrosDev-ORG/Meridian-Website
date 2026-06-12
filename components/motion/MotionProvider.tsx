@@ -2,21 +2,10 @@
 
 import { useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import Lenis from "lenis";
+import type Lenis from "lenis";
+import { DESKTOP_MOTION, loadMotion } from "./motionCore";
 
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger);
-}
-
-/**
- * Desktop fine-pointer, motion-tolerant context. Everything heavy (Lenis,
- * scrubbed triggers, staggered reveals) lives behind this query. Touch and
- * reduced-motion users get instant, fully-visible content — same as before.
- */
-export const DESKTOP_MOTION =
-  "(min-width: 1101px) and (pointer: fine) and (prefers-reduced-motion: no-preference)";
+export { DESKTOP_MOTION } from "./motionCore";
 
 const NAV_OFFSET = -68;
 
@@ -30,13 +19,19 @@ function revealAllInstantly() {
   document.querySelectorAll(".rv:not(.on)").forEach((el) => el.classList.add("on"));
 }
 
+// True until the first desktop reveal scan runs. On the initial page load,
+// above-fold elements appear instantly (the hero runs its own timeline);
+// after route changes they animate in, covered by the page sweep.
+let firstScanPending = true;
+
 /**
  * MotionProvider — central GSAP/Lenis wiring for the whole site.
  *
  * Contract (do not break): content is visible by default. GSAP applies
  * from-states at runtime only, the moment an element enters the viewport.
  * Nothing is ever hidden waiting for JS; headless renderers and JS-off
- * visitors see the complete page.
+ * visitors see the complete page. The motion libraries themselves load
+ * only on devices that pass DESKTOP_MOTION.
  */
 export default function MotionProvider() {
   const pathname = usePathname();
@@ -44,9 +39,13 @@ export default function MotionProvider() {
 
   // ── Mount-once: Lenis + ticker wiring (desktop fine-pointer only) ──
   useEffect(() => {
-    const mm = gsap.matchMedia();
+    if (!window.matchMedia(DESKTOP_MOTION).matches) return;
 
-    mm.add(DESKTOP_MOTION, () => {
+    let disposed = false;
+    let cleanup: (() => void) | null = null;
+
+    loadMotion().then(({ gsap, ScrollTrigger, Lenis }) => {
+      if (disposed) return;
       document.documentElement.classList.add("gsap-motion");
 
       const lenis = new Lenis({ lerp: 0.1, wheelMultiplier: 1 });
@@ -74,7 +73,7 @@ export default function MotionProvider() {
       };
       document.addEventListener("click", onClick);
 
-      return () => {
+      cleanup = () => {
         document.removeEventListener("click", onClick);
         gsap.ticker.remove(tick);
         lenis.destroy();
@@ -84,7 +83,10 @@ export default function MotionProvider() {
       };
     });
 
-    return () => mm.revert();
+    return () => {
+      disposed = true;
+      cleanup?.();
+    };
   }, []);
 
   // ── Per-route: reveals + nav surface detection ──
@@ -124,82 +126,113 @@ export default function MotionProvider() {
       };
     }
 
-    const ctx = gsap.context(() => {
-      // Batched scroll reveals. Elements are visible until the moment they
-      // enter; the from-state is applied per-batch at enter time only.
-      const scan = () => {
-        const fresh = Array.from(
-          document.querySelectorAll<HTMLElement>(".rv:not(.on):not([data-rv-tracked])")
-        );
-        if (!fresh.length) return;
-        fresh.forEach((el) => (el.dataset.rvTracked = "1"));
-        ScrollTrigger.batch(fresh, {
-          start: "top 92%",
-          once: true,
-          onEnter: (els) => {
-            gsap.fromTo(
-              els,
-              { autoAlpha: 0, y: 28 },
-              {
-                autoAlpha: 1,
-                y: 0,
-                duration: 0.9,
-                ease: "expo.out",
-                stagger: 0.08,
-                overwrite: true,
-                clearProps: "opacity,visibility,transform",
-                onComplete: () => els.forEach((el) => el.classList.add("on")),
-              }
-            );
-          },
-        });
-      };
-      scan();
-      win.__observeReveal = scan;
-
-      // Nav surface detection: while any dark section sits under the fixed
-      // nav, flip it to the on-dark variant.
-      let darkCount = 0;
-      const nav = document.querySelector(".site-nav");
-      const applyNav = () => nav?.classList.toggle("site-nav--on-dark", darkCount > 0);
-      document.querySelectorAll<HTMLElement>("[data-theme='dark']").forEach((sec) => {
-        ScrollTrigger.create({
-          trigger: sec,
-          start: "top 68px",
-          end: "bottom 68px",
-          onToggle: (self) => {
-            darkCount += self.isActive ? 1 : -1;
-            if (darkCount < 0) darkCount = 0;
-            applyNav();
-          },
-        });
-      });
-      applyNav();
-    });
-
-    // New DOM after a route change: recalc trigger positions once painted.
+    let disposed = false;
+    let ctxRevert: (() => void) | null = null;
+    let raf1 = 0;
     let raf2 = 0;
-    const raf1 = requestAnimationFrame(() => {
-      raf2 = requestAnimationFrame(() => {
-        ScrollTrigger.refresh();
-        // Deep-link hash arrival (e.g. /membership#faq from the /qa redirect).
-        if (window.location.hash) {
-          const target = document.querySelector<HTMLElement>(window.location.hash);
-          if (target)
-            lenisRef.current?.scrollTo(
-              target.getBoundingClientRect().top + window.scrollY + NAV_OFFSET,
-              { immediate: true }
-            );
-        }
+
+    loadMotion().then(({ gsap, ScrollTrigger }) => {
+      if (disposed) return;
+
+      const ctx = gsap.context(() => {
+        // Batched scroll reveals. Elements are visible until the moment they
+        // enter; the from-state is applied per-batch at enter time only.
+        const scan = () => {
+          const fresh = Array.from(
+            document.querySelectorAll<HTMLElement>(".rv:not(.on):not([data-rv-tracked])")
+          );
+          if (!fresh.length) return;
+          fresh.forEach((el) => (el.dataset.rvTracked = "1"));
+
+          // On the very first scan (initial page load), elements already in
+          // view appear instantly — animating already-visible content after
+          // first paint reads as a flicker. The hero timeline handles the
+          // hero's own entrance.
+          let toBatch = fresh;
+          if (firstScanPending) {
+            firstScanPending = false;
+            const fold = window.innerHeight * 0.95;
+            toBatch = fresh.filter((el) => {
+              if (el.getBoundingClientRect().top < fold) {
+                el.classList.add("on");
+                return false;
+              }
+              return true;
+            });
+          }
+          if (!toBatch.length) return;
+
+          ScrollTrigger.batch(toBatch, {
+            start: "top 92%",
+            once: true,
+            onEnter: (els) => {
+              gsap.fromTo(
+                els,
+                { autoAlpha: 0, y: 28 },
+                {
+                  autoAlpha: 1,
+                  y: 0,
+                  duration: 0.9,
+                  ease: "expo.out",
+                  // Fast scrolling can land many elements in one batch; cap
+                  // the total stagger window so nothing waits invisible.
+                  stagger: Math.min(0.08, 0.5 / els.length),
+                  overwrite: true,
+                  clearProps: "opacity,visibility,transform",
+                  onComplete: () => els.forEach((el) => el.classList.add("on")),
+                }
+              );
+            },
+          });
+        };
+        scan();
+        win.__observeReveal = scan;
+
+        // Nav surface detection: while any dark section sits under the fixed
+        // nav, flip it to the on-dark variant.
+        let darkCount = 0;
+        const nav = document.querySelector(".site-nav");
+        const applyNav = () => nav?.classList.toggle("site-nav--on-dark", darkCount > 0);
+        document.querySelectorAll<HTMLElement>("[data-theme='dark']").forEach((sec) => {
+          ScrollTrigger.create({
+            trigger: sec,
+            start: "top 68px",
+            end: "bottom 68px",
+            onToggle: (self) => {
+              darkCount += self.isActive ? 1 : -1;
+              if (darkCount < 0) darkCount = 0;
+              applyNav();
+            },
+          });
+        });
+        applyNav();
+      });
+      ctxRevert = () => ctx.revert();
+
+      // New DOM after a route change: recalc trigger positions once painted.
+      raf1 = requestAnimationFrame(() => {
+        raf2 = requestAnimationFrame(() => {
+          ScrollTrigger.refresh();
+          // Deep-link hash arrival (e.g. /membership#faq from the /qa redirect).
+          if (window.location.hash) {
+            const target = document.querySelector<HTMLElement>(window.location.hash);
+            if (target)
+              lenisRef.current?.scrollTo(
+                target.getBoundingClientRect().top + window.scrollY + NAV_OFFSET,
+                { immediate: true }
+              );
+          }
+        });
       });
     });
 
     return () => {
+      disposed = true;
       cancelAnimationFrame(raf1);
       cancelAnimationFrame(raf2);
       document.querySelector(".site-nav")?.classList.remove("site-nav--on-dark");
       if (win.__observeReveal) delete win.__observeReveal;
-      ctx.revert();
+      ctxRevert?.();
     };
   }, [pathname]);
 

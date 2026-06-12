@@ -203,55 +203,44 @@ export const indexCss = `
       .about-left:hover .about-num { transform: translateZ(12px) rotateX(-2deg); }
     }
     .about-section-label { font-family: var(--sans); font-size: 10.5px; font-weight: 700; letter-spacing: 0.32em; text-transform: uppercase; color: var(--ink-55); margin-bottom: 20px; }
-    .about-title { font-family: var(--serif); font-size: clamp(36px, 3.5vw, 56px); font-weight: 300; line-height: 1.05; color: var(--ink); }
-    .about-counter-wrap { margin-top: 40px; }
+    .about-title { font-family: var(--serif); font-size: clamp(36px, 4.2vw, 68px); font-weight: 300; line-height: 1.05; color: var(--ink); text-wrap: balance; }
+    /* Live counter as the section's focal object: a gold-ruled ledger entry */
+    .about-counter-wrap { margin-top: 44px; }
     .about-counter-wrap .count-box {
       display: inline-flex; flex-direction: column; align-items: flex-start;
-      padding: 16px 20px; border: 1px solid var(--ink-10);
-      background: var(--cream-mid); position: relative;
-      box-shadow: 0 4px 20px rgba(24,21,15,0.03);
+      padding: 18px 0 0; min-width: 180px;
+      border-top: 1px solid var(--gold);
     }
-    .about-counter-wrap .count-box::before {
-      content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px;
-      background: var(--gold);
+    .count-num-overflow { height: 52px; overflow: hidden; position: relative; }
+    .count-num-reel {
+      display: flex; flex-direction: column;
+      transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    .count-num-overflow { height: 34px; overflow: hidden; position: relative; }
-    .count-num-reel { 
-      display: flex; flex-direction: column; 
-      transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); 
-    }
-    .count-num-reel.is-rolling { transform: translateY(-34px); }
-    .about-counter-wrap .count-num { 
-      font-family: var(--sans); font-size: 34px; font-weight: 500; 
-      color: var(--ink); line-height: 34px; height: 34px; display: block;
+    .count-num-reel.is-rolling { transform: translateY(-52px); }
+    .about-counter-wrap .count-num {
+      font-family: var(--serif); font-size: 54px; font-weight: 300;
+      font-variant-numeric: tabular-nums;
+      color: var(--ink); line-height: 52px; height: 52px; display: block;
     }
     .about-counter-wrap .count-num.next { color: var(--gold); }
-    .about-counter-wrap .count-lbl { font-family: var(--sans); font-size: 9px; font-weight: 700; letter-spacing: 0.24em; text-transform: uppercase; color: var(--gold); margin-top: 6px; }
+    .about-counter-wrap .count-lbl { font-family: var(--sans); font-size: 11.5px; font-weight: 700; letter-spacing: 0.24em; text-transform: uppercase; color: var(--gold); margin-top: 8px; }
     .about-title em { font-style: italic; color: var(--gold); }
     .about-right { padding-left: 96px; }
     .about-body { font-family: var(--serif); font-size: 19px; font-weight: 400; line-height: 1.95; color: var(--ink-90); margin-bottom: 28px; }
+    /* Editorial pull-quote: an oversized gold quotation mark carries it,
+       no box, no stripe. The quote IS the ornament. */
     .pull-quote {
-      padding: 24px 28px 24px 32px; margin: 40px 0;
-      background: var(--cream-mid);
-      border-left: 1px solid var(--ink-08);
-      box-shadow: inset 0 0 0 1px var(--ink-08), 0 4px 20px rgba(24,21,15,0.06);
-      position: relative; overflow: hidden;
-      transition: box-shadow 0.3s, transform 0.3s;
+      position: relative; margin: 48px 0;
+      padding: 6px 0 6px 60px;
     }
     .pull-quote::before {
-      content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px;
-      background: var(--gold);
-      transform: scaleY(0.35); transform-origin: bottom;
-      transition: transform 0.4s cubic-bezier(0.16,1,0.3,1);
-      pointer-events: none;
+      content: '\\201C';
+      position: absolute; left: 0; top: -14px;
+      font-family: var(--serif); font-size: 104px; font-weight: 300;
+      line-height: 1; color: var(--gold);
+      pointer-events: none; user-select: none;
     }
-    .pull-quote:hover { box-shadow: inset 0 0 0 1px var(--ink-08), 0 8px 32px rgba(24,21,15,0.10); transform: translateX(4px); }
-    @media (min-width: 1101px) {
-      .pull-quote:hover { transform: perspective(var(--perspective-scene)) translateX(8px) translateY(-2px) rotateY(-1deg) translateZ(6px); }
-    }
-    .pull-quote:hover::before { transform: scaleY(1); }
-
-    .pull-quote p { font-family: var(--serif); font-size: 21px; font-style: italic; font-weight: 300; line-height: 1.65; color: var(--ink); }
+    .pull-quote p { font-family: var(--serif); font-size: 23px; font-style: italic; font-weight: 300; line-height: 1.65; color: var(--ink); text-wrap: pretty; }
 
     /* ══════════════════════════════
        WHO WE GATHER
@@ -339,7 +328,7 @@ export const indexCss = `
     .events::after  { content: ''; position: absolute; bottom: 40px; left: 40px; width: 80px; height: 80px; border-bottom: 1px solid var(--ink-15); border-left: 1px solid var(--ink-15); pointer-events: none; }
     .events .wrap { position: relative; z-index: 1; }
     .events-header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 52px; }
-    .events-title { font-family: var(--serif); font-size: clamp(36px, 3.5vw, 56px); font-weight: 300; line-height: 1.05; color: var(--ink); }
+    .events-title { font-family: var(--serif); font-size: clamp(36px, 4.2vw, 68px); font-weight: 300; line-height: 1.05; color: var(--ink); text-wrap: balance; }
     .events-title em { font-style: italic; }
 
     .portal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
@@ -351,14 +340,21 @@ export const indexCss = `
       position: relative; overflow: hidden; cursor: pointer; text-decoration: none;
       will-change: transform;
     }
+    /* Gold rule draws across the card's top edge on hover */
+    .portal-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: var(--gold); transform: scaleX(0); transform-origin: left;
+      transition: transform 0.45s cubic-bezier(0.16,1,0.3,1);
+    }
+    .portal-card:hover::before { transform: scaleX(1); }
 
     .portal-card:hover { transform: translateY(-6px); border-color: var(--gold-lt); box-shadow: 0 16px 60px rgba(24,21,15,0.12); }
     @media (min-width: 1101px) {
       .portal-card:hover:not([data-tilt]) { transform: perspective(var(--perspective-card)) translateY(-14px) rotateX(2deg) rotateY(-1.5deg) translateZ(16px); box-shadow: 0 28px 88px rgba(24,21,15,0.18); }
     }
 
-    .portal-eyebrow { font-family: var(--sans); font-size: 10px; font-weight: 700; color: var(--gold); margin-bottom: 24px; letter-spacing: 0.28em; text-transform: uppercase; }
-    .portal-h3 { font-family: var(--serif); font-size: clamp(28px, 2.5vw, 42px); font-weight: 300; color: var(--ink); line-height: 1.1; margin-bottom: 20px; }
+    .portal-eyebrow { font-family: var(--sans); font-size: 11.5px; font-weight: 700; color: var(--gold); margin-bottom: 24px; letter-spacing: 0.28em; text-transform: uppercase; }
+    .portal-h3 { font-family: var(--serif); font-size: clamp(30px, 3vw, 52px); font-weight: 300; color: var(--ink); line-height: 1.08; margin-bottom: 20px; }
     .portal-h3 em { font-style: italic; }
     .portal-p { font-family: var(--serif); font-size: 19px; line-height: 1.75; color: var(--ink-75); margin-bottom: 36px; max-width: 440px; }
     .portal-cta { font-family: var(--sans); font-size: 11.5px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink); display: flex; align-items: center; gap: 10px; transition: gap 0.25s, color 0.25s; }
@@ -432,8 +428,9 @@ export const indexCss = `
       .about-right { padding-left: 104px; }
       .about-num { font-size: 104px; }
       .about-body { max-width: 62ch; font-size: 20px; line-height: 1.95; }
-      .pull-quote { margin: 48px 0; padding: 28px 32px 28px 36px; }
-      .pull-quote p { font-size: 22px; }
+      .pull-quote { margin: 56px 0; padding-left: 68px; }
+      .pull-quote::before { font-size: 120px; top: -18px; }
+      .pull-quote p { font-size: 25px; }
 
       /* Who we gather: tighter readability on the intro copy */
       .who { padding: 112px 0; }
@@ -595,8 +592,12 @@ export const indexCss = `
       .about-left { padding-bottom: 36px; }
       .about-right { padding-top: 36px; }
       .about-body { font-size: 17px; line-height: 1.8; margin-bottom: 20px; }
-      .pull-quote { padding: 22px 22px 22px 26px; margin: 30px 0; }
-      .pull-quote p { font-size: 18px; line-height: 1.6; }
+      .pull-quote { padding: 4px 0 4px 44px; margin: 34px 0; }
+      .pull-quote::before { font-size: 76px; top: -10px; }
+      .pull-quote p { font-size: 19px; line-height: 1.6; }
+      .count-num-overflow { height: 44px; }
+      .count-num-reel.is-rolling { transform: translateY(-44px); }
+      .about-counter-wrap .count-num { font-size: 44px; line-height: 44px; height: 44px; }
 
       /* WHO section */
       .who-top { gap: 20px; margin-bottom: 32px; }
@@ -667,11 +668,8 @@ export const indexCss = `
 
       .footer-top { flex-direction: column; gap: 20px; }
       .sticky-join { display: none !important; }
-      
-      /* Mobile Premium Animations: Lite transforms for cinematic feel without jitter */
-      .rv { opacity: 0; transform: translateY(8px); transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
-      .rv.on { opacity: 1; transform: translateY(0); }
-      .rv[data-d="1"], .rv[data-d="2"], .rv[data-d="3"], .rv[data-d="4"] { transition-delay: 0.1s; }
+      /* Mobile reveals are intentionally instant: content must never wait
+         for JS. Motion is a desktop fine-pointer enhancement. */
     }
 
     @media (max-width: 380px) {
@@ -694,7 +692,7 @@ export const indexCss = `
     .team-home-sec .wrap { position: relative; z-index: 1; }
     .team-home-header { margin-bottom: 52px; }
     .team-home-title-wrap { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; margin-bottom: 16px; }
-    .team-home-title { font-family: var(--serif); font-size: clamp(36px, 3.5vw, 56px); font-weight: 300; line-height: 1.05; color: var(--ink); }
+    .team-home-title { font-family: var(--serif); font-size: clamp(36px, 4.2vw, 68px); font-weight: 300; line-height: 1.05; color: var(--ink); text-wrap: balance; }
     .team-home-title em { font-style: italic; }
     .team-home-intro { font-family: var(--serif); font-size: 18px; font-style: italic; color: var(--ink-75); line-height: 1.7; max-width: 56ch; }
 

@@ -53,10 +53,9 @@ export default function RootLayout({
             WebSocket only opens on the homepage. */}
         <link rel="preconnect" href="https://va.vercel-scripts.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://dsyiuztquzkcikehkigv.supabase.co" />
-        {/* Early reveal: add .on to above-fold .rv elements at DOMContentLoaded,
-            well before React hydrates. Eliminates JS-gated FCP on desktop where
-            all content was opacity:0 until the JS bundle finished executing. */}
-        <script dangerouslySetInnerHTML={{ __html: `(function(){function r(){var h=window.innerHeight||800;document.querySelectorAll('.rv').forEach(function(e){var b=e.getBoundingClientRect();if(b.top<h+400)e.classList.add('on');});}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',r);}else{r();}})();` }} />
+        {/* The old pre-hydration early-reveal shim is gone: .rv content is
+            visible by default everywhere, and MotionProvider marks above-fold
+            elements after hydration. No more React className mismatch. */}
       </head>
       <body>
         <a href="#main-content" className="skip-link">Skip to main content</a>

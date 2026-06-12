@@ -5,6 +5,8 @@ import Footer from "@/components/Footer";
 import MobileMenu from "@/components/MobileMenu";
 import BackToTop from "@/components/BackToTop";
 import TransitionWrapper from "@/components/TransitionWrapper";
+import PageStyles from "@/components/PageStyles";
+import { notFoundCss } from "./(site)/not-foundCss";
 
 export const metadata: Metadata = {
   title: "Page Not Found | The Meridian Society",
@@ -14,25 +16,28 @@ export const metadata: Metadata = {
 export default function NotFound() {
   return (
     <>
+      <PageStyles css={notFoundCss} />
       <NavBar />
       <TransitionWrapper>
-        <main id="main-content" style={{ minHeight: "80vh", display: "flex", alignItems: "center", justifyContent: "center", padding: "140px 24px" }}>
-          <div style={{ maxWidth: 560, textAlign: "center" }}>
-            <p className="rv" style={{ fontFamily: "var(--sans)", textTransform: "uppercase", letterSpacing: "0.18em", fontSize: 13, color: "var(--gold)", marginBottom: 24 }}>
-              404 &mdash; Not Found
-            </p>
-            <h1 className="rv" data-d="1" style={{ fontFamily: "var(--serif)", fontSize: "clamp(40px, 6vw, 72px)", lineHeight: 1.05, marginBottom: 16 }}>
-              This page doesn&apos;t <em>exist.</em>
-            </h1>
-            <p className="rv" data-d="2" style={{ fontFamily: "var(--serif)", fontSize: 18, color: "var(--ink-75)", marginBottom: 32 }}>
-              The page you&apos;re looking for may have moved, or never existed.
-            </p>
-            <div className="rv" data-d="3">
-              <Link href="/" className="btn-primary">
-                <span>Return Home</span>
-              </Link>
+        <main id="main-content">
+          <section className="e404-main" data-theme="dark">
+            <div className="e404-wrap">
+              <p className="e404-eyebrow rv">Error 404</p>
+              <div className="e404-code rv" aria-hidden="true" data-d="1">404</div>
+              <div className="e404-rule rv" aria-hidden="true" data-d="1"></div>
+              <h1 className="e404-title rv rv-stagger" data-d="2">
+                <span className="rv-stagger-item">Beyond Our Meridian</span>
+              </h1>
+              <p className="e404-desc rv" data-d="3">
+                The page you&apos;re looking for has drifted out of reach.<br />
+                Let us orient you.
+              </p>
+              <div className="e404-ctas rv" data-d="4">
+                <Link href="/" className="e404-cta-primary"><span>Return Home</span></Link>
+                <Link href="/events" className="e404-cta-ghost">View Events &#8594;</Link>
+              </div>
             </div>
-          </div>
+          </section>
         </main>
       </TransitionWrapper>
       <Footer />

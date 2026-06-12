@@ -18,7 +18,7 @@ Entry point for any AI assistant working on this repo. Captures the invariants, 
 - **Surfaces**: cream "reading" chapters (`--cream` #F4EDE3) alternate with deep-ink "forum" chapters (`--ink` #18150F). Sections opt into dark via `data-theme="dark"`, which remaps the generic vars (`--bg`, `--fg*`, `--line*`) so shared component CSS adapts automatically.
 - **Accent**: `--gold` (#B8932A) / `--gold-lt` on dark. Cream-on-ink opacity ladder: `--cream-90` … `--cream-08`; raised dark surfaces `--ink-2`/`--ink-3`.
 - **Typography**: serif (Cormorant Garamond via `--serif`) for titles; condensed sans (Barlow Condensed via `--sans`) for metadata/UI.
-- **Motion stack**: GSAP + ScrollTrigger + Lenis (desktop fine-pointer only, via `components/motion/MotionProvider.tsx`); Three.js gold particle field in the homepage hero (`components/three/`). See the invariants in §Premium UI Patterns.
+- **Motion stack**: GSAP + ScrollTrigger + Lenis (desktop fine-pointer only, via `components/motion/MotionProvider.tsx`); Three.js gold particle field in the homepage hero (`components/three/`). **All motion libraries load lazily through `components/motion/motionCore.ts` (`loadMotion()`)** — touch/reduced-motion devices never download them. supabase-js is likewise dynamically imported inside MemberCounter's idle subscribe; never import it statically into homepage components. See the invariants in §Premium UI Patterns.
 
 ---
 
@@ -134,7 +134,7 @@ public/assets/                  Images, favicons, OG image.
 
 ## ✨ Premium UI Patterns
 
-- **Scroll reveals (GSAP)**: `className="rv"` markers are batched by `MotionProvider` via `ScrollTrigger.batch` on desktop fine-pointer; touch/reduced-motion get `.on` instantly. **Reveals must never gate visibility**: `.rv` is visible by default; GSAP applies from-states at runtime only. Early-reveal shim in `app/layout.tsx` still marks above-fold elements `.on` at `DOMContentLoaded`. `window.__observeReveal` re-scans dynamically added content.
+- **Scroll reveals (GSAP)**: `className="rv"` markers are batched by `MotionProvider` via `ScrollTrigger.batch` on desktop fine-pointer; touch/reduced-motion get `.on` instantly. **Reveals must never gate visibility**: `.rv` is visible by default; GSAP applies from-states at runtime only. The first desktop scan marks above-fold elements `.on` post-hydration (the old pre-hydration shim caused React className mismatches; do not reintroduce it). Batch stagger is capped (`Math.min(0.08, 0.5/els.length)`) so fast scrolling never leaves elements invisible. `window.__observeReveal` re-scans dynamically added content.
 - **Lenis smooth scroll is desktop-only** (`(min-width:1101px) and (pointer:fine) and (prefers-reduced-motion: no-preference)` — the `DESKTOP_MOTION` query exported by MotionProvider). Touch keeps native scroll. Same-page hash anchors route through `lenis.scrollTo` with a −68px nav offset.
 - **Nav surface detection**: `.site-nav--on-dark` is toggled while a `[data-theme="dark"]` section sits under the fixed nav (ScrollTrigger on desktop, rAF scroll-check fallback elsewhere).
 - **Three.js hero**: `HeroVisual` always renders a static fallback (gold glow + ghost "M"); `HeroParticles` lazy-loads only on eligible desktops, pauses off-screen, and **must be fully disposed on unmount** (geometry, material, `renderer.dispose()`, `forceContextLoss()`).

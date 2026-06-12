@@ -142,7 +142,7 @@ export default function MemberCounter({ className }: MemberCounterProps) {
       <div className="count-box">
         {showShimmer ? (
           <div className="count-num-overflow">
-            <div className="member-count-shimmer" style={{ width: "60px", height: "34px", borderRadius: "4px" }} />
+            <div className="member-count-shimmer" style={{ width: "110px", height: "52px", borderRadius: "4px" }} />
           </div>
         ) : (
           <div className="count-num-overflow">

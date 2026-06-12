@@ -174,7 +174,9 @@ export default function MotionProvider() {
                   y: 0,
                   duration: 0.9,
                   ease: "expo.out",
-                  stagger: 0.08,
+                  // Fast scrolling can land many elements in one batch; cap
+                  // the total stagger window so nothing waits invisible.
+                  stagger: Math.min(0.08, 0.5 / els.length),
                   overwrite: true,
                   clearProps: "opacity,visibility,transform",
                   onComplete: () => els.forEach((el) => el.classList.add("on")),

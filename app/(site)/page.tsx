@@ -264,7 +264,7 @@ export default function Home() {
       <div className="who-item rv h-scroll-item" data-num="01" data-tilt>
         <div className="who-num">01</div>
         <div className="who-item-title">Students &amp; Alumni</div>
-        <p className="who-item-desc">Motivated, individuals from Carleton University, uOttawa, and Algonquin College, and anyone drawn to the work we do.</p>
+        <p className="who-item-desc">Motivated individuals from Carleton University, uOttawa, and Algonquin College, and anyone drawn to the work we do.</p>
       </div>
       <div className="who-item rv h-scroll-item" data-d="1" data-num="02" data-tilt>
         <div className="who-num">02</div>
@@ -318,7 +318,7 @@ export default function Home() {
       <Link href="/events" className="portal-card rv h-scroll-item" data-d="1" data-tilt>
         <div className="portal-eyebrow">Signature Program</div>
         <h3 className="portal-h3">The Speaker<br/><em>Forum.</em></h3>
-        <p className="portal-p">Established professionals and academics sharing lived experience with a motivated students.</p>
+        <p className="portal-p">Established professionals and academics sharing lived experience with motivated students.</p>
         <span className="portal-cta">View Program &#8594;</span>
       </Link>
 

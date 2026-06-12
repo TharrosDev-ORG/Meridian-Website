@@ -1,53 +1,9 @@
 export const notFoundCss = `
     /*
      * The Meridian Society — 404 Page Styles
-     * Uses the cream/ink palette consistent with all other site pages.
+     * The dark "forum" surface: a page lost beyond the meridian, at night.
+     * Tokens come from globals.css; the section opts in via data-theme="dark".
      */
-
-    :root {
-      --cream:       #F4EDE3;
-      --cream-mid:   #EBE2D4;
-      --cream-deep:  #DDD0BC;
-      --ink:         #18150F;
-      --ink-90:      rgba(24,21,15,0.90);
-      --ink-75:      rgba(24,21,15,0.75);
-      --ink-55:      rgba(24,21,15,0.55);
-      --ink-30:      rgba(24,21,15,0.30);
-      --ink-15:      rgba(24,21,15,0.15);
-      --ink-08:      rgba(24,21,15,0.08);
-      --gold:        #B8932A;
-      --gold-lt:     #D4AF50;
-      --serif:       'Cormorant Garamond', Georgia, serif;
-      --sans:        'Barlow Condensed', 'Arial Narrow', Arial, sans-serif;
-    }
-
-    body {
-      background: var(--cream);
-      color: var(--ink);
-      font-family: var(--serif);
-    }
-
-    /* Arc button cream override */
-    .arc-btn { background: var(--cream-mid); border-color: var(--ink-15); }
-    .arc-btn .arc-icon { color: var(--ink-75); }
-    .arc-track { stroke: var(--ink-15); }
-    .arc-fill  { stroke: var(--gold); }
-
-    /* Nav cream override — matches events.html / team.html */
-    #mainNav {
-      --cream: #18150F;
-      --cream-70: rgba(24,21,15,0.90);
-      --cream-45: rgba(24,21,15,0.75);
-      --cream-20: rgba(24,21,15,0.55);
-      --black: #F4EDE3;
-      --gold: #B8932A;
-      background: rgba(244,237,227,0.92) !important;
-      backdrop-filter: blur(16px) !important;
-    }
-    #mainNav.scrolled {
-      background: rgba(244,237,227,0.98) !important;
-      border-bottom-color: rgba(184,147,42,0.25) !important;
-    }
 
     .e404-main {
       min-height: 100svh;
@@ -55,31 +11,39 @@ export const notFoundCss = `
       align-items: center;
       justify-content: center;
       padding: 120px 52px 80px;
-      background: var(--cream);
+    }
+    .e404-main::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 55% 45% at 50% 42%, var(--gold-glow) 0%, transparent 70%);
+      opacity: 0.25;
+      pointer-events: none;
     }
 
     .e404-wrap {
+      position: relative; z-index: 1;
       text-align: center;
       max-width: 640px;
     }
 
     .e404-eyebrow {
       font-family: var(--sans);
-      font-size: 10.5px;
+      font-size: 11.5px;
       font-weight: 600;
       letter-spacing: 0.32em;
       text-transform: uppercase;
-      color: var(--gold);
+      color: var(--gold-lt);
       margin-bottom: 28px;
     }
 
     .e404-code {
       font-family: var(--serif);
       font-size: clamp(96px, 18vw, 180px);
-      font-weight: 700;
+      font-weight: 300;
       line-height: 0.9;
       letter-spacing: -0.02em;
-      color: var(--ink-15);
+      color: transparent;
+      -webkit-text-stroke: 1.5px rgba(244,237,227,0.18);
       margin-bottom: 36px;
     }
 
@@ -88,16 +52,17 @@ export const notFoundCss = `
       height: 1px;
       background: var(--gold);
       margin: 0 auto 32px;
-      opacity: 0.5;
+      opacity: 0.6;
     }
 
     .e404-title {
       font-family: var(--serif);
-      font-size: clamp(26px, 3.5vw, 44px);
-      font-weight: 400;
-      color: var(--ink);
+      font-size: clamp(28px, 3.8vw, 52px);
+      font-weight: 300;
+      color: var(--cream);
       letter-spacing: 0.01em;
       margin-bottom: 20px;
+      text-wrap: balance;
     }
 
     .e404-desc {
@@ -105,8 +70,8 @@ export const notFoundCss = `
       font-size: clamp(17px, 1.8vw, 21px);
       font-style: italic;
       font-weight: 300;
-      color: var(--ink-55);
-      line-height: 1.7;
+      color: var(--cream-75);
+      line-height: 1.8;
       margin-bottom: 44px;
     }
 
@@ -122,29 +87,29 @@ export const notFoundCss = `
       display: inline-flex;
       align-items: center;
       padding: 14px 36px;
-      background: var(--ink);
-      color: var(--cream);
+      background: var(--gold);
+      color: var(--ink);
       text-decoration: none;
       font-family: var(--sans);
       font-size: 11.5px;
-      font-weight: 600;
+      font-weight: 700;
       letter-spacing: 0.22em;
       text-transform: uppercase;
       position: relative;
       overflow: hidden;
-      transition: color 0.28s;
+      transition: color 0.28s, box-shadow 0.3s;
     }
     .e404-cta-primary::before {
       content: '';
       position: absolute;
       inset: 0;
-      background: var(--gold);
+      background: var(--gold-lt);
       transform: translateX(-101%);
       transition: transform 0.32s cubic-bezier(0.4,0,0.2,1);
     }
     .e404-cta-primary span { position: relative; z-index: 1; }
     .e404-cta-primary:hover::before { transform: translateX(0); }
-    .e404-cta-primary:hover { color: var(--ink); }
+    .e404-cta-primary:hover { box-shadow: 0 8px 32px var(--gold-glow); }
 
     .e404-cta-ghost {
       display: inline-flex;
@@ -156,18 +121,18 @@ export const notFoundCss = `
       font-weight: 600;
       letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: var(--ink-55);
+      color: var(--cream-55);
       transition: color 0.25s;
       padding: 14px 0;
     }
-    .e404-cta-ghost:hover { color: var(--ink); }
+    .e404-cta-ghost:hover { color: var(--cream); }
 
     @media (min-width: 1101px) {
       .e404-main { padding: 140px 72px 100px; }
       .e404-wrap { max-width: 720px; }
       .e404-code { font-size: clamp(160px, 16vw, 220px); margin-bottom: 44px; }
       .e404-title { margin-bottom: 24px; }
-      .e404-desc { margin-bottom: 52px; line-height: 1.8; }
+      .e404-desc { margin-bottom: 52px; }
       .e404-cta-primary { padding: 16px 40px; font-size: 12px; letter-spacing: 0.24em; }
       .e404-cta-ghost { font-size: 12px; letter-spacing: 0.22em; }
     }
@@ -175,6 +140,7 @@ export const notFoundCss = `
     @media (max-width: 700px) {
       .e404-main { padding: 100px 20px 60px; }
       .e404-ctas { flex-direction: column; gap: 16px; }
+      .e404-cta-primary { width: 100%; justify-content: center; }
     }
 
     @media (prefers-reduced-motion: reduce) {

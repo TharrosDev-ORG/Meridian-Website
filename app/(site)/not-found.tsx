@@ -8,7 +8,7 @@ export default function NotFound() {
     <>
       <PageStyles css={notFoundCss} />
       <main id="main-content">
-        <div className="e404-main">
+        <section className="e404-main" data-theme="dark">
           <div className="e404-wrap">
             <p className="e404-eyebrow rv">Error 404</p>
             <div className="e404-code rv" aria-hidden="true" data-d="1">404</div>
@@ -25,7 +25,7 @@ export default function NotFound() {
               <Link href="/events" className="e404-cta-ghost">View Events &#8594;</Link>
             </div>
           </div>
-        </div>
+        </section>
       </main>
     </>
   ); 

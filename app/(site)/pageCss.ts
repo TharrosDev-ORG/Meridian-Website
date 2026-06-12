@@ -667,11 +667,8 @@ export const indexCss = `
 
       .footer-top { flex-direction: column; gap: 20px; }
       .sticky-join { display: none !important; }
-      
-      /* Mobile Premium Animations: Lite transforms for cinematic feel without jitter */
-      .rv { opacity: 0; transform: translateY(8px); transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
-      .rv.on { opacity: 1; transform: translateY(0); }
-      .rv[data-d="1"], .rv[data-d="2"], .rv[data-d="3"], .rv[data-d="4"] { transition-delay: 0.1s; }
+      /* Mobile reveals are intentionally instant: content must never wait
+         for JS. Motion is a desktop fine-pointer enhancement. */
     }
 
     @media (max-width: 380px) {

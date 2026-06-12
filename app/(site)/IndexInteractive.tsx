@@ -1,13 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { DESKTOP_MOTION } from "@/components/motion/MotionProvider";
-
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger);
-}
+import { DESKTOP_MOTION, loadMotion } from "@/components/motion/motionCore";
 
 /**
  * IndexInteractive — GSAP choreography for the homepage.
@@ -26,8 +20,13 @@ export default function IndexInteractive() {
 
     if (!window.matchMedia(DESKTOP_MOTION).matches) return;
 
+    let disposed = false;
+    let ctxRevert: (() => void) | null = null;
     const removers: Array<() => void> = [];
-    const ctx = gsap.context(() => {
+
+    loadMotion().then(({ gsap }) => {
+      if (disposed) return;
+      const ctx = gsap.context(() => {
       // ── 1. Hero intro timeline ──
       const tl = gsap.timeline({ defaults: { ease: "expo.out" } });
       tl.from(".hero-eyebrow-rule", { scaleX: 0, duration: 1.1, stagger: 0.05 }, 0)
@@ -119,11 +118,14 @@ export default function IndexInteractive() {
           card.removeEventListener("mouseleave", onLeave);
         });
       });
+      });
+      ctxRevert = () => ctx.revert();
     });
 
     return () => {
+      disposed = true;
       removers.forEach((fn) => fn());
-      ctx.revert();
+      ctxRevert?.();
     };
   }, []);
 

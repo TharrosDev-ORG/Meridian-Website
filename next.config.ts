@@ -16,6 +16,11 @@ const cspHeader = `
 `.replace(/\n/g, '').replace(/\s{2,}/g, ' ').trim();
 
 const nextConfig: NextConfig = {
+  turbopack: {
+    // Pin the workspace root: a stray lockfile in the user directory
+    // otherwise makes Turbopack guess wrong and warn on every dev boot.
+    root: __dirname,
+  },
   images: {
     formats: ["image/avif", "image/webp"],
     minimumCacheTTL: 2592000, // 30 days

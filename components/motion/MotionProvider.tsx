@@ -69,7 +69,8 @@ export default function MotionProvider() {
         if (!target) return;
         e.preventDefault();
         history.pushState(null, "", url.hash);
-        lenis.scrollTo(target, { offset: NAV_OFFSET });
+        // Numeric target: Lenis double-applies `offset` for element targets.
+        lenis.scrollTo(target.getBoundingClientRect().top + window.scrollY + NAV_OFFSET);
       };
       document.addEventListener("click", onClick);
 
@@ -96,7 +97,29 @@ export default function MotionProvider() {
       // keep the __observeReveal hook semantics for dynamically added content.
       revealAllInstantly();
       win.__observeReveal = revealAllInstantly;
+
+      // Nav surface detection without GSAP: cheap rAF-throttled scroll check.
+      const nav = document.querySelector(".site-nav");
+      const sections = Array.from(document.querySelectorAll<HTMLElement>("[data-theme='dark']"));
+      let rafId = 0;
+      const check = () => {
+        rafId = 0;
+        const onDark = sections.some((sec) => {
+          const r = sec.getBoundingClientRect();
+          return r.top <= 68 && r.bottom >= 68;
+        });
+        nav?.classList.toggle("site-nav--on-dark", onDark);
+      };
+      const onScroll = () => {
+        if (!rafId) rafId = requestAnimationFrame(check);
+      };
+      check();
+      window.addEventListener("scroll", onScroll, { passive: true });
+
       return () => {
+        window.removeEventListener("scroll", onScroll);
+        if (rafId) cancelAnimationFrame(rafId);
+        nav?.classList.remove("site-nav--on-dark");
         delete win.__observeReveal;
       };
     }
@@ -162,7 +185,11 @@ export default function MotionProvider() {
         // Deep-link hash arrival (e.g. /membership#faq from the /qa redirect).
         if (window.location.hash) {
           const target = document.querySelector<HTMLElement>(window.location.hash);
-          if (target) lenisRef.current?.scrollTo(target, { offset: NAV_OFFSET, immediate: true });
+          if (target)
+            lenisRef.current?.scrollTo(
+              target.getBoundingClientRect().top + window.scrollY + NAV_OFFSET,
+              { immediate: true }
+            );
         }
       });
     });

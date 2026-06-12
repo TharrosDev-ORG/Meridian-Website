@@ -765,7 +765,7 @@ body {
   position: relative; min-height: 60vh;
   display: flex; flex-direction: column; align-items: center; justify-content: center;
   text-align: center; padding: 110px 64px 60px; overflow: hidden;
-  background: var(--cream);
+  background: var(--bg);
 }
 .page-hero::before {
   content: ''; position: absolute; inset: 0; z-index: 0;
@@ -773,6 +773,12 @@ body {
     radial-gradient(ellipse 70% 55% at 50% 35%, transparent 45%, rgba(166,138,88,0.08) 100%),
     radial-gradient(ellipse 100% 60% at 50% 90%, rgba(150,120,70,0.07) 0%, transparent 60%);
   pointer-events: none;
+}
+.page-hero[data-theme="dark"]::before {
+  background:
+    radial-gradient(ellipse 55% 45% at 50% 40%, var(--gold-glow) 0%, transparent 70%),
+    radial-gradient(ellipse 100% 70% at 50% 110%, rgba(0,0,0,0.4) 0%, transparent 60%);
+  opacity: 0.35;
 }
 .page-hero::after {
   content: ''; position: absolute; inset: 0; z-index: 1;
@@ -1166,7 +1172,7 @@ footer {
     font-weight: 300;
     font-style: italic;
     line-height: 0.85;
-    color: var(--ink);
+    color: var(--fg);
     opacity: 0.08;
     letter-spacing: -0.02em;
     user-select: none;
@@ -1200,7 +1206,7 @@ footer {
     font-size: clamp(16px, 1.2vw, 19px);
     font-style: italic;
     font-weight: 300;
-    color: var(--ink-75);
+    color: var(--fg-75);
     line-height: 1.5;
     max-width: 220px;
   }
@@ -1228,7 +1234,7 @@ footer {
     color: var(--gold);
   }
   .page-hero-asym-masthead-counter .page-hero-asym-masthead-total {
-    color: var(--ink-55);
+    color: var(--fg-55);
     margin-left: 4px;
   }
   .page-hero-asym-masthead-rule {
@@ -1238,7 +1244,7 @@ footer {
       to right,
       rgba(184, 147, 42, 0.45) 0%,
       rgba(184, 147, 42, 0.18) 50%,
-      rgba(24, 21, 15, 0.08) 100%
+      var(--line-soft) 100%
     );
   }
   .page-hero-asym-masthead-volume {
@@ -1247,7 +1253,7 @@ footer {
     font-weight: 600;
     letter-spacing: 0.28em;
     text-transform: uppercase;
-    color: var(--ink-55);
+    color: var(--fg-55);
     flex-shrink: 0;
   }
 
@@ -1270,7 +1276,7 @@ footer {
     font-weight: 700;
     letter-spacing: 0.36em;
     text-transform: uppercase;
-    color: var(--ink-55);
+    color: var(--fg-55);
     opacity: 0.7;
   }
   .page-hero-asym-scroll-line {

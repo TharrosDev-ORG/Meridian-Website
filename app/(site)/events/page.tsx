@@ -34,7 +34,7 @@ export default function EventsPage() {
       <main id="main-content">
 
         {/* ═══════════ HERO ═══════════ */}
-        <section className="page-hero page-hero-asym" aria-label="Events hero">
+        <section className="page-hero page-hero-asym" data-theme="dark" aria-label="Events hero">
           <div className="page-hero-content">
             <div className="page-hero-asym-masthead" aria-hidden="true">
               <span className="page-hero-asym-masthead-counter">

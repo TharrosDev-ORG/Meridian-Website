@@ -14,11 +14,11 @@ Entry point for any AI assistant working on this repo. Captures the invariants, 
 ## 🏛️ Project Identity
 **The Meridian Society** — student-run speaker forum + social community based in Ottawa. This website is the society's core identity and foundational base.
 
-**Aesthetic**: Premium, professional, high-contrast.
-- **Background**: `--cream` (#F4EDE3)
-- **Primary Text**: `--ink` (#18150F)
-- **Accent**: `--gold` (#B8932A)
+**Aesthetic**: Premium, professional, high-contrast, dual-surface (2026-06 redesign).
+- **Surfaces**: cream "reading" chapters (`--cream` #F4EDE3) alternate with deep-ink "forum" chapters (`--ink` #18150F). Sections opt into dark via `data-theme="dark"`, which remaps the generic vars (`--bg`, `--fg*`, `--line*`) so shared component CSS adapts automatically.
+- **Accent**: `--gold` (#B8932A) / `--gold-lt` on dark. Cream-on-ink opacity ladder: `--cream-90` … `--cream-08`; raised dark surfaces `--ink-2`/`--ink-3`.
 - **Typography**: serif (Cormorant Garamond via `--serif`) for titles; condensed sans (Barlow Condensed via `--sans`) for metadata/UI.
+- **Motion stack**: GSAP + ScrollTrigger + Lenis (desktop fine-pointer only, via `components/motion/MotionProvider.tsx`); Three.js gold particle field in the homepage hero (`components/three/`). See the invariants in §Premium UI Patterns.
 
 ---
 
@@ -50,7 +50,8 @@ app/
     layout.tsx                    Footer + MobileMenu + MobileDock + BackToTop.
     page.tsx                    /                (home — server component)
     HomeClientSide.tsx          Client-only dynamic exports.
-    IndexInteractive.tsx        Imperative homepage animation logic.
+    IndexInteractive.tsx        GSAP homepage choreography (hero timeline,
+                                  scrubbed parallax, quickTo tilts).
     pageCss.ts                  Homepage-scoped CSS string.
     events/                     Tabbed Forum / Social page.
       page.tsx, pageCss.ts        Server hero + tabbed section.
@@ -87,8 +88,11 @@ components/
   SpeakerForm.tsx               Speaker application form.
   FaqAccordion.tsx              Driven by FAQ_ITEMS (constants/membership.ts).
   PageStyles.tsx                Injects per-page <style> blocks.
-  Providers.tsx                 SiteContext (menuOpen) + IntersectionObserver
-                                  reveal manager (skipped on touch).
+  Providers.tsx                 SiteContext (menuOpen) only.
+  motion/MotionProvider.tsx     GSAP/ScrollTrigger + Lenis wiring, scroll
+                                  reveals, nav on-dark detection (root layout).
+  three/HeroVisual.tsx          Hero atmospheric layer: static fallback +
+  three/HeroParticles.tsx         lazy WebGL gold particle field.
   ScrollToTopOnMount.tsx        Resets scroll on /events arrival unless hash.
   sections/RegisterSection.tsx          Final-CTA register block.
   sections/SocialInstagramSection.tsx   Shared Instagram CTA module.
@@ -130,7 +134,11 @@ public/assets/                  Images, favicons, OG image.
 
 ## ✨ Premium UI Patterns
 
-- **Scroll reveals**: `className="rv"` plus optional `data-d="1"`–`data-d="5"` for 80 ms stagger. Early-reveal shim in `app/layout.tsx` adds `.on` to above-the-fold elements at `DOMContentLoaded`. Touch devices skip the observer.
+- **Scroll reveals (GSAP)**: `className="rv"` markers are batched by `MotionProvider` via `ScrollTrigger.batch` on desktop fine-pointer; touch/reduced-motion get `.on` instantly. **Reveals must never gate visibility**: `.rv` is visible by default; GSAP applies from-states at runtime only. Early-reveal shim in `app/layout.tsx` still marks above-fold elements `.on` at `DOMContentLoaded`. `window.__observeReveal` re-scans dynamically added content.
+- **Lenis smooth scroll is desktop-only** (`(min-width:1101px) and (pointer:fine) and (prefers-reduced-motion: no-preference)` — the `DESKTOP_MOTION` query exported by MotionProvider). Touch keeps native scroll. Same-page hash anchors route through `lenis.scrollTo` with a −68px nav offset.
+- **Nav surface detection**: `.site-nav--on-dark` is toggled while a `[data-theme="dark"]` section sits under the fixed nav (ScrollTrigger on desktop, rAF scroll-check fallback elsewhere).
+- **Three.js hero**: `HeroVisual` always renders a static fallback (gold glow + ghost "M"); `HeroParticles` lazy-loads only on eligible desktops, pauses off-screen, and **must be fully disposed on unmount** (geometry, material, `renderer.dispose()`, `forceContextLoss()`).
+- **Homepage choreography** lives in `app/(site)/IndexInteractive.tsx` (hero intro timeline, scrubbed parallax, `gsap.quickTo` tilts). No pinned sections, no scroll-jacking.
 - **Magnetic buttons**: `<Magnetic strength={0.2}>` writes `--mag-x` / `--mag-y` CSS vars; auto-disables on `(pointer: coarse)`.
 - **Page transitions**: `TransitionWrapper` keyed on `usePathname()` fires the `pageSweep` keyframe on every route change.
 - **Inline per-page CSS**: `<PageStyles css={...} />` for page-scoped rules only.

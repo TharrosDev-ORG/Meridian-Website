@@ -44,7 +44,7 @@ export default function Page() {
       />
       <main id="main-content">
   {/* ═══════════ HERO ═══════════ */}
-  <section className="page-hero page-hero-asym" aria-label="Membership hero">
+  <section className="page-hero page-hero-asym" data-theme="dark" aria-label="Membership hero">
     <div className="page-hero-content">
       <div className="page-hero-asym-masthead" aria-hidden="true">
         <span className="page-hero-asym-masthead-counter">

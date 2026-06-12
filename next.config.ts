@@ -4,7 +4,7 @@ const cspHeader = `
     default-src 'self';
     script-src 'self' 'unsafe-inline' 'unsafe-eval' va.vercel-scripts.com;
     style-src 'self' 'unsafe-inline';
-    img-src 'self' blob: data: *.tryrelevance.com;
+    img-src 'self' blob: data:;
     font-src 'self';
     object-src 'none';
     base-uri 'self';
@@ -12,7 +12,7 @@ const cspHeader = `
     frame-ancestors 'none';
     block-all-mixed-content;
     upgrade-insecure-requests;
-    connect-src 'self' va.vercel-scripts.com va.vercel-speed-insights.com dsyiuztquzkcikehkigv.supabase.co wss://dsyiuztquzkcikehkigv.supabase.co *.tryrelevance.com;
+    connect-src 'self' va.vercel-scripts.com va.vercel-speed-insights.com dsyiuztquzkcikehkigv.supabase.co wss://dsyiuztquzkcikehkigv.supabase.co;
 `.replace(/\n/g, '').replace(/\s{2,}/g, ' ').trim();
 
 const nextConfig: NextConfig = {
@@ -84,6 +84,8 @@ const nextConfig: NextConfig = {
       { source: "/speak.html", destination: "/apply", permanent: true },
       { source: "/calendar", destination: "/events", permanent: true },
       { source: "/calendar.html", destination: "/events", permanent: true },
+      // Q&A chatbot removed 2026-06 — FAQ lives on the membership page
+      { source: "/qa", destination: "/membership#faq", permanent: true },
     ];
   },
 };

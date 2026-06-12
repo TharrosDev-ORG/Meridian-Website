@@ -8,6 +8,7 @@ import Marquee from '@/components/Marquee';
 import RegisterSection from '@/components/sections/RegisterSection';
 import { getMetadata } from '@/utils/metadata-shared';
 import { generateFaqSchema, generateBreadcrumbSchema } from '@/utils/jsonld';
+import { CONTACT_MAILTO } from '@/utils/social';
 import { FAQ_ITEMS } from '@/constants/membership';
 
 
@@ -140,7 +141,7 @@ export default function Page() {
       <FaqAccordion />
       <div className="faq-cta rv" data-d="1">
         <p className="sans-label">Still have questions?</p>
-        <Link href="/qa" className="btn-ghost-link">Ask our Intelligent Assistant &#8594;</Link>
+        <a href={CONTACT_MAILTO} className="btn-ghost-link">Email us your question &#8594;</a>
       </div>
     </div>
   </section>

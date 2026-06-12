@@ -135,112 +135,70 @@ export default function Home() {
   </div>
 </section>
 
-{/* THE TEAM */}
+{/* THE TEAM — editorial roster */}
 <section className="team-home-sec" id="team" aria-labelledby="team-home-heading">
   <div className="wrap">
     <div className="team-home-header">
       <div className="sec-label rv">The Team</div>
-      <div className="team-home-title-wrap">
-        <h2 className="team-home-title rv rv-stagger" id="team-home-heading">
-          <span className="rv-stagger-item">Leadership &amp;</span>
-          <span className="rv-stagger-item"><em>Operations.</em></span>
-        </h2>
-        <div className="swipe-hint rv" data-d="2" aria-hidden="true">
-          <span>Swipe to explore</span>
-          <svg viewBox="0 0 24 24"><path d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"/></svg>
-        </div>
-      </div>
-      <p className="team-home-intro rv" data-d="1">The student team behind The Meridian Society. The team is growing.</p>
+      <h2 className="team-home-title rv rv-stagger" id="team-home-heading">
+        <span className="rv-stagger-item">Leadership &amp;</span>
+        <span className="rv-stagger-item"><em>Operations.</em></span>
+      </h2>
+      <p className="team-home-intro rv" data-d="1">The students who run The Meridian Society.</p>
     </div>
 
-    <div className="member-grid h-scroll">
+    <ul className="roster" role="list">
 
       {/* Magnus */}
-      <article className="member-card member-card--registry rv h-scroll-item" id="magnus" aria-labelledby="name-magnus" data-tilt>
-        <div className="registry-header">
-          <div className="registry-info">
-            <div className="registry-field">
-              <span className="field-label">NAME</span>
-              <h3 className="member-name field-value" id="name-magnus">Magnus Abdelnour</h3>
-            </div>
-            <div className="registry-field">
-              <span className="field-label">ROLE</span>
-              <div className="member-role field-value">Founder &amp; President</div>
-            </div>
-          </div>
-          <div className="member-photo-wrap">
-            <Image
-              src="/assets/images/team/magnus.webp"
-              className="member-photo"
-              alt="Magnus Abdelnour, Founder and President of The Meridian Society"
-              sizes="(max-width: 768px) 80px, 120px"
-              width={100}
-              height={120}
-            />
-          </div>
+      <li className="roster-row rv" id="magnus" aria-labelledby="name-magnus">
+        <div className="roster-photo">
+          <Image
+            src="/assets/images/team/magnus.webp"
+            alt="Magnus Abdelnour, Founder and President of The Meridian Society"
+            sizes="(max-width: 700px) 140px, 200px"
+            width={200}
+            height={240}
+          />
         </div>
-        <div className="member-body">
-          <div className="registry-field">
-            <span className="field-label">PROGRAM/SCHOOL</span>
-            <p className="member-studies field-value">Bachelor&apos;s of Global and International Studies — European and Russian Studies, Carleton University</p>
-          </div>
-          <div className="registry-footer">
-            <div className="member-social">
-              <a href="https://www.linkedin.com/in/magnus-a-9b5b50378" target="_blank" rel="noopener noreferrer" aria-label="Magnus Abdelnour on LinkedIn">
-                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-              </a>
-            </div>
-          </div>
+        <div className="roster-info">
+          <h3 className="roster-name" id="name-magnus">Magnus Abdelnour</h3>
+          <div className="roster-role">Founder &amp; President</div>
+          <p className="roster-program">Bachelor&apos;s of Global and International Studies (European and Russian Studies), Carleton University</p>
         </div>
-      </article>
+        <a className="roster-link text-link" href="https://www.linkedin.com/in/magnus-a-9b5b50378" target="_blank" rel="noopener noreferrer">
+          LinkedIn<span aria-hidden="true">&#8599;</span>
+        </a>
+      </li>
 
       {/* Colin */}
-      <article className="member-card member-card--registry rv h-scroll-item" id="colin" aria-labelledby="name-colin" data-tilt>
-        <div className="registry-header">
-          <div className="registry-info">
-            <div className="registry-field">
-              <span className="field-label">NAME</span>
-              <h3 className="member-name field-value" id="name-colin">Colin Sherwood</h3>
-            </div>
-            <div className="registry-field">
-              <span className="field-label">ROLE</span>
-              <div className="member-role field-value">Event Coordinator</div>
-            </div>
-          </div>
-          <div className="member-photo-wrap">
-            <Image
-              src="/assets/images/team/colin.webp"
-              className="member-photo"
-              alt="Colin Sherwood, Event Coordinator of The Meridian Society"
-              sizes="(max-width: 768px) 80px, 120px"
-              width={100}
-              height={120}
-            />
-          </div>
+      <li className="roster-row rv" id="colin" aria-labelledby="name-colin">
+        <div className="roster-photo">
+          <Image
+            src="/assets/images/team/colin.webp"
+            alt="Colin Sherwood, Event Coordinator of The Meridian Society"
+            sizes="(max-width: 700px) 140px, 200px"
+            width={200}
+            height={240}
+          />
         </div>
-        <div className="member-body">
-          <div className="registry-field">
-            <span className="field-label">PROGRAM/SCHOOL</span>
-            <p className="member-studies field-value">Bachelor&apos;s of Criminology and Criminal Justice — Concentration in Law, Minor in French, Carleton University</p>
-          </div>
-          <div className="registry-footer">
-            <div className="member-social">
-              <a href="https://www.instagram.com/colinsherwood34" target="_blank" rel="noopener noreferrer" aria-label="Colin Sherwood on Instagram">
-                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-              </a>
-            </div>
-          </div>
+        <div className="roster-info">
+          <h3 className="roster-name" id="name-colin">Colin Sherwood</h3>
+          <div className="roster-role">Event Coordinator</div>
+          <p className="roster-program">Bachelor&apos;s of Criminology and Criminal Justice (Law concentration, French minor), Carleton University</p>
         </div>
-      </article>
+        <a className="roster-link text-link" href="https://www.instagram.com/colinsherwood34" target="_blank" rel="noopener noreferrer">
+          Instagram<span aria-hidden="true">&#8599;</span>
+        </a>
+      </li>
 
-      {/* Placeholder */}
-      <div className="member-card member-card--placeholder rv h-scroll-item" aria-label="Future team member" data-tilt>
-        <div className="placeholder-icon" aria-hidden="true">&#9671;</div>
-        <p className="placeholder-text">The team is growing.</p>
-        <p className="placeholder-sub">More to come</p>
-      </div>
+      {/* Recruiting row */}
+      <li className="roster-grow rv">
+        <span className="roster-grow-gem" aria-hidden="true">&#9671;</span>
+        <p className="roster-grow-text">The team is growing.</p>
+        <Link href={REGISTER_URL} className="roster-link text-link">Join us<span aria-hidden="true">&#8594;</span></Link>
+      </li>
 
-    </div>
+    </ul>
   </div>
 </section>
 

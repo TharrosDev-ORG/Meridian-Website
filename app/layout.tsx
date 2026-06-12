@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Cormorant_Garamond, Barlow_Condensed } from "next/font/google";
 import Providers from "@/components/Providers";
+import MotionProvider from "@/components/motion/MotionProvider";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import ScrollProgress from "@/components/ScrollProgress";
@@ -60,6 +61,7 @@ export default function RootLayout({
       <body>
         <a href="#main-content" className="skip-link">Skip to main content</a>
         <Providers>
+          <MotionProvider />
           {children}
           <div className="progress" role="progressbar" aria-label="Reading progress" aria-valuemin={0} aria-valuemax={100} aria-valuenow={0} id="progressBar"></div>
           <ScrollProgress />

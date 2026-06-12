@@ -45,6 +45,19 @@
   --color-gold: #B8932A;
   --color-gold-lt: #D4AF50;
   --color-gold-20: rgba(184,147,42,0.2);
+  --color-gold-glow: rgba(212,175,80,0.35);
+
+  /* Dark-surface family — raised panels and borders on ink sections */
+  --color-ink-2: #211D15;
+  --color-ink-3: #2A251B;
+
+  /* Cream-on-ink opacity ladder (mirror of the ink-on-cream ladder) */
+  --color-cream-90: rgba(244,237,227,0.90);
+  --color-cream-75: rgba(244,237,227,0.75);
+  --color-cream-55: rgba(244,237,227,0.55);
+  --color-cream-30: rgba(244,237,227,0.30);
+  --color-cream-15: rgba(244,237,227,0.15);
+  --color-cream-08: rgba(244,237,227,0.08);
 
   --font-serif: var(--serif);
   --font-sans: var(--sans);
@@ -69,8 +82,26 @@
   --gold: var(--color-gold);
   --gold-lt: var(--color-gold-lt);
   --gold-20: var(--color-gold-20);
+  --gold-glow: var(--color-gold-glow);
+  --ink-2: var(--color-ink-2);
+  --ink-3: var(--color-ink-3);
+  --cream-90: var(--color-cream-90);
+  --cream-75: var(--color-cream-75);
+  --cream-55: var(--color-cream-55);
+  --cream-30: var(--color-cream-30);
+  --cream-15: var(--color-cream-15);
+  --cream-08: var(--color-cream-08);
   --gold-bw: var(--border-gold-bw);
   --grain: var(--image-grain);
+  /* ── SURFACE-GENERIC VARS (remapped per section theme) ── */
+  --bg: var(--cream);
+  --bg-raised: var(--cream-mid);
+  --fg: var(--ink);
+  --fg-90: var(--ink-90);
+  --fg-75: var(--ink-75);
+  --fg-55: var(--ink-55);
+  --line: var(--ink-15);
+  --line-soft: var(--ink-08);
   /* ── 3D DEPTH TOKENS ── */
   --perspective-hero:  1600px;
   --perspective-scene: 1200px;
@@ -114,6 +145,31 @@ body {
   body { line-height: 1.85; }
 }
 
+
+/* ── SECTION THEMING ──
+   Sections opt into the dark "forum" surface with data-theme="dark".
+   Generic vars (--bg/--fg/--line) are remapped so shared component CSS
+   renders correctly on both surfaces. Grain unifies the two worlds. */
+[data-theme="dark"] {
+  --bg: var(--ink);
+  --bg-raised: var(--ink-2);
+  --fg: var(--cream);
+  --fg-90: var(--cream-90);
+  --fg-75: var(--cream-75);
+  --fg-55: var(--cream-55);
+  --line: var(--cream-15);
+  --line-soft: var(--cream-08);
+  background: var(--ink);
+  color: var(--cream-90);
+  position: relative;
+}
+[data-theme="dark"]::before {
+  content: ''; position: absolute; inset: 0;
+  background-image: var(--grain);
+  opacity: 0.05; pointer-events: none; z-index: 0;
+}
+[data-theme="dark"] > * { position: relative; z-index: 1; }
+[data-theme="dark"] ::selection { background: var(--gold); color: var(--ink); }
 
 /* ── FOCUS VISIBLE ── */
 :focus-visible {
@@ -320,6 +376,25 @@ body {
 .nav-links a:hover::after,
 .nav-links a.nav-active::after { transform: scaleX(1); }
 .nav-links a.nav-active { color: var(--gold); }
+
+/* ── NAV ON-DARK VARIANT ──
+   Toggled by MotionProvider while a [data-theme="dark"] section sits under
+   the fixed nav. Same chrome, inverted ink. */
+.site-nav.site-nav--on-dark {
+  background: rgba(24,21,15,0.72);
+  border-bottom-color: rgba(212,175,80,0.16);
+}
+.site-nav.site-nav--on-dark.scrolled {
+  background: rgba(24,21,15,0.88);
+  box-shadow: 0 4px 30px rgba(0,0,0,0.25);
+}
+.site-nav.site-nav--on-dark .nav-wordmark { color: var(--cream); }
+.site-nav.site-nav--on-dark .nav-links a { color: var(--cream-55); }
+.site-nav.site-nav--on-dark .nav-links a:hover { color: var(--cream); }
+.site-nav.site-nav--on-dark .nav-links a.nav-active { color: var(--gold-lt); }
+.site-nav.site-nav--on-dark .nav-cta { color: var(--gold-lt); border-color: rgba(212,175,80,0.45); }
+.site-nav.site-nav--on-dark .nav-cta:hover { color: var(--ink); }
+.site-nav.site-nav--on-dark .hamburger span { background: var(--cream); }
 
 .nav-cta {
   display: inline-flex; align-items: center;
@@ -746,11 +821,20 @@ body {
   border-radius: 4px; vertical-align: middle; 
 }
 
-.rv { 
-  opacity: 1; 
-  transform: none; 
-  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1); 
+.rv {
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
 }
+/* When GSAP drives reveals (desktop fine-pointer), CSS transitions must not
+   fight the tweens. MotionProvider toggles .gsap-motion on <html>. */
+.gsap-motion .rv,
+.gsap-motion .rv-stagger-item { transition: none; }
+/* Lenis smooth scroll (desktop only — MotionProvider) */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: hidden; }
 .rv.on, .reveal .rv { 
   opacity: 1; 
   transform: none; 

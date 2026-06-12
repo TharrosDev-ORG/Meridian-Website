@@ -25,7 +25,7 @@ const RegisterSection: React.FC<RegisterSectionProps> = ({
   };
 
   return (
-    <section className="register" id={id} aria-labelledby={`${id}-heading`}>
+    <section className="register" id={id} data-theme="dark" aria-labelledby={`${id}-heading`}>
       <div className="register-ghost" aria-hidden="true">MERIDIAN</div>
       <div className="wrap">
         <div className="register-rule-top" aria-hidden="true"></div>

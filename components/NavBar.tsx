@@ -47,7 +47,6 @@ export default function NavBar() {
     { name: "Team", href: "/#team" },
     { name: "Events", href: "/events" },
     { name: "Membership", href: "/membership" },
-    { name: "Q&A", href: "/qa" },
   ];
 
   return (

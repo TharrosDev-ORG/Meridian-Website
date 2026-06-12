@@ -1,143 +1,129 @@
 "use client";
 
 import { useEffect } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { DESKTOP_MOTION } from "@/components/motion/MotionProvider";
+
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 /**
- * IndexInteractive — Imperative animation logic for the homepage.
- * 
- * Handles:
- * 1. Hero mouse-tilt (3D effect on title)
- * 2. Hero & Register Ghost parallax (scroll based)
- * 3. Global 3D Card Tilt (data-tilt)
+ * IndexInteractive — GSAP choreography for the homepage.
+ *
+ * 1. Hero intro timeline (rule draw, title line-rise, ledger stats)
+ * 2. Scrubbed hero exit + register-ghost parallax
+ * 3. Hero mouse-tilt and 3D card tilt via gsap.quickTo
+ *
+ * Touch and reduced-motion devices get none of this; content is already
+ * fully visible (reveal contract lives in MotionProvider).
  */
 export default function IndexInteractive() {
   useEffect(() => {
-    const isTouch = window.matchMedia("(pointer: coarse)").matches;
-    const isReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-    // Touch devices get none of these effects (mouse-tilt, parallax ghosts,
-    // 3D card tilt). Bail before any DOM queries to avoid the hydration cost.
-    if (isTouch) {
-      const win = window as unknown as { __observeReveal?: () => void };
-      if (win.__observeReveal) setTimeout(() => win.__observeReveal!(), 50);
-      return;
-    }
-
-    // ── 1. Hero Mouse-Tilt ──
-    const hero = document.querySelector(".hero") as HTMLElement;
-    const title = document.getElementById("heroTitle") as HTMLElement;
-    
-    let heroRafId: number | null = null;
-
-    const handleHeroMove = (e: MouseEvent) => {
-      if (heroRafId) cancelAnimationFrame(heroRafId);
-      heroRafId = requestAnimationFrame(() => {
-        const r = hero.getBoundingClientRect();
-        const dx = (e.clientX - r.left - r.width / 2) / r.width;
-        const dy = (e.clientY - r.top - r.height / 2) / r.height;
-        // Premium soft tilt
-        title.style.transform = `perspective(1200px) rotateY(${dx * 4}deg) rotateX(${-dy * 3}deg)`;
-      });
-    };
-    
-    const handleHeroLeave = () => {
-      if (heroRafId) cancelAnimationFrame(heroRafId);
-      title.style.transform = "perspective(1200px) rotateY(0deg) rotateX(0deg)";
-    };
-
-    if (hero && title && !isTouch) {
-      // Set initial transition for the return journey
-      title.style.transition = "transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)";
-      
-      hero.addEventListener("mousemove", handleHeroMove);
-      hero.addEventListener("mouseleave", handleHeroLeave);
-      
-      // Optimization: trigger hardware acceleration
-      title.style.willChange = "transform";
-    }
-
-    // ── 2. Scroll Parallax (Ghosts) ──
-    const registerGhost = document.querySelector(".register-ghost") as HTMLElement;
-    const heroGhost = document.getElementById("heroGhost") as HTMLElement;
-    let scrollRafId: number | null = null;
-
-    const onScroll = () => {
-      if (scrollRafId) cancelAnimationFrame(scrollRafId);
-      scrollRafId = requestAnimationFrame(() => {
-        const scrolled = window.scrollY;
-        if (registerGhost) {
-          registerGhost.style.transform = `translateX(-50%) translateY(${scrolled * 0.12}px)`;
-        }
-        if (heroGhost) {
-          heroGhost.style.transform = `translateX(-50%) translateY(${scrolled * -0.08}px)`;
-        }
-      });
-    };
-
-    if ((registerGhost || heroGhost) && !isReducedMotion && !isTouch) {
-      window.addEventListener("scroll", onScroll, { passive: true });
-    }
-
-    // ── 3. Global 3D Tilt for Cards ──
-    const cards = document.querySelectorAll("[data-tilt]");
-    const cardRafs = new Map<HTMLElement, number>();
-
-    const handleCardMove = (e: MouseEvent) => {
-      const card = e.currentTarget as HTMLElement;
-      if (!cardRafs.has(card)) card.style.willChange = "transform";
-      if (cardRafs.has(card)) cancelAnimationFrame(cardRafs.get(card)!);
-
-      const id = requestAnimationFrame(() => {
-        const r = card.getBoundingClientRect();
-        const x = (e.clientX - r.left) / r.width;
-        const y = (e.clientY - r.top) / r.height;
-        const rotX = (y - 0.5) * 12; // Adjusted for premium feel
-        const rotY = (x - 0.5) * -12;
-        card.style.transform = `perspective(1000px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale3d(1.02, 1.02, 1.02)`;
-      });
-
-      cardRafs.set(card, id);
-    };
-    
-    const handleCardLeave = (e: MouseEvent) => {
-      const card = e.currentTarget as HTMLElement;
-      if (cardRafs.has(card)) {
-        cancelAnimationFrame(cardRafs.get(card)!);
-        cardRafs.delete(card);
-      }
-      card.style.transform = "perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)";
-      card.style.willChange = "auto";
-    };
-
-    if (!isTouch) {
-      cards.forEach(card => {
-        if (!(card instanceof HTMLElement)) return;
-        card.style.transition = "transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)";
-        card.addEventListener("mousemove", handleCardMove as EventListener);
-        card.addEventListener("mouseleave", handleCardLeave as EventListener);
-      });
-    }
-
-    // ── 4. Reveal Observer Hook ──
     const win = window as unknown as { __observeReveal?: () => void };
-    if (win.__observeReveal) {
-      setTimeout(() => win.__observeReveal!(), 50);
-    }
+    if (win.__observeReveal) setTimeout(() => win.__observeReveal!(), 50);
+
+    if (!window.matchMedia(DESKTOP_MOTION).matches) return;
+
+    const removers: Array<() => void> = [];
+    const ctx = gsap.context(() => {
+      // ── 1. Hero intro timeline ──
+      const tl = gsap.timeline({ defaults: { ease: "expo.out" } });
+      tl.from(".hero-eyebrow-rule", { scaleX: 0, duration: 1.1, stagger: 0.05 }, 0)
+        .from(".hero-eyebrow-text", { autoAlpha: 0, y: 10, duration: 0.8 }, 0.1)
+        .from(".hero-pre", { autoAlpha: 0, y: 18, duration: 0.9 }, 0.25)
+        .from(".hero-title .rv-stagger-item", { yPercent: 110, duration: 1.3, stagger: 0.12 }, 0.35)
+        .from(".hero-hr", { scaleX: 0, duration: 0.9 }, 0.85)
+        .from(".hero-sub", { autoAlpha: 0, y: 22, duration: 0.9 }, 0.95)
+        .from(".hero-main-ctas, .hero-actions-divider, .hero-actions .btn-ghost-link", { autoAlpha: 0, y: 16, duration: 0.8, stagger: 0.07 }, 1.1)
+        .from(".hero-stats .stat", { autoAlpha: 0, y: 24, duration: 0.9, stagger: 0.08 }, 1.2)
+        .set([".hero-eyebrow-rule", ".hero-eyebrow-text", ".hero-pre", ".hero-title .rv-stagger-item", ".hero-hr", ".hero-sub", ".hero-main-ctas", ".hero-actions-divider", ".hero-actions .btn-ghost-link", ".hero-stats .stat"], { clearProps: "all" });
+
+      // ── 2. Scrubbed hero exit: content recedes as the marquee approaches ──
+      gsap.to(".hero-content", {
+        autoAlpha: 0.25,
+        y: -60,
+        ease: "none",
+        scrollTrigger: { trigger: ".hero", start: "40% top", end: "bottom top", scrub: 0.6 },
+      });
+      gsap.to(".hero-ghost-mark", {
+        y: -110,
+        ease: "none",
+        scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: 0.8 },
+      });
+
+      // Register-ghost parallax (final CTA section)
+      const registerGhost = document.querySelector(".register-ghost");
+      if (registerGhost) {
+        gsap.fromTo(
+          registerGhost,
+          { y: 70 },
+          {
+            y: -40,
+            ease: "none",
+            scrollTrigger: { trigger: ".register", start: "top bottom", end: "bottom top", scrub: 0.8 },
+          }
+        );
+      }
+
+      // ── 3. Hero mouse-tilt (quickTo) ──
+      const hero = document.querySelector<HTMLElement>(".hero");
+      const title = document.getElementById("heroTitle");
+      if (hero && title) {
+        const rotX = gsap.quickTo(title, "rotationX", { duration: 0.6, ease: "power3.out" });
+        const rotY = gsap.quickTo(title, "rotationY", { duration: 0.6, ease: "power3.out" });
+        gsap.set(title, { transformPerspective: 1200 });
+        const onMove = (e: MouseEvent) => {
+          const r = hero.getBoundingClientRect();
+          const dx = (e.clientX - r.left - r.width / 2) / r.width;
+          const dy = (e.clientY - r.top - r.height / 2) / r.height;
+          rotY(dx * 4);
+          rotX(-dy * 3);
+        };
+        const onLeave = () => {
+          rotX(0);
+          rotY(0);
+        };
+        hero.addEventListener("mousemove", onMove);
+        hero.addEventListener("mouseleave", onLeave);
+        removers.push(() => {
+          hero.removeEventListener("mousemove", onMove);
+          hero.removeEventListener("mouseleave", onLeave);
+        });
+      }
+
+      // ── 4. 3D card tilt (quickTo per card) ──
+      document.querySelectorAll<HTMLElement>("[data-tilt]").forEach((card) => {
+        const rotX = gsap.quickTo(card, "rotationX", { duration: 0.5, ease: "power3.out" });
+        const rotY = gsap.quickTo(card, "rotationY", { duration: 0.5, ease: "power3.out" });
+        const scale = gsap.quickTo(card, "scale", { duration: 0.5, ease: "power3.out" });
+        gsap.set(card, { transformPerspective: 1000 });
+        const onMove = (e: MouseEvent) => {
+          const r = card.getBoundingClientRect();
+          const x = (e.clientX - r.left) / r.width;
+          const y = (e.clientY - r.top) / r.height;
+          rotX((y - 0.5) * 12);
+          rotY((x - 0.5) * -12);
+          scale(1.02);
+        };
+        const onLeave = () => {
+          rotX(0);
+          rotY(0);
+          scale(1);
+        };
+        card.addEventListener("mousemove", onMove);
+        card.addEventListener("mouseleave", onLeave);
+        removers.push(() => {
+          card.removeEventListener("mousemove", onMove);
+          card.removeEventListener("mouseleave", onLeave);
+        });
+      });
+    });
 
     return () => {
-      if (heroRafId) cancelAnimationFrame(heroRafId);
-      if (scrollRafId) cancelAnimationFrame(scrollRafId);
-      cardRafs.forEach(id => cancelAnimationFrame(id));
-      
-      if (hero) {
-        hero.removeEventListener("mousemove", handleHeroMove);
-        hero.removeEventListener("mouseleave", handleHeroLeave);
-      }
-      window.removeEventListener("scroll", onScroll);
-      cards.forEach(card => {
-        card.removeEventListener("mousemove", handleCardMove as EventListener);
-        card.removeEventListener("mouseleave", handleCardLeave as EventListener);
-      });
+      removers.forEach((fn) => fn());
+      ctx.revert();
     };
   }, []);
 

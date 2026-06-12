@@ -11,6 +11,7 @@ import { INSTAGRAM_URL, CONTACT_EMAIL } from '@/utils/social';
 import { INAUGURAL_EVENT_LABEL } from '@/utils/copy';
 import { generatePersonSchema } from '@/utils/jsonld';
 import { MemberCounter, Marquee, IndexInteractive } from './HomeClientSide';
+import HeroVisual from '@/components/three/HeroVisual';
 
 export const metadata: Metadata = getMetadata({
   title: "Ottawa Student Speaker Forum & Social Community",
@@ -50,9 +51,9 @@ export default function Home() {
       />
       <a href="#main-content" className="skip-link">Skip to content</a>
       <Link href={REGISTER_URL} className="sticky-join" id="stickyJoin">Register</Link>
-      <section className="hero" id="main-content" aria-label="Hero">
-  {/* Ghost "M" letterform — parallax via JS */}
-  <div className="hero-ghost" id="heroGhost" aria-hidden="true">M</div>
+      <section className="hero" id="main-content" data-theme="dark" aria-label="Hero">
+  {/* Atmospheric layer: static gold glow + ghost mark, WebGL particles on eligible desktops */}
+  <HeroVisual />
 
   <div className="hero-content">
     <div className="hero-eyebrow rv" aria-hidden="true">
@@ -244,7 +245,7 @@ export default function Home() {
 </section>
 
 {/* WHO WE GATHER */}
-<section className="who" id="who" aria-labelledby="who-heading">
+<section className="who" id="who" data-theme="dark" aria-labelledby="who-heading">
   <div className="wrap">
     <div className="who-top">
       <div className="who-title-wrap">
@@ -280,7 +281,7 @@ export default function Home() {
 </section>
 
 {/* WHAT WE ARE NOT */}
-<section className="not-sec" id="not" aria-labelledby="not-heading">
+<section className="not-sec" id="not" data-theme="dark" aria-labelledby="not-heading">
   <div className="wrap not-layout">
     <div className="not-left">
       <div className="sec-label rv">What We Are Not</div>
@@ -332,7 +333,7 @@ export default function Home() {
 </section>
 
 {/* APPLY TO SPEAK */}
-<section className="speaking" id="speak" aria-labelledby="speaking-heading">
+<section className="speaking" id="speak" data-theme="dark" aria-labelledby="speaking-heading">
   <div className="wrap speaking-layout">
     <div className="speaking-left">
       <div className="sec-label rv">Apply to Speak</div>

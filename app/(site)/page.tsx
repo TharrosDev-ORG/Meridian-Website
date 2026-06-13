@@ -1,5 +1,4 @@
 import { Metadata } from 'next';
-import Image from 'next/image';
 import PageStyles from '@/components/PageStyles';
 import { indexCss } from './pageCss';
 import { REGISTER_URL } from '@/components/NavBar';
@@ -9,7 +8,6 @@ import RegisterSection from '@/components/sections/RegisterSection';
 import { getMetadata } from '@/utils/metadata-shared';
 import { INSTAGRAM_URL, CONTACT_EMAIL } from '@/utils/social';
 import { INAUGURAL_EVENT_LABEL } from '@/utils/copy';
-import { generatePersonSchema } from '@/utils/jsonld';
 import { MemberCounter, Marquee, IndexInteractive } from './HomeClientSide';
 import HeroVisual from '@/components/three/HeroVisual';
 
@@ -25,30 +23,6 @@ export default function Home() {
     <main>
       <PageStyles css={indexCss} />
       {/* Organization JSON-LD lives in app/layout.tsx so it ships site-wide. */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(generatePersonSchema({
-            name: "Magnus Abdelnour",
-            jobTitle: "Founder & President",
-            description: "Started The Meridian Society to bring journalists, founders, scholars, and accomplished professionals to the room to share knowledge with students.",
-            image: "/assets/images/team/magnus.webp",
-            sameAs: ["https://www.linkedin.com/in/magnus-a-9b5b50378"]
-          })),
-        }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(generatePersonSchema({
-            name: "Colin Sherwood",
-            jobTitle: "Event Coordinator",
-            description: "Dedicated student leader coordinating the logistics and execution of Meridian Society speaker forums.",
-            image: "/assets/images/team/colin.webp",
-            sameAs: ["https://www.instagram.com/colinsherwood34"]
-          })),
-        }}
-      />
       <a href="#main-content" className="skip-link">Skip to content</a>
       <Link href={REGISTER_URL} className="sticky-join" id="stickyJoin">Register</Link>
       <section className="hero" id="main-content" data-theme="dark" aria-label="Hero">
@@ -130,75 +104,7 @@ export default function Home() {
       <div className="pull-quote rv" data-d="2">
         <p>&quot;Shaped by the effort you put in, your input defines your outcome by building knowledge, connections, and opportunity.&quot;</p>
       </div>
-      <a href="#team" className="text-link rv" data-d="3">Meet the Team  &#8595;</a>
     </div>
-  </div>
-</section>
-
-{/* THE TEAM — editorial roster */}
-<section className="team-home-sec" id="team" aria-labelledby="team-home-heading">
-  <div className="wrap">
-    <div className="team-home-header">
-      <div className="sec-label rv">The Team</div>
-      <h2 className="team-home-title rv rv-stagger" id="team-home-heading">
-        <span className="rv-stagger-item">Leadership &amp;</span>
-        <span className="rv-stagger-item"><em>Operations.</em></span>
-      </h2>
-      <p className="team-home-intro rv" data-d="1">The students who run The Meridian Society.</p>
-    </div>
-
-    <ul className="roster" role="list">
-
-      {/* Magnus */}
-      <li className="roster-row rv" id="magnus" aria-labelledby="name-magnus">
-        <div className="roster-photo">
-          <Image
-            src="/assets/images/team/magnus.webp"
-            alt="Magnus Abdelnour, Founder and President of The Meridian Society"
-            sizes="(max-width: 700px) 140px, 200px"
-            width={200}
-            height={240}
-          />
-        </div>
-        <div className="roster-info">
-          <h3 className="roster-name" id="name-magnus">Magnus Abdelnour</h3>
-          <div className="roster-role">Founder &amp; President</div>
-          <p className="roster-program">Bachelor&apos;s of Global and International Studies (European and Russian Studies), Carleton University</p>
-        </div>
-        <a className="roster-link text-link" href="https://www.linkedin.com/in/magnus-a-9b5b50378" target="_blank" rel="noopener noreferrer">
-          LinkedIn<span aria-hidden="true">&#8599;</span>
-        </a>
-      </li>
-
-      {/* Colin */}
-      <li className="roster-row rv" id="colin" aria-labelledby="name-colin">
-        <div className="roster-photo">
-          <Image
-            src="/assets/images/team/colin.webp"
-            alt="Colin Sherwood, Event Coordinator of The Meridian Society"
-            sizes="(max-width: 700px) 140px, 200px"
-            width={200}
-            height={240}
-          />
-        </div>
-        <div className="roster-info">
-          <h3 className="roster-name" id="name-colin">Colin Sherwood</h3>
-          <div className="roster-role">Event Coordinator</div>
-          <p className="roster-program">Bachelor&apos;s of Criminology and Criminal Justice (Law concentration, French minor), Carleton University</p>
-        </div>
-        <a className="roster-link text-link" href="https://www.instagram.com/colinsherwood34" target="_blank" rel="noopener noreferrer">
-          Instagram<span aria-hidden="true">&#8599;</span>
-        </a>
-      </li>
-
-      {/* Recruiting row */}
-      <li className="roster-grow rv">
-        <span className="roster-grow-gem" aria-hidden="true">&#9671;</span>
-        <p className="roster-grow-text">The team is growing.</p>
-        <Link href={REGISTER_URL} className="roster-link text-link">Join us<span aria-hidden="true">&#8594;</span></Link>
-      </li>
-
-    </ul>
   </div>
 </section>
 

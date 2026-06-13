@@ -55,27 +55,6 @@ export function generateBreadcrumbSchema(items: { name: string; item: string }[]
   };
 }
 
-export function generatePersonSchema(person: {
-  name: string;
-  jobTitle: string;
-  description: string;
-  image?: string;
-  sameAs?: string[];
-}) {
-  return {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    "name": person.name,
-    "jobTitle": person.jobTitle,
-    "description": person.description,
-    "image": person.image ? `${SITE_URL}${person.image}` : undefined,
-    "sameAs": person.sameAs || [],
-    "worksFor": {
-      "@type": "Organization",
-      "name": "The Meridian Society"
-    }
-  };
-}
 export function generateWebSiteSchema() {
   return {
     "@context": "https://schema.org",

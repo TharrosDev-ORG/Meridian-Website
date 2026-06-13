@@ -18,7 +18,6 @@ export default function Footer() {
             <h4 className="footer-col-h">Society</h4>
             <ul className="footer-list">
               <li><Link href="/">Home</Link></li>
-              <li><Link href="/#team">Team</Link></li>
               <li><Link href="/membership">Membership</Link></li>
               <li><Link href="/membership#faq">FAQ</Link></li>
             </ul>

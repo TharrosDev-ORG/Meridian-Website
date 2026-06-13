@@ -685,99 +685,11 @@ export const indexCss = `
       .register-ghost { display: none !important; }
     }
 
-    /* ══ TEAM SECTION (home) — editorial roster ══ */
-    .team-home-sec { padding: 80px 0; background: var(--cream-deep); position: relative; overflow: hidden; }
-    .team-home-sec::before { content: ''; position: absolute; top: 40px; right: 40px; width: 80px; height: 80px; border-top: 1px solid var(--ink-15); border-right: 1px solid var(--ink-15); pointer-events: none; }
-    .team-home-sec::after  { content: ''; position: absolute; bottom: 40px; left: 40px; width: 80px; height: 80px; border-bottom: 1px solid var(--ink-15); border-left: 1px solid var(--ink-15); pointer-events: none; }
-    .team-home-sec .wrap { position: relative; z-index: 1; }
-    .team-home-header { margin-bottom: 24px; }
-    .team-home-title { font-family: var(--serif); font-size: clamp(36px, 4.2vw, 68px); font-weight: 300; line-height: 1.05; color: var(--ink); text-wrap: balance; margin-bottom: 16px; }
-    .team-home-title em { font-style: italic; }
-    .team-home-intro { font-family: var(--serif); font-size: 18px; font-style: italic; color: var(--ink-75); line-height: 1.7; max-width: 56ch; }
-
-    /* Roster: ruled rows, no cards. The people carry the section. */
-    .roster { list-style: none; margin: 0; padding: 0; }
-    .roster-row {
-      display: grid; grid-template-columns: 200px 1fr auto;
-      gap: 40px; align-items: center;
-      padding: 44px 0;
-      border-top: 1px solid var(--ink-15);
-      position: relative;
-    }
-    /* Gold rule draws along the row's top edge on hover */
-    .roster-row::before {
-      content: ''; position: absolute; top: -1px; left: 0; right: 0; height: 1px;
-      background: var(--gold); transform: scaleX(0); transform-origin: left;
-      transition: transform 0.5s cubic-bezier(0.16,1,0.3,1);
-    }
-    .roster-row:hover::before { transform: scaleX(1); }
-
-    .roster-photo {
-      width: 200px; aspect-ratio: 5 / 6;
-      overflow: hidden; background: var(--cream-mid);
-      border: 1px solid var(--ink-15);
-    }
-    .roster-photo img {
-      width: 100%; height: 100%; object-fit: cover; object-position: center top;
-      display: block;
-      filter: grayscale(0.55) sepia(0.10) contrast(1.03);
-      transform: scale(1.01);
-      transition: filter 0.6s ease, transform 0.8s cubic-bezier(0.16,1,0.3,1);
-    }
-    .roster-row:hover .roster-photo img { filter: none; transform: scale(1.045); }
-
-    .roster-name { font-family: var(--serif); font-size: clamp(30px, 3.4vw, 54px); font-weight: 300; color: var(--ink); line-height: 1.05; margin-bottom: 10px; text-wrap: balance; }
-    .roster-role { font-family: var(--sans); font-size: 11.5px; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
-    .roster-program { font-family: var(--serif); font-size: 19px; font-style: italic; color: var(--ink-75); line-height: 1.65; max-width: 52ch; }
-
-    .roster-link { align-self: center; white-space: nowrap; }
-    .roster-link span { margin-left: 8px; transition: transform 0.3s cubic-bezier(0.16,1,0.3,1); display: inline-block; }
-    .roster-link:hover span { transform: translate(2px, -1px); }
-
-    /* Recruiting row: the section's quiet call to action */
-    .roster-grow {
-      display: flex; align-items: baseline; gap: 18px;
-      padding: 36px 0 8px;
-      border-top: 1px solid var(--ink-15);
-    }
-    .roster-grow-gem { color: var(--gold); font-size: 14px; flex-shrink: 0; transform: translateY(-1px); }
-    .roster-grow-text { font-family: var(--serif); font-size: 21px; font-style: italic; font-weight: 300; color: var(--ink-75); margin-right: auto; }
-
     /* ══ APPLY-TO-SPEAK CTAs (home) ══ */
     .speak-home-ctas { display: flex; align-items: center; gap: 24px; margin-top: 28px; flex-wrap: wrap; }
 
-    /* ══ Desktop: roster spacing ══ */
-    @media (min-width: 1101px) {
-      .team-home-sec { padding: 112px 0; }
-      .team-home-header { margin-bottom: 32px; }
-      .roster-row { gap: 56px; padding: 52px 0; }
-      .roster-grow { padding: 44px 0 8px; }
-      .roster-program { font-size: 20px; }
-    }
-
-    /* Tablet / mobile roster: photo and text stack, no horizontal scroll */
+    /* Tablet / mobile: apply-to-speak CTA stack */
     @media (max-width: 700px) {
-      .team-home-sec { padding: 60px 0; }
-      .team-home-sec::before, .team-home-sec::after { width: 48px; height: 48px; top: 22px; right: 22px; }
-      .team-home-sec::after { top: auto; right: auto; bottom: 22px; left: 22px; }
-      .team-home-header { margin-bottom: 12px; }
-      .team-home-title { font-size: clamp(30px, 8vw, 40px); line-height: 1.08; margin-bottom: 12px; }
-      .team-home-intro { font-size: 16.5px; }
-
-      .roster-row {
-        grid-template-columns: 1fr;
-        gap: 20px;
-        padding: 32px 0;
-      }
-      .roster-photo { width: 150px; }
-      .roster-name { font-size: clamp(26px, 7vw, 34px); margin-bottom: 8px; }
-      .roster-role { font-size: 11px; letter-spacing: 0.24em; margin-bottom: 12px; }
-      .roster-program { font-size: 16.5px; }
-      .roster-link { align-self: start; min-height: 44px; align-items: center; }
-      .roster-grow { padding: 28px 0 4px; flex-wrap: wrap; gap: 12px; }
-      .roster-grow-text { font-size: 18px; }
-
-      /* Apply-to-speak CTA stack */
       .speak-home-ctas { flex-direction: column; align-items: stretch; gap: 16px; }
       .speak-home-ctas .btn-primary { width: 100%; text-align: center; }
     }

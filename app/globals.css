@@ -715,50 +715,9 @@ body {
 .hero-sub { font-family: var(--serif); font-size: clamp(17px, 1.6vw, 22px); font-style: italic; font-weight: 300; color: var(--fg-75); max-width: 480px; line-height: 1.8; margin: 16px auto 0; }
 .hero-hr { width: 44px; height: 1px; background: var(--line); margin: 28px auto; }
 
-.hero-eyebrow { display: flex; align-items: center; gap: 16px; margin-bottom: 40px; }
-.hero-eyebrow-rule { width: 36px; height: 1px; background: var(--gold); opacity: 0.5; }
-.hero-eyebrow-text { font-family: var(--sans); font-size: 11px; font-weight: 700; letter-spacing: 0.32em; text-transform: uppercase; color: var(--gold); }
-
-/* Page Hero Suite */
-.page-hero {
-  position: relative; min-height: 60vh;
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  text-align: center; padding: 110px 64px 60px; overflow: hidden;
-  background: var(--bg);
-}
-.page-hero::before {
-  content: ''; position: absolute; inset: 0; z-index: 0;
-  background:
-    radial-gradient(ellipse 70% 55% at 50% 35%, transparent 45%, rgba(166,138,88,0.08) 100%),
-    radial-gradient(ellipse 100% 60% at 50% 90%, rgba(150,120,70,0.07) 0%, transparent 60%);
-  pointer-events: none;
-}
-.page-hero[data-theme="dark"]::before {
-  background:
-    radial-gradient(ellipse 55% 45% at 50% 40%, var(--gold-glow) 0%, transparent 70%),
-    radial-gradient(ellipse 100% 70% at 50% 110%, rgba(0,0,0,0.4) 0%, transparent 60%);
-  opacity: 0.35;
-}
-.page-hero::after {
-  content: ''; position: absolute; inset: 0; z-index: 1;
-  opacity: 0.03; background-image: var(--grain); background-size: 220px 220px; pointer-events: none;
-}
-.page-hero-content { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; }
-
-/* ── ASYMMETRIC PAGE HERO VARIANT ──
-   Adds a two-column layout (text left, decorative panel right) at desktop.
-   Mobile/tablet falls back to the existing centered single-column layout. */
-.page-hero-left {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-}
-.page-hero-right { display: none; }
-.page-hero-asym-quote { margin: 0; }
-.page-hero-asym-label { margin: 0; }
-.page-hero-asym-masthead { display: none; }
-.page-hero-asym-scroll { display: none; }
+/* The legacy .page-hero / .page-hero-asym / .hero-eyebrow suite was retired in
+   the "THE RECORD" redesign — all page heroes now use .rec-hero or .info-hero.
+   Its scattered desktop/mobile media-query rules remain as harmless no-ops. */
 
 .hero-actions {
   display: flex;

@@ -78,9 +78,12 @@ export default function ScrambleText({
 
   const onEnter = trigger === "hover" ? run : undefined;
 
+  // The accessible name comes from aria-label; the (possibly scrambled) visual
+  // text is always hidden from assistive tech so screen readers never announce
+  // decode gibberish or read the word twice.
   return (
-    <span className={className} onMouseEnter={onEnter} aria-label={text}>
-      <span aria-hidden={display !== null}>{display ?? text}</span>
+    <span className={className} onMouseEnter={onEnter} aria-label={text} role="text">
+      <span aria-hidden="true">{display ?? text}</span>
     </span>
   );
 }

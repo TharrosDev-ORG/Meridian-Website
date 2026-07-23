@@ -72,7 +72,7 @@ export const indexCss = `
   color: var(--cream-75); max-width: 46ch; margin: 26px 0 0 2px;
 }
 
-.hero-actions { margin: 40px 0 0 2px; }
+.hero-actions { align-items: flex-start; margin: 40px 0 0 2px; }
 .hero-main-ctas { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
 .hero-ig-btn {
   display: inline-flex; align-items: center; justify-content: center;

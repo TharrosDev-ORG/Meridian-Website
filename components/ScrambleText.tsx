@@ -48,7 +48,7 @@ export default function ScrambleText({
           .split("")
           .map((ch, i) => {
             if (i < iteration) return text[i];
-            if (ch === " " || ch === "-" || ch === "·" || ch === "/") return ch;
+            if (" -·/.,?!&".includes(ch)) return ch;
             return GLYPHS[(Math.random() * GLYPHS.length) | 0];
           })
           .join("")

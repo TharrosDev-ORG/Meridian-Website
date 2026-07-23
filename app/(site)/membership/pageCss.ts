@@ -7,56 +7,52 @@ export const membershipCss = `
     /* Keyframes consolidated to globals.css */
     @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); max-height: 0; } to { opacity: 1; transform: none; max-height: 100px; } }
 
-    /* ── Page hero ── */
+    /* ══ Page hero (THE RECORD) ══ */
+    .rec-hero { position: relative; min-height: 82vh; display: flex; align-items: center; overflow: hidden; padding: 120px 0 70px; }
+    .rec-hero .grid-lines::before { opacity: 0.5; }
+    .rec-hero-inner { position: relative; z-index: 2; width: 100%; max-width: 1440px; margin: 0 auto; padding: 0 64px; }
+    .rec-hero-masthead { display: flex; align-items: center; gap: 18px; margin-bottom: 40px; }
+    .rec-hero-masthead .rule-fill { flex: 1; height: 1px; background: var(--cream-15); }
+    .rec-hero-title { font-family: var(--serif); font-weight: 300; font-size: clamp(64px, 12vw, 168px); line-height: 0.86; letter-spacing: -0.02em; color: var(--cream); margin: 4px 0 0; }
+    .rec-hero-title span { display: inline-block; }
+    .rec-hero-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin-top: 26px; padding-top: 20px; border-top: 1px solid var(--cream-15); }
+    .rec-meta-dot { color: var(--gold); font-family: var(--mono); font-size: 11px; }
+    .rec-hero-sub { font-family: var(--serif); font-style: italic; font-weight: 300; font-size: clamp(18px, 1.9vw, 24px); color: var(--cream-75); max-width: 46ch; margin: 22px 0 0; }
+    .rec-hero-actions { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; margin-top: 36px; }
+    .rec-hero-actions .btn-ghost-link { color: var(--cream-55); }
+    .rec-hero-actions .btn-ghost-link:hover { color: var(--cream); }
 
-
-    /* ── Benefits register CTA ── */
-    .benefits-register-link {
-      font-family: var(--sans); font-size: 11.5px; font-weight: 700;
-      letter-spacing: 0.28em; text-transform: uppercase;
-      color: var(--gold); text-decoration: none;
-      border-bottom: 1px solid rgba(184,147,42,0.35);
-      padding-bottom: 4px;
-      transition: color 0.2s, border-color 0.2s;
-      white-space: nowrap;
-    }
+    /* ══ Benefits → Membership dossier ══ */
+    .dossier-sec { padding: clamp(80px, 11vh, 140px) 0; background: var(--cream); }
+    .folio-link { color: var(--ink-55); text-decoration: none; transition: color 0.2s; white-space: nowrap; }
+    .folio-link:hover { color: var(--gold); }
+    .dossier-top { margin-bottom: 6px; }
+    .dossier-heading { font-family: var(--serif); font-weight: 300; font-size: clamp(44px, 6vw, 88px); line-height: 0.94; letter-spacing: -0.015em; color: var(--ink); margin: 0 0 16px; }
+    .dossier-heading em { font-style: italic; color: var(--gold); }
+    .dossier-intro { font-family: var(--serif); font-style: italic; font-weight: 300; font-size: clamp(18px, 1.6vw, 22px); color: var(--ink-55); max-width: 48ch; margin: 0; }
+    .dossier { list-style: none; margin: 40px 0 0; padding: 0; border-top: 1px solid var(--ink); }
+    .dossier-row { display: grid; grid-template-columns: 1fr; gap: 6px; padding: 30px 4px; border-bottom: 1px solid var(--ink-15); transition: padding-left 0.35s cubic-bezier(0.16,1,0.3,1), background 0.35s; }
+    .dossier-num { font-family: var(--mono); font-size: 13px; color: var(--gold); }
+    .dossier-h { font-family: var(--serif); font-weight: 300; font-size: clamp(26px, 2.6vw, 40px); line-height: 1.05; color: var(--ink); margin: 0; }
+    .dossier-p { font-family: var(--serif); font-size: 18px; line-height: 1.8; color: var(--ink-75); margin: 6px 0 0; max-width: 68ch; }
     @media (min-width: 1101px) {
-      .benefits-register-link:hover { color: var(--gold-lt); border-color: var(--gold-lt); }
+      .rec-hero-inner { padding: 0 72px; }
+      .dossier-top { display: flex; align-items: flex-end; justify-content: space-between; gap: 60px; }
+      .dossier-intro { padding-bottom: 6px; }
+      .dossier-row { grid-template-columns: 90px 1fr; gap: 44px; align-items: baseline; padding: 34px 4px; }
+      .dossier-row:hover { padding-left: 18px; background: var(--ink-08); }
+      .dossier-row:hover .dossier-num { color: var(--gold-lt); }
     }
-
-    /* ── Benefits section ── */
-    .benefits-sec {
-      padding: 80px 0; background: var(--cream-deep); position: relative; overflow: hidden;
+    @media (max-width: 700px) {
+      .rec-hero { min-height: auto; padding: 108px 0 56px; }
+      .rec-hero-inner { padding: 0 22px; }
     }
-    .benefits-sec::before { content: ''; position: absolute; top: 40px; right: 40px; width: 80px; height: 80px; border-top: 1px solid var(--ink-15); border-right: 1px solid var(--ink-15); pointer-events: none; }
-    .benefits-sec::after  { content: ''; position: absolute; bottom: 40px; left: 40px; width: 80px; height: 80px; border-bottom: 1px solid var(--ink-15); border-left: 1px solid var(--ink-15); pointer-events: none; }
-    .benefits-sec .wrap { position: relative; z-index: 1; }
-    .benefits-header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 52px; }
-    .benefits-title { font-family: var(--serif); font-size: clamp(36px, 3.5vw, 56px); font-weight: 300; line-height: 1.05; color: var(--ink); }
-    .benefits-title em { font-style: italic; color: var(--gold); }
-    .benefits-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-    @media (min-width: 1101px) {
-      .benefits-grid { gap: 48px; }
-    }
-
-    .benefit-card {
-      background: var(--cream); border: 1px solid var(--ink-15);
-      padding: 40px 36px; display: flex; flex-direction: column;
-      box-shadow: 0 2px 12px rgba(24,21,15,0.04), 0 8px 40px rgba(24,21,15,0.06);
-      transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), box-shadow 0.4s;
-    }
-    @media (min-width: 1101px) {
-      .benefit-card:hover { transform: perspective(var(--perspective-card)) translateY(-8px) rotateX(2deg) rotateY(-1deg) translateZ(12px); box-shadow: 0 4px 24px rgba(24,21,15,0.06), 0 20px 64px rgba(24,21,15,0.12); }
-    }
-    .benefit-num { font-family: var(--sans); font-size: 10.5px; font-weight: 700; letter-spacing: 0.28em; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; }
-    .benefit-heading { font-family: var(--serif); font-size: clamp(22px, 2vw, 32px); font-weight: 300; line-height: 1.15; color: var(--ink); margin-bottom: 16px; }
-    .benefit-body { font-family: var(--serif); font-size: 19px; line-height: 1.85; color: var(--ink-75); }
 
     /* ── FAQ section ── */
     .faq-sec { padding: 80px 0; background: var(--cream); }
     .faq-sec .wrap { position: relative; z-index: 1; }
     .faq-header { margin-bottom: 52px; }
-    .faq-title { font-family: var(--serif); font-size: clamp(36px, 3.5vw, 56px); font-weight: 300; line-height: 1.05; color: var(--ink); }
+    .faq-title { font-family: var(--serif); font-size: clamp(36px, 3.5vw, 56px); font-weight: 300; line-height: 1.05; color: var(--ink); margin-bottom: 44px; }
     .faq-title em { font-style: italic; color: var(--gold); }
     .faq-cta {
       margin-top: 52px;

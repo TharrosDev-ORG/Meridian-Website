@@ -4,6 +4,26 @@ export const eventsCss = `
      * Tabbed Forum / Social layout. Tokens and nav live in globals.css.
      */
 
+    /* ══ Page hero (THE RECORD) ══ */
+    .rec-hero { position: relative; min-height: 82vh; display: flex; align-items: center; overflow: hidden; padding: 120px 0 70px; }
+    .rec-hero .grid-lines::before { opacity: 0.5; }
+    .rec-hero-inner { position: relative; z-index: 2; width: 100%; max-width: 1440px; margin: 0 auto; padding: 0 64px; }
+    .rec-hero-masthead { display: flex; align-items: center; gap: 18px; margin-bottom: 40px; }
+    .rec-hero-masthead .rule-fill { flex: 1; height: 1px; background: var(--cream-15); }
+    .rec-hero-title { font-family: var(--serif); font-weight: 300; font-size: clamp(60px, 11vw, 156px); line-height: 0.86; letter-spacing: -0.02em; color: var(--cream); margin: 4px 0 0; }
+    .rec-hero-title em { font-style: italic; color: var(--gold-lt); }
+    .rec-hero-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin-top: 26px; padding-top: 20px; border-top: 1px solid var(--cream-15); }
+    .rec-meta-dot { color: var(--gold); font-family: var(--mono); font-size: 11px; }
+    .rec-hero-sub { font-family: var(--serif); font-style: italic; font-weight: 300; font-size: clamp(18px, 1.9vw, 24px); color: var(--cream-75); max-width: 48ch; margin: 22px 0 0; }
+    .rec-hero-actions { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; margin-top: 36px; }
+    .rec-hero-actions .btn-ghost-link { color: var(--cream-55); }
+    .rec-hero-actions .btn-ghost-link:hover { color: var(--cream); }
+    @media (min-width: 1101px) { .rec-hero-inner { padding: 0 72px; } }
+    @media (max-width: 700px) {
+      .rec-hero { min-height: auto; padding: 108px 0 56px; }
+      .rec-hero-inner { padding: 0 22px; }
+    }
+
     /* ── Tabs section shell ── */
     .events-tabs-sec {
       padding: 88px 0;
@@ -92,9 +112,10 @@ export const eventsCss = `
       min-width: 28px;
     }
     .events-tab-label {
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: 0.22em;
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
     }
 
@@ -140,10 +161,10 @@ export const eventsCss = `
       border-left: 2px solid var(--gold);
     }
     .events-tab-intro-eyebrow {
-      font-family: var(--sans);
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.32em;
+      font-family: var(--mono);
+      font-size: 10.5px;
+      font-weight: 400;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
       color: var(--gold);
       margin-bottom: 14px;
@@ -202,10 +223,10 @@ export const eventsCss = `
       line-height: 1;
     }
     .events-pillar-type {
-      font-family: var(--sans);
+      font-family: var(--mono);
       font-size: 10.5px;
-      font-weight: 700;
-      letter-spacing: 0.26em;
+      font-weight: 400;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
       color: var(--gold);
       align-self: center;

@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Cormorant_Garamond, Barlow_Condensed } from "next/font/google";
+import { Cormorant_Garamond, Barlow_Condensed, IBM_Plex_Mono } from "next/font/google";
 import Providers from "@/components/Providers";
 import MotionProvider from "@/components/motion/MotionProvider";
 import { Analytics } from "@vercel/analytics/react";
@@ -27,6 +27,16 @@ const barlow = Barlow_Condensed({
   display: "swap",
 });
 
+// IBM Plex Mono: the metadata voice of "The Record" brutalist-editorial
+// system — index numbers, coordinates, folio labels. Two weights keep the
+// payload lean; self-hosted by next/font so no CSP connect-src change.
+const plexMono = IBM_Plex_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  variable: "--mono",
+  display: "swap",
+});
+
 export const viewport: Viewport = {
   themeColor: "#F4EDE3",
   width: "device-width",
@@ -46,7 +56,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en-CA" className={`${cormorant.variable} ${barlow.variable}`}>
+    <html lang="en-CA" className={`${cormorant.variable} ${barlow.variable} ${plexMono.variable}`}>
       <head>
         {/* Preconnect: shave handshake latency for Supabase Realtime + Vercel
             telemetry. dns-prefetch is a cheaper hint for Supabase since the

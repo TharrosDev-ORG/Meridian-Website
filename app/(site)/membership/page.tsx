@@ -4,6 +4,8 @@ import PageStyles from '@/components/PageStyles';
 import { membershipCss } from './pageCss';
 import FaqAccordion from '@/components/FaqAccordion';
 import { REGISTER_URL } from '@/components/NavBar';
+import Magnetic from '@/components/Magnetic';
+import ScrambleText from '@/components/ScrambleText';
 import Marquee from '@/components/Marquee';
 import RegisterSection from '@/components/sections/RegisterSection';
 import { getMetadata } from '@/utils/metadata-shared';
@@ -44,100 +46,99 @@ export default function Page() {
       />
       <main id="main-content">
   {/* ═══════════ HERO ═══════════ */}
-  <section className="page-hero page-hero-asym" data-theme="dark" aria-label="Membership hero">
-    <div className="page-hero-content">
-      <div className="page-hero-asym-masthead" aria-hidden="true">
-        <span className="page-hero-asym-masthead-counter">
-          <span className="page-hero-asym-masthead-current">II</span>
-          <span className="page-hero-asym-masthead-total">/ II</span>
-        </span>
-        <span className="page-hero-asym-masthead-rule"></span>
-        <span className="page-hero-asym-masthead-volume">Vol. I &middot; MMXXV&ndash;MMXXVI &middot; Ottawa</span>
+  <section className="rec-hero" data-theme="dark" aria-label="Membership hero">
+    <div className="grid-lines" aria-hidden="true"></div>
+    <div className="rec-hero-inner">
+      <div className="rec-hero-masthead rv" aria-hidden="true">
+        <span className="mono-label is-gold">Folio · Membership</span>
+        <span className="rule-fill"></span>
+        <span className="mono-label">Vol. I · Ottawa</span>
       </div>
-      <div className="page-hero-left">
-        <div className="hero-eyebrow rv">
-          <span className="hero-eyebrow-rule"></span>
-          <span className="hero-eyebrow-text">The Meridian Society</span>
-          <span className="hero-eyebrow-rule"></span>
-        </div>
-        <p className="hero-pre rv">Student Speaker Forum</p>
-        <h1 className="hero-title rv rv-stagger">
-          <span className="rv-stagger-item">Membership.</span>
-        </h1>
-        <p className="hero-sub rv" data-d="2">Built for students. Free to join, no commitment required.</p>
-        <div className="hero-actions rv" data-d="3">
-          <Link href={REGISTER_URL} className="register-btn">
-            <span>Register Now</span>
-          </Link>
-          <a href="#benefits" className="btn-ghost-link">Learn More <span>&#8595;</span></a>
-        </div>
+      <p className="hero-pre rv" data-d="1">Student Speaker Forum</p>
+      <h1 className="rec-hero-title rv" data-d="1">
+        <ScrambleText text="Membership." duration={800} delay={180} />
+      </h1>
+      <div className="rec-hero-meta rv" data-d="2" aria-hidden="true">
+        <span className="mono-label">Open Enrollment</span>
+        <span className="rec-meta-dot">/</span>
+        <span className="mono-label">Free to Join</span>
+        <span className="rec-meta-dot">/</span>
+        <span className="mono-label">No Commitment</span>
       </div>
-      <aside className="page-hero-right" aria-hidden="true">
-        <div className="page-hero-asym-numeral">II</div>
-        <div className="page-hero-asym-label rv" data-d="2">Open Enrollment</div>
-        <p className="page-hero-asym-quote rv" data-d="3">Not a major, not a club, but a sensibility.</p>
-      </aside>
-    </div>
-    <div className="page-hero-asym-scroll" aria-hidden="true">
-      <span className="page-hero-asym-scroll-label">Scroll</span>
-      <span className="page-hero-asym-scroll-line"></span>
+      <p className="rec-hero-sub rv" data-d="2">Built for students. Free to join, no commitment required.</p>
+      <div className="rec-hero-actions rv" data-d="3">
+        <Magnetic strength={0.2}>
+          <Link href={REGISTER_URL} className="btn-primary"><span>Register Now</span></Link>
+        </Magnetic>
+        <a href="#benefits" className="btn-ghost-link">Learn More <span>&#8595;</span></a>
+      </div>
     </div>
   </section>
 
   <Marquee />
 
-  {/* ═══════════ BENEFITS ═══════════ */}
-  <section className="benefits-sec" id="benefits" aria-labelledby="benefits-heading">
+  {/* ═══════════ BENEFITS — MEMBERSHIP DOSSIER ═══════════ */}
+  <section className="dossier-sec" id="benefits" aria-labelledby="benefits-heading">
     <div className="wrap">
-      <div className="benefits-header">
-        <h2 className="benefits-title rv rv-stagger" id="benefits-heading">
-          <span className="rv-stagger-item">What You <em>Get.</em></span>
-        </h2>
-        <Link href={REGISTER_URL} className="benefits-register-link rv" data-d="1" id="benefitsRegisterCta">Register  &#8594;</Link>
+      <div className="folio-head rv">
+        <span className="folio-index">[ 01 ]</span>
+        <span className="folio-kicker">The Provisions</span>
+        <span className="rule-fill"></span>
+        <Link href={REGISTER_URL} className="mono-label folio-link" id="benefitsRegisterCta">Register  &#8594;</Link>
       </div>
-      <div className="benefits-grid">
-
-        <article className="benefit-card rv" data-d="1" data-tilt>
-          <div className="benefit-num">01</div>
-          <h3 className="benefit-heading">Speaker Events</h3>
-          <p className="benefit-body">Be the first to know. Members receive all announcements, event schedules, and invitations to Meridian speaker events. Priority access means you&apos;re in the room when it matters.</p>
-        </article>
-
-        <article className="benefit-card rv" data-d="2" data-tilt>
-          <div className="benefit-num">02</div>
-          <h3 className="benefit-heading">Social Gatherings</h3>
-          <p className="benefit-body">Beyond the stage. Members are invited to Meridian social events: bar nights, casual meetups, and community gatherings that happen between the formal programming.</p>
-        </article>
-
-        <article className="benefit-card rv" data-d="3" data-tilt>
-          <div className="benefit-num">03</div>
-          <h3 className="benefit-heading">Professional Exposure</h3>
-          <p className="benefit-body">The people speaking at Meridian are professionals, alumni, and scholars from fields you may never have crossed otherwise. Membership puts their stories and perspectives directly in front of you.</p>
-        </article>
-
-        <article className="benefit-card rv" data-d="4" data-tilt>
-          <div className="benefit-num">04</div>
-          <h3 className="benefit-heading">A Real Community</h3>
-          <p className="benefit-body">Meridian builds a circle over time. Members connect with people who share a genuine curiosity. Not a major, not a club, but a sensibility.</p>
-        </article>
-
-        <article className="benefit-card rv" data-d="5" data-tilt>
-          <div className="benefit-num">05</div>
-          <h3 className="benefit-heading">Your Peers</h3>
-          <p className="benefit-body">The people in the room are half the reason to show up. Meridian members are Ottawa students who take ideas seriously.</p>
-        </article>
-
+      <div className="dossier-top">
+        <h2 className="dossier-heading rv" id="benefits-heading">What You<br/><em>Get.</em></h2>
+        <p className="dossier-intro rv" data-d="1">Five provisions of membership. Free, and open to any student who takes ideas seriously.</p>
       </div>
+      <ol className="dossier">
+        <li className="dossier-row rv">
+          <span className="dossier-num">01</span>
+          <div className="dossier-main">
+            <h3 className="dossier-h">Speaker Events</h3>
+            <p className="dossier-p">Be the first to know. Members receive all announcements, event schedules, and invitations to Meridian speaker events. Priority access means you&apos;re in the room when it matters.</p>
+          </div>
+        </li>
+        <li className="dossier-row rv" data-d="1">
+          <span className="dossier-num">02</span>
+          <div className="dossier-main">
+            <h3 className="dossier-h">Social Gatherings</h3>
+            <p className="dossier-p">Beyond the stage. Members are invited to Meridian social events: bar nights, casual meetups, and community gatherings that happen between the formal programming.</p>
+          </div>
+        </li>
+        <li className="dossier-row rv" data-d="2">
+          <span className="dossier-num">03</span>
+          <div className="dossier-main">
+            <h3 className="dossier-h">Professional Exposure</h3>
+            <p className="dossier-p">The people speaking at Meridian are professionals, alumni, and scholars from fields you may never have crossed otherwise. Membership puts their stories and perspectives directly in front of you.</p>
+          </div>
+        </li>
+        <li className="dossier-row rv" data-d="3">
+          <span className="dossier-num">04</span>
+          <div className="dossier-main">
+            <h3 className="dossier-h">A Real Community</h3>
+            <p className="dossier-p">Meridian builds a circle over time. Members connect with people who share a genuine curiosity. Not a major, not a club, but a sensibility.</p>
+          </div>
+        </li>
+        <li className="dossier-row rv" data-d="4">
+          <span className="dossier-num">05</span>
+          <div className="dossier-main">
+            <h3 className="dossier-h">Your Peers</h3>
+            <p className="dossier-p">The people in the room are half the reason to show up. Meridian members are Ottawa students who take ideas seriously.</p>
+          </div>
+        </li>
+      </ol>
     </div>
   </section>
 
   {/* ═══════════ FAQ ═══════════ */}
   <section className="faq-sec" id="faq" aria-labelledby="faq-heading">
     <div className="wrap">
-      <div className="faq-header">
-        <div className="sec-label">Common Questions</div>
-        <h2 className="faq-title" id="faq-heading">Good to <em>Know.</em></h2>
+      <div className="folio-head rv">
+        <span className="folio-index">[ 02 ]</span>
+        <span className="folio-kicker">Common Questions</span>
+        <span className="rule-fill"></span>
       </div>
+      <h2 className="faq-title rv" id="faq-heading">Good to <em>Know.</em></h2>
       <FaqAccordion />
       <div className="faq-cta rv" data-d="1">
         <p className="sans-label">Still have questions?</p>

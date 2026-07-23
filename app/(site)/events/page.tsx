@@ -34,44 +34,30 @@ export default function EventsPage() {
       <main id="main-content">
 
         {/* ═══════════ HERO ═══════════ */}
-        <section className="page-hero page-hero-asym" data-theme="dark" aria-label="Events hero">
-          <div className="page-hero-content">
-            <div className="page-hero-asym-masthead" aria-hidden="true">
-              <span className="page-hero-asym-masthead-counter">
-                <span className="page-hero-asym-masthead-current">I</span>
-                <span className="page-hero-asym-masthead-total">/ II</span>
-              </span>
-              <span className="page-hero-asym-masthead-rule"></span>
-              <span className="page-hero-asym-masthead-volume">Vol. I &middot; MMXXV&ndash;MMXXVI &middot; Ottawa</span>
+        <section className="rec-hero" data-theme="dark" aria-label="Events hero">
+          <div className="grid-lines" aria-hidden="true"></div>
+          <div className="rec-hero-inner">
+            <div className="rec-hero-masthead rv" aria-hidden="true">
+              <span className="mono-label is-gold">Folio &middot; Programs</span>
+              <span className="rule-fill"></span>
+              <span className="mono-label">I / II &middot; Vol. I</span>
             </div>
-            <div className="page-hero-left">
-              <div className="hero-eyebrow rv">
-                <span className="hero-eyebrow-rule"></span>
-                <span className="hero-eyebrow-text">The Meridian Society</span>
-                <span className="hero-eyebrow-rule"></span>
-              </div>
-              <p className="hero-pre rv">Programs</p>
-              <h1 className="hero-title rv rv-stagger">
-                <span className="rv-stagger-item">What We <em>Host.</em></span>
-              </h1>
-              <div className="hero-hr rv" aria-hidden="true" data-d="1"></div>
-              <p className="hero-sub rv" data-d="2">Two programs, one Society. Speaker forums that broaden perspective and social gatherings that build community.</p>
-              <div className="hero-actions rv" data-d="3">
-                <Magnetic strength={0.25}>
-                  <a href="#programs" className="btn-primary"><span>View Programs</span></a>
-                </Magnetic>
-                <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="btn-ghost-link">Live Updates on Instagram <span>&#8594;</span></a>
-              </div>
+            <p className="hero-pre rv" data-d="1">Programs</p>
+            <h1 className="rec-hero-title rv" data-d="1">What We <em>Host.</em></h1>
+            <div className="rec-hero-meta rv" data-d="2" aria-hidden="true">
+              <span className="mono-label">Speaker Forum</span>
+              <span className="rec-meta-dot">/</span>
+              <span className="mono-label">Social Gatherings</span>
+              <span className="rec-meta-dot">/</span>
+              <span className="mono-label">Ottawa · Est. 2025</span>
             </div>
-            <aside className="page-hero-right" aria-hidden="true">
-              <div className="page-hero-asym-numeral">I</div>
-              <div className="page-hero-asym-label rv" data-d="2">Two Programs</div>
-              <p className="page-hero-asym-quote rv" data-d="3">A room you&apos;ll want to be a part of.</p>
-            </aside>
-          </div>
-          <div className="page-hero-asym-scroll" aria-hidden="true">
-            <span className="page-hero-asym-scroll-label">Scroll</span>
-            <span className="page-hero-asym-scroll-line"></span>
+            <p className="rec-hero-sub rv" data-d="2">Two programs, one Society. Speaker forums that broaden perspective and social gatherings that build community.</p>
+            <div className="rec-hero-actions rv" data-d="3">
+              <Magnetic strength={0.2}>
+                <a href="#programs" className="btn-primary"><span>View Programs</span></a>
+              </Magnetic>
+              <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="btn-ghost-link">Live Updates on Instagram <span>&#8594;</span></a>
+            </div>
           </div>
         </section>
 

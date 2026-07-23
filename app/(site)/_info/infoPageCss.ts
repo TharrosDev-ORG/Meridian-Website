@@ -10,52 +10,46 @@ export const infoPageCss = `
   }
 
   .info-hero {
-    padding: 140px 52px 60px;
-    background: radial-gradient(ellipse 80% 60% at 50% -10%, rgba(184,147,42,0.07) 0%, var(--cream) 70%);
+    padding: 150px 52px 44px;
+    background: var(--cream);
     position: relative;
-    text-align: center;
-  }
-  .info-hero::after {
-    content: '';
-    position: absolute;
-    left: 50%;
-    bottom: 0;
-    transform: translateX(-50%);
-    width: 48px;
-    height: 1px;
-    background: var(--gold);
-    opacity: 0.5;
+    text-align: left;
+    max-width: 1440px;
+    margin: 0 auto;
+    border-bottom: 1px solid var(--ink-15);
+    overflow: hidden;
   }
 
   .info-eyebrow {
-    font-family: var(--sans);
+    font-family: var(--mono);
     font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.32em;
+    font-weight: 400;
+    letter-spacing: 0.2em;
     text-transform: uppercase;
     color: var(--gold);
-    margin-bottom: 24px;
+    margin-bottom: 22px;
   }
 
   .info-title {
     font-family: var(--serif);
-    font-size: clamp(44px, 6vw, 80px);
+    font-size: clamp(52px, 8vw, 132px);
     font-weight: 300;
-    line-height: 1.02;
+    line-height: 0.9;
     color: var(--ink);
-    letter-spacing: 0.01em;
-    margin-bottom: 20px;
+    letter-spacing: -0.02em;
+    margin-bottom: 24px;
   }
   .info-title em {
     font-style: italic;
     color: var(--gold);
   }
+  .info-title span { display: inline-block; }
 
   .info-meta {
-    font-family: var(--sans);
+    font-family: var(--mono);
     font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.22em;
+    font-weight: 400;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
     color: var(--ink-55);
     margin-top: 12px;
@@ -94,10 +88,10 @@ export const infoPageCss = `
   /* ── Date stamp utility ── */
   .info-datestamp {
     display: inline-block;
-    font-family: var(--sans);
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 0.26em;
+    font-family: var(--mono);
+    font-size: 10.5px;
+    font-weight: 400;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
     color: var(--ink-55);
     border: 1px solid var(--ink-15);
@@ -110,28 +104,28 @@ export const infoPageCss = `
     margin-top: 80px;
     padding-top: 40px;
     border-top: 1px solid var(--ink-15);
-    text-align: center;
+    text-align: left;
   }
   .info-related-label {
-    font-family: var(--sans);
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 0.3em;
+    font-family: var(--mono);
+    font-size: 10.5px;
+    font-weight: 400;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
     color: var(--ink-55);
     margin-bottom: 22px;
   }
   .info-related-links {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     gap: 40px;
     flex-wrap: wrap;
   }
   .info-related-links a {
-    font-family: var(--sans);
-    font-size: 12.5px;
-    font-weight: 600;
-    letter-spacing: 0.2em;
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--ink);
     text-decoration: none;

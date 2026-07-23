@@ -11,7 +11,23 @@ export type MemberStatus = {
   fullName?: string;
 };
 
+// Lightweight per-IP throttle for the public lookup below. checkMemberStatus is
+// a server action (client-callable) that returns a member's name + number for
+// any email/number guess, so an unthrottled caller could enumerate membership /
+// harvest PII. A short window still allows the legitimate single on-mount call.
+const LOOKUP_WINDOW = 4000; // 4s between lookups per IP
+const lookupRecords = new Map<string, number>();
+
 export async function checkMemberStatus(identifier: string): Promise<MemberStatus> {
+  // Bound the input and reject obviously abusive lengths before any work.
+  if (typeof identifier !== 'string' || identifier.length === 0 || identifier.length > 254) {
+    return { registered: false };
+  }
+
+  // Bot-UA block + per-IP throttle. On block, reveal nothing.
+  const secCheck = await runSecurityChecks(lookupRecords, LOOKUP_WINDOW);
+  if (secCheck.blocked) return { registered: false };
+
   const supabase = createServiceClient();
 
   // Polymorphic lookup: check if identifier is email or member number

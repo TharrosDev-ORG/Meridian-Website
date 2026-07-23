@@ -23,7 +23,7 @@ Entry point for any AI assistant working on this repo. Captures the invariants, 
 ---
 
 ## ⚡ Tech Stack
-- **Framework**: Next.js **16.2.3** (App Router, static-first, Turbopack dev/build).
+- **Framework**: Next.js **16.2.11** (App Router, static-first, Turbopack dev/build). Patch-pinned to the security release that closes the App Router / Image / SSRF advisories.
 - **UI**: React **19.2.4**, Server Components by default; `"use client"` only where necessary (forms, realtime subscriptions, scroll/observer hooks, mouse-driven UI, the events tab switcher).
 - **Styling**: Tailwind CSS **v4** is installed only for the `@theme {}` block in `globals.css`. Real styling is hand-written CSS in **`app/globals.css`** plus per-page `pageCss.ts` strings injected via `<PageStyles>`.
 - **Database / Realtime**: Supabase (Postgres + Realtime). Trigger-maintained `site_stats.member_count`. The public app touches only `members`, `site_stats`, and `speaker_applications` — see §Database Surface below.

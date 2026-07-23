@@ -43,6 +43,15 @@ export async function runSecurityChecks(
   }
 
   const now = Date.now();
+
+  // Prune expired entries so the in-memory map cannot grow without bound
+  // (one entry per distinct IP would otherwise accumulate for the life of the
+  // serverless instance — a slow memory leak / DoS surface). Entries older
+  // than the window are irrelevant to the rate-limit decision.
+  for (const [recordedIp, ts] of ipRecords) {
+    if (now - ts >= rateLimitWindow) ipRecords.delete(recordedIp);
+  }
+
   const lastSubmission = ipRecords.get(ip);
   if (lastSubmission && now - lastSubmission < rateLimitWindow) {
     const waitTime = Math.ceil((rateLimitWindow - (now - lastSubmission)) / 60000);

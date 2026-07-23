@@ -61,6 +61,7 @@
 
   --font-serif: var(--serif);
   --font-sans: var(--sans);
+  --font-mono: var(--mono);
 
   --border-gold-bw: 1.5px;
   
@@ -677,20 +678,22 @@ body {
 
 /* Buttons — theme-aware: ink-on-cream surfaces get an ink button,
    dark surfaces get a cream button; the gold hover sweep is shared. */
+/* THE RECORD — hard-edged brutalist CTA. Mono label, structural border,
+   gold fill snaps in from the left. No floaty lift; the motion is a sharp cut. */
 .btn-primary {
-  display: inline-block; font-family: var(--sans); font-size: 11.5px; font-weight: 700;
-  letter-spacing: 0.24em; text-transform: uppercase; color: var(--bg);
-  background: var(--fg); text-decoration: none; padding: 13px 32px 12px;
-  position: relative; overflow: hidden; transition: transform 0.25s, box-shadow 0.25s;
+  display: inline-block; font-family: var(--mono); font-size: 12px; font-weight: 500;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--bg);
+  background: var(--fg); border: 1px solid var(--fg); text-decoration: none;
+  padding: 15px 34px; position: relative; overflow: hidden;
+  transition: color 0.2s;
 }
 [data-theme="dark"] .btn-primary:hover span,
 [data-theme="dark"] .btn-primary:hover { color: var(--ink); }
-.btn-primary::before { 
-  content: ''; position: absolute; inset: 0; background: var(--gold); 
-  transform: translateX(-101%); transition: transform 0.35s cubic-bezier(0.16,1,0.3,1); 
+.btn-primary::before {
+  content: ''; position: absolute; inset: 0; background: var(--gold);
+  transform: translateX(-101%); transition: transform 0.3s cubic-bezier(0.7,0,0.3,1);
 }
 .btn-primary span { position: relative; z-index: 1; }
-.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(24,21,15,0.14); }
 .btn-primary:hover::before { transform: translateX(0); }
 
 .btn-ghost-link {
@@ -790,6 +793,53 @@ body {
   background: linear-gradient(90deg, var(--cream-mid) 25%, var(--gold-20) 50%, var(--cream-mid) 75%); 
   background-size: 200% 100%; animation: shimmer 2s infinite linear; 
   border-radius: 4px; vertical-align: middle; 
+}
+
+/* ── THE RECORD — BRUTALIST-EDITORIAL PRIMITIVES ──
+   Shared toolkit for the folio/record system. All theme-aware via generic
+   vars so any section (light or data-theme="dark") inherits correct color. */
+
+/* Monospace metadata voice — index numbers, coordinates, folio labels. */
+.mono-label {
+  font-family: var(--mono); font-size: 11px; font-weight: 400;
+  letter-spacing: 0.2em; text-transform: uppercase; color: var(--fg-55);
+}
+.mono-label.is-gold { color: var(--gold); }
+
+/* Structural hairline divider. */
+.rule { height: 1px; width: 100%; background: var(--line); border: 0; }
+
+/* Folio header — the "[ 0X ] — KICKER" index row that opens each section,
+   with a rule filling the remainder. Type does the rest below it. */
+.folio-head {
+  display: flex; align-items: center; gap: 18px;
+  padding-bottom: 20px; margin-bottom: 44px;
+  border-bottom: 1px solid var(--fg);
+}
+.folio-index {
+  font-family: var(--mono); font-size: 12px; font-weight: 500;
+  letter-spacing: 0.14em; color: var(--gold); white-space: nowrap;
+}
+.folio-kicker {
+  font-family: var(--mono); font-size: 11px; font-weight: 400;
+  letter-spacing: 0.22em; text-transform: uppercase; color: var(--fg-55);
+  white-space: nowrap;
+}
+.folio-head .rule-fill { flex: 1; height: 1px; background: var(--line); }
+
+/* Exposed column-grid overlay — the brutalist ornament. Ambient hairlines
+   behind content; decorative only (pointer-events off, aria-hidden markup). */
+.grid-lines { position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+.grid-lines::before {
+  content: ''; position: absolute; inset: 0;
+  background-image: repeating-linear-gradient(
+    to right, var(--line-soft) 0 1px, transparent 1px calc(100% / 6));
+}
+@media (min-width: 1101px) {
+  .grid-lines::before {
+    background-image: repeating-linear-gradient(
+      to right, var(--line-soft) 0 1px, transparent 1px calc(100% / 12));
+  }
 }
 
 .rv {
@@ -1197,13 +1247,9 @@ footer {
   .nav-links a { padding: 9px 18px; font-size: 13px; letter-spacing: 0.18em; }
   .nav-cta { padding: 10px 24px; font-size: 11px; }
 
-  /* ── Primary button: 3D lift ── */
-  .btn-primary { padding: 14px 36px 13px; backface-visibility: hidden; }
-  .btn-primary:hover { will-change: transform; }
-  .btn-primary:hover {
-    transform: perspective(var(--perspective-card)) translateY(-4px) rotateX(1.5deg) translateZ(8px);
-    box-shadow: 0 16px 44px rgba(24,21,15,0.18), 0 4px 12px rgba(24,21,15,0.10);
-  }
+  /* ── Primary button: crisp hard-offset shadow (brutalist tell) ── */
+  .btn-primary { transition: color 0.2s, box-shadow 0.2s cubic-bezier(0.7,0,0.3,1); }
+  .btn-primary:hover { box-shadow: 5px 5px 0 var(--gold); }
 
   /* ── Ghost link: subtle letter-tracking on hover ── */
   .btn-ghost-link { transition: color 0.25s ease, gap 0.3s cubic-bezier(0.16,1,0.3,1); }
